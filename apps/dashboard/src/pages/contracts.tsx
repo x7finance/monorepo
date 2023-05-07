@@ -1006,7 +1006,7 @@ export default function ContractsPage() {
               Miscellaneous Smart Contracts
             </Heading>
 
-            <div className="-mx-4 mb-60 mt-10 ring-1 ring-zinc-900/7.5 dark:ring-white/10 sm:-mx-6 md:mx-0 md:rounded-2xl">
+            <div className="-mx-4 mt-10 ring-1 ring-zinc-900/7.5 dark:ring-white/10 sm:-mx-6 md:mx-0 md:rounded-2xl">
               <table className="min-w-full divide-y divide-zinc-900/7.5 dark:divide-white/10">
                 <thead>
                   <tr>
@@ -1126,7 +1126,7 @@ export default function ContractsPage() {
               Initial Liquiidty Time Lock Contracts
             </Heading>
 
-            <div className="-mx-4 mt-10 mb-60 ring-1 ring-zinc-900/7.5 dark:ring-white/10 sm:-mx-6 md:mx-0 md:rounded-2xl">
+            <div className="-mx-4 mt-10  ring-1 ring-zinc-900/7.5 dark:ring-white/10 sm:-mx-6 md:mx-0 md:rounded-2xl">
               <table className="min-w-full divide-y divide-zinc-900/7.5 dark:divide-white/10">
                 <thead>
                   <tr>
