@@ -124,7 +124,7 @@ function UtilityNftData({ nft }: any) {
           width={200}
           priority={true}
           className="w-full h-auto"
-          src={`/nfts/${nft.slug}.gif`}
+          src={`${process.env.NEXT_PUBLIC_ASSETS_URL}/nfts/${nft.slug}.gif`}
           alt="Utility NFT Image"
         />
       </div>

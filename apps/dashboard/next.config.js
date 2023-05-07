@@ -8,6 +8,13 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true,
   },
+  images: {
+    domains: [
+      process.env.NODE_ENV === 'development'
+        ? 'localhost'
+        : 'assets.x7finance.org',
+    ],
+  },
 };
 
 module.exports = withMarkdoc()(nextConfig);

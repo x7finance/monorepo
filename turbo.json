@@ -17,7 +17,9 @@
         "NEXT_PUBLIC_DOCSEARCH_APP_ID",
         "NEXT_PUBLIC_DOCSEARCH_API_KEY",
         "NEXT_PUBLIC_DOCSEARCH_INDEX_NAME",
-        "NEXT_PUBLIC_MORALIS_API_KEY"
+        "NEXT_PUBLIC_MORALIS_API_KEY",
+        "NEXT_PUBLIC_ASSETS_URL",
+        "NODE_ENV"
       ]
     },
     "lint": {},

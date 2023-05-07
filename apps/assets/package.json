@@ -1,0 +1,11 @@
+{
+  "name": "assets",
+  "version": "0.0.1",
+  "description": "shared assets for x7 finance",
+  "scripts": {
+    "dev": "serve src/ --listen 3009"
+  },
+  "dependencies": {
+    "serve": "14.2.0"
+  }
+}
