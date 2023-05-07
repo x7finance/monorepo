@@ -1,0 +1,34 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["**/.env.*local"],
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"],
+      "env": [
+        "NEXT_PUBLIC_ALCHEMY_ID",
+        "NEXT_PUBLIC_INFURA_ID",
+        "NEXT_PUBLIC_ANKR_ID",
+        "NEXT_PUBLIC_POCKET_ID",
+        "NEXT_PUBLIC_BLOCKPI_ID",
+        "NEXT_PUBLIC_GETBLOCK_ID",
+        "NEXT_PUBLIC_BLAST_ID",
+        "DOCSEARCH_ADMIN_API_KEY",
+        "NEXT_PUBLIC_DOCSEARCH_APP_ID",
+        "NEXT_PUBLIC_DOCSEARCH_API_KEY",
+        "NEXT_PUBLIC_DOCSEARCH_INDEX_NAME",
+        "NEXT_PUBLIC_MORALIS_API_KEY"
+      ]
+    },
+    "lint": {},
+    "test": {},
+    "check-types": {},
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "clean": {
+      "cache": false
+    }
+  }
+}

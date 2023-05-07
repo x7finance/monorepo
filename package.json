@@ -1,0 +1,46 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo lint",
+    "lint-staged-husky": "lint-staged",
+    "test": "turbo run test",
+    "clean": "turbo run clean",
+    "format-lint": "prettier --config prettier.config.js --check --ignore-unknown .",
+    "format-fix": "prettier --config prettier.config.js --write --ignore-unknown -l .",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.6.3",
+    "@commitlint/config-conventional": "^17.6.3",
+    "@commitlint/types": "^17.4.4",
+    "@ianvs/prettier-plugin-sort-imports": "^3.7.2",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
+    "@types/node": "^20.1.0",
+    "commitizen": "^4.3.0",
+    "eslint": "^8.40.0",
+    "eslint-config-custom": "workspace:*",
+    "husky": "^8.0.3",
+    "jest-environment-jsdom": "29.5.0",
+    "lint-staged": "^13.2.2",
+    "prettier": "^2.7.1",
+    "prettier-plugin-tailwindcss": "^0.2.8",
+    "turbo": "^1.9.3",
+    "vercel": "^29.1.1"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx, jsx}": [
+      "eslint --quiet --fix"
+    ],
+    "*.{json,md,html,js,jsx,ts,tsx}": [
+      "prettier --write"
+    ]
+  },
+  "packageManager": "pnpm@7.15.0",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
