@@ -49,17 +49,6 @@ export function Footer() {
         <div className="mt-2 md:order-1 md:mt-0">
           <p className="text-center text-xs leading-5 text-gray-400 dark:text-gray-500">
             built & maintained by X7DAO
-            <span className="ml-1 hidden sm:inline-block">
-              - special thank you to the{' '}
-              <Link
-                className="underline"
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://github.com/x7finance/dashboard/blob/main/CONTRIBUTORS.md"
-              >
-                contributors
-              </Link>
-            </span>
           </p>
         </div>
       </div>
