@@ -15,7 +15,7 @@
 
 ## About
 
-This is a repo is maintained and deployed by the X7 DAO .
+This is a repo is maintained and deployed by the X7DAO.
 
 <br />
 
