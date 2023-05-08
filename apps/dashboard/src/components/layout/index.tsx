@@ -174,7 +174,7 @@ export function Layout({ children, title, tableOfContents, tags, date }: any) {
                   <div className="flex flex-shrink-0 items-center px-4">
                     <img
                       className="h-8 w-auto"
-                      src="/logos/x7.svg"
+                      src={`${process.env.NEXT_PUBLIC_ASSETS_URL}/images/svgs/x7.svg`}
                       alt="X7 Finance"
                     />
                   </div>
