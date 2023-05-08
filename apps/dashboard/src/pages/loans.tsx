@@ -1,8 +1,8 @@
-import { CheckCircleIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from 'icons';
+import { X7Logo } from 'icons';
 import { cn } from 'utils';
 
 import { Button } from '../components/button';
-import { X7Logo } from '../components/svgs/x7';
 
 export default function DashboardPage() {
   return (

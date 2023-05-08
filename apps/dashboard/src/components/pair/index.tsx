@@ -1,18 +1,16 @@
-import { ClipboardDocumentIcon } from '@heroicons/react/24/outline';
+import { BlockchainType } from 'common';
+import { useXchangeTokenData } from 'hooks';
+import { IconWrapper, ClipboardDocumentIcon } from 'icons';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { useClipboard } from 'use-clipboard-copy';
-import { cn } from 'utils';
-import { useNetwork } from 'wagmi';
-
-import { useXchangeTokenData } from '../../lib/hooks/useXchangeTokenData';
-import { BlockchainType } from '../../lib/types';
 import {
+  cn,
   generateChainBase,
   generateChainDenomination,
   generateChainIdentifier,
-} from '../../lib/utils/chainFormatters';
-import Icon from '../icons';
+} from 'utils';
+import { useNetwork } from 'wagmi';
 
 interface PairsProps {
   id: number;
@@ -64,7 +62,7 @@ export function Pair({ id }: PairsProps) {
                     key={`${tokenContract}-${id}-chart`}
                     className="opacity-80 hover:opacity-100"
                   >
-                    <Icon glyph={Icon.glyph.dextools} size={5} />
+                    <IconWrapper glyph={IconWrapper.glyph.dextools} size={5} />
                   </Link>
                 </div>
               </div>
@@ -163,7 +161,7 @@ export function Pair({ id }: PairsProps) {
               key={`${tokenContract}-${id}-chart`}
               className="flex h-full w-full items-center justify-center opacity-80 hover:opacity-100"
             >
-              <Icon glyph={Icon.glyph.dextools} size={5} />
+              <IconWrapper glyph={IconWrapper.glyph.dextools} size={5} />
             </Link>
           </div>
         </div>

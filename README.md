@@ -25,7 +25,7 @@ To get started with this template, first install the pnpm dependencies:
 
 ```bash
 pnpm install
-turbo dev
+pnpm dev
 ```
 
 <br />

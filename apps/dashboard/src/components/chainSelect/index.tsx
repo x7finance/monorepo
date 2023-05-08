@@ -1,8 +1,7 @@
 import { Listbox } from '@headlessui/react';
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useModal } from 'connectkit';
-
-import { renderConnectedChain } from '../../lib/utils/chainFormatters';
+import { ChevronDownIcon } from 'icons';
+import { renderConnectedChain } from 'ui';
 
 interface ChainSelectProps {
   chainId?: number;

@@ -1,18 +1,20 @@
+import { SocialsEnum } from 'common';
 import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
+import {
+  Discord,
+  MediaIcon,
+  MediumLogo,
+  Megaphone,
+  SnapshotLogo,
+  Telegram,
+  Twitter,
+  X7Logo,
+  YouTube,
+} from 'icons';
 import Link from 'next/link';
 
-import { SocialsEnum } from '../../lib/types';
 import { GridPattern } from '../gridPattern';
 import { Heading } from '../heading';
-import { Discord } from '../svgs/discord';
-import { MediaIcon } from '../svgs/media';
-import { MediumLogo } from '../svgs/medium';
-import { Megaphone } from '../svgs/megaphone';
-import { SnapshotLogo } from '../svgs/snapshot';
-import { Telegram } from '../svgs/telegram';
-import { Twitter } from '../svgs/twitter';
-import { X7Logo } from '../svgs/x7';
-import { YouTube } from '../svgs/youtube';
 
 const socials = [
   {

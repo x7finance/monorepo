@@ -1,6 +1,5 @@
+import { IconWrapper } from 'icons';
 import { cn } from 'utils';
-
-import Icon from '../icons';
 
 export function Loading({
   size = 6,
@@ -19,7 +18,7 @@ export function Loading({
           : 'relative z-50 flex flex-auto items-center justify-center self-stretch'
       )}
     >
-      <Icon glyph={Icon.glyph.loading} fill={fill} size={size} />
+      <IconWrapper glyph={IconWrapper.glyph.loading} fill={fill} size={size} />
     </div>
   );
 }

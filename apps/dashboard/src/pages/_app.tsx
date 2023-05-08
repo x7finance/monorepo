@@ -1,7 +1,8 @@
+import { providerLinkGenerator } from 'utils';
+
 import SEO from '../../next-seo.config';
 import { CustomToaster } from '../components/customToaster';
 import { Layout } from '../components/layout';
-import { providerLinkGenerator } from '../lib/utils/chainFormatters';
 
 import '../styles/tailwind.css';
 

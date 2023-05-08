@@ -24,14 +24,7 @@ module.exports = {
     // ... other module mappings if any
     '^utils$': join(__dirname, '..', '..', '..', 'utils', 'src', 'index.tsx'),
     '^ui$': join(__dirname, '..', '..', '..', 'ui', 'src', 'index.tsx'),
-    '^common-files$': join(
-      __dirname,
-      '..',
-      '..',
-      '..',
-      'common-files',
-      'src',
-      'index.tsx'
-    ),
+    '^hooks$': join(__dirname, '..', '..', '..', 'hooks', 'src', 'index.tsx'),
+    '^common$': join(__dirname, '..', '..', '..', 'common', 'src', 'index.tsx'),
   },
 };

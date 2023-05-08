@@ -1,5 +1,5 @@
 import { DocSearchModal, useDocSearchKeyboardEvents } from '@docsearch/react';
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
+import { MagnifyingGlassIcon } from 'icons';
 import Link from 'next/link';
 import Router from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
