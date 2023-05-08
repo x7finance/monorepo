@@ -1,0 +1,39 @@
+{
+  "name": "hooks",
+  "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
+    "clean": "rm -rf dist",
+    "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "lint": "eslint \"src/**/*.ts*\""
+  },
+  "dependencies": {
+    "common": "workspace:*",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
+    "utils": "workspace:*",
+    "wagmi": "0.12.8"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.1",
+    "@types/react": "^18.2.6",
+    "@types/react-dom": "^18.0.11",
+    "eslint": "^8.40.0",
+    "eslint-config-custom": "workspace:*",
+    "jest": "^29.5.0",
+    "jest-presets": "workspace:*",
+    "tsconfig": "workspace:*",
+    "tsup": "^6.7.0",
+    "typescript": "^5.0.4"
+  }
+}

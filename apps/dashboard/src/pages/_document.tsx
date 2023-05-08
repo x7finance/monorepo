@@ -51,7 +51,7 @@ export default function Document() {
         <meta httpEquiv="Content-Language" content="en" />
         <meta
           name="twitter:image"
-          content="https://www.x7finance.org/og-background.png"
+          content="https://assets.x7finance.org/images/open-graph/background.png"
         />
 
         {appIcons()}

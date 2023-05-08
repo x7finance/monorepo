@@ -5,7 +5,8 @@ module.exports = {
     // app content
     `src/**/*.{js,ts,jsx,tsx}`,
     // include packages if not transpiling
-    '../../packages/**/*.{js,ts,jsx,tsx}',
+    './node_modules/ui/src/**/*.{js,ts,jsx,tsx}',
+    './node_modules/icons/src/**/*.{js,ts,jsx,tsx}',
   ],
   darkMode: 'class',
   theme: {

@@ -7,7 +7,7 @@ export default {
       'Documentation, live updates and detailed information on the X7 Finance protocol',
     images: [
       {
-        url: '/og-background.png',
+        url: 'https://assets.x7finance.org/images/open-graph/background.png',
         width: 1200,
         height: 630,
         alt: 'X7 Overview',

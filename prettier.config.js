@@ -6,14 +6,17 @@ module.exports = {
   singleQuote: true,
   importOrder: [
     '<THIRD_PARTY_MODULES>',
-    '^@server/(.*)$',
-    '^@nestjs/(.*)$',
-    '^@dlt/(.*)$',
-    '^@utils/(.*)$',
-    '^@client/(.*)$',
+    '^common/(.*)$',
+    '^utils/(.*)$',
+    '^hooks/(.*)$',
+    '^icons/(.*)$',
+    '^ui/(.*)$',
     '^[./]',
   ],
   importOrderSeparation: true,
   importOrderParserPlugins: ['typescript', 'jsx', 'decorators-legacy'],
-  plugins: [require('@ianvs/prettier-plugin-sort-imports')],
+  plugins: [
+    require('@ianvs/prettier-plugin-sort-imports'),
+    require('prettier-plugin-tailwindcss'),
+  ],
 };

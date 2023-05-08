@@ -1,10 +1,12 @@
-import { X7EcosystemSplitter } from 'common-files';
-import { X7TreasurySplitterV2 } from 'common-files';
+import {
+  X7TreasurySplitterV2,
+  X7EcosystemSplitter,
+  ContractsEnum,
+} from 'common';
 import { BigNumber } from 'ethers';
 import { useEffect, useState } from 'react';
 import { useContractReads } from 'wagmi';
 
-import { ContractsEnum } from '../../lib/types';
 import { DonutChart } from '../donutChart/DonutChart';
 
 export function SplittersOverview() {

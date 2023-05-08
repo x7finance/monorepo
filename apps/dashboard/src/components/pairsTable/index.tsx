@@ -1,8 +1,7 @@
-import { AllPairsLength } from 'common-files';
+import { AllPairsLength, ContractsEnum } from 'common';
 import { useEffect, useState } from 'react';
 import { useContractReads, useNetwork } from 'wagmi';
 
-import { ContractsEnum } from '../../lib/types';
 import { Loading } from '../loading';
 import { Pair } from '../pair';
 

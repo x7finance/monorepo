@@ -1,6 +1,5 @@
+import { DocsIcon } from 'icons';
 import { cn } from 'utils';
-
-import { Icon } from '../../docs/docsIcon';
 
 const styles: any = {
   note: {
@@ -18,8 +17,8 @@ const styles: any = {
 };
 
 const icons = {
-  note: (props: any) => <Icon icon="lightbulb" {...props} />,
-  warning: (props: any) => <Icon icon="warning" color="amber" {...props} />,
+  note: (props: any) => <DocsIcon icon="lightbulb" {...props} />,
+  warning: (props: any) => <DocsIcon icon="warning" color="amber" {...props} />,
 };
 
 function Callout({
