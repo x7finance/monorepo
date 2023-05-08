@@ -35,7 +35,7 @@ export function UtitlityNfts() {
               `group relative flex flex-col overflow-hidden rounded-2xl bg-zinc-50 bg-zinc-900/5 shadow-lg`
             )}
           >
-            <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-zinc-900/7.5  dark:bg-white/2.5 dark:ring-white/10"></div>
+            <div className="ring-zinc-900/7.5 dark:bg-white/2.5 absolute inset-0 rounded-2xl ring-1  ring-inset dark:ring-white/10"></div>
             <UtilityNftData nft={n} />
           </li>
         );
@@ -120,8 +120,8 @@ function UtilityNftData({ nft }: any) {
           height={200}
           width={200}
           priority={true}
-          className="w-full h-auto"
-          src={`${process.env.NEXT_PUBLIC_ASSETS_URL}/nfts/${nft.slug}.gif`}
+          className="h-auto w-full"
+          src={`${process.env.NEXT_PUBLIC_ASSETS_URL}/images/nfts/${nft.slug}.gif`}
           alt="Utility NFT Image"
         />
       </div>
@@ -133,7 +133,7 @@ function UtilityNftData({ nft }: any) {
       >
         {nft?.name}
       </p>
-      <div className="mx-auto font-bold text-transparent bg-gradient-to-r from-sky-500 to-violet-500 bg-clip-text">
+      <div className="mx-auto bg-gradient-to-r from-sky-500 to-violet-500 bg-clip-text font-bold text-transparent">
         {price ?? nft?.price} {generateChainAbbreviation(chain?.id)}
       </div>
       <p
@@ -143,7 +143,7 @@ function UtilityNftData({ nft }: any) {
       >
         {nft?.description}
       </p>
-      <div className="px-4 mt-2">
+      <div className="mt-2 px-4">
         <ul
           role="list"
           className={cn(
@@ -170,7 +170,7 @@ function UtilityNftData({ nft }: any) {
           rel="noopener noreferrer"
           target="_blank"
           href={`${generateChainBase(chain?.id)}/address/${nft.contract}`}
-          className="relative text-xs underline text-slate-700 dark:text-slate-300"
+          className="relative text-xs text-slate-700 underline dark:text-slate-300"
         >
           contract
         </a>
@@ -210,19 +210,19 @@ function UtilityNftData({ nft }: any) {
         </div>
       </div>
       <div className="relative mt-auto border-t border-slate-200 dark:border-slate-800">
-        <div className="relative flex -mt-px divide-x divide-slate-200 dark:divide-slate-800">
-          <div className="relative flex flex-1 w-0">
+        <div className="relative -mt-px flex divide-x divide-slate-200 dark:divide-slate-800">
+          <div className="relative flex w-0 flex-1">
             <a
               target="_blank"
               rel="noopener noreferrer"
               href={`${nft?.exchanges[chain?.id ?? 1]}`}
-              className="relative inline-flex items-center justify-center flex-1 w-0 py-4 -mr-px text-sm font-medium rounded-bl-lg text-slate-600 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200"
+              className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center rounded-bl-lg py-4 text-sm font-medium text-slate-600 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200"
             >
-              <Squares2X2Icon className="w-5 h-5 " aria-hidden="true" />
+              <Squares2X2Icon className="h-5 w-5 " aria-hidden="true" />
               <span className="ml-3">Trade</span>
             </a>
           </div>
-          <div className="flex flex-1 w-0 -ml-px overflow-hidden">
+          <div className="-ml-px flex w-0 flex-1 overflow-hidden">
             <a
               onClick={(e) => {
                 e.preventDefault();
@@ -234,7 +234,7 @@ function UtilityNftData({ nft }: any) {
               )}
             >
               <CubeTransparentIcon
-                className="w-5 h-5 text-slate-100"
+                className="h-5 w-5 text-slate-100"
                 aria-hidden="true"
               />
               <span className="ml-3">
@@ -250,10 +250,10 @@ function UtilityNftData({ nft }: any) {
           'bg-slate-200 transition-all duration-500 dark:bg-slate-800'
         )}
       >
-        <div className="flex flex-col items-center justify-center px-4 mt-2 text-sm">
+        <div className="mt-2 flex flex-col items-center justify-center px-4 text-sm">
           <p>How many would you like to mint?</p>
           <div
-            className="inline-flex mt-3 -space-x-px rounded-md isolate"
+            className="isolate mt-3 inline-flex -space-x-px rounded-md"
             aria-label="Mint Count"
           >
             <a
@@ -262,13 +262,13 @@ function UtilityNftData({ nft }: any) {
 
                 setMintCount(mintCount - 1 < 1 ? 1 : mintCount - 1);
               }}
-              className="relative inline-flex items-center px-2 py-2 text-sm font-medium bg-white border cursor-pointer rounded-l-md border-slate-300 text-slate-500 hover:bg-slate-50 focus:z-20"
+              className="relative inline-flex cursor-pointer items-center rounded-l-md border border-slate-300 bg-white px-2 py-2 text-sm font-medium text-slate-500 hover:bg-slate-50 focus:z-20"
             >
               <span className="sr-only">Subtract</span>
-              <MinusCircleIcon className="w-5 h-5" aria-hidden="true" />
+              <MinusCircleIcon className="h-5 w-5" aria-hidden="true" />
             </a>
 
-            <span className="relative z-10 inline-flex items-center px-4 py-2 text-lg font-bold text-indigo-600 border border-indigo-500 bg-indigo-50 focus:z-20">
+            <span className="relative z-10 inline-flex items-center border border-indigo-500 bg-indigo-50 px-4 py-2 text-lg font-bold text-indigo-600 focus:z-20">
               {mintCount}
             </span>
 
@@ -285,14 +285,14 @@ function UtilityNftData({ nft }: any) {
 
                 setMintCount(mintCount + 1);
               }}
-              className="relative inline-flex items-center px-2 py-2 text-sm font-medium bg-white border cursor-pointer rounded-r-md border-slate-300 text-slate-500 hover:bg-slate-50 focus:z-20"
+              className="relative inline-flex cursor-pointer items-center rounded-r-md border border-slate-300 bg-white px-2 py-2 text-sm font-medium text-slate-500 hover:bg-slate-50 focus:z-20"
             >
               <span className="sr-only">Add</span>
-              <PlusCircleIcon className="w-5 h-5" aria-hidden="true" />
+              <PlusCircleIcon className="h-5 w-5" aria-hidden="true" />
             </a>
-            <div className="flex items-center w-full pl-4">
+            <div className="flex w-full items-center pl-4">
               <Button
-                className="flex items-center w-20 h-10"
+                className="flex h-10 w-20 items-center"
                 // @ts-expect-error
                 onClick={async (e: any) => {
                   e.preventDefault();
