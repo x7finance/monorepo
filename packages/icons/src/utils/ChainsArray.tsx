@@ -3,9 +3,9 @@ import {
   ChainNameEnum,
   ChainScannerEnum,
   ChainScannerLinksEnum,
-} from 'common';
+} from "common"
 
-import IconWrapper from './IconWrapper';
+import { IconWrapper } from "./IconWrapper"
 
 export const ChainsArray = [
   {
@@ -43,4 +43,4 @@ export const ChainsArray = [
     scanner: ChainScannerEnum.optimism,
     scannerLink: ChainScannerLinksEnum.optimism,
   },
-];
+]

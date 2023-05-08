@@ -6,6 +6,8 @@
     "lint": "turbo lint",
     "lint-staged-husky": "lint-staged",
     "test": "turbo run test",
+    "build:bot": "turbo run build --scope x7-bot",
+    "start:bot": "cd apps/bot && pnpm start",
     "clean": "turbo run clean",
     "format-lint": "prettier --config prettier.config.js --check --ignore-unknown .",
     "format-fix": "prettier --config prettier.config.js --write --ignore-unknown -l .",
@@ -19,6 +21,9 @@
       "prettier --write"
     ]
   },
+  "engines": {
+    "node": "18.x"
+  },
   "packageManager": "pnpm@7.15.0",
   "dependencies": {
     "react": "^18.2.0",
@@ -31,16 +36,16 @@
     "@ianvs/prettier-plugin-sort-imports": "^3.7.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
-    "@types/node": "^20.1.0",
+    "@types/node": "^20.2.3",
     "commitizen": "^4.3.0",
-    "eslint": "^8.40.0",
+    "eslint": "^8.41.0",
+    "eslint-config-custom": "workspace:*",
     "husky": "^8.0.3",
     "jest-environment-jsdom": "^29.5.0",
     "lint-staged": "^13.2.2",
-    "prettier": "^2.7.1",
-    "prettier-plugin-tailwindcss": "^0.2.8",
-    "turbo": "^1.9.3",
-    "vercel": "^29.1.1",
-    "eslint-config-custom": "workspace:*"
+    "prettier": "^2.8.8",
+    "prettier-plugin-tailwindcss": "^0.3.0",
+    "turbo": "^1.9.9",
+    "vercel": "^30.0.0"
   }
 }

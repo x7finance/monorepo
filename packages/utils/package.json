@@ -1,36 +1,37 @@
 {
   "name": "utils",
   "version": "0.0.1",
-  "sideEffects": [
-    "**/*.css"
-  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "exports": {
-    ".": "./dist",
-    "./styles.css": "./dist/index.css"
-  },
+  "sideEffects": false,
   "license": "MIT",
+  "files": [
+    "dist/**"
+  ],
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
-    "clean": "rm -rf dist",
-    "check-types": "tsc --noEmit"
+    "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
+    "dev": "tsup src/index.tsx --format esm,cjs --watch --dts --external react",
+    "lint": "eslint \"src/**/*.ts*\"",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "dependencies": {
+    "common": "workspace:*"
   },
   "devDependencies": {
-    "@ethersproject/bignumber": "^5.7.0",
-    "@ethersproject/units": "^5.7.0",
+    "@types/react": "^18.2.7",
+    "@types/react-dom": "^18.0.11",
     "clsx": "^1.2.1",
-    "eslint": "^8.40.0",
+    "eslint": "^8.41.0",
     "eslint-config-custom": "workspace:*",
+    "react": "^18.2.0",
     "tailwind-merge": "^1.12.0",
     "tsconfig": "workspace:*",
     "tsup": "^6.7.0",
     "typescript": "^5.0.4",
-    "wagmi": "0.12.8"
+    "wagmi": "^1.0.6"
   },
-  "dependencies": {
-    "common": "workspace:*",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+  "publishConfig": {
+    "access": "public"
   }
 }

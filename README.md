@@ -1,4 +1,6 @@
-![x7BannerLogo](https://raw.githubusercontent.com/WoxieX/x7-dashboard/main/src/assets/images/x7banner.png)
+<p align="center">
+  <img src="https://assets.x7finance.org/images/svgs/x7.svg" alt="X7 Banner Logo" />
+</p>
 
 <br />
 <div align="center"><strong>X7 Finance</strong></div>
@@ -10,7 +12,7 @@
 <span> · </span>
 <a href="https://t.me/X7m105portal">Telegram</a> 
 <span> · </span>
-<a href="https://twitter.com/x7_finance">Twitter</a>
+<a href="https://twitter.com/X7_Finance">Twitter</a>
 </div>
 
 ## About
