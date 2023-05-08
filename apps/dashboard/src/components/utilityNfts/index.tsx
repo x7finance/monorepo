@@ -1,27 +1,24 @@
 import { formatEther } from '@ethersproject/units';
+import { ChainEnum, ContractsEnum } from 'common';
+import { ONE_MILLION } from 'common';
+import { X7NFT } from 'common';
+import { ConnectKitButton } from 'connectkit';
+import { BigNumber } from 'ethers';
+import { useContractTx } from 'hooks';
 import {
+  CheckCircleIcon,
+  Squares2X2Icon,
   CubeTransparentIcon,
   MinusCircleIcon,
   PlusCircleIcon,
-} from '@heroicons/react/20/solid';
-import { CheckCircleIcon, Squares2X2Icon } from '@heroicons/react/24/outline';
-import { X7NFT } from 'common-files';
-import { ConnectKitButton } from 'connectkit';
-import { BigNumber } from 'ethers';
+} from 'icons';
+import { ChainsArray } from 'icons';
 import Image from 'next/image';
 import { useCallback, useState } from 'react';
 import toast from 'react-hot-toast';
-import { cn } from 'utils';
+import { cn, generateChainAbbreviation, generateChainBase } from 'utils';
 import { useContractReads, useNetwork, useSwitchNetwork } from 'wagmi';
 
-import { ONE_MILLION } from '../../lib/constants';
-import { useContractTx } from '../../lib/hooks/useContractWrite';
-import { ChainEnum, ContractsEnum } from '../../lib/types';
-import {
-  chainsArray,
-  generateChainAbbreviation,
-  generateChainBase,
-} from '../../lib/utils/chainFormatters';
 import { Button } from '../button';
 
 export function UtitlityNfts() {
@@ -181,7 +178,7 @@ function UtilityNftData({ nft }: any) {
           mint on other chains
         </p>
         <div className="flex flex-shrink-0 space-x-1">
-          {chainsArray.map((c, id) => (
+          {ChainsArray.map((c, id) => (
             <ConnectKitButton.Custom key={`${id}-${c.id}`}>
               {({ isConnected, show }) => {
                 return (

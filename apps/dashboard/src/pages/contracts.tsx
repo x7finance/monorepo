@@ -1,16 +1,13 @@
-import { ClipboardDocumentIcon } from '@heroicons/react/24/outline';
+import { BlockchainType, ContractsEnum } from 'common';
+import { ClipboardDocumentIcon } from 'icons';
+import { ChainsArray } from 'icons';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { useClipboard } from 'use-clipboard-copy';
-import { cn } from 'utils';
+import { cn, generateChainIdentifier } from 'utils';
 
 import { Dropdown } from '../components/dropdown/contracts';
 import { Heading } from '../components/heading';
-import { BlockchainType, ContractsEnum } from '../lib/types';
-import {
-  chainsArray,
-  generateChainIdentifier,
-} from '../lib/utils/chainFormatters';
 
 const intliq = [
   {
@@ -253,7 +250,7 @@ export default function ContractsPage() {
                           <div className="relative inline-block ml-2 top-1 lg:hidden">
                             <div className="flex items-center space-x-2">
                               <div className="flex flex-shrink-0 space-x-1">
-                                {chainsArray.map((c, id) => (
+                                {ChainsArray.map((c, id) => (
                                   <Link
                                     href={`https://www.dextools.io/app/en/${generateChainIdentifier(
                                       c?.id
@@ -328,7 +325,7 @@ export default function ContractsPage() {
                       >
                         <div className="flex items-center space-x-2">
                           <div className="flex flex-shrink-0 space-x-1">
-                            {chainsArray.map((c, id) => (
+                            {ChainsArray.map((c, id) => (
                               <Link
                                 href={`https://www.dextools.io/app/en/${generateChainIdentifier(
                                   c?.id as BlockchainType

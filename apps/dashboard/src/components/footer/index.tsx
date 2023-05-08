@@ -1,6 +1,5 @@
+import { SocialsEnum } from 'common';
 import Link from 'next/link';
-
-import { SocialsEnum } from '../../lib/types';
 
 const navigation = [
   {

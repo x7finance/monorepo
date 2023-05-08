@@ -1,10 +1,9 @@
 import { Menu, Transition } from '@headlessui/react';
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import { XCHANGE } from 'common';
+import { ChainsArray, ChevronDownIcon } from 'icons';
 import { Fragment } from 'react';
 import { cn } from 'utils';
 
-import { XCHANGE } from '../../lib/constants';
-import { chainsArray } from '../../lib/utils/chainFormatters';
 import { Button } from '../button';
 
 export function Dropdown({
@@ -47,7 +46,7 @@ export function Dropdown({
       >
         <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-slate-100 rounded-md bg-slate-100 shadow-lg ring-1 ring-black focus:outline-none dark:bg-slate-800 dark:ring-zinc-50/7.5">
           <div className="py-1">
-            {chainsArray.map((c, id) => {
+            {ChainsArray.map((c, id) => {
               return (
                 <Menu.Item key={`${id}-${type}-${c?.scanner}`}>
                   {({ active }) => (

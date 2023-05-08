@@ -10,19 +10,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "clean": "rm -rf .next"
   },
   "dependencies": {
     "@docsearch/react": "^3.3.4",
-    "@ethersproject/bignumber": "^5.7.0",
-    "@ethersproject/providers": "^5.7.2",
     "@ethersproject/units": "^5.7.0",
     "@headlessui/react": "^1.7.14",
-    "@heroicons/react": "^2.0.17",
     "@sindresorhus/slugify": "^2.2.0",
-    "@wagmi/core": "0.10.11",
-    "abitype": "0.8.2",
-    "common-files": "workspace:*",
+    "abitype": "^0.8.2",
     "connectkit": "^1.2.3",
     "ethers": "^5.7.2",
     "focus-visible": "^5.2.0",
@@ -35,24 +31,26 @@
     "react-hot-toast": "^2.4.1",
     "sharp": "^0.32.1",
     "swr": "^2.1.5",
-    "ui": "workspace:*",
     "use-clipboard-copy": "^0.2.0",
-    "utils": "workspace:*",
-    "wagmi": "0.12.8"
+    "wagmi": "0.12.8",
+    "common": "workspace:*",
+    "ui": "workspace:*",
+    "icons": "workspace:*",
+    "hooks": "workspace:*",
+    "utils": "workspace:*"
   },
   "devDependencies": {
     "@types/coingecko-api": "^1.0.10",
-    "@types/node": "^20.0.0",
-    "@types/react": "^18.2.5",
+    "@types/node": "^20.1.0",
+    "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
     "autoprefixer": "^10.4.14",
-    "eslint-config-custom": "workspace:*",
     "postcss": "^8.4.23",
     "prettier": "^2.8.8",
-    "prettier-plugin-tailwindcss": "^0.2.8",
-    "tailwind-config": "workspace:*",
     "tailwindcss": "^3.3.2",
-    "tsconfig": "workspace:*",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "eslint-config-custom": "workspace:*",
+    "tailwind-config": "workspace:*",
+    "tsconfig": "workspace:*"
   }
 }

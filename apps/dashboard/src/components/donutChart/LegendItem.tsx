@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
+import { generateChainBase } from 'utils';
 import { useNetwork } from 'wagmi';
 
-import { generateChainBase } from '../../lib/utils/chainFormatters';
 import { DonutChartContext, ItemWithRenderProps } from './DonutChart';
 
 export type Props = { item: ItemWithRenderProps };

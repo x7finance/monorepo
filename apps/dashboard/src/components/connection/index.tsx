@@ -1,8 +1,8 @@
 import { ConnectKitButton } from 'connectkit';
 import { cn } from 'utils';
+import { shortenHex } from 'utils';
 import { useNetwork } from 'wagmi';
 
-import { shortenHex } from '../../lib/utils/shortenHex';
 import { ChainSelect } from '../chainSelect';
 
 export function ConnectionComponent(props: { id: 'mobile' | 'desktop' }) {
