@@ -1,4 +1,5 @@
-import { AllPairsLength, ContractsEnum } from 'common';
+import { ContractsEnum } from 'common';
+import { AllPairsLength } from 'contracts';
 import { useEffect, useState } from 'react';
 import { useContractReads, useNetwork } from 'wagmi';
 
@@ -26,8 +27,8 @@ export function PairsTable() {
   }, [pairsCount]);
 
   return (
-    <div className="-mx-4 mt-10 ring-1 ring-zinc-900/7.5 dark:ring-white/10 sm:-mx-6 md:mx-0 md:rounded-2xl">
-      <table className="min-w-full divide-y divide-zinc-900/7.5 dark:divide-white/10">
+    <div className="ring-zinc-900/7.5 -mx-4 mt-10 ring-1 dark:ring-white/10 sm:-mx-6 md:mx-0 md:rounded-2xl">
+      <table className="divide-zinc-900/7.5 min-w-full divide-y dark:divide-white/10">
         <thead>
           <tr>
             <th

@@ -19,13 +19,16 @@
         "NEXT_PUBLIC_DOCSEARCH_INDEX_NAME",
         "NEXT_PUBLIC_MORALIS_API_KEY",
         "NEXT_PUBLIC_ASSETS_URL",
-        "NODE_ENV"
+        "NODE_ENV",
+        "X7_BOT_TOKEN",
+        "X7_BOT_TWO_TOKEN"
       ]
     },
     "lint": {},
     "test": {},
     "check-types": {},
     "dev": {
+      "dependsOn": ["^build"],
       "cache": false,
       "persistent": true
     },

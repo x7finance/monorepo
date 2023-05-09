@@ -1,8 +1,5 @@
-import {
-  X7TreasurySplitterV2,
-  X7EcosystemSplitter,
-  ContractsEnum,
-} from 'common';
+import { ContractsEnum } from 'common';
+import { X7TreasurySplitterV2, X7EcosystemSplitter } from 'contracts';
 import { BigNumber } from 'ethers';
 import { useEffect, useState } from 'react';
 import { useContractReads } from 'wagmi';

@@ -34,6 +34,7 @@
     "swr": "^2.1.5",
     "use-clipboard-copy": "^0.2.0",
     "wagmi": "0.12.8",
+    "contracts": "workspace:*",
     "common": "workspace:*",
     "ui": "workspace:*",
     "icons": "workspace:*",

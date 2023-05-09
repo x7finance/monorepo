@@ -1,5 +1,5 @@
-export { cn } from './cn';
-export { remToPx } from './remToPx';
+export { cn } from './utils/cn';
+export { remToPx } from './utils/remToPx';
 export { shortenHex } from './utils/shortenHex';
 export { isNumeric } from './utils/isNumeric';
 

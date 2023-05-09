@@ -1,12 +1,5 @@
-import {
-  BlockchainType,
-  ContractsEnum,
-  TokenContractAddresses,
-  AllPairs,
-  ChainLinkAbi,
-  PairsAbi,
-  ERC20,
-} from 'common';
+import { BlockchainType, ContractsEnum, TokenContractAddresses } from 'common';
+import { AllPairs, ChainLinkAbi, PairsAbi, ERC20 } from 'contracts';
 import {
   generateChainTokenOracleEtherUSDEnum,
   generateChainEtherTokenEnum,

@@ -1,7 +1,6 @@
 import { formatEther } from '@ethersproject/units';
-import { ChainEnum, ContractsEnum } from 'common';
-import { ONE_MILLION } from 'common';
-import { X7NFT } from 'common';
+import { ChainEnum, ContractsEnum, ONE_MILLION } from 'common';
+import { X7NFT } from 'contracts';
 import { ConnectKitButton } from 'connectkit';
 import { BigNumber } from 'ethers';
 import { useContractTx } from 'hooks';
@@ -11,8 +10,8 @@ import {
   CubeTransparentIcon,
   MinusCircleIcon,
   PlusCircleIcon,
+  ChainsArray,
 } from 'icons';
-import { ChainsArray } from 'icons';
 import Image from 'next/image';
 import { useCallback, useState } from 'react';
 import toast from 'react-hot-toast';

@@ -87,13 +87,13 @@ export function Pair({ id }: PairsProps) {
           </span>
         </div>
         {id !== 0 ? (
-          <div className="absolute right-0 left-6 -top-px h-px bg-zinc-900/7.5 dark:bg-white/10" />
+          <div className="bg-zinc-900/7.5 absolute -top-px left-6 right-0 h-px dark:bg-white/10" />
         ) : null}
       </td>
 
       <td
         className={cn(
-          id === 0 ? '' : 'border-t border-zinc-900/7.5 dark:border-white/10',
+          id === 0 ? '' : 'border-zinc-900/7.5 border-t dark:border-white/10',
           'hidden px-3 py-3.5 text-xs text-slate-500 dark:text-slate-400 lg:table-cell'
         )}
       >
@@ -118,7 +118,7 @@ export function Pair({ id }: PairsProps) {
       </td>
       <td
         className={cn(
-          id === 0 ? '' : 'border-t border-zinc-900/7.5 dark:border-white/10',
+          id === 0 ? '' : 'border-zinc-900/7.5 border-t dark:border-white/10',
           'relative py-4 pl-1 pr-3 text-sm sm:pl-1'
         )}
       >
@@ -131,7 +131,7 @@ export function Pair({ id }: PairsProps) {
       </td>
       <td
         className={cn(
-          id === 0 ? '' : 'border-t border-zinc-900/7.5 dark:border-white/10',
+          id === 0 ? '' : 'border-zinc-900/7.5 border-t dark:border-white/10',
           'hidden px-3 py-3.5 text-sm text-slate-500 dark:text-slate-400 lg:table-cell'
         )}
       >
@@ -146,7 +146,7 @@ export function Pair({ id }: PairsProps) {
       </td>
       <td
         className={cn(
-          id === 0 ? '' : 'border-t border-zinc-900/7.5 dark:border-white/10',
+          id === 0 ? '' : 'border-zinc-900/7.5 border-t dark:border-white/10',
           'hidden px-3 py-3.5 text-sm text-slate-500 dark:text-slate-400 lg:table-cell'
         )}
       >
@@ -168,7 +168,7 @@ export function Pair({ id }: PairsProps) {
       </td>
       <td
         className={cn(
-          id === 0 ? '' : 'border-t border-zinc-900/7.5 dark:border-white/10',
+          id === 0 ? '' : 'border-zinc-900/7.5 border-t dark:border-white/10',
           'hidden px-3 py-3.5 text-sm text-slate-500 dark:text-slate-400 lg:table-cell'
         )}
       >
@@ -194,7 +194,7 @@ export function Pair({ id }: PairsProps) {
             target="_blank"
             rel="noopener noreferrer"
             key={`${tokenContract}-${id}-chart`}
-            className="inline-flex justify-center gap-0.5 overflow-hidden rounded-full bg-sky-400/20 py-1 px-3 text-sm font-medium text-sky-600 ring-1 ring-inset ring-sky-400/80 transition hover:bg-sky-400/70 hover:text-white hover:ring-sky-700 dark:bg-sky-400/10 dark:text-sky-400 dark:ring-sky-400/20 dark:hover:bg-sky-400/10 dark:hover:text-sky-300 dark:hover:ring-sky-300"
+            className="inline-flex justify-center gap-0.5 overflow-hidden rounded-full bg-sky-400/20 px-3 py-1 text-sm font-medium text-sky-600 ring-1 ring-inset ring-sky-400/80 transition hover:bg-sky-400/70 hover:text-white hover:ring-sky-700 dark:bg-sky-400/10 dark:text-sky-400 dark:ring-sky-400/20 dark:hover:bg-sky-400/10 dark:hover:text-sky-300 dark:hover:ring-sky-300"
           >
             <span className="whitespace-nowrap">
               <span>Trade</span>
@@ -203,7 +203,7 @@ export function Pair({ id }: PairsProps) {
           </Link>
         </div>
         {id !== 0 ? (
-          <div className="absolute left-0 right-6 -top-px h-px bg-zinc-900/7.5 dark:bg-white/10" />
+          <div className="bg-zinc-900/7.5 absolute -top-px left-0 right-6 h-px dark:bg-white/10" />
         ) : null}
       </td>
     </tr>
