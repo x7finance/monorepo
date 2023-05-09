@@ -26,7 +26,8 @@
     "icons": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "utils": "workspace:*"
+    "utils": "workspace:*",
+    "zustand": "^4.3.2"
   },
   "devDependencies": {
     "@markdoc/markdoc": "^0.2.2",
@@ -36,6 +37,7 @@
     "@storybook/addon-links": "^7.0.9",
     "@storybook/react": "^7.0.9",
     "@testing-library/jest-dom": "^5.16.5",
+    "@headlessui/react": "^1.7.14",
     "@testing-library/react": "^14.0.0",
     "@types/jest": "^29.5.1",
     "@types/react": "^18.2.6",

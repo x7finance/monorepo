@@ -5,6 +5,7 @@ import './styles.css';
 export * from './button/Button';
 export * from './markdoc/prose';
 export * from './utils/renderConnectedChain';
+export * from './tag/Tag';
 
 // docs ui
 export * as Nodes from './markdoc/nodes';
