@@ -6,7 +6,8 @@
     "lint": "turbo lint",
     "lint-staged-husky": "lint-staged",
     "test": "turbo run test",
-    "start:bot": "cd apps/bot && pnpm start",
+    "build:bot": "turbo run build --filter=bot",
+    "start:bot": "pnpm run build:bot",
     "clean": "turbo run clean",
     "format-lint": "prettier --config prettier.config.js --check --ignore-unknown .",
     "format-fix": "prettier --config prettier.config.js --write --ignore-unknown -l .",
@@ -19,6 +20,9 @@
     "*.{json,md,html,js,jsx,ts,tsx}": [
       "prettier --write"
     ]
+  },
+  "engines": {
+    "node": "18.x"
   },
   "packageManager": "pnpm@7.15.0",
   "dependencies": {
