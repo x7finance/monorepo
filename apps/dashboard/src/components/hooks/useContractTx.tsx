@@ -35,7 +35,7 @@ const toastError = 'tx_error';
 
 export function useContractTx(
   chainId: BlockchainType | number | undefined,
-  ...args: UseContractWriteArgs
+  args: UseContractWriteArgs
 ): any {
   const [isFinished, setIsFinished] = useState(false);
 

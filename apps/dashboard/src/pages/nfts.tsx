@@ -21,7 +21,7 @@ export default function NftsPage() {
         NFTs
       </Heading>
 
-      <div className="pt-10 border-t not-prose border-zinc-900/5 dark:border-white/5">
+      <div className="not-prose border-t border-zinc-900/5 pt-10 dark:border-white/5">
         <UtilityNftsComponent />
       </div>
     </div>

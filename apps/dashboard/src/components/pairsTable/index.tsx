@@ -14,13 +14,13 @@ export function PairsTable() {
     contracts: [
       {
         address: ContractsEnum.XchangeFactory,
-        abi: AllPairsLength,
+        abi: AllPairsLength as any,
         functionName: 'allPairsLength',
       },
     ],
   });
 
-  const pairsCount = parseInt(data?.toString() || '0', 10);
+  const pairsCount = parseInt(data?.[0]?.result?.toString() || '0', 10);
 
   useEffect(() => {
     setAllPairsLength(pairsCount);

@@ -1,6 +1,5 @@
 import { ContractsEnum } from 'common';
 import { X7TreasurySplitterV2, X7EcosystemSplitter } from 'contracts';
-import { BigNumber } from 'ethers';
 import { useEffect, useState } from 'react';
 import { useContractReads } from 'wagmi';
 
@@ -27,7 +26,7 @@ export function SplittersOverview() {
         },
         {
           address: ContractsEnum.EcosystemSplitter,
-          abi: X7EcosystemSplitter,
+          abi: X7EcosystemSplitter as any,
           functionName: 'outletShare',
           args: [2],
         },
@@ -81,7 +80,7 @@ export function SplittersOverview() {
     contracts: [
       {
         address: ContractsEnum.TreasurySplitter,
-        abi: X7TreasurySplitterV2,
+        abi: X7TreasurySplitterV2 as any,
         functionName: 'outletShare',
         args: [1],
       },
@@ -208,10 +207,14 @@ export function SplittersOverview() {
         (accumulator: any[], _cv, currentIndex) => {
           if (currentIndex % 2 === 0) {
             accumulator.push({
-              label: fetchAddressName(`${ecosystemData?.[currentIndex + 1]}`),
+              label: fetchAddressName(
+                `${ecosystemData?.[currentIndex + 1]?.result}`
+              ),
               address: ecosystemData?.[currentIndex + 1],
-              value: BigNumber?.isBigNumber(ecosystemData?.[currentIndex])
-                ? parseInt(`${ecosystemData?.[currentIndex]?.toString()}`) / 10
+              value: ecosystemData?.[currentIndex]
+                ? parseInt(
+                    `${ecosystemData?.[currentIndex]?.result?.toString()}`
+                  ) / 10
                 : 0,
             });
           }
@@ -231,11 +234,14 @@ export function SplittersOverview() {
         (accumulator: any[], _cv, currentIndex) => {
           if (currentIndex % 2 === 0) {
             accumulator.push({
-              label: fetchAddressName(`${treasuryData?.[currentIndex + 1]}`),
+              label: fetchAddressName(
+                `${treasuryData?.[currentIndex + 1]?.result}`
+              ),
               address: treasuryData?.[currentIndex + 1],
-              value: BigNumber?.isBigNumber(treasuryData?.[currentIndex])
-                ? parseInt(`${treasuryData?.[currentIndex]?.toString()}`) / 1000
-                : 0,
+              value:
+                parseInt(
+                  `${treasuryData?.[currentIndex]?.result?.toString()}`
+                ) / 1000 ?? 0,
             });
           }
 

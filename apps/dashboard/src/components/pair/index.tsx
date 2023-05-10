@@ -1,5 +1,5 @@
 import { BlockchainType } from 'common';
-import { useXchangeTokenData } from 'hooks';
+
 import { IconWrapper, ClipboardDocumentIcon } from 'icons';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
@@ -11,6 +11,7 @@ import {
   generateChainIdentifier,
 } from 'utils';
 import { useNetwork } from 'wagmi';
+import { useXchangeTokenData } from '../hooks/useXchangeTokenData';
 
 interface PairsProps {
   id: number;
@@ -125,7 +126,7 @@ export function Pair({ id }: PairsProps) {
         <div className="flex items-center space-x-2">
           <div className="flex flex-shrink-0 space-x-1">
             <span className="pl-1">$</span>
-            {tokenReserve ? tokenPrice : '$ 0.00'}
+            {tokenReserve ? tokenPrice : '0.00'}
           </div>
         </div>
       </td>

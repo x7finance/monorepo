@@ -36,7 +36,6 @@
     "common": "workspace:*",
     "ui": "workspace:*",
     "icons": "workspace:*",
-    "hooks": "workspace:*",
     "utils": "workspace:*"
   },
   "devDependencies": {

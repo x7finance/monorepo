@@ -1,9 +1,8 @@
-import { formatEther } from '@ethersproject/units';
+import { formatEther, parseEther, parseUnits } from 'viem';
 import { ChainEnum, ContractsEnum, ONE_MILLION } from 'common';
 import { X7NFT } from 'contracts';
 import { ConnectKitButton } from 'connectkit';
-import { BigNumber } from 'ethers';
-import { useContractTx } from 'hooks';
+
 import {
   CheckCircleIcon,
   Squares2X2Icon,
@@ -19,6 +18,7 @@ import { cn, generateChainAbbreviation, generateChainBase } from 'utils';
 import { useContractReads, useNetwork, useSwitchNetwork } from 'wagmi';
 
 import { Button } from '../button';
+import { useContractTx } from '../hooks/useContractTx';
 
 export function UtitlityNfts() {
   return (
@@ -52,7 +52,7 @@ function UtilityNftData({ nft }: any) {
     contracts: [
       {
         address: nft.contract,
-        abi: X7NFT,
+        abi: X7NFT as any,
         functionName: 'mintingOpen',
       },
       {
@@ -63,22 +63,19 @@ function UtilityNftData({ nft }: any) {
     ],
   });
 
-  // @ts-expect-error
-  const { write: writeMany } = useContractTx({
-    chainId: chain?.id,
-    args: [
-      {
-        mode: 'recklesslyUnprepared',
-        address: nft.contract,
-        abi: X7NFT,
-        functionName: 'mintMany',
-      },
-    ],
-  });
+  const { write: mintMany } = useContractTx(chain?.id, [
+    {
+      mode: 'recklesslyUnprepared' as any,
+      address: nft.contract as never,
+      abi: X7NFT as never,
+      functionName: 'mintMany' as never,
+    },
+  ]);
 
   const price =
-    BigNumber?.isBigNumber(data?.[1]) && !!data?.[0]
-      ? formatEther(data?.[1])
+    data?.[1]?.result && !!data?.[0]?.result
+      ? // @ts-expect-error
+        formatEther(data?.[1]?.result)
       : 0;
 
   const mintNft = useCallback(
@@ -89,13 +86,13 @@ function UtilityNftData({ nft }: any) {
           return toast.error('Please ensure you are minting at least 1 NFT');
         }
 
-        if (!!writeMany) {
-          await writeMany({
-            recklesslySetUnpreparedArgs: [
-              [quantity],
-              // @ts-expect-error
-              { gasLimit: ONE_MILLION, value: data?.[1]?.mul(quantity) },
-            ],
+        if (!!mintMany) {
+          await mintMany({
+            gas: ONE_MILLION,
+            args: [quantity],
+            value: parseEther(
+              `${parseFloat(formatEther(data?.[1]?.result as any)) * quantity}`
+            ),
           });
         }
       } catch (error: any) {

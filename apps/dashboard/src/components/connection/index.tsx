@@ -1,6 +1,5 @@
 import { ConnectKitButton } from 'connectkit';
-import { cn } from 'utils';
-import { shortenHex } from 'utils';
+import { shortenHex, cn } from 'utils';
 import { useNetwork } from 'wagmi';
 
 import { ChainSelect } from '../chainSelect';
