@@ -21,7 +21,8 @@
         "NEXT_PUBLIC_ASSETS_URL",
         "NODE_ENV",
         "X7_BOT_TOKEN",
-        "X7_BOT_TWO_TOKEN"
+        "X7_BOT_TWO_TOKEN",
+        "NESTJS_PORT"
       ]
     },
     "lint": {},
