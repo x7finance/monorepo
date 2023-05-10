@@ -23,7 +23,7 @@ export const LegendItem: React.FC<Props> = ({ item }) => {
   const sqUnit = legendWidth / 5;
 
   const contractAddress = `${generateChainBase(chain?.id ?? 1)}/address/${
-    item?.address
+    item?.address?.result
   }`;
 
   return (
@@ -41,7 +41,7 @@ export const LegendItem: React.FC<Props> = ({ item }) => {
           rel="noopener noreferrer"
           target="_blank"
           href={contractAddress}
-          className="text-xs underline text-slate-400 hover:text-sky-600 dark:text-slate-600"
+          className="text-xs text-slate-400 underline hover:text-sky-600 dark:text-slate-600"
         >
           <span className="hidden overflow-hidden md:block">
             {contractAddress}
@@ -50,7 +50,7 @@ export const LegendItem: React.FC<Props> = ({ item }) => {
         </a>
       </td>
 
-      <td className="flex justify-end px-3 py-2 text-sm whitespace-nowrap text-slate-500 dark:text-slate-400">
+      <td className="flex justify-end whitespace-nowrap px-3 py-2 text-sm text-slate-500 dark:text-slate-400">
         {value}%
       </td>
     </tr>

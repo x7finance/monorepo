@@ -4,27 +4,25 @@ import SEO from '../../next-seo.config';
 import { CustomToaster } from '../components/customToaster';
 import { Layout } from '../components/layout';
 
-import '../styles/tailwind.css';
-
 import { slugifyWithCounter } from '@sindresorhus/slugify';
 import { ConnectKitProvider } from 'connectkit';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { LedgerConnector } from 'wagmi/connectors/ledger';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
-import { WalletConnectLegacyConnector } from 'wagmi/connectors/walletConnectLegacy';
+// import { WalletConnectLegacyConnector } from 'wagmi/connectors/walletConnectLegacy';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { infuraProvider } from 'wagmi/providers/infura';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { publicProvider } from 'wagmi/providers/public';
-
-import 'focus-visible';
-
 import { DefaultSeo } from 'next-seo';
 import { AppProps } from 'next/app';
 import { Space_Mono } from 'next/font/google';
-import { configureChains, createClient, WagmiConfig } from 'wagmi';
+import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import { arbitrum, bsc, mainnet, optimism, polygon } from 'wagmi/chains';
 import { SafeConnector } from 'wagmi/connectors/safe';
+
+import 'focus-visible';
+import '../styles/tailwind.css';
 
 const spaceMono = Space_Mono({
   weight: ['400', '700'],
@@ -72,23 +70,18 @@ function collectHeadings(nodes: any, slugify = slugifyWithCounter()): any {
 
   return sections;
 }
-const { chains, provider } = configureChains(
+
+const { chains, publicClient, webSocketPublicClient } = configureChains(
   [mainnet, optimism, polygon, bsc, arbitrum],
   [
     alchemyProvider({
       apiKey: `${process.env.NEXT_PUBLIC_ALCHEMY_ID}`,
-      priority: 1,
-      // stallTimeout: 1_000,
     }),
     infuraProvider({
       apiKey: `${process.env.NEXT_PUBLIC_INFURA_ID}`,
-      priority: 2,
-      // stallTimeout: 1_000,
     }),
     // ANKR
     jsonRpcProvider({
-      priority: 3,
-      // stallTimeout: 250,
       rpc: (chain) => ({
         http: `https://rpc.ankr.com/${providerLinkGenerator(chain)?.ankr}/${
           process.env.NEXT_PUBLIC_ANKR_ID
@@ -97,8 +90,6 @@ const { chains, provider } = configureChains(
     }),
     // POCKET
     jsonRpcProvider({
-      priority: 4,
-      // stallTimeout: 250,
       rpc: (chain) => ({
         http: `https://${
           providerLinkGenerator(chain)?.pocket
@@ -107,8 +98,6 @@ const { chains, provider } = configureChains(
     }),
     // BLOCKPI
     jsonRpcProvider({
-      priority: 5,
-      // stallTimeout: 250,
       rpc: (chain) => ({
         http: `https://${
           providerLinkGenerator(chain)?.blockpi
@@ -117,8 +106,6 @@ const { chains, provider } = configureChains(
     }),
     // GETBLOCK
     jsonRpcProvider({
-      priority: 6,
-      stallTimeout: 250,
       rpc: (chain) => ({
         http: `https://${providerLinkGenerator(chain)?.getblock}.getblock.io/${
           process.env.NEXT_PUBLIC_GETBLOCK_ID
@@ -127,8 +114,6 @@ const { chains, provider } = configureChains(
     }),
     // BLASTAPI
     jsonRpcProvider({
-      priority: 7,
-      // stallTimeout: 250,
       rpc: (chain) => ({
         http: `https://${providerLinkGenerator(chain)?.blast}.blastapi.io/${
           process.env.NEXT_PUBLIC_BLAST_ID
@@ -136,15 +121,14 @@ const { chains, provider } = configureChains(
       }),
     }),
     // PUBLIC
-    publicProvider({
-      priority: 8,
-    }),
+    publicProvider(),
   ]
 );
 
-const client = createClient({
+const config = createConfig({
   autoConnect: true,
-  provider,
+  publicClient,
+  webSocketPublicClient,
   connectors: [
     new MetaMaskConnector({ chains }),
     new LedgerConnector({
@@ -158,12 +142,6 @@ const client = createClient({
     }),
     new SafeConnector({
       chains,
-    }),
-    new WalletConnectLegacyConnector({
-      chains,
-      options: {
-        qrcode: false,
-      },
     }),
   ],
 });
@@ -189,7 +167,7 @@ export default function App({ Component, pageProps }: AppProps) {
           }
         `}
       </style>
-      <WagmiConfig client={client}>
+      <WagmiConfig config={config}>
         <ConnectKitProvider
           theme="rounded"
           options={{

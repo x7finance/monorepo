@@ -31,16 +31,16 @@
     "@ianvs/prettier-plugin-sort-imports": "^3.7.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
-    "@types/node": "^20.1.0",
+    "@types/node": "^20.1.2",
     "commitizen": "^4.3.0",
     "eslint": "^8.40.0",
+    "eslint-config-custom": "workspace:*",
     "husky": "^8.0.3",
     "jest-environment-jsdom": "^29.5.0",
     "lint-staged": "^13.2.2",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.2.8",
     "turbo": "^1.9.3",
-    "vercel": "^29.1.1",
-    "eslint-config-custom": "workspace:*"
+    "vercel": "^29.1.1"
   }
 }
