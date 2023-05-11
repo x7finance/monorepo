@@ -21,6 +21,9 @@
       "prettier --write"
     ]
   },
+  "engines": {
+    "node": "18.x"
+  },
   "packageManager": "pnpm@7.15.0",
   "dependencies": {
     "react": "^18.2.0",
