@@ -11,6 +11,14 @@ const onchainsNavigation = [
     title: 'May 2023',
     links: [
       {
+        title: 'May-27-2023-033723-AM',
+        href: '/onchains/914-may-27-2023-033723-am-+utc',
+      },
+      {
+        title: 'May-25-2023-100159-PM',
+        href: '/onchains/915-may-25-2023-100159-pm-+utc',
+      },
+      {
         title: 'May-23-2023-030459-AM',
         href: '/onchains/916-may-23-2023-030459-am-+utc',
       },
@@ -477,6 +485,10 @@ const whitepaperNavigation = [
 ];
 
 const faqNavigation = [
+  {
+    title: 'AMA',
+    links: [{ title: 'March 25 2023 - AMA', href: '/faq/ama052523' }],
+  },
   {
     title: 'FAQ',
     links: [
