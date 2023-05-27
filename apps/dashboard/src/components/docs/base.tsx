@@ -487,7 +487,7 @@ const whitepaperNavigation = [
 const faqNavigation = [
   {
     title: 'AMA',
-    links: [{ title: 'March 25 2023 - AMA', href: '/faq/ama052523' }],
+    links: [{ title: 'May 25 2023 - AMA', href: '/faq/ama-may-25-23' }],
   },
   {
     title: 'FAQ',

@@ -4,7 +4,7 @@ title: FAQ
 
 ## AMAs
 
-[May 25th 2023](/faq/ama052523)
+[May 25th 2023](/faq/ama-may-25-23)
 
 ## Frequently Asked Questions
 
