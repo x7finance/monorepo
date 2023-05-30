@@ -328,7 +328,7 @@ const EXCHANGE_IDS = {
 const utilityNftData = [
   {
     name: 'Liquidity MAXI',
-    price: '0.5',
+    price: '0.75 ETH',
     maxMint: 4,
     slug: 'liquidity-maxi',
     contract: ContractsEnum.LiquidityMaxi,
@@ -357,7 +357,7 @@ const utilityNftData = [
   },
   {
     name: 'Ecosystem MAXI',
-    price: '0.1 ETH',
+    price: '0.3 ETH',
     maxMint: 5,
     slug: 'ecosystem-maxi',
     contract: ContractsEnum.EcosystemMaxi,
@@ -379,7 +379,7 @@ const utilityNftData = [
 
   {
     name: 'Borrowing MAXI',
-    price: '1 ETH',
+    price: '2 ETH',
     maxMint: 2,
     slug: 'borrowing-maxi',
     contract: ContractsEnum.BorrowingMaxi,
@@ -400,7 +400,7 @@ const utilityNftData = [
   },
   {
     name: 'DEX MAXI',
-    price: '0.5 ETH',
+    price: '1.5 ETH',
     slug: 'dex-maxi',
     maxMint: 3,
     contract: ContractsEnum.DexMaxi,
