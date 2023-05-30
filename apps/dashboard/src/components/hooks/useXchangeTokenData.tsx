@@ -57,7 +57,7 @@ export function useXchangeTokenData(id: number) {
   });
 
   const token: Address =
-    token0 !== TokenContractAddresses.WETH ? token0 : token1;
+    token0 !== generateChainEtherTokenEnum(chain?.id) ? token0 : token1;
 
   const { data: erc20Details, isLoading } = useContractReads({
     contracts: [
