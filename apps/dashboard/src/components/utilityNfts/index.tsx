@@ -60,6 +60,16 @@ function UtilityNftData({ nft }: any) {
         abi: X7NFT,
         functionName: 'mintPrice',
       },
+      {
+        address: nft.contract,
+        abi: X7NFT,
+        functionName: 'maxSupply',
+      },
+      {
+        address: nft.contract,
+        abi: X7NFT,
+        functionName: 'totalSupply',
+      },
     ],
   });
 
@@ -77,6 +87,9 @@ function UtilityNftData({ nft }: any) {
       ? // @ts-expect-error
         formatEther(data?.[1]?.result)
       : 0;
+
+  const maxSupply = !!data?.[2]?.result ? Number(data?.[2]?.result) : 0;
+  const totalSupply = !!data?.[3]?.result ? Number(data?.[3]?.result) : -1;
 
   const mintNft = useCallback(
     async (quantity: number) => {
@@ -205,6 +218,29 @@ function UtilityNftData({ nft }: any) {
           ))}
         </div>
       </div>
+
+      {/* if maxsupply is zero then hide the span else give the result as maxsupply - total supply*/}
+      {maxSupply === 0 ? (
+        ''
+      ) : (
+        <div
+          className={
+            'mb-4 mt-4 flex flex-col items-center justify-center sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6'
+          }
+        >
+          <span
+            className={`${
+              maxSupply - totalSupply === 0
+                ? 'bg-red-500 hover:bg-red-200 dark:bg-red-800 dark:text-slate-300 dark:hover:bg-red-700'
+                : 'bg-green-500 hover:bg-green-200 dark:bg-green-800 dark:text-slate-300 dark:hover:bg-green-700'
+            } inline-flex items-center justify-center
+            rounded-md border border-transparent bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700
+          shadow-sm`}
+          >
+            {maxSupply - totalSupply} left
+          </span>
+        </div>
+      )}
       <div className="relative mt-auto border-t border-slate-200 dark:border-slate-800">
         <div className="relative -mt-px flex divide-x divide-slate-200 dark:divide-slate-800">
           <div className="relative flex w-0 flex-1">
