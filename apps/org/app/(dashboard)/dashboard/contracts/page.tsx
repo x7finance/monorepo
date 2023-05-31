@@ -9,6 +9,8 @@ import { useClipboard } from "use-clipboard-copy"
 // import { Heading } from "@/components/docs/heading"
 import { Dropdown } from "@/components/dropdown/contracts"
 
+import { ContractCopy } from "./components/contractCopy"
+
 const intliq = [
   {
     name: "X7R Initital Liquidity Time Lock",
@@ -174,23 +176,6 @@ const xchange = [
 ]
 
 export default function ContractsPage() {
-  const clipboard = useClipboard({
-    onSuccess() {
-      toast.success(<span>Contract Copied</span>, {
-        duration: 3000,
-        style: {
-          border: `none`,
-          background: "#000",
-          color: "white",
-        },
-        iconTheme: {
-          primary: "#fff",
-          secondary: "#000",
-        },
-      })
-    },
-  })
-
   return (
     <>
       <div className="my-16 xl:max-w-none">
@@ -268,21 +253,7 @@ export default function ContractsPage() {
                         </div>
                         <div className="flex flex-col mt-1 text-sm text-slate-500 dark:text-slate-400 sm:block lg:hidden">
                           <span>{t.description}</span>
-                          <span
-                            onClick={() => {
-                              clipboard.copy(t.contract)
-                            }}
-                            className="flex items-center cursor-pointer opacity-70 hover:underline dark:opacity-50"
-                          >
-                            Contract
-                            <span className="ml-0.5">
-                              <ClipboardDocumentIcon
-                                className="inline-block w-4 h-4 "
-                                aria-hidden="true"
-                              />
-                              <span className="sr-only">Copy Contract</span>
-                            </span>
-                          </span>
+                          <ContractCopy contract={t.contract} />
                         </div>
                         {idx !== 0 ? (
                           <div className="absolute -top-px left-6 right-0 h-px bg-zinc-900/7.5 dark:bg-white/10" />
@@ -297,21 +268,7 @@ export default function ContractsPage() {
                         )}
                       >
                         <span>{t.description}</span>
-                        <span
-                          onClick={() => {
-                            clipboard.copy(t.contract)
-                          }}
-                          className="flex items-center cursor-pointer opacity-70 hover:underline dark:opacity-50"
-                        >
-                          Contract: {t.contract}{" "}
-                          <span className="ml-0.5">
-                            <ClipboardDocumentIcon
-                              className="inline-block w-4 h-4 "
-                              aria-hidden="true"
-                            />
-                            <span className="sr-only">Copy Contract</span>
-                          </span>
-                        </span>
+                        <ContractCopy contract={t.contract} />
                       </td>
 
                       <td
@@ -436,21 +393,7 @@ export default function ContractsPage() {
                         </div>
                         <div className="flex flex-col mt-1 text-sm text-slate-500 dark:text-slate-400 sm:block lg:hidden">
                           <span>{t.description}</span>
-                          <span
-                            onClick={() => {
-                              clipboard.copy(t.contract)
-                            }}
-                            className="flex items-center cursor-pointer opacity-70 hover:underline dark:opacity-50"
-                          >
-                            Contract
-                            <span className="ml-0.5">
-                              <ClipboardDocumentIcon
-                                className="inline-block w-4 h-4 "
-                                aria-hidden="true"
-                              />
-                              <span className="sr-only">Copy Contract</span>
-                            </span>
-                          </span>
+                          <ContractCopy contract={t.contract} />
                         </div>
                         {idx !== 0 ? (
                           <div className="absolute -top-px left-6 right-0 h-px bg-zinc-900/7.5 dark:bg-white/10" />
@@ -465,21 +408,7 @@ export default function ContractsPage() {
                         )}
                       >
                         <span>{t.description}</span>
-                        <span
-                          onClick={() => {
-                            clipboard.copy(t.contract)
-                          }}
-                          className="flex items-center cursor-pointer opacity-70 hover:underline dark:opacity-50"
-                        >
-                          Contract: {t.contract}{" "}
-                          <span className="ml-0.5">
-                            <ClipboardDocumentIcon
-                              className="inline-block w-4 h-4 "
-                              aria-hidden="true"
-                            />
-                            <span className="sr-only">Copy Contract</span>
-                          </span>
-                        </span>
+                        <ContractCopy contract={t.contract} />
                       </td>
 
                       <td
@@ -557,21 +486,7 @@ export default function ContractsPage() {
                         </div>
                         <div className="flex flex-col mt-1 text-sm text-slate-500 dark:text-slate-400 sm:block lg:hidden">
                           <span>{t.description}</span>
-                          <span
-                            onClick={() => {
-                              clipboard.copy(t.contract)
-                            }}
-                            className="flex items-center cursor-pointer opacity-70 hover:underline dark:opacity-50"
-                          >
-                            Contract
-                            <span className="ml-0.5">
-                              <ClipboardDocumentIcon
-                                className="inline-block w-4 h-4 "
-                                aria-hidden="true"
-                              />
-                              <span className="sr-only">Copy Contract</span>
-                            </span>
-                          </span>
+                          <ContractCopy contract={t.contract} />
                         </div>
                         {idx !== 0 ? (
                           <div className="absolute -top-px left-6 right-0 h-px bg-zinc-900/7.5 dark:bg-white/10" />
@@ -585,22 +500,7 @@ export default function ContractsPage() {
                           "hidden px-3 py-3.5 text-xs text-slate-500 dark:text-slate-400 lg:table-cell"
                         )}
                       >
-                        <span>{t.description}</span>
-                        <span
-                          onClick={() => {
-                            clipboard.copy(t.contract)
-                          }}
-                          className="flex items-center cursor-pointer opacity-70 hover:underline dark:opacity-50"
-                        >
-                          Contract: {t.contract}{" "}
-                          <span className="ml-0.5">
-                            <ClipboardDocumentIcon
-                              className="inline-block w-4 h-4 "
-                              aria-hidden="true"
-                            />
-                            <span className="sr-only">Copy Contract</span>
-                          </span>
-                        </span>
+                        <ContractCopy contract={t.contract} />
                       </td>
 
                       <td
@@ -678,21 +578,7 @@ export default function ContractsPage() {
                         </div>
                         <div className="flex flex-col mt-1 text-sm text-slate-500 dark:text-slate-400 sm:block lg:hidden">
                           <span>{t.description}</span>
-                          <span
-                            onClick={() => {
-                              clipboard.copy(t.contract)
-                            }}
-                            className="flex items-center cursor-pointer opacity-70 hover:underline dark:opacity-50"
-                          >
-                            Contract
-                            <span className="ml-0.5">
-                              <ClipboardDocumentIcon
-                                className="inline-block w-4 h-4 "
-                                aria-hidden="true"
-                              />
-                              <span className="sr-only">Copy Contract</span>
-                            </span>
-                          </span>
+                          <ContractCopy contract={t.contract} />
                         </div>
                         {idx !== 0 ? (
                           <div className="absolute -top-px left-6 right-0 h-px bg-zinc-900/7.5 dark:bg-white/10" />
@@ -707,21 +593,7 @@ export default function ContractsPage() {
                         )}
                       >
                         <span>{t.description}</span>
-                        <span
-                          onClick={() => {
-                            clipboard.copy(t.contract)
-                          }}
-                          className="flex items-center cursor-pointer opacity-70 hover:underline dark:opacity-50"
-                        >
-                          Contract: {t.contract}{" "}
-                          <span className="ml-0.5">
-                            <ClipboardDocumentIcon
-                              className="inline-block w-4 h-4 "
-                              aria-hidden="true"
-                            />
-                            <span className="sr-only">Copy Contract</span>
-                          </span>
-                        </span>
+                        <ContractCopy contract={t.contract} />
                       </td>
 
                       <td
@@ -799,21 +671,7 @@ export default function ContractsPage() {
                         </div>
                         <div className="flex flex-col mt-1 text-sm text-slate-500 dark:text-slate-400 sm:block lg:hidden">
                           <span>{t.description}</span>
-                          <span
-                            onClick={() => {
-                              clipboard.copy(t.contract)
-                            }}
-                            className="flex items-center cursor-pointer opacity-70 hover:underline dark:opacity-50"
-                          >
-                            Contract
-                            <span className="ml-0.5">
-                              <ClipboardDocumentIcon
-                                className="inline-block w-4 h-4 "
-                                aria-hidden="true"
-                              />
-                              <span className="sr-only">Copy Contract</span>
-                            </span>
-                          </span>
+                          <ContractCopy contract={t.contract} />
                         </div>
                         {idx !== 0 ? (
                           <div className="absolute -top-px left-6 right-0 h-px bg-zinc-900/7.5 dark:bg-white/10" />
@@ -828,21 +686,7 @@ export default function ContractsPage() {
                         )}
                       >
                         <span>{t.description}</span>
-                        <span
-                          onClick={() => {
-                            clipboard.copy(t.contract)
-                          }}
-                          className="flex items-center cursor-pointer opacity-70 hover:underline dark:opacity-50"
-                        >
-                          Contract: {t.contract}{" "}
-                          <span className="ml-0.5">
-                            <ClipboardDocumentIcon
-                              className="inline-block w-4 h-4 "
-                              aria-hidden="true"
-                            />
-                            <span className="sr-only">Copy Contract</span>
-                          </span>
-                        </span>
+                        <ContractCopy contract={t.contract} />
                       </td>
 
                       <td
@@ -920,21 +764,7 @@ export default function ContractsPage() {
                         </div>
                         <div className="flex flex-col mt-1 text-sm text-slate-500 dark:text-slate-400 sm:block lg:hidden">
                           <span>{t.description}</span>
-                          <span
-                            onClick={() => {
-                              clipboard.copy(t.contract)
-                            }}
-                            className="flex items-center cursor-pointer opacity-70 hover:underline dark:opacity-50"
-                          >
-                            Contract
-                            <span className="ml-0.5">
-                              <ClipboardDocumentIcon
-                                className="inline-block w-4 h-4 "
-                                aria-hidden="true"
-                              />
-                              <span className="sr-only">Copy Contract</span>
-                            </span>
-                          </span>
+                          <ContractCopy contract={t.contract} />
                         </div>
                         {idx !== 0 ? (
                           <div className="absolute -top-px left-6 right-0 h-px bg-zinc-900/7.5 dark:bg-white/10" />
@@ -949,21 +779,7 @@ export default function ContractsPage() {
                         )}
                       >
                         <span>{t.description}</span>
-                        <span
-                          onClick={() => {
-                            clipboard.copy(t.contract)
-                          }}
-                          className="flex items-center cursor-pointer opacity-70 hover:underline dark:opacity-50"
-                        >
-                          Contract: {t.contract}{" "}
-                          <span className="ml-0.5">
-                            <ClipboardDocumentIcon
-                              className="inline-block w-4 h-4 "
-                              aria-hidden="true"
-                            />
-                            <span className="sr-only">Copy Contract</span>
-                          </span>
-                        </span>
+                        <ContractCopy contract={t.contract} />
                       </td>
 
                       <td
@@ -1040,21 +856,7 @@ export default function ContractsPage() {
                         </div>
                         <div className="flex flex-col mt-1 text-sm text-slate-500 dark:text-slate-400 sm:block lg:hidden">
                           <span>{t.description}</span>
-                          <span
-                            onClick={() => {
-                              clipboard.copy(t.contract)
-                            }}
-                            className="flex items-center cursor-pointer opacity-70 hover:underline dark:opacity-50"
-                          >
-                            Contract
-                            <span className="ml-0.5">
-                              <ClipboardDocumentIcon
-                                className="inline-block w-4 h-4 "
-                                aria-hidden="true"
-                              />
-                              <span className="sr-only">Copy Contract</span>
-                            </span>
-                          </span>
+                          <ContractCopy contract={t.contract} />
                         </div>
                         {idx !== 0 ? (
                           <div className="absolute -top-px left-6 right-0 h-px bg-zinc-900/7.5 dark:bg-white/10" />
@@ -1069,21 +871,7 @@ export default function ContractsPage() {
                         )}
                       >
                         <span>{t.description}</span>
-                        <span
-                          onClick={() => {
-                            clipboard.copy(t.contract)
-                          }}
-                          className="flex items-center cursor-pointer opacity-70 hover:underline dark:opacity-50"
-                        >
-                          Contract: {t.contract}{" "}
-                          <span className="ml-0.5">
-                            <ClipboardDocumentIcon
-                              className="inline-block w-4 h-4 "
-                              aria-hidden="true"
-                            />
-                            <span className="sr-only">Copy Contract</span>
-                          </span>
-                        </span>
+                        <ContractCopy contract={t.contract} />
                       </td>
 
                       <td
@@ -1160,21 +948,7 @@ export default function ContractsPage() {
                         </div>
                         <div className="flex flex-col mt-1 text-sm text-slate-500 dark:text-slate-400 sm:block lg:hidden">
                           <span>{t.description}</span>
-                          <span
-                            onClick={() => {
-                              clipboard.copy(t.contract)
-                            }}
-                            className="flex items-center cursor-pointer opacity-70 hover:underline dark:opacity-50"
-                          >
-                            Contract
-                            <span className="ml-0.5">
-                              <ClipboardDocumentIcon
-                                className="inline-block w-4 h-4 "
-                                aria-hidden="true"
-                              />
-                              <span className="sr-only">Copy Contract</span>
-                            </span>
-                          </span>
+                          <ContractCopy contract={t.contract} />
                         </div>
                         {idx !== 0 ? (
                           <div className="absolute right-0 left-6 -top-px h-px bg-zinc-900/7.5 dark:bg-white/10" />
@@ -1189,21 +963,7 @@ export default function ContractsPage() {
                         )}
                       >
                         <span>{t.description}</span>
-                        <span
-                          onClick={() => {
-                            clipboard.copy(t.contract)
-                          }}
-                          className="flex items-center cursor-pointer opacity-70 hover:underline dark:opacity-50"
-                        >
-                          Contract: {t.contract}{" "}
-                          <span className="ml-0.5">
-                            <ClipboardDocumentIcon
-                              className="inline-block w-4 h-4 "
-                              aria-hidden="true"
-                            />
-                            <span className="sr-only">Copy Contract</span>
-                          </span>
-                        </span>
+                        <ContractCopy contract={t.contract} />
                       </td>
 
                       <td

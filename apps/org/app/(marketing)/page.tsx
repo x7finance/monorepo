@@ -1,20 +1,16 @@
 import Image from "next/image"
 import Link from "next/link"
+import { Header } from "@radix-ui/react-accordion"
 
 import { Button } from "@/components/ui/button"
+
+import { HeaderVideoComponent } from "./components/video"
 
 export default async function IndexPage() {
   return (
     <>
       <section className="space-y-6 pb-8 md:pb-12">
-        <video
-          autoPlay
-          loop
-          muted
-          className="absolute inset-0 object-cover h-3/4 -top-20 rotate-180"
-        >
-          <source src="/images/half-planet.mp4" type="video/mp4" />
-        </video>
+        <HeaderVideoComponent />
         <div className="pointer-events-none absolute inset-x-0 top-16 sm:flex sm:justify-center sm:px-6 sm:pb-5 lg:px-8">
           <div className="pointer-events-auto flex items-center announcement-shadow justify-between gap-x-6 bg-black border-gray-900 border px-6 py-3 sm:rounded-xl sm:py-3 sm:pl-4 sm:pr-3.5">
             <p className="leading-6 text-gray-400">
@@ -133,7 +129,7 @@ export default async function IndexPage() {
       </section>
 
       <section
-        id="open-source"
+        id="long-live-decentralization"
         className="container py-8 md:py-12 lg:py-24 bg-gradient-to-b to-black"
       >
         <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">

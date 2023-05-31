@@ -115,4 +115,17 @@
     -webkit-text-stroke: 4px transparent;
     color: white; /* same as background */
   }
+
+  mux-player {
+    --controls: none;
+    --media-object-fit: cover;
+
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  mux-player::part(gesture-layer) {
+    display: none;
+  }
 }

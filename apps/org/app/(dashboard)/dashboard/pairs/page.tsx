@@ -1,10 +1,11 @@
 // import { Heading } from "@/components/docs/heading"
 import { PairsTable } from "@/components/pairsTable"
 import { SplittersOverview } from "@/components/splittersOverview"
+import { Web3Wrapper } from "@/components/web3-wrapper"
 
 export default function LiveDashboardPage() {
   return (
-    <>
+    <Web3Wrapper>
       <div className="my-16 xl:max-w-none">
         {/* <Heading
           className="not-prose mb-10 mt-12 border-b border-zinc-900/5 text-xl font-semibold text-slate-900 dark:border-white/5 dark:text-slate-100"
@@ -29,6 +30,6 @@ export default function LiveDashboardPage() {
           <SplittersOverview />
         </div>
       </div>
-    </>
+    </Web3Wrapper>
   )
 }

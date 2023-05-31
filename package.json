@@ -30,13 +30,13 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.6.3",
-    "@commitlint/config-conventional": "^17.6.3",
+    "@commitlint/cli": "^17.6.5",
+    "@commitlint/config-conventional": "^17.6.5",
     "@commitlint/types": "^17.4.4",
-    "@ianvs/prettier-plugin-sort-imports": "^3.7.2",
+    "@ianvs/prettier-plugin-sort-imports": "^4.0.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
-    "@types/node": "^20.2.3",
+    "@types/node": "^20.2.5",
     "commitizen": "^4.3.0",
     "eslint": "^8.41.0",
     "eslint-config-custom": "workspace:*",
@@ -45,7 +45,7 @@
     "lint-staged": "^13.2.2",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0",
-    "turbo": "^1.9.9",
+    "turbo": "^1.10.0",
     "vercel": "^30.0.0"
   }
 }
