@@ -12,24 +12,33 @@ import {
 import * as React from "react"
 import Link from "next/link"
 
+import {
+  DocsLinks,
+  LoansLinksEnum,
+  NftsLinkEnum,
+  ProductsLinkEnum,
+  TokenLinksEnum,
+} from "@/lib/types/links"
 import { ModeToggle } from "@/components/mode-toggle"
 
 const navigation = {
   product: [
-    { name: "XChange", href: "/xchange" },
-    { name: "Loans", href: "/loans" },
-    { name: "X7D", href: "/x7d" },
-    { name: "X7R", href: "/x7r" },
-    { name: "X7101", href: "/x7101" },
-    { name: "X7102", href: "/x7102" },
-    { name: "X7103", href: "/x7103" },
-    { name: "X7104", href: "/x7104" },
-    { name: "X7105", href: "/x7105" },
+    { name: "XChange", href: ProductsLinkEnum.Xchange },
+    { name: "Loans", href: LoansLinksEnum.Index },
+    { name: "X7D", href: TokenLinksEnum.X7D },
+    { name: "X7R", href: TokenLinksEnum.X7R },
+    { name: "X7101", href: TokenLinksEnum.X7101 },
+    { name: "X7102", href: TokenLinksEnum.X7102 },
+    { name: "X7103", href: TokenLinksEnum.X7103 },
+    { name: "X7104", href: TokenLinksEnum.X7104 },
+    { name: "X7105", href: TokenLinksEnum.X7105 },
   ],
   explore: [
-    { name: "Whitepaper", href: "/whitepaper" },
-    { name: "Docs", href: "/docs" },
-    { name: "Templates", href: "/templates" },
+    { name: "Whitepaper", href: DocsLinks.Whitepaper },
+    { name: "Docs", href: DocsLinks.Index },
+    { name: "Templates", href: DocsLinks.Templates },
+
+    // need to add these pages
     { name: "Resources", href: "/resources" },
     { name: "Experts", href: "/experts" },
     { name: "Guides", href: "/guides" },
@@ -37,12 +46,12 @@ const navigation = {
   ],
   marketplace: [
     { name: "Loans", href: "/marketplace-loans" },
-    { name: "Pioneers", href: "/pioneers" },
-    { name: "Liquidity Maxi", href: "/liquidity-maxi" },
-    { name: "Borrowing Maxi", href: "/borrowing-maxi" },
-    { name: "DEX Maxi", href: "/dex-maxi" },
-    { name: "Ecosystem Maxi", href: "/ecosystem-maxi" },
-    { name: "Magister", href: "/magister" },
+    { name: "Pioneers", href: NftsLinkEnum.Pioneers },
+    { name: "Liquidity Maxi", href: NftsLinkEnum.LiquidityMaxi },
+    { name: "Borrowing Maxi", href: NftsLinkEnum.BorrowingMaxi },
+    { name: "DEX Maxi", href: NftsLinkEnum.DexMaxi },
+    { name: "Ecosystem Maxi", href: NftsLinkEnum.EcosystemMaxi },
+    { name: "Magister", href: NftsLinkEnum.Magister },
   ],
   community: [
     { name: "DAO", href: "/dao" },
