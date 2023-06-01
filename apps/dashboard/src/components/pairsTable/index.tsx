@@ -2,25 +2,27 @@ import { ContractsEnum } from 'common';
 import { AllPairsLength } from 'contracts';
 import { useEffect, useState } from 'react';
 import { useContractReads, useNetwork } from 'wagmi';
+import { generateWagmiChain } from 'utils';
 
 import { Loading } from '../loading';
 import { Pair } from '../pair';
 
-export function PairsTable() {
+export function PairsTable({ chainId }) {
   const [allPairsLength, setAllPairsLength] = useState(0);
 
-  const { chain } = useNetwork();
   const { data, isLoading } = useContractReads({
     contracts: [
       {
         address: ContractsEnum.XchangeFactory,
         abi: AllPairsLength as any,
         functionName: 'allPairsLength',
+        chainId: generateWagmiChain(chainId),
       },
     ],
   });
 
   const pairsCount = parseInt(data?.[0]?.result?.toString() || '0', 10);
+  console.log('pairsCount', pairsCount);
 
   useEffect(() => {
     setAllPairsLength(pairsCount);
@@ -75,7 +77,7 @@ export function PairsTable() {
             <LoadingLivePair />
           ) : !!allPairsLength ? (
             Array.from({ length: allPairsLength }, (_, idx) => (
-              <Pair key={`${idx}-${chain?.id}`} id={idx} />
+              <Pair key={`${idx}-${chainId}`} id={idx} chainId={chainId} />
             ))
           ) : (
             <tr>

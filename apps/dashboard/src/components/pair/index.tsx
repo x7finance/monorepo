@@ -10,18 +10,16 @@ import {
   generateChainDenomination,
   generateChainIdentifier,
 } from 'utils';
-import { useNetwork } from 'wagmi';
 import { useXchangeTokenData } from '../hooks/useXchangeTokenData';
 
 interface PairsProps {
   id: number;
+  chainId: BlockchainType;
 }
 
-export function Pair({ id }: PairsProps) {
-  const { chain } = useNetwork();
-
+export function Pair({ id, chainId }: PairsProps) {
   const { tokenName, tokenSymbol, tokenContract, tokenReserve, tokenPrice } =
-    useXchangeTokenData(id);
+    useXchangeTokenData(id, chainId);
 
   const clipboard = useClipboard({
     onSuccess() {
@@ -56,7 +54,7 @@ export function Pair({ id }: PairsProps) {
                 <div className="flex flex-shrink-0 space-x-1">
                   <Link
                     href={`https://www.dextools.io/app/en/${generateChainIdentifier(
-                      chain?.id as BlockchainType
+                      chainId as BlockchainType
                     )}/pair-explorer/${tokenContract}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -140,7 +138,7 @@ export function Pair({ id }: PairsProps) {
           <div className="flex flex-shrink-0 space-x-1">
             {tokenReserve ? tokenReserve : 'Awaiting Liquidity...'}
             <span className="pl-1">
-              {generateChainDenomination(chain?.id as BlockchainType)}
+              {generateChainDenomination(chainId as BlockchainType)}
             </span>
           </div>
         </div>
@@ -155,7 +153,7 @@ export function Pair({ id }: PairsProps) {
           <div className="flex flex-shrink-0 space-x-1">
             <Link
               href={`https://www.dextools.io/app/en/${generateChainIdentifier(
-                chain?.id as BlockchainType
+                chainId as BlockchainType
               )}/pair-explorer/${tokenContract}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -174,7 +172,7 @@ export function Pair({ id }: PairsProps) {
         )}
       >
         <Link
-          href={`${generateChainBase(chain?.id ?? 0)}/address/${tokenContract}`}
+          href={`${generateChainBase(chainId ?? 0)}/address/${tokenContract}`}
           target="_blank"
           rel="noopener noreferrer"
           key={`${tokenContract}-${id}-chart`}
