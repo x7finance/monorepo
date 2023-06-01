@@ -6,6 +6,9 @@ import Link from "next/link"
 import toast from "react-hot-toast"
 import { useClipboard } from "use-clipboard-copy"
 
+import { DashboardContainer } from "@/components/dashboard-container"
+import { DashboardSubheader } from "@/components/dashboard-subheader"
+import { DashboardTitle } from "@/components/dashboard-title"
 // import { Heading } from "@/components/docs/heading"
 import { Dropdown } from "@/components/dropdown/contracts"
 
@@ -178,17 +181,13 @@ const xchange = [
 export default function ContractsPage() {
   return (
     <>
-      <div className="my-16 xl:max-w-none">
-        <div className="px-4 sm:px-0">
+      <div className="my-10 xl:max-w-none">
+        <DashboardTitle
+          title="X7 Finance Tokens"
+          secondaryButton={{ text: "Tokens Overview", href: "/tokens" }}
+        />
+        <DashboardContainer>
           <>
-            {/* <Heading
-              className="mb-10 text-xl font-semibold border-b not-prose border-zinc-900/5 text-slate-900 dark:border-white/5 dark:text-slate-100"
-              level={1}
-              id="tokens"
-              subHeader="These are the main tokens powering the X7 Finance ecosystem"
-            > */}
-            X7 Finance Tokens
-            {/* </Heading> */}
             <div className="-mx-4 mt-10 ring-1 ring-zinc-900/7.5 dark:ring-white/10 sm:-mx-6 md:mx-0 md:rounded-2xl">
               <table className="min-w-full divide-y divide-zinc-900/7.5 dark:divide-white/10">
                 <thead>
@@ -346,14 +345,11 @@ export default function ContractsPage() {
           </>
 
           <>
-            {/* <Heading
-              className="mt-24 mb-10 text-xl font-semibold border-b not-prose border-zinc-900/5 text-slate-900 dark:border-white/5 dark:text-slate-100"
-              level={3}
+            <DashboardSubheader
               id="utility"
-              subHeader="Tokens which are utilized to fund and borrow liquidity within the X7 ecosystem"
-            >
-              Utility Tokens
-            </Heading> */}
+              title="Utility Tokens"
+              description="Tokens which are utilized to fund and borrow liquidity within the X7 ecosystem"
+            />
 
             <div className="-mx-4 mt-10 ring-1 ring-zinc-900/7.5 dark:ring-white/10 sm:-mx-6 md:mx-0 md:rounded-2xl">
               <table className="min-w-full divide-y divide-zinc-900/7.5 dark:divide-white/10">
@@ -992,7 +988,7 @@ export default function ContractsPage() {
               </table>
             </div>
           </>
-        </div>
+        </DashboardContainer>
       </div>
     </>
   )

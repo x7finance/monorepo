@@ -7,11 +7,11 @@ import { MobileNavigation } from "./mobile-navigation"
 import { MobileSearch, Search } from "./search-dialog"
 
 const tabs = [
-  { name: "Marketplace", href: "#", current: false },
-  { name: "Documentation", href: "#", current: false },
-  { name: "Contracts", href: "#", current: true },
-  { name: "Loans", href: "#", current: false },
-  { name: "DAO", href: "#", current: false },
+  { name: "Marketplace", href: "/marketplace", current: false },
+  { name: "Documentation", href: "/docs", current: false },
+  { name: "Contracts", href: "/dashboard/contracts", current: true },
+  { name: "Loans", href: "/dashboard/loans", current: false },
+  { name: "DAO", href: "/dashboard/dao", current: false },
 ]
 
 export function DashboardHeader() {
@@ -94,7 +94,7 @@ export function DashboardHeader() {
           <div className="nav-shadow px-6">
             <nav className="-mb-px flex" aria-label="Tabs">
               {tabs.map((tab) => (
-                <a
+                <Link
                   key={tab.name}
                   href={tab.href}
                   className={cn(
@@ -106,7 +106,7 @@ export function DashboardHeader() {
                   aria-current={tab.current ? "page" : undefined}
                 >
                   {tab.name}
-                </a>
+                </Link>
               ))}
             </nav>
           </div>
