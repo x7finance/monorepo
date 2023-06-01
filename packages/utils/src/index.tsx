@@ -9,6 +9,7 @@ export * from "./utils/request"
 export * from "./utils/chainFormatters"
 export * from "./utils/formatNumbers"
 export * from "./utils/formatDate"
+export * from "./utils/generateRandomPioneer"
 
 // hooks
 export * from "./hooks/useLockBody"

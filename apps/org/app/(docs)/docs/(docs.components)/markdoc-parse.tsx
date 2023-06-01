@@ -20,23 +20,27 @@ export type DocsPageProps = {
 }
 
 export async function getMarkdownContent(params: ParamsProps) {
-  const { slug, section = "" } = params
+  try {
+    const { slug, section = "" } = params
 
-  const filePath = path.join(
-    SOURCE_DIR,
-    section,
-    slug ? `${slug}.md` : "index.md"
-  )
+    const filePath = path.join(
+      SOURCE_DIR,
+      section,
+      slug === undefined ? "index.md" : `${slug}.md`
+    )
 
-  const source = fs.readFileSync(filePath, "utf-8")
-  const matterResult = matter(source)
+    const source = fs.readFileSync(filePath, "utf-8")
+    const matterResult = matter(source)
 
-  const { title, tags = [], date } = matterResult.data
-  const ast = Markdoc.parse(source)
-  const content = Markdoc.transform(ast, config)
-  const tableOfContents = collectHeadings(content) ?? []
+    const { title, tags = [], date } = matterResult.data
+    const ast = Markdoc.parse(source)
+    const content = Markdoc.transform(ast, config)
+    const tableOfContents = collectHeadings(content) ?? []
 
-  return { content, title, tags, tableOfContents, date }
+    return { content, title, tags, tableOfContents, date }
+  } catch (error) {
+    return { content: null, title: null, tags: null, tableOfContents: null }
+  }
 }
 
 function getNodeText(node: any) {

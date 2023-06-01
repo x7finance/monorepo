@@ -36,6 +36,7 @@ const nextConfig = {
         : "assets.x7finance.org",
       "mux.com",
       "stream.mux.com",
+      "img.x7.finance",
     ],
   },
   experimental: {

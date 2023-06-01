@@ -56,7 +56,7 @@ function useTableOfContents(tableOfContents: any) {
   //   }
   // }, [getHeadings, tableOfContents])
 
-  return tableOfContents[0]?.id
+  return tableOfContents?.[0]?.id
   // return currentSection
 }
 
@@ -182,7 +182,7 @@ export function DocsBase({
         </div>
         <div className="hidden xl:sticky xl:top-[4.5rem] xl:-mr-6 xl:block xl:h-[calc(100vh-4.5rem)] xl:flex-none xl:overflow-y-auto xl:py-16 xl:pr-6">
           <nav aria-labelledby="on-this-page-title" className="w-56">
-            {tableOfContents.length > 0 && (
+            {tableOfContents?.length > 0 && (
               <>
                 <h2
                   id="on-this-page-title"
@@ -191,7 +191,7 @@ export function DocsBase({
                   On this page
                 </h2>
                 <ol role="list" className="mt-4 space-y-3 text-sm">
-                  {tableOfContents.map((section: any) => (
+                  {tableOfContents?.map((section: any) => (
                     <li key={section.id}>
                       <h3>
                         <Link

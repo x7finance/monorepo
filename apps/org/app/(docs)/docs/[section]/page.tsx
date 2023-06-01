@@ -1,14 +1,15 @@
 import path from "path"
 
 import React from "react"
+import { notFound } from "next/navigation"
 import Markdoc from "@markdoc/markdoc"
 import { glob } from "glob"
 
 import { DocsBase } from "../(docs.components)/base"
 import {
   DocsPageProps,
-  SOURCE_DIR,
   getMarkdownContent,
+  SOURCE_DIR,
 } from "../(docs.components)/markdoc-parse"
 import { components } from "../config.markdoc"
 
@@ -25,6 +26,10 @@ export async function generateStaticParams() {
 export default async function DocsPage({ params }: DocsPageProps) {
   const { content, title, tags, tableOfContents, date } =
     await getMarkdownContent(params)
+
+  if (!content) {
+    notFound()
+  }
 
   return (
     <DocsBase

@@ -50,4 +50,5 @@ export enum DocsLinks {
 
   // need to finish
   Templates = "/docs/templates",
+  Guides = "/docs/guides",
 }

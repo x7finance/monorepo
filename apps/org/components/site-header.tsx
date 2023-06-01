@@ -2,6 +2,7 @@ import { X7LongLogo } from "icons"
 
 import Link from "next/link"
 
+import { DocsLinks } from "@/lib/types/links"
 import { Button } from "@/components/ui/button"
 
 import { MobileNavigation } from "./mobile-navigation"
@@ -40,7 +41,7 @@ export function SiteHeader({ className }: React.HTMLAttributes<HTMLElement>) {
               <li className="flex items-center align-center">
                 <a
                   className=" outline-none rounded-full px-2 py-3 text-sm cursor-pointer text-zinc-800 hover:text-black dark:text-zinc-200 hover:dark:text-white"
-                  href="/docs"
+                  href={DocsLinks.Index}
                 >
                   Docs
                 </a>
@@ -80,7 +81,7 @@ export function SiteHeader({ className }: React.HTMLAttributes<HTMLElement>) {
               <li className="flex items-center align-center">
                 <a
                   className=" outline-none rounded-full px-2 py-3 text-sm cursor-pointer text-zinc-800 hover:text-black dark:text-zinc-200 hover:dark:text-white"
-                  href="/pricing"
+                  href={"/pricing"}
                 >
                   Trade
                 </a>
