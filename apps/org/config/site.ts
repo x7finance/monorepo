@@ -1,3 +1,5 @@
+import { SocialsEnum } from "@/../../packages/common/dist"
+
 import { SiteConfig } from "types"
 
 export const siteConfig: SiteConfig = {
@@ -7,7 +9,7 @@ export const siteConfig: SiteConfig = {
   url: process.env.NODE_ENV === "production" ? "https://www.x7finance.org" : "",
   ogImage: "https://assets.x7finance.org/images/open-graph/background.png",
   links: {
-    twitter: "https://twitter.com/x7_finance",
-    github: "https://github.com/x7finance",
+    twitter: SocialsEnum.twitter,
+    github: SocialsEnum.github,
   },
 }

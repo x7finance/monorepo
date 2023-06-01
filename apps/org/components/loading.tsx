@@ -1,5 +1,5 @@
-import { IconWrapper } from "icons"
 import { cn } from "utils"
+import { IconWrapper } from "icons"
 
 export function Loading({
   size = 6,

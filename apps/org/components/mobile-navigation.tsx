@@ -3,11 +3,12 @@
 import { X7Logo } from "icons"
 
 import Link from "next/link"
+import { cn } from "@/../../packages/utils/dist"
 import { Popover } from "@headlessui/react"
 import { AnimatePresence, motion } from "framer-motion"
 
 import { ModeToggle } from "./mode-toggle"
-import { Button } from "./ui/button"
+import { buttonVariants } from "./ui/button"
 
 function MobileNavLink({ children, ...props }) {
   return (
@@ -69,15 +70,37 @@ export function MobileNavigation({ className }: { className: string }) {
                     </div>
                   </div>
                   <div className="space-y-4">
-                    <MobileNavLink href="#features">Features</MobileNavLink>
-                    <MobileNavLink href="#reviews">Reviews</MobileNavLink>
-                    <MobileNavLink href="#pricing">Pricing</MobileNavLink>
-                    <MobileNavLink href="#faqs">FAQs</MobileNavLink>
+                    <MobileNavLink href="/products">Products</MobileNavLink>
+                    <MobileNavLink href="/marketplace">
+                      Marketplace
+                    </MobileNavLink>
+                    <MobileNavLink href="/tokens">Tokens</MobileNavLink>
+                    <MobileNavLink href="/dao">DAO</MobileNavLink>
                   </div>
                   <div className="mt-8 flex flex-col gap-4 text-black dark:text-white">
                     <ModeToggle />
-                    <Button variant="outline">Read Docs</Button>
-                    <Button>Go To XChange</Button>
+                    <Link
+                      href="/docs"
+                      className={cn(
+                        buttonVariants({
+                          variant: "outline",
+                        })
+                      )}
+                    >
+                      Read Docs
+                    </Link>
+                    <Link
+                      href="https://beta.x7.finance/#/swap"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={cn(
+                        buttonVariants({
+                          variant: "default",
+                        })
+                      )}
+                    >
+                      Go To XChange
+                    </Link>
                   </div>
                 </Popover.Panel>
               </>

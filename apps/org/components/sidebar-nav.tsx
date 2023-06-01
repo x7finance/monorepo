@@ -1,8 +1,9 @@
 "use client"
 
+import { cn } from "utils"
+
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { cn } from "utils"
 
 import { SidebarNavItem } from "types"
 

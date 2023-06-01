@@ -6,6 +6,6 @@
     "dev": "serve src/ --listen 3009"
   },
   "dependencies": {
-    "serve": "14.2.0"
+    "serve": "^14.2.0"
   }
 }

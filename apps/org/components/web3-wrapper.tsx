@@ -3,7 +3,7 @@
 import { providerLinkGenerator } from "utils"
 
 import { ConnectKitProvider } from "connectkit"
-import { WagmiConfig, configureChains, createConfig } from "wagmi"
+import { configureChains, createConfig, WagmiConfig } from "wagmi"
 import { arbitrum, bsc, mainnet, optimism, polygon } from "wagmi/chains"
 import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet"
 import { LedgerConnector } from "wagmi/connectors/ledger"

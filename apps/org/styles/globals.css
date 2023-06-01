@@ -83,10 +83,14 @@
 
   .header-tb-gradient {
     background: linear-gradient(0deg, transparent, white 30%) no-repeat;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
   }
 
   .header-tb-black {
     background: transparent;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
   }
 
   .text-hero {

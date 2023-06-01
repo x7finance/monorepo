@@ -1,11 +1,12 @@
 "use client"
 
-import { Fragment, forwardRef, useEffect, useId, useRef, useState } from "react"
+import { cn } from "utils"
+
+import { forwardRef, Fragment, useEffect, useId, useRef, useState } from "react"
 // import { useRouter } from "next/router"
 import { createAutocomplete } from "@algolia/autocomplete-core"
 import { Dialog, Transition } from "@headlessui/react"
 import Highlighter from "react-highlight-words"
-import { cn } from "utils"
 
 import { Button } from "./ui/button"
 

@@ -1,8 +1,9 @@
+import { cn } from "utils"
+
 import Image from "next/image"
 import Link from "next/link"
-import { Header } from "@radix-ui/react-accordion"
 
-import { Button } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
 
 import { HeaderVideoComponent } from "./components/video"
 
@@ -12,10 +13,28 @@ export default async function IndexPage() {
       <section className="space-y-6 pb-8 md:pb-12">
         <HeaderVideoComponent />
         <div className="pointer-events-none absolute inset-x-0 top-16 sm:flex sm:justify-center sm:px-6 sm:pb-5 lg:px-8">
-          <div className="pointer-events-auto flex items-center announcement-shadow justify-between gap-x-6 bg-black border-gray-900 border px-6 py-3 sm:rounded-xl sm:py-3 sm:pl-4 sm:pr-3.5">
-            <p className="leading-6 text-gray-400">
-              <a href="#">
-                <strong className="font-semibold text-gray-200">
+          <div className="pointer-events-auto flex items-center announcement-shadow justify-between gap-x-6 bg-black border-zinc-900 border px-6 py-3 sm:rounded-xl sm:py-3 sm:pl-4 sm:pr-3.5">
+            <p className="text-zinc-400 tracking-tight">
+              <Link
+                href="https://beta.x7.finance/#/swap"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-4 w-4 inline-block text-zinc-400 mr-2"
+                >
+                  <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+                  <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+                  <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+                  <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+                </svg>
+                <strong className="font-semibold text-zinc-200">
                   X7 has launched on 5 chains
                 </strong>
                 <svg
@@ -27,11 +46,8 @@ export default async function IndexPage() {
                 </svg>
                 Launch with a Leveraged Liquidity Loan{` `}
                 <span aria-hidden="true">&rarr;</span>
-              </a>
+              </Link>
             </p>
-            <button type="button" className="-m-1.5 flex-none p-1.5">
-              <span className="sr-only">Dismiss</span>
-            </button>
           </div>
         </div>
         <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center relative">
@@ -67,25 +83,32 @@ export default async function IndexPage() {
               />
             </span>
           </h1>
-          <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8 bg-transparent">
-            {/* I&apos;m building a web app with Next.js 13 and open sourcing
-            everything. Follow along as we figure this out together. */}
-          </p>
+          <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8 bg-transparent"></p>
           <div className="space-x-4">
-            <Button size={"lg"} variant={"border"} className="text-md">
-              Read Docs
-            </Button>
-            <a
-              href="#"
-              className="animate-background inline-block rounded-md bg-gray-900 from-purple-500 via-red-500 to-yellow-500 hover:bg-none bg-[length:400%_400%] p-0.5 [animation-duration:_6s] bg-gradient-to-r dark:bg-black"
+            <Link
+              href="/"
+              className={cn(
+                buttonVariants({
+                  variant: "border",
+                  size: "lg",
+                }),
+                "text-md"
+              )}
             >
-              <span className="flex items-center bg-white px-8 rounded-md py-2 text-md font-medium text-gray-900 dark:bg-black dark:text-white hover:bg-gradient-to-tr hover:from-purple-500 hover:via-purple-800 hover:to-red-500">
+              Read Docs
+            </Link>
+            <Link
+              href="https://beta.x7.finance/#/swap"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="animate-background inline-block rounded-md bg-zinc-900 from-[#23094f] via-[#b74e4c] to-yellow-500 hover:bg-none bg-[length:400%_400%] p-[0.175rem] [animation-duration:_6s] bg-gradient-to-r dark:bg-black"
+            >
+              <span className="flex items-center bg-white px-8 rounded-md py-2 text-md font-medium text-zinc-900 dark:bg-black dark:text-white hover:bg-gradient-to-tr hover:from-purple-500 hover:text-white hover:via-purple-800 hover:to-red-500">
                 Enter{" "}
                 <svg
                   className="w-20 pl-1 pr-2"
                   viewBox="0 0 642 166"
                   fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M168.999 3.79239L48.5871 165.601H0V161.809L95.7658 31.9193H73.9369L47.5308 66.0509L0.704161 5.05652V0H168.999V3.79239Z"
@@ -123,7 +146,7 @@ export default async function IndexPage() {
                 {` `}
                 <span aria-hidden="true">&rarr;</span>
               </span>
-            </a>
+            </Link>
           </div>
         </div>
       </section>

@@ -1,5 +1,6 @@
 import { Heading } from "@/components/heading"
 import { SiteContentContainer } from "@/components/site-content-container"
+import { UnderConstruction } from "@/components/under-construction"
 
 export default function GettingStartedPage() {
   return (
@@ -11,7 +12,7 @@ export default function GettingStartedPage() {
       />
       <SiteContentContainer>
         <div className="pt-10 mt-4 border-t border-zinc-900/5 dark:border-white/5">
-          here is the content
+          <UnderConstruction />
         </div>
       </SiteContentContainer>
     </div>
