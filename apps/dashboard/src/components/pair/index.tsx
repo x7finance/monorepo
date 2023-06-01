@@ -172,7 +172,7 @@ export function Pair({ id, chainId }: PairsProps) {
         )}
       >
         <Link
-          href={`${generateChainBase(chainId ?? 0)}/address/${tokenContract}`}
+          href={`${generateChainBase(chainId)}/address/${tokenContract}`}
           target="_blank"
           rel="noopener noreferrer"
           key={`${tokenContract}-${id}-chart`}
