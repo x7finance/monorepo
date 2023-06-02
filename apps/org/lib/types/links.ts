@@ -1,12 +1,13 @@
 // /community
 // /dashboard
 
-export enum DashboardNavEnum {
+export enum DashboardLinksEnum {
   DAO = "/dashboard/dao",
   Loans = "/dashboard/loans",
   Nfts = "/dashboard/nfts",
   Pairs = "/dashboard/pairs",
   Contracts = "/dashboard/contracts",
+  Marketplace = "/dashboard/marketplace",
 }
 
 export enum TokenLinksEnum {

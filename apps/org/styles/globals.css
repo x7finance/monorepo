@@ -132,4 +132,21 @@
   mux-player::part(gesture-layer) {
     display: none;
   }
+
+  /*To remove button from IE11, thank you Matt */
+  select::-ms-expand {
+    @apply hidden;
+  }
+
+  .tab-nav-select:after {
+    content: "<>";
+    font: 17px "Consolas", monospace;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    /*Adjust for position however you want*/
+
+    @apply absolute pointer-events-none top-[17px] right-[11px] pt-0 px-0 pb-1;
+  }
 }

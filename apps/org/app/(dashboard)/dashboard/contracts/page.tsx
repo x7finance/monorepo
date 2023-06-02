@@ -183,7 +183,7 @@ export default function ContractsPage() {
     <>
       <div className="my-10 xl:max-w-none">
         <DashboardTitle
-          title="X7 Finance Tokens"
+          title="X7 Finance Token Contracts"
           secondaryButton={{ text: "Tokens Overview", href: "/tokens" }}
         />
         <DashboardContainer>

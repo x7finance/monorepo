@@ -8,7 +8,7 @@ import { Button } from "./ui/button"
 
 export function ConnectionComponent() {
   return (
-    <div className="fixed top-0 right-0 z-20 sm:p-2.5">
+    <div className="fixed top-2.5 right-28 sm:right-0 sm:top-0 z-20 sm:p-2.5">
       <ConnectKitButton.Custom>
         {({ isConnected, isConnecting, show, address, ensName }) => {
           return isConnected ? (

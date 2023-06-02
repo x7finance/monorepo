@@ -5,9 +5,15 @@ import Link from "next/link"
 
 import { buttonVariants } from "./ui/button"
 
-export function UnderConstruction() {
+interface ConstructionProps {
+  description?: string
+}
+
+export function UnderConstruction(props: ConstructionProps) {
+  const { description } = props
+
   return (
-    <div className="isolate min-h-screen">
+    <div className="isolate min-h-screen relative z-0">
       <div className="flow-root pb-16 lg:pb-0">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="relative">
@@ -30,7 +36,7 @@ export function UnderConstruction() {
                       </div>
                     </div>
                     <div className="mx-auto mt-10 max-w-lg lg:col-start-3 lg:col-end-6 lg:row-start-1 lg:row-end-4 lg:mx-0 lg:mt-0 lg:max-w-none">
-                      <div className="relative z-10 rounded-lg shadow-xl">
+                      <div className="relative z-[1] rounded-lg shadow-xl">
                         <div
                           className="pointer-events-none absolute inset-0 rounded-lg border-2 border-indigo-600 border-opacity-60"
                           aria-hidden="true"
@@ -53,10 +59,12 @@ export function UnderConstruction() {
                         <div className="rounded-b-lg border-t-2 border-zinc-100  px-6 pb-8 pt-6 sm:px-10 ">
                           <div>
                             <p className="text-center mt-2 mb-4 text-zinc-700 dark:text-zinc-300">
-                              Pioneers are hard at work to provide the best
+                              {description
+                                ? description
+                                : `Pioneers are hard at work to provide the best
                               information and experience for users looking to
                               utilize the most powerful and decentralized DEX on
-                              the market today.
+                              the market today.`}
                             </p>
                           </div>
                           <Link

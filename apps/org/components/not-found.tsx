@@ -32,7 +32,9 @@ const links = [
 export function NotFoundContent() {
   return (
     <main className="mx-auto w-full max-w-7xl px-6 pb-16 pt-10 sm:pb-24 lg:px-8">
-      <X7Logo className="mx-auto h-10 w-auto sm:h-16 fill-black dark:fill-white " />
+      <Link href="/">
+        <X7Logo className="mx-auto h-10 w-auto sm:h-16 fill-black dark:fill-white " />
+      </Link>
       <div className="mx-auto mt-20 max-w-2xl text-center sm:mt-24">
         <p className="text-base font-semibold leading-8 text-indigo-600 dark:text-indigo-500">
           404

@@ -7,6 +7,8 @@ import { cn } from "@/../../packages/utils/dist"
 import { Popover } from "@headlessui/react"
 import { AnimatePresence, motion } from "framer-motion"
 
+import { DashboardLinksEnum } from "@/lib/types/links"
+
 import { ModeToggle } from "./mode-toggle"
 import { buttonVariants } from "./ui/button"
 
@@ -29,7 +31,7 @@ export function MobileNavigation({ className }: { className: string }) {
       {({ open }) => (
         <>
           <Popover.Button
-            className="relative z-10 -m-2 inline-flex items-center rounded-lg stroke-zinc-900 border-zinc-600 border dark:stroke-zinc-100 p-2 hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 hover:stroke-zinc-600 dark:hover:stroke-zinc-500 active:stroke-zinc-900 dark:active:stroke-zinc-100 [&:not(:focus-visible)]:focus:outline-none"
+            className="relative z-10 -m-2 top-1 inline-flex items-center rounded-lg stroke-zinc-900 border-zinc-600 border dark:stroke-zinc-100 p-2 hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 hover:stroke-zinc-600 dark:hover:stroke-zinc-500 active:stroke-zinc-900 dark:active:stroke-zinc-100 [&:not(:focus-visible)]:focus:outline-none"
             aria-label="Toggle site navigation"
           >
             {({ open }) =>
@@ -71,11 +73,15 @@ export function MobileNavigation({ className }: { className: string }) {
                   </div>
                   <div className="space-y-4">
                     <MobileNavLink href="/products">Products</MobileNavLink>
-                    <MobileNavLink href="/marketplace">
+                    <MobileNavLink href={DashboardLinksEnum.Marketplace}>
                       Marketplace
                     </MobileNavLink>
-                    <MobileNavLink href="/tokens">Tokens</MobileNavLink>
-                    <MobileNavLink href="/dao">DAO</MobileNavLink>
+                    <MobileNavLink href={DashboardLinksEnum.Contracts}>
+                      Tokens
+                    </MobileNavLink>
+                    <MobileNavLink href={DashboardLinksEnum.DAO}>
+                      DAO
+                    </MobileNavLink>
                   </div>
                   <div className="mt-8 flex flex-col gap-4 text-black dark:text-white">
                     <ModeToggle />

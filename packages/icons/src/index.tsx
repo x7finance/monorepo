@@ -12,7 +12,7 @@ export * from "./svgs/reddit"
 
 export * from "./svgs/megaphone"
 export * from "./svgs/media"
-
+export * from "./svgs/xchange"
 export * from "./svgs/x7"
 export * from "./svgs/x7-long-logo"
 

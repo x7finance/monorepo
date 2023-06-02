@@ -15,6 +15,8 @@ import { infuraProvider } from "wagmi/providers/infura"
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc"
 import { publicProvider } from "wagmi/providers/public"
 
+import { ConnectionComponent } from "@/components/connect-button"
+
 interface Web3WrapperProps {
   children: React.ReactNode
 }
@@ -103,6 +105,7 @@ export function Web3Wrapper(props: Web3WrapperProps) {
           initialChainId: 0,
         }}
       >
+        <ConnectionComponent />
         {props?.children}
       </ConnectKitProvider>
     </WagmiConfig>
