@@ -51,7 +51,7 @@ export function DashboardTabNavigation() {
                   pathname.startsWith(tab.href)
                     ? "dark:border-white dark:text-white text-black border-black"
                     : "border-transparent dark:text-zinc-400/80 text-zinc-600/80 dark:hover:border-zinc-300 hover:border-black",
-                  "whitespace-nowrap border-b-2 relative inline-block text-sm transition-colors duration-200 ease-in-out cursor-pointer px-3 dark:hover:bg-zinc-800 hover:bg-zinc-200 dark:hover:text-white hover:text-black py-2 rounded-t-md"
+                  "whitespace-nowrap border-b-2 relative inline-block text-sm transition-colors duration-200 ease-in-out cursor-pointer px-3 dark:hover:bg-zinc-800 hover:bg-zinc-100 dark:hover:text-white hover:text-black py-2 rounded-t-md"
                 )}
                 aria-current={
                   pathname.startsWith(tab.href) ? "page" : undefined

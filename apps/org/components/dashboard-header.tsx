@@ -8,7 +8,7 @@ import { CommunityLinks } from "@/lib/types/links"
 
 import { DashboardTabNavigation } from "./dashboard-tab-nav"
 import { MobileNavigation } from "./mobile-navigation"
-import { MobileSearch, Search } from "./search-dialog"
+import { Search } from "./search-dialog"
 
 export function DashboardHeader() {
   return (
@@ -52,7 +52,7 @@ export function DashboardHeader() {
                 <div className="hidden lg:block md:h-5 md:w-px md:bg-zinc-900/10 md:dark:bg-white/15" />
                 <div className="hidden md:block w-32" />
                 <div className="flex sm:hidden mr-6">
-                  <MobileSearch />
+                  <Search isMobile={true} />
                 </div>
                 <MobileNavigation className="sm:hidden" />
               </div>
