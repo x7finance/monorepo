@@ -8,6 +8,19 @@ import { Navigation } from './navigation';
 
 const onchainsNavigation = [
   {
+    title: 'June 2023',
+    links: [
+      {
+        title: 'June-03-2023-081923-AM',
+        href: '/onchains/910-june-03-2023-081923-am-+utc',
+      },
+      {
+        title: 'June-03-2023-025411-AM',
+        href: '/onchains/911-june-03-2023-025411-am-+utc',
+      },
+    ],
+  },
+  {
     title: 'May 2023',
     links: [
       {
