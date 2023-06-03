@@ -1,12 +1,29 @@
-import { CheckCircleIcon, X7Logo } from "icons"
 import { cn } from "utils"
+import { CheckCircleIcon, X7Logo } from "icons"
 
+import { DocsLinks } from "@/lib/types/links"
 import { Button } from "@/components/ui/button"
+import { DashboardContainer } from "@/components/dashboard-container"
+import { DashboardTitle } from "@/components/dashboard-title"
 
-export default function DashboardPage() {
+export default function LoansPage() {
   return (
-    <div className="my-16 xl:max-w-none">
-      <InitialLiquidityLoans />
+    <div className="my-10 xl:max-w-none">
+      <DashboardTitle
+        title="Initial Liquidity Loans"
+        subHeader="These are the options X7 Finance is going to market with for initial
+        liquidity. You also have the option to launch a non leveraged pair
+        on Xchange at any point."
+        secondaryButton={{ text: "Integration", href: DocsLinks.Integrating }}
+      />
+
+      <DashboardContainer>
+        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 items-start gap-x-8 gap-y-10 sm:mt-20 lg:max-w-none lg:grid-cols-3">
+          {loans.map((plan) => (
+            <Loan key={plan.name} {...plan} />
+          ))}
+        </div>
+      </DashboardContainer>
     </div>
   )
 }
@@ -154,48 +171,5 @@ function Loan({
         {button.label}
       </Button>
     </section>
-  )
-}
-
-function InitialLiquidityLoans() {
-  return (
-    <section id="loans" aria-labelledby="loans-title">
-      <Container>
-        <div className="mx-auto max-w-2xl text-center">
-          <h2
-            id="loan-title"
-            className="text-3xl font-medium tracking-tight text-slate-900 dark:text-slate-100"
-          >
-            Initial Liquidity Loans
-          </h2>
-          <p className="mt-2 text-lg text-slate-600 dark:text-slate-400">
-            These are the options X7 Finance is going to market with for initial
-            liquidity. You also have the option to launch a non leveraged pair
-            on Xchange at any point.
-          </p>
-        </div>
-
-        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 items-start gap-x-8 gap-y-10 sm:mt-20 lg:max-w-none lg:grid-cols-3">
-          {loans.map((plan) => (
-            <Loan key={plan.name} {...plan} />
-          ))}
-        </div>
-      </Container>
-    </section>
-  )
-}
-
-function Container({
-  className,
-  ...props
-}: {
-  className?: string
-  children: JSX.Element | JSX.Element[]
-}) {
-  return (
-    <div
-      className={cn("mx-auto max-w-7xl px-4 sm:px-6 lg:px-8", className)}
-      {...props}
-    />
   )
 }

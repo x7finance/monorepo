@@ -1,6 +1,6 @@
 export const WBNB = "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"
 export const WETH = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
-export const XCHANGE = "https://app.x7.finance"
+export const XCHANGE = "https://beta.x7.finance"
 
 export const MigrationContract = "0x710515Bf543fDb6834144F9269BBf0D1d32B1702"
 

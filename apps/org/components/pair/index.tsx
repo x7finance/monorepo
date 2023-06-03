@@ -1,14 +1,15 @@
-import Link from "next/link"
 import { BlockchainType } from "common"
-import { ClipboardDocumentIcon, IconWrapper } from "icons"
-import toast from "react-hot-toast"
-import { useClipboard } from "use-clipboard-copy"
 import {
   cn,
   generateChainBase,
   generateChainDenomination,
   generateChainIdentifier,
 } from "utils"
+import { ClipboardDocumentIcon, IconWrapper } from "icons"
+
+import Link from "next/link"
+import toast from "react-hot-toast"
+import { useClipboard } from "use-clipboard-copy"
 import { useNetwork } from "wagmi"
 
 import { useXchangeTokenData } from "@/lib/hooks/useXchangeTokenData"
@@ -191,7 +192,7 @@ export function Pair({ id }: PairsProps) {
       >
         <div className="flex w-full justify-center">
           <Link
-            href={`https://app.x7.finance/#/swap?outputCurrency=${tokenContract}`}
+            href={`https://beta.x7.finance/#/swap?outputCurrency=${tokenContract}`}
             target="_blank"
             rel="noopener noreferrer"
             key={`${tokenContract}-${id}-chart`}

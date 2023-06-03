@@ -1,5 +1,5 @@
 import { Fragment } from "react"
-import Highlight, { Language, defaultProps } from "prism-react-renderer"
+import Highlight, { defaultProps, Language } from "prism-react-renderer"
 
 export function Fence({
   children,
@@ -9,7 +9,6 @@ export function Fence({
   language: Language
 }) {
   return (
-    // @ts-expect-error
     <Highlight
       {...defaultProps}
       code={children.trimEnd()}

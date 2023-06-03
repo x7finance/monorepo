@@ -94,7 +94,7 @@ export async function GET(req: Request) {
               tw="flex text-xl"
               style={{ fontFamily: "Inter", fontWeight: "normal" }}
             >
-              app.x7.finance
+              beta.x7.finance
             </div>
             <div
               tw="flex items-center text-xl"

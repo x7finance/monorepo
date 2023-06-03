@@ -2,6 +2,9 @@ import { cn } from "utils"
 import { X7Logo } from "icons"
 
 import Link from "next/link"
+import { X7LinksEnum } from "@/../../packages/common/dist"
+
+import { CommunityLinks } from "@/lib/types/links"
 
 import { DashboardTabNavigation } from "./dashboard-tab-nav"
 import { MobileNavigation } from "./mobile-navigation"
@@ -28,7 +31,7 @@ export function DashboardHeader() {
                   <ul role="list" className="flex items-center gap-8">
                     <li>
                       <Link
-                        href={""}
+                        href={CommunityLinks.Support}
                         className="text-sm leading-5 text-zinc-600 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
                       >
                         Support
@@ -36,7 +39,9 @@ export function DashboardHeader() {
                     </li>
                     <li>
                       <Link
-                        href={""}
+                        href={X7LinksEnum.XChange}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="text-sm leading-5 text-zinc-600 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
                       >
                         XChange

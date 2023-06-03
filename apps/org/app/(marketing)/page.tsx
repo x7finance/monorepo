@@ -1,9 +1,11 @@
+import { X7LinksEnum } from "common"
 import { cn } from "utils"
 import { XChange } from "icons"
 
 import Image from "next/image"
 import Link from "next/link"
 
+import { DocsLinks } from "@/lib/types/links"
 import { buttonVariants } from "@/components/ui/button"
 
 import { HeaderVideoComponent } from "./components/video"
@@ -17,7 +19,7 @@ export default async function IndexPage() {
           <div className="pointer-events-auto flex items-center announcement-shadow justify-between gap-x-6 bg-black border-zinc-900 border px-6 py-3 sm:rounded-xl sm:py-3 sm:pl-4 sm:pr-3.5">
             <p className="text-zinc-400 tracking-tight">
               <Link
-                href="https://beta.x7.finance/#/swap"
+                href={X7LinksEnum.XChange}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -87,7 +89,7 @@ export default async function IndexPage() {
           <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8 bg-transparent"></p>
           <div className="space-x-4">
             <Link
-              href="/"
+              href={DocsLinks.Index}
               className={cn(
                 buttonVariants({
                   variant: "border",
@@ -99,7 +101,7 @@ export default async function IndexPage() {
               Read Docs
             </Link>
             <Link
-              href="https://beta.x7.finance/#/swap"
+              href={X7LinksEnum.XChange}
               target="_blank"
               rel="noopener noreferrer"
               className="animate-background inline-block rounded-md bg-zinc-900 from-[#23094f] via-[#b74e4c] to-yellow-500 hover:bg-none bg-[length:400%_400%] p-[0.175rem] [animation-duration:_6s] bg-gradient-to-r dark:bg-black"

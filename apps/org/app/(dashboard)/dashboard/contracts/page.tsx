@@ -1,15 +1,13 @@
 import { BlockchainType, ContractsEnum } from "common"
 import { cn, generateChainIdentifier } from "utils"
-import { ChainsArray, ClipboardDocumentIcon } from "icons"
+import { ChainsArray } from "icons"
 
 import Link from "next/link"
-import toast from "react-hot-toast"
-import { useClipboard } from "use-clipboard-copy"
 
+import { TokenLinksEnum } from "@/lib/types/links"
 import { DashboardContainer } from "@/components/dashboard-container"
 import { DashboardSubheader } from "@/components/dashboard-subheader"
 import { DashboardTitle } from "@/components/dashboard-title"
-// import { Heading } from "@/components/docs/heading"
 import { Dropdown } from "@/components/dropdown/contracts"
 
 import { ContractCopy } from "./components/contractCopy"
@@ -184,7 +182,10 @@ export default function ContractsPage() {
       <div className="my-10 xl:max-w-none">
         <DashboardTitle
           title="X7 Finance Token Contracts"
-          secondaryButton={{ text: "Tokens Overview", href: "/tokens" }}
+          secondaryButton={{
+            text: "Tokens Overview",
+            href: TokenLinksEnum.Index,
+          }}
         />
         <DashboardContainer>
           <>
@@ -435,15 +436,11 @@ export default function ContractsPage() {
           </>
 
           <>
-            {/* <Heading
-              className="mt-24 mb-10 text-xl font-semibold border-b not-prose border-zinc-900/5 text-slate-900 dark:border-white/5 dark:text-slate-100"
-              level={3}
+            <DashboardSubheader
               id="liquidity"
-              subHeader="Manages liquidity for a token within the X7 Finance ecosystem"
-            >
-              Liquidity Hubs
-            </Heading> */}
-
+              title="Liquidity Hubs"
+              description="Manages liquidity for a token within the X7 Finance ecosystem"
+            />
             <div className="-mx-4 mt-10 ring-1 ring-zinc-900/7.5 dark:ring-white/10 sm:-mx-6 md:mx-0 md:rounded-2xl">
               <table className="min-w-full divide-y divide-zinc-900/7.5 dark:divide-white/10">
                 <thead>
@@ -527,15 +524,11 @@ export default function ContractsPage() {
           </>
 
           <>
-            {/* <Heading
-              className="mt-24 mb-10 text-xl font-semibold border-b not-prose border-zinc-900/5 text-slate-900 dark:border-white/5 dark:text-slate-100"
-              level={3}
+            <DashboardSubheader
               id="discount"
-              subHeader="Ensures discounts provided by X7 Utility NFT's are valid and applied appropriately."
-            >
-              Discount Authorities
-            </Heading> */}
-
+              title="Discount Authorities"
+              description="Ensures discounts provided by X7 Utility NFT's are valid and applied appropriately."
+            />
             <div className="-mx-4 mt-10 ring-1 ring-zinc-900/7.5 dark:ring-white/10 sm:-mx-6 md:mx-0 md:rounded-2xl">
               <table className="min-w-full divide-y divide-zinc-900/7.5 dark:divide-white/10">
                 <thead>
@@ -620,15 +613,11 @@ export default function ContractsPage() {
           </>
 
           <>
-            {/* <Heading
-              className="mt-24 mb-10 text-xl font-semibold border-b not-prose border-zinc-900/5 text-slate-900 dark:border-white/5 dark:text-slate-100"
-              level={3}
+            <DashboardSubheader
               id="splitter"
-              subHeader="Moves a portion of the fees to different smart contracts within the X7 Ecosystem"
-            >
-              Ecosystem Splitters
-            </Heading> */}
-
+              title="Ecosystem Splitters"
+              description="Moves a portion of the fees to different smart contracts within the X7 Ecosystem"
+            />
             <div className="-mx-4 mt-10 ring-1 ring-zinc-900/7.5 dark:ring-white/10 sm:-mx-6 md:mx-0 md:rounded-2xl">
               <table className="min-w-full divide-y divide-zinc-900/7.5 dark:divide-white/10">
                 <thead>
@@ -713,15 +702,11 @@ export default function ContractsPage() {
           </>
 
           <>
-            {/* <Heading
-              className="mt-24 mb-10 text-xl font-semibold border-b not-prose border-zinc-900/5 text-slate-900 dark:border-white/5 dark:text-slate-100"
-              level={3}
+            <DashboardSubheader
               id="xchange"
-              subHeader="Key contracts that allow tokens to be traded on Xchange"
-            >
-              Xchange Smart Contracts
-            </Heading> */}
-
+              title="Xchange Smart Contracts"
+              description="Key contracts that allow tokens to be traded on Xchange"
+            />
             <div className="-mx-4 mt-10 ring-1 ring-zinc-900/7.5 dark:ring-white/10 sm:-mx-6 md:mx-0 md:rounded-2xl">
               <table className="min-w-full divide-y divide-zinc-900/7.5 dark:divide-white/10">
                 <thead>
@@ -806,14 +791,10 @@ export default function ContractsPage() {
           </>
 
           <>
-            {/* <Heading
-              className="mt-24 mb-10 text-xl font-semibold border-b not-prose border-zinc-900/5 text-slate-900 dark:border-white/5 dark:text-slate-100"
-              level={3}
+            <DashboardSubheader
               id="misc"
-            >
-              Miscellaneous Smart Contracts
-            </Heading> */}
-
+              title="Miscellaneous Smart Contracts"
+            />
             <div className="-mx-4 mt-10 ring-1 ring-zinc-900/7.5 dark:ring-white/10 sm:-mx-6 md:mx-0 md:rounded-2xl">
               <table className="min-w-full divide-y divide-zinc-900/7.5 dark:divide-white/10">
                 <thead>
@@ -897,15 +878,11 @@ export default function ContractsPage() {
             </div>
           </>
           <>
-            {/* <Heading
-              className="mt-24 mb-10 text-xl font-semibold border-b not-prose border-zinc-900/5 text-slate-900 dark:border-white/5 dark:text-slate-100"
-              level={1}
+            <DashboardSubheader
               id="intliq"
-              subHeader="Responsbile for handling token liquidity prior to token launch"
-            >
-              Initial Liquiidty Time Lock Contracts
-            </Heading> */}
-
+              title="Initial Liquiidty Time Lock Contracts"
+              description="Responsbile for handling token liquidity prior to token launch"
+            />
             <div className="-mx-4 mt-10  ring-1 ring-zinc-900/7.5 dark:ring-white/10 sm:-mx-6 md:mx-0 md:rounded-2xl">
               <table className="min-w-full divide-y divide-zinc-900/7.5 dark:divide-white/10">
                 <thead>

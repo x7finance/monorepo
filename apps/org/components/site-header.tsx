@@ -2,8 +2,14 @@ import { cn } from "utils"
 import { X7LongLogo, XChange } from "icons"
 
 import Link from "next/link"
+import { X7LinksEnum } from "@/../../packages/common/dist"
 
-import { DocsLinks } from "@/lib/types/links"
+import {
+  DashboardLinksEnum,
+  DocsLinks,
+  ProductsLinkEnum,
+  TokenLinksEnum,
+} from "@/lib/types/links"
 import { buttonVariants } from "@/components/ui/button"
 
 import { MobileNavigation } from "./mobile-navigation"
@@ -32,60 +38,62 @@ export function SiteHeader({ className }: React.HTMLAttributes<HTMLElement>) {
               dir="ltr"
             >
               <li className="flex items-center align-center">
-                <a
+                <Link
                   className="outline-none rounded-full px-2 py-3 text-sm cursor-pointer text-zinc-800 hover:text-black dark:text-white"
-                  href="/docs"
+                  href={ProductsLinkEnum.Index}
                 >
                   Products
-                </a>
+                </Link>
               </li>
               <li className="flex items-center align-center">
-                <a
-                  className=" outline-none rounded-full px-2 py-3 text-sm cursor-pointer text-zinc-800 hover:text-black dark:text-zinc-200 hover:dark:text-white"
+                <Link
+                  className="outline-none rounded-full px-2 py-3 text-sm cursor-pointer text-zinc-800 hover:text-black dark:text-zinc-200 hover:dark:text-white"
                   href={DocsLinks.Index}
                 >
                   Docs
-                </a>
+                </Link>
               </li>
               <li className="flex items-center align-center">
-                <a
-                  className=" outline-none rounded-full px-2 py-3 text-sm cursor-pointer text-zinc-800 hover:text-black dark:text-zinc-200 hover:dark:text-white"
-                  href="/templates"
+                <Link
+                  className="outline-none rounded-full px-2 py-3 text-sm cursor-pointer text-zinc-800 hover:text-black dark:text-zinc-200 hover:dark:text-white"
+                  href={DocsLinks.Templates}
                 >
                   Examples
-                </a>
+                </Link>
               </li>
               <li className="flex items-center align-center">
-                <a
-                  className=" outline-none rounded-full px-2 py-3 text-sm cursor-pointer text-zinc-800 hover:text-black dark:text-zinc-200 hover:dark:text-white"
-                  href="/integrations"
+                <Link
+                  className="outline-none rounded-full px-2 py-3 text-sm cursor-pointer text-zinc-800 hover:text-black dark:text-zinc-200 hover:dark:text-white"
+                  href={DashboardLinksEnum.Marketplace}
                 >
                   Marketplace
-                </a>
+                </Link>
               </li>
               <li className="flex items-center align-center">
-                <a
-                  className=" outline-none rounded-full px-2 py-3 text-sm cursor-pointer text-zinc-800 hover:text-black dark:text-zinc-200 hover:dark:text-white"
-                  href="/customers"
+                <Link
+                  className="outline-none rounded-full px-2 py-3 text-sm cursor-pointer text-zinc-800 hover:text-black dark:text-zinc-200 hover:dark:text-white"
+                  href={TokenLinksEnum.Index}
                 >
                   Tokens
-                </a>
+                </Link>
               </li>
               <li className="flex items-center align-center">
-                <a
-                  className=" outline-none rounded-full px-2 py-3 text-sm cursor-pointer text-zinc-800 hover:text-black dark:text-zinc-200 hover:dark:text-white"
-                  href="/enterprise"
+                <Link
+                  className="outline-none rounded-full px-2 py-3 text-sm cursor-pointer text-zinc-800 hover:text-black dark:text-zinc-200 hover:dark:text-white"
+                  href={DashboardLinksEnum.DAO}
                 >
                   DAO
-                </a>
+                </Link>
               </li>
               <li className="flex items-center align-center">
-                <a
-                  className=" outline-none rounded-full px-2 py-3 text-sm cursor-pointer text-zinc-800 hover:text-black dark:text-zinc-200 hover:dark:text-white"
-                  href={"/pricing"}
+                <Link
+                  className="outline-none rounded-full px-2 py-3 text-sm cursor-pointer text-zinc-800 hover:text-black dark:text-zinc-200 hover:dark:text-white"
+                  href={X7LinksEnum.XChange}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   Trade
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -99,7 +107,7 @@ export function SiteHeader({ className }: React.HTMLAttributes<HTMLElement>) {
         <div className="ml-auto">
           <div className="flex items-center text-sm w-full gap-2">
             <Link
-              href="https://beta.x7.finance/#/swap"
+              href={X7LinksEnum.XChange}
               target="_blank"
               rel="noopener noreferrer"
               className={cn(

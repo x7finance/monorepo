@@ -8,7 +8,7 @@ export default function DAOPage() {
     <div className="my-10 xl:max-w-none">
       <DashboardTitle
         title="X7 DAO"
-        secondaryButton={{ text: "Tokens Overview", href: "/tokens" }}
+        primaryButton={{ text: "DAO Overview", href: "/docs/whitepaper/dao" }}
       />
       <Web3Wrapper>
         <DashboardContainer>

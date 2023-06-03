@@ -13,6 +13,8 @@ import * as React from "react"
 import Link from "next/link"
 
 import {
+  CommunityLinks,
+  DashboardLinksEnum,
   DocsLinks,
   LoansLinksEnum,
   NftsLinkEnum,
@@ -24,7 +26,6 @@ import { ModeToggle } from "@/components/mode-toggle"
 const navigation = {
   product: [
     { name: "XChange", href: ProductsLinkEnum.Xchange },
-    { name: "Loans", href: LoansLinksEnum.Index },
     { name: "X7D", href: TokenLinksEnum.X7D },
     { name: "X7R", href: TokenLinksEnum.X7R },
     { name: "X7101", href: TokenLinksEnum.X7101 },
@@ -39,13 +40,13 @@ const navigation = {
     { name: "Templates", href: DocsLinks.Templates },
 
     // need to add these pages
-    { name: "Resources", href: "/resources" },
-    { name: "Experts", href: "/experts" },
-    { name: "Guides", href: "/guides" },
-    { name: "FAQs", href: "/faqs" },
+    { name: "Integration", href: DocsLinks.Integrating },
+    { name: "Guides", href: DocsLinks.Guides },
+    { name: "FAQs", href: DocsLinks.FAQ },
+    { name: "Community", href: CommunityLinks.Index },
   ],
   marketplace: [
-    { name: "Loans", href: "/marketplace-loans" },
+    { name: "Loans", href: LoansLinksEnum.Index },
     { name: "Pioneers", href: NftsLinkEnum.Pioneers },
     { name: "Liquidity Maxi", href: NftsLinkEnum.LiquidityMaxi },
     { name: "Borrowing Maxi", href: NftsLinkEnum.BorrowingMaxi },
@@ -54,8 +55,8 @@ const navigation = {
     { name: "Magister", href: NftsLinkEnum.Magister },
   ],
   community: [
-    { name: "DAO", href: "/dao" },
-    { name: "On-Chains", href: "/on-chains" },
+    { name: "DAO", href: DashboardLinksEnum.DAO },
+    { name: "On-Chains", href: DocsLinks.Onchains },
     { name: "Telegram", href: SocialsEnum.telegram },
     { name: "Twitter", href: SocialsEnum.twitter },
     { name: "Discord", href: SocialsEnum.discord },
@@ -119,12 +120,12 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
                 <ul role="list" className="mt-4 space-y-4">
                   {navigation.product.map((item) => (
                     <li key={item.name}>
-                      <a
+                      <Link
                         href={item.href}
                         className="text-sm text-gray-700 hover:text-black dark:text-gray-300 dark:hover:text-white"
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -136,12 +137,12 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
                 <ul role="list" className="mt-4 space-y-4">
                   {navigation.explore.map((item) => (
                     <li key={item.name}>
-                      <a
+                      <Link
                         href={item.href}
                         className="text-sm text-gray-700 hover:text-black dark:text-gray-300 dark:hover:text-white"
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -155,31 +156,30 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
                 <ul role="list" className="mt-4 space-y-4">
                   {navigation.marketplace.map((item) => (
                     <li key={item.name}>
-                      <a
+                      <Link
                         href={item.href}
                         className="text-sm text-gray-700 hover:text-black dark:text-gray-300 dark:hover:text-white"
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
               </div>
               <div className="mt-12 md:mt-0">
-                <Link href="/community">
-                  <h3 className="text-sm font-medium text-black dark:text-white cursor-pointer">
-                    Community
-                  </h3>
-                </Link>
+                <h3 className="text-sm font-medium text-black dark:text-white cursor-pointer">
+                  Community
+                </h3>
+
                 <ul role="list" className="mt-4 space-y-4">
                   {navigation.community.map((item) => (
                     <li key={item.name}>
-                      <a
+                      <Link
                         href={item.href}
                         className="text-sm text-gray-700 hover:text-black dark:text-gray-300 dark:hover:text-white"
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>

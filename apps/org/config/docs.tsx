@@ -1,3 +1,5 @@
+import { DocsLinks } from "@/lib/types/links"
+
 const onchainsNavigation = [
   {
     title: "May 2023",
@@ -376,8 +378,8 @@ const docsNavigation = [
   {
     title: "Introduction",
     links: [
-      { title: "Intro", href: "/docs" },
-      { title: "Integrating", href: "/docs/integrating" },
+      { title: "Intro", href: DocsLinks.Index },
+      { title: "Integrating", href: DocsLinks.Integrating },
     ],
   },
 ]

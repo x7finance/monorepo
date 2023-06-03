@@ -29,7 +29,9 @@ export function DashboardTitle(props: HeaderProps) {
               {title}
             </h1>
             {subHeader && (
-              <p className="text-sm font-medium text-zinc-500">{subHeader}</p>
+              <p className="text-sm font-medium text-zinc-500 sm:pr-12">
+                {subHeader}
+              </p>
             )}
           </div>
         </div>
@@ -45,7 +47,7 @@ export function DashboardTitle(props: HeaderProps) {
                 "inline-flex"
               )}
             >
-              Tokens Overview
+              {secondaryButton.text}
             </Link>
           )}
 

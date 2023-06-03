@@ -2,12 +2,12 @@
 // /dashboard
 
 export enum DashboardLinksEnum {
-  DAO = "/dashboard/dao",
-  Loans = "/dashboard/loans",
-  Nfts = "/dashboard/nfts",
-  Pairs = "/dashboard/pairs",
-  Contracts = "/dashboard/contracts",
-  Marketplace = "/dashboard/marketplace",
+  DAO = "/dashboard/dao/",
+  Loans = "/dashboard/loans/",
+  Nfts = "/dashboard/nfts/",
+  Pairs = "/dashboard/pairs/",
+  Contracts = "/dashboard/contracts/",
+  Marketplace = "/dashboard/marketplace/",
 }
 
 export enum TokenLinksEnum {
@@ -46,10 +46,17 @@ export enum NftsLinkEnum {
 }
 
 export enum DocsLinks {
-  Index = "/docs",
+  Index = "/docs/",
   Whitepaper = "/docs/whitepaper",
-
+  Onchains = "/docs/onchains",
+  FAQ = "/docs/faq",
   // need to finish
   Templates = "/docs/templates",
+  Integrating = "/docs/integration",
   Guides = "/docs/guides",
+}
+
+export enum CommunityLinks {
+  Index = "/community",
+  Support = "/support",
 }

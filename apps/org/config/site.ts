@@ -1,4 +1,4 @@
-import { SocialsEnum } from "@/../../packages/common/dist"
+import { SocialsEnum } from "common"
 
 import { SiteConfig } from "types"
 

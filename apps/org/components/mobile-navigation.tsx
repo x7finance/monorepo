@@ -3,11 +3,16 @@
 import { X7Logo } from "icons"
 
 import Link from "next/link"
+import { X7LinksEnum } from "@/../../packages/common/dist"
 import { cn } from "@/../../packages/utils/dist"
 import { Popover } from "@headlessui/react"
 import { AnimatePresence, motion } from "framer-motion"
 
-import { DashboardLinksEnum } from "@/lib/types/links"
+import {
+  DashboardLinksEnum,
+  DocsLinks,
+  ProductsLinkEnum,
+} from "@/lib/types/links"
 
 import { ModeToggle } from "./mode-toggle"
 import { buttonVariants } from "./ui/button"
@@ -72,7 +77,9 @@ export function MobileNavigation({ className }: { className: string }) {
                     </div>
                   </div>
                   <div className="space-y-4">
-                    <MobileNavLink href="/products">Products</MobileNavLink>
+                    <MobileNavLink href={ProductsLinkEnum.Index}>
+                      Products
+                    </MobileNavLink>
                     <MobileNavLink href={DashboardLinksEnum.Marketplace}>
                       Marketplace
                     </MobileNavLink>
@@ -86,7 +93,7 @@ export function MobileNavigation({ className }: { className: string }) {
                   <div className="mt-8 flex flex-col gap-4 text-black dark:text-white">
                     <ModeToggle />
                     <Link
-                      href="/docs"
+                      href={DocsLinks.Index}
                       className={cn(
                         buttonVariants({
                           variant: "outline",
@@ -96,7 +103,7 @@ export function MobileNavigation({ className }: { className: string }) {
                       Read Docs
                     </Link>
                     <Link
-                      href="https://beta.x7.finance/#/swap"
+                      href={X7LinksEnum.XChange}
                       target="_blank"
                       rel="noopener noreferrer"
                       className={cn(

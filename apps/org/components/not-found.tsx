@@ -4,7 +4,7 @@ import { ChevronRightIcon, X7Logo } from "icons"
 import Image from "next/image"
 import Link from "next/link"
 
-import { DocsLinks } from "@/lib/types/links"
+import { DashboardLinksEnum, DocsLinks } from "@/lib/types/links"
 
 const links = [
   {
@@ -14,7 +14,7 @@ const links = [
   },
   {
     name: "Marketplace",
-    href: "/nfts",
+    href: DashboardLinksEnum.Marketplace,
     description: "Buy and sell X7 Finance NFTs",
   },
   {

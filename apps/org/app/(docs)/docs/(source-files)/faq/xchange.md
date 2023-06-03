@@ -30,7 +30,7 @@ No. Xchange is a fully decentralized exchange with no 3rd party APIs and no anal
 
 ### What is the URL address for Xchange?
 
-[https://app.x7.finance/#/swap](https://app.x7.finance/#/swap)
+[https://beta.x7.finance/#/swap](https://beta.x7.finance/#/swap)
 
 {% spacer /%}
 
