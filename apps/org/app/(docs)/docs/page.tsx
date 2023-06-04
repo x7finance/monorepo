@@ -38,7 +38,7 @@ export async function generateMetadata({
 }
 
 export default async function DocsPage({ params }: DocsPageProps) {
-  const { content, title, tags, tableOfContents, date } =
+  const { content, title, tags, tableOfContents, date, slug } =
     await getMarkdownContent(params)
 
   if (!content) {
@@ -51,7 +51,7 @@ export default async function DocsPage({ params }: DocsPageProps) {
       date={date}
       tags={tags}
       title={title}
-      slug={`/docs/${params?.section}/${params?.slug}/`}
+      slug={slug}
       tableOfContents={tableOfContents}
     >
       {Markdoc.renderers.react(content, React, { components })}

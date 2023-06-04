@@ -4,6 +4,7 @@ import { remToPx } from "utils"
 
 import { useRef } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { useInView } from "framer-motion"
 
 import { Tag } from "@/components/tag"
@@ -40,10 +41,10 @@ function Eyebrow({ tag, label }: any) {
   )
 }
 
-function Anchor({ id, inView, children }: any) {
+function Anchor({ id, inView, children, href }: any) {
   return (
     <Link
-      href={`#${id}`}
+      href={`${href}#${id}`}
       className="group text-inherit no-underline hover:text-inherit"
     >
       {inView && (
@@ -70,6 +71,7 @@ export function Heading({
 }: any) {
   let Component = `h${level}`
   let ref: any = useRef()
+  let pathname = usePathname()
 
   let inView = useInView(ref, {
     margin: `${remToPx(-3.5)}px 0px 0px 0px`,
@@ -86,7 +88,7 @@ export function Heading({
         {...props}
       >
         {anchor ? (
-          <Anchor id={id} inView={inView}>
+          <Anchor href={pathname} id={id} inView={inView}>
             {children}
           </Anchor>
         ) : (
