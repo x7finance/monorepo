@@ -125,15 +125,7 @@ export function DocsBase({
                   )}
                   {!!tags?.length &&
                     tags.map((tag: string, key: number) => {
-                      return (
-                        <code
-                          key={`${tag}-${key}`}
-                          className="bg-sky-600/80 hover:bg-sky-700 dark:bg-sky-400/10 dark:text-sky-400 dark:ring-sky-400/20 dark:hover:bg-sky-400/10 dark:hover:text-sky-300 dark:hover:ring-sky-300 ring-sky-700"
-                          // className="mr-1 inline-flex justify-center gap-0.5 overflow-hidden rounded-full  px-3 py-0.5 text-xs font-medium text-white ring-1 ring-inset  transition "
-                        >
-                          {tag}
-                        </code>
-                      )
+                      return <code key={`${tag}-${key}`}>{tag}</code>
                     })}
                   {title && <h1>{title}</h1>}
                   {date && (

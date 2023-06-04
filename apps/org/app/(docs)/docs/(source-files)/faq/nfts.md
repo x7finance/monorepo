@@ -28,7 +28,7 @@ More details on the Magister NFT can be found on the [NFT page here](/nfts/)
 
 The Pioneer NFT was rewarded with the first invests of the $X7m105 token before the contract upgrade to $X7R and $X7DAO
 
-The announcement for these can be found in the [onchain messages here](/docs/onchains/954-nov-08-2022-012623-am-+utc/)
+The announcement for these can be found in the [onchain messages here](/docs/onchains/954-nov-08-2022-012623-am-utc/)
 
 {% spacer /%}
 

@@ -33,7 +33,7 @@ You can see a history of the [onchain messages here](/docs/onchains/)
 
 Yes, the smart contracts are being audited and will be shared with the community when complete.
 
-Details of this can be found in an [onchain message here](/docs/onchains/955-oct-31-2022-064923-am-+utc/#xchange-details)
+Details of this can be found in an [onchain message here](/docs/onchains/955-oct-31-2022-064923-am-utc/#xchange-details)
 
 {% spacer /%}
 
