@@ -11,6 +11,10 @@ const onchainsNavigation = [
     title: 'June 2023',
     links: [
       {
+        title: 'June-03-2023-053759-AM',
+        href: '/onchains/909-june-03-2023-053759-am-+utc',
+      },
+      {
         title: 'June-03-2023-081923-AM',
         href: '/onchains/910-june-03-2023-081923-am-+utc',
       },

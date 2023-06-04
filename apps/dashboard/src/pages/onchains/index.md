@@ -10,12 +10,13 @@ On-chain messaging through the blockchain ensures the protocol remains censorshi
 
 {% quickLink title="View On-Chain" icon="plugins" href="https://etherscan.io/address/0x7000a09c425abf5173ff458df1370c25d1c58105?toaddress=0x000000000000000000000000000000000000dead" description="View the messages from the founding team directly on-chain" /%}
 
-{% quickLink title="Latest Message" icon="installation" href="/onchains/910-june-03-2023-081923-am-+utc" description="Read the latest message from the founding X7 DAO team." /%}
+{% quickLink title="Latest Message" icon="installation" href="/onchains/909-june-03-2023-053759-am-+utc" description="Read the latest message from the founding X7 DAO team." /%}
 
 {% /quickLinks %}
 
 ## June 2023
 
+[June-03-2023-053759-AM](/onchains/909-june-03-2023-053759-am-+utc)\
 [June-03-2023-081923-AM](/onchains/910-june-03-2023-081923-am-+utc)\
 [June-03-2023-035947-AM](/onchains/911-june-03-2023-025411-am-+utc)
 
