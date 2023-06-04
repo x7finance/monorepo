@@ -19,7 +19,7 @@ export function generateMetadataFromDoc(doc) {
       title: doc?.seoTitle ?? doc?.title,
       description: doc?.description,
       type: "article",
-      url: absoluteUrl(`${doc?.slugPath}`),
+      url: absoluteUrl(`${doc?.slug}`),
       images: [
         {
           url: ogUrl.toString(),

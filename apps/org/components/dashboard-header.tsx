@@ -39,12 +39,12 @@ export function DashboardHeader() {
                     </li>
                     <li>
                       <Link
-                        href={X7LinksEnum.XChange}
+                        href={X7LinksEnum.Xchange}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-sm leading-5 text-zinc-600 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
                       >
-                        XChange
+                        Xchange
                       </Link>
                     </li>
                   </ul>

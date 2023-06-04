@@ -15,10 +15,6 @@ import {
   SOURCE_DIR,
 } from "./(docs.utils)/markdoc-parse"
 
-type Params = {
-  slug: string
-}
-
 export async function generateStaticParams() {
   const markdownPaths = await glob(path.join(SOURCE_DIR, "**/*.md"))
 
@@ -55,7 +51,7 @@ export default async function DocsPage({ params }: DocsPageProps) {
       date={date}
       tags={tags}
       title={title}
-      slug={`/${params?.section}/${params?.slug}`}
+      slug={`/docs/${params?.section}/${params?.slug}/`}
       tableOfContents={tableOfContents}
     >
       {Markdoc.renderers.react(content, React, { components })}

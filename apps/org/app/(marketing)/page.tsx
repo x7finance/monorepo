@@ -1,8 +1,7 @@
 import { X7LinksEnum } from "common"
 import { cn } from "utils"
-import { XChange } from "icons"
+import { Xchange } from "icons"
 
-import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -20,7 +19,7 @@ export default function IndexPage() {
           <div className="pointer-events-auto flex items-center announcement-shadow justify-between gap-x-6 bg-black border-zinc-900 border px-6 py-3 sm:rounded-xl sm:py-3 sm:pl-4 sm:pr-3.5">
             <p className="text-zinc-400 tracking-tight">
               <Link
-                href={X7LinksEnum.XChange}
+                href={X7LinksEnum.Xchange}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -102,13 +101,13 @@ export default function IndexPage() {
               Read Docs
             </Link>
             <Link
-              href={X7LinksEnum.XChange}
+              href={X7LinksEnum.Xchange}
               target="_blank"
               rel="noopener noreferrer"
               className="animate-background inline-block rounded-md bg-zinc-900 from-[#23094f] via-[#b74e4c] to-yellow-500 hover:bg-none bg-[length:400%_400%] p-[0.175rem] [animation-duration:_6s] bg-gradient-to-r dark:bg-black"
             >
               <span className="flex items-center bg-white px-8 rounded-md py-2 text-md font-medium text-zinc-900 dark:bg-black dark:text-white hover:bg-gradient-to-tr hover:from-purple-500 hover:text-white hover:via-purple-800 hover:to-red-500">
-                Enter <XChange className="w-24 pl-1 pr-2" />
+                Enter <Xchange className="w-24 pl-1 pr-2" />
                 {` `}
                 <span aria-hidden="true">&rarr;</span>
               </span>

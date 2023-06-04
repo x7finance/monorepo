@@ -5,6 +5,8 @@ import Markdoc from "@markdoc/markdoc"
 import { slugifyWithCounter } from "@sindresorhus/slugify"
 import matter from "gray-matter"
 
+import { DocType } from "@/lib/types"
+
 import { config } from "./config.markdoc"
 
 const SOURCE_FILES = "app/(docs)/docs/(source-files)"
@@ -12,7 +14,7 @@ export const SOURCE_DIR = path.join(process.cwd(), SOURCE_FILES)
 
 interface ParamsProps {
   slug: string | undefined
-  section: "whitepaper" | "faq" | "onchains" | "integration"
+  section: DocType
   description?: string
   title: string
 }
@@ -39,6 +41,9 @@ export async function getMarkdownContent(params: ParamsProps) {
     const content = Markdoc.transform(ast, config)
     const tableOfContents = collectHeadings(content) ?? []
 
+    const sectionPath = params?.section ? `/${params.section}` : ""
+    const slugPath = params?.slug ? `/${params.slug}` : ""
+
     return {
       content,
       title,
@@ -46,8 +51,7 @@ export async function getMarkdownContent(params: ParamsProps) {
       tableOfContents,
       date,
       description,
-      slug,
-      slugPath: `/docs${section ? `/${section}` : ``}${slug ? `/${slug}` : ``}`,
+      slug: `/docs${sectionPath}${slugPath}/`,
       seoTitle,
     }
   } catch (error) {

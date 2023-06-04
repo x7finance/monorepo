@@ -103,7 +103,7 @@ export function MobileNavigation({ className }: { className: string }) {
                       Read Docs
                     </Link>
                     <Link
-                      href={X7LinksEnum.XChange}
+                      href={X7LinksEnum.Xchange}
                       target="_blank"
                       rel="noopener noreferrer"
                       className={cn(
@@ -112,7 +112,7 @@ export function MobileNavigation({ className }: { className: string }) {
                         })
                       )}
                     >
-                      Go To XChange
+                      Go To Xchange
                     </Link>
                   </div>
                 </Popover.Panel>

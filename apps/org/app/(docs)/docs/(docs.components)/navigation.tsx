@@ -1,8 +1,13 @@
+"use client"
+
 import { cn } from "utils"
 
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 export function Navigation({ navigation, className, slug }: any) {
+  const pathname = usePathname()
+
   return (
     <nav className={cn("text-base lg:text-sm", className)}>
       <ul role="list" className="space-y-9">
@@ -20,13 +25,13 @@ export function Navigation({ navigation, className, slug }: any) {
                   <Link
                     href={link.href}
                     className={cn(
-                      link.href === slug ? `before:bg-sky-500` : ``,
+                      link.href === pathname ? `before:bg-sky-500` : ``,
                       "block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full"
                     )}
                   >
                     <span
                       className={cn(
-                        link.href === slug
+                        link.href === pathname
                           ? "bg-gradient-to-r from-sky-500 to-violet-500 bg-clip-text font-semibold text-transparent"
                           : "text-zinc-500 before:hidden before:bg-zinc-300 hover:text-zinc-600 hover:before:block dark:text-zinc-400 dark:before:bg-zinc-700 dark:hover:text-zinc-300"
                       )}

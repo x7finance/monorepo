@@ -25,7 +25,7 @@ import { ModeToggle } from "@/components/mode-toggle"
 
 const navigation = {
   product: [
-    { name: "XChange", href: ProductsLinkEnum.Xchange },
+    { name: "Xchange", href: ProductsLinkEnum.Xchange },
     { name: "X7D", href: TokenLinksEnum.X7D },
     { name: "X7R", href: TokenLinksEnum.X7R },
     { name: "X7101", href: TokenLinksEnum.X7101 },

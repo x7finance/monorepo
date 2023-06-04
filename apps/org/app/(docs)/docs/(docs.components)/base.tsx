@@ -1,8 +1,3 @@
-"use client"
-
-import { cn } from "utils"
-
-// import { useCallback, useEffect, useState } from "react"
 import Link from "next/link"
 
 import {
@@ -11,75 +6,39 @@ import {
   onchainsNavigation,
   whitepaperNavigation,
 } from "@/config/docs"
+import { DocsTypes, DocType } from "@/lib/types"
 
 import { Navigation } from "./navigation"
+import { OnThisPageNav } from "./on-this-page-navigation"
 import { Prose } from "./tags/prose"
 
-// function useTableOfContents(tableOfContents: any) {
-//   let [currentSection, setCurrentSection] = useState(tableOfContents[0]?.id)
+interface DocsBaseProps {
+  children: React.ReactNode
+  title?: string
+  date?: string
+  tags?: string[]
+  tableOfContents?: any
+  docsType: DocType
+  slug?: string
+}
 
-//   let getHeadings = useCallback((tableOfContents: any) => {
-//     return tableOfContents
-//       .flatMap((node: any) => [
-//         node.id,
-//         ...node.children.map((child: any) => child.id),
-//       ])
-//       .map((id: string) => {
-//         let el = document.getElementById(id)
-//         if (!el) return
+function getNavigation(docsType: DocType) {
+  switch (docsType) {
+    case DocsTypes.onchains:
+      return onchainsNavigation
+    case DocsTypes.whitepaper:
+      return whitepaperNavigation
+    case DocsTypes.faq:
+      return faqNavigation
+    default:
+      return docsNavigation
+  }
+}
 
-//         let style = window.getComputedStyle(el)
-//         let scrollMt = parseFloat(style.scrollMarginTop)
+export function DocsBase(props: DocsBaseProps) {
+  const { children, title, date, tags, tableOfContents, docsType, slug } = props
 
-//         let top = window.scrollY + el.getBoundingClientRect().top - scrollMt
-//         return { id, top }
-//       })
-//   }, [])
-
-//   useEffect(() => {
-//     if (tableOfContents.length === 0) return
-//     let headings = getHeadings(tableOfContents)
-//     function onScroll() {
-//       let top = window.scrollY
-//       let current = headings[0].id
-//       for (let heading of headings) {
-//         if (top >= heading.top) {
-//           current = heading.id
-//         } else {
-//           break
-//         }
-//       }
-//       setCurrentSection(current)
-//     }
-//     window.addEventListener("scroll", onScroll, { passive: true })
-//     onScroll()
-//     return () => {
-//       // @ts-expect-error
-//       window.removeEventListener("scroll", onScroll, { passive: true })
-//     }
-//   }, [getHeadings, tableOfContents])
-
-//   // return tableOfContents?.[0]?.id
-//   return currentSection
-// }
-
-export function DocsBase({
-  children,
-  title,
-  date,
-  tags,
-  tableOfContents,
-  docsType,
-  slug,
-}: any) {
-  const navigation =
-    docsType === "onchains"
-      ? onchainsNavigation
-      : docsType === "whitepaper"
-      ? whitepaperNavigation
-      : docsType === "faq"
-      ? faqNavigation
-      : docsNavigation
+  const navigation = getNavigation(docsType)
 
   let allLinks = navigation.flatMap((section) => section.links)
   let linkIndex = allLinks.findIndex((link) => link.href === slug)
@@ -88,18 +47,6 @@ export function DocsBase({
   let section = navigation.find((section) =>
     section.links.find((link) => link.href === slug)
   )
-  // let currentSection = useTableOfContents(tableOfContents)
-  let currentSection = 9999
-
-  function isActive(section: any) {
-    if (section.id === currentSection) {
-      return true
-    }
-    if (!section.children) {
-      return false
-    }
-    return section.children.findIndex(isActive) > -1
-  }
 
   return (
     <>
@@ -178,57 +125,11 @@ export function DocsBase({
           </dl>
         </div>
         <div className="hidden xl:sticky xl:top-[4.5rem] xl:-mr-6 xl:block xl:h-[calc(100vh-4.5rem)] xl:flex-none xl:overflow-y-auto xl:py-16 xl:pr-6">
-          <nav aria-labelledby="on-this-page-title" className="w-56">
-            {tableOfContents?.length > 0 && (
-              <>
-                <h2
-                  id="on-this-page-title"
-                  className="text-sm font-medium font-display text-zinc-900 dark:text-white"
-                >
-                  On this page
-                </h2>
-                <ol role="list" className="mt-4 space-y-3 text-sm">
-                  {tableOfContents?.map((section: any) => (
-                    <li key={section.id}>
-                      <h3>
-                        <Link
-                          href={`#${section.id}`}
-                          className={cn(
-                            isActive(section)
-                              ? "bg-gradient-to-r from-sky-500 to-violet-500 bg-clip-text text-transparent"
-                              : "font-normal text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-300"
-                          )}
-                        >
-                          {section.title}
-                        </Link>
-                      </h3>
-                      {section?.children?.length > 0 && (
-                        <ol
-                          role="list"
-                          className="pl-5 mt-2 space-y-3 text-zinc-500 dark:text-zinc-400"
-                        >
-                          {section.children.map((subSection: any) => (
-                            <li key={subSection.id}>
-                              <Link
-                                href={`#${subSection.id}`}
-                                className={
-                                  isActive(subSection)
-                                    ? "text-violet-500"
-                                    : "hover:text-zinc-600 dark:hover:text-zinc-300"
-                                }
-                              >
-                                {subSection.title}
-                              </Link>
-                            </li>
-                          ))}
-                        </ol>
-                      )}
-                    </li>
-                  ))}
-                </ol>
-              </>
-            )}
-          </nav>
+          <OnThisPageNav
+            tableOfContents={tableOfContents}
+            currentSlug={slug}
+            section={section}
+          />
         </div>
       </div>
     </>

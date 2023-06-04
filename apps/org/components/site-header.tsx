@@ -1,5 +1,5 @@
 import { cn } from "utils"
-import { X7LongLogo, XChange } from "icons"
+import { X7LongLogo, Xchange } from "icons"
 
 import Link from "next/link"
 import { X7LinksEnum } from "@/../../packages/common/dist"
@@ -88,7 +88,7 @@ export function SiteHeader({ className }: React.HTMLAttributes<HTMLElement>) {
               <li className="flex items-center align-center">
                 <Link
                   className="outline-none rounded-full px-2 py-3 text-sm cursor-pointer text-zinc-800 hover:text-black dark:text-zinc-200 hover:dark:text-white"
-                  href={X7LinksEnum.XChange}
+                  href={X7LinksEnum.Xchange}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -107,7 +107,7 @@ export function SiteHeader({ className }: React.HTMLAttributes<HTMLElement>) {
         <div className="ml-auto">
           <div className="flex items-center text-sm w-full gap-2">
             <Link
-              href={X7LinksEnum.XChange}
+              href={X7LinksEnum.Xchange}
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
@@ -117,7 +117,7 @@ export function SiteHeader({ className }: React.HTMLAttributes<HTMLElement>) {
                 "hidden lg:block py-1.5"
               )}
             >
-              <XChange className="w-24" />
+              <Xchange className="w-24" />
             </Link>
 
             <MobileNavigation className="lg:hidden" />

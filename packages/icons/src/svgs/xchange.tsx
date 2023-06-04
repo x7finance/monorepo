@@ -1,4 +1,4 @@
-export function XChange(props: any) {
+export function Xchange(props: any) {
   return (
     <svg viewBox="0 0 642 166" fill="none" {...props}>
       <path
