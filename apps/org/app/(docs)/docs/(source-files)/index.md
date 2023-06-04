@@ -1,5 +1,6 @@
 ---
 title: X7 Finance Docs
+seoTitle: Docs
 tags: [docs]
 ---
 

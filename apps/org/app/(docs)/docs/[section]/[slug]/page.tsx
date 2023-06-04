@@ -1,11 +1,13 @@
 import path from "path"
 
 import React from "react"
+import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import Markdoc from "@markdoc/markdoc"
 import { glob } from "glob"
 
 import { DocsBase } from "../../../docs/(docs.components)/base"
+import { generateMetadataFromDoc } from "../../(docs.components)/generateMetadataFromDoc"
 import {
   DocsPageProps,
   getMarkdownContent,
@@ -21,6 +23,18 @@ export async function generateStaticParams() {
       slug: path.basename(postPath, path.extname(postPath)),
     }
   })
+}
+
+export async function generateMetadata({
+  params,
+}: DocsPageProps): Promise<Metadata> {
+  const doc = await getMarkdownContent(params)
+
+  if (!doc) {
+    return {}
+  }
+
+  return generateMetadataFromDoc(doc)
 }
 
 export default async function DocsPage({ params }: DocsPageProps) {

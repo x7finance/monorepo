@@ -12,10 +12,16 @@ import {
   YouTube,
 } from "icons"
 
+import { Metadata } from "next"
 import Link from "next/link"
 
 import { Heading } from "@/components/heading"
 import { SiteContentContainer } from "@/components/site-content-container"
+
+export const metadata: Metadata = {
+  title: "Community",
+  description: "",
+}
 
 export default function CommunityPage() {
   return (
@@ -65,13 +71,13 @@ function Social({ social }: any) {
 
 function SocialIcon({ icon: Icon, fill }: any) {
   return (
-    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-900/5 ring-1 ring-zinc-900/25 backdrop-blur-[2px] transition duration-300 group-hover:bg-white/50 group-hover:ring-zinc-900/25 dark:bg-white/7.5 dark:ring-white/15 dark:group-hover:bg-sky-300/10 dark:group-hover:ring-sky-400">
+    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-900/5 ring-1 ring-zinc-900/25 backdrop-blur-[2px] transition duration-300 group-hover:bg-white/50 group-hover:ring-zinc-900/25 dark:bg-white/7.5 dark:ring-white/15 dark:group-hover:bg-violet-300/10 dark:group-hover:ring-violet-400">
       <Icon
         className={cn(
           !!fill
             ? fill
             : `dark:fill-white/10 dark:stroke-zinc-400 fill-zinc-700/10 stroke-zinc-700`,
-          `transition-colors duration-300 h-7 w-7 group-hover:stroke-zinc-900 dark:group-hover:fill-sky-300/10 dark:group-hover:stroke-sky-400`
+          `transition-colors duration-300 h-7 w-7 group-hover:stroke-zinc-900 dark:group-hover:fill-violet-300/10 dark:group-hover:stroke-violet-400`
         )}
       />
     </div>

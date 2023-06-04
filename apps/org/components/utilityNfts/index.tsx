@@ -1,10 +1,7 @@
 "use client"
 
-import { useCallback, useState } from "react"
-import Image from "next/image"
 import { ChainEnum, ContractsEnum, ONE_MILLION } from "common"
-import { ConnectKitButton } from "connectkit"
-import { X7NFT } from "contracts"
+import { cn, generateChainAbbreviation, generateChainBase } from "utils"
 import {
   ChainsArray,
   CheckCircleIcon,
@@ -13,8 +10,12 @@ import {
   PlusCircleIcon,
   Squares2X2Icon,
 } from "icons"
+import { X7NFT } from "contracts"
+
+import { useCallback, useState } from "react"
+import Image from "next/image"
+import { ConnectKitButton } from "connectkit"
 import toast from "react-hot-toast"
-import { cn, generateChainAbbreviation, generateChainBase } from "utils"
 import { formatEther, parseEther, parseUnits } from "viem"
 import { useContractReads, useNetwork, useSwitchNetwork } from "wagmi"
 
@@ -25,7 +26,7 @@ export function UtitlityNfts() {
   return (
     <ul
       role="list"
-      className="grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4"
+      className="grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 lg:gap-x-8 mt-8"
     >
       {utilityNftData?.map((n: any) => {
         return (
@@ -125,7 +126,7 @@ function UtilityNftData({ nft }: any) {
 
       <p
         className={cn(
-          "relative mx-auto mt-3 flex h-8 text-2xl tracking-tight text-slate-900 dark:text-slate-100"
+          "relative mx-auto mt-3 flex h-8 text-2xl tracking-tight text-zinc-900 dark:text-zinc-100"
         )}
       >
         {nft?.name}
@@ -135,7 +136,7 @@ function UtilityNftData({ nft }: any) {
       </div>
       <p
         className={cn(
-          "xl:48 mt-3 h-48 px-3 text-sm text-slate-700 dark:text-slate-400 sm:h-60 md:h-48 lg:h-80"
+          "xl:48 mt-3 h-48 px-3 text-sm text-zinc-700 dark:text-zinc-400 sm:h-60 md:h-48 lg:h-80"
         )}
       >
         {nft?.description}
@@ -144,7 +145,7 @@ function UtilityNftData({ nft }: any) {
         <ul
           role="list"
           className={cn(
-            "-my-2 h-40 divide-y divide-slate-200 text-sm text-slate-700 dark:divide-slate-800 dark:text-slate-300 sm:h-48 md:h-48 lg:h-56"
+            "-my-2 h-40 divide-y divide-zinc-200 text-sm text-zinc-700 dark:divide-zinc-800 dark:text-zinc-300 sm:h-48 md:h-48 lg:h-56"
           )}
         >
           {nft?.benefits.map((b: any, idx: any) => (
@@ -153,11 +154,9 @@ function UtilityNftData({ nft }: any) {
               className="flex w-full py-2"
             >
               <CheckCircleIcon
-                className={cn("h-6 w-6 flex-none text-sky-500")}
+                className={cn("h-6 w-6 flex-none text-violet-500")}
               />
-              <span className="ml-4 text-slate-700 dark:text-slate-300">
-                {b}
-              </span>
+              <span className="ml-4 text-zinc-700 dark:text-zinc-300">{b}</span>
             </li>
           ))}
         </ul>
@@ -167,11 +166,11 @@ function UtilityNftData({ nft }: any) {
           rel="noopener noreferrer"
           target="_blank"
           href={`${generateChainBase(chain?.id)}/address/${nft.contract}`}
-          className="relative text-xs text-slate-700 underline dark:text-slate-300"
+          className="relative text-xs text-zinc-700 underline dark:text-zinc-300"
         >
           contract
         </a>
-        <p className="text-sm text-slate-700 dark:text-slate-300">
+        <p className="text-sm text-zinc-700 dark:text-zinc-300">
           mint on other chains
         </p>
         <div className="flex flex-shrink-0 space-x-1">
@@ -206,14 +205,14 @@ function UtilityNftData({ nft }: any) {
           ))}
         </div>
       </div>
-      <div className="relative mt-auto border-t border-slate-200 dark:border-slate-800">
-        <div className="relative -mt-px flex divide-x divide-slate-200 dark:divide-slate-800">
+      <div className="relative mt-auto border-t border-zinc-200 dark:border-zinc-800">
+        <div className="relative -mt-px flex divide-x divide-zinc-200 dark:divide-zinc-800">
           <div className="relative flex w-0 flex-1">
             <a
               target="_blank"
               rel="noopener noreferrer"
               href={`${nft?.exchanges[chain?.id ?? 1]}`}
-              className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center rounded-bl-lg py-4 text-sm font-medium text-slate-600 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200"
+              className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center rounded-bl-lg py-4 text-sm font-medium text-zinc-600 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200"
             >
               <Squares2X2Icon className="h-5 w-5 " aria-hidden="true" />
               <span className="ml-3">Trade</span>
@@ -227,11 +226,11 @@ function UtilityNftData({ nft }: any) {
                 setDrawerOpen(!drawerOpen)
               }}
               className={cn(
-                `hover:to-sky-90 0 relative inline-flex w-0 flex-1 cursor-pointer items-center justify-center rounded-br-lg bg-gradient-to-r from-sky-500 to-sky-700 py-4 text-sm font-medium text-slate-100 hover:from-sky-400 hover:to-sky-600`
+                `relative inline-flex w-0 flex-1 cursor-pointer items-center justify-center rounded-br-lg bg-gradient-to-r from-violet-500 to-violet-700 py-4 text-sm font-medium text-zinc-100 hover:from-violet-400 hover:to-sky-600`
               )}
             >
               <CubeTransparentIcon
-                className="h-5 w-5 text-slate-100"
+                className="h-5 w-5 text-zinc-100"
                 aria-hidden="true"
               />
               <span className="ml-3">
@@ -244,7 +243,7 @@ function UtilityNftData({ nft }: any) {
       <div
         className={cn(
           drawerOpen ? "h-32" : "h-0",
-          "bg-slate-200 transition-all duration-500 dark:bg-slate-800"
+          "bg-zinc-200 transition-all duration-500 dark:bg-zinc-800"
         )}
       >
         <div className="mt-2 flex flex-col items-center justify-center px-4 text-sm">
@@ -259,7 +258,7 @@ function UtilityNftData({ nft }: any) {
 
                 setMintCount(mintCount - 1 < 1 ? 1 : mintCount - 1)
               }}
-              className="relative inline-flex cursor-pointer items-center rounded-l-md border border-slate-300 bg-white px-2 py-2 text-sm font-medium text-slate-500 hover:bg-slate-50 focus:z-20"
+              className="relative inline-flex cursor-pointer items-center rounded-l-md border border-zinc-300 bg-white px-2 py-2 text-sm font-medium text-zinc-500 hover:bg-zinc-50 focus:z-20"
             >
               <span className="sr-only">Subtract</span>
               <MinusCircleIcon className="h-5 w-5" aria-hidden="true" />
@@ -282,7 +281,7 @@ function UtilityNftData({ nft }: any) {
 
                 setMintCount(mintCount + 1)
               }}
-              className="relative inline-flex cursor-pointer items-center rounded-r-md border border-slate-300 bg-white px-2 py-2 text-sm font-medium text-slate-500 hover:bg-slate-50 focus:z-20"
+              className="relative inline-flex cursor-pointer items-center rounded-r-md border border-zinc-300 bg-white px-2 py-2 text-sm font-medium text-zinc-500 hover:bg-zinc-50 focus:z-20"
             >
               <span className="sr-only">Add</span>
               <PlusCircleIcon className="h-5 w-5" aria-hidden="true" />

@@ -1,5 +1,6 @@
-import React, { useContext } from "react"
 import { generateChainBase } from "utils"
+
+import React, { useContext } from "react"
 import { useNetwork } from "wagmi"
 
 import { DonutChartContext, ItemWithRenderProps } from "./DonutChart"
@@ -28,7 +29,7 @@ export const LegendItem: React.FC<Props> = ({ item }) => {
 
   return (
     <tr {...clickHandlers}>
-      <td className="max-w-[200px] whitespace-nowrap py-2 pl-6 pr-3 text-sm font-medium text-slate-900 dark:text-slate-100 sm:pl-0">
+      <td className="max-w-[200px] whitespace-nowrap py-2 pl-6 pr-3 text-sm font-medium text-zinc-900 dark:text-zinc-100 sm:pl-0">
         <span className="flex items-center">
           <svg height={20} width={20}>
             <g>
@@ -41,7 +42,7 @@ export const LegendItem: React.FC<Props> = ({ item }) => {
           rel="noopener noreferrer"
           target="_blank"
           href={contractAddress}
-          className="text-xs text-slate-400 underline hover:text-sky-600 dark:text-slate-600"
+          className="text-xs text-zinc-400 underline hover:text-violet-600 dark:text-zinc-600"
         >
           <span className="hidden overflow-hidden md:block">
             {contractAddress}
@@ -50,7 +51,7 @@ export const LegendItem: React.FC<Props> = ({ item }) => {
         </a>
       </td>
 
-      <td className="flex justify-end whitespace-nowrap px-3 py-2 text-sm text-slate-500 dark:text-slate-400">
+      <td className="flex justify-end whitespace-nowrap px-3 py-2 text-sm text-zinc-500 dark:text-zinc-400">
         {value}%
       </td>
     </tr>

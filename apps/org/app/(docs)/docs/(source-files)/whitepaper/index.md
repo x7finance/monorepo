@@ -1,5 +1,6 @@
 ---
 title: Whitepaper Overview
+seoTitle: Whitepaper
 ---
 
 This product white paper will lay out the core components and utility that each part provides and explain the ecosystem.

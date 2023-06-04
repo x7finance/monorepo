@@ -1,6 +1,13 @@
+import { Metadata } from "next"
+
 import { Heading } from "@/components/heading"
 import { SiteContentContainer } from "@/components/site-content-container"
 import { UnderConstruction } from "@/components/under-construction"
+
+export const metadata: Metadata = {
+  title: "Getting Started",
+  description: "",
+}
 
 export default function GettingStartedPage() {
   return (

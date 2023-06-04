@@ -35,7 +35,7 @@ $X7R, $X7DAO, $X7101, $X7102, $X7103, $X7104, $X7105
 
 No, There will be no airdrop of NFTs on other chains to existing NFT holders on Ethereum. Any mints that occur on other chains will help to bootstrap that particular chain's ecosystem.
 
-You can view the onchain message with the full details in the [onchain message here](/onchains/929-feb-06-2023-052259-am-+utc/)
+You can view the onchain message with the full details in the [onchain message here](/docs/onchains/929-feb-06-2023-052259-am-+utc/)
 
 {% spacer /%}
 
@@ -43,7 +43,7 @@ You can view the onchain message with the full details in the [onchain message h
 
 You will have fair warning in the form of a non-extended timelock and the setting and freezing of the destination from these contracts into an airdropper/launch contract. The timelock + frozen destination mechanism will ensure that investors and researchers have ample time to evaluate the plan and determine their strategy.
 
-You can view the onchain message with the full details in the [onchain message here](/onchains/926-feb-10-2023-094459-pm-+utc/)
+You can view the onchain message with the full details in the [onchain message here](/docs/onchains/926-feb-10-2023-094459-pm-+utc/)
 
 {% spacer /%}
 
@@ -51,7 +51,7 @@ You can view the onchain message with the full details in the [onchain message h
 
 The tokens will not go live until their is a sufficient amount of initial liquidity for the tokens on any particular chain. This means tokens on some chains maybe airdropped before others.
 
-You can view the onchain message with the full details in the [onchain message here](/onchains/936-jan-29-2023-092159-pm-+utc/)
+You can view the onchain message with the full details in the [onchain message here](/docs/onchains/936-jan-29-2023-092159-pm-+utc/)
 
 {% spacer /%}
 
@@ -59,6 +59,6 @@ You can view the onchain message with the full details in the [onchain message h
 
 When the tokens do go live all X7 token holders on Ethereum will be airdropped vested tokens and/or be given an opportunity to take a cash payout for their share of tokens.
 
-You can view the onchain message with the full details in the [onchain message here](/onchains/936-jan-29-2023-092159-pm-+utc/)
+You can view the onchain message with the full details in the [onchain message here](/docs/onchains/936-jan-29-2023-092159-pm-+utc/)
 
 {% spacer /%}

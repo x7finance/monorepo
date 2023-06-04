@@ -93,7 +93,7 @@ export function Heading({
           children
         )}
         {subHeader && (
-          <p className="mt-2 text-sm font-normal text-slate-700 dark:text-slate-300">
+          <p className="mt-2 text-sm font-normal text-zinc-700 dark:text-zinc-300">
             {subHeader}
           </p>
         )}

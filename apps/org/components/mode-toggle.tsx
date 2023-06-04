@@ -1,8 +1,9 @@
 "use client"
 
+import { cn } from "utils"
+
 import * as React from "react"
 import { useTheme } from "next-themes"
-import { cn } from "utils"
 
 export function ModeToggle() {
   const [mounted, setMounted] = React.useState(false)
@@ -23,7 +24,7 @@ export function ModeToggle() {
         <div
           //
           className={cn(
-            "flex items-center relative p-1 border border-slate-200 dark:border-gray-800 rounded-full max-w-max"
+            "flex items-center relative p-1 border border-zinc-200 dark:border-zinc-800 rounded-full max-w-max"
           )}
           role="radiogroup"
         >
@@ -32,7 +33,7 @@ export function ModeToggle() {
             aria-label="Dark"
             className={cn(
               theme === "dark"
-                ? "bg-gray-200 dark:bg-gray-800 rounded-full"
+                ? "bg-zinc-200 dark:bg-zinc-800 rounded-full"
                 : "",
               "w-8 h-8 px-0 m-0 cursor-pointer flex justify-center items-center"
             )}
@@ -61,7 +62,7 @@ export function ModeToggle() {
             aria-label="Light"
             className={cn(
               theme === "light"
-                ? "bg-gray-200 dark:bg-gray-800 rounded-full"
+                ? "bg-zinc-200 dark:bg-zinc-800 rounded-full"
                 : "",
               "w-8 h-8 px-0 m-0 cursor-pointer flex justify-center items-center"
             )}
@@ -98,7 +99,7 @@ export function ModeToggle() {
             aria-label="System"
             className={cn(
               theme === "system"
-                ? "bg-gray-200 dark:bg-gray-800 rounded-full"
+                ? "bg-zinc-200 dark:bg-zinc-800 rounded-full"
                 : "",
               "w-8 h-8 px-0 m-0 cursor-pointer flex justify-center items-center"
             )}

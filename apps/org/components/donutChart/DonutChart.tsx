@@ -202,7 +202,7 @@ export const DonutChart: React.FC<Props> = ({
             {selected && (
               <g className={`${className}-innertext`}>
                 <text
-                  className={`fill-slate-900 font-bold underline dark:fill-slate-100`}
+                  className={`fill-zinc-900 font-bold underline dark:fill-zinc-100`}
                   x={graphWidth / 2}
                   y="98%"
                   textAnchor="middle"
@@ -210,7 +210,7 @@ export const DonutChart: React.FC<Props> = ({
                   {selected.label}
                 </text>
                 <text
-                  className={`${className}-innertext-value fill-slate-900 text-2xl dark:fill-slate-100`}
+                  className={`${className}-innertext-value fill-zinc-900 text-2xl dark:fill-zinc-100`}
                   x={graphWidth / 2}
                   y="52%"
                   textAnchor="middle"
@@ -225,25 +225,25 @@ export const DonutChart: React.FC<Props> = ({
         <div className="flow-root">
           <div className="-mx-6 -my-2 overflow-x-auto lg:-mx-8">
             <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-              <table className="min-w-full divide-y divide-slate-300 dark:divide-slate-700">
+              <table className="min-w-full divide-y divide-zinc-300 dark:divide-zinc-700">
                 <thead>
                   <tr>
                     <th
                       scope="col"
-                      className="py-3.5 pl-6 pr-3 text-left text-sm font-semibold text-slate-900 dark:text-slate-100 sm:pl-0 md:w-20 lg:w-full"
+                      className="py-3.5 pl-6 pr-3 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 sm:pl-0 md:w-20 lg:w-full"
                     >
                       <span className="group inline-flex">Name</span>
                     </th>
 
                     <th
                       scope="col"
-                      className="flex justify-end px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-slate-100"
+                      className="flex justify-end px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100"
                     >
                       <span className="group inline-flex">Share</span>
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-200 bg-white dark:divide-slate-800 dark:bg-slate-900">
+                <tbody className="divide-y divide-zinc-200 bg-white dark:divide-zinc-800 dark:bg-zinc-900">
                   {dataWithRenderProps.map((item, idx) => (
                     <LegendItem
                       key={`legenditem-${item.index}-${idx}`}

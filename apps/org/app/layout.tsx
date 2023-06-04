@@ -2,6 +2,7 @@ import { Inter as FontSans } from "next/font/google"
 import localFont from "next/font/local"
 
 import "@/styles/globals.css"
+
 import { cn } from "utils"
 
 import { siteConfig } from "@/config/site"
@@ -25,21 +26,33 @@ interface RootLayoutProps {
 
 export const metadata = {
   title: {
-    default: siteConfig.name,
+    default: `X7 Finance: Revolutionizing Decentralized Finance with Innovative Smart Contracts and Leveraged Capital Solutions`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
   keywords: [
-    "Next.js",
-    "React",
-    "Tailwind CSS",
-    "Server Components",
-    "Radix UI",
+    "X7 Finance",
+    "Decentralized Finance",
+    "Automated Market Making",
+    "Decentralized Exchange",
+    "Lending Pool",
+    "Initial Liquidity Loan",
+    "Tokenomics",
+    "Multi-chain Rollout",
+    "Ethereum and ERC20 tokens",
+    "Decentralized Anonymous Organization",
+    "Trustless and Permissionless Finance",
+    "Censorship-resistant Finance",
+    "Decentralized architecture and governance",
+    "Crypto investment opportunities",
+    "Leveraged seed capital",
+    "Risk mitigation in crypto lending",
+    "Arbitrage opportunities in crypto",
   ],
   authors: [
     {
       name: "X7 Finance",
-      url: "https://x7finance.org",
+      url: "https://www.x7finance.org",
     },
   ],
   creator: "x7finance",

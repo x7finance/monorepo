@@ -25,7 +25,7 @@ X7 Finance is a globally distributed collection of developers. They strongly bel
 
 Although the X7 Devs are anonymous, their updates and news information are done via on-chain messaging.
 
-You can see a history of the [onchain messages here](/onchains/)
+You can see a history of the [onchain messages here](/docs/onchains/)
 
 {% spacer /%}
 
@@ -33,7 +33,7 @@ You can see a history of the [onchain messages here](/onchains/)
 
 Yes, the smart contracts are being audited and will be shared with the community when complete.
 
-Details of this can be found in an [onchain message here](https://www.x7finance.org/onchains/955-oct-31-2022-064923-am-+utc/#xchange-details)
+Details of this can be found in an [onchain message here](/docs/onchains/955-oct-31-2022-064923-am-+utc/#xchange-details)
 
 {% spacer /%}
 

@@ -1,7 +1,7 @@
 import fs from "fs"
 import path from "path"
 
-import Markdoc, { RenderableTreeNode } from "@markdoc/markdoc"
+import Markdoc from "@markdoc/markdoc"
 import { slugifyWithCounter } from "@sindresorhus/slugify"
 import matter from "gray-matter"
 
@@ -13,6 +13,8 @@ export const SOURCE_DIR = path.join(process.cwd(), SOURCE_FILES)
 interface ParamsProps {
   slug: string | undefined
   section: "whitepaper" | "faq" | "onchains" | "integration"
+  description?: string
+  title: string
 }
 
 export type DocsPageProps = {
@@ -32,12 +34,22 @@ export async function getMarkdownContent(params: ParamsProps) {
     const source = fs.readFileSync(filePath, "utf-8")
     const matterResult = matter(source)
 
-    const { title, tags = [], date } = matterResult.data
+    const { title, tags = [], date, description, seoTitle } = matterResult.data
     const ast = Markdoc.parse(source)
     const content = Markdoc.transform(ast, config)
     const tableOfContents = collectHeadings(content) ?? []
 
-    return { content, title, tags, tableOfContents, date }
+    return {
+      content,
+      title,
+      tags,
+      tableOfContents,
+      date,
+      description,
+      slug,
+      slugPath: `/docs${section ? `/${section}` : ``}${slug ? `/${slug}` : ``}`,
+      seoTitle,
+    }
   } catch (error) {
     return { content: null, title: null, tags: null, tableOfContents: null }
   }

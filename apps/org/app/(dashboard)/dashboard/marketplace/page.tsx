@@ -1,7 +1,14 @@
+import { Metadata } from "next"
+
 import { DashboardContainer } from "@/components/dashboard-container"
 import { DashboardTitle } from "@/components/dashboard-title"
-import { UnderConstruction } from "@/components/under-construction"
+import { UtitlityNfts } from "@/components/utilityNfts"
 import { Web3Wrapper } from "@/components/web3-wrapper"
+
+export const metadata: Metadata = {
+  title: "NFT Marketplace",
+  description: "",
+}
 
 export default function MarketplacePage() {
   return (
@@ -15,9 +22,7 @@ export default function MarketplacePage() {
       />
       <Web3Wrapper>
         <DashboardContainer>
-          <UnderConstruction
-            description={`The future home of our very own NFT Marketplace`}
-          />
+          <UtitlityNfts />
         </DashboardContainer>
       </Web3Wrapper>
     </div>

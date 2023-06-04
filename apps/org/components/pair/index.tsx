@@ -49,7 +49,7 @@ export function Pair({ id }: PairsProps) {
           "relative py-4 pl-4 pr-3 text-sm sm:pl-6"
         )}
       >
-        <div className="font-medium text-slate-900 dark:text-slate-100">
+        <div className="font-medium text-zinc-900 dark:text-zinc-100">
           <>
             {tokenSymbol ? tokenSymbol : "Awaiting Liquidity..."}
             <div className="relative top-1 ml-2 inline-block lg:hidden">
@@ -71,7 +71,7 @@ export function Pair({ id }: PairsProps) {
             </div>
           </>
         </div>
-        <div className="mt-1 flex flex-col text-sm text-slate-500 dark:text-slate-400 sm:block lg:hidden">
+        <div className="mt-1 flex flex-col text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
           <span
             onClick={() => {
               clipboard.copy(tokenContract)
@@ -96,7 +96,7 @@ export function Pair({ id }: PairsProps) {
       <td
         className={cn(
           id === 0 ? "" : "border-zinc-900/7.5 border-t dark:border-white/10",
-          "hidden px-3 py-3.5 text-xs text-slate-500 dark:text-slate-400 lg:table-cell"
+          "hidden px-3 py-3.5 text-xs text-zinc-500 dark:text-zinc-400 lg:table-cell"
         )}
       >
         <span>{tokenName}</span>
@@ -134,7 +134,7 @@ export function Pair({ id }: PairsProps) {
       <td
         className={cn(
           id === 0 ? "" : "border-zinc-900/7.5 border-t dark:border-white/10",
-          "hidden px-3 py-3.5 text-sm text-slate-500 dark:text-slate-400 lg:table-cell"
+          "hidden px-3 py-3.5 text-sm text-zinc-500 dark:text-zinc-400 lg:table-cell"
         )}
       >
         <div className="flex items-center space-x-2">
@@ -149,7 +149,7 @@ export function Pair({ id }: PairsProps) {
       <td
         className={cn(
           id === 0 ? "" : "border-zinc-900/7.5 border-t dark:border-white/10",
-          "hidden px-3 py-3.5 text-sm text-slate-500 dark:text-slate-400 lg:table-cell"
+          "hidden px-3 py-3.5 text-sm text-zinc-500 dark:text-zinc-400 lg:table-cell"
         )}
       >
         <div className="flex items-center space-x-2">
@@ -171,7 +171,7 @@ export function Pair({ id }: PairsProps) {
       <td
         className={cn(
           id === 0 ? "" : "border-zinc-900/7.5 border-t dark:border-white/10",
-          "hidden px-3 py-3.5 text-sm text-slate-500 dark:text-slate-400 lg:table-cell"
+          "hidden px-3 py-3.5 text-sm text-zinc-500 dark:text-zinc-400 lg:table-cell"
         )}
       >
         <Link
@@ -196,7 +196,7 @@ export function Pair({ id }: PairsProps) {
             target="_blank"
             rel="noopener noreferrer"
             key={`${tokenContract}-${id}-chart`}
-            className="inline-flex justify-center gap-0.5 overflow-hidden rounded-full bg-sky-400/20 px-3 py-1 text-sm font-medium text-sky-600 ring-1 ring-inset ring-sky-400/80 transition hover:bg-sky-400/70 hover:text-white hover:ring-sky-700 dark:bg-sky-400/10 dark:text-sky-400 dark:ring-sky-400/20 dark:hover:bg-sky-400/10 dark:hover:text-sky-300 dark:hover:ring-sky-300"
+            className="inline-flex justify-center gap-0.5 overflow-hidden rounded-full bg-violet-400/20 px-3 py-1 text-sm font-medium text-violet-600 ring-1 ring-inset ring-violet-400/80 transition hover:bg-violet-400/70 hover:text-white hover:ring-violet-700 dark:bg-violet-400/10 dark:text-violet-400 dark:ring-violet-400/20 dark:hover:bg-violet-400/10 dark:hover:text-violet-300 dark:hover:ring-violet-300"
           >
             <span className="whitespace-nowrap">
               <span>Trade</span>

@@ -101,9 +101,9 @@ export function DocsBase({
     <>
       <div className="relative flex justify-center mx-auto max-w-8xl sm:px-2 lg:px-8 xl:px-12">
         <div className="hidden lg:relative lg:block lg:flex-none">
-          <div className="absolute inset-y-0 right-0 w-[50vw] bg-slate-50 dark:hidden" />
-          <div className="absolute bottom-0 right-0 hidden w-px h-12 top-16 bg-gradient-to-t from-slate-800 dark:block" />
-          <div className="absolute bottom-0 right-0 hidden w-px top-28 bg-slate-800 dark:block" />
+          <div className="absolute inset-y-0 right-0 w-[50vw] bg-zinc-50 dark:hidden" />
+          <div className="absolute bottom-0 right-0 hidden w-px h-12 top-16 bg-gradient-to-t from-zinc-800 dark:block" />
+          <div className="absolute bottom-0 right-0 hidden w-px top-28 bg-zinc-800 dark:block" />
           <div className="scrollbar sticky top-[4.5rem] -ml-0.5 h-[calc(100vh-4.5rem)] overflow-y-auto overflow-x-hidden py-16 pl-0.5">
             <Navigation
               navigation={navigation}
@@ -112,51 +112,52 @@ export function DocsBase({
           </div>
         </div>
         <div className="flex-auto max-w-2xl min-w-0 min-h-screen px-4 py-16 overflow-auto lg:max-w-none lg:pl-8 lg:pr-0 xl:px-16">
-          <article>
-            {(title || section) && (
-              <header className="space-y-1 mb-9">
-                {section && (
-                  <div className="text-sm font-medium font-display">
-                    <span className="text-transparent bg-gradient-to-r from-sky-500 to-violet-500 bg-clip-text">
-                      {section.title}
-                    </span>
-                  </div>
-                )}
-                {!!tags?.length &&
-                  tags.map((tag: string, key: number) => {
-                    return (
-                      <span
-                        key={`${tag}-${key}`}
-                        className="mr-1 inline-flex justify-center gap-0.5 overflow-hidden rounded-full bg-sky-600/80 px-3 py-0.5 text-xs font-medium text-white ring-1 ring-inset ring-sky-700 transition hover:bg-sky-700 dark:bg-sky-400/10 dark:text-sky-400 dark:ring-sky-400/20 dark:hover:bg-sky-400/10 dark:hover:text-sky-300 dark:hover:ring-sky-300"
-                      >
-                        {tag}
+          <Prose as="article">
+            <>
+              {(title || section) && (
+                <header className="space-y-1 mb-9">
+                  {section && (
+                    <div className="text-sm font-medium font-display">
+                      <span className="text-transparent bg-gradient-to-r from-sky-500 to-violet-500 bg-clip-text">
+                        {section.title}
                       </span>
-                    )
-                  })}
-                {title && (
-                  <h1 className="text-2xl tracking-tight font-display text-slate-900 dark:text-white">
-                    {title}
-                  </h1>
-                )}
-                {date && (
-                  <h2 className="text-xl tracking-tight font-display text-slate-900 dark:text-white">
-                    {date}
-                  </h2>
-                )}
-              </header>
-            )}
-            <Prose>{children}</Prose>
-          </article>
-          <dl className="flex pt-6 mt-12 border-t border-slate-200 dark:border-slate-800">
+                    </div>
+                  )}
+                  {!!tags?.length &&
+                    tags.map((tag: string, key: number) => {
+                      return (
+                        <code
+                          key={`${tag}-${key}`}
+                          className="bg-sky-600/80 hover:bg-sky-700 dark:bg-sky-400/10 dark:text-sky-400 dark:ring-sky-400/20 dark:hover:bg-sky-400/10 dark:hover:text-sky-300 dark:hover:ring-sky-300 ring-sky-700"
+                          // className="mr-1 inline-flex justify-center gap-0.5 overflow-hidden rounded-full  px-3 py-0.5 text-xs font-medium text-white ring-1 ring-inset  transition "
+                        >
+                          {tag}
+                        </code>
+                      )
+                    })}
+                  {title && <h1>{title}</h1>}
+                  {date && (
+                    <h2 className="text-xl tracking-tight font-display text-zinc-900 dark:text-white">
+                      {date}
+                    </h2>
+                  )}
+                </header>
+              )}
+
+              {children}
+            </>
+          </Prose>
+
+          <dl className="flex pt-6 mt-12 border-t border-zinc-200 dark:border-zinc-800">
             {previousPage && (
               <div>
-                <dt className="text-sm font-medium font-display text-slate-900 dark:text-white">
+                <dt className="text-sm font-medium font-display text-zinc-900 dark:text-white">
                   Previous
                 </dt>
                 <dd className="mt-1">
                   <Link
                     href={previousPage.href}
-                    className="text-base font-semibold text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
+                    className="text-base font-semibold text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300"
                   >
                     <span aria-hidden="true">&larr;</span> {previousPage.title}
                   </Link>
@@ -165,13 +166,13 @@ export function DocsBase({
             )}
             {nextPage && (
               <div className="ml-auto text-right">
-                <dt className="text-sm font-medium font-display text-slate-900 dark:text-white">
+                <dt className="text-sm font-medium font-display text-zinc-900 dark:text-white">
                   Next
                 </dt>
                 <dd className="mt-1">
                   <Link
                     href={nextPage.href}
-                    className="text-base font-semibold text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
+                    className="text-base font-semibold text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300"
                   >
                     {nextPage.title} <span aria-hidden="true">&rarr;</span>
                   </Link>
@@ -186,7 +187,7 @@ export function DocsBase({
               <>
                 <h2
                   id="on-this-page-title"
-                  className="text-sm font-medium font-display text-slate-900 dark:text-white"
+                  className="text-sm font-medium font-display text-zinc-900 dark:text-white"
                 >
                   On this page
                 </h2>
@@ -199,7 +200,7 @@ export function DocsBase({
                           className={cn(
                             isActive(section)
                               ? "bg-gradient-to-r from-sky-500 to-violet-500 bg-clip-text text-transparent"
-                              : "font-normal text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
+                              : "font-normal text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-300"
                           )}
                         >
                           {section.title}
@@ -208,7 +209,7 @@ export function DocsBase({
                       {section?.children?.length > 0 && (
                         <ol
                           role="list"
-                          className="pl-5 mt-2 space-y-3 text-slate-500 dark:text-slate-400"
+                          className="pl-5 mt-2 space-y-3 text-zinc-500 dark:text-zinc-400"
                         >
                           {section.children.map((subSection: any) => (
                             <li key={subSection.id}>
@@ -217,7 +218,7 @@ export function DocsBase({
                                 className={
                                   isActive(subSection)
                                     ? "text-purple-500"
-                                    : "hover:text-slate-600 dark:hover:text-slate-300"
+                                    : "hover:text-zinc-600 dark:hover:text-zinc-300"
                                 }
                               >
                                 {subSection.title}

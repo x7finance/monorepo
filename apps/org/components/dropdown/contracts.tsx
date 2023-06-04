@@ -1,10 +1,11 @@
 "use client"
 
+import { XCHANGE } from "common"
+import { cn } from "utils"
+import { ChainsArray, ChevronDownIcon } from "icons"
+
 import { Fragment } from "react"
 import { Menu, Transition } from "@headlessui/react"
-import { XCHANGE } from "common"
-import { ChainsArray, ChevronDownIcon } from "icons"
-import { cn } from "utils"
 
 import { Button } from "../ui/button"
 
@@ -45,7 +46,7 @@ export function Dropdown({
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-slate-100 rounded-md bg-slate-100 shadow-lg ring-1 ring-black focus:outline-none dark:bg-slate-800 dark:ring-zinc-50/7.5">
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-zinc-100 rounded-md bg-zinc-100 shadow-lg ring-1 ring-black focus:outline-none dark:bg-zinc-800 dark:ring-zinc-50/7.5">
           <div className="py-1">
             {ChainsArray.map((c, id) => {
               return (
@@ -57,8 +58,8 @@ export function Dropdown({
                       target="_blank"
                       className={cn(
                         active
-                          ? "bg-slate-300 text-slate-900 dark:bg-slate-900 dark:text-slate-100"
-                          : "text-slate-700 dark:text-slate-300",
+                          ? "bg-zinc-300 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100"
+                          : "text-zinc-700 dark:text-zinc-300",
                         "group flex items-center px-4 py-2 text-sm"
                       )}
                     >

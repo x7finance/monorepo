@@ -1,7 +1,14 @@
+import { Metadata } from "next"
+
 import { DashboardContainer } from "@/components/dashboard-container"
 import { DashboardTitle } from "@/components/dashboard-title"
 import { UnderConstruction } from "@/components/under-construction"
 import { Web3Wrapper } from "@/components/web3-wrapper"
+
+export const metadata: Metadata = {
+  title: "X7DAO",
+  description: "",
+}
 
 export default function DAOPage() {
   return (

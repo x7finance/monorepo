@@ -4,6 +4,7 @@ import { z } from "zod"
 export const env = createEnv({
   server: {},
   client: {
+    NEXT_PUBLIC_APP_URL: z.string().min(1),
     NEXT_PUBLIC_ASSETS_URL: z.string().min(1),
     NEXT_PUBLIC_DOCSEARCH_APP_ID: z.string().min(1),
     NEXT_PUBLIC_DOCSEARCH_API_KEY: z.string().min(1),
@@ -16,6 +17,7 @@ export const env = createEnv({
     NEXT_PUBLIC_GETBLOCK_ID: z.string().min(1),
   },
   runtimeEnv: {
+    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     NEXT_PUBLIC_ASSETS_URL: process.env.NEXT_PUBLIC_ASSETS_URL,
     NEXT_PUBLIC_DOCSEARCH_APP_ID: process.env.NEXT_PUBLIC_DOCSEARCH_APP_ID,
     NEXT_PUBLIC_DOCSEARCH_API_KEY: process.env.NEXT_PUBLIC_DOCSEARCH_API_KEY,

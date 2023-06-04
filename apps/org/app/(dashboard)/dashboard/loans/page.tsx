@@ -1,10 +1,17 @@
 import { cn } from "utils"
 import { CheckCircleIcon, X7Logo } from "icons"
 
+import { Metadata } from "next"
+
 import { DocsLinks } from "@/lib/types/links"
 import { Button } from "@/components/ui/button"
 import { DashboardContainer } from "@/components/dashboard-container"
 import { DashboardTitle } from "@/components/dashboard-title"
+
+export const metadata: Metadata = {
+  title: "Loans",
+  description: "",
+}
 
 export default function LoansPage() {
   return (
@@ -111,41 +118,41 @@ function Loan({
     <section className="group relative flex flex-col overflow-hidden rounded-2xl bg-zinc-50 bg-zinc-900/5 p-6 shadow-lg">
       <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-zinc-900/7.5 transition-shadow hover:shadow-md hover:shadow-zinc-900/5 group-hover:ring-zinc-900/10 dark:bg-white/2.5 dark:ring-white/10 dark:hover:shadow-black/5 dark:group-hover:ring-white/20"></div>
       <h3
-        className={cn("flex items-center text-sm font-semibold text-slate-900")}
+        className={cn("flex items-center text-sm font-semibold text-zinc-900")}
       >
-        <div className="flex h-8 w-8 items-center justify-center rounded-full  ring-1 ring-zinc-900/25 backdrop-blur-[2px] transition duration-300 group-hover:bg-white/50 group-hover:ring-zinc-900/25  dark:ring-white/15 dark:group-hover:bg-sky-300/10 dark:group-hover:ring-sky-400">
+        <div className="flex h-8 w-8 items-center justify-center rounded-full  ring-1 ring-zinc-900/25 backdrop-blur-[2px] transition duration-300 group-hover:bg-white/50 group-hover:ring-zinc-900/25  dark:ring-white/15 dark:group-hover:bg-violet-300/10 dark:group-hover:ring-violet-400">
           <X7Logo
             className={cn(
-              "h-5 w-5  stroke-zinc-700 transition-colors duration-300 group-hover:stroke-zinc-900  dark:stroke-zinc-400 dark:group-hover:fill-sky-300/10 dark:group-hover:stroke-sky-400",
+              "h-5 w-5  stroke-zinc-700 transition-colors duration-300 group-hover:stroke-zinc-900  dark:stroke-zinc-400 dark:group-hover:fill-violet-300/10 dark:group-hover:stroke-violet-400",
               logomarkClassName
             )}
           />
         </div>
-        <span className="ml-4 leading-7 text-slate-500">{id}</span>
+        <span className="ml-4 leading-7 text-zinc-500">{id}</span>
       </h3>
       <p
         className={cn(
-          "relative mt-5 flex text-2xl tracking-tight text-slate-900 dark:text-slate-100"
+          "relative mt-5 flex text-2xl tracking-tight text-zinc-900 dark:text-zinc-100"
         )}
       >
         {name}
       </p>
-      <p className={cn("mt-3 text-sm text-slate-700 dark:text-slate-400")}>
+      <p className={cn("mt-3 text-sm text-zinc-700 dark:text-zinc-400")}>
         {description}
       </p>
       <div className="order-last mt-6">
         <ul
           role="list"
           className={cn(
-            "-my-2 divide-y divide-slate-200 text-sm text-slate-700 dark:divide-slate-800 dark:text-slate-300"
+            "-my-2 divide-y divide-zinc-200 text-sm text-zinc-700 dark:divide-zinc-800 dark:text-zinc-300"
           )}
         >
           {features.map((feature: any) => (
             <li key={feature} className="flex w-full py-2">
               <CheckCircleIcon
-                className={cn("h-6 w-6 flex-none text-sky-500")}
+                className={cn("h-6 w-6 flex-none text-violet-500")}
               />
-              <span className="ml-4 text-slate-600 dark:text-slate-400">
+              <span className="ml-4 text-zinc-600 dark:text-zinc-400">
                 {feature[0]}
               </span>
               <span className="ml-auto ">{feature[1]}</span>
@@ -153,10 +160,10 @@ function Loan({
           ))}
         </ul>
         <div className="mt-4 flex flex-col items-center text-sm ">
-          <div className="text-sky-400 dark:text-sky-700">
+          <div className="text-violet-400 dark:text-violet-700">
             Liquidation Conditions
           </div>
-          <div className="text-center text-slate-500 dark:text-slate-400">
+          <div className="text-center text-zinc-500 dark:text-zinc-400">
             {liquidation}
           </div>
         </div>

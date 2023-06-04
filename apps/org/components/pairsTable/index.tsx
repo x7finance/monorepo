@@ -1,8 +1,9 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import { ContractsEnum } from "common"
 import { AllPairsLength } from "contracts"
+
+import { useEffect, useState } from "react"
 import { useContractReads, useNetwork } from "wagmi"
 
 import { Loading } from "../loading"
@@ -35,38 +36,38 @@ export function PairsTable() {
           <tr>
             <th
               scope="col"
-              className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-slate-900 dark:text-slate-100 sm:pl-6"
+              className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 sm:pl-6"
             >
               Token
             </th>
 
             <th
               scope="col"
-              className="hidden px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-slate-100 lg:table-cell"
+              className="hidden px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell"
             >
               Pair Contract
             </th>
             <th
               scope="col"
-              className="hidden px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-slate-100 lg:table-cell"
+              className="hidden px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell"
             >
               Price
             </th>
             <th
               scope="col"
-              className="hidden px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-slate-100 lg:table-cell"
+              className="hidden px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell"
             >
               Pair Reserves
             </th>
             <th
               scope="col"
-              className="hidden px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-slate-100 lg:table-cell"
+              className="hidden px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell"
             >
               Chart
             </th>
             <th
               scope="col"
-              className="hidden px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-slate-100 lg:table-cell"
+              className="hidden px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell"
             >
               Scan
             </th>

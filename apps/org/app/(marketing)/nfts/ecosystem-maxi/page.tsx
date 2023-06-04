@@ -1,5 +1,12 @@
+import { Metadata } from "next"
+
 import { Heading } from "@/components/heading"
 import { SiteContentContainer } from "@/components/site-content-container"
+
+export const metadata: Metadata = {
+  title: "Ecosystem Maxi NFT",
+  description: "",
+}
 
 export default function EcosystemMaxiPage() {
   return (

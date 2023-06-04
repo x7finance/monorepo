@@ -2,6 +2,7 @@ import { BlockchainType, ContractsEnum } from "common"
 import { cn, generateChainIdentifier } from "utils"
 import { ChainsArray } from "icons"
 
+import { Metadata } from "next"
 import Link from "next/link"
 
 import { TokenLinksEnum } from "@/lib/types/links"
@@ -176,6 +177,11 @@ const xchange = [
   },
 ]
 
+export const metadata: Metadata = {
+  title: "Contracts",
+  description: "",
+}
+
 export default function ContractsPage() {
   return (
     <>
@@ -195,26 +201,26 @@ export default function ContractsPage() {
                   <tr>
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-slate-900 dark:text-slate-100 sm:pl-6"
+                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 sm:pl-6"
                     >
                       Token
                     </th>
 
                     <th
                       scope="col"
-                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-slate-100 lg:table-cell"
+                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell"
                     >
                       Description
                     </th>
                     <th
                       scope="col"
-                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-slate-100 lg:table-cell"
+                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell"
                     >
                       Chart
                     </th>
                     <th
                       scope="col"
-                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-slate-100 lg:table-cell"
+                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell"
                     >
                       Scan
                     </th>
@@ -229,7 +235,7 @@ export default function ContractsPage() {
                           "relative py-4 pl-4 pr-3 text-sm sm:pl-6"
                         )}
                       >
-                        <div className="font-medium text-slate-900 dark:text-slate-100">
+                        <div className="font-medium text-zinc-900 dark:text-zinc-100">
                           {t.name}
                           <div className="relative inline-block ml-2 top-1 lg:hidden">
                             <div className="flex items-center space-x-2">
@@ -251,7 +257,7 @@ export default function ContractsPage() {
                             </div>
                           </div>
                         </div>
-                        <div className="flex flex-col mt-1 text-sm text-slate-500 dark:text-slate-400 sm:block lg:hidden">
+                        <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
                           <span>{t.description}</span>
                           <ContractCopy contract={t.contract} />
                         </div>
@@ -264,7 +270,7 @@ export default function ContractsPage() {
                           idx === 0
                             ? ""
                             : "border-t border-zinc-900/7.5 dark:border-white/10",
-                          "hidden px-3 py-3.5 text-xs text-slate-500 dark:text-slate-400 lg:table-cell"
+                          "hidden px-3 py-3.5 text-xs text-zinc-500 dark:text-zinc-400 lg:table-cell"
                         )}
                       >
                         <span>{t.description}</span>
@@ -276,7 +282,7 @@ export default function ContractsPage() {
                           idx === 0
                             ? ""
                             : "border-t border-zinc-900/7.5 dark:border-white/10",
-                          "hidden px-3 py-3.5 text-sm text-slate-500 dark:text-slate-400 lg:table-cell"
+                          "hidden px-3 py-3.5 text-sm text-zinc-500 dark:text-zinc-400 lg:table-cell"
                         )}
                       >
                         <div className="flex items-center space-x-2">
@@ -303,7 +309,7 @@ export default function ContractsPage() {
                           idx === 0
                             ? ""
                             : "border-t border-zinc-900/7.5 dark:border-white/10",
-                          "hidden px-3 py-3.5 text-sm text-slate-500 dark:text-slate-400 lg:table-cell"
+                          "hidden px-3 py-3.5 text-sm text-zinc-500 dark:text-zinc-400 lg:table-cell"
                         )}
                       >
                         <Dropdown
@@ -358,14 +364,14 @@ export default function ContractsPage() {
                   <tr>
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-slate-900 dark:text-slate-100 sm:pl-6"
+                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 sm:pl-6"
                     >
                       Hub
                     </th>
 
                     <th
                       scope="col"
-                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-slate-100 lg:table-cell"
+                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell"
                     >
                       Description
                     </th>
@@ -385,10 +391,10 @@ export default function ContractsPage() {
                           "relative py-4 pl-4 pr-3 text-sm sm:pl-6"
                         )}
                       >
-                        <div className="font-medium text-slate-900 dark:text-slate-100">
+                        <div className="font-medium text-zinc-900 dark:text-zinc-100">
                           {t.name}
                         </div>
-                        <div className="flex flex-col mt-1 text-sm text-slate-500 dark:text-slate-400 sm:block lg:hidden">
+                        <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
                           <span>{t.description}</span>
                           <ContractCopy contract={t.contract} />
                         </div>
@@ -401,7 +407,7 @@ export default function ContractsPage() {
                           idx === 0
                             ? ""
                             : "border-t border-zinc-900/7.5 dark:border-white/10",
-                          "hidden px-3 py-3.5 text-xs text-slate-500 dark:text-slate-400 lg:table-cell"
+                          "hidden px-3 py-3.5 text-xs text-zinc-500 dark:text-zinc-400 lg:table-cell"
                         )}
                       >
                         <span>{t.description}</span>
@@ -447,14 +453,14 @@ export default function ContractsPage() {
                   <tr>
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-slate-900 dark:text-slate-100 sm:pl-6"
+                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 sm:pl-6"
                     >
                       Hub
                     </th>
 
                     <th
                       scope="col"
-                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-slate-100 lg:table-cell"
+                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell"
                     >
                       Description
                     </th>
@@ -474,10 +480,10 @@ export default function ContractsPage() {
                           "relative py-4 pl-4 pr-3 text-sm sm:pl-6"
                         )}
                       >
-                        <div className="font-medium text-slate-900 dark:text-slate-100">
+                        <div className="font-medium text-zinc-900 dark:text-zinc-100">
                           {t.name}
                         </div>
-                        <div className="flex flex-col mt-1 text-sm text-slate-500 dark:text-slate-400 sm:block lg:hidden">
+                        <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
                           <span>{t.description}</span>
                           <ContractCopy contract={t.contract} />
                         </div>
@@ -490,7 +496,7 @@ export default function ContractsPage() {
                           idx === 0
                             ? ""
                             : "border-t border-zinc-900/7.5 dark:border-white/10",
-                          "hidden px-3 py-3.5 text-xs text-slate-500 dark:text-slate-400 lg:table-cell"
+                          "hidden px-3 py-3.5 text-xs text-zinc-500 dark:text-zinc-400 lg:table-cell"
                         )}
                       >
                         <ContractCopy contract={t.contract} />
@@ -535,14 +541,14 @@ export default function ContractsPage() {
                   <tr>
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-slate-900 dark:text-slate-100 sm:pl-6"
+                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 sm:pl-6"
                     >
                       Authority
                     </th>
 
                     <th
                       scope="col"
-                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-slate-100 lg:table-cell"
+                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell"
                     >
                       Description
                     </th>
@@ -562,10 +568,10 @@ export default function ContractsPage() {
                           "relative py-4 pl-4 pr-3 text-sm sm:pl-6"
                         )}
                       >
-                        <div className="font-medium text-slate-900 dark:text-slate-100">
+                        <div className="font-medium text-zinc-900 dark:text-zinc-100">
                           {t.name}
                         </div>
-                        <div className="flex flex-col mt-1 text-sm text-slate-500 dark:text-slate-400 sm:block lg:hidden">
+                        <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
                           <span>{t.description}</span>
                           <ContractCopy contract={t.contract} />
                         </div>
@@ -578,7 +584,7 @@ export default function ContractsPage() {
                           idx === 0
                             ? ""
                             : "border-t border-zinc-900/7.5 dark:border-white/10",
-                          "hidden px-3 py-3.5 text-xs text-slate-500 dark:text-slate-400 lg:table-cell"
+                          "hidden px-3 py-3.5 text-xs text-zinc-500 dark:text-zinc-400 lg:table-cell"
                         )}
                       >
                         <span>{t.description}</span>
@@ -624,14 +630,14 @@ export default function ContractsPage() {
                   <tr>
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-slate-900 dark:text-slate-100 sm:pl-6"
+                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 sm:pl-6"
                     >
                       Splitter
                     </th>
 
                     <th
                       scope="col"
-                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-slate-100 lg:table-cell"
+                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell"
                     >
                       Description
                     </th>
@@ -651,10 +657,10 @@ export default function ContractsPage() {
                           "relative py-4 pl-4 pr-3 text-sm sm:pl-6"
                         )}
                       >
-                        <div className="font-medium text-slate-900 dark:text-slate-100">
+                        <div className="font-medium text-zinc-900 dark:text-zinc-100">
                           {t.name}
                         </div>
-                        <div className="flex flex-col mt-1 text-sm text-slate-500 dark:text-slate-400 sm:block lg:hidden">
+                        <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
                           <span>{t.description}</span>
                           <ContractCopy contract={t.contract} />
                         </div>
@@ -667,7 +673,7 @@ export default function ContractsPage() {
                           idx === 0
                             ? ""
                             : "border-t border-zinc-900/7.5 dark:border-white/10",
-                          "hidden px-3 py-3.5 text-xs text-slate-500 dark:text-slate-400 lg:table-cell"
+                          "hidden px-3 py-3.5 text-xs text-zinc-500 dark:text-zinc-400 lg:table-cell"
                         )}
                       >
                         <span>{t.description}</span>
@@ -713,14 +719,14 @@ export default function ContractsPage() {
                   <tr>
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-slate-900 dark:text-slate-100 sm:pl-6"
+                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 sm:pl-6"
                     >
                       Contract
                     </th>
 
                     <th
                       scope="col"
-                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-slate-100 lg:table-cell"
+                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell"
                     >
                       Description
                     </th>
@@ -740,10 +746,10 @@ export default function ContractsPage() {
                           "relative py-4 pl-4 pr-3 text-sm sm:pl-6"
                         )}
                       >
-                        <div className="font-medium text-slate-900 dark:text-slate-100">
+                        <div className="font-medium text-zinc-900 dark:text-zinc-100">
                           {t.name}
                         </div>
-                        <div className="flex flex-col mt-1 text-sm text-slate-500 dark:text-slate-400 sm:block lg:hidden">
+                        <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
                           <span>{t.description}</span>
                           <ContractCopy contract={t.contract} />
                         </div>
@@ -756,7 +762,7 @@ export default function ContractsPage() {
                           idx === 0
                             ? ""
                             : "border-t border-zinc-900/7.5 dark:border-white/10",
-                          "hidden px-3 py-3.5 text-xs text-slate-500 dark:text-slate-400 lg:table-cell"
+                          "hidden px-3 py-3.5 text-xs text-zinc-500 dark:text-zinc-400 lg:table-cell"
                         )}
                       >
                         <span>{t.description}</span>
@@ -801,14 +807,14 @@ export default function ContractsPage() {
                   <tr>
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-slate-900 dark:text-slate-100 sm:pl-6"
+                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 sm:pl-6"
                     >
                       Contract
                     </th>
 
                     <th
                       scope="col"
-                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-slate-100 lg:table-cell"
+                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell"
                     >
                       Description
                     </th>
@@ -828,10 +834,10 @@ export default function ContractsPage() {
                           "relative py-4 pl-4 pr-3 text-sm sm:pl-6"
                         )}
                       >
-                        <div className="font-medium text-slate-900 dark:text-slate-100">
+                        <div className="font-medium text-zinc-900 dark:text-zinc-100">
                           {t.name}
                         </div>
-                        <div className="flex flex-col mt-1 text-sm text-slate-500 dark:text-slate-400 sm:block lg:hidden">
+                        <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
                           <span>{t.description}</span>
                           <ContractCopy contract={t.contract} />
                         </div>
@@ -844,7 +850,7 @@ export default function ContractsPage() {
                           idx === 0
                             ? ""
                             : "border-t border-zinc-900/7.5 dark:border-white/10",
-                          "hidden px-3 py-3.5 text-xs text-slate-500 dark:text-slate-400 lg:table-cell"
+                          "hidden px-3 py-3.5 text-xs text-zinc-500 dark:text-zinc-400 lg:table-cell"
                         )}
                       >
                         <span>{t.description}</span>
@@ -889,14 +895,14 @@ export default function ContractsPage() {
                   <tr>
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-slate-900 dark:text-slate-100 sm:pl-6"
+                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 sm:pl-6"
                     >
                       Contract
                     </th>
 
                     <th
                       scope="col"
-                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-slate-100 lg:table-cell"
+                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell"
                     >
                       Description
                     </th>
@@ -916,10 +922,10 @@ export default function ContractsPage() {
                           "relative py-4 pl-4 pr-3 text-sm sm:pl-6"
                         )}
                       >
-                        <div className="font-medium text-slate-900 dark:text-slate-100">
+                        <div className="font-medium text-zinc-900 dark:text-zinc-100">
                           {t.name}
                         </div>
-                        <div className="flex flex-col mt-1 text-sm text-slate-500 dark:text-slate-400 sm:block lg:hidden">
+                        <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
                           <span>{t.description}</span>
                           <ContractCopy contract={t.contract} />
                         </div>
@@ -932,7 +938,7 @@ export default function ContractsPage() {
                           idx === 0
                             ? ""
                             : "border-t border-zinc-900/7.5 dark:border-white/10",
-                          "hidden px-3 py-3.5 text-xs text-slate-500 dark:text-slate-400 lg:table-cell"
+                          "hidden px-3 py-3.5 text-xs text-zinc-500 dark:text-zinc-400 lg:table-cell"
                         )}
                       >
                         <span>{t.description}</span>

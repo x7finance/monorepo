@@ -28,16 +28,16 @@ More details on the Magister NFT can be found on the [NFT page here](/nfts/)
 
 The Pioneer NFT was rewarded with the first invests of the $X7m105 token before the contract upgrade to $X7R and $X7DAO
 
-The announcement for these can be found in the [onchain messages here](/onchains/954-nov-08-2022-012623-am-+utc/)
+The announcement for these can be found in the [onchain messages here](/docs/onchains/954-nov-08-2022-012623-am-+utc/)
 
 {% spacer /%}
 
 ### What are the Wrapped $X7D NFT?
 
-You can find more details on [Tokenized X7D Deposits page here](/whitepaper/x7deposit/#tokenized-x7-d-deposits)
+You can find more details on [Tokenized X7D Deposits page here](/docs/whitepaper/x7deposit/#tokenized-x7-d-deposits)
 
 {% spacer /%}
 
 ### What is the Loan Lending NFT?
 
-You can find more details on [Tokenized Loans here](/whitepaper/lending-functionality/#tokenized-loans)
+You can find more details on [Tokenized Loans here](/docs/whitepaper/lending-functionality/#tokenized-loans)
