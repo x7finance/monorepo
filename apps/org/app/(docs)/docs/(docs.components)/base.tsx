@@ -1,5 +1,8 @@
+"use client"
+
 import { cn } from "utils"
 
+// import { useCallback, useEffect, useState } from "react"
 import Link from "next/link"
 
 import {
@@ -9,56 +12,56 @@ import {
   whitepaperNavigation,
 } from "@/config/docs"
 
-import { Prose } from "../../../../components/markdoc/prose"
 import { Navigation } from "./navigation"
+import { Prose } from "./tags/prose"
 
-function useTableOfContents(tableOfContents: any) {
-  // let [currentSection, setCurrentSection] = useState(tableOfContents[0]?.id)
+// function useTableOfContents(tableOfContents: any) {
+//   let [currentSection, setCurrentSection] = useState(tableOfContents[0]?.id)
 
-  // let getHeadings = useCallback((tableOfContents: any) => {
-  //   return tableOfContents
-  //     .flatMap((node: any) => [
-  //       node.id,
-  //       ...node.children.map((child: any) => child.id),
-  //     ])
-  //     .map((id: string) => {
-  //       let el = document.getElementById(id)
-  //       if (!el) return
+//   let getHeadings = useCallback((tableOfContents: any) => {
+//     return tableOfContents
+//       .flatMap((node: any) => [
+//         node.id,
+//         ...node.children.map((child: any) => child.id),
+//       ])
+//       .map((id: string) => {
+//         let el = document.getElementById(id)
+//         if (!el) return
 
-  //       let style = window.getComputedStyle(el)
-  //       let scrollMt = parseFloat(style.scrollMarginTop)
+//         let style = window.getComputedStyle(el)
+//         let scrollMt = parseFloat(style.scrollMarginTop)
 
-  //       let top = window.scrollY + el.getBoundingClientRect().top - scrollMt
-  //       return { id, top }
-  //     })
-  // }, [])
+//         let top = window.scrollY + el.getBoundingClientRect().top - scrollMt
+//         return { id, top }
+//       })
+//   }, [])
 
-  // useEffect(() => {
-  //   if (tableOfContents.length === 0) return
-  //   let headings = getHeadings(tableOfContents)
-  //   function onScroll() {
-  //     let top = window.scrollY
-  //     let current = headings[0].id
-  //     for (let heading of headings) {
-  //       if (top >= heading.top) {
-  //         current = heading.id
-  //       } else {
-  //         break
-  //       }
-  //     }
-  //     setCurrentSection(current)
-  //   }
-  //   window.addEventListener("scroll", onScroll, { passive: true })
-  //   onScroll()
-  //   return () => {
-  //     // @ts-expect-error
-  //     window.removeEventListener("scroll", onScroll, { passive: true })
-  //   }
-  // }, [getHeadings, tableOfContents])
+//   useEffect(() => {
+//     if (tableOfContents.length === 0) return
+//     let headings = getHeadings(tableOfContents)
+//     function onScroll() {
+//       let top = window.scrollY
+//       let current = headings[0].id
+//       for (let heading of headings) {
+//         if (top >= heading.top) {
+//           current = heading.id
+//         } else {
+//           break
+//         }
+//       }
+//       setCurrentSection(current)
+//     }
+//     window.addEventListener("scroll", onScroll, { passive: true })
+//     onScroll()
+//     return () => {
+//       // @ts-expect-error
+//       window.removeEventListener("scroll", onScroll, { passive: true })
+//     }
+//   }, [getHeadings, tableOfContents])
 
-  return tableOfContents?.[0]?.id
-  // return currentSection
-}
+//   // return tableOfContents?.[0]?.id
+//   return currentSection
+// }
 
 export function DocsBase({
   children,
@@ -85,7 +88,8 @@ export function DocsBase({
   let section = navigation.find((section) =>
     section.links.find((link) => link.href === slug)
   )
-  let currentSection = useTableOfContents(tableOfContents)
+  // let currentSection = useTableOfContents(tableOfContents)
+  let currentSection = 9999
 
   function isActive(section: any) {
     if (section.id === currentSection) {
@@ -112,7 +116,7 @@ export function DocsBase({
           </div>
         </div>
         <div className="flex-auto max-w-2xl min-w-0 min-h-screen px-4 py-16 overflow-auto lg:max-w-none lg:pl-8 lg:pr-0 xl:px-16">
-          <Prose as="article">
+          <Prose as="div">
             <>
               {(title || section) && (
                 <header className="space-y-1 mb-9">
@@ -209,7 +213,7 @@ export function DocsBase({
                                 href={`#${subSection.id}`}
                                 className={
                                   isActive(subSection)
-                                    ? "text-purple-500"
+                                    ? "text-violet-500"
                                     : "hover:text-zinc-600 dark:hover:text-zinc-300"
                                 }
                               >

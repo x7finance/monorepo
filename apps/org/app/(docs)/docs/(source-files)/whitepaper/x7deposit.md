@@ -1,5 +1,6 @@
 ---
 title: X7D
+tags: [whitepaper]
 ---
 
 ## X7Deposit (X7D)

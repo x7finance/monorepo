@@ -1,5 +1,6 @@
 ---
 title: Future Developments
+tags: [whitepaper]
 ---
 
 The X7 ecosystem provides mechanisms not only for individual investors and lenders to profit from the ecosystem activities but also for the flow of capital into the hands of the DAO (and its delegates).

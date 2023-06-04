@@ -5,7 +5,7 @@ import Markdoc from "@markdoc/markdoc"
 import { slugifyWithCounter } from "@sindresorhus/slugify"
 import matter from "gray-matter"
 
-import { config } from "../config.markdoc"
+import { config } from "./config.markdoc"
 
 const SOURCE_FILES = "app/(docs)/docs/(source-files)"
 export const SOURCE_DIR = path.join(process.cwd(), SOURCE_FILES)

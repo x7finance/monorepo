@@ -3,7 +3,7 @@ title: Multi Chain Airdrop
 tags: [faq]
 ---
 
-### What is an Airdrop?
+## What is an Airdrop?
 
 An airdrop is when tokens are sent to your wallet. Tokens are distributed for free and you do not have to perform any particular actions.
 

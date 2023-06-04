@@ -1,4 +1,4 @@
-import { DocsIcon } from "icons"
+import { DocsIcon } from "../icons"
 
 export function QuickLink({
   title,

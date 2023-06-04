@@ -1,4 +1,4 @@
-import { DarkMode, Gradient, LightMode } from '.';
+import { DarkMode, Gradient, LightMode } from "."
 
 export function WarningIcon({ id, color }: { id: string; color: string }) {
   return (
@@ -51,5 +51,5 @@ export function WarningIcon({ id, color }: { id: string; color: string }) {
         />
       </DarkMode>
     </>
-  );
+  )
 }

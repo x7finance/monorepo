@@ -1,5 +1,6 @@
 ---
 title: Understanding Swap Creation
+tags: [whitepaper]
 ---
 
 Below follows a quick overview of how the smart contracts for swapping are created in Uniswap and on Xchange

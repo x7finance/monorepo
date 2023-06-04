@@ -1,6 +1,9 @@
-## Xchange Questions
+---
+tags: [FAQ]
+title: Xchange Questions
+---
 
-### What is a Decentralized Exchange (DEX)?
+## What is a Decentralized Exchange (DEX)?
 
 DEX offers complete ownership of coins and control of private keys during your trading.
 

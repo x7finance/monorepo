@@ -1,5 +1,6 @@
 ---
 title: Lending Pool
+tags: [whitepaper]
 ---
 
 ## Lending Pool Overview

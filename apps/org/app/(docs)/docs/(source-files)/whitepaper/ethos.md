@@ -1,5 +1,6 @@
 ---
 title: Ethos
+tags: [whitepaper]
 ---
 
 > _X7's founding team believes that capital should be available to those

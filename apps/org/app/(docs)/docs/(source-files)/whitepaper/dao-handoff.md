@@ -1,5 +1,6 @@
 ---
 title: DAO Handoff
+tags: [whitepaper]
 ---
 
 Once the above has been completed we expect that we will be able to turn over a large portion of the ecosystem to DAO governance.

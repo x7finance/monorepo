@@ -1,19 +1,19 @@
 ---
-title: Whitepaper Overview
+title: X7 Finance Whitepaper
 seoTitle: Whitepaper
 ---
+
+## Overview
 
 This product white paper will lay out the core components and utility that each part provides and explain the ecosystem.
 
 {% quickLinks %}
 
-{% quick-link title="X7 Devs Whitepaper" icon="plugins" href="https://x7.finance/wp/v1_1_0/X7FinanceWhitepaper.pdf" description="View the whitepaper from the founding team" /%}
+{% quickLink title="X7 Devs Whitepaper" icon="plugins" href="https://x7.finance/wp/v1_1_0/X7FinanceWhitepaper.pdf" description="View the whitepaper from the founding team" /%}
 
-{% quick-link title="Community Github" icon="installation" href="https://github.com/x7finance/monorepo" description="View the community Github." /%}
+{% quickLink title="Community Github" icon="installation" href="https://github.com/x7finance/monorepo" description="View the community Github." /%}
 
 {% /quickLinks %}
-
-## X7 Whitepaper
 
 ### Table of Contents
 

@@ -1,4 +1,4 @@
-import { DarkMode, Gradient, LightMode } from '.';
+import { DarkMode, Gradient, LightMode } from "."
 
 export function InstallationIcon({ id, color }: { id: string; color: string }) {
   return (
@@ -37,5 +37,5 @@ export function InstallationIcon({ id, color }: { id: string; color: string }) {
         />
       </DarkMode>
     </>
-  );
+  )
 }

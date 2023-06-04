@@ -1,5 +1,6 @@
 ---
 title: Lending Functionality
+tags: [whitepaper]
 ---
 
 Lending is a fully automatic process managed fully by Xchange’s interfacing with the Lending Pool via Initial Liquidity Loans.

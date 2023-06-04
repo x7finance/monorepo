@@ -1,5 +1,6 @@
 ---
 title: Customers And Use Cases
+tags: [whitepaper]
 ---
 
 Understanding who our customers are, and what their needs and use cases are, is fundamental to finding product-market fit. We have identified 4 primary user personas that have distinct needs and have optimized the system to meet their requirements.

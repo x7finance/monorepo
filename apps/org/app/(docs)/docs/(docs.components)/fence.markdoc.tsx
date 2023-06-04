@@ -1,5 +1,11 @@
+"use client"
+
+import { cn } from "utils"
+
 import { Fragment } from "react"
 import Highlight, { defaultProps, Language } from "prism-react-renderer"
+
+import { CopyButton } from "./copy-button.markdoc"
 
 export function Fence({
   children,
@@ -16,7 +22,14 @@ export function Fence({
       theme={undefined}
     >
       {({ className, style, tokens, getTokenProps }) => (
-        <pre className={className} style={style}>
+        <pre
+          className={cn(
+            className,
+            "not-prose bg-zinc-800 rounded-lg p-4 overflow-auto w-full relative"
+          )}
+          style={style}
+        >
+          <CopyButton code={children.trimEnd()} />
           <code>
             {tokens.map((line, lineIndex) => (
               <Fragment key={lineIndex}>
@@ -33,13 +46,4 @@ export function Fence({
       )}
     </Highlight>
   )
-}
-
-export default {
-  render: Fence,
-  attributes: {
-    language: {
-      type: String,
-    },
-  },
 }

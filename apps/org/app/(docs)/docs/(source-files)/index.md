@@ -4,12 +4,11 @@ seoTitle: Docs
 tags: [docs]
 ---
 
-Coming soon. {% .lead %}
-{% callout  title="Interested in launching on Xchange?" %}
+## XChange Beta is here
+
+{% callout title="Interested in launching on Xchange?" %}
 The X7 DAO has been granted 20 NFT's that provide project founders with a discount on their initial liquidity loan. X7 DAO is seeking innovative builders looking to launch their project in the next 30 days. To get in touch - [reach out here](https://docs.google.com/forms/d/e/1FAIpQLSd4aN9IA0HOMTUQBRPHMEswtsfPzjsVOGhZlLS9BxviIqJHaQ/viewform)
 {% /callout %}
-
-## Xchange is coming
 
 ### LoanTerm Example
 

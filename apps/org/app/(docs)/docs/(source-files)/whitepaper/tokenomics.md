@@ -1,5 +1,6 @@
 ---
 title: Tokenomics
+tags: [whitepaper]
 ---
 
 A typical structure for funding project operations from tokens is to collect a percentage of traded tokens and periodically swap those tokens in the ETH pair.

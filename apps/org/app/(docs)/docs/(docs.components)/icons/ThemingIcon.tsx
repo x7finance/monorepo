@@ -1,4 +1,4 @@
-import { DarkMode, Gradient, LightMode } from '.';
+import { DarkMode, Gradient, LightMode } from "."
 
 export function ThemingIcon({ id, color }: { id: string; color: string }) {
   return (
@@ -55,5 +55,5 @@ export function ThemingIcon({ id, color }: { id: string; color: string }) {
         />
       </DarkMode>
     </>
-  );
+  )
 }

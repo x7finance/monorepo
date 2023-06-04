@@ -1,5 +1,6 @@
 ---
 title: Xchange - A Leveraged Initial Liquidity Decentralized Exchange
+tags: [whitepaper]
 ---
 
 X7’s Decentralized Exchange is a peer-to-peer Automated Market Making (AMM) platform integrated with a novel trustless, permissionless on-chain undercollateralized loan origination and servicing system known as the Lending Pool. This section will describe the core functionality of the operations of DEX.

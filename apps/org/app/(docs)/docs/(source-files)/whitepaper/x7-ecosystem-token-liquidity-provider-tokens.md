@@ -1,5 +1,6 @@
 ---
 title: X7 ecosystem token Liquidity Provider Tokens (LP)
+tags: [whitepaper]
 ---
 
 The original stealth launched tokens had their liquidity tokens sent to the burn wallet. This was to instill confidence in investors of a stealth launch that there was no intention or ability to withdraw the capital in the liquidity pairs.

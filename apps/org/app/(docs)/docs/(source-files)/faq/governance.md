@@ -1,6 +1,9 @@
-## Governance Questions
+---
+tags: [FAQ]
+title: Governance Questions
+---
 
-### What is a DAO?
+## What is a DAO?
 
 A DAO is a Decentralised Autonomous Organization.
 

@@ -1,6 +1,9 @@
-## Liquidity Lending Questions
+---
+tags: [FAQ]
+title: Liquidity Lending Questions
+---
 
-### What are the loan terms?
+## What are the loan terms?
 
 The loan terms can be found on the [loan page here](/loans/)
 

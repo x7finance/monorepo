@@ -1,8 +1,11 @@
-## Developer Questions
+---
+title: Developer Questions
+tags: [faq]
+---
 
-### What leverage can I currently take when deploying liquidity?
+## What leverage can I currently take when deploying liquidity?
 
-Please find details on the [loans page here](/loans/)
+Please find details on the [loans page here](/dashboard/loans/)
 
 {% spacer /%}
 
@@ -12,7 +15,7 @@ Yes.
 
 X7 Finance has its own router, factory, and pairs contract to create liquidity pools and allows trading.
 
-You can find the addresses for each chain on the [contracts page here](/contracts/)
+You can find the addresses for each chain on the [contracts page here](/dashboard/contracts/)
 
 {% spacer /%}
 

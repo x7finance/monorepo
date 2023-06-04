@@ -1,5 +1,6 @@
 ---
 title: Community Stealth Launch
+tags: [whitepaper]
 ---
 
 > No plan of operations extends with any certainty beyond the first encounter with the main enemy forces.\*

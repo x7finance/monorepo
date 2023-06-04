@@ -1,5 +1,6 @@
 ---
-title: Swap
+title: Trading Functionality
+tags: [whitepaper]
 ---
 
 Similar to Uniswap, token swaps in Xchange are a simple way to trade one ERC-20 token for another.

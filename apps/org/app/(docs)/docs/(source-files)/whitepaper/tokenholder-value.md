@@ -1,5 +1,6 @@
 ---
 title: Tokenholder Value
+tags: [whitepaper]
 ---
 
 Generating Tokenholder Value is fundamental for long term success of X7 Finance and our tokenomics have been architected with that in mind.

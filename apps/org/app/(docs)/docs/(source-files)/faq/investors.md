@@ -1,6 +1,9 @@
-## Investor Questions
+---
+tags: [FAQ]
+title: Investor Questions
+---
 
-### How can I invest in X7 Finance?
+## How can I invest in X7 Finance?
 
 There are four areas to invest within #X7Finance
 

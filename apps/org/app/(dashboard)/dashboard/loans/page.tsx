@@ -2,9 +2,10 @@ import { cn } from "utils"
 import { CheckCircleIcon, X7Logo } from "icons"
 
 import { Metadata } from "next"
+import Link from "next/link"
 
 import { DocsLinks } from "@/lib/types/links"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { DashboardContainer } from "@/components/dashboard-container"
 import { DashboardTitle } from "@/components/dashboard-title"
 
@@ -150,7 +151,7 @@ function Loan({
           {features.map((feature: any) => (
             <li key={feature} className="flex w-full py-2">
               <CheckCircleIcon
-                className={cn("h-6 w-6 flex-none text-violet-500")}
+                className={cn("h-6 w-6 flex-none text-violet-400")}
               />
               <span className="ml-4 text-zinc-600 dark:text-zinc-400">
                 {feature[0]}
@@ -160,7 +161,7 @@ function Loan({
           ))}
         </ul>
         <div className="mt-4 flex flex-col items-center text-sm ">
-          <div className="text-violet-400 dark:text-violet-700">
+          <div className="text-violet-400 dark:text-violet-500">
             Liquidation Conditions
           </div>
           <div className="text-center text-zinc-500 dark:text-zinc-400">
@@ -168,15 +169,19 @@ function Loan({
           </div>
         </div>
       </div>
-      <Button
-        // href={button.href}
-        // target="_blank"
-        className="mt-6"
+      <Link
+        href={button?.href}
+        className={cn(
+          buttonVariants({
+            variant: "default",
+          }),
+          "mt-6"
+        )}
         aria-label={`Get started with the ${name} loan`}
       >
         <span className="absolute inset-0 rounded-2xl" />
         {button.label}
-      </Button>
+      </Link>
     </section>
   )
 }

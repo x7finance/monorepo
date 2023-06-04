@@ -1,5 +1,6 @@
 ---
 title: Liquidity Functionality
+tags: [whitepaper]
 ---
 
 ## Liqudity, Loans, Lending Pool Overview

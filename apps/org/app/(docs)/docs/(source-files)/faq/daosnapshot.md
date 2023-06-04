@@ -1,6 +1,9 @@
-## DAO Snapshot.org voting
+---
+title: DAO Snapshot.org Voting
+tags: [faq]
+---
 
-### What is snapshot.org
+## What is snapshot.org?
 
 Snapshot is a decentralized voting system. It's used by several companies in the DeFi space to help survey users. The project uses 'off-chain' signing techniques to make voting fee less.
 

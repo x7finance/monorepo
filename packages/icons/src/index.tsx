@@ -48,7 +48,6 @@ export {
   Squares2X2Icon,
 } from "@heroicons/react/24/outline"
 
-export { Icon as DocsIcon } from "./docs-icons"
 export { ChainsArray } from "./utils/ChainsArray"
 
 export * from "./utils/IconWrapper"

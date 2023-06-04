@@ -1,5 +1,6 @@
 ---
 title: X7 System Design Philosophy
+tags: [whitepaper]
 ---
 
 {% header %}

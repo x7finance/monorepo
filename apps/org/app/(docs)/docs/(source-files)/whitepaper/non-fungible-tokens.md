@@ -1,5 +1,6 @@
 ---
 title: Non-Fungible Tokens
+tags: [whitepaper]
 ---
 
 Over the last few years there have been plenty of examples of NFTs selling jpegs. But NFTs within the X7 ecosystem will be pure utility.

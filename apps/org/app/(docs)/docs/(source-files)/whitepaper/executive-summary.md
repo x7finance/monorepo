@@ -1,5 +1,6 @@
 ---
 title: Executive Summary
+tags: [whitepaper]
 ---
 
 X7 is an ecosystem of innovative smart contracts that provide those with visionary ideas access to leveraged seed capital without lenders incurring the risk of losing the principal.

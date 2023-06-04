@@ -1,5 +1,6 @@
 ---
-title: Xchange
+title: X7 Functionality Summary
+tags: [whitepaper]
 ---
 
 Below follows a quick high-level summary of each component of the system and its role in the system.

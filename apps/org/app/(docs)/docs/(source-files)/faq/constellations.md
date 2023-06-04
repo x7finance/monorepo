@@ -1,6 +1,9 @@
-## Constellation Tokens
+---
+title: Constellation Tokens
+tags: [faq]
+---
 
-### What are the constellation tokens?
+## What are the constellation tokens?
 
 The constellation tokens are a series of tokens that can be traded between each other as they share liquidity pairs with each other.
 

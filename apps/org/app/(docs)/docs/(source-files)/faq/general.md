@@ -1,6 +1,9 @@
-## General Questions
+---
+tags: [FAQ]
+title: General Questions
+---
 
-### What is X7 Finance?
+## What is X7 Finance?
 
 X7 is an ecosystem of smart contracts and products which gives access to leveraged seed capital without lenders incurring the risk of losing the principal.
 

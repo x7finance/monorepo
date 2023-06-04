@@ -1,6 +1,9 @@
-## NFT Questions
+---
+tags: [FAQ]
+title: NFT Questions
+---
 
-### How many NFTs are there?
+## How many NFTs are there?
 
 In total, there will be 8 types of NFTs that have different utilities in the ecosystem.
 
