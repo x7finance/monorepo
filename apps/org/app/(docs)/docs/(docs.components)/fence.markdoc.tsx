@@ -3,7 +3,7 @@
 import { cn } from "utils"
 
 import { Fragment } from "react"
-import Highlight, { defaultProps, Language } from "prism-react-renderer"
+import { Highlight, themes } from "prism-react-renderer"
 
 import { CopyButton } from "./copy-button.markdoc"
 
@@ -12,14 +12,13 @@ export function Fence({
   language,
 }: {
   children: string
-  language: Language
+  language: any
 }) {
   return (
     <Highlight
-      {...defaultProps}
+      theme={themes.dracula}
       code={children.trimEnd()}
       language={language}
-      theme={undefined}
     >
       {({ className, style, tokens, getTokenProps }) => (
         <pre
