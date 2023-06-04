@@ -36,7 +36,7 @@ export function MobileNavigation({ className }: { className: string }) {
       {({ open }) => (
         <>
           <Popover.Button
-            className="relative z-10 -m-2 top-1 inline-flex items-center rounded-lg stroke-zinc-900 border-zinc-600 border dark:stroke-zinc-100 p-2 hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 hover:stroke-zinc-600 dark:hover:stroke-zinc-500 active:stroke-zinc-900 dark:active:stroke-zinc-100 [&:not(:focus-visible)]:focus:outline-none"
+            className="relative z-40 -m-2 top-1 inline-flex items-center rounded-lg stroke-zinc-900 border-zinc-600 border dark:stroke-zinc-100 p-2 hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 hover:stroke-zinc-600 dark:hover:stroke-zinc-500 active:stroke-zinc-900 dark:active:stroke-zinc-100 [&:not(:focus-visible)]:focus:outline-none"
             aria-label="Toggle site navigation"
           >
             {({ open }) =>
@@ -68,13 +68,10 @@ export function MobileNavigation({ className }: { className: string }) {
                     y: -32,
                     transition: { duration: 0.2 },
                   }}
-                  className="absolute inset-x-0 top-0 origin-top rounded-b-2xl bg-zinc-50 dark:bg-zinc-900 px-6 pb-6 pt-4 shadow-2xl shadow-zinc-900/20 dark:shadow-zinc-50/20"
+                  className="absolute z-30 inset-x-0 top-0 origin-top rounded-b-2xl bg-zinc-50 dark:bg-zinc-900 px-6 pb-6 pt-4 shadow-2xl shadow-zinc-900/20 dark:shadow-zinc-50/20"
                 >
                   <div className="flex mb-8 items-center">
                     <X7Logo className="h-8 w-auto fill-black dark:fill-white" />
-                    <div className="text-xs text-zinc-500 italic">
-                      Trust No One. Trust Code. Long Live DeFi
-                    </div>
                   </div>
                   <div className="space-y-4">
                     <MobileNavLink href={ProductsLinkEnum.Index}>
@@ -92,6 +89,9 @@ export function MobileNavigation({ className }: { className: string }) {
                   </div>
                   <div className="mt-8 flex flex-col gap-4 text-black dark:text-white">
                     <ModeToggle />
+                    <div className="text-xs text-zinc-500 italic text-center">
+                      Trust No One. Trust Code. Long Live DeFi
+                    </div>
                     <Link
                       href={DocsLinks.Index}
                       className={cn(

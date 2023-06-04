@@ -59,7 +59,7 @@ export function Search({ isMobile = false }) {
           <Button
             variant="ghost"
             size="sm"
-            className="h-8 w-8 px-0"
+            className="h-8 w-8 px-0 z-40 relative"
             aria-label="Find something..."
             onClick={onOpen}
           >

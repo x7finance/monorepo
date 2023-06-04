@@ -62,7 +62,7 @@ export function DashboardHeader() {
         </div>
       </nav>
 
-      <div className="fixed w-full z-10 dark:bg-black bg-white">
+      <div className="sm:fixed w-full z-10 dark:bg-black bg-white">
         <DashboardTabNavigation />
       </div>
     </>

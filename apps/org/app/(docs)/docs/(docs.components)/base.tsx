@@ -115,7 +115,7 @@ export function DocsBase({
             />
           </div>
         </div>
-        <div className="flex-auto max-w-2xl min-w-0 min-h-screen px-4 py-16 overflow-auto lg:max-w-none lg:pl-8 lg:pr-0 xl:px-16">
+        <div className="flex-auto max-w-2xl min-w-0 min-h-screen px-4 py-8 sm:py-16 overflow-auto lg:max-w-none lg:pl-8 lg:pr-0 xl:px-16">
           <Prose as="div">
             <>
               {(title || section) && (
