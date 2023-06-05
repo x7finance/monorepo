@@ -9,9 +9,6 @@ export function generateMetadataFromDoc(doc) {
   ogUrl.searchParams.set("type", doc?.section)
   ogUrl.searchParams.set("mode", "dark")
 
-  console.log("title: ", doc?.title)
-  console.log("description: ", doc?.description)
-
   return {
     title: doc?.seoTitle ?? doc?.title,
     description: doc?.description,

@@ -29,7 +29,7 @@ export default function IndexPage() {
     <>
       <section className="space-y-6 pb-8 md:pb-12">
         <HeaderVideoComponent />
-        <div className="pointer-events-none absolute inset-x-0 text-sm md:text-base top-16 sm:flex sm:justify-center sm:px-6 sm:pb-5 lg:px-8">
+        <div className="pointer-events-none absolute inset-x-0 text-sm md:text-base top-4 sm:flex sm:justify-center sm:px-6 sm:pb-5 lg:px-8">
           <div className="pointer-events-auto flex items-center announcement-shadow justify-between gap-x-6 bg-black border-zinc-900 border px-6 py-3 sm:rounded-xl sm:py-3 sm:pl-4 sm:pr-3.5">
             <p className="text-zinc-400 tracking-tight">
               <Link
@@ -68,7 +68,7 @@ export default function IndexPage() {
           </div>
         </div>
         <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center relative">
-          <h1 className="py-14 text-[10vw] text-center sm:text-10xl leading-none select-none tracking-tightest font-extrabold">
+          <h1 className="py-8 text-[14vw] text-center sm:text-9xl leading-none select-none tracking-tightest font-extrabold">
             <span
               data-content="Trade"
               className="relative block italic before:content-[attr(data-content)] before:w-full before:z-0 before:block before:absolute before:top-0 before:px-2 before:bottom-0 before:left-0 before:text-center before:text-hero-header before:animate-gradient-background-1"
@@ -101,15 +101,15 @@ export default function IndexPage() {
             </span>
           </h1>
           <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8 bg-transparent"></p>
-          <div className="space-x-4">
+          <div className="gap-y-2 md:gap-x-3 md:gap-y-0 flex flex-col-reverse md:flex-row items-center">
             <Link
               href={DocsLinks.Index}
               className={cn(
                 buttonVariants({
-                  variant: "border",
+                  variant: "outline",
                   size: "lg",
                 }),
-                "text-md"
+                "text-md h-12 border-zinc-500 hover:shadow-sm transition-all duration-500 hover:shadow-white hover:bg-transparent w-full"
               )}
             >
               Read Docs
@@ -118,9 +118,9 @@ export default function IndexPage() {
               href={X7LinksEnum.Xchange}
               target="_blank"
               rel="noopener noreferrer"
-              className="animate-background inline-block rounded-md bg-zinc-900 from-[#23094f] via-[#b74e4c] to-yellow-500 hover:bg-none bg-[length:400%_400%] p-[0.175rem] [animation-duration:_6s] bg-gradient-to-r dark:bg-black"
+              className="animate-background m-auto inline-block transition-all duration-1000 rounded-md bg-zinc-900 from-[#23094f] via-[#b74e4c] to-yellow-500 hover:bg-none bg-[length:400%_400%] p-[0.175rem] [animation-duration:_6s] bg-gradient-to-r dark:bg-black"
             >
-              <span className="flex items-center bg-white px-8 rounded-md py-2 text-md font-medium text-zinc-900 dark:bg-black dark:text-white hover:bg-gradient-to-tr hover:from-purple-500 hover:text-white hover:via-purple-800 hover:to-red-500">
+              <span className="flex items-center bg-white px-8 rounded-md py-3 text-md font-medium text-zinc-900 dark:bg-black dark:text-white hover:bg-gradient-to-tr hover:from-purple-500 hover:text-white hover:via-purple-800 hover:to-red-500">
                 Enter <Xchange className="w-24 pl-1 pr-2" />
                 {` `}
                 <span aria-hidden="true">&rarr;</span>
