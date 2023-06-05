@@ -1,12 +1,12 @@
 import { Metadata } from "next"
 
+import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { DashboardContainer } from "@/components/dashboard-container"
 import { DashboardSubheader } from "@/components/dashboard-subheader"
 import { DashboardTitle } from "@/components/dashboard-title"
 import { PairsTable } from "@/components/pairsTable"
 import { SplittersOverview } from "@/components/splittersOverview"
 import { Web3Wrapper } from "@/components/web3-wrapper"
-import { generateMetadataFromDoc } from "@/app/(docs)/docs/(docs.utils)/generateMetadataFromDoc"
 
 const metadata = {
   title: "Live Pairs & Contracts",

@@ -1,11 +1,19 @@
 import { Metadata } from "next"
 
+import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { Heading } from "@/components/heading"
 import { SiteContentContainer } from "@/components/site-content-container"
 
-export const metadata: Metadata = {
+const metadata = {
   title: "Ecosystem Maxi NFT",
-  description: "",
+  description:
+    "Discover X7 Finance's Ecosystem Maxi NFT: A unique digital asset that provides holders with comprehensive benefits across the entire X7 DeFi ecosystem. Learn how the Ecosystem Maxi NFT can enhance your DeFi experience, provide preferential rates, and unlock new opportunities in trading, lending, and governance. Understand the mechanics, benefits, and potential returns of our Ecosystem Maxi NFT and maximize your decentralized finance journey.",
+  slug: "/nfts/ecosystem-maxi",
+  section: "default",
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function EcosystemMaxiPage() {

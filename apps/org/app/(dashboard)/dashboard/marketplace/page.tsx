@@ -1,10 +1,10 @@
 import { Metadata } from "next"
 
+import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { DashboardContainer } from "@/components/dashboard-container"
 import { DashboardTitle } from "@/components/dashboard-title"
 import { UtitlityNfts } from "@/components/utilityNfts"
 import { Web3Wrapper } from "@/components/web3-wrapper"
-import { generateMetadataFromDoc } from "@/app/(docs)/docs/(docs.utils)/generateMetadataFromDoc"
 
 const metadata = {
   title: "NFT Marketplace",

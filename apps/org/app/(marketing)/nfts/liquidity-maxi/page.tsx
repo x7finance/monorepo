@@ -1,11 +1,19 @@
 import { Metadata } from "next"
 
+import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { Heading } from "@/components/heading"
 import { SiteContentContainer } from "@/components/site-content-container"
 
-export const metadata: Metadata = {
+const metadata = {
   title: "Liquidty Maxi NFT",
-  description: "",
+  description:
+    "Uncover X7 Finance's Liquidity Maxi NFT: A unique digital asset that offers holders exclusive benefits in our liquidity pools. Learn how the Liquidity Maxi NFT can enhance your liquidity provision experience, provide preferential rates, and unlock new opportunities in the DeFi market. Understand the mechanics, benefits, and potential returns of our Liquidity Maxi NFT and optimize your decentralized finance journey.",
+  slug: "/nfts/liquidity-maxi",
+  section: "default",
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function LiquidityMaxiPage() {

@@ -1,13 +1,20 @@
 import { Metadata } from "next"
 
+import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { Heading } from "@/components/heading"
 import { SiteContentContainer } from "@/components/site-content-container"
 import { UnderConstruction } from "@/components/under-construction"
 
-export const metadata: Metadata = {
+const metadata = {
   title: "Xchange",
   description:
-    "Experience Xchange by X7 Finance: A peer-to-peer Automated Market Making (AMM) Decentralized Exchange (DEX) integrated with a novel trustless, permissionless on-chain undercollateralized loan origination and servicing system. Xchange offers seamless, trustless trading of ERC-20 tokens, providing unparalleled opportunities for crypto investors. Discover how Xchange is redefining decentralized trading and liquidity provision in the DeFi space.",
+    "Explore XChange: X7 Finance's native Decentralized Exchange (DEX) powered by Automated Market Making (AMM). Learn how XChange offers seamless, trustless trading of ERC-20 tokens, providing unparalleled opportunities for crypto investors. Understand the mechanics, benefits, and potential returns of trading on XChange. Experience the future of decentralized trading with XChange by X7 Finance.",
+  slug: "/products/x7d",
+  section: "default",
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function XChangePage() {

@@ -1,14 +1,21 @@
 import { Metadata } from "next"
 
+import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { Heading } from "@/components/heading"
 import { SiteContentContainer } from "@/components/site-content-container"
 import { UnderConstruction } from "@/components/under-construction"
 
-export const metadata: Metadata = {
+const metadata = {
   title: "X7103",
-  description: "",
+  description:
+    "Dive into X7103: A unique token within the X7 Finance ecosystem, designed with specific features and benefits. Learn how X7103 contributes to our DeFi platform, facilitating transactions and incentivizing active participation. Understand the tokenomics, benefits, and potential returns of holding X7103. Experience the potential of decentralized finance with X7103, a crucial component of X7 Finance.",
+  slug: "/tokens/x7103",
+  section: "default",
 }
 
+export async function generateMetadata(): Promise<Metadata> {
+  return generateMetadataFromDoc(metadata)
+}
 export default function X7103TokenPage() {
   return (
     <div>

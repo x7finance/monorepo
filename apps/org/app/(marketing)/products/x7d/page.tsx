@@ -1,12 +1,20 @@
 import { Metadata } from "next"
 
+import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { Heading } from "@/components/heading"
 import { SiteContentContainer } from "@/components/site-content-container"
 import { UnderConstruction } from "@/components/under-construction"
 
-export const metadata: Metadata = {
+const metadata = {
   title: "X7D",
-  description: "",
+  description:
+    "Discover X7D: The native token of X7 Finance, playing a pivotal role in our DeFi ecosystem. Learn how X7D is used in governance, incentivizing liquidity provision, and facilitating transactions within the platform. Understand the tokenomics, benefits, and potential returns of holding X7D. Experience the power of decentralized finance with X7D, the heartbeat of X7 Finance.",
+  slug: "/products/x7d",
+  section: "default",
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function X7D() {

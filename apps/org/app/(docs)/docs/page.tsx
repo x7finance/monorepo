@@ -6,9 +6,10 @@ import { notFound } from "next/navigation"
 import Markdoc from "@markdoc/markdoc"
 import { glob } from "glob"
 
+import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
+
 import { DocsBase } from "./(docs.components)/base"
 import { components } from "./(docs.utils)/config.markdoc"
-import { generateMetadataFromDoc } from "./(docs.utils)/generateMetadataFromDoc"
 import {
   DocsPageProps,
   getMarkdownContent,

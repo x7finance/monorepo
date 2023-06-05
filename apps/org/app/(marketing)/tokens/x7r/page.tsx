@@ -1,12 +1,20 @@
 import { Metadata } from "next"
 
+import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { Heading } from "@/components/heading"
 import { SiteContentContainer } from "@/components/site-content-container"
 import { UnderConstruction } from "@/components/under-construction"
 
-export const metadata: Metadata = {
+const metadata = {
   title: "X7R",
-  description: "",
+  description:
+    "Explore X7R: A unique token in the X7 Finance ecosystem, designed with specific functionalities and benefits. Learn how X7R plays a significant role in our DeFi platform, from facilitating transactions to incentivizing participation in the ecosystem. Understand the tokenomics, benefits, and potential returns of holding X7R. Experience the potential of decentralized finance with X7R, a key component of X7 Finance.",
+  slug: "/tokens/x7r",
+  section: "default",
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function X7RTokenPage() {

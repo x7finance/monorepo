@@ -1,13 +1,20 @@
 import { Metadata } from "next"
 
+import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { Heading } from "@/components/heading"
 import { SiteContentContainer } from "@/components/site-content-container"
 import { UnderConstruction } from "@/components/under-construction"
 
-export const metadata: Metadata = {
+const metadata = {
   title: "Products",
   description:
-    "Discover X7 Finance's Innovative DeFi Products: Experience seamless, trustless trading with our Automated Market Making (AMM) Decentralized Exchange (DEX), manage funds and loans with our Lending Pool, launch projects effortlessly with our Initial Liquidity Loans, and participate in our democratic Decentralized Anonymous Organization (DAO). Our multi-chain rollout ensures a refined experience across Ethereum, Binance Smart Chain (BSC), and Polygon. Explore how X7 Finance is revolutionizing the DeFi space.",
+    "Discover X7 Finance's DeFi Product Suite: A comprehensive platform showcasing our innovative decentralized finance solutions. Learn about our Automated Market Making (AMM) Decentralized Exchange (DEX), Lending Pool, Initial Liquidity Loans, and unique Utility NFTs. Understand how our democratic DAO governance model works and how you can participate. Whether you're an investor seeking growth or a project launcher looking for support, X7 Finance's product suite is your gateway to the future of decentralized finance.",
+  slug: "/products",
+  section: "default",
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function ProductsPage() {

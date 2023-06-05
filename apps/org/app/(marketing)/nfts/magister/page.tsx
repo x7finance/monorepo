@@ -1,11 +1,19 @@
 import { Metadata } from "next"
 
+import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { Heading } from "@/components/heading"
 import { SiteContentContainer } from "@/components/site-content-container"
 
-export const metadata: Metadata = {
+const metadata = {
   title: "Magister NFT",
-  description: "",
+  description:
+    "Explore X7 Finance's Magister NFT: A unique digital asset that provides holders with elevated governance rights within the X7 DeFi ecosystem. Learn how the Magister NFT can enhance your participation in our democratic DAO governance, provide a stronger voice in decision-making, and unlock new opportunities in shaping the future of decentralized finance. Understand the mechanics, benefits, and potential returns of our Magister NFT and redefine your decentralized governance experience.",
+  slug: "/nfts/magister",
+  section: "default",
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function MagisterNftPage() {

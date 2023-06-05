@@ -45,6 +45,7 @@ export async function getMarkdownContent(params: ParamsProps) {
     const slugPath = params?.slug ? `/${params.slug}` : ""
 
     return {
+      section: "docs",
       content,
       title,
       tags,

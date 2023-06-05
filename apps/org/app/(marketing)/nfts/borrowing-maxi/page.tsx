@@ -1,11 +1,19 @@
 import { Metadata } from "next"
 
+import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { Heading } from "@/components/heading"
 import { SiteContentContainer } from "@/components/site-content-container"
 
-export const metadata: Metadata = {
+const metadata = {
   title: "Borrowing Maxi NFT",
-  description: "",
+  description:
+    "Dive into X7 Finance's Borrowing Maxi NFT: A unique digital asset that provides holders with exclusive borrowing privileges within the X7 DeFi ecosystem. Learn how owning a Borrowing Maxi NFT can enhance your borrowing capacity, provide flexible loan terms, and unlock new financial opportunities. Understand the mechanics, benefits, and potential returns of our Borrowing Maxi NFT and redefine your decentralized finance experience.",
+  slug: "/nfts/borrowing-maxi",
+  section: "default",
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function BorrowingMaxiPage() {

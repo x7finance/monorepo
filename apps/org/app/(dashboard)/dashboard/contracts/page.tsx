@@ -5,12 +5,12 @@ import { ChainsArray } from "icons"
 import { Metadata } from "next"
 import Link from "next/link"
 
+import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { TokenLinksEnum } from "@/lib/types/links"
 import { DashboardContainer } from "@/components/dashboard-container"
 import { DashboardSubheader } from "@/components/dashboard-subheader"
 import { DashboardTitle } from "@/components/dashboard-title"
 import { Dropdown } from "@/components/dropdown/contracts"
-import { generateMetadataFromDoc } from "@/app/(docs)/docs/(docs.utils)/generateMetadataFromDoc"
 
 import { ContractCopy } from "./components/contractCopy"
 
