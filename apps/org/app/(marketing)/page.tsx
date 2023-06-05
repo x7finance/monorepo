@@ -193,7 +193,81 @@ export default function IndexPage() {
         </div>
       </div>
 
-      <div className="overflow-hidden py-24 sm:py-32 mt-12 sm:mt-48 md:mt-24 lg:mt-28">
+      <div className="overflow-hidden py-12 sm:py-24">
+        <SectionHeader
+          pioneerId="0561"
+          lineColor="to-teal-600"
+          gradientColor="from-emerald-400 via-green-500 to-cyan-400"
+          subHeader="Launch"
+          header="Supercharge your project with Xchange"
+          description="Through our innovative Leveraged Initial Liquidity Loans Xchange can provide massive initial seed capital to visionary entrepreneurs, organizations, and businesses."
+          hasSubSection={true}
+        />
+        <div className="mx-auto max-w-7xl md:px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl px-4 lg:max-w-none">
+            <StepSection
+              header="Kickstart Your Project with the Right Liquidity"
+              subHeader="Determine the optimal liquidity level to make your project's launch a success"
+              pioneerId="0600"
+              gradient="from-orange-400 via-red-500 to-yellow-400"
+              checkColor="text-orange-600"
+              highlightHeader="Benefits of Xchange Liquidity"
+              highlights={[
+                "Flexible leverage options (1-10x)",
+                "Competitive borrowing rates",
+                "A privacy-focused/trustless DEX",
+                "Access to institutional capital",
+              ]}
+            />
+            <StepSection
+              header="Choose the Perfect Loan for Your Project"
+              subHeader="Flexible loan options to fuel the growth of your project - regardless of size"
+              pioneerId="0621"
+              gradient="from-slate-400 via-blue-500 to-amber-400"
+              checkColor="text-blue-600"
+              isReverse={true}
+              highlightHeader="Diverse loan options"
+              highlights={[
+                "Minimal fees",
+                "Complete protection of your LP",
+                "Discounts available from X7 DAO",
+                "ETH, BNB, MATIC, and more",
+              ]}
+            />
+            <StepSection
+              header="Make a Splash with Your Launch on Xchange"
+              subHeader="Seamless Launches for Maximum Impact"
+              pioneerId="0590"
+              gradient="from-slate-400 via-rose-500 to-sky-400"
+              checkColor="text-rose-600"
+              highlightHeader="Diverse loan options"
+              highlights={[
+                "Smooth pair launch",
+                "High liquidity provision",
+                "Trustless trading experience for traders",
+                "All pairs available at your investors fingertips",
+              ]}
+            />
+            <StepSection
+              header="Choose How You Want to Pay Off Your Loan"
+              subHeader="Seamless Launches for Maximum Impact"
+              pioneerId="0166"
+              isReverse={true}
+              gradient="from-slate-400 via-amber-500 to-zinc-400"
+              checkColor="text-amber-600"
+              highlightHeader="Your LP. Your Choice."
+              highlights={[
+                "Multiple repayment options",
+                "Have your LP work for you",
+                "Countless connected protocols to manage your liquidity",
+                "Or don't pay it off at all!",
+              ]}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="overflow-hidden py-12 sm:py-24">
         <SectionHeader
           pioneerId="0269"
           lineColor="to-pink-600"
@@ -256,9 +330,9 @@ export default function IndexPage() {
         </div>
       </div>
 
-      {/* <section
+      <section
         id="long-live-decentralization"
-        className="container pt-8 md:pt-12 lg:pt-24 bg-gradient-to-b to-black"
+        className="container pt-8 md:pt-12 lg:pt-24 bg-gradient-to-b to-black mb-20"
       >
         <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
           <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
@@ -271,7 +345,7 @@ export default function IndexPage() {
             paramount to the longevity of decentralized finance.
           </p>
         </div>
-      </section> */}
+      </section>
     </>
   )
 }
@@ -305,10 +379,16 @@ function SectionHeader(props: any) {
     description,
     lineColor,
     gradientColor,
+    hasSubSection,
   } = props
 
   return (
-    <div className="mx-auto max-w-2xl text-center mb-16 ">
+    <div
+      className={cn(
+        "mx-auto max-w-2xl text-center",
+        !hasSubSection ? `mb-16` : ``
+      )}
+    >
       <div className="mb-6">
         <span
           className={cn(
@@ -327,7 +407,7 @@ function SectionHeader(props: any) {
       <p
         className={cn(
           gradientColor,
-          `inline font-bold bg-gradient-to-r -400 bg-clip-text font-display text-xl sm:text-3xl my-3 uppercase text-transparent`
+          `inline font-bold bg-gradient-to-r bg-clip-text font-display text-xl sm:text-3xl my-3 uppercase text-transparent`
         )}
       >
         {subHeader}
@@ -363,3 +443,86 @@ const incentives = [
       "Be part of an ecosystem that's at the forefront of DeFi innovation.",
   },
 ]
+
+function StepSection(props: any) {
+  const {
+    header,
+    subHeader,
+    highlightHeader,
+    highlights,
+    pioneerId,
+    gradient,
+    checkColor,
+    isReverse,
+  } = props
+
+  return (
+    <>
+      <span
+        className={
+          "w-[1px] mx-auto block h-[100px] bg-gradient-to-b from-black to-zinc-600 relative top-10"
+        }
+      />
+      <span className="w-[11px] h-[11px] rounded-full my-1 circle-shadow mx-auto block top-10 relative" />
+      <div
+        className={cn(
+          isReverse ? `lg:flex-row-reverse` : ``,
+          `mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-zinc-200 dark:ring-zinc-800 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none`
+        )}
+      >
+        <div className="p-8 sm:p-10 lg:flex-auto">
+          <h3 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+            {header}
+          </h3>
+          <p className="mt-6 text-base leading-7 text-zinc-600 dark:text-zinc-400">
+            {subHeader}
+          </p>
+          <div className="mt-10 flex items-center gap-x-4">
+            <h4
+              className={cn(
+                gradient,
+                `flex-none bg-gradient-to-r bg-clip-text font-display text-sm font-semibold leading-6 text-transparent`
+              )}
+            >
+              {highlightHeader}
+            </h4>
+            <div className="h-px flex-auto bg-zinc-100 dark:bg-zinc-900" />
+          </div>
+          <ul
+            role="list"
+            className="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-zinc-600 dark:text-zinc-400 sm:grid-cols-2 sm:gap-6"
+          >
+            {highlights.map((highlight, key) => (
+              <li key={key} className="flex gap-x-3">
+                <svg
+                  className={cn(checkColor, `h-6 w-5 flex-none`)}
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                {highlight}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
+          <div className="lg:flex lg:flex-col lg:justify-center">
+            <Image
+              src={`https://img.x7.finance/pioneers/${pioneerId}.png`}
+              alt="Random Pioneer Image"
+              width={1000}
+              height={1000}
+              className="object-cover rounded-2xl ring-1 ring-inset ring-zinc-900/5"
+            />
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}

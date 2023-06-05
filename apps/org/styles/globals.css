@@ -149,4 +149,8 @@
 
     @apply absolute pointer-events-none top-[17px] right-[11px] pt-0 px-0 pb-1;
   }
+
+  .circle-shadow {
+    box-shadow: 0 0 0 1.5px #52525b inset;
+  }
 }

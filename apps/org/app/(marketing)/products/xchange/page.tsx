@@ -8,7 +8,7 @@ import { UnderConstruction } from "@/components/under-construction"
 const metadata = {
   title: "Xchange",
   description:
-    "Explore XChange: X7 Finance's native Decentralized Exchange (DEX) powered by Automated Market Making (AMM). Learn how XChange offers seamless, trustless trading of ERC-20 tokens, providing unparalleled opportunities for crypto investors. Understand the mechanics, benefits, and potential returns of trading on XChange. Experience the future of decentralized trading with XChange by X7 Finance.",
+    "Explore Xchange: X7 Finance's native Decentralized Exchange (DEX) powered by Automated Market Making (AMM). Learn how Xchange offers seamless, trustless trading of ERC-20 tokens, providing unparalleled opportunities for crypto investors. Understand the mechanics, benefits, and potential returns of trading on Xchange. Experience the future of decentralized trading with Xchange by X7 Finance.",
   slug: "/products/x7d",
   section: "default",
 }
