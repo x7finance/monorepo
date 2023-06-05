@@ -8,7 +8,7 @@ export function HeaderVideoComponent() {
       loop
       muted
       autoPlay
-      className="absolute inset-0 object-cover h-3/4 -top-20 rotate-180"
+      className="absolute inset-0 object-cover h-screen lg:h-[1000px] -top-20 rotate-180"
       streamType="on-demand"
       playbackId="iJJr8Np00C2phRjK0001cZ22hzsJv4Y8yj0046nx8O02dDgI"
     />
