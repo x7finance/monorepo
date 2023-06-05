@@ -17,10 +17,18 @@ import Link from "next/link"
 
 import { Heading } from "@/components/heading"
 import { SiteContentContainer } from "@/components/site-content-container"
+import { generateMetadataFromDoc } from "@/app/(docs)/docs/(docs.utils)/generateMetadataFromDoc"
 
-export const metadata: Metadata = {
+const metadata = {
   title: "Community",
-  description: "",
+  description:
+    "Experience the Power of Community at X7 Finance: Our vibrant community is the heart of our DeFi ecosystem. Comprising of passionate crypto enthusiasts, innovative thinkers, and dedicated investors, the X7 Finance community actively contributes to our democratic DAO governance, shares insights, and supports each other in navigating the DeFi landscape. Join us and be part of a community that's shaping the future of decentralized finance.",
+  slug: "/community",
+  section: "default",
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function CommunityPage() {
@@ -32,7 +40,7 @@ export default function CommunityPage() {
         subHeader="One of the best communities in all of DeFi, come say hello"
       />
       <SiteContentContainer>
-        <div className="pt-10 mt-4 border-t border-zinc-900/5 dark:border-white/5">
+        <div className="grid grid-cols-1 gap-8 pt-10 mt-4 border-t not-prose border-zinc-900/5 dark:border-white/5 sm:grid-cols-2 xl:grid-cols-4">
           {socials.map((social) => (
             <Social key={social.href} social={social} />
           ))}

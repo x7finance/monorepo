@@ -5,12 +5,12 @@ export function generateMetadataFromDoc(doc) {
 
   const ogUrl = new URL(`${url}/api/og`)
 
-  ogUrl.searchParams.set(
-    "heading",
-    doc?.description ?? doc?.seoTitle ?? doc?.title
-  )
-  ogUrl.searchParams.set("type", "Documentation")
+  ogUrl.searchParams.set("heading", doc?.seoTitle ?? doc?.title)
+  ogUrl.searchParams.set("type", doc?.section)
   ogUrl.searchParams.set("mode", "dark")
+
+  console.log("title: ", doc?.title)
+  console.log("description: ", doc?.description)
 
   return {
     title: doc?.seoTitle ?? doc?.title,

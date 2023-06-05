@@ -3,10 +3,18 @@ import { Metadata } from "next"
 import { Heading } from "@/components/heading"
 import { SiteContentContainer } from "@/components/site-content-container"
 import { UnderConstruction } from "@/components/under-construction"
+import { generateMetadataFromDoc } from "@/app/(docs)/docs/(docs.utils)/generateMetadataFromDoc"
 
-export const metadata: Metadata = {
+const metadata = {
   title: "Interest Only Initial Liquidity Loan",
-  description: "",
+  description:
+    "Explore X7 Finance's Interest Only Initial Liquidity Loan: A pioneering DeFi solution that provides initial liquidity to an Automated Market Making (AMM) trading pair with borrowed capital, while only requiring the payment of interest during the loan term. Understand how this innovative loan mechanism offers flexibility, enhances liquidity, and fosters market capitalization. Delve into the mechanics, benefits, and potential returns of our Interest Only Initial Liquidity Loan and navigate the decentralized finance landscape with confidence.",
+  slug: "/loans/interest",
+  section: "default",
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function InterestOnlyLoanPage() {

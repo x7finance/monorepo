@@ -3,11 +3,18 @@ import { Metadata } from "next"
 import { Heading } from "@/components/heading"
 import { SiteContentContainer } from "@/components/site-content-container"
 import { UnderConstruction } from "@/components/under-construction"
+import { generateMetadataFromDoc } from "@/app/(docs)/docs/(docs.utils)/generateMetadataFromDoc"
 
-export const metadata: Metadata = {
-  title: "Simple Loan",
+const metadata = {
+  title: "Simple Initial Liquidity Loan",
   description:
-    "The Simple Loan in X7 Finance is a loan mechanism with a 25% origination fee of the borrowed capital, requiring full repayment of the principal by the end of the loan term, and offering a 5% liquidation bounty.",
+    "Uncover X7 Finance's Simple Initial Liquidity Loan: A robust DeFi solution that provides initial liquidity to an Automated Market Making (AMM) trading pair with borrowed capital, requiring full repayment of the principal by the end of the loan term. Learn how this straightforward loan mechanism balances risk and reward, providing a reliable and efficient lending solution in the DeFi ecosystem. Understand the mechanics, benefits, and potential returns of our Simple Initial Liquidity Loan and enhance your decentralized finance journey.",
+  slug: "/loans/simple",
+  section: "default",
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function SimpleLoanPage() {

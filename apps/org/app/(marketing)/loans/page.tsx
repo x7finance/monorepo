@@ -4,34 +4,40 @@ import { CheckCircleIcon, X7Logo } from "icons"
 import { Metadata } from "next"
 import Link from "next/link"
 
-import { DocsLinks } from "@/lib/types/links"
-import { Button, buttonVariants } from "@/components/ui/button"
-import { DashboardContainer } from "@/components/dashboard-container"
-import { DashboardTitle } from "@/components/dashboard-title"
+import { buttonVariants } from "@/components/ui/button"
+import { Heading } from "@/components/heading"
+import { SiteContentContainer } from "@/components/site-content-container"
+import { generateMetadataFromDoc } from "@/app/(docs)/docs/(docs.utils)/generateMetadataFromDoc"
 
-export const metadata: Metadata = {
+const metadata = {
   title: "Loans",
-  description: "",
+  description:
+    "Welcome to X7 Finance's Loans Homepage: Your gateway to innovative DeFi lending solutions. Explore our range of unique loan mechanisms, including the Simple Initial Liquidity Loan, Interest Only Initial Liquidity Loan, and Amortizing Initial Liquidity Loan. Understand how these solutions provide initial liquidity to Automated Market Making (AMM) trading pairs with borrowed capital, enhancing liquidity and market capitalization. Start your journey into the future of decentralized finance lending with X7 Finance.",
+  slug: "/loans",
+  section: "default",
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function LoansPage() {
   return (
-    <div className="my-10 xl:max-w-none">
-      <DashboardTitle
-        title="Initial Liquidity Loans"
-        subHeader="These are the options X7 Finance is going to market with for initial
-        liquidity. You also have the option to launch a non leveraged pair
-        on Xchange at any point."
-        secondaryButton={{ text: "Integration", href: DocsLinks.Integrating }}
+    <div>
+      <Heading
+        id={"loans"}
+        title={"Initial Liquidity Loans"}
+        subHeader="X7 has 7 core tokens that are used to ensure the protocol is running optimally"
       />
-
-      <DashboardContainer>
-        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 items-start gap-x-8 gap-y-10 sm:mt-20 lg:max-w-none lg:grid-cols-3">
-          {loans.map((plan) => (
-            <Loan key={plan.name} {...plan} />
-          ))}
+      <SiteContentContainer>
+        <div className="pt-10 mt-4 border-t border-zinc-900/5 dark:border-white/5">
+          <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 items-start gap-x-8 gap-y-10 sm:mt-20 lg:max-w-none lg:grid-cols-3">
+            {loans.map((plan) => (
+              <Loan key={plan.name} {...plan} />
+            ))}
+          </div>
         </div>
-      </DashboardContainer>
+      </SiteContentContainer>
     </div>
   )
 }

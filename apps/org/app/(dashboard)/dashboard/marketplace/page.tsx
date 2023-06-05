@@ -4,10 +4,18 @@ import { DashboardContainer } from "@/components/dashboard-container"
 import { DashboardTitle } from "@/components/dashboard-title"
 import { UtitlityNfts } from "@/components/utilityNfts"
 import { Web3Wrapper } from "@/components/web3-wrapper"
+import { generateMetadataFromDoc } from "@/app/(docs)/docs/(docs.utils)/generateMetadataFromDoc"
 
-export const metadata: Metadata = {
+const metadata = {
   title: "NFT Marketplace",
-  description: "",
+  description:
+    "Discover X7 Finance's NFT Marketplace: A specialized platform designed for the DeFi enthusiast. Our marketplace is home to exclusive Utility NFTs that provide holders with unique benefits and privileges within the X7 DeFi ecosystem. Trade and invest in these NFTs to unlock enhanced financial opportunities and potential returns. Experience the future of decentralized finance with X7 Finance's NFT Marketplace.",
+  slug: "/dashboard/marketplace",
+  section: "dashboard",
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function MarketplacePage() {

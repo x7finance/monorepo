@@ -3,10 +3,18 @@ import { Metadata } from "next"
 import { Heading } from "@/components/heading"
 import { SiteContentContainer } from "@/components/site-content-container"
 import { UnderConstruction } from "@/components/under-construction"
+import { generateMetadataFromDoc } from "@/app/(docs)/docs/(docs.utils)/generateMetadataFromDoc"
 
-export const metadata: Metadata = {
+const metadata = {
   title: "Amortizing Initial Liquidity Loan",
-  description: "",
+  description:
+    "Discover X7 Finance's Amortizing Initial Liquidity Loan: A unique DeFi solution designed to provide initial liquidity to an Automated Market Making (AMM) trading pair with borrowed capital. Learn how this innovative loan mechanism reduces the amount of capital locked to a pair, providing leverage to the system and increasing liquidity and market capitalization. Understand the mechanics, benefits, and potential returns of our Amortizing Initial Liquidity Loan and unlock new opportunities in the world of decentralized finance.",
+  slug: "/loans/amortizing",
+  section: "default",
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function AmortizingLoanPage() {

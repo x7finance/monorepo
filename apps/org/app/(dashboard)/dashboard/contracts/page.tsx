@@ -10,6 +10,7 @@ import { DashboardContainer } from "@/components/dashboard-container"
 import { DashboardSubheader } from "@/components/dashboard-subheader"
 import { DashboardTitle } from "@/components/dashboard-title"
 import { Dropdown } from "@/components/dropdown/contracts"
+import { generateMetadataFromDoc } from "@/app/(docs)/docs/(docs.utils)/generateMetadataFromDoc"
 
 import { ContractCopy } from "./components/contractCopy"
 
@@ -177,9 +178,16 @@ const xchange = [
   },
 ]
 
-export const metadata: Metadata = {
+const metadata = {
   title: "Contracts",
-  description: "",
+  description:
+    "Dive into X7 Finance's Smart Contracts Showcase: A comprehensive platform featuring all of X7's innovative DeFi smart contracts. Explore our Automated Market Making (AMM) contracts, lending pool contracts, initial liquidity loan contracts, and more. Understand the mechanics behind our DeFi solutions and how they contribute to a seamless, trustless, and efficient financial ecosystem. Discover the power of decentralized finance with X7 Finance's Smart Contracts Showcase.",
+  slug: "/dashboard/contracts",
+  section: "dashboard",
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function ContractsPage() {

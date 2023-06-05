@@ -1,8 +1,6 @@
 export enum DashboardLinksEnum {
+  Index = "/dashboard/",
   DAO = "/dashboard/dao/",
-  Loans = "/dashboard/loans/",
-  Nfts = "/dashboard/nfts/",
-  Pairs = "/dashboard/pairs/",
   Contracts = "/dashboard/contracts/",
   Marketplace = "/dashboard/marketplace/",
 }

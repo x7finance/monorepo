@@ -8,10 +8,10 @@ import { usePathname, useRouter } from "next/navigation"
 import { DashboardLinksEnum, DocsLinks } from "@/lib/types/links"
 
 const tabs = [
-  { name: "Marketplace", href: DashboardLinksEnum.Marketplace },
+  { name: "Dashboard", href: DashboardLinksEnum.Index },
   { name: "Documentation", href: DocsLinks.Index },
   { name: "Contracts", href: DashboardLinksEnum.Contracts },
-  { name: "Loans", href: DashboardLinksEnum.Loans },
+  { name: "NFTs", href: DashboardLinksEnum.Marketplace },
   { name: "DAO", href: DashboardLinksEnum.DAO },
 ]
 
