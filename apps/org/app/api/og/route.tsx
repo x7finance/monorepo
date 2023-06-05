@@ -27,11 +27,14 @@ const sectionThemes = {
   dashboard: "#ff2e6e",
 }
 
+const MANTRA = "Trust No One. Trust Code. Long Live DeFi."
+
 export async function GET(req: Request) {
   try {
     const fontBold = await interBold
 
     const url = new URL(req.url)
+
     const values = ogImageSchema.parse(Object.fromEntries(url.searchParams))
     const heading =
       values.heading.length > 140
@@ -41,7 +44,9 @@ export async function GET(req: Request) {
     const { mode } = values
     const paint = mode === "dark" ? "#fff" : "#000"
 
-    const fontSize = heading.length > 100 ? "50px" : "80px"
+    const isMain = values.heading === MANTRA
+
+    const fontSize = heading.length > 100 ? "46px" : isMain ? "72px" : "80px"
 
     return new ImageResponse(
       (
@@ -81,15 +86,17 @@ export async function GET(req: Request) {
             ))}
           </ul>
           <div tw="flex flex-col flex-1">
-            <div
-              tw="flex"
-              style={{
-                width: "150px",
-                height: "10px",
-                background:
-                  sectionThemes[values?.type] ?? sectionThemes.default,
-              }}
-            />
+            {!isMain && (
+              <div
+                tw="flex"
+                style={{
+                  width: "150px",
+                  height: "10px",
+                  background:
+                    sectionThemes[values?.type] ?? sectionThemes.default,
+                }}
+              />
+            )}
 
             <div
               tw="flex leading-[1.1] font-bold max-w-[600px]"

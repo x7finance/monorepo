@@ -2,13 +2,27 @@ import { X7LinksEnum } from "common"
 import { cn } from "utils"
 import { Xchange } from "icons"
 
+import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 
+import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { DocsLinks } from "@/lib/types/links"
 import { buttonVariants } from "@/components/ui/button"
 
 import { HeaderVideoComponent } from "./components/video"
+
+const metadata = {
+  title: "Trust No One. Trust Code. Long Live DeFi.",
+  description:
+    "X7 Finance is a revolutionary project in the Decentralized Finance (DeFi) space, offering innovative smart contracts that provide visionary ideas with access to leveraged seed capital. Our platform features an Automated Market Making (AMM) Decentralized Exchange (DEX), a Lending Pool, and Initial Liquidity Loans, all governed by a democratic Decentralized Anonymous Organization (DAO). We offer a unique opportunity for project launchers, capital providers, system governors, and traders to participate in a trustless, permissionless, and censorship-resistant financial ecosystem. Join us in redefining the future of finance.",
+  slug: "/",
+  section: "default",
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateMetadataFromDoc(metadata)
+}
 
 export default function IndexPage() {
   return (
