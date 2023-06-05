@@ -131,31 +131,17 @@ export default function IndexPage() {
       </section>
 
       <div className="overflow-hidden py-24 sm:py-32 mt-12 sm:mt-48 md:mt-24 lg:mt-28">
+        <SectionHeader
+          pioneerId="0069"
+          subHeader="Trade"
+          lineColor="to-sky-600"
+          gradientColor="from-sky-400 via-violet-500 to-indigo-400"
+          header="Get the best price. Everytime."
+          description="The Xchange routing algorithm will select the most advantageous route to
+          take either on leading DEX's or across multiple pairs on multiple
+          exchanges."
+        />
         <div className="mx-auto max-w-7xl md:px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center mb-16">
-            <div className="mb-6">
-              <span className="w-[1px] mx-auto block h-[100px] bg-gradient-to-b from-black to-sky-600 " />
-              <Image
-                height={200}
-                width={200}
-                className="h-auto w-12 mx-auto overflow-hidden rounded-full shadow-sm ring-1 ring-zinc-900/10 dark:ring-zinc-100/10"
-                src={`https://img.x7.finance/pioneers/0069.png`}
-                alt="Random Pioneer Image"
-              />
-            </div>
-            <p className="inline font-bold bg-gradient-to-r from-sky-400 via-violet-500 to-indigo-400 bg-clip-text font-display text-xl sm:text-3xl my-3 uppercase text-transparent">
-              Trade
-            </p>
-            <h4 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl dark:text-white text-black">
-              Get the best price. Everytime.
-            </h4>
-
-            <p className="mt-6 text-xl leading-8 text-zinc-400 dark:text-zinc-500">
-              The Xchange routing algorithm will select the most advantageous
-              route to take either on leading {`DEX's`} or across multiple pairs
-              on multiple exchanges.
-            </p>
-          </div>
           <div className="grid grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:grid-cols-2 lg:items-start">
             <div className="px-6 lg:px-0 lg:pr-4 lg:pt-4">
               <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-lg">
@@ -207,7 +193,70 @@ export default function IndexPage() {
         </div>
       </div>
 
-      <section
+      <div className="overflow-hidden py-24 sm:py-32 mt-12 sm:mt-48 md:mt-24 lg:mt-28">
+        <SectionHeader
+          pioneerId="0269"
+          lineColor="to-pink-600"
+          gradientColor="from-fuchsia-400 via-pink-500 to-rose-400"
+          subHeader="Invest"
+          header="The future of DeFi is actually decentralized."
+          description="Our innovative DeFi solutions, from our AMM DEX Xchange and lending pool to our unique utility NFTs, offer a range of investment opportunities. By investing in the X7 Finance ecosystem, you're not just investing in a single project, but in a suite of DeFi solutions with great potential."
+        />
+        <div className="mx-auto max-w-7xl md:px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl px-4 lg:max-w-none">
+            <div className="grid grid-cols-1 items-center gap-x-16 gap-y-10 lg:grid-cols-2">
+              <div className="order-last md:order-1">
+                <h2 className="sm:text-7xl text-4xl font-bold tracking-tight text-black dark:text-white lg:pl-9">
+                  Pioneers <br />
+                  of
+                  <br />
+                  DeFi
+                  <br />
+                  have
+                  <br />
+                  arrived.
+                </h2>
+              </div>
+
+              <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg bg-zinc-100 md:order-last">
+                <Image
+                  src="/images/home/astronaut.gif"
+                  alt="Xchange screenshot"
+                  width={1000}
+                  height={1000}
+                  className="object-cover object-center"
+                />
+              </div>
+            </div>
+            <div className="mt-16 grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-3">
+              {incentives.map((incentive) => (
+                <div key={incentive.name} className="sm:flex lg:block">
+                  <div className="sm:flex-shrink-0">
+                    <Image
+                      height={200}
+                      width={200}
+                      className="h-auto w-24 overflow-hidden rounded-lg shadow-sm ring-1 ring-zinc-900/10 dark:ring-zinc-100/10"
+                      src={incentive.imageSrc}
+                      alt="Random Pioneer Image"
+                    />
+                  </div>
+                  <div className="mt-4 sm:ml-6 sm:mt-0 lg:ml-0 lg:mt-6">
+                    <h5 className="mt-2 mb-1 text-black dark:text-white text-[22px] font-semibold tracking-tighter">
+                      {incentive.name}
+                    </h5>
+
+                    <p className="mt-2 text-sm dark:text-zinc-500 text-zinc-400">
+                      {incentive.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* <section
         id="long-live-decentralization"
         className="container pt-8 md:pt-12 lg:pt-24 bg-gradient-to-b to-black"
       >
@@ -222,7 +271,7 @@ export default function IndexPage() {
             paramount to the longevity of decentralized finance.
           </p>
         </div>
-      </section>
+      </section> */}
     </>
   )
 }
@@ -245,5 +294,72 @@ const features = [
     description:
       "Experience secure, trustless transactions in the world of decentralized finance.",
     id: "0532",
+  },
+]
+
+function SectionHeader(props: any) {
+  const {
+    pioneerId,
+    subHeader,
+    header,
+    description,
+    lineColor,
+    gradientColor,
+  } = props
+
+  return (
+    <div className="mx-auto max-w-2xl text-center mb-16 ">
+      <div className="mb-6">
+        <span
+          className={cn(
+            lineColor,
+            "w-[1px] mx-auto block h-[100px] bg-gradient-to-b from-black"
+          )}
+        />
+        <Image
+          height={200}
+          width={200}
+          className="h-auto w-12 mx-auto overflow-hidden rounded-full shadow-sm ring-1 ring-zinc-900/10 dark:ring-zinc-100/10"
+          src={`https://img.x7.finance/pioneers/${pioneerId}.png`}
+          alt="Random Pioneer Image"
+        />
+      </div>
+      <p
+        className={cn(
+          gradientColor,
+          `inline font-bold bg-gradient-to-r -400 bg-clip-text font-display text-xl sm:text-3xl my-3 uppercase text-transparent`
+        )}
+      >
+        {subHeader}
+      </p>
+      <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl dark:text-white text-black">
+        {header}
+      </h2>
+
+      <p className="mt-6 text-xl leading-8 text-zinc-400 dark:text-zinc-500">
+        {description}
+      </p>
+    </div>
+  )
+}
+
+const incentives = [
+  {
+    name: "Diverse Opportunities",
+    imageSrc: "https://img.x7.finance/pioneers/0123.png",
+    description:
+      "X7 Finance provides a range of investment avenues including participating in trading ERC-20 tokens on Xchange, to contributing to our lending pool to earn potential returns, or purchasing our unique Utility NFTs for exclusive benefits, and holding our native tokens like X7 DAO for governance rights, all while emphasizing the importance of individual research and risk assessment.",
+  },
+  {
+    name: "DAO Governance",
+    imageSrc: "https://img.x7.finance/pioneers/0236.png",
+    description:
+      "X7 DAO is a revolutionary democratic governance model that empowers token holders with decision-making authority, shaping the future of the X7 Finance ecosystem and playing a pivotal role in the evolution of decentralized finance",
+  },
+  {
+    name: "Innovative Community",
+    imageSrc: "https://img.x7.finance/pioneers/0111.png",
+    description:
+      "Be part of an ecosystem that's at the forefront of DeFi innovation.",
   },
 ]
