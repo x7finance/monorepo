@@ -9,6 +9,7 @@ import Link from "next/link"
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { DocsLinks } from "@/lib/types/links"
 import { buttonVariants } from "@/components/ui/button"
+import { PioneerDrop } from "@/components/pioneer-drop"
 
 import { HeaderVideoComponent } from "./components/video"
 
@@ -68,7 +69,7 @@ export default function IndexPage() {
           </div>
         </div>
         <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center relative">
-          <h1 className="py-8 text-[14vw] text-center sm:text-9xl leading-none select-none tracking-tightest font-extrabold">
+          <h1 className="py-8 text-[14vw] text-center sm:text-8xl leading-none select-none tracking-tightest font-extrabold">
             <span
               data-content="Trade"
               className="relative block italic before:content-[attr(data-content)] before:w-full before:z-0 before:block before:absolute before:top-0 before:px-2 before:bottom-0 before:left-0 before:text-center before:text-hero-header before:animate-gradient-background-1"
@@ -88,7 +89,7 @@ export default function IndexPage() {
             </span>
             <span
               data-content=""
-              className="relative py-4 block before:w-full before:z-0 before:block before:absolute before:top-0 before:px-2 before:bottom-0 before:left-0 before:text-center before:text-black before:animate-gradient-background-3"
+              className="relative py-4 w-[350px] sm:w-[400px] block before:w-full before:z-0 before:block before:absolute before:top-0 before:px-2 before:bottom-0 before:left-0 before:text-center before:text-black before:animate-gradient-background-3"
             >
               <Image
                 height={1000}
@@ -109,7 +110,7 @@ export default function IndexPage() {
                   variant: "outline",
                   size: "lg",
                 }),
-                "text-md h-12 border-zinc-500 hover:shadow-sm transition-all duration-500 hover:shadow-white hover:bg-transparent w-full"
+                "text-md h-12 border-zinc-500 text-white hover:text-white hover:shadow-sm transition-all duration-500 hover:shadow-white hover:bg-transparent w-full"
               )}
             >
               Read Docs
@@ -169,7 +170,7 @@ export default function IndexPage() {
               </div>
             </div>
             <div className="sm:px-6 lg:px-0">
-              <div className="relative isolate overflow-hidden  bg-gradient-to-bl from-violet-800 to-black px-6 pt-8 sm:mx-auto sm:max-w-2xl sm:rounded-3xl sm:pl-16 sm:pr-0 sm:pt-16 lg:mx-0 lg:max-w-none">
+              <div className="relative isolate overflow-hidden bg-gradient-to-bl from-violet-800 to-black px-6 pt-8 sm:mx-auto sm:max-w-2xl rounded-tb-3xl rounded-tl-3xl sm:pl-16 sm:pr-0 sm:pt-16 lg:mx-0 lg:max-w-none">
                 <div
                   className="absolute -inset-y-px -left-3 -z-10 w-full origin-bottom-left skew-x-[-32deg] bg-indigo-100 opacity-20 ring-1 ring-inset ring-white"
                   aria-hidden="true"
@@ -180,7 +181,7 @@ export default function IndexPage() {
                     alt="Xchange screenshot"
                     width={2432}
                     height={1442}
-                    className="-mb-12 w-[57rem] max-w-none rounded-tl-xl bg-zinc-800 ring-1 ring-white/10"
+                    className="-mb-12 sm:w-[57rem] w-[40rem] max-w-none rounded-tl-xl bg-zinc-800 ring-1 ring-white/10"
                   />
                 </div>
                 <div
@@ -319,7 +320,7 @@ export default function IndexPage() {
                       {incentive.name}
                     </h5>
 
-                    <p className="mt-2 text-sm dark:text-zinc-500 text-zinc-400">
+                    <p className="mt-2 text-sm  text-zinc-500">
                       {incentive.description}
                     </p>
                   </div>
@@ -338,7 +339,7 @@ export default function IndexPage() {
           <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
             Completely Decentralized
           </h2>
-          <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
+          <p className="max-w-[85%] leading-normal text-zinc-500 sm:text-lg sm:leading-7">
             All official channels are run by community members in a
             decentralized fashion. We believe a distributed network of
             individuals and committees - free from central influence is
@@ -389,21 +390,7 @@ function SectionHeader(props: any) {
         !hasSubSection ? `mb-16` : ``
       )}
     >
-      <div className="mb-6">
-        <span
-          className={cn(
-            lineColor,
-            "w-[1px] mx-auto block h-[100px] bg-gradient-to-b from-black"
-          )}
-        />
-        <Image
-          height={200}
-          width={200}
-          className="h-auto w-12 mx-auto overflow-hidden rounded-full shadow-sm ring-1 ring-zinc-900/10 dark:ring-zinc-100/10"
-          src={`https://img.x7.finance/pioneers/${pioneerId}.png`}
-          alt="Random Pioneer Image"
-        />
-      </div>
+      <PioneerDrop pioneerId={pioneerId} lineColor={lineColor} />
       <p
         className={cn(
           gradientColor,
@@ -460,7 +447,7 @@ function StepSection(props: any) {
     <>
       <span
         className={
-          "w-[1px] mx-auto block h-[100px] bg-gradient-to-b from-black to-zinc-600 relative top-10"
+          "w-[1px] mx-auto block h-[100px] bg-gradient-to-b pioneer-line-drop to-zinc-600 relative top-10"
         }
       />
       <span className="w-[11px] h-[11px] rounded-full my-1 circle-shadow mx-auto block top-10 relative" />

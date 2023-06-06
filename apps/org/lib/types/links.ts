@@ -55,3 +55,7 @@ export enum CommunityLinks {
   Index = "/community/",
   Support = "/support/",
 }
+
+export enum MarketingLinks {
+  GetStarted = "/getstarted/",
+}

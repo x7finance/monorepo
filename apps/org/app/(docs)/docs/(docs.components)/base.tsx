@@ -58,7 +58,7 @@ export function DocsBase(props: DocsBaseProps) {
           <div className="scrollbar sticky top-[4.5rem] -ml-0.5 h-[calc(100vh-4.5rem)] overflow-y-auto overflow-x-hidden py-16 pl-0.5">
             <Navigation
               navigation={navigation}
-              className="w-64 pr-8 xl:w-72 xl:pr-16"
+              className="w-64 pr-8 xl:w-72 xl:pr-10"
             />
           </div>
         </div>

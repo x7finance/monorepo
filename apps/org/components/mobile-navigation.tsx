@@ -1,10 +1,10 @@
 "use client"
 
+import { X7LinksEnum } from "common"
+import { cn } from "utils"
 import { X7Logo } from "icons"
 
 import Link from "next/link"
-import { X7LinksEnum } from "@/../../packages/common/dist"
-import { cn } from "@/../../packages/utils/dist"
 import { Popover } from "@headlessui/react"
 import { AnimatePresence, motion } from "framer-motion"
 

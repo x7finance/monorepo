@@ -1,8 +1,8 @@
+import { X7LinksEnum } from "common"
 import { cn } from "utils"
 import { X7Logo } from "icons"
 
 import Link from "next/link"
-import { X7LinksEnum } from "@/../../packages/common/dist"
 
 import { CommunityLinks } from "@/lib/types/links"
 

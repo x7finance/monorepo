@@ -3,7 +3,7 @@ import React from "react"
 interface HeadingProps {
   eyebrow?: string
   title: string
-  subHeader?: string
+  subHeader?: string | JSX.Element
   id: string
 }
 

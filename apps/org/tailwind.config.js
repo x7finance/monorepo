@@ -202,5 +202,10 @@ module.exports = {
       },
     },
   },
+  variants: {
+    extend: {
+      translate: ["group-hover"],
+    },
+  },
   plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 }

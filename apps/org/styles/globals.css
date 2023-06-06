@@ -82,7 +82,7 @@
   }
 
   .header-tb-gradient {
-    background: linear-gradient(0deg, transparent, white 30%) no-repeat;
+    background: linear-gradient(0deg, transparent, white 20%) no-repeat;
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
   }

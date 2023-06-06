@@ -27,6 +27,7 @@
   --scrollbar-border: theme("colors.zinc.400");
   --scrollbar-background: theme("colors.zinc.200");
   --scrollbar-hover: theme("colors.zinc.300");
+  --pioneer-drop-line: theme("colors.white");
 }
 
 .dark {
@@ -53,6 +54,12 @@
   --scrollbar-border: theme("colors.zinc.600");
   --scrollbar-background: theme("colors.zinc.800");
   --scrollbar-hover: theme("colors.zinc.700");
+  --pioneer-drop-line: theme("colors.black");
+}
+
+.pioneer-line-drop {
+  --tw-gradient-from: var(--pioneer-drop-line);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
 .DocSearch--active {
