@@ -33,10 +33,7 @@ export default function GettingStartedPage() {
             <dl className="col-span-2 grid grid-cols-2 gap-x-8 gap-y-10 text-base leading-7 text-zinc-600 lg:gap-y-16">
               {roles.map((role) => (
                 <div key={role.name} className="relative">
-                  <Link
-                    className="group"
-                    href={`/products/xchange/${role.name.toLowerCase()}`}
-                  >
+                  <Link className="group" href={role.href}>
                     <div
                       className={cn(
                         `mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-zinc-600 group-hover:ring-zinc-900 dark:group-hover:ring-zinc-600 duration-300 dark:ring-zinc-800 sm:mt-20 lg:mx-0 flex flex-col lg:max-w-none`
@@ -95,10 +92,7 @@ export default function GettingStartedPage() {
             <dl className="col-span-2 grid grid-cols-2 gap-x-8 gap-y-10 text-base leading-7 text-zinc-600 lg:gap-y-16">
               {secondaryRoles.map((role) => (
                 <div key={role.name} className="relative">
-                  <Link
-                    className="group"
-                    href={`/products/xchange/${role.name.toLowerCase()}`}
-                  >
+                  <Link className="group" href={role.href}>
                     <div
                       className={cn(
                         `mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-zinc-600 group-hover:ring-zinc-900 dark:group-hover:ring-zinc-600 duration-300 dark:ring-zinc-800 sm:mt-20 lg:mx-0 flex flex-col lg:max-w-none`
@@ -150,8 +144,8 @@ export default function GettingStartedPage() {
                       Not any of the above?
                     </h2>
                     <p className="mt-6 text-lg leading-8 text-gray-300">
-                      {`Reach out to the X7 DAO and we'll be happy to help you get
-                      you the answers you seek.`}
+                      {`Reach out to the X7 DAO below and we'll be happy to get
+                      you answers to any of the following and more.`}
                     </p>
                     <ul
                       role="list"
@@ -212,12 +206,14 @@ const roles = [
   {
     name: "Trader",
     pioneerId: "0188",
+    href: "/docs/integration",
     gradient: "from-emerald-400 via-green-500 to-cyan-400",
     description:
       "I am here to trade tokens on the DEX and value a privacy focused, censor-ship free DEX.",
   },
   {
     name: "Project Launcher",
+    href: "/docs/integration",
     gradient: "from-orange-400 via-red-500 to-yellow-400",
     pioneerId: "0291",
     description:
@@ -227,7 +223,8 @@ const roles = [
 
 const secondaryRoles = [
   {
-    name: "Project Software Engineer",
+    name: "Project Engineer",
+    href: "/docs/integration",
     gradient: "from-slate-400 via-blue-500 to-amber-400",
     pioneerId: "0907",
     description:
@@ -235,6 +232,7 @@ const secondaryRoles = [
   },
   {
     name: "Capital Allocator",
+    href: "/docs/integration",
     gradient: "from-fuchsia-400 via-pink-500 to-rose-400",
     pioneerId: "0649",
     description:
