@@ -6,7 +6,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { MarketingLinks } from "@/lib/types/links"
+import { DocsLinks, MarketingLinks } from "@/lib/types/links"
 import { Heading } from "@/components/heading"
 import { PioneerDrop } from "@/components/pioneer-drop"
 import { SiteContentContainer } from "@/components/site-content-container"
@@ -206,14 +206,14 @@ const roles = [
   {
     name: "Trader",
     pioneerId: "0188",
-    href: "/docs/integration",
+    href: DocsLinks.TradeGuide,
     gradient: "from-emerald-400 via-green-500 to-cyan-400",
     description:
       "I am here to trade tokens on the DEX and value a privacy focused, censor-ship free DEX.",
   },
   {
     name: "Project Launcher",
-    href: "/docs/integration",
+    href: DocsLinks.LaunchGuide,
     gradient: "from-orange-400 via-red-500 to-yellow-400",
     pioneerId: "0291",
     description:
@@ -224,7 +224,7 @@ const roles = [
 const secondaryRoles = [
   {
     name: "Project Engineer",
-    href: "/docs/integration",
+    href: DocsLinks.IntegrationGuide,
     gradient: "from-slate-400 via-blue-500 to-amber-400",
     pioneerId: "0907",
     description:
@@ -232,7 +232,7 @@ const secondaryRoles = [
   },
   {
     name: "Capital Allocator",
-    href: "/docs/integration",
+    href: DocsLinks.LendingGuide,
     gradient: "from-fuchsia-400 via-pink-500 to-rose-400",
     pioneerId: "0649",
     description:

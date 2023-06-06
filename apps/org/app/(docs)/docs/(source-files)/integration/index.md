@@ -1,6 +1,6 @@
 ---
 title: Integration
-tags: [docs]
+tags: [integration]
 ---
 
 ## Let's Get You Launched

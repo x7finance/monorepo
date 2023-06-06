@@ -37,7 +37,7 @@ const navigation = {
   explore: [
     { name: "Whitepaper", href: DocsLinks.Whitepaper },
     { name: "Docs", href: DocsLinks.Index },
-    { name: "Templates", href: DocsLinks.Templates },
+    { name: "Templates", href: DocsLinks.IntegratingTemplates },
 
     // need to add these pages
     { name: "Integration", href: DocsLinks.Integrating },

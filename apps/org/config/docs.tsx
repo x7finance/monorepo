@@ -1,5 +1,32 @@
 import { DocsLinks } from "@/lib/types/links"
 
+const docsNavigation = [
+  {
+    title: "Introduction",
+    links: [{ title: "Intro", href: DocsLinks.Index }],
+  },
+]
+
+const integrationNavigation = [
+  {
+    title: "Integration",
+    links: [{ title: "Templates", href: DocsLinks.IntegratingTemplates }],
+  },
+]
+
+const guidesNavigation = [
+  {
+    title: "Guides",
+    links: [
+      { title: "Trade", href: DocsLinks.TradeGuide },
+      { title: "Launch", href: DocsLinks.LaunchGuide },
+      { title: "Integrate", href: DocsLinks.IntegrationGuide },
+      { title: "Lending", href: DocsLinks.LendingGuide },
+      { title: "Templates", href: DocsLinks.IntegratingTemplates },
+    ],
+  },
+]
+
 const onchainsNavigation = [
   {
     title: "June 2023",
@@ -419,16 +446,6 @@ const onchainsNavigation = [
   },
 ]
 
-const docsNavigation = [
-  {
-    title: "Introduction",
-    links: [
-      { title: "Intro", href: DocsLinks.Index },
-      { title: "Integrating", href: DocsLinks.Integrating },
-    ],
-  },
-]
-
 const whitepaperNavigation = [
   {
     title: "Whitepaper",
@@ -543,4 +560,6 @@ export {
   whitepaperNavigation,
   faqNavigation,
   onchainsNavigation,
+  guidesNavigation,
+  integrationNavigation,
 }

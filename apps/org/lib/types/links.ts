@@ -41,14 +41,20 @@ export enum NftsLinkEnum {
 }
 
 export enum DocsLinks {
+  // roots
   Index = "/docs/",
   Whitepaper = "/docs/whitepaper/",
   Onchains = "/docs/onchains/",
   FAQ = "/docs/faq/",
-  // need to finish
-  Templates = "/docs/templates/",
   Integrating = "/docs/integration/",
   Guides = "/docs/guides/",
+
+  // secondary
+  IntegratingTemplates = "/docs/integration/templates/",
+  TradeGuide = "/docs/guides/trade/",
+  LaunchGuide = "/docs/guides/launch/",
+  IntegrationGuide = "/docs/guides/integrate/",
+  LendingGuide = "/docs/guides/lending/",
 }
 
 export enum CommunityLinks {

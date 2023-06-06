@@ -43,24 +43,36 @@ export function DashboardTabNavigation() {
       <div className="hidden sm:block mt-3">
         <div className="nav-shadow px-6">
           <nav className="-mb-px flex" aria-label="Tabs">
-            {tabs.map((tab) => (
-              <Link
-                key={tab.name}
-                href={tab.href}
-                className={cn(
-                  pathname === tab.href
-                    ? "dark:border-white dark:text-white text-black border-black"
-                    : "border-transparent dark:text-zinc-400/80 text-zinc-600/80 dark:hover:border-zinc-300 hover:border-black",
-                  "whitespace-nowrap border-b-2 relative inline-block text-sm transition-colors duration-200 ease-in-out cursor-pointer px-3 dark:hover:bg-zinc-800 hover:bg-zinc-100 dark:hover:text-white hover:text-black py-2 rounded-t-md"
-                )}
-                aria-current={pathname === tab.href ? "page" : undefined}
-              >
-                {tab.name}
-              </Link>
-            ))}
+            {tabs.map((tab) => {
+              return (
+                <Link
+                  key={tab.name}
+                  href={tab.href}
+                  className={cn(
+                    isActive(pathname, tab.href)
+                      ? "dark:border-white dark:text-white text-black border-black"
+                      : "border-transparent dark:text-zinc-400/80 text-zinc-600/80 dark:hover:border-zinc-300 hover:border-black",
+                    "whitespace-nowrap border-b-2 relative inline-block text-sm transition-colors duration-200 ease-in-out cursor-pointer px-3 dark:hover:bg-zinc-800 hover:bg-zinc-100 dark:hover:text-white hover:text-black py-2 rounded-t-md"
+                  )}
+                  aria-current={
+                    isActive(pathname, tab.href) ? "page" : undefined
+                  }
+                >
+                  {tab.name}
+                </Link>
+              )
+            })}
           </nav>
         </div>
       </div>
     </>
   )
+}
+
+function isActive(pathname, href) {
+  if (href === DashboardLinksEnum.Index) {
+    return pathname === href
+  }
+
+  return pathname.startsWith(href)
 }

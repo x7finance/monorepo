@@ -3,6 +3,8 @@ import Link from "next/link"
 import {
   docsNavigation,
   faqNavigation,
+  guidesNavigation,
+  integrationNavigation,
   onchainsNavigation,
   whitepaperNavigation,
 } from "@/config/docs"
@@ -30,6 +32,10 @@ function getNavigation(docsType: DocType) {
       return whitepaperNavigation
     case DocsTypes.faq:
       return faqNavigation
+    case DocsTypes.guides:
+      return guidesNavigation
+    case DocsTypes.integration:
+      return integrationNavigation
     default:
       return docsNavigation
   }

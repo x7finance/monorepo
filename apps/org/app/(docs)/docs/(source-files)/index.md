@@ -1,71 +1,24 @@
 ---
 title: X7 Finance Docs
 seoTitle: Docs
-tags: [docs]
 ---
 
-## Xchange Beta is here
+Welcome to X7 Finance!
 
-{% callout title="Interested in launching on Xchange?" %}
-The X7 DAO has been granted 20 NFT's that provide project founders with a discount on their initial liquidity loan. X7 DAO is seeking innovative builders looking to launch their project in the next 30 days. To get in touch - [reach out here](https://docs.google.com/forms/d/e/1FAIpQLSd4aN9IA0HOMTUQBRPHMEswtsfPzjsVOGhZlLS9BxviIqJHaQ/viewform)
-{% /callout %}
+X7 is a completely decentralized DEX designed to empower individuals and projects in the ever-evolving world of DeFi with permissionless access to capital.
 
-### LoanTerm Example
+Below you'll find starting points for information on how you plan to use and leverage the power of the X7 protocol.
 
-```js
-interface IX7LoanTerms is IERC721 {
+{% quickLinks %}
 
-    // The interface that will be used to define loan terms.
-    //
-    // Initial loan terms will be:
-    //
-    //  10% origination fee
-    //  25% premimum, due in 5 installments over the lifetime of the loan.
-    //
-    //  Principal due prior to the end of the loan period.
-    //
-    //  Failure to pay the premium or principal on time makes the loan eligible for liquidation
-    //
-    //  In the future, the DAO will control which Loan Terms are active.
+{% quickLink title="How do I use X7?" icon="plugins" href="/docs/guides" description="Each guide here walks through in detail how each specific user of the protocol can utilize it" /%}
 
+{% quickLink title="Integration" icon="installation" href="/docs/integration" description="Friendly straighforward developer documentation to help you get launched on Xchange" /%}
 
-    // Mints and returns the loan tokenID. Escrows the origination fee.
-    function originate(uint256 amount) external payable returns (uint256);
+{% quickLink title="Onchain Messages" icon="plugins" href="/docs/onchains" description="To maintain complete decentralization of protocol, the founding devs communicate with the community via on-chain messages." /%}
 
+{% quickLink title="Whitepaper" icon="installation" href="/docs/whitepaper" description="Read the original whitepaper from the founding devs in document form" /%}
 
-    // Cancels the originated loan prior to funding.
-    // Only the originator may call this.
-    // A fee is collected to prevent griefing.
-    // The remainder of the origination fee is returned.
-    function cancel(uint256 tokenId) external;
+{% quickLink title="FAQ" icon="installation" href="/docs/faq" description="We've compiled answers to some of the most commonly asked questions within the community" /%}
 
-
-    // Funds the loan.
-    //
-    // Sets the "fee receiver" to the msg.sender.
-    //  If the lending pool has enough capital, the lending pool will fund.
-    //  If the lending pool does not have enough capital, a third party may choose to fund.
-    //
-    // Collects the origination fee from escrow.
-    //  A portion is guarenteed to go to the lending pool fee destinations
-    //  If a third party funded the loan, they receive a portion of the origination fee
-    function fund(uint256 tokenId) external payable;
-
-
-    // Pays against the premiums, preventing liquidation.
-    // returns true if the loan is "current".
-    function payPremium(uint256 tokenId) external payable returns (bool);
-
-
-    // Pays off remaining premiums + principal
-    function payOff(uint256 tokenId) external payable;
-
-
-    // Pays against whatever is outstanding. Refunds the remainder.
-    // Pays all premiums first, and then the principal.
-    // A fee token contract could hard code this call to repay the loan automatically.
-    // returns false until the loan is completely satisfied, then returns true.
-    function pay(uint256 tokenId) external payable returns (bool);
-
-}
-```
+{% /quickLinks %}
