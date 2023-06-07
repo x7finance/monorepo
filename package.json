@@ -46,6 +46,6 @@
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0",
     "turbo": "^1.10.2",
-    "vercel": "^30.2.0"
+    "vercel": "^30.2.1"
   }
 }

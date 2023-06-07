@@ -7,6 +7,7 @@ import Link from "next/link"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { DocsLinks, MarketingLinks } from "@/lib/types/links"
+import { GradientTypes } from "@/components/gradients"
 import { Heading } from "@/components/heading"
 import { PioneerDrop } from "@/components/pioneer-drop"
 import { SiteContentContainer } from "@/components/site-content-container"
@@ -29,8 +30,8 @@ export default function GettingStartedPage() {
       <Heading id={"getstarted"} title={"How do you plan on using Xchange?"} />
       <SiteContentContainer>
         <div className="">
-          <div className="mx-auto max-w-4xl px-6 lg:px-8">
-            <dl className="col-span-2 grid grid-cols-2 gap-x-8 gap-y-10 text-base leading-7 text-zinc-600 lg:gap-y-16">
+          <div className="mx-auto max-w-4xl">
+            <dl className="col-span-2 grid grid-cols-2 gap-x-4 sm:gap-x-8 gap-y-10 text-base leading-7 text-zinc-600 lg:gap-y-16">
               {roles.map((role) => (
                 <div key={role.name} className="relative">
                   <Link className="group" href={role.href}>
@@ -52,7 +53,7 @@ export default function GettingStartedPage() {
                         <h4
                           className={cn(
                             role.gradient,
-                            `flex-none group-hover:opacity-90 h-12 bg-gradient-to-r bg-clip-text font-display font-semibold sm:group-hover:text-[25px] transform duration-300 leading-6 text-transparent text-sm sm:text-2xl`
+                            `flex-none group-hover:opacity-90 bg-gradient-to-r bg-clip-text font-display font-semibold sm:group-hover:text-[25px] transform duration-300 leading-6 text-transparent text-sm sm:text-2xl`
                           )}
                         >
                           {role.name}
@@ -89,7 +90,7 @@ export default function GettingStartedPage() {
                 </span>
               </p>
             </div>
-            <dl className="col-span-2 grid grid-cols-2 gap-x-8 gap-y-10 text-base leading-7 text-zinc-600 lg:gap-y-16">
+            <dl className="col-span-2 grid grid-cols-2 gap-x-4 sm:gap-x-8 gap-y-10 text-base leading-7 text-zinc-600 lg:gap-y-16">
               {secondaryRoles.map((role) => (
                 <div key={role.name} className="relative">
                   <Link className="group" href={role.href}>
@@ -102,7 +103,7 @@ export default function GettingStartedPage() {
                         <h4
                           className={cn(
                             role.gradient,
-                            `flex-none group-hover:opacity-90 h-12 bg-gradient-to-r bg-clip-text font-display font-semibold sm:group-hover:text-[25px] transform duration-300 leading-6 text-transparent text-sm sm:text-2xl`
+                            `flex-none group-hover:opacity-90 bg-gradient-to-r bg-clip-text font-display font-semibold sm:group-hover:text-[25px] transform duration-300 leading-6 text-transparent text-sm sm:text-2xl`
                           )}
                         >
                           <Image
@@ -207,14 +208,14 @@ const roles = [
     name: "Trader",
     pioneerId: "0188",
     href: DocsLinks.TradeGuide,
-    gradient: "from-emerald-400 via-green-500 to-cyan-400",
+    gradient: GradientTypes.bank,
     description:
       "I am here to trade tokens on the DEX and value a privacy focused, censor-ship free DEX.",
   },
   {
     name: "Project Launcher",
     href: DocsLinks.LaunchGuide,
-    gradient: "from-orange-400 via-red-500 to-yellow-400",
+    gradient: GradientTypes.sunset,
     pioneerId: "0291",
     description:
       "I want to understand the benefits of launching my token on XChange and how to do so.",
@@ -225,7 +226,7 @@ const secondaryRoles = [
   {
     name: "Project Engineer",
     href: DocsLinks.IntegrationGuide,
-    gradient: "from-slate-400 via-blue-500 to-amber-400",
+    gradient: GradientTypes.steel,
     pioneerId: "0907",
     description:
       "I am here to learn how to integrate my project with X7 Finance and the XChange DEX.",
@@ -233,7 +234,7 @@ const secondaryRoles = [
   {
     name: "Capital Allocator",
     href: DocsLinks.LendingGuide,
-    gradient: "from-fuchsia-400 via-pink-500 to-rose-400",
+    gradient: GradientTypes.rosey,
     pioneerId: "0649",
     description:
       "I am here to learn how to contribute capital to the lending pool and understanding it's benefits.",

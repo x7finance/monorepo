@@ -188,7 +188,7 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
           </div>
           <div className="mt-8 xl:mt-0">
             <span className="fill-black dark:fill-white">
-              <svg viewBox="0 0 956 166" fill="none" className="w-72 xl:w-3/4">
+              <svg viewBox="0 0 956 166" fill="none" className="w-1/2 xl:w-3/4">
                 <path
                   d="M168.999 3.79239L48.5871 165.601H0V161.809L95.7658 31.9193H73.9369L47.5308 66.0509L0.704161 5.05652V0H168.999V3.79239Z"
                   fill="currentColor"

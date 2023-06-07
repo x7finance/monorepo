@@ -9,6 +9,7 @@ export enum TokenLinksEnum {
   Index = "/tokens/",
   X7D = "/tokens/x7d/",
   X7R = "/tokens/x7r/",
+  X7DAO = "/tokens/x7dao/",
   X7101 = "/tokens/x7101/",
   X7102 = "/tokens/x7102/",
   X7103 = "/tokens/x7103/",
@@ -26,7 +27,7 @@ export enum LoansLinksEnum {
 export enum ProductsLinkEnum {
   Index = "/products/",
   InitialLiquidityLoans = "/products/ill/",
-  X7D = "/products/dao/",
+  X7D = "/products/x7d/",
   Xchange = "/products/xchange/",
 }
 

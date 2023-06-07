@@ -3,6 +3,9 @@ import { cn, getRandomPioneerNumber } from "utils"
 import Image from "next/image"
 import Link from "next/link"
 
+import { GradientTypes } from "@/components/gradients"
+
+import { PioneerDrop } from "./pioneer-drop"
 import { buttonVariants } from "./ui/button"
 
 interface ConstructionProps {
@@ -13,7 +16,7 @@ export function UnderConstruction(props: ConstructionProps) {
   const { description } = props
 
   return (
-    <div className="isolate min-h-screen relative z-0">
+    <div className="isolate min-h-screen relative z-0 -top-20">
       <div className="flow-root pb-16 lg:pb-0">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="relative">
@@ -36,6 +39,7 @@ export function UnderConstruction(props: ConstructionProps) {
                       </div>
                     </div>
                     <div className="mx-auto mt-10 max-w-lg lg:col-start-3 lg:col-end-6 lg:row-start-1 lg:row-end-4 lg:mx-0 lg:mt-0 lg:max-w-none">
+                      <PioneerDrop lineColor={"to-purple-900"} />
                       <div className="relative z-[1] rounded-lg shadow-xl">
                         <div
                           className="pointer-events-none absolute inset-0 rounded-lg border-2 border-indigo-600 border-opacity-60"
@@ -43,7 +47,12 @@ export function UnderConstruction(props: ConstructionProps) {
                         />
                         <div className="absolute inset-x-0 top-0 translate-y-px transform">
                           <div className="flex -translate-y-1/2 transform justify-center">
-                            <span className="inline-flex rounded-full font-mono bg-gradient-to-b from-zinc-900 via-purple-900 to-violet-600 px-4 py-1 text-base font-semibold text-white">
+                            <span
+                              className={cn(
+                                GradientTypes.grape,
+                                `inline-flex rounded-full font-mono bg-gradient-to-b  px-4 py-1 text-base font-semibold text-white`
+                              )}
+                            >
                               Under Construction
                             </span>
                           </div>
@@ -56,9 +65,9 @@ export function UnderConstruction(props: ConstructionProps) {
                           src={`https://img.x7.finance/pioneers/${getRandomPioneerNumber()}.png`}
                           alt="Random Pioneer Image"
                         />
-                        <div className="rounded-b-lg border-t-2 border-zinc-100  px-6 pb-8 pt-6 sm:px-10 ">
+                        <div className="rounded-b-lg border-t-2 border-zinc-800 px-6 pb-8 pt-6 sm:px-10 ">
                           <div>
-                            <p className="text-center mt-2 mb-4 text-zinc-700 dark:text-zinc-300">
+                            <p className="text-center mt-2 mb-4 text-zinc-700 dark:text-zinc-400">
                               {description
                                 ? description
                                 : `Pioneers are hard at work to provide the best

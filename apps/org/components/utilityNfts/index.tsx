@@ -16,8 +16,10 @@ import { useCallback, useState } from "react"
 import Image from "next/image"
 import { ConnectKitButton } from "connectkit"
 import toast from "react-hot-toast"
-import { formatEther, parseEther, parseUnits } from "viem"
+import { formatEther, parseEther } from "viem"
 import { useContractReads, useNetwork, useSwitchNetwork } from "wagmi"
+
+import { GradientTypes } from "@/components/gradients"
 
 import { useContractTx } from "../../lib/hooks/useContractTx"
 import { Button } from "../ui/button"
@@ -131,7 +133,12 @@ function UtilityNftData({ nft }: any) {
       >
         {nft?.name}
       </p>
-      <div className="mx-auto bg-gradient-to-r from-sky-500 to-violet-500 bg-clip-text font-bold text-transparent">
+      <div
+        className={cn(
+          GradientTypes.x7,
+          `mx-auto bg-gradient-to-r bg-clip-text font-bold text-transparent`
+        )}
+      >
         {price ?? nft?.price} {generateChainAbbreviation(chain?.id)}
       </div>
       <p

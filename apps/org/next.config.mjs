@@ -37,6 +37,7 @@ const nextConfig = {
       "mux.com",
       "stream.mux.com",
       "img.x7.finance",
+      "x7.finance",
     ],
   },
   experimental: {

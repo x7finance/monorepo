@@ -1,4 +1,4 @@
-import { X7LinksEnum } from "common"
+import { SocialsEnum, X7LinksEnum } from "common"
 import { cn } from "utils"
 import { Xchange } from "icons"
 
@@ -7,8 +7,9 @@ import Image from "next/image"
 import Link from "next/link"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { DocsLinks } from "@/lib/types/links"
+import { DocsLinks, TokenLinksEnum } from "@/lib/types/links"
 import { buttonVariants } from "@/components/ui/button"
+import { GradientTypes } from "@/components/gradients"
 import { PioneerDrop } from "@/components/pioneer-drop"
 
 import { HeaderVideoComponent } from "./components/video"
@@ -198,19 +199,19 @@ export default function IndexPage() {
         <SectionHeader
           pioneerId="0561"
           lineColor="to-teal-600"
-          gradientColor="from-emerald-400 via-green-500 to-cyan-400"
+          gradientColor={GradientTypes.bank}
           subHeader="Launch"
           header="Supercharge your project with Xchange"
           description="Through our innovative Leveraged Initial Liquidity Loans Xchange can provide massive initial seed capital to visionary entrepreneurs, organizations, and businesses."
           hasSubSection={true}
         />
         <div className="mx-auto max-w-7xl md:px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl px-4 lg:max-w-none">
+          <div className="mx-auto max-w-2xl px-2 lg:max-w-none">
             <StepSection
               header="Kickstart Your Project with the Right Liquidity"
-              subHeader="Determine the optimal liquidity level to make your project's launch a success"
+              subHeader="Determine the optimal liquidity level to make your project's launch a success. By borrowing liquidity from Xchange to launch your token, you'll have the ability to attract larger investments early with healthier liquidity levels"
               pioneerId="0600"
-              gradient="from-orange-400 via-red-500 to-yellow-400"
+              gradient={GradientTypes.sunset}
               checkColor="text-orange-600"
               highlightHeader="Benefits of Xchange Liquidity"
               highlights={[
@@ -218,13 +219,15 @@ export default function IndexPage() {
                 "Competitive borrowing rates",
                 "A privacy-focused/trustless DEX",
                 "Access to institutional capital",
+                "Permissionless & trustless access - anyone anywhere can borrow",
+                "Preserve cash that you'd otherwise tie up in liquidity",
               ]}
             />
             <StepSection
               header="Choose the Perfect Loan for Your Project"
               subHeader="Flexible loan options to fuel the growth of your project - regardless of size"
               pioneerId="0621"
-              gradient="from-slate-400 via-blue-500 to-amber-400"
+              gradient={GradientTypes.mining}
               checkColor="text-blue-600"
               isReverse={true}
               highlightHeader="Diverse loan options"
@@ -239,7 +242,7 @@ export default function IndexPage() {
               header="Make a Splash with Your Launch on Xchange"
               subHeader="Seamless Launches for Maximum Impact"
               pioneerId="0590"
-              gradient="from-slate-400 via-rose-500 to-sky-400"
+              gradient={GradientTypes.redLight}
               checkColor="text-rose-600"
               highlightHeader="Diverse loan options"
               highlights={[
@@ -254,7 +257,7 @@ export default function IndexPage() {
               subHeader="Seamless Launches for Maximum Impact"
               pioneerId="0166"
               isReverse={true}
-              gradient="from-slate-400 via-amber-500 to-zinc-400"
+              gradient={GradientTypes.marsSunset}
               checkColor="text-amber-600"
               highlightHeader="Your LP. Your Choice."
               highlights={[
@@ -268,17 +271,77 @@ export default function IndexPage() {
         </div>
       </div>
 
+      <section className="relative isolate overflow-hidden px-6 py-12 lg:px-8">
+        <div
+          className={cn(
+            `w-full rounded-3xl bg-gradient-to-r p-[2px] from-emerald-400/50 via-green-500/50 to-cyan-400/50 max-w-5xl mx-auto`
+          )}
+        >
+          <div className="flex h-full w-full items-center justify-center bg-black rounded-3xl">
+            <div className="mx-auto max-w-2xl lg:max-w-4xl py-12">
+              <h3 className="mt-1 text-3xl font-bold tracking-tight dark:text-hero-header text-hero-header-light italic text-center">
+                {/* <h3 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 text-center"> */}
+                Common Token Launch Scenario
+              </h3>
+              <PioneerDrop lineColor="to-emerald-500" height={50} />
+              <figure className="">
+                <blockquote className="text-center text-xl font-semibold tracking-tight leading-8 text-zinc-900 dark:text-zinc-300 sm:text-2xl sm:leading-9">
+                  <p className="italic text-xl">
+                    {`Bruce Lee has a great idea for a token, but only has 10 Eth
+                    for his startup captial. Bruce needs to pay for product,
+                    marketing, community growth, and many other expenses.`}
+                  </p>
+                  <p className="italic mt-5 text-xl">
+                    {`Before X7, Bruce would need to use 20-30% of his startup
+                    capital just for liquidity, and he'd rarely get it back.
+                    Using X7, Bruce can take just 0.5 Eth and leverage it 10X to
+                    launch with sufficient liquidity and use his cash on hand
+                    more efficiently.`}
+                  </p>
+                </blockquote>
+                <figcaption className="mt-10">
+                  <Image
+                    height={200}
+                    width={200}
+                    className="h-auto w-24 overflow-hidden rounded-lg shadow-sm ring-1 ring-zinc-900/10 dark:ring-zinc-100/10 mx-auto"
+                    src={"https://img.x7.finance/pioneers/1234.png"}
+                    alt="Bruce Lee Pioneer Image"
+                  />
+                  <div className="mt-4 flex items-center justify-center space-x-3 text-base">
+                    <div className="font-semibold text-zinc-900 dark:text-zinc-100">
+                      Bruce Lee
+                    </div>
+                    <svg
+                      viewBox="0 0 2 2"
+                      width={3}
+                      height={3}
+                      aria-hidden="true"
+                      className="fill-zinc-900 dark:fill-zinc-100"
+                    >
+                      <circle cx={1} cy={1} r={1} />
+                    </svg>
+                    <div className="text-zinc-600 dark:text-zinc-400">
+                      Project Dev
+                    </div>
+                  </div>
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <div className="overflow-hidden py-12 sm:py-24">
         <SectionHeader
           pioneerId="0269"
           lineColor="to-pink-600"
-          gradientColor="from-fuchsia-400 via-pink-500 to-rose-400"
+          gradientColor={GradientTypes.rosey}
           subHeader="Invest"
           header="The future of DeFi is actually decentralized."
           description="Our innovative DeFi solutions, from our AMM DEX Xchange and lending pool to our unique utility NFTs, offer a range of investment opportunities. By investing in the X7 Finance ecosystem, you're not just investing in a single project, but in a suite of DeFi solutions with great potential."
         />
         <div className="mx-auto max-w-7xl md:px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl px-4 lg:max-w-none">
+          <div className="mx-auto max-w-2xl px-2 lg:max-w-none">
             <div className="grid grid-cols-1 items-center gap-x-16 gap-y-10 lg:grid-cols-2">
               <div className="order-last md:order-1">
                 <h2 className="sm:text-7xl text-4xl font-bold tracking-tight text-black dark:text-white lg:pl-9">
@@ -323,6 +386,18 @@ export default function IndexPage() {
                     <p className="mt-2 text-sm  text-zinc-500">
                       {incentive.description}
                     </p>
+                    <Link
+                      className={cn(
+                        incentive?.gradient,
+                        `flex-none mt-2 group-hover:opacity-90 bg-gradient-to-r bg-clip-text font-display font-semibold sm:group-hover:text-[25px] transform duration-300 leading-6 text-transparent text-sm`
+                      )}
+                      {...(incentive?.isExternal
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                      href={`${incentive?.href}`}
+                    >
+                      {incentive?.linkText}
+                    </Link>
                   </div>
                 </div>
               ))}
@@ -333,9 +408,10 @@ export default function IndexPage() {
 
       <section
         id="long-live-decentralization"
-        className="container pt-8 md:pt-12 lg:pt-24 bg-gradient-to-b to-black mb-20"
+        className="container pt-8 md:pt-12 lg:pt-24 mb-20"
       >
         <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
+          <PioneerDrop pioneerId={"4208"} lineColor={"to-sky-500"} />
           <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
             Completely Decentralized
           </h2>
@@ -416,18 +492,28 @@ const incentives = [
     imageSrc: "https://img.x7.finance/pioneers/0123.png",
     description:
       "X7 Finance provides a range of investment avenues including participating in trading ERC-20 tokens on Xchange, to contributing to our lending pool to earn potential returns, or purchasing our unique Utility NFTs for exclusive benefits, and holding our native tokens like X7 DAO for governance rights, all while emphasizing the importance of individual research and risk assessment.",
+    href: TokenLinksEnum.X7DAO,
+    linkText: <>Explore Tokenomics &#8594;</>,
+    gradient: GradientTypes.marsSunset,
   },
   {
     name: "DAO Governance",
     imageSrc: "https://img.x7.finance/pioneers/0236.png",
     description:
       "X7 DAO is a revolutionary democratic governance model that empowers token holders with decision-making authority, shaping the future of the X7 Finance ecosystem and playing a pivotal role in the evolution of decentralized finance",
+    href: TokenLinksEnum.X7DAO,
+    linkText: <>Join X7 DAO &#8594;</>,
+    gradient: GradientTypes.bank,
   },
   {
     name: "Innovative Community",
     imageSrc: "https://img.x7.finance/pioneers/0111.png",
     description:
       "Be part of an ecosystem that's at the forefront of DeFi innovation.",
+    href: SocialsEnum.telegram,
+    linkText: <>Say Hello &#8594;</>,
+    gradient: GradientTypes.rosey,
+    isExternal: true,
   },
 ]
 
