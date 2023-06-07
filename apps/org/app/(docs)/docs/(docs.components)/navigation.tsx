@@ -72,7 +72,7 @@ export function Navigation({ navigation, className, slug }: any) {
                       className="h-10 w-10 flex-none rounded-full ring-zinc-400/20 ring-[2px]"
                     />
                     <div className="ml-4 flex-auto">
-                      <div className="font-medium text-zinc-300 group-hover:dark:text-white">
+                      <div className="font-medium dark:text-zinc-300 text-zinc-700 group-hover:dark:text-white">
                         {link.title}
                       </div>
                     </div>

@@ -69,7 +69,7 @@ export default function IndexPage() {
           </div>
         </div>
         <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center relative">
-          <h1 className="py-8 text-[14vw] text-center sm:text-8xl leading-none select-none tracking-tightest font-extrabold">
+          <h1 className="py-8 text-[14vw] text-center sm:text-8xl xl:text-9xl leading-none select-none tracking-tightest font-extrabold">
             <span
               data-content="Trade"
               className="relative block italic before:content-[attr(data-content)] before:w-full before:z-0 before:block before:absolute before:top-0 before:px-2 before:bottom-0 before:left-0 before:text-center before:text-hero-header before:animate-gradient-background-1"
@@ -89,7 +89,7 @@ export default function IndexPage() {
             </span>
             <span
               data-content=""
-              className="relative py-4 w-[350px] sm:w-[400px] block before:w-full before:z-0 before:block before:absolute before:top-0 before:px-2 before:bottom-0 before:left-0 before:text-center before:text-black before:animate-gradient-background-3"
+              className="relative py-4 w-[350px] sm:w-[400px] xl:w-[550px] block before:w-full before:z-0 before:block before:absolute before:top-0 before:px-2 before:bottom-0 before:left-0 before:text-center before:text-black before:animate-gradient-background-3"
             >
               <Image
                 height={1000}

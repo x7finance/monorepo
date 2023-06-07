@@ -10,7 +10,7 @@ export default function DocsLayout({ children }: DocsLayoutProps) {
     <div className="bg-[#fafafa] dark:bg-[#111111]">
       <DashboardHeader />
       <div className="dashboard-container">
-        <div className="flex-1 py-16">{children}</div>
+        <div className="flex-1">{children}</div>
       </div>
       <SiteFooter className="border-t dark:border-gray-800 border-gray-200  dark:bg-black bg-white" />
     </div>

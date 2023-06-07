@@ -9,12 +9,8 @@ export const env = createEnv({
     NEXT_PUBLIC_DOCSEARCH_APP_ID: z.string().min(1),
     NEXT_PUBLIC_DOCSEARCH_API_KEY: z.string().min(1),
     NEXT_PUBLIC_DOCSEARCH_INDEX_NAME: z.string().min(1),
-    NEXT_PUBLIC_INFURA_ID: z.string().min(1),
     NEXT_PUBLIC_ALCHEMY_ID: z.string().min(1),
-    NEXT_PUBLIC_ANKR_ID: z.string().min(1),
-    NEXT_PUBLIC_BLAST_ID: z.string().min(1),
-    NEXT_PUBLIC_BLOCKPI_ID: z.string().min(1),
-    NEXT_PUBLIC_GETBLOCK_ID: z.string().min(1),
+    NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID: z.string().min(1),
   },
   runtimeEnv: {
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
@@ -23,11 +19,8 @@ export const env = createEnv({
     NEXT_PUBLIC_DOCSEARCH_API_KEY: process.env.NEXT_PUBLIC_DOCSEARCH_API_KEY,
     NEXT_PUBLIC_DOCSEARCH_INDEX_NAME:
       process.env.NEXT_PUBLIC_DOCSEARCH_INDEX_NAME,
-    NEXT_PUBLIC_INFURA_ID: process.env.NEXT_PUBLIC_INFURA_ID,
     NEXT_PUBLIC_ALCHEMY_ID: process.env.NEXT_PUBLIC_ALCHEMY_ID,
-    NEXT_PUBLIC_ANKR_ID: process.env.NEXT_PUBLIC_ANKR_ID,
-    NEXT_PUBLIC_BLAST_ID: process.env.NEXT_PUBLIC_BLAST_ID,
-    NEXT_PUBLIC_BLOCKPI_ID: process.env.NEXT_PUBLIC_BLOCKPI_ID,
-    NEXT_PUBLIC_GETBLOCK_ID: process.env.NEXT_PUBLIC_GETBLOCK_ID,
+    NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID:
+      process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID,
   },
 })

@@ -11,14 +11,14 @@ Below you'll find starting points for information on how you plan to use and lev
 
 {% quickLinks %}
 
-{% quickLink title="How do I use X7?" icon="plugins" href="/docs/guides" description="Each guide here walks through in detail how each specific user of the protocol can utilize it" /%}
+{% quickLink title="How do I use X7?" icon="installation" href="/docs/guides" description="Each guide here walks through in detail how each specific user of the protocol can utilize it" /%}
 
-{% quickLink title="Integration" icon="installation" href="/docs/integration" description="Friendly straighforward developer documentation to help you get launched on Xchange" /%}
+{% quickLink title="Integration" icon="plugins" href="/docs/integration" description="Friendly straighforward developer documentation to help you get launched on Xchange" /%}
 
-{% quickLink title="Onchain Messages" icon="plugins" href="/docs/onchains" description="To maintain complete decentralization of protocol, the founding devs communicate with the community via on-chain messages." /%}
+{% quickLink title="Onchain Messages" icon="theming" href="/docs/onchains" description="To maintain complete decentralization of protocol, the founding devs communicate with the community via on-chain messages." /%}
 
-{% quickLink title="Whitepaper" icon="installation" href="/docs/whitepaper" description="Read the original whitepaper from the founding devs in document form" /%}
+{% quickLink title="Whitepaper" icon="lightbulb" href="/docs/whitepaper" description="Read the original whitepaper from the founding devs in document form" /%}
 
-{% quickLink title="FAQ" icon="installation" href="/docs/faq" description="We've compiled answers to some of the most commonly asked questions within the community" /%}
+{% quickLink title="FAQ" icon="warning" href="/docs/faq" description="We've compiled answers to some of the most commonly asked questions within the community" /%}
 
 {% /quickLinks %}

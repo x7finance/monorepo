@@ -11,7 +11,7 @@ An airdrop is when tokens are sent to your wallet. Tokens are distributed for fr
 
 ### How will I know that the tokens are related to X7 Finance?
 
-You can check against the token contract addresses for each chain in the [contract section here](/contracts/)
+You can check against the token contract addresses for each chain in the [contract section here](/dashboard/contracts/)
 
 {% spacer /%}
 
@@ -21,7 +21,7 @@ Holders of X7 tokens on the Ethereum chain, will be eligible for the airdrop on 
 
 Simply hold your X7 tokens, and you will receive the airdrop.
 
-The contract addresses are identical on all chains which can be found in the [contract section here](/contracts/)
+The contract addresses are identical on all chains which can be found in the [contract section here](/dashboard/contracts/)
 
 {% spacer /%}
 

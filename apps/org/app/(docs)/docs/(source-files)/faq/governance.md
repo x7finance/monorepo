@@ -43,7 +43,7 @@ The initial durations for each proposal phase will be set as a starting point. H
 
 ### What are the phases for a DAO vote?
 
-Details can be found in the [Proposals and Voting section here](/whitepaper/governance/#proposals-and-voting)
+Details can be found in the [Proposals and Voting section here](/docs/whitepaper/governance/#proposals-and-voting)
 
 {% spacer /%}
 

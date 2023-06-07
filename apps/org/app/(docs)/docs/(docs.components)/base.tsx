@@ -61,14 +61,14 @@ export function DocsBase(props: DocsBaseProps) {
           <div className="absolute inset-y-0 right-0 w-[50vw] bg-zinc-50 dark:hidden" />
           <div className="absolute bottom-0 right-0 hidden w-px h-12 top-16 bg-gradient-to-t from-zinc-800 dark:block" />
           <div className="absolute bottom-0 right-0 hidden w-px top-28 bg-zinc-800 dark:block" />
-          <div className="scrollbar sticky top-[4.5rem] -ml-0.5 h-[calc(100vh-4.5rem)] overflow-y-auto overflow-x-hidden py-16 pl-0.5">
+          <div className="scrollbar sticky top-[4.5rem] -ml-0.5 h-[calc(100vh-4.5rem)] overflow-y-auto overflow-x-hidden pt-24 pb-16 pl-0.5">
             <Navigation
               navigation={navigation}
               className="w-64 pr-8 xl:w-72 xl:pr-10"
             />
           </div>
         </div>
-        <div className="flex-auto max-w-2xl min-w-0 min-h-screen px-4 py-8 sm:py-16 overflow-auto lg:max-w-none lg:pl-8 lg:pr-0 xl:px-16">
+        <div className="flex-auto max-w-2xl min-w-0 min-h-screen px-4 py-8 sm:pt-24 sm:pb-16 overflow-auto lg:max-w-none lg:pl-8 lg:pr-0 xl:px-16">
           <Prose as="div">
             <>
               {(title || section) && (
@@ -130,7 +130,7 @@ export function DocsBase(props: DocsBaseProps) {
             )}
           </dl>
         </div>
-        <div className="hidden xl:sticky xl:top-[4.5rem] xl:-mr-6 xl:block xl:h-[calc(100vh-4.5rem)] xl:flex-none xl:overflow-y-auto xl:py-16 xl:pr-6">
+        <div className="hidden xl:sticky xl:top-[4.5rem] xl:-mr-6 xl:block xl:h-[calc(100vh-4.5rem)] xl:flex-none xl:overflow-y-auto xl:pb-16 xl:pt-24 xl:pr-6">
           <OnThisPageNav
             tableOfContents={tableOfContents}
             currentSlug={slug}

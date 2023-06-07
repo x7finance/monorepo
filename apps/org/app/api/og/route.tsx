@@ -48,6 +48,8 @@ export async function GET(req: Request) {
 
     const fontSize = heading.length > 100 ? "46px" : isMain ? "72px" : "80px"
 
+    const width = isMain ? 500 : 600
+
     return new ImageResponse(
       (
         <div
@@ -99,7 +101,7 @@ export async function GET(req: Request) {
             )}
 
             <div
-              tw="flex leading-[1.1] font-bold max-w-[600px]"
+              tw={`flex leading-[1.1] font-bold max-w-[${width}px]`}
               style={{
                 fontFamily: "Cal Sans",
                 fontWeight: "bold",

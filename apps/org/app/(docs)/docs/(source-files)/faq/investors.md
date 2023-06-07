@@ -18,7 +18,7 @@ There are four areas to invest within #X7Finance
 
 This is the reward token that receives buybacks, burns, and liquidity additions.
 
-More details can be found on the [$X7R Whitepaper page here](/whitepaper/x7r/)
+More details can be found on the [$X7R Whitepaper page here](/docs/whitepaper/x7r/)
 
 {% spacer /%}
 
@@ -26,7 +26,7 @@ More details can be found on the [$X7R Whitepaper page here](/whitepaper/x7r/)
 
 All dynamic aspects of the X7 ecosystem will ultimately rest with the DAO to decide upon.
 
-More details can be found on the [FAQ governance questions here](/faq/governance)
+More details can be found on the [FAQ governance questions here](/docs/faq/governance)
 
 {% spacer /%}
 
@@ -54,13 +54,13 @@ Yes, you can; you will be able to wrap your $X7D into an NFT that increases in v
 
 ### Do you have any details on the constellation tokens / quints?
 
-You can find more information on the [constellation tokens page here](/faq/constellations)
+You can find more information on the [constellation tokens page here](/docs/faq/constellations)
 
 {% spacer /%}
 
 ### Where can I find the contract and purchase links for these tokens?
 
-These can be found on the [contracts page here](/contracts/)
+These can be found on the [contracts page here](/dashboard/contracts/)
 
 {% spacer /%}
 
@@ -70,6 +70,6 @@ When a project makes a request for a loan and there are insufficient funds in th
 
 An outside investor can then purchase this NFT, and the funds will be used for the project's liquidity pair loan.
 
-You can find more details on [Tokenized Loans here](/whitepaper/lending-functionality/#tokenized-loans)
+You can find more details on [Tokenized Loans here](/docs/whitepaper/lending-functionality/#tokenized-loans)
 
 {% spacer /%}

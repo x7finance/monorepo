@@ -55,7 +55,7 @@ Xchange DEX has its own router, factory and pairs contracts. Although they funct
 
 ### How does the liquidity pair creation work on X7 Finance?
 
-More details and diagrams can be found on the [Swap Creation Guide Here](/whitepaper/understanding-swap-creation/)
+More details and diagrams can be found on the [Swap Creation Guide Here](/docs/whitepaper/understanding-swap-creation/)
 
 {% spacer /%}
 
