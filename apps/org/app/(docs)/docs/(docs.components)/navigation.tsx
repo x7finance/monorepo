@@ -12,6 +12,7 @@ const topNavigation = [
   {
     href: DocsLinks.Guides,
     title: "Guides",
+    section: "guides",
     pioneerId: "1997",
   },
   {
