@@ -32,7 +32,7 @@ export function DashboardTabNavigation() {
           }}
           id="tabs"
           name="tabs"
-          className="block rounded-md border border-zinc-400 dark:border-zinc-600 pl-3 pr-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:bg-zinc-800 bg-zinc-200 h-12 text-base leading-7 w-full mx-0 my-1 float-right px-6 py-0 font-semibold appearance-none"
+          className="block rounded-md border border-zinc-400 dark:border-zinc-600 pl-3 pr-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:bg-zinc-800 bg-zinc-200 h-12 text-base leading-7 w-full mx-0 my-1 px-6 py-0 font-semibold appearance-none"
           defaultValue={tabs.find((tab) => pathname.startsWith(tab.href))?.name}
         >
           {tabs.map((tab) => (

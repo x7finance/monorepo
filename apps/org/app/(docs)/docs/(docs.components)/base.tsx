@@ -12,6 +12,7 @@ import { DocsTypes, DocType } from "@/lib/types"
 
 import { Navigation } from "./navigation"
 import { OnThisPageNav } from "./on-this-page-navigation"
+import { SectionNavigation } from "./section-navigation"
 import { Prose } from "./tags/prose"
 
 interface DocsBaseProps {
@@ -56,7 +57,7 @@ export function DocsBase(props: DocsBaseProps) {
 
   return (
     <>
-      <div className="relative flex justify-center mx-auto max-w-8xl sm:px-2 lg:px-8 xl:px-12">
+      <div className="relative mx-auto flex max-w-8xl justify-center sm:px-2 lg:px-8 xl:px-12">
         <div className="hidden lg:relative lg:block lg:flex-none">
           <div className="absolute inset-y-0 right-0 w-[50vw] bg-zinc-50 dark:hidden" />
           <div className="absolute bottom-0 right-0 hidden w-px h-12 top-16 bg-gradient-to-t from-zinc-800 dark:block" />
@@ -129,6 +130,12 @@ export function DocsBase(props: DocsBaseProps) {
               </div>
             )}
           </dl>
+          <div className="mt-6 border-t border-zinc-200 dark:border-zinc-800 sm:hidden">
+            <h4 className="my-6 text-center dark:text-zinc-600 text-zinc-400 font-semibold">
+              Other helpful sections
+            </h4>
+          </div>
+          <SectionNavigation className="space-y-1 mb-6 sm:hidden" />
         </div>
         <div className="hidden xl:sticky xl:top-[4.5rem] xl:-mr-6 xl:block xl:h-[calc(100vh-4.5rem)] xl:flex-none xl:overflow-y-auto xl:pb-16 xl:pt-24 xl:pr-6">
           <OnThisPageNav
