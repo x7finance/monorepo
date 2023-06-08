@@ -22,7 +22,7 @@ export function LivePairs() {
 
   return (
     <>
-      <div className="mt-6 flex justify-center space-x-4">
+      <div className="flex justify-center mt-6 space-x-4">
         <Button
           size={"sm"}
           variant={"outline"}
@@ -111,6 +111,8 @@ export function LivePairs() {
 
 function PairsTable({ chainId }) {
   const [allPairsLength, setAllPairsLength] = useState(0)
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 8
 
   const { data, isLoading } = useContractReads({
     contracts: [
@@ -128,6 +130,23 @@ function PairsTable({ chainId }) {
   useEffect(() => {
     setAllPairsLength(pairsCount)
   }, [pairsCount])
+
+  const startIndex = (currentPage - 1) * itemsPerPage
+  const endIndex = startIndex + itemsPerPage
+
+  const pairsToDisplay = Array.from(
+    { length: allPairsLength },
+    (_, idx) => allPairsLength - idx - 1
+  ).slice(startIndex, endIndex)
+
+  const goToPreviousPage = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))
+  }
+
+  const goToNextPage = () => {
+    const maxPage = Math.ceil(allPairsLength / itemsPerPage)
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, maxPage))
+  }
 
   return (
     <>
@@ -177,19 +196,48 @@ function PairsTable({ chainId }) {
           <tbody>
             {isLoading ? (
               <LoadingLivePair />
-            ) : !!allPairsLength ? (
-              Array.from({ length: allPairsLength }, (_, idx) => (
-                <Pair key={`${idx}-${chainId}`} id={idx} chainId={chainId} />
+            ) : pairsToDisplay.length > 0 ? (
+              pairsToDisplay.map((pairId) => (
+                <Pair
+                  key={`${pairId}-${chainId}`}
+                  id={pairId}
+                  chainId={chainId}
+                />
               ))
             ) : (
               <tr>
-                <td colSpan={4} className="py-4 text-center">
+                <td colSpan={6} className="py-4 text-center">
                   No pairs created yet
                 </td>
               </tr>
             )}
           </tbody>
         </table>
+        <div className="flex justify-center mt-4">
+          <Button
+            size={"sm"}
+            variant={"outline"}
+            className={cn(`ring-blue-600 ring-1 m-2`)}
+            disabled={currentPage === 1}
+            onClick={goToPreviousPage}
+          >
+            Previous
+          </Button>
+          <div className="flex items-center mx-2">
+            <span className="mr-1 text-gray-500">
+              {currentPage} of {Math.ceil(allPairsLength / itemsPerPage)}
+            </span>
+          </div>
+          <Button
+            size={"sm"}
+            variant={"outline"}
+            className={cn(`ring-blue-600 ring-1 m-2`)}
+            disabled={currentPage * itemsPerPage >= allPairsLength}
+            onClick={goToNextPage}
+          >
+            Next
+          </Button>
+        </div>
       </div>
     </>
   )
