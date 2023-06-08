@@ -11,6 +11,7 @@ import { AnimatePresence, motion } from "framer-motion"
 import {
   DashboardLinksEnum,
   DocsLinks,
+  MarketingLinks,
   ProductsLinkEnum,
 } from "@/lib/types/links"
 
@@ -74,8 +75,8 @@ export function MobileNavigation({ className }: { className: string }) {
                     <X7Logo className="h-8 w-auto fill-black dark:fill-white" />
                   </div>
                   <div className="space-y-4">
-                    <MobileNavLink href={ProductsLinkEnum.Index}>
-                      Products
+                    <MobileNavLink href={MarketingLinks.GetStarted}>
+                      Get Started
                     </MobileNavLink>
                     <MobileNavLink href={DashboardLinksEnum.Marketplace}>
                       Marketplace

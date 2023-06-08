@@ -7,6 +7,7 @@ import {
   ChainTokenOracleEtherUSDEnum,
   TokenContractAddresses,
 } from "common"
+
 import { Chain } from "wagmi"
 
 export function generateChainDenomination(chain: BlockchainType) {

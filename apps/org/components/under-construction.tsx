@@ -30,7 +30,6 @@ export function UnderConstruction(props: ConstructionProps) {
                           <Image
                             height={400}
                             width={400}
-                            priority={true}
                             className="h-auto w-full overflow-hidden rounded-lg shadow-sm ring-1 ring-zinc-900/10 dark:ring-zinc-100/10"
                             src={`https://img.x7.finance/pioneers/${getRandomPioneerNumber()}.png`}
                             alt="Random Pioneer Image"
@@ -60,7 +59,6 @@ export function UnderConstruction(props: ConstructionProps) {
                         <Image
                           height={400}
                           width={400}
-                          priority={true}
                           className="h-auto w-full overflow-hidden rounded-lg shadow-sm ring-1 ring-zinc-900/10 dark:ring-zinc-100/10"
                           src={`https://img.x7.finance/pioneers/${getRandomPioneerNumber()}.png`}
                           alt="Random Pioneer Image"
@@ -97,7 +95,6 @@ export function UnderConstruction(props: ConstructionProps) {
                           <Image
                             height={400}
                             width={400}
-                            priority={true}
                             className="h-auto w-full overflow-hidden rounded-lg shadow-sm ring-1 ring-zinc-900/10 dark:ring-zinc-100/10"
                             src={`https://img.x7.finance/pioneers/${getRandomPioneerNumber()}.png`}
                             alt="Random Pioneer Image"

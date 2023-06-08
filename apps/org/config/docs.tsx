@@ -32,6 +32,18 @@ const onchainsNavigation = [
     title: "June 2023",
     links: [
       {
+        title: "June-06-2023-035847-AM",
+        href: "/docs/onchains/907-june-06-2023-035847-am-utc/",
+      },
+      {
+        title: "June-03-2023-015859-PM",
+        href: "/docs/onchains/908-june-03-2023-015859-pm-utc/",
+      },
+      {
+        title: "June-03-2023-053759-AM",
+        href: "/docs/onchains/909-june-03-2023-053759-am-utc/",
+      },
+      {
         title: "June-03-2023-081923-AM",
         href: "/docs/onchains/910-june-03-2023-081923-am-utc/",
       },
@@ -538,6 +550,7 @@ const faqNavigation = [
   {
     title: "FAQ",
     links: [
+      { title: "Devs Recent AMA 05/25/23", href: "/docs/faq/ama052523/" },
       { title: "Airdrop Questions", href: "/docs/faq/airdrop/" },
       { title: "Constellation Questions", href: "/docs/faq/constellations/" },
       { title: "Developer Questions", href: "/docs/faq/devs/" },

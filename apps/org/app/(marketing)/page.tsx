@@ -95,7 +95,6 @@ export default function IndexPage() {
               <Image
                 height={1000}
                 width={1000}
-                priority={true}
                 className="h-auto w-full"
                 src={`/images/xchange-shadow-white.png`}
                 alt="Utility NFT Image"

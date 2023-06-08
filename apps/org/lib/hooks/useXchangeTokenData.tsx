@@ -1,4 +1,4 @@
-import { BlockchainType, ContractsEnum, TokenContractAddresses } from "common"
+import { BlockchainType, ContractsEnum } from "common"
 import {
   generateChainEtherTokenEnum,
   generateChainTokenOracleEtherUSDEnum,
@@ -6,10 +6,11 @@ import {
 import { AllPairs, ChainLinkAbi, ERC20, PairsAbi } from "contracts"
 
 import { Address, formatUnits } from "viem"
-import { useContractReads, useNetwork } from "wagmi"
+import { useContractReads } from "wagmi"
 
-export function useXchangeTokenData(id: number) {
-  const { chain } = useNetwork()
+import { generateWagmiChain } from "../generateWagmiChain"
+
+export function useXchangeTokenData(id: number, chainId: BlockchainType) {
   const { data, isLoading: isInitialPairLoading } = useContractReads({
     contracts: [
       {
@@ -17,6 +18,7 @@ export function useXchangeTokenData(id: number) {
         abi: AllPairs as any,
         functionName: "allPairs",
         args: [id],
+        chainId: generateWagmiChain(chainId),
       },
     ],
   })
@@ -29,16 +31,19 @@ export function useXchangeTokenData(id: number) {
         address: contractAddress,
         abi: PairsAbi as any,
         functionName: "token0",
+        chainId: generateWagmiChain(chainId),
       },
       {
         address: contractAddress,
         abi: PairsAbi as any,
         functionName: "token1",
+        chainId: generateWagmiChain(chainId),
       },
       {
         address: contractAddress,
         abi: PairsAbi,
         functionName: "getReserves",
+        chainId: generateWagmiChain(chainId),
       },
     ],
   })
@@ -50,7 +55,7 @@ export function useXchangeTokenData(id: number) {
   const { data: usdPrice } = useContractReads({
     contracts: [
       {
-        address: generateChainTokenOracleEtherUSDEnum(chain?.id), // Chainlink's Price Feed contract address
+        address: generateChainTokenOracleEtherUSDEnum(chainId), // Chainlink's Price Feed contract address
         abi: ChainLinkAbi as any,
         functionName: "latestAnswer",
       },
@@ -58,7 +63,7 @@ export function useXchangeTokenData(id: number) {
   })
 
   const token: Address =
-    token0 !== TokenContractAddresses.WETH ? token0 : token1
+    token0 !== generateChainEtherTokenEnum(chainId) ? token0 : token1
 
   const { data: erc20Details, isLoading } = useContractReads({
     contracts: [
@@ -66,18 +71,19 @@ export function useXchangeTokenData(id: number) {
         address: token,
         abi: ERC20 as any,
         functionName: "name",
+        chainId: generateWagmiChain(chainId),
       },
       {
         address: token,
         abi: ERC20,
         functionName: "symbol",
+        chainId: generateWagmiChain(chainId),
       },
     ],
   })
 
   const name: string = (erc20Details?.[0]?.result as string) || ""
   const symbol = erc20Details?.[1]?.result
-  const contractData = data?.[0]?.result
 
   const etherInUSD = usdPrice
     ? // @ts-expect-error
@@ -88,11 +94,11 @@ export function useXchangeTokenData(id: number) {
     isLoading: isLoading || isTokenPairLoading || isInitialPairLoading,
     tokenName: name,
     tokenSymbol: symbol,
-    tokenContract: contractData,
+    tokenContract: token,
     // eth price
-    tokenReserve: generatePairReserve(token0, reserves, chain?.id),
+    tokenReserve: generatePairReserve(token0, reserves, chainId),
     // usd price
-    tokenPrice: generatePairUSDPrice(token0, reserves, etherInUSD, chain?.id),
+    tokenPrice: generatePairUSDPrice(token0, reserves, etherInUSD, chainId),
   }
 }
 

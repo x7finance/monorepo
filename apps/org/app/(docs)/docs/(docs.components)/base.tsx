@@ -51,6 +51,7 @@ export function DocsBase(props: DocsBaseProps) {
   let linkIndex = allLinks.findIndex((link) => link.href === slug)
   let previousPage = allLinks[linkIndex - 1]
   let nextPage = allLinks[linkIndex + 1]
+
   let section = navigation.find((section) =>
     section.links.find((link) => link.href === slug)
   )

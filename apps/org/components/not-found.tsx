@@ -31,7 +31,7 @@ const links = [
 
 export function NotFoundContent() {
   return (
-    <main className="mx-auto w-full max-w-7xl px-6 pb-16 pt-10 sm:pb-24 lg:px-8">
+    <main className="mx-auto w-full max-w-7xl px-6 pb-16 pt-16 sm:pb-24 lg:px-8">
       <Link href="/">
         <X7Logo className="mx-auto h-10 w-auto sm:h-16 fill-black dark:fill-white " />
       </Link>
@@ -59,7 +59,6 @@ export function NotFoundContent() {
                 <Image
                   height={100}
                   width={100}
-                  priority={true}
                   className="h-auto w-full overflow-hidden rounded-lg shadow-sm ring-1 ring-zinc-900/10 dark:ring-zinc-100/10"
                   src={`https://img.x7.finance/pioneers/${getRandomPioneerNumber()}.png`}
                   alt="Random Pioneer Image"

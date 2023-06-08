@@ -27,7 +27,7 @@ export default function DAOPage() {
       />
       <Web3Wrapper>
         <DashboardContainer>
-          <UnderConstruction />
+          <UnderConstruction description="Here you will find the future home for X7 DAO voting, discussion and pertinent data relevent to X7 DAO" />
         </DashboardContainer>
       </Web3Wrapper>
     </div>

@@ -27,7 +27,7 @@ export default function LoansPage() {
       <Heading
         id={"loans"}
         title={"Initial Liquidity Loans"}
-        subHeader="X7 has 7 core tokens that are used to ensure the protocol is running optimally"
+        subHeader="Discover the power of Initial Liquidity Loans at X7 Finance. Our unique lending solutions are designed to provide your project with the liquidity it needs to thrive from day one. With flexible terms and competitive rates, we make it easy for you to launch your token and grow your community."
       />
       <SiteContentContainer>
         <div className="pt-10 mt-4 border-t border-zinc-900/5 dark:border-white/5">
