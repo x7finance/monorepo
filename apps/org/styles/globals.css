@@ -94,7 +94,6 @@
   }
 
   .text-hero {
-    font-weight: bold;
     /* Warning: no fallback */
     background: -webkit-linear-gradient(top, #c94895, rgb(102, 108, 150));
     -webkit-background-clip: text;
@@ -102,18 +101,22 @@
     color: rgba(255, 255, 255, 0.641);
   }
 
+  .text-on {
+    /* Warning: no fallback */
+    -webkit-text-stroke: 6px transparent;
+  }
+
   .text-hero-header {
-    background: -webkit-linear-gradient(top, #ffffff9b, #ffffff5d);
-    font-weight: bold;
+    background: -webkit-linear-gradient(top, #ac00bf79, #ffffff5d);
     /* Warning: no fallback */
     -webkit-background-clip: text;
-    -webkit-text-stroke: 4px transparent;
+    -webkit-text-stroke: 5px transparent;
+
     color: black; /* same as background */
   }
 
   .text-hero-header-light {
     background: -webkit-linear-gradient(top, #000000, #0000008d);
-    font-weight: bold;
     /* Warning: no fallback */
     -webkit-background-clip: text;
     -webkit-text-stroke: 4px transparent;

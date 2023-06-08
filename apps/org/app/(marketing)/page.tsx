@@ -63,45 +63,57 @@ export default function IndexPage() {
                 >
                   <circle cx={1} cy={1} r={1} />
                 </svg>
-                Launch with a Leveraged Liquidity Loan{` `}
+                Launch with an Initial Liquidity Loan{` `}
                 <span aria-hidden="true">&rarr;</span>
               </Link>
             </p>
           </div>
         </div>
-        <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center relative">
-          <h1 className="py-8 text-[14vw] text-center sm:text-8xl xl:text-9xl leading-none select-none tracking-tightest font-extrabold">
+        <div className="container flex flex-col items-center sm:gap-4 text-center relative mt-16">
+          <h1 className="flex mb-6 flex-col italic lg:flex-row justify-center text-center text-5xl sm:text-7xl md:text-8xl lg:text-[7rem] flex-wrap font-extrabold tracking-tightest">
             <span
-              data-content="Trade"
-              className="relative block italic before:content-[attr(data-content)] before:w-full before:z-0 before:block before:absolute before:top-0 before:px-2 before:bottom-0 before:left-0 before:text-center before:text-hero-header before:animate-gradient-background-1"
+              data-content="Launch."
+              className="relative block before:text-hero-header before:content-[attr(data-content)] dark:before:content-[attr(data-content)] before:w-full before:block before:absolute before:top-0 before:bottom-0 before:left-0 before:px-2 before:text-center before:text-super-gradient before:animate-gradient-background-1"
             >
-              <span className="px-6 text-hero animate-gradient-foreground-1">
-                Trade
+              <span className="px-2 text-transparent bg-clip-text bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-100 to-gray-900 animate-gradient-foreground-1">
+                Launch.
               </span>
             </span>
             <span
-              data-content="On"
-              className="relative block italic before:content-[attr(data-content)] before:w-full before:z-0 before:block before:absolute before:top-0 before:px-2 before:bottom-0 before:left-0 before:text-center before:text-hero-header before:animate-gradient-background-2"
+              data-content="Trade."
+              className="relative block before:text-hero-header before:content-[attr(data-content)] dark:before:content-[attr(data-content)] before:w-full before:block before:absolute before:top-0 before:bottom-0 before:left-0 before:px-2 before:text-center before:text-super-gradient before:animate-gradient-background-2"
             >
-              <span className="px-6 text-hero animate-gradient-foreground-2">
-                {" "}
-                On
+              <span className="px-2 text-transparent bg-clip-text bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-100 to-gray-900 animate-gradient-foreground-2">
+                Trade.
               </span>
             </span>
             <span
-              data-content=""
-              className="relative py-4 w-[350px] sm:w-[400px] xl:w-[550px] block before:w-full before:z-0 before:block before:absolute before:top-0 before:px-2 before:bottom-0 before:left-0 before:text-center before:text-black before:animate-gradient-background-3"
+              data-content="Lend."
+              className="relative block before:text-hero-header before:content-[attr(data-content)] dark:before:content-[attr(data-content)] before:w-full before:block before:absolute before:top-0 before:bottom-0 before:left-0 before:px-2 before:text-center before:text-super-gradient before:animate-gradient-background-3"
             >
-              <Image
-                height={500}
-                width={500}
-                priority={true}
-                className="h-auto w-full"
-                src={`/images/xchange-shadow-white.png`}
-                alt="Utility NFT Image"
-              />
+              <span className="px-2 text-transparent bg-clip-text bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-100 to-gray-900 animate-gradient-foreground-3">
+                Lend.
+              </span>
             </span>
           </h1>
+
+          <span
+            data-content="On"
+            className="relative sm:text-3xl xl:text-4xl block italic before:content-[attr(data-content)] before:w-full before:z-0 before:block before:absolute before:top-0 before:px-2 before:bottom-0 before:left-0 before:text-center before:text-hero-header"
+          >
+            <span className="px-6 text-hero text-on">On</span>
+          </span>
+          <span className="relative py-4 w-[350px] sm:w-[400px] xl:w-[550px] before:w-full before:z-0 before:block before:absolute before:top-0 before:px-2 before:bottom-0 before:left-0 before:text-center before:text-black">
+            <Image
+              height={500}
+              width={500}
+              priority={true}
+              className="h-auto w-full"
+              src={`/images/xchange-shadow-white.png`}
+              alt="Utility NFT Image"
+            />
+          </span>
+
           <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8 bg-transparent"></p>
           <div className="gap-y-2 md:gap-x-3 md:gap-y-0 flex flex-col-reverse md:flex-row items-center">
             <Link
@@ -277,21 +289,20 @@ export default function IndexPage() {
             `w-full rounded-3xl bg-gradient-to-r p-[2px] from-emerald-400/50 via-green-500/50 to-cyan-400/50 max-w-5xl mx-auto`
           )}
         >
-          <div className="flex h-full w-full items-center justify-center bg-black rounded-3xl">
+          <div className="flex h-full w-full items-center justify-center bg-white dark:bg-black rounded-3xl">
             <div className="mx-auto max-w-2xl lg:max-w-4xl py-12">
-              <h3 className="mt-1 text-3xl font-bold tracking-tight dark:text-hero-header text-hero-header-light italic text-center">
-                {/* <h3 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 text-center"> */}
+              <h3 className="mt-1 mx-4 sm:text-3xl text-xl font-bold tracking-tight dark:text-hero-header text-hero-header-light italic text-center">
                 Common Token Launch Scenario
               </h3>
               <PioneerDrop lineColor="to-emerald-500" height={50} />
-              <figure className="">
-                <blockquote className="text-center text-xl font-semibold tracking-tight leading-8 text-zinc-900 dark:text-zinc-300 sm:text-2xl sm:leading-9">
-                  <p className="italic text-xl">
+              <figure>
+                <blockquote className="text-center mx-4 font-semibold tracking-tight leading-8 text-zinc-900 dark:text-zinc-300 sm:leading-9">
+                  <p className="italic text-base sm:text-lg md:text-2xl">
                     {`Bruce Lee has a great idea for a token, but only has 10 Eth
                     for his startup captial. Bruce needs to pay for product,
                     marketing, community growth, and many other expenses.`}
                   </p>
-                  <p className="italic mt-5 text-xl">
+                  <p className="italic mt-5 text-base sm:text-lg md:text-2xl">
                     {`Before X7, Bruce would need to use 20-30% of his startup
                     capital just for liquidity, and he'd rarely get it back.
                     Using X7, Bruce can take just 0.5 Eth and leverage it 10X to

@@ -96,13 +96,8 @@ module.exports = {
         sans: ["var(--font-sans)", ...fontFamily.sans],
         heading: ["var(--font-heading)", ...fontFamily.sans],
       },
-      gradientColorStops: {
-        "gradient-1-start": "#666c96",
-        "gradient-1-end": "#08f4ad",
-        "gradient-2-start": "#522003",
-        "gradient-2-end": "#c94895",
-        "gradient-3-start": "#4e259a",
-        "gradient-3-end": "white",
+      letterSpacing: {
+        tightest: "-.06em",
       },
       keyframes: {
         "accordion-down": {
