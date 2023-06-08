@@ -183,6 +183,10 @@ module.exports = {
           "0%, 100%": { backgroundPosition: "0% 50%" },
           "50%": { backgroundPosition: "100% 50%" },
         },
+        "fade-in": {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
       },
       willChange: {
         filter: "filter",
@@ -200,6 +204,7 @@ module.exports = {
         spin: "spin 5s linear infinite",
         "spin-x": "spinX 20s linear infinite",
         "spin-z": "spinZ 180s linear infinite",
+        "fade-in": "fade-in 10s",
       },
     },
   },
