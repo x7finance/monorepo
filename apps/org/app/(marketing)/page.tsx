@@ -93,8 +93,9 @@ export default function IndexPage() {
               className="relative py-4 w-[350px] sm:w-[400px] xl:w-[550px] block before:w-full before:z-0 before:block before:absolute before:top-0 before:px-2 before:bottom-0 before:left-0 before:text-center before:text-black before:animate-gradient-background-3"
             >
               <Image
-                height={1000}
-                width={1000}
+                height={500}
+                width={500}
+                priority={true}
                 className="h-auto w-full"
                 src={`/images/xchange-shadow-white.png`}
                 alt="Utility NFT Image"
