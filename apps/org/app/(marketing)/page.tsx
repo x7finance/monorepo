@@ -99,7 +99,7 @@ export default function IndexPage() {
 
           <span
             data-content="On"
-            className="relative sm:text-3xl xl:text-4xl block italic before:content-[attr(data-content)] before:w-full before:z-0 before:block before:absolute before:top-0 before:px-2 before:bottom-0 before:left-0 before:text-center before:text-hero-header"
+            className="relative text-2xl sm:text-3xl xl:text-4xl block italic before:content-[attr(data-content)] before:w-full before:z-0 before:block before:absolute before:top-0 before:px-2 before:bottom-0 before:left-0 before:text-center before:text-hero-header"
           >
             <span className="px-6 text-hero text-on">On</span>
           </span>

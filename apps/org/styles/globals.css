@@ -103,7 +103,13 @@
 
   .text-on {
     /* Warning: no fallback */
-    -webkit-text-stroke: 6px transparent;
+    -webkit-text-stroke: 3px transparent;
+  }
+
+  @media screen(sm) {
+    .text-on {
+      -webkit-text-stroke: 6px transparent;
+    }
   }
 
   .text-hero-header {
