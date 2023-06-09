@@ -5,6 +5,7 @@ import {
   ChainIdentifierEnum,
   ChainScannerLinksEnum,
   ChainTokenOracleEtherUSDEnum,
+  ContractsEnum,
   TokenContractAddresses,
 } from "common"
 
@@ -126,6 +127,19 @@ export function generateChainTokenOracleEtherUSDEnum(chainId?: BlockchainType) {
       return ChainTokenOracleEtherUSDEnum.optimism
     default:
       return ChainTokenOracleEtherUSDEnum.erc
+  }
+}
+
+export function generateX7InitialLiquidityLoanTermContract(loantype: string) {
+  switch (loantype) {
+    case "001":
+      return ContractsEnum.X7InitialLiquidityLoanTerm001
+    case "002":
+      return ContractsEnum.X7InitialLiquidityLoanTerm002
+    case "003":
+      return ContractsEnum.X7InitialLiquidityLoanTerm003
+    default:
+      return ContractsEnum.X7InitialLiquidityLoanTerm001
   }
 }
 
