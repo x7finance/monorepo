@@ -22,7 +22,7 @@ export function LivePairs() {
 
   return (
     <>
-      <div className="flex justify-center mt-6 space-x-4">
+      <div className="flex justify-center p-4 mt-6 space-x-4 overflow-x-scroll border rounded-md dark:border-zinc-800 border-zinc-200">
         <Button
           size={"sm"}
           variant={"outline"}
