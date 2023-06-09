@@ -141,16 +141,16 @@ export default function GettingStartedPage() {
                   />
 
                   <div className="w-full flex-auto">
-                    <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                    <h2 className="text-3xl font-bold tracking-tight dark:text-white text-black sm:text-4xl">
                       Not any of the above?
                     </h2>
-                    <p className="mt-6 text-lg leading-8 text-gray-300">
+                    <p className="mt-6 text-lg leading-8 dark:text-slate-300 text-slate-800">
                       {`Reach out to the X7 DAO below and we'll be happy to get
                       you answers to any of the following and more.`}
                     </p>
                     <ul
                       role="list"
-                      className="mt-10 grid grid-cols-1 gap-x-8 gap-y-3 text-base leading-7 text-white sm:grid-cols-2"
+                      className="mt-10 grid grid-cols-1 gap-x-8 gap-y-3 text-base leading-7 dark:text-white text-black sm:grid-cols-2"
                     >
                       {supportItems.map((benefit) => (
                         <li key={benefit} className="flex gap-x-3">
@@ -166,7 +166,7 @@ export default function GettingStartedPage() {
                       <a
                         rel="noopener noreferrer"
                         href="mailto:marketing@x7finance.org"
-                        className="text-sm font-semibold leading-6 text-indigo-400"
+                        className="text-sm font-semibold leading-6 dark:text-indigo-400 text-indigo-700"
                       >
                         Shoot us a note <span aria-hidden="true">&rarr;</span>
                       </a>

@@ -23,7 +23,7 @@ export const Heading: React.FC<HeadingProps> = ({
         )}
         <h1
           id={id}
-          className="mt-1 text-4xl font-bold tracking-tight sm:text-6xl dark:text-hero-header text-hero-header-light italic pb-2"
+          className="mt-1 text-4xl font-bold tracking-tight sm:text-6xl dark:text-hero-header-regular text-hero-header-light italic pb-2"
         >
           {title}
         </h1>

@@ -16,8 +16,8 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@heroicons/react": "^2.0.18",
     "common": "workspace:*",
+    "lucide-react": "^0.241.0",
     "utils": "workspace:*"
   },
   "devDependencies": {

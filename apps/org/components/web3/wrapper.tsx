@@ -11,7 +11,7 @@ import { WalletConnectConnector } from "wagmi/connectors/walletConnect"
 import { alchemyProvider } from "wagmi/providers/alchemy"
 import { publicProvider } from "wagmi/providers/public"
 
-import { ConnectionComponent } from "@/components/connect-button"
+import { ConnectionComponent } from "@/components/web3/connect-button"
 
 interface Web3WrapperProps {
   children: React.ReactNode

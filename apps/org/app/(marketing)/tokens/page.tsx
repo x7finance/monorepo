@@ -1,9 +1,9 @@
+import { ContractsEnum } from "common"
 import { cn } from "utils"
 
 import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
-import { ContractsEnum } from "@/../../packages/common/dist"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { buttonVariants } from "@/components/ui/button"

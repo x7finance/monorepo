@@ -6,19 +6,18 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"],
       "env": [
+        "NESTJS_PORT",
         "NEXT_PUBLIC_ALCHEMY_ID",
-        "DOCSEARCH_ADMIN_API_KEY",
-        "NEXT_PUBLIC_DOCSEARCH_APP_ID",
+        "NEXT_PUBLIC_APP_URL",
+        "NEXT_PUBLIC_ASSETS_URL",
         "NEXT_PUBLIC_DOCSEARCH_API_KEY",
+        "NEXT_PUBLIC_DOCSEARCH_APP_ID",
         "NEXT_PUBLIC_DOCSEARCH_INDEX_NAME",
         "NEXT_PUBLIC_MORALIS_API_KEY",
-        "NEXT_PUBLIC_ASSETS_URL",
         "NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID",
         "NODE_ENV",
         "X7_BOT_TOKEN",
-        "X7_BOT_TWO_TOKEN",
-        "NESTJS_PORT",
-        "NEXT_PUBLIC_APP_URL"
+        "X7_BOT_TWO_TOKEN"
       ]
     },
     "lint": {},

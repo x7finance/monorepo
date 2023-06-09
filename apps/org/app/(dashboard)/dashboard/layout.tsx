@@ -1,4 +1,4 @@
-import { DashboardHeader } from "@/components/dashboard-header"
+import { AppHeader } from "@/components/app-header"
 import { SiteFooter } from "@/components/site-footer"
 
 interface DashboardLayoutProps {
@@ -8,7 +8,7 @@ interface DashboardLayoutProps {
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   return (
     <div className="bg-[#fafafa] dark:bg-[#111111]">
-      <DashboardHeader />
+      <AppHeader />
       <div className="dashboard-container">
         <div className="py-16 flex-1">{children}</div>
       </div>

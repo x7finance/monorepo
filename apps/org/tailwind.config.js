@@ -8,7 +8,7 @@ module.exports = {
     "./ui/**/*.{ts,tsx}",
     "./content/**/*.{md,mdx}",
   ],
-  whitelist: ["rosey-gradient"],
+  whitelist: [],
   darkMode: ["class"],
   theme: {
     fontSize: {
