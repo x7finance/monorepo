@@ -1,5 +1,5 @@
 import { BlockchainType, ChainEnum } from "common"
-import { IconWrapper, SignalSlashIcon, glyph } from "icons"
+import { CloudOffIcon, glyph, IconWrapper } from "icons"
 
 export function renderConnectedChain(chain?: BlockchainType) {
   switch (chain) {
@@ -15,11 +15,9 @@ export function renderConnectedChain(chain?: BlockchainType) {
       return <IconWrapper glyph={glyph.arbitrum} size={5} />
     case ChainEnum.offline:
       return (
-        <SignalSlashIcon className="h-5 w-5 text-gray-900" aria-hidden="true" />
+        <CloudOffIcon className="h-5 w-5 text-gray-900" aria-hidden="true" />
       )
     default:
-      return (
-        <SignalSlashIcon className="h-5 w-5 text-black" aria-hidden="true" />
-      )
+      return <CloudOffIcon className="h-5 w-5 text-black" aria-hidden="true" />
   }
 }

@@ -5,37 +5,35 @@ import { cn } from "utils"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 
-import { DashboardLinksEnum, DocsLinks } from "@/lib/types/links"
+import { DASHBOARD_TABS_NAV } from "@/config/site"
+import { DashboardLinksEnum } from "@/lib/types/links"
 
-const tabs = [
-  { name: "Dashboard", href: DashboardLinksEnum.Index },
-  { name: "Documentation", href: DocsLinks.Index },
-  { name: "Contracts", href: DashboardLinksEnum.Contracts },
-  { name: "NFTs", href: DashboardLinksEnum.Marketplace },
-  { name: "DAO", href: DashboardLinksEnum.DAO },
-]
-
-export function DashboardTabNavigation() {
+export function AppTabNavigation() {
   const pathname = usePathname()
   const router = useRouter()
 
   return (
     <>
-      <div className="mx-3 sm:hidden pb-2 relative tab-nav-select">
+      <div className="relative pb-2 mx-3 sm:hidden tab-nav-select">
         <label htmlFor="tabs" className="sr-only">
           Select a tab
         </label>
         <select
           onChange={(e) => {
-            const link = tabs.find((tab) => tab.name === e.target.value)?.href
+            const link = DASHBOARD_TABS_NAV.find(
+              (tab) => tab.name === e.target.value
+            )?.href
             router.push(`${link}`)
           }}
           id="tabs"
           name="tabs"
           className="block rounded-md border border-zinc-400 dark:border-zinc-600 pl-3 pr-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:bg-zinc-800 bg-zinc-200 h-12 text-base leading-7 w-full mx-0 my-1 px-6 py-0 font-semibold appearance-none"
-          defaultValue={tabs.find((tab) => pathname.startsWith(tab.href))?.name}
+          defaultValue={
+            DASHBOARD_TABS_NAV.find((tab) => pathname.startsWith(tab.href))
+              ?.name
+          }
         >
-          {tabs.map((tab) => (
+          {DASHBOARD_TABS_NAV.map((tab) => (
             <option key={tab.name}>{tab.name}</option>
           ))}
         </select>
@@ -43,7 +41,7 @@ export function DashboardTabNavigation() {
       <div className="hidden sm:block mt-3">
         <div className="nav-shadow px-6">
           <nav className="-mb-px flex" aria-label="Tabs">
-            {tabs.map((tab) => {
+            {DASHBOARD_TABS_NAV.map((tab) => {
               return (
                 <Link
                   key={tab.name}

@@ -17,36 +17,29 @@ export * from "./svgs/x7"
 export * from "./svgs/x7-long-logo"
 
 export {
+  AlertCircle,
+  BoxIcon,
+  CheckCircleIcon,
   CheckIcon,
   ChevronDownIcon,
   ChevronRightIcon,
-  CircleStackIcon,
-  SignalSlashIcon,
-  MagnifyingGlassIcon,
-  CubeTransparentIcon as CubeTransparentIconSolid,
+  ChevronUpIcon,
+  ClipboardIcon,
+  CloudOffIcon,
+  DatabaseIcon,
+  DotIcon,
+  LayoutListIcon,
+  LinkIcon,
+  MenuIcon,
   MinusCircleIcon,
+  MonitorIcon,
+  MoonIcon,
   PlusCircleIcon,
-  Bars3Icon,
-  BellIcon,
-  XMarkIcon as XMarkIconSolid,
-} from "@heroicons/react/20/solid"
-
-export {
-  BanknotesIcon,
-  Bars3BottomLeftIcon,
-  CodeBracketIcon,
-  CubeTransparentIcon,
-  CursorArrowRippleIcon,
-  FolderIcon,
-  NewspaperIcon,
-  QuestionMarkCircleIcon,
-  RectangleStackIcon,
-  UserGroupIcon,
-  XMarkIcon,
-  ClipboardDocumentIcon,
-  CheckCircleIcon,
-  Squares2X2Icon,
-} from "@heroicons/react/24/outline"
+  RocketIcon,
+  SearchIcon,
+  SunIcon,
+  XIcon,
+} from "lucide-react"
 
 export { ChainsArray } from "./utils/ChainsArray"
 

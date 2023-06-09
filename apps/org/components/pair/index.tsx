@@ -7,13 +7,13 @@ import {
   generateChainDenomination,
   generateChainIdentifier,
 } from "utils"
-import { ClipboardDocumentIcon, IconWrapper } from "icons"
+import { ClipboardIcon, IconWrapper } from "icons"
 
 import Link from "next/link"
-import toast from "react-hot-toast"
 import { useClipboard } from "use-clipboard-copy"
 
 import { useXchangeTokenData } from "@/lib/hooks/useXchangeTokenData"
+import { toast } from "@/components/ui/use-toast"
 
 interface PairsProps {
   id: number
@@ -26,17 +26,10 @@ export function Pair({ id, chainId }: PairsProps) {
 
   const clipboard = useClipboard({
     onSuccess() {
-      toast.success(<span>Contract Copied</span>, {
-        duration: 3000,
-        style: {
-          border: `none`,
-          background: "#000",
-          color: "white",
-        },
-        iconTheme: {
-          primary: "#fff",
-          secondary: "#000",
-        },
+      return toast({
+        title: "Success",
+        description: "Contract Copied",
+        variant: "success",
       })
     },
   })
@@ -80,7 +73,7 @@ export function Pair({ id, chainId }: PairsProps) {
           >
             Contract
             <span className="ml-0.5">
-              <ClipboardDocumentIcon
+              <ClipboardIcon
                 className="inline-block h-4 w-4 "
                 aria-hidden="true"
               />
@@ -109,7 +102,7 @@ export function Pair({ id, chainId }: PairsProps) {
           <>
             {tokenContract}
             <span className="ml-0.5">
-              <ClipboardDocumentIcon
+              <ClipboardIcon
                 className="inline-block h-4 w-4 "
                 aria-hidden="true"
               />
@@ -200,7 +193,7 @@ export function Pair({ id, chainId }: PairsProps) {
           >
             <span className="whitespace-nowrap">
               <span>Trade</span>
-              <span className="hidden xl:ml-2 xl:inline-block">on Xchange</span>
+              <span className="hidden xl:ml-1 xl:inline-block">on Xchange</span>
             </span>
           </Link>
         </div>

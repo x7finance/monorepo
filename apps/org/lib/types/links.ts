@@ -3,6 +3,7 @@ export enum DashboardLinksEnum {
   DAO = "/dashboard/dao/",
   Contracts = "/dashboard/contracts/",
   Marketplace = "/dashboard/marketplace/",
+  Loans = "/dashboard/loans/",
 }
 
 export enum TokenLinksEnum {

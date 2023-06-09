@@ -1,6 +1,6 @@
 import { SocialsEnum, X7LinksEnum } from "common"
 import { cn } from "utils"
-import { Xchange } from "icons"
+import { DotIcon, RocketIcon, Xchange } from "icons"
 
 import { Metadata } from "next"
 import Image from "next/image"
@@ -32,41 +32,27 @@ export default function IndexPage() {
       <section className="space-y-6 pb-8 md:pb-12">
         <HeaderVideoComponent />
         <div className="pointer-events-none absolute inset-x-0 text-sm md:text-base top-4 sm:flex sm:justify-center sm:px-6 sm:pb-5 lg:px-8">
-          <div className="pointer-events-auto flex items-center announcement-shadow justify-between gap-x-6 bg-black border-zinc-900 border px-6 py-3 sm:rounded-xl sm:py-3 sm:pl-4 sm:pr-3.5">
-            <p className="text-zinc-400 tracking-tight">
-              <Link
-                href={X7LinksEnum.Xchange}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-4 w-4 inline-block text-zinc-400 mr-2"
-                >
-                  <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
-                  <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
-                  <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
-                  <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
-                </svg>
-                <strong className="font-semibold text-zinc-200">
-                  X7 has launched on 5 chains
-                </strong>
-                <svg
-                  viewBox="0 0 2 2"
-                  className="mx-2 inline h-0.5 w-0.5 fill-current"
-                  aria-hidden="true"
-                >
-                  <circle cx={1} cy={1} r={1} />
-                </svg>
-                Launch with an Initial Liquidity Loan{` `}
-                <span aria-hidden="true">&rarr;</span>
-              </Link>
-            </p>
+          <div className="pointer-events-auto announcement-shadow justify-between gap-x-6 bg-black border-zinc-900 border px-6 py-1.5 sm:rounded-xl sm:py-3 sm:pl-4 sm:pr-3.5">
+            <Link
+              href={X7LinksEnum.Xchange}
+              target="_blank"
+              className="text-zinc-400 tracking-tight"
+              rel="noopener noreferrer"
+            >
+              <div className="flex flex-col sm:flex-row justify-center items-center">
+                <div>
+                  <RocketIcon className="h-4 w-4 inline-block text-zinc-400 mr-2" />
+                  <strong className="font-semibold text-zinc-200">
+                    X7 has launched on 5 chains
+                  </strong>
+                </div>
+                <div className="block">
+                  <DotIcon className="mx-2 hidden sm:inline h-2 w-2 fill-current" />
+                  Launch with an Initial Liquidity Loan{` `}
+                  <span aria-hidden="true">&rarr;</span>
+                </div>
+              </div>
+            </Link>
           </div>
         </div>
         <div className="container flex flex-col items-center sm:gap-4 text-center relative mt-16">
@@ -190,7 +176,7 @@ export default function IndexPage() {
                 />
                 <div className="mx-auto max-w-2xl sm:mx-0 sm:max-w-none">
                   <Image
-                    src="/images/home/xchange-3.png"
+                    src={`${process.env.NEXT_PUBLIC_ASSETS_URL}/images/home/xchange.png`}
                     alt="Xchange screenshot"
                     width={2432}
                     height={1442}
@@ -291,21 +277,21 @@ export default function IndexPage() {
         >
           <div className="flex h-full w-full items-center justify-center bg-white dark:bg-black rounded-3xl">
             <div className="mx-auto max-w-2xl lg:max-w-4xl py-12">
-              <h3 className="mt-1 mx-4 sm:text-3xl text-xl font-bold tracking-tight dark:text-hero-header text-hero-header-light italic text-center">
+              <h3 className="mt-1 mx-4 sm:text-3xl text-xl font-bold tracking-tight dark:text-hero-header-regular text-hero-header-light italic text-center">
                 Common Token Launch Scenario
               </h3>
               <PioneerDrop lineColor="to-emerald-500" height={50} />
               <figure>
                 <blockquote className="text-center mx-4 font-semibold tracking-tight leading-8 text-zinc-900 dark:text-zinc-300 sm:leading-9">
                   <p className="italic text-base sm:text-lg md:text-2xl">
-                    {`Bruce Lee has a great idea for a token, but only has 10 Eth
-                    for his startup captial. Bruce needs to pay for product,
+                    {`Bruce Lee has a great idea for a token, but only has 10 ETH
+                    in startup captial available. Bruce needs to pay for product,
                     marketing, community growth, and many other expenses.`}
                   </p>
                   <p className="italic mt-5 text-base sm:text-lg md:text-2xl">
                     {`Before X7, Bruce would need to use 20-30% of his startup
                     capital just for liquidity, and he'd rarely get it back.
-                    Using X7, Bruce can take just 0.5 Eth and leverage it 10X to
+                    Using X7, Bruce can take just 0.5 ETH and leverage it 10X to
                     launch with sufficient liquidity and use his cash on hand
                     more efficiently.`}
                   </p>
@@ -318,19 +304,11 @@ export default function IndexPage() {
                     src={"https://img.x7.finance/pioneers/1234.png"}
                     alt="Bruce Lee Pioneer Image"
                   />
-                  <div className="mt-4 flex items-center justify-center space-x-3 text-base">
+                  <div className="mt-4 flex items-center justify-center space-x-1 text-base">
                     <div className="font-semibold text-zinc-900 dark:text-zinc-100">
                       Bruce Lee
                     </div>
-                    <svg
-                      viewBox="0 0 2 2"
-                      width={3}
-                      height={3}
-                      aria-hidden="true"
-                      className="fill-zinc-900 dark:fill-zinc-100"
-                    >
-                      <circle cx={1} cy={1} r={1} />
-                    </svg>
+                    <DotIcon className="fill-zinc-900 dark:fill-zinc-100" />
                     <div className="text-zinc-600 dark:text-zinc-400">
                       Project Dev
                     </div>
@@ -369,8 +347,8 @@ export default function IndexPage() {
 
               <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg bg-zinc-100 md:order-last">
                 <Image
-                  src="/images/home/astronaut.gif"
-                  alt="Xchange screenshot"
+                  src={`${process.env.NEXT_PUBLIC_ASSETS_URL}/images/home/astronaut.gif`}
+                  alt="Pioneer Astronaut Image"
                   width={1000}
                   height={1000}
                   className="object-cover object-center"
