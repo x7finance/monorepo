@@ -2,8 +2,9 @@ import { BlockchainType } from "common"
 import { generateChainBase } from "utils"
 
 import { useEffect, useState } from "react"
-import toast from "react-hot-toast"
 import { useContractWrite, useWaitForTransaction } from "wagmi"
+
+import { toast } from "@/components/ui/use-toast"
 
 type UseContractWriteArgs = Parameters<typeof useContractWrite>
 
@@ -29,10 +30,10 @@ const renderStatusWithHeader = (
   )
 }
 
-const toastConfirm = "tx_confirm"
-const toastProcessing = "tx_processing"
-const toastSuccess = "tx_success"
-const toastError = "tx_error"
+// const toastConfirm = "tx_confirm"
+// const toastProcessing = "tx_processing"
+// const toastSuccess = "tx_success"
+// const toastError = "tx_error"
 
 export function useContractTx(
   chainId: BlockchainType | number | undefined,
@@ -50,82 +51,51 @@ export function useContractTx(
 
   const isSuccess = transaction.status === "success"
 
+  // @ts-ignore
   useEffect(() => {
     if (isLoading && !result.data?.hash) {
-      toast.remove(toastError)
-      toast.success(
-        renderStatusWithHeader(
+      return toast({
+        title: "Confirm",
+        description: renderStatusWithHeader(
           "Confirm transaction in wallet",
           result.data?.hash,
           chainId as BlockchainType
         ),
-        {
-          id: toastConfirm,
-          style: {
-            background: "#3F88C5",
-            color: "white",
-          },
-          iconTheme: {
-            primary: "#fff",
-            secondary: "#3F88C5",
-          },
-        }
-      )
+        variant: "information",
+      })
     } else if (isLoading && result.data?.hash) {
-      toast.remove(toastConfirm)
-      toast.loading(
-        renderStatusWithHeader(
+      return toast({
+        title: "Processing",
+        description: renderStatusWithHeader(
           "Transaction is being processed on chain...",
           result.data?.hash,
           chainId as BlockchainType
         ),
-        {
-          id: toastProcessing,
-          style: {
-            background: "#4C2C72",
-            color: "white",
-          },
-          iconTheme: {
-            primary: "#fff",
-            secondary: "#4C2C72",
-          },
-        }
-      )
+        variant: "pending",
+      })
     } else if (isSuccess) {
-      toast.remove(toastProcessing)
-      toast.success(
-        renderStatusWithHeader(
+      return toast({
+        title: "Success",
+        description: renderStatusWithHeader(
           "Transaction successful",
           result.data?.hash,
           chainId as BlockchainType
         ),
-        {
-          id: toastSuccess,
-        }
-      )
+        variant: "success",
+      })
     } else if (isError && !isFinished) {
       // @ts-ignore
       const message = generateErrorMessage(result.error?.code)
       setIsFinished(true)
-      toast.dismiss()
-      toast.error(
-        renderStatusWithHeader(
+      return toast({
+        title: "Error",
+        description: renderStatusWithHeader(
           message,
           result.data?.hash,
           chainId as BlockchainType
         ),
-        {
-          id: toastError,
-          style: {
-            background: "red",
-            color: "white",
-          },
-          iconTheme: {
-            primary: "#fff",
-            secondary: "#ff8080",
-          },
-        }
-      )
+        variant: "destructive",
+      })
     }
   }, [isError, isLoading, chainId, transaction])
 

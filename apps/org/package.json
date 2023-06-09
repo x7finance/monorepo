@@ -63,7 +63,6 @@
     "react-dom": "^18.2.0",
     "react-highlight-words": "^0.20.0",
     "react-hook-form": "^7.44.3",
-    "react-hot-toast": "^2.4.1",
     "sharp": "^0.32.1",
     "tailwindcss-animate": "^1.0.5",
     "ui": "workspace:*",

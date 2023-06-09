@@ -1,16 +1,17 @@
 "use client"
 
 import { ContractsEnum } from "common"
+import { cn } from "utils"
 import { X7InitialLiquidityLoanTerm001 } from "contracts"
 
 import { useEffect, useState } from "react"
-import { cn } from "@/../../packages/utils/dist"
-import { useContractReads, useNetwork } from "wagmi"
+import { useContractReads } from "wagmi"
 
 import { generateWagmiChain } from "@/lib/generateWagmiChain"
 
 import { Loading } from "../loading"
 import { Loan } from "../loan"
+import { Pagination } from "../pagination"
 import { Button } from "../ui/button"
 
 export function LiveLoans() {
@@ -230,9 +231,9 @@ function LoansTable({ chainId, loanId }) {
               </th>
               <th
                 scope="col"
-                className="hidden px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell"
+                className="hidden px-3 py-3.5 text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell text-center"
               >
-                is Complete
+                Completed
               </th>
               <th
                 scope="col"
@@ -256,7 +257,7 @@ function LoansTable({ chainId, loanId }) {
           </thead>
           <tbody>
             {isLoading ? (
-              <LoadingLivePair />
+              <LoadingState />
             ) : pairsToDisplay.length > 0 ? (
               pairsToDisplay.map((pairId) => (
                 <Loan
@@ -275,37 +276,21 @@ function LoansTable({ chainId, loanId }) {
             )}
           </tbody>
         </table>
-        <div className="flex justify-center mt-4">
-          <Button
-            size={"sm"}
-            variant={"outline"}
-            className={cn(`ring-blue-600 ring-1 m-2`)}
-            disabled={currentPage === 1}
-            onClick={goToPreviousPage}
-          >
-            Previous
-          </Button>
-          <div className="flex items-center mx-2">
-            <span className="mr-1 text-gray-500">
-              {currentPage} of {Math.ceil(loansTotalSupply / loansPerPage)}
-            </span>
-          </div>
-          <Button
-            size={"sm"}
-            variant={"outline"}
-            className={cn(`ring-blue-600 ring-1 m-2`)}
-            disabled={currentPage * loansPerPage >= loansTotalSupply}
-            onClick={goToNextPage}
-          >
-            Next
-          </Button>
-        </div>
       </div>
+      <Pagination
+        {...{
+          currentPage,
+          pageLength: loansTotalSupply,
+
+          goToPreviousPage,
+          goToNextPage,
+        }}
+      />
     </>
   )
 }
 
-function LoadingLivePair() {
+function LoadingState() {
   return (
     <tr>
       <td colSpan={6} className="py-4 text-center">

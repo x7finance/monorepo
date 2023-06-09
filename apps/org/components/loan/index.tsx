@@ -7,10 +7,20 @@ import {
   generateChainDenomination,
   generateX7InitialLiquidityLoanTermContract,
 } from "utils"
+import { AlertCircle, CheckCircleIcon, ClipboardIcon } from "icons"
 
 import Link from "next/link"
+import { useClipboard } from "use-clipboard-copy"
 
 import { useXchangeLoanData } from "@/lib/hooks/useXchangeLoanData"
+import { toast } from "@/components/ui/use-toast"
+
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../ui/tooltip"
 
 interface LoansProps {
   id: number
@@ -21,14 +31,25 @@ interface LoansProps {
 export function Loan({ id, chainId, loanType }: LoansProps) {
   const {
     loanID,
-    Symbol,
-    OwnerOf,
-    IsComplete,
-    LoanAmount,
-    LoanStartTime,
-    TotalDue,
-    LoanState,
+    symbol,
+    ownerOf,
+    isCompleted,
+    loanAmount,
+    loanStartTime,
+    totalDue,
+    loanState,
+    fullLoanAddress,
   } = useXchangeLoanData(id, chainId, loanType)
+
+  const clipboard = useClipboard({
+    onSuccess() {
+      return toast({
+        title: "Success",
+        description: "Address Copied",
+        variant: "success",
+      })
+    },
+  })
 
   return (
     <tr key={id}>
@@ -40,7 +61,7 @@ export function Loan({ id, chainId, loanType }: LoansProps) {
       >
         <div
           className={`font-medium ${
-            LoanState === 1
+            loanState === 1
               ? "text-green-500 dark:text-green-500"
               : "text-red-500 dark:text-red-500"
           } dark:text-zinc-100`}
@@ -49,14 +70,15 @@ export function Loan({ id, chainId, loanType }: LoansProps) {
             {loanID ? `${loanID} / ${id}` : ". . ."}
             <div className="relative inline-block ml-2 top-1 lg:hidden">
               <div className="flex items-center space-x-2">
-                <div className="flex flex-shrink-0 space-x-1">{Symbol}</div>
+                <div className="flex flex-shrink-0 space-x-1">{symbol}</div>
               </div>
             </div>
           </>
         </div>
         <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
           <span className="flex items-center cursor-pointer opacity-70 hover:underline dark:opacity-50">
-            Complete : {IsComplete} - Total Due : {TotalDue}
+            Status : {isCompleted ? "Completed" : "Active"} - Total Due :{" "}
+            {totalDue}
           </span>
         </div>
         {id !== 0 ? (
@@ -70,9 +92,31 @@ export function Loan({ id, chainId, loanType }: LoansProps) {
           "hidden px-3 py-3.5 text-xs text-zinc-500 dark:text-zinc-400 lg:table-cell"
         )}
       >
-        <span>{Symbol}</span>
-        <span className="flex items-center cursor-pointer opacity-70 hover:underline dark:opacity-50">
-          <>Owner:{OwnerOf}</>
+        <span>
+          Loan Type:{" "}
+          <Link
+            className="underline hover:text-zinc-600 dark:hover:text-zinc-300"
+            href={fullLoanAddress}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {symbol}
+          </Link>
+        </span>
+        <span
+          onClick={() => {
+            clipboard.copy(ownerOf)
+          }}
+          className="flex group cursor-pointer items-center opacity-70 dark:opacity-50"
+        >
+          Address: <span className="group-hover:underline">{ownerOf}</span>
+          <span className="ml-0.5">
+            <ClipboardIcon
+              className="inline-block h-4 w-4 "
+              aria-hidden="true"
+            />
+            <span className="sr-only">Copy Address</span>
+          </span>
         </span>
       </td>
       <td
@@ -81,10 +125,23 @@ export function Loan({ id, chainId, loanType }: LoansProps) {
           "relative py-4 pl-1 pr-3 text-sm sm:pl-1"
         )}
       >
-        <div className="flex items-center space-x-2">
-          <div className="flex flex-shrink-0 space-x-1">
-            <span className="pl-1">{IsComplete}</span>
-          </div>
+        <div className="flex items-center justify-center">
+          <span className="">
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  {isCompleted ? (
+                    <CheckCircleIcon className=" text-green-500" />
+                  ) : (
+                    <AlertCircle className="text-yellow-500" />
+                  )}
+                </TooltipTrigger>
+                <TooltipContent>
+                  <span>{isCompleted ? "Completed" : "Active"}</span>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </span>
         </div>
       </td>
       <td
@@ -95,7 +152,7 @@ export function Loan({ id, chainId, loanType }: LoansProps) {
       >
         <div className="flex items-center space-x-2">
           <div className="flex flex-shrink-0 space-x-1">
-            {LoanAmount}
+            {loanAmount}
             <span className="pl-1">
               {generateChainDenomination(chainId as BlockchainType)}
             </span>
@@ -110,7 +167,7 @@ export function Loan({ id, chainId, loanType }: LoansProps) {
       >
         <div className="flex items-center space-x-2">
           <div className="flex flex-shrink-0 space-x-1">
-            <span>{TotalDue}</span>
+            <span>{totalDue}</span>
           </div>
         </div>
       </td>
@@ -120,7 +177,7 @@ export function Loan({ id, chainId, loanType }: LoansProps) {
           "hidden px-3 py-3.5 text-sm text-zinc-500 dark:text-zinc-400 lg:table-cell"
         )}
       >
-        <span>{LoanStartTime}</span>
+        <span>{loanStartTime}</span>
       </td>
       <td
         className={cn(

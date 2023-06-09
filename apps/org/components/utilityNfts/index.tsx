@@ -15,11 +15,11 @@ import { X7NFT } from "contracts"
 import { useCallback, useState } from "react"
 import Image from "next/image"
 import { ConnectKitButton } from "connectkit"
-import toast from "react-hot-toast"
 import { formatEther, parseEther } from "viem"
 import { useContractReads, useNetwork, useSwitchNetwork } from "wagmi"
 
 import { useContractTx } from "@/lib/hooks/useContractTx"
+import { toast } from "@/components/ui/use-toast"
 import { GradientTypes } from "@/components/gradients"
 
 import { Button } from "../ui/button"
@@ -100,7 +100,11 @@ function UtilityNftData({ nft }: any) {
       try {
         // @ts-ignore
         if (quantity <= 0 && price > 0) {
-          return toast.error("Please ensure you are minting at least 1 NFT")
+          return toast({
+            title: "Error",
+            description: "Please ensure you are minting at least 1 NFT",
+            variant: "destructive",
+          })
         }
 
         if (!!mintMany) {
@@ -313,10 +317,12 @@ function UtilityNftData({ nft }: any) {
                 e.preventDefault()
 
                 if (mintCount >= nft.maxMint) {
-                  toast.remove()
-                  return toast.error(
-                    "This is the max you can mint in a single transaction"
-                  )
+                  return toast({
+                    title: "Error",
+                    description:
+                      "This is the max you can mint in a single transaction",
+                    variant: "destructive",
+                  })
                 }
 
                 setMintCount(mintCount + 1)

@@ -17,6 +17,7 @@ export * from "./svgs/x7"
 export * from "./svgs/x7-long-logo"
 
 export {
+  AlertCircle,
   BoxIcon,
   CheckCircleIcon,
   CheckIcon,
@@ -37,6 +38,7 @@ export {
   RocketIcon,
   SearchIcon,
   SunIcon,
+  XIcon,
 } from "lucide-react"
 
 export { ChainsArray } from "./utils/ChainsArray"
