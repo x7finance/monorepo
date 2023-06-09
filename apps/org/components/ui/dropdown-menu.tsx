@@ -1,7 +1,7 @@
 "use client"
 
 import { cn } from "utils"
-import { CheckIcon, ChevronRightIcon, CircleStackIcon } from "icons"
+import { CheckIcon, ChevronRightIcon, DatabaseIcon } from "icons"
 
 import * as React from "react"
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu"
@@ -130,7 +130,7 @@ const DropdownMenuRadioItem = React.forwardRef<
   >
     <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
       <DropdownMenuPrimitive.ItemIndicator>
-        <CircleStackIcon className="h-2 w-2 fill-current" />
+        <DatabaseIcon className="h-2 w-2 fill-current" />
       </DropdownMenuPrimitive.ItemIndicator>
     </span>
     {children}

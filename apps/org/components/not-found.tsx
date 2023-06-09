@@ -4,30 +4,7 @@ import { ChevronRightIcon, X7Logo } from "icons"
 import Image from "next/image"
 import Link from "next/link"
 
-import { DashboardLinksEnum, DocsLinks } from "@/lib/types/links"
-
-const links = [
-  {
-    name: "Documentation",
-    href: DocsLinks.Index,
-    description: "Learn how to launch on Xchange.",
-  },
-  {
-    name: "Marketplace",
-    href: DashboardLinksEnum.Marketplace,
-    description: "Buy and sell X7 Finance NFTs",
-  },
-  {
-    name: "Guides",
-    href: DocsLinks.Guides,
-    description: "Comprehensive guides on how to launch an a pair on Xchange.",
-  },
-  {
-    name: "Whitepaper",
-    href: DocsLinks.Whitepaper,
-    description: "Read the X7 Finance whitepaper from our founding devs.",
-  },
-]
+import { NOT_FOUND_LINKS } from "@/config/site"
 
 export function NotFoundContent() {
   return (
@@ -53,7 +30,7 @@ export function NotFoundContent() {
           role="list"
           className="-mt-6 divide-y divide-zinc-900/5 border-b border-zinc-900/5 dark:divide-zinc-100/5 dark:border-zinc-100/5"
         >
-          {links.map((link, linkIdx) => (
+          {NOT_FOUND_LINKS.map((link, linkIdx) => (
             <li key={linkIdx} className="relative flex gap-x-6 py-6">
               <div className="flex h-14 w-14 flex-none items-center justify-center">
                 <Image

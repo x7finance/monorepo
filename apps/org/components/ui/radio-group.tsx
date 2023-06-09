@@ -1,7 +1,7 @@
 "use client"
 
 import { cn } from "utils"
-import { CircleStackIcon } from "icons"
+import { DatabaseIcon } from "icons"
 
 import * as React from "react"
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group"
@@ -34,7 +34,7 @@ const RadioGroupItem = React.forwardRef<
       {...props}
     >
       <RadioGroupPrimitive.Indicator className="flex items-center justify-center">
-        <CircleStackIcon className="h-2.5 w-2.5 fill-primary text-primary" />
+        <DatabaseIcon className="h-2.5 w-2.5 fill-primary text-primary" />
       </RadioGroupPrimitive.Indicator>
     </RadioGroupPrimitive.Item>
   )

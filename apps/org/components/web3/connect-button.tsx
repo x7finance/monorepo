@@ -4,7 +4,7 @@ import { shortenHex } from "utils"
 
 import { ConnectKitButton } from "connectkit"
 
-import { Button } from "./ui/button"
+import { Button } from "../ui/button"
 
 export function ConnectionComponent() {
   return (

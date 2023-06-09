@@ -6,11 +6,11 @@ import Link from "next/link"
 
 import { CommunityLinks } from "@/lib/types/links"
 
-import { DashboardTabNavigation } from "./dashboard-tab-nav"
+import { AppTabNavigation } from "./app-tab-nav"
 import { MobileNavigation } from "./mobile-navigation"
 import { Search } from "./search-dialog"
 
-export function DashboardHeader() {
+export function AppHeader() {
   return (
     <>
       <nav className="sticky z-10 w-full h-14">
@@ -63,7 +63,7 @@ export function DashboardHeader() {
       </nav>
 
       <div className="sm:fixed w-full z-10 dark:bg-black bg-white">
-        <DashboardTabNavigation />
+        <AppTabNavigation />
       </div>
     </>
   )

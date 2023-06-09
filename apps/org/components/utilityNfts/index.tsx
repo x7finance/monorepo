@@ -3,12 +3,12 @@
 import { ChainEnum, ContractsEnum, ONE_MILLION } from "common"
 import { cn, generateChainAbbreviation, generateChainBase } from "utils"
 import {
+  BoxIcon,
   ChainsArray,
   CheckCircleIcon,
-  CubeTransparentIcon,
+  LayoutListIcon,
   MinusCircleIcon,
   PlusCircleIcon,
-  Squares2X2Icon,
 } from "icons"
 import { X7NFT } from "contracts"
 
@@ -19,9 +19,9 @@ import toast from "react-hot-toast"
 import { formatEther, parseEther } from "viem"
 import { useContractReads, useNetwork, useSwitchNetwork } from "wagmi"
 
+import { useContractTx } from "@/lib/hooks/useContractTx"
 import { GradientTypes } from "@/components/gradients"
 
-import { useContractTx } from "../../lib/hooks/useContractTx"
 import { Button } from "../ui/button"
 
 export function UtitlityNfts() {
@@ -257,7 +257,7 @@ function UtilityNftData({ nft }: any) {
               href={`${nft?.exchanges[chain?.id ?? 1]}`}
               className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center rounded-bl-lg py-4 text-sm font-medium text-zinc-600 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200"
             >
-              <Squares2X2Icon className="h-5 w-5 " aria-hidden="true" />
+              <LayoutListIcon className="h-5 w-5 " aria-hidden="true" />
               <span className="ml-3">Trade</span>
             </a>
           </div>
@@ -272,10 +272,7 @@ function UtilityNftData({ nft }: any) {
                 `relative inline-flex w-0 flex-1 cursor-pointer items-center justify-center rounded-br-lg bg-gradient-to-r from-violet-500 to-violet-700 py-4 text-sm font-medium text-zinc-100 hover:from-violet-400 hover:to-sky-600`
               )}
             >
-              <CubeTransparentIcon
-                className="h-5 w-5 text-zinc-100"
-                aria-hidden="true"
-              />
+              <BoxIcon className="h-5 w-5 text-zinc-100" aria-hidden="true" />
               <span className="ml-3">
                 {data?.[0] ? (drawerOpen ? `Close` : "Mint") : `Not Ready`}
               </span>

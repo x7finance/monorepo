@@ -2,17 +2,17 @@
 
 import { X7LinksEnum } from "common"
 import { cn } from "utils"
-import { X7Logo } from "icons"
+import { ChevronUpIcon, MenuIcon, X7Logo } from "icons"
 
 import Link from "next/link"
 import { Popover } from "@headlessui/react"
 import { AnimatePresence, motion } from "framer-motion"
 
+import { MOBILE_NAV_LINKS } from "@/config/site"
 import {
   DashboardLinksEnum,
   DocsLinks,
   MarketingLinks,
-  ProductsLinkEnum,
 } from "@/lib/types/links"
 
 import { ModeToggle } from "./mode-toggle"
@@ -75,21 +75,11 @@ export function MobileNavigation({ className }: { className: string }) {
                     <X7Logo className="w-auto h-8 fill-black dark:fill-white" />
                   </div>
                   <div className="space-y-4">
-                    <MobileNavLink href={MarketingLinks.GetStarted}>
-                      Get Started
-                    </MobileNavLink>
-                    <MobileNavLink href={DashboardLinksEnum.Marketplace}>
-                      Marketplace
-                    </MobileNavLink>
-                    <MobileNavLink href={DashboardLinksEnum.Contracts}>
-                      Tokens
-                    </MobileNavLink>
-                    <MobileNavLink href={DashboardLinksEnum.DAO}>
-                      DAO
-                    </MobileNavLink>
-                    <MobileNavLink href={DashboardLinksEnum.Index}>
-                      Live Token Pairs
-                    </MobileNavLink>
+                    {MOBILE_NAV_LINKS.map((link, key) => (
+                      <MobileNavLink key={`mobile-nav-${key}`} href={link.href}>
+                        {link.name}
+                      </MobileNavLink>
+                    ))}
                   </div>
                   <div className="flex flex-col gap-4 mt-8 text-black dark:text-white">
                     <ModeToggle />
@@ -126,31 +116,5 @@ export function MobileNavigation({ className }: { className: string }) {
         </>
       )}
     </Popover>
-  )
-}
-
-function MenuIcon(props) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
-      <path
-        d="M5 6h14M5 18h14M5 12h14"
-        strokeWidth={2}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
-
-function ChevronUpIcon(props) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
-      <path
-        d="M17 14l-5-5-5 5"
-        strokeWidth={2}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
   )
 }
