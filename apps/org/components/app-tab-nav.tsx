@@ -14,7 +14,7 @@ export function AppTabNavigation() {
 
   return (
     <>
-      <div className="mx-3 sm:hidden pb-2 relative tab-nav-select">
+      <div className="relative pb-2 mx-3 sm:hidden tab-nav-select">
         <label htmlFor="tabs" className="sr-only">
           Select a tab
         </label>
