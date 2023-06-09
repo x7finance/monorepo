@@ -1,6 +1,8 @@
-import { parse } from "path"
 import { BlockchainType, ContractsEnum } from "common"
-import { generateX7InitialLiquidityLoanTermContract } from "utils"
+import {
+  generateChainBase,
+  generateX7InitialLiquidityLoanTermContract,
+} from "utils"
 import {
   X7InitialLiquidityLoanTerm001,
   X7InitialLiquidityLoanTerm002,
@@ -78,30 +80,31 @@ export function useXchangeLoanData(
     ],
   })
 
-  console.log(data)
-
   return {
-    isLoading: isInitialPairLoading,
-    loanID: parseInt(data?.[0]?.result?.toString() || "0", 10),
-    Symbol: data?.[1]?.result?.toString() || "",
-    OwnerOf: data?.[2]?.result?.toString() || "",
-    IsComplete: data?.[3]?.result?.toString(),
-    LoanAmount: data?.[4]?.result
-      ? parseInt(data?.[4]?.result?.toString() || "0", 10) / 10 ** 18
-      : "0",
-    LoanStartTime: data?.[5]?.result
+    fullLoanAddress: `${generateChainBase(
+      chainId
+    )}/address/${loanAddress}#code`,
+    isLoading: isInitialPairLoading ?? false,
+    loanID: parseInt(data?.[0]?.result?.toString() ?? "0", 10) || 0,
+    symbol: data?.[1]?.result?.toString() ?? "",
+    ownerOf: data?.[2]?.result?.toString() ?? "",
+    isCompleted: data?.[3]?.result,
+    loanAmount: data?.[4]?.result
+      ? parseInt(data?.[4]?.result?.toString() ?? "0", 10) / 10 ** 18
+      : 0,
+    loanStartTime: data?.[5]?.result
       ? new Date(
-          parseInt(data?.[5]?.result?.toString() || "0", 10) * 1000
+          parseInt(data?.[5]?.result?.toString() ?? "0", 10) * 1000
         ).toLocaleDateString("en-US", {
           day: "numeric",
           month: "short",
           year: "2-digit",
         })
       : "",
-    TotalDue: data?.[6]?.result
-      ? parseInt(data?.[6]?.result?.toString() || "0", 10) / 10 ** 18
-      : "0",
-    LoanState: parseInt(data?.[7]?.result?.toString() || "0", 10),
+    totalDue: data?.[6]?.result
+      ? parseInt(data?.[6]?.result?.toString() ?? "0", 10) / 10 ** 18
+      : 0,
+    loanState: parseInt(data?.[7]?.result?.toString() ?? "0", 10) || 0,
   }
 }
 

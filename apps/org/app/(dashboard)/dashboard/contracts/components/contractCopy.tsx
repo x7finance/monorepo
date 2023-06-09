@@ -2,24 +2,18 @@
 
 import { ClipboardIcon } from "icons"
 
-import toast from "react-hot-toast"
 import { useClipboard } from "use-clipboard-copy"
+
+import { toast } from "@/components/ui/use-toast"
 
 export function ContractCopy(props: { contract: string }) {
   const { contract } = props
   const clipboard = useClipboard({
     onSuccess() {
-      toast.success(<span>Contract Copied</span>, {
-        duration: 3000,
-        style: {
-          border: `none`,
-          background: "#000",
-          color: "white",
-        },
-        iconTheme: {
-          primary: "#fff",
-          secondary: "#000",
-        },
+      return toast({
+        title: "Success",
+        description: "Contract Copied",
+        variant: "success",
       })
     },
   })
