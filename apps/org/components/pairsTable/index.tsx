@@ -10,6 +10,7 @@ import { useContractReads } from "wagmi"
 import { generateWagmiChain } from "@/lib/generateWagmiChain"
 
 import { Loading } from "../loading"
+import { Pagination } from "../pagination"
 import { Pair } from "../pair"
 import { Button } from "../ui/button"
 
@@ -22,7 +23,7 @@ export function LivePairs() {
 
   return (
     <>
-      <div className="flex justify-center p-4 mt-6 space-x-4 overflow-x-scroll sm:overflow-auto border rounded-md dark:border-zinc-800 border-zinc-200">
+      <div className="flex justify-center p-4 mt-6 space-x-4 sm:overflow-x-hidden sm:overflow-auto border rounded-md dark:border-zinc-800 border-zinc-200">
         <Button
           size={"sm"}
           variant={"outline"}
@@ -109,10 +110,11 @@ export function LivePairs() {
   )
 }
 
+const ITEMS_PER_PAGE = 8
+
 function PairsTable({ chainId }) {
   const [allPairsLength, setAllPairsLength] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
-  const itemsPerPage = 8
 
   const { data, isLoading } = useContractReads({
     contracts: [
@@ -131,8 +133,8 @@ function PairsTable({ chainId }) {
     setAllPairsLength(pairsCount)
   }, [pairsCount])
 
-  const startIndex = (currentPage - 1) * itemsPerPage
-  const endIndex = startIndex + itemsPerPage
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
+  const endIndex = startIndex + ITEMS_PER_PAGE
 
   const pairsToDisplay = Array.from(
     { length: allPairsLength },
@@ -144,7 +146,7 @@ function PairsTable({ chainId }) {
   }
 
   const goToNextPage = () => {
-    const maxPage = Math.ceil(allPairsLength / itemsPerPage)
+    const maxPage = Math.ceil(allPairsLength / ITEMS_PER_PAGE)
     setCurrentPage((prevPage) => Math.min(prevPage + 1, maxPage))
   }
 
@@ -213,32 +215,16 @@ function PairsTable({ chainId }) {
             )}
           </tbody>
         </table>
-        <div className="flex justify-center mt-4">
-          <Button
-            size={"sm"}
-            variant={"outline"}
-            className={cn(`ring-blue-600 ring-1 m-2`)}
-            disabled={currentPage === 1}
-            onClick={goToPreviousPage}
-          >
-            Previous
-          </Button>
-          <div className="flex items-center mx-2">
-            <span className="mr-1 text-gray-500">
-              {currentPage} of {Math.ceil(allPairsLength / itemsPerPage)}
-            </span>
-          </div>
-          <Button
-            size={"sm"}
-            variant={"outline"}
-            className={cn(`ring-blue-600 ring-1 m-2`)}
-            disabled={currentPage * itemsPerPage >= allPairsLength}
-            onClick={goToNextPage}
-          >
-            Next
-          </Button>
-        </div>
       </div>
+      <Pagination
+        {...{
+          currentPage,
+          pageLength: allPairsLength,
+          itemsPerPage: ITEMS_PER_PAGE,
+          goToPreviousPage,
+          goToNextPage,
+        }}
+      />
     </>
   )
 }

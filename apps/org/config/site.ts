@@ -87,6 +87,7 @@ export const MOBILE_NAV_LINKS = [
 
 export const DASHBOARD_TABS_NAV = [
   { name: "Dashboard", href: DashboardLinksEnum.Index },
+  { name: "Loans", href: DashboardLinksEnum.Loans },
   { name: "Documentation", href: DocsLinks.Index },
   { name: "Contracts", href: DashboardLinksEnum.Contracts },
   { name: "NFTs", href: DashboardLinksEnum.Marketplace },

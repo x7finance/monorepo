@@ -1,12 +1,11 @@
 import { Metadata } from "next"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { DashboardContainer } from "@/components/dashboard-container"
-import { DashboardSubheader } from "@/components/dashboard-subheader"
-import { DashboardTitle } from "@/components/dashboard-title"
 import { LiveLoans } from "@/components/loansTable"
-import { SplittersOverview } from "@/components/splittersOverview"
-import { Web3Wrapper } from "@/components/web3-wrapper"
+import { Web3Wrapper } from "@/components/web3/wrapper"
+
+import { DashboardContainer } from "../../components/dashboard-container"
+import { DashboardTitle } from "../../components/dashboard-title"
 
 const metadata = {
   title: "Live Loans",
@@ -27,20 +26,13 @@ export default function LoansPage() {
         title="Live Loans"
         subHeader="The latest loans created on Xchange"
         secondaryButton={{
-          text: "Trade NFTs",
-          href: "https://blur.io/collection/x7-pioneer",
+          text: "View Loan Options",
+          href: "/loans",
         }}
       />
       <Web3Wrapper>
         <DashboardContainer>
           <LiveLoans />
-
-          <DashboardSubheader
-            id="splits"
-            title="Live Ecosystem Splits"
-            description="A detailed breakdown of where liquidity and funds are being moved through the ecosystem"
-          />
-          <SplittersOverview />
         </DashboardContainer>
       </Web3Wrapper>
     </div>
