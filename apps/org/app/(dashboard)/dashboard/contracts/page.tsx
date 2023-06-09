@@ -7,10 +7,10 @@ import Link from "next/link"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { TokenLinksEnum } from "@/lib/types/links"
-import { DashboardContainer } from "@/components/dashboard-container"
-import { DashboardSubheader } from "@/components/dashboard-subheader"
-import { DashboardTitle } from "@/components/dashboard-title"
 import { Dropdown } from "@/components/dropdown/contracts"
+import { DashboardContainer } from "@/app/(dashboard)/components/dashboard-container"
+import { DashboardSubheader } from "@/app/(dashboard)/components/dashboard-subheader"
+import { DashboardTitle } from "@/app/(dashboard)/components/dashboard-title"
 
 import { ContractCopy } from "./components/contractCopy"
 
@@ -341,7 +341,7 @@ export default function ContractsPage() {
                             name={
                               <span className="whitespace-nowrap">
                                 <span>Trade</span>
-                                <span className="hidden xl:ml-2 xl:inline-block">
+                                <span className="hidden xl:ml-1 xl:inline-block">
                                   on Xchange
                                 </span>
                               </span>

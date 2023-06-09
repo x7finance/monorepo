@@ -1,11 +1,11 @@
 "use client"
 
 import { ContractsEnum } from "common"
+import { cn } from "utils"
 import { AllPairsLength } from "contracts"
 
 import { useEffect, useState } from "react"
-import { cn } from "@/../../packages/utils/dist"
-import { useContractReads, useNetwork } from "wagmi"
+import { useContractReads } from "wagmi"
 
 import { generateWagmiChain } from "@/lib/generateWagmiChain"
 
@@ -22,7 +22,7 @@ export function LivePairs() {
 
   return (
     <>
-      <div className="flex justify-center p-4 mt-6 space-x-4 overflow-x-scroll border rounded-md dark:border-zinc-800 border-zinc-200">
+      <div className="flex justify-center p-4 mt-6 space-x-4 overflow-x-scroll sm:overflow-auto border rounded-md dark:border-zinc-800 border-zinc-200">
         <Button
           size={"sm"}
           variant={"outline"}

@@ -4,14 +4,7 @@ import { X7LongLogo, Xchange } from "icons"
 
 import Link from "next/link"
 
-import {
-  DashboardLinksEnum,
-  DocsLinks,
-  LoansLinksEnum,
-  MarketingLinks,
-  ProductsLinkEnum,
-  TokenLinksEnum,
-} from "@/lib/types/links"
+import { DESKTOP_NAV_LINKS } from "@/config/site"
 import { buttonVariants } from "@/components/ui/button"
 
 import { MobileNavigation } from "./mobile-navigation"
@@ -39,7 +32,7 @@ export function SiteHeader({ className }: React.HTMLAttributes<HTMLElement>) {
               className="flex gap-2 grid-gap-2 list-none m-0 p-0"
               dir="ltr"
             >
-              {navLinks.map((link, key) => (
+              {DESKTOP_NAV_LINKS.map((link, key) => (
                 <li
                   key={`nav-item-${key}`}
                   className="flex items-center align-center"
@@ -51,7 +44,7 @@ export function SiteHeader({ className }: React.HTMLAttributes<HTMLElement>) {
                       : {})}
                     href={link.href}
                   >
-                    {link.title}
+                    {link.name}
                   </Link>
                 </li>
               ))}
@@ -87,16 +80,3 @@ export function SiteHeader({ className }: React.HTMLAttributes<HTMLElement>) {
     </header>
   )
 }
-
-const navLinks = [
-  { title: "Get Started", href: MarketingLinks.GetStarted },
-  { title: "Tokens", href: TokenLinksEnum.Index },
-  { title: "Docs", href: DocsLinks.Index },
-  {
-    title: "Marketplace",
-    href: DashboardLinksEnum.Marketplace,
-  },
-  { title: "Loans", href: LoansLinksEnum.Index },
-  { title: "DAO", href: DashboardLinksEnum.DAO },
-  { title: "Trade", href: X7LinksEnum.Xchange, isExternal: true },
-]

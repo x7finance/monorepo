@@ -1,7 +1,7 @@
 "use client"
 
 import { cn } from "utils"
-import { ClipboardDocumentIcon } from "icons"
+import { ClipboardIcon } from "icons"
 
 import { useEffect, useState } from "react"
 
@@ -40,7 +40,7 @@ export function CopyButton({ code }) {
           copied && "-translate-y-1.5 opacity-0"
         )}
       >
-        <ClipboardDocumentIcon className="h-5 w-5 fill-zinc-500/20 stroke-zinc-500 transition-colors group-hover/button:stroke-zinc-400" />
+        <ClipboardIcon className="h-5 w-5 fill-zinc-500/20 stroke-zinc-500 transition-colors group-hover/button:stroke-zinc-400" />
         Copy Code
       </span>
       <span

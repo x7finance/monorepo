@@ -1,6 +1,6 @@
 "use client"
 
-import { ClipboardDocumentIcon } from "icons"
+import { ClipboardIcon } from "icons"
 
 import toast from "react-hot-toast"
 import { useClipboard } from "use-clipboard-copy"
@@ -33,10 +33,7 @@ export function ContractCopy(props: { contract: string }) {
     >
       Contract
       <span className="ml-0.5">
-        <ClipboardDocumentIcon
-          className="inline-block w-4 h-4 "
-          aria-hidden="true"
-        />
+        <ClipboardIcon className="inline-block w-4 h-4 " aria-hidden="true" />
         <span className="sr-only">Copy Contract</span>
       </span>
     </span>
