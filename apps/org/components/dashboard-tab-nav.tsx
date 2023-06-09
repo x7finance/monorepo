@@ -9,6 +9,7 @@ import { DashboardLinksEnum, DocsLinks } from "@/lib/types/links"
 
 const tabs = [
   { name: "Dashboard", href: DashboardLinksEnum.Index },
+  { name: "Loans", href: DashboardLinksEnum.Loans },
   { name: "Documentation", href: DocsLinks.Index },
   { name: "Contracts", href: DashboardLinksEnum.Contracts },
   { name: "NFTs", href: DashboardLinksEnum.Marketplace },
@@ -21,7 +22,7 @@ export function DashboardTabNavigation() {
 
   return (
     <>
-      <div className="mx-3 sm:hidden pb-2 relative tab-nav-select">
+      <div className="relative pb-2 mx-3 sm:hidden tab-nav-select">
         <label htmlFor="tabs" className="sr-only">
           Select a tab
         </label>
@@ -32,7 +33,7 @@ export function DashboardTabNavigation() {
           }}
           id="tabs"
           name="tabs"
-          className="block rounded-md border border-zinc-400 dark:border-zinc-600 pl-3 pr-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:bg-zinc-800 bg-zinc-200 h-12 text-base leading-7 w-full mx-0 my-1 px-6 py-0 font-semibold appearance-none"
+          className="block w-full h-12 px-6 py-0 pl-3 pr-10 mx-0 my-1 text-base font-semibold leading-7 border rounded-md appearance-none border-zinc-400 dark:border-zinc-600 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:bg-zinc-800 bg-zinc-200"
           defaultValue={tabs.find((tab) => pathname.startsWith(tab.href))?.name}
         >
           {tabs.map((tab) => (
@@ -40,9 +41,9 @@ export function DashboardTabNavigation() {
           ))}
         </select>
       </div>
-      <div className="hidden sm:block mt-3">
-        <div className="nav-shadow px-6">
-          <nav className="-mb-px flex" aria-label="Tabs">
+      <div className="hidden mt-3 sm:block">
+        <div className="px-6 nav-shadow">
+          <nav className="flex -mb-px" aria-label="Tabs">
             {tabs.map((tab) => {
               return (
                 <Link
