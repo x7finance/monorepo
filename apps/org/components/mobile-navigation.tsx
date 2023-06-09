@@ -42,9 +42,9 @@ export function MobileNavigation({ className }: { className: string }) {
           >
             {({ open }) =>
               open ? (
-                <ChevronUpIcon className="h-6 w-6" />
+                <ChevronUpIcon className="w-6 h-6" />
               ) : (
-                <MenuIcon className="h-6 w-6" />
+                <MenuIcon className="w-6 h-6" />
               )
             }
           </Popover.Button>
@@ -69,10 +69,10 @@ export function MobileNavigation({ className }: { className: string }) {
                     y: -32,
                     transition: { duration: 0.2 },
                   }}
-                  className="absolute z-30 inset-x-0 top-0 origin-top rounded-b-2xl bg-zinc-50 dark:bg-zinc-900 px-6 pb-6 pt-4 shadow-2xl shadow-zinc-900/20 dark:shadow-zinc-50/20"
+                  className="absolute inset-x-0 top-0 z-30 px-6 pt-4 pb-6 origin-top shadow-2xl rounded-b-2xl bg-zinc-50 dark:bg-zinc-900 shadow-zinc-900/20 dark:shadow-zinc-50/20"
                 >
-                  <div className="flex mb-8 items-center">
-                    <X7Logo className="h-8 w-auto fill-black dark:fill-white" />
+                  <div className="flex items-center mb-8">
+                    <X7Logo className="w-auto h-8 fill-black dark:fill-white" />
                   </div>
                   <div className="space-y-4">
                     <MobileNavLink href={MarketingLinks.GetStarted}>
@@ -87,10 +87,13 @@ export function MobileNavigation({ className }: { className: string }) {
                     <MobileNavLink href={DashboardLinksEnum.DAO}>
                       DAO
                     </MobileNavLink>
+                    <MobileNavLink href={DashboardLinksEnum.Index}>
+                      Live Token Pairs
+                    </MobileNavLink>
                   </div>
-                  <div className="mt-8 flex flex-col gap-4 text-black dark:text-white">
+                  <div className="flex flex-col gap-4 mt-8 text-black dark:text-white">
                     <ModeToggle />
-                    <div className="text-xs text-zinc-500 italic text-center">
+                    <div className="text-xs italic text-center text-zinc-500">
                       Trust No One. Trust Code. Long Live DeFi
                     </div>
                     <Link
