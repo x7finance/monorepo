@@ -1,3 +1,4 @@
+import { parse } from "path"
 import { BlockchainType, ContractsEnum } from "common"
 import {
   generateChainEtherTokenEnum,
@@ -62,19 +63,34 @@ export function useXchangeTokenData(id: number, chainId: BlockchainType) {
     ],
   })
 
-  const token: Address =
+  const projectToken: Address =
     token0 !== generateChainEtherTokenEnum(chainId) ? token0 : token1
 
-  const { data: erc20Details, isLoading } = useContractReads({
+  const pairedToken: Address =
+    token0 === generateChainEtherTokenEnum(chainId) ? token0 : token1
+
+  const { data: erc20token0Details, isLoading } = useContractReads({
     contracts: [
       {
-        address: token,
+        address: projectToken,
         abi: ERC20 as any,
         functionName: "name",
         chainId: generateWagmiChain(chainId),
       },
       {
-        address: token,
+        address: projectToken,
+        abi: ERC20,
+        functionName: "symbol",
+        chainId: generateWagmiChain(chainId),
+      },
+      {
+        address: projectToken,
+        abi: ERC20,
+        functionName: "decimals",
+        chainId: generateWagmiChain(chainId),
+      },
+      {
+        address: pairedToken,
         abi: ERC20,
         functionName: "symbol",
         chainId: generateWagmiChain(chainId),
@@ -82,28 +98,40 @@ export function useXchangeTokenData(id: number, chainId: BlockchainType) {
     ],
   })
 
-  const name: string = (erc20Details?.[0]?.result as string) || ""
-  const symbol = erc20Details?.[1]?.result
+  const name: string = (erc20token0Details?.[0]?.result as string) || ""
+  const symbol = erc20token0Details?.[1]?.result
+  const tokenDecimals = parseInt(
+    erc20token0Details?.[2]?.result?.toString() || "0"
+  )
+  const pairedSymbol: string = (erc20token0Details?.[3]?.result as string) || ""
 
   const etherInUSD = usdPrice
-    ? // @ts-expect-error
-      parseInt(usdPrice?.[0]?.result?.toString()) / 10 ** 8
+    ? parseInt(usdPrice?.[0]?.result?.toString() || "0") / 10 ** 8
     : 0
 
   return {
     isLoading: isLoading || isTokenPairLoading || isInitialPairLoading,
     tokenName: name,
     tokenSymbol: symbol,
-    tokenContract: token,
+    pairedTokenSymbol: pairedSymbol,
+    tokenContract: projectToken,
     // eth price
-    tokenReserve: generatePairReserve(token0, reserves, chainId),
+    tokenReserve: generatePairReserve(token0, token1, reserves, chainId),
     // usd price
-    tokenPrice: generatePairUSDPrice(token0, reserves, etherInUSD, chainId),
+    tokenPrice: generatePairUSDPrice(
+      token0,
+      token1,
+      reserves,
+      etherInUSD,
+      tokenDecimals,
+      chainId
+    ),
   }
 }
 
 function generatePairReserve(
   token0: any,
+  token1: any,
   reserves: any,
   chainId?: BlockchainType
 ) {
@@ -111,9 +139,15 @@ function generatePairReserve(
     const [_reserve0, _reserve1] = reserves
 
     const etherReserve =
-      token0 === generateChainEtherTokenEnum(chainId) ? _reserve0 : _reserve1
+      token0 === generateChainEtherTokenEnum(chainId)
+        ? _reserve0
+        : token1 === generateChainEtherTokenEnum(chainId)
+        ? _reserve1
+        : -1
 
-    return roundToString(formatUnits(etherReserve, 18), 2)
+    return etherReserve !== -1
+      ? roundToString(formatUnits(etherReserve, 18), 2)
+      : etherReserve
   }
 
   return "0"
@@ -121,12 +155,25 @@ function generatePairReserve(
 
 function generatePairUSDPrice(
   token0: any,
+  token1: any,
   reserves: any,
   etherInUSD: number,
+  tokenDecimals: number,
   chainId?: BlockchainType
 ) {
   if (reserves?.length) {
     const [_reserve0, _reserve1] = reserves
+
+    const etherToken =
+      token0 === generateChainEtherTokenEnum(chainId)
+        ? _reserve0
+        : token1 === generateChainEtherTokenEnum(chainId)
+        ? _reserve1
+        : -1
+
+    if (etherToken === -1) {
+      return -1
+    }
 
     const etherReserve =
       token0 === generateChainEtherTokenEnum(chainId) ? _reserve0 : _reserve1
@@ -136,9 +183,8 @@ function generatePairUSDPrice(
 
     const unitPriceEther =
       parseFloat(formatUnits(etherReserve, 18)) /
-      parseFloat(formatUnits(tokenReserve, 18))
+      parseFloat(formatUnits(tokenReserve, tokenDecimals))
 
-    // return formatUnits(unitPriceEther, 18);
     return (etherInUSD * unitPriceEther).toFixed(8)
   }
 

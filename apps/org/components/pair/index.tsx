@@ -21,8 +21,14 @@ interface PairsProps {
 }
 
 export function Pair({ id, chainId }: PairsProps) {
-  const { tokenName, tokenSymbol, tokenContract, tokenReserve, tokenPrice } =
-    useXchangeTokenData(id, chainId)
+  const {
+    tokenName,
+    tokenSymbol,
+    pairedTokenSymbol,
+    tokenContract,
+    tokenReserve,
+    tokenPrice,
+  } = useXchangeTokenData(id, chainId)
 
   const clipboard = useClipboard({
     onSuccess() {
@@ -92,7 +98,7 @@ export function Pair({ id, chainId }: PairsProps) {
           "hidden px-3 py-3.5 text-xs text-zinc-500 dark:text-zinc-400 lg:table-cell"
         )}
       >
-        <span>{tokenName}</span>
+        <span>{`${tokenName} / ${pairedTokenSymbol}`}</span>
         <span
           onClick={() => {
             clipboard.copy(tokenContract)
@@ -120,7 +126,7 @@ export function Pair({ id, chainId }: PairsProps) {
         <div className="flex items-center space-x-2">
           <div className="flex flex-shrink-0 space-x-1">
             <span className="pl-1">$</span>
-            {tokenReserve ? tokenPrice : "0.00"}
+            {tokenReserve !== -1 ? tokenPrice : ". . ."}
           </div>
         </div>
       </td>
@@ -132,7 +138,7 @@ export function Pair({ id, chainId }: PairsProps) {
       >
         <div className="flex items-center space-x-2">
           <div className="flex flex-shrink-0 space-x-1">
-            {tokenReserve ? tokenReserve : "Awaiting Liquidity..."}
+            {tokenReserve !== -1 ? tokenReserve : ". . ."}
             <span className="pl-1">
               {generateChainDenomination(chainId as BlockchainType)}
             </span>
