@@ -27,129 +27,133 @@ export function LiveLoans() {
 
   return (
     <>
-      <div className="flex justify-center p-4 mt-6 space-x-4 overflow-x-scroll border rounded-md dark:border-zinc-800 border-zinc-200 sm:overflow-x-hidden">
-        <Button
-          size={"sm"}
-          variant={"outline"}
-          className={cn(
-            ` border-zinc-800`,
-            `${
-              activeTab === "ethereum"
-                ? "text-blue-600 ring-blue-600 ring-1"
-                : "text-zinc-500"
-            }`
-          )}
-          onClick={() => handleTabChange("ethereum")}
-        >
-          Ethereum
-        </Button>
-        <Button
-          size={"sm"}
-          variant={"outline"}
-          className={cn(
-            ` border-zinc-800`,
-            `${
-              activeTab === "binance"
-                ? "text-yellow-600 ring-1 ring-yellow-600"
-                : "text-zinc-500"
-            }`
-          )}
-          onClick={() => handleTabChange("binance")}
-        >
-          Binance
-        </Button>
-        <Button
-          size={"sm"}
-          variant={"outline"}
-          className={cn(
-            ` border-zinc-800`,
-            `${
-              activeTab === "polygon"
-                ? "text-purple-600 ring-1 ring-purple-600"
-                : "text-zinc-500"
-            }`
-          )}
-          onClick={() => handleTabChange("polygon")}
-        >
-          Polygon
-        </Button>
-        <Button
-          size={"sm"}
-          variant={"outline"}
-          className={cn(
-            ` border-zinc-800`,
-            `${
-              activeTab === "arbitrum"
-                ? "text-blue-600 ring-blue-600 ring-1"
-                : "text-zinc-500"
-            }`
-          )}
-          onClick={() => handleTabChange("arbitrum")}
-        >
-          Arbitrum
-        </Button>
-        <Button
-          size={"sm"}
-          variant={"outline"}
-          className={cn(
-            ` border-zinc-800`,
-            `${
-              activeTab === "optimism"
-                ? "text-red-600 ring-1 ring-red-600"
-                : "text-zinc-500"
-            }`
-          )}
-          onClick={() => handleTabChange("optimism")}
-        >
-          Optimism
-        </Button>
+      <div className="justify-center p-4 mt-6 overflow-x-auto border rounded-md dark:border-zinc-800 border-zinc-200">
+        <div className="md:justify-center flex space-x-4">
+          <Button
+            size={"sm"}
+            variant={"outline"}
+            className={cn(
+              ` border-zinc-800`,
+              `${
+                activeTab === "ethereum"
+                  ? "text-blue-600 ring-blue-600 ring-1 bg-blue-600/5"
+                  : "text-zinc-500"
+              }`
+            )}
+            onClick={() => handleTabChange("ethereum")}
+          >
+            Ethereum
+          </Button>
+          <Button
+            size={"sm"}
+            variant={"outline"}
+            className={cn(
+              ` border-zinc-800`,
+              `${
+                activeTab === "binance"
+                  ? "text-yellow-600 ring-1 ring-yellow-600 bg-yellow-600/5"
+                  : "text-zinc-500"
+              }`
+            )}
+            onClick={() => handleTabChange("binance")}
+          >
+            Binance
+          </Button>
+          <Button
+            size={"sm"}
+            variant={"outline"}
+            className={cn(
+              ` border-zinc-800`,
+              `${
+                activeTab === "polygon"
+                  ? "text-purple-600 ring-1 ring-purple-600 bg-purple-600/5"
+                  : "text-zinc-500"
+              }`
+            )}
+            onClick={() => handleTabChange("polygon")}
+          >
+            Polygon
+          </Button>
+          <Button
+            size={"sm"}
+            variant={"outline"}
+            className={cn(
+              ` border-zinc-800`,
+              `${
+                activeTab === "arbitrum"
+                  ? "text-blue-600 ring-blue-600 ring-1 bg-blue-600/5"
+                  : "text-zinc-500"
+              }`
+            )}
+            onClick={() => handleTabChange("arbitrum")}
+          >
+            Arbitrum
+          </Button>
+          <Button
+            size={"sm"}
+            variant={"outline"}
+            className={cn(
+              ` border-zinc-800`,
+              `${
+                activeTab === "optimism"
+                  ? "text-red-600 ring-1 ring-red-600 bg-red-600/5"
+                  : "text-zinc-500"
+              }`
+            )}
+            onClick={() => handleTabChange("optimism")}
+          >
+            Optimism
+          </Button>
+        </div>
       </div>
-      <div className="flex justify-center p-4 mt-6 space-x-4 overflow-x-scroll border rounded-md dark:border-zinc-800 border-zinc-200 sm:overflow-x-hidden">
-        <Button
-          size={"sm"}
-          variant={"outline"}
-          className={cn(
-            ` border-zinc-800`,
-            `${
-              activeLoanTab === "001"
-                ? "text-blue-600 ring-blue-600 ring-1"
-                : "text-zinc-500"
-            }`
-          )}
-          onClick={() => handleLoanTabChange("001")}
-        >
-          001 - Simple
-        </Button>
-        <Button
-          size={"sm"}
-          variant={"outline"}
-          className={cn(
-            ` border-zinc-800`,
-            `${
-              activeLoanTab === "002"
-                ? "text-yellow-600 ring-1 ring-yellow-600"
-                : "text-zinc-500"
-            }`
-          )}
-          onClick={() => handleLoanTabChange("002")}
-        >
-          002 - Amortizing
-        </Button>
-        <Button
-          size={"sm"}
-          variant={"outline"}
-          className={cn(
-            ` border-zinc-800`,
-            `${
-              activeLoanTab === "003"
-                ? "text-purple-600 ring-1 ring-purple-600"
-                : "text-zinc-500"
-            }`
-          )}
-          onClick={() => handleLoanTabChange("003")}
-        >
-          003 - Interest
-        </Button>
+      <div className="justify-center p-4 mt-6 overflow-x-auto border rounded-md dark:border-zinc-800 border-zinc-200">
+        <div className="md:justify-center flex space-x-4">
+          <Button
+            size={"sm"}
+            variant={"outline"}
+            className={cn(
+              `border-zinc-800`,
+              `${
+                activeLoanTab === "001"
+                  ? "text-blue-600 ring-blue-600 ring-1 bg-blue-600/5"
+                  : "text-zinc-500"
+              }`
+            )}
+            onClick={() => handleLoanTabChange("001")}
+          >
+            001 - Simple
+          </Button>
+          <Button
+            size={"sm"}
+            variant={"outline"}
+            className={cn(
+              `border-zinc-800`,
+              `${
+                activeLoanTab === "002"
+                  ? "text-yellow-600 ring-1 ring-yellow-600 bg-yellow-600/5"
+                  : "text-zinc-500"
+              }`
+            )}
+            onClick={() => handleLoanTabChange("002")}
+          >
+            002 - Amortizing
+          </Button>
+          <Button
+            size={"sm"}
+            variant={"outline"}
+            className={cn(
+              `border-zinc-800`,
+              `${
+                activeLoanTab === "003"
+                  ? "text-purple-600 ring-1 ring-purple-600 bg-purple-600/5"
+                  : "text-zinc-500"
+              }`
+            )}
+            onClick={() => handleLoanTabChange("003")}
+          >
+            003 - Interest
+          </Button>
+        </div>
       </div>
 
       {activeTab === "ethereum" && (
@@ -233,7 +237,7 @@ function LoansTable({ chainId, loanId }) {
                 scope="col"
                 className="hidden px-3 py-3.5 text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell text-center"
               >
-                Completed
+                Status
               </th>
               <th
                 scope="col"

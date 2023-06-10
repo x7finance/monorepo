@@ -9,6 +9,7 @@ import X7EcosystemSplitter from "./contracts/X7EcosystemSplitter.json"
 import X7InitialLiquidityLoanTerm001 from "./contracts/X7InitialLiquidityLoanTerm001.json"
 import X7InitialLiquidityLoanTerm002 from "./contracts/X7InitialLiquidityLoanTerm002.json"
 import X7InitialLiquidityLoanTerm003 from "./contracts/X7InitialLiquidityLoanTerm003.json"
+import X7LendingPoolV1 from "./contracts/X7LendingPoolV1.json"
 import X7NFT from "./contracts/X7NFT.json"
 import X7R from "./contracts/X7R.json"
 import X7TreasurySplitterV2 from "./contracts/X7TreasurySplitterV2.json"
@@ -29,4 +30,5 @@ export {
   X7InitialLiquidityLoanTerm001,
   X7InitialLiquidityLoanTerm002,
   X7InitialLiquidityLoanTerm003,
+  X7LendingPoolV1,
 }

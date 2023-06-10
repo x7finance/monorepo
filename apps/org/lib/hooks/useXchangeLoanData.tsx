@@ -7,6 +7,7 @@ import {
   X7InitialLiquidityLoanTerm001,
   X7InitialLiquidityLoanTerm002,
   X7InitialLiquidityLoanTerm003,
+  X7LendingPoolV1,
 } from "contracts"
 
 import { useContractReads } from "wagmi"
@@ -19,6 +20,20 @@ export function useXchangeLoanData(
   loanType: string
 ) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(loanType)
+
+  const { data: token, isLoading: isInitialTokenIndex } = useContractReads({
+    contracts: [
+      {
+        address: loanAddress,
+        abi: selectContract(loanType) as any,
+        functionName: "tokenByIndex",
+        args: [id],
+        chainId: generateWagmiChain(chainId),
+      },
+    ],
+  })
+
+  const tokenByIndex = parseInt(token?.[0]?.result?.toString() ?? "0", 10) || 0
 
   const { data, isLoading: isInitialPairLoading } = useContractReads({
     contracts: [
@@ -39,42 +54,49 @@ export function useXchangeLoanData(
         address: loanAddress,
         abi: selectContract(loanType) as any,
         functionName: "ownerOf",
-        args: [id],
+        args: [tokenByIndex],
         chainId: generateWagmiChain(chainId),
       },
       {
         address: loanAddress,
         abi: selectContract(loanType) as any,
         functionName: "isComplete",
-        args: [id],
+        args: [tokenByIndex],
         chainId: generateWagmiChain(chainId),
       },
       {
         address: loanAddress,
         abi: selectContract(loanType) as any,
         functionName: "loanAmount",
-        args: [id],
+        args: [tokenByIndex],
         chainId: generateWagmiChain(chainId),
       },
       {
         address: loanAddress,
         abi: selectContract(loanType) as any,
         functionName: "loanStartTime",
-        args: [id],
+        args: [tokenByIndex],
         chainId: generateWagmiChain(chainId),
       },
       {
         address: loanAddress,
         abi: selectContract(loanType) as any,
         functionName: "getTotalDue",
-        args: [id, Math.floor(Date.now() / 1000)],
+        args: [tokenByIndex, Math.floor(Date.now() / 1000)],
         chainId: generateWagmiChain(chainId),
       },
       {
         address: loanAddress,
         abi: selectContract(loanType) as any,
         functionName: "loanState",
-        args: [id],
+        args: [tokenByIndex],
+        chainId: generateWagmiChain(chainId),
+      },
+      {
+        address: ContractsEnum.X7_LendingPool,
+        abi: X7LendingPoolV1 as any,
+        functionName: "canLiquidate",
+        args: [tokenByIndex],
         chainId: generateWagmiChain(chainId),
       },
     ],
@@ -84,7 +106,7 @@ export function useXchangeLoanData(
     fullLoanAddress: `${generateChainBase(
       chainId
     )}/address/${loanAddress}#code`,
-    isLoading: isInitialPairLoading ?? false,
+    isLoading: isInitialPairLoading || isInitialTokenIndex,
     loanID: parseInt(data?.[0]?.result?.toString() ?? "0", 10) || 0,
     symbol: data?.[1]?.result?.toString() ?? "",
     ownerOf: data?.[2]?.result?.toString() ?? "",
@@ -105,6 +127,9 @@ export function useXchangeLoanData(
       ? parseInt(data?.[6]?.result?.toString() ?? "0", 10) / 10 ** 18
       : 0,
     loanState: parseInt(data?.[7]?.result?.toString() ?? "0", 10) || 0,
+    canLiquidate: data?.[8]?.result
+      ? parseInt(data?.[8]?.result?.toString() ?? "0", 10) / 10 ** 18
+      : 0,
   }
 }
 
