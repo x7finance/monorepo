@@ -194,7 +194,7 @@ export function Loan({ id, chainId, loanType }: LoansProps) {
       >
         <div className="flex items-center space-x-2">
           <div className="flex flex-shrink-0 space-x-1">
-            <span>{totalDue}</span>
+            <span>{totalDue.toFixed(6)}</span>
           </div>
         </div>
       </td>
