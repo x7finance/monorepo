@@ -237,7 +237,7 @@ function LoansTable({ chainId, loanId }) {
                 scope="col"
                 className="hidden px-3 py-3.5 text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell text-center"
               >
-                Completed
+                Status
               </th>
               <th
                 scope="col"

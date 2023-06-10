@@ -7,7 +7,13 @@ import {
   generateChainDenomination,
   generateX7InitialLiquidityLoanTermContract,
 } from "utils"
-import { AlertCircle, CheckCircleIcon, ClipboardIcon } from "icons"
+import {
+  AlertCircle,
+  CheckCircleIcon,
+  ClipboardIcon,
+  FlagIcon,
+  FlagOffIcon,
+} from "icons"
 
 import Link from "next/link"
 import { useClipboard } from "use-clipboard-copy"
@@ -39,6 +45,7 @@ export function Loan({ id, chainId, loanType }: LoansProps) {
     totalDue,
     loanState,
     fullLoanAddress,
+    canLiquidate,
   } = useXchangeLoanData(id, chainId, loanType)
 
   const clipboard = useClipboard({
@@ -77,8 +84,10 @@ export function Loan({ id, chainId, loanType }: LoansProps) {
         </div>
         <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
           <span className="flex items-center cursor-pointer opacity-70 hover:underline dark:opacity-50">
-            Status : {isCompleted ? "Completed" : "Active"} - Total Due :{" "}
-            {totalDue}
+            Status : {isCompleted ? "Completed" : "Active"}
+          </span>
+          <span className="flex items-center cursor-pointer opacity-70 hover:underline dark:opacity-50">
+            Total Due : {totalDue}
           </span>
         </div>
         {id !== 0 ? (
@@ -125,7 +134,7 @@ export function Loan({ id, chainId, loanType }: LoansProps) {
           "relative py-4 pl-1 pr-3 text-sm sm:pl-1"
         )}
       >
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center space-x-4">
           <span className="">
             <TooltipProvider>
               <Tooltip>
@@ -138,6 +147,24 @@ export function Loan({ id, chainId, loanType }: LoansProps) {
                 </TooltipTrigger>
                 <TooltipContent>
                   <span>{isCompleted ? "Completed" : "Active"}</span>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </span>
+          <span className="">
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  {canLiquidate > 0 ? (
+                    <FlagIcon className=" text-green-500" />
+                  ) : (
+                    <FlagIcon className="text-red-500" />
+                  )}
+                </TooltipTrigger>
+                <TooltipContent>
+                  <span>
+                    {canLiquidate > 0 ? "Liquidable" : "Non-Liquidable"}
+                  </span>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
