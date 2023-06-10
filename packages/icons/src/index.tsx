@@ -28,6 +28,8 @@ export {
   CloudOffIcon,
   DatabaseIcon,
   DotIcon,
+  FlagIcon,
+  FlagOffIcon,
   LayoutListIcon,
   LinkIcon,
   MenuIcon,
