@@ -7,6 +7,7 @@ import {
   X7InitialLiquidityLoanTerm001,
   X7InitialLiquidityLoanTerm002,
   X7InitialLiquidityLoanTerm003,
+  X7LendingPoolV1,
 } from "contracts"
 
 import { useContractReads } from "wagmi"
@@ -77,6 +78,13 @@ export function useXchangeLoanData(
         args: [id],
         chainId: generateWagmiChain(chainId),
       },
+      {
+        address: ContractsEnum.X7_LendingPool,
+        abi: X7LendingPoolV1 as any,
+        functionName: "canLiquidate",
+        args: [id],
+        chainId: generateWagmiChain(chainId),
+      },
     ],
   })
 
@@ -105,6 +113,9 @@ export function useXchangeLoanData(
       ? parseInt(data?.[6]?.result?.toString() ?? "0", 10) / 10 ** 18
       : 0,
     loanState: parseInt(data?.[7]?.result?.toString() ?? "0", 10) || 0,
+    canLiquidate: data?.[8]?.result
+      ? parseInt(data?.[8]?.result?.toString() ?? "0", 10) / 10 ** 18
+      : 0,
   }
 }
 
