@@ -21,6 +21,20 @@ export function useXchangeLoanData(
 ) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(loanType)
 
+  const { data: token, isLoading: isInitialTokenIndex } = useContractReads({
+    contracts: [
+      {
+        address: loanAddress,
+        abi: selectContract(loanType) as any,
+        functionName: "tokenByIndex",
+        args: [id],
+        chainId: generateWagmiChain(chainId),
+      },
+    ],
+  })
+
+  const tokenByIndex = parseInt(token?.[0]?.result?.toString() ?? "0", 10) || 0
+
   const { data, isLoading: isInitialPairLoading } = useContractReads({
     contracts: [
       {
@@ -40,49 +54,49 @@ export function useXchangeLoanData(
         address: loanAddress,
         abi: selectContract(loanType) as any,
         functionName: "ownerOf",
-        args: [id],
+        args: [tokenByIndex],
         chainId: generateWagmiChain(chainId),
       },
       {
         address: loanAddress,
         abi: selectContract(loanType) as any,
         functionName: "isComplete",
-        args: [id],
+        args: [tokenByIndex],
         chainId: generateWagmiChain(chainId),
       },
       {
         address: loanAddress,
         abi: selectContract(loanType) as any,
         functionName: "loanAmount",
-        args: [id],
+        args: [tokenByIndex],
         chainId: generateWagmiChain(chainId),
       },
       {
         address: loanAddress,
         abi: selectContract(loanType) as any,
         functionName: "loanStartTime",
-        args: [id],
+        args: [tokenByIndex],
         chainId: generateWagmiChain(chainId),
       },
       {
         address: loanAddress,
         abi: selectContract(loanType) as any,
         functionName: "getTotalDue",
-        args: [id, Math.floor(Date.now() / 1000)],
+        args: [tokenByIndex, Math.floor(Date.now() / 1000)],
         chainId: generateWagmiChain(chainId),
       },
       {
         address: loanAddress,
         abi: selectContract(loanType) as any,
         functionName: "loanState",
-        args: [id],
+        args: [tokenByIndex],
         chainId: generateWagmiChain(chainId),
       },
       {
         address: ContractsEnum.X7_LendingPool,
         abi: X7LendingPoolV1 as any,
         functionName: "canLiquidate",
-        args: [id],
+        args: [tokenByIndex],
         chainId: generateWagmiChain(chainId),
       },
     ],
