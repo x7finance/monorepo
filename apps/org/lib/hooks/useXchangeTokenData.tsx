@@ -1,4 +1,3 @@
-import { parse } from "path"
 import { BlockchainType, ContractsEnum } from "common"
 import {
   generateChainEtherTokenEnum,
