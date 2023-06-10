@@ -106,7 +106,7 @@ export function useXchangeLoanData(
     fullLoanAddress: `${generateChainBase(
       chainId
     )}/address/${loanAddress}#code`,
-    isLoading: isInitialPairLoading ?? false,
+    isLoading: isInitialPairLoading || isInitialTokenIndex,
     loanID: parseInt(data?.[0]?.result?.toString() ?? "0", 10) || 0,
     symbol: data?.[1]?.result?.toString() ?? "",
     ownerOf: data?.[2]?.result?.toString() ?? "",
