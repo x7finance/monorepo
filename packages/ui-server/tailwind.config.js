@@ -1,3 +1,7 @@
 const sharedConfig = require("tailwind-config/tailwind.config.js")
 
-module.exports = sharedConfig
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["./src/**/*.{ts,tsx}"],
+  presets: [sharedConfig],
+}

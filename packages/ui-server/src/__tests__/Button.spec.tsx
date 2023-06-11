@@ -3,7 +3,7 @@ import "@testing-library/jest-dom"
 import { createRef } from "react"
 import { fireEvent, render } from "@testing-library/react"
 
-import { Button, buttonVariants } from "../button/Button"
+import { Button, buttonVariants } from "../button"
 
 describe("Button component", () => {
   test("renders with default props", () => {
