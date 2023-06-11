@@ -1,9 +1,9 @@
 import { Metadata } from "next"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { Heading } from "@/components/heading"
 import { SiteContentContainer } from "@/components/site-content-container"
 import { UnderConstruction } from "@/components/under-construction"
+import { Heading } from "@/app/(marketing)/components/heading"
 
 const metadata = {
   title: "X7103",

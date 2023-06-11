@@ -1,29 +1,19 @@
 import { cn } from "utils"
 
-type Variant = "medium" | "small"
-type Color = "emerald" | "sky" | "amber" | "rose" | "zinc"
-
-interface TagProps {
-  children: string
-  variant?: Variant
-  color?: Color
-}
-
-const variantStyles: Record<Variant, string> = {
-  small: "",
+const variantStyles = {
   medium: "rounded-lg px-1.5 ring-1 ring-inset",
 }
 
-const colorStyles: Record<Color, Record<Variant, string>> = {
-  emerald: {
-    small: "text-emerald-500 dark:text-emerald-400",
-    medium:
-      "ring-emerald-300 dark:ring-emerald-400/30 bg-emerald-400/10 text-emerald-500 dark:text-emerald-400",
-  },
+const colorStyles = {
   sky: {
-    small: "text-sky-500",
+    small: "text-sky-500 dark:text-sky-400",
     medium:
-      "ring-sky-300 bg-sky-400/10 text-sky-500 dark:ring-sky-400/30 dark:bg-sky-400/10 dark:text-sky-400",
+      "ring-sky-300 dark:ring-sky-400/30 bg-sky-400/10 text-sky-500 dark:text-sky-400",
+  },
+  emeral: {
+    small: "text-emerald-500",
+    medium:
+      "ring-emerald-300 bg-emerald-400/10 text-emerald-500 dark:ring-emerald-400/30 dark:bg-emerald-400/10 dark:text-emerald-400",
   },
   amber: {
     small: "text-amber-500",
@@ -42,23 +32,32 @@ const colorStyles: Record<Color, Record<Variant, string>> = {
   },
 }
 
-const valueColorMap: Record<string, Color> = {
-  get: "emerald",
-  post: "sky",
+type ValueColorMap = {
+  [key: string]: string
+  get: string
+  post: string
+  put: string
+  delete: string
+}
+
+const valueColorMap: ValueColorMap = {
+  get: "sky",
+  post: "emerald",
   put: "amber",
   delete: "rose",
 }
-
 export function Tag({
   children,
   variant = "medium",
-  color = valueColorMap[children.toLowerCase()] ?? "emerald",
-}: TagProps) {
+  color = valueColorMap[children.toLowerCase()] ?? "sky",
+}: any) {
   return (
     <span
       className={cn(
         "font-mono text-[0.625rem] font-semibold leading-6",
+        // @ts-expect-error
         variantStyles[variant],
+        // @ts-expect-error
         colorStyles[color][variant]
       )}
     >

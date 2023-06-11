@@ -1,12 +1,12 @@
 import { Metadata } from "next"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { LivePairs } from "@/components/pairsTable"
-import { SplittersOverview } from "@/components/splittersOverview"
 import { Web3Wrapper } from "@/components/web3/wrapper"
 import { DashboardContainer } from "@/app/(dashboard)/components/dashboard-container"
 import { DashboardSubheader } from "@/app/(dashboard)/components/dashboard-subheader"
 import { DashboardTitle } from "@/app/(dashboard)/components/dashboard-title"
+import { LivePairsTable } from "@/app/(dashboard)/components/livePairsTable"
+import { SplittersOverview } from "@/app/(dashboard)/components/splittersOverview"
 
 const metadata = {
   title: "Live Pairs & Contracts",
@@ -33,7 +33,7 @@ export default function DashboardIndexPage() {
       />
       <Web3Wrapper>
         <DashboardContainer>
-          <LivePairs />
+          <LivePairsTable />
 
           <DashboardSubheader
             id="splits"

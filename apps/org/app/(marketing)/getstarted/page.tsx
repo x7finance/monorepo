@@ -8,9 +8,9 @@ import Link from "next/link"
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { DocsLinks, MarketingLinks } from "@/lib/types/links"
 import { GradientTypes } from "@/components/gradients"
-import { Heading } from "@/components/heading"
 import { PioneerDrop } from "@/components/pioneer-drop"
 import { SiteContentContainer } from "@/components/site-content-container"
+import { Heading } from "@/app/(marketing)/components/heading"
 
 const metadata = {
   title: "Get Started",

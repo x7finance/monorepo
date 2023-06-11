@@ -5,10 +5,10 @@ import { Analytics } from "@vercel/analytics/react"
 import "@/styles/globals.css"
 
 import { cn } from "utils"
-import { Toaster } from "ui-client"
 
 import { siteConfig } from "@/config/site"
 import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "@/components/ui-client/toast/toaster"
 
 const fontSans = FontSans({
   subsets: ["latin"],

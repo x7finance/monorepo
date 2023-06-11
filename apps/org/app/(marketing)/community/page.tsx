@@ -16,8 +16,8 @@ import { Metadata } from "next"
 import Link from "next/link"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { Heading } from "@/components/heading"
 import { SiteContentContainer } from "@/components/site-content-container"
+import { Heading } from "@/app/(marketing)/components/heading"
 
 const metadata = {
   title: "Community",
