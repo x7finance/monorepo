@@ -1,8 +1,7 @@
 import { cn } from "utils"
+import { buttonVariants } from "ui"
 
 import Link from "next/link"
-
-import { buttonVariants } from "@/components/ui/button"
 
 interface HeaderProps {
   title: string

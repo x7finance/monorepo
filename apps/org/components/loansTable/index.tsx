@@ -2,6 +2,7 @@
 
 import { ContractsEnum } from "common"
 import { cn } from "utils"
+import { Button } from "ui"
 import { X7InitialLiquidityLoanTerm001 } from "contracts"
 
 import { useEffect, useState } from "react"
@@ -12,7 +13,6 @@ import { generateWagmiChain } from "@/lib/generateWagmiChain"
 import { Loading } from "../loading"
 import { Loan } from "../loan"
 import { Pagination } from "../pagination"
-import { Button } from "../ui/button"
 
 export function LiveLoans() {
   const [activeTab, setActiveTab] = useState("ethereum")

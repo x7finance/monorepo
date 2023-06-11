@@ -1,6 +1,5 @@
 import { cn } from "utils"
-
-import { Button } from "./ui/button"
+import { Button } from "ui"
 
 type PaginationProps = {
   currentPage: number
