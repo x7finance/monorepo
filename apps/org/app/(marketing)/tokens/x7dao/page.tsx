@@ -26,7 +26,7 @@ export default function X7RDAO() {
   return (
     <div>
       <SiteContentContainer>
-        <div className="mx-auto max-w-5xl sm:px-6 lg:px-8 absolute left-0 right-0 xl:top-80 top-36 z-10">
+        <div className="mx-auto max-w-5xl sm:px-6 lg:px-8 absolute left-0 right-0 xl:top-80 top-36 z-[9]">
           <div className="relative overflow-hidden bg-black mx-8 px-6 py-6 sm:pt-12 sm:pb-16 shadow-xl sm:rounded-3xl sm:px-10 md:px-12 lg:px-20">
             <div className={cn("mx-auto max-w-2xl text-center")}>
               <PioneerDrop pioneerId={"3721"} lineColor={"to-emerald-500"} />

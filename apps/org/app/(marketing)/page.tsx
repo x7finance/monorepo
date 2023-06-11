@@ -12,6 +12,8 @@ import { DocsLinks, TokenLinksEnum } from "@/lib/types/links"
 import { GradientTypes } from "@/components/gradients"
 import { PioneerDrop } from "@/components/pioneer-drop"
 
+import { SectionHeader } from "./components/section-header"
+import { SectionStep } from "./components/section-step"
 import { HeaderVideoComponent } from "./components/video"
 
 const metadata = {
@@ -205,7 +207,7 @@ export default function IndexPage() {
         />
         <div className="mx-auto max-w-7xl md:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl px-2 lg:max-w-none">
-            <StepSection
+            <SectionStep
               header="Kickstart Your Project with the Right Liquidity"
               subHeader="Determine the optimal liquidity level to make your project's launch a success. By borrowing liquidity from Xchange to launch your token, you'll have the ability to attract larger investments early with healthier liquidity levels"
               pioneerId="0600"
@@ -221,7 +223,7 @@ export default function IndexPage() {
                 "Preserve cash that you'd otherwise tie up in liquidity",
               ]}
             />
-            <StepSection
+            <SectionStep
               header="Choose the Perfect Loan for Your Project"
               subHeader="Flexible loan options to fuel the growth of your project - regardless of size"
               pioneerId="0621"
@@ -236,13 +238,13 @@ export default function IndexPage() {
                 "ETH, BNB, MATIC, and more",
               ]}
             />
-            <StepSection
+            <SectionStep
               header="Make a Splash with Your Launch on Xchange"
               subHeader="Seamless Launches for Maximum Impact"
               pioneerId="0590"
               gradient={GradientTypes.redLight}
               checkColor="text-rose-600"
-              highlightHeader="Diverse loan options"
+              highlightHeader="High Availability Launch Tooling"
               highlights={[
                 "Smooth pair launch",
                 "High liquidity provision",
@@ -250,7 +252,7 @@ export default function IndexPage() {
                 "All pairs available at your investors fingertips",
               ]}
             />
-            <StepSection
+            <SectionStep
               header="Choose How You Want to Pay Off Your Loan"
               subHeader="Seamless Launches for Maximum Impact"
               pioneerId="0166"
@@ -437,51 +439,13 @@ const features = [
   },
 ]
 
-function SectionHeader(props: any) {
-  const {
-    pioneerId,
-    subHeader,
-    header,
-    description,
-    lineColor,
-    gradientColor,
-    hasSubSection,
-  } = props
-
-  return (
-    <div
-      className={cn(
-        "mx-auto max-w-2xl text-center",
-        !hasSubSection ? `mb-16` : ``
-      )}
-    >
-      <PioneerDrop pioneerId={pioneerId} lineColor={lineColor} />
-      <p
-        className={cn(
-          gradientColor,
-          `inline font-bold bg-gradient-to-r bg-clip-text font-display text-xl sm:text-3xl my-3 uppercase text-transparent`
-        )}
-      >
-        {subHeader}
-      </p>
-      <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl dark:text-white text-black">
-        {header}
-      </h2>
-
-      <p className="mt-6 text-xl leading-8 text-zinc-400 dark:text-zinc-500">
-        {description}
-      </p>
-    </div>
-  )
-}
-
 const incentives = [
   {
     name: "Diverse Opportunities",
     imageSrc: "https://img.x7.finance/pioneers/0123.png",
     description:
       "X7 Finance provides a range of investment avenues including participating in trading ERC-20 tokens on Xchange, to contributing to our lending pool to earn potential returns, or purchasing our unique Utility NFTs for exclusive benefits, and holding our native tokens like X7 DAO for governance rights, all while emphasizing the importance of individual research and risk assessment.",
-    href: TokenLinksEnum.X7DAO,
+    href: "/docs/whitepaper/tokenomics/",
     linkText: <>Explore Tokenomics &#8594;</>,
     gradient: GradientTypes.marsSunset,
   },
@@ -505,86 +469,3 @@ const incentives = [
     isExternal: true,
   },
 ]
-
-function StepSection(props: any) {
-  const {
-    header,
-    subHeader,
-    highlightHeader,
-    highlights,
-    pioneerId,
-    gradient,
-    checkColor,
-    isReverse,
-  } = props
-
-  return (
-    <>
-      <span
-        className={
-          "w-[1px] mx-auto block h-[100px] bg-gradient-to-b pioneer-line-drop to-zinc-600 relative top-10"
-        }
-      />
-      <span className="w-[11px] h-[11px] rounded-full my-1 circle-shadow mx-auto block top-10 relative" />
-      <div
-        className={cn(
-          isReverse ? `lg:flex-row-reverse` : ``,
-          `mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-zinc-200 dark:ring-zinc-800 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none`
-        )}
-      >
-        <div className="p-8 sm:p-10 lg:flex-auto">
-          <h3 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
-            {header}
-          </h3>
-          <p className="mt-6 text-base leading-7 text-zinc-600 dark:text-zinc-400">
-            {subHeader}
-          </p>
-          <div className="mt-10 flex items-center gap-x-4">
-            <h4
-              className={cn(
-                gradient,
-                `flex-none bg-gradient-to-r bg-clip-text font-display text-sm font-semibold leading-6 text-transparent`
-              )}
-            >
-              {highlightHeader}
-            </h4>
-            <div className="h-px flex-auto bg-zinc-100 dark:bg-zinc-900" />
-          </div>
-          <ul
-            role="list"
-            className="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-zinc-600 dark:text-zinc-400 sm:grid-cols-2 sm:gap-6"
-          >
-            {highlights.map((highlight, key) => (
-              <li key={key} className="flex gap-x-3">
-                <svg
-                  className={cn(checkColor, `h-6 w-5 flex-none`)}
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                {highlight}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
-          <div className="lg:flex lg:flex-col lg:justify-center">
-            <Image
-              src={`https://img.x7.finance/pioneers/${pioneerId}.png`}
-              alt="Random Pioneer Image"
-              width={1000}
-              height={1000}
-              className="object-cover rounded-2xl ring-1 ring-inset ring-zinc-900/5"
-            />
-          </div>
-        </div>
-      </div>
-    </>
-  )
-}
