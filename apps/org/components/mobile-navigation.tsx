@@ -2,6 +2,7 @@
 
 import { X7LinksEnum } from "common"
 import { cn } from "utils"
+import { buttonVariants } from "ui"
 import { ChevronUpIcon, MenuIcon, X7Logo } from "icons"
 
 import Link from "next/link"
@@ -9,14 +10,9 @@ import { Popover } from "@headlessui/react"
 import { AnimatePresence, motion } from "framer-motion"
 
 import { MOBILE_NAV_LINKS } from "@/config/site"
-import {
-  DashboardLinksEnum,
-  DocsLinks,
-  MarketingLinks,
-} from "@/lib/types/links"
+import { DocsLinks } from "@/lib/types/links"
 
 import { ModeToggle } from "./mode-toggle"
-import { buttonVariants } from "./ui/button"
 
 function MobileNavLink({ children, ...props }) {
   return (

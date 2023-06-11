@@ -1,10 +1,9 @@
 "use client"
 
 import { shortenHex } from "utils"
+import { Button } from "ui"
 
 import { ConnectKitButton } from "connectkit"
-
-import { Button } from "../ui/button"
 
 export function ConnectionComponent() {
   return (
