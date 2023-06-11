@@ -19,12 +19,9 @@
     "common": "workspace:*"
   },
   "devDependencies": {
-    "@types/react": "^18.2.8",
-    "@types/react-dom": "^18.0.11",
     "clsx": "^1.2.1",
     "eslint": "^8.42.0",
     "eslint-config-custom": "workspace:*",
-    "react": "^18.2.0",
     "tailwind-merge": "^1.13.0",
     "tsconfig": "workspace:*",
     "tsup": "^6.7.0",

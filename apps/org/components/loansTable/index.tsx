@@ -2,7 +2,7 @@
 
 import { ContractsEnum } from "common"
 import { cn } from "utils"
-import { Button } from "ui"
+import { Button } from "ui-server"
 import { X7InitialLiquidityLoanTerm001 } from "contracts"
 
 import { useEffect, useState } from "react"

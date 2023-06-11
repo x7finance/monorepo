@@ -1,5 +1,5 @@
 import { cn, getRandomPioneerNumber } from "utils"
-import { buttonVariants } from "ui"
+import { buttonVariants } from "ui-server"
 
 import Image from "next/image"
 import Link from "next/link"

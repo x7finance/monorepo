@@ -1,10 +1,9 @@
 import { BlockchainType } from "common"
 import { generateChainBase } from "utils"
+import { toast } from "ui-client"
 
 import { useEffect, useState } from "react"
 import { useContractWrite, useWaitForTransaction } from "wagmi"
-
-import { toast } from "@/components/ui/use-toast"
 
 type UseContractWriteArgs = Parameters<typeof useContractWrite>
 
