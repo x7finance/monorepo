@@ -1,7 +1,7 @@
 "use client"
 
 import { shortenHex } from "utils"
-import { Button } from "ui"
+import { Button } from "ui-server"
 
 import { ConnectKitButton } from "connectkit"
 

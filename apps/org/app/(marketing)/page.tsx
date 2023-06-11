@@ -1,6 +1,6 @@
 import { SocialsEnum, X7LinksEnum } from "common"
 import { cn } from "utils"
-import { buttonVariants } from "ui"
+import { buttonVariants } from "ui-server"
 import { DotIcon, RocketIcon, Xchange } from "icons"
 
 import { Metadata } from "next"

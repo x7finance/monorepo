@@ -2,7 +2,7 @@
 
 import { XCHANGE } from "common"
 import { cn } from "utils"
-import { Button } from "ui"
+import { Button } from "ui-server"
 import { ChainsArray, ChevronDownIcon } from "icons"
 
 import { Fragment } from "react"

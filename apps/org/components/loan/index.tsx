@@ -7,6 +7,7 @@ import {
   generateChainDenomination,
   generateX7InitialLiquidityLoanTermContract,
 } from "utils"
+import { toast } from "ui-client"
 import {
   AlertCircle,
   CheckCircleIcon,
@@ -19,7 +20,6 @@ import Link from "next/link"
 import { useClipboard } from "use-clipboard-copy"
 
 import { useXchangeLoanData } from "@/lib/hooks/useXchangeLoanData"
-import { toast } from "@/components/ui/use-toast"
 
 import {
   Tooltip,

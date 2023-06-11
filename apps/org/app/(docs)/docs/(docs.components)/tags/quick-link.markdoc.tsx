@@ -30,6 +30,7 @@ export function QuickLink({
   )
 }
 
+// TODO: check to determine if this is needed
 export default {
   selfClosing: true,
   render: QuickLink,

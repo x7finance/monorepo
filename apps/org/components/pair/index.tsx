@@ -7,13 +7,13 @@ import {
   generateChainDenomination,
   generateChainIdentifier,
 } from "utils"
+import { toast } from "ui-client"
 import { ClipboardIcon, IconWrapper } from "icons"
 
 import Link from "next/link"
 import { useClipboard } from "use-clipboard-copy"
 
 import { useXchangeTokenData } from "@/lib/hooks/useXchangeTokenData"
-import { toast } from "@/components/ui/use-toast"
 
 interface PairsProps {
   id: number
