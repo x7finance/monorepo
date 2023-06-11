@@ -1,6 +1,6 @@
 import { X7LinksEnum } from "common"
 import { cn } from "utils"
-import { buttonVariants } from "ui"
+import { buttonVariants } from "ui-server"
 import { X7LongLogo, Xchange } from "icons"
 
 import Link from "next/link"

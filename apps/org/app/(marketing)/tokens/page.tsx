@@ -1,6 +1,6 @@
 import { ContractsEnum } from "common"
 import { cn } from "utils"
-import { buttonVariants } from "ui"
+import { buttonVariants } from "ui-server"
 
 import { Metadata } from "next"
 import Image from "next/image"

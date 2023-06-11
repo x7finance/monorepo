@@ -2,7 +2,8 @@
 
 import { ChainEnum, ContractsEnum, ONE_MILLION } from "common"
 import { cn, generateChainAbbreviation, generateChainBase } from "utils"
-import { Button } from "ui"
+import { toast } from "ui-client"
+import { Button } from "ui-server"
 import {
   BoxIcon,
   ChainsArray,
@@ -20,7 +21,6 @@ import { formatEther, parseEther } from "viem"
 import { useContractReads, useNetwork, useSwitchNetwork } from "wagmi"
 
 import { useContractTx } from "@/lib/hooks/useContractTx"
-import { toast } from "@/components/ui/use-toast"
 import { GradientTypes } from "@/components/gradients"
 
 export function UtitlityNfts() {
