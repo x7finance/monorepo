@@ -24,7 +24,7 @@ export function Dropdown({
       <div>
         <Menu.Button as="div" className="inline-flex w-full justify-center">
           <Button
-            variant={type === "scan" ? "secondary" : "outline"}
+            variant={type === "scan" ? "outline" : "default"}
             aria-label={label}
           >
             {name}

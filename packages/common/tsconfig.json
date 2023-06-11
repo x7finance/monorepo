@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "esnext"]
+    "lib": ["dom", "ES2015"]
   },
   "extends": "tsconfig/react-library.json",
   "include": ["."],
