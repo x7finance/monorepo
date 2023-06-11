@@ -100,7 +100,7 @@ export default function IndexPage() {
             />
           </span>
 
-          <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8 bg-transparent"></p>
+          <p className="max-w-[42rem] leading-normal sm:text-xl sm:leading-8 bg-transparent"></p>
           <div className="gap-y-2 md:gap-x-3 md:gap-y-0 flex flex-col-reverse md:flex-row items-center">
             <Link
               href={DocsLinks.Index}
@@ -109,7 +109,7 @@ export default function IndexPage() {
                   variant: "outline",
                   size: "lg",
                 }),
-                "text-md h-12 border-zinc-500 text-white hover:text-white hover:shadow-sm transition-all duration-500 hover:shadow-white hover:bg-transparent w-full"
+                "text-md h-12 border-zinc-500 hover:text-white hover:shadow-sm transition-all duration-500 hover:shadow-white hover:bg-transparent w-full"
               )}
             >
               Read Docs
