@@ -1,3 +1,4 @@
+import { X7LinksEnum } from "common"
 import { cn } from "utils"
 import { buttonVariants } from "ui-server"
 import { CheckCircleIcon, X7Logo } from "icons"
@@ -48,7 +49,7 @@ const loans = [
     name: "Simple Loan",
     description:
       "Loan Origination Fee is 25% of borrowed capital. There is a 0% loan retention premium",
-    button: {
+    secondaryButton: {
       label: "View Contract",
       href: "https://etherscan.io/token/0x7400165e167479a3c81c8fc8cc3df3d2a92e9017#code",
     },
@@ -71,7 +72,7 @@ const loans = [
     subTitle: "with interest",
     description:
       "Loan Retention Premium: 6.25% in premiums due by the end of each quarter of the loan term",
-    button: {
+    secondaryButton: {
       label: "View Contract",
       href: "https://etherscan.io/address/0x740019a6b3a9cf3bd193986a560b05726143b217#code",
     },
@@ -93,7 +94,7 @@ const loans = [
     name: "Interest Only Loan",
     description:
       "Loan Retention Premium: 6.25% in premiums due by the end of each quarter of the loan term",
-    button: {
+    secondaryButton: {
       label: "View Contract",
       href: "https://etherscan.io/address/0x74001c747b6cc9091ee63bc9424dff633fbac617#code",
     },
@@ -117,13 +118,12 @@ function Loan({
   name,
   liquidation,
   description,
-  button,
+  secondaryButton,
   features,
   logomarkClassName,
 }: any) {
   return (
-    <section className="group relative flex flex-col overflow-hidden rounded-2xl bg-zinc-50 bg-zinc-900/5 p-6 shadow-lg">
-      <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-zinc-900/7.5 transition-shadow hover:shadow-md hover:shadow-zinc-900/5 group-hover:ring-zinc-900/10 dark:bg-white/2.5 dark:ring-white/10 dark:hover:shadow-black/5 dark:group-hover:ring-white/20"></div>
+    <section className="group relative flex flex-col overflow-hidden rounded-2xl bg-zinc-50 bg-zinc-900/5 p-6 shadow-lg ring-1 ring-inset ring-zinc-900/7.5 transition-shadow hover:shadow-md hover:shadow-zinc-900/5 group-hover:ring-zinc-900/10 dark:bg-white/2.5 dark:ring-white/10 dark:hover:shadow-black/5 dark:group-hover:ring-white/20">
       <h3
         className={cn("flex items-center text-sm font-semibold text-zinc-900")}
       >
@@ -144,7 +144,9 @@ function Loan({
       >
         {name}
       </p>
-      <p className={cn("mt-3 text-sm text-zinc-700 dark:text-zinc-400")}>
+      <p
+        className={cn("text-sm text-zinc-700 min-h-[75px] dark:text-zinc-400")}
+      >
         {description}
       </p>
       <div className="order-last mt-6">
@@ -176,17 +178,30 @@ function Loan({
         </div>
       </div>
       <Link
-        href={button?.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        href={X7LinksEnum.XchangeLoan}
         className={cn(
           buttonVariants({
             variant: "default",
           }),
           "mt-6"
         )}
+        aria-label={`View Contract for ${name} loan`}
+      >
+        Purchase Loan
+      </Link>
+      <Link
+        href={secondaryButton?.href}
+        className={cn(
+          buttonVariants({
+            variant: "outline",
+          }),
+          "mt-2"
+        )}
         aria-label={`Get started with the ${name} loan`}
       >
-        <span className="absolute inset-0 rounded-2xl" />
-        {button.label}
+        {secondaryButton.label}
       </Link>
     </section>
   )
