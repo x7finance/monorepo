@@ -29,15 +29,3 @@ export function QuickLink({
     </div>
   )
 }
-
-// TODO: check to determine if this is needed
-export default {
-  selfClosing: true,
-  render: QuickLink,
-  attributes: {
-    title: { type: String },
-    description: { type: String },
-    icon: { type: String },
-    href: { type: String },
-  },
-}
