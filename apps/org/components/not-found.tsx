@@ -17,7 +17,7 @@ export function NotFoundContent() {
           404
         </p>
         <h1 className="mt-4 text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-5xl">
-          Your trusted the code, <br />
+          You trusted the code, <br />
           {`but this page doesn't exist.`}
         </h1>
         <p className="mt-4 text-base leading-7 text-zinc-600 dark:text-zinc-500 sm:mt-6 sm:text-lg sm:leading-8">
