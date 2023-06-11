@@ -1,13 +1,12 @@
 "use client"
 
+import { Button } from "ui"
 import { SearchIcon } from "icons"
 
 import { useCallback, useEffect, useState } from "react"
 import Link from "next/link"
 import { DocSearchModal, useDocSearchKeyboardEvents } from "@docsearch/react"
 import { createPortal } from "react-dom"
-
-import { Button } from "./ui/button"
 
 const docSearchConfig = {
   appId: process.env.NEXT_PUBLIC_DOCSEARCH_APP_ID,

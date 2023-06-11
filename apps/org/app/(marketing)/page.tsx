@@ -1,5 +1,6 @@
 import { SocialsEnum, X7LinksEnum } from "common"
 import { cn } from "utils"
+import { buttonVariants } from "ui"
 import { DotIcon, RocketIcon, Xchange } from "icons"
 
 import { Metadata } from "next"
@@ -8,7 +9,6 @@ import Link from "next/link"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { DocsLinks, TokenLinksEnum } from "@/lib/types/links"
-import { buttonVariants } from "@/components/ui/button"
 import { GradientTypes } from "@/components/gradients"
 import { PioneerDrop } from "@/components/pioneer-drop"
 

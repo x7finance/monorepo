@@ -1,11 +1,11 @@
 import { X7LinksEnum } from "common"
 import { cn } from "utils"
+import { buttonVariants } from "ui"
 import { X7LongLogo, Xchange } from "icons"
 
 import Link from "next/link"
 
 import { DESKTOP_NAV_LINKS } from "@/config/site"
-import { buttonVariants } from "@/components/ui/button"
 
 import { MobileNavigation } from "./mobile-navigation"
 
