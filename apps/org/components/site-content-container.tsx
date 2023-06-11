@@ -1,7 +1,8 @@
 import { cn } from "utils"
 
-interface SiteContentContainerProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+import { HTMLAttributes } from "react"
+
+interface SiteContentContainerProps extends HTMLAttributes<HTMLDivElement> {
   className?: string
 }
 

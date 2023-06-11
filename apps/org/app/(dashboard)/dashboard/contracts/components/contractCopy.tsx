@@ -1,9 +1,10 @@
 "use client"
 
-import { toast } from "ui-client"
 import { ClipboardIcon } from "icons"
 
 import { useClipboard } from "use-clipboard-copy"
+
+import { toast } from "@/components/ui-client/toast/use-toast"
 
 export function ContractCopy(props: { contract: string }) {
   const { contract } = props

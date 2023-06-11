@@ -3,15 +3,15 @@
 import { cn } from "utils"
 import { MonitorIcon, MoonIcon, SunIcon } from "icons"
 
-import * as React from "react"
+import { Suspense, useEffect, useState } from "react"
 import { useTheme } from "next-themes"
 
 export function ModeToggle() {
-  const [mounted, setMounted] = React.useState(false)
+  const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
 
   // useEffect only runs on the client, so now we can safely show the UI
-  React.useEffect(() => {
+  useEffect(() => {
     setMounted(true)
   }, [])
 
@@ -20,7 +20,7 @@ export function ModeToggle() {
   }
 
   return (
-    <React.Suspense>
+    <Suspense>
       <div className="max-w-max mt-4">
         <div
           //
@@ -79,6 +79,6 @@ export function ModeToggle() {
           </button>
         </div>
       </div>
-    </React.Suspense>
+    </Suspense>
   )
 }

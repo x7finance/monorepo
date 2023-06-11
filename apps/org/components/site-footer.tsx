@@ -1,12 +1,12 @@
 import { X7LongLogo } from "icons"
 
-import * as React from "react"
+import { HTMLAttributes } from "react"
 import Link from "next/link"
 
 import { FOOTER_NAVIGATION } from "@/config/site"
 import { ModeToggle } from "@/components/mode-toggle"
 
-export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
+export function SiteFooter({ className }: HTMLAttributes<HTMLElement>) {
   return (
     <footer className={className} aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">
