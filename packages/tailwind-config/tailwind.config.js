@@ -42,8 +42,7 @@ module.exports = {
     // "./node_modules/ui-server/src/**/*.{js,ts,jsx,tsx}",
     // "./node_modules/icons/src/**/*.{js,ts,jsx,tsx}",
   ],
-  safelist: safelist,
-  // safelist: ["text-primary-foreground", "text-primary", "border-primary"],
+  safelist: [...safelist, "animate-loading"],
   darkMode: ["class"],
   theme: {
     fontSize: {
@@ -217,6 +216,11 @@ module.exports = {
           "0%": { opacity: 0 },
           "100%": { opacity: 1 },
         },
+        loading: {
+          "0%": { opacity: "0.2" },
+          "20%": { opacity: "1" },
+          "100%": { opacity: "0.2" },
+        },
       },
       willChange: {
         filter: "filter",
@@ -225,6 +229,7 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         border: "background ease infinite",
+        loading: "loading 1.4s infinite",
         "gradient-background-1": "gradient-background-1 8s infinite",
         "gradient-foreground-1": "gradient-foreground-1 8s infinite",
         "gradient-background-2": "gradient-background-2 8s infinite",

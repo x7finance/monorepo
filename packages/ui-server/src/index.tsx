@@ -1,12 +1,9 @@
-// styles
-import "./styles.css"
-
 // utils
 export * from "./utils/renderConnectedChain"
 
 // components
-export * from "./button/Button"
-export * from "./tag/Tag"
+export * from "./button"
+export * from "./tag"
 
 // not used yet
 export * from "./empty-placeholder"
