@@ -22,7 +22,7 @@
     --card-foreground: 222.2 47.4% 11.2%;
 
     --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary-foreground: 241 4% 96%;
 
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -60,7 +60,8 @@
     --card-foreground: 213 31% 91%;
 
     --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 1.2%;
+
+    --primary-foreground: 0 0% 0%;
 
     --secondary: 222.2 47.4% 11.2%;
     --secondary-foreground: 210 40% 98%;
@@ -187,26 +188,26 @@
   .nav-shadow {
     box-shadow: inset 0 -1px var(--nav-shadow-color);
   }
+}
 
-  .scrollbar::-webkit-scrollbar {
-    height: 20px;
-    width: 8px;
-  }
+.scrollbar::-webkit-scrollbar {
+  height: 20px;
+  width: 8px;
+}
 
-  .scrollbar::-webkit-scrollbar-track {
-    scrollbar-width: thin;
-    border-radius: 100vh;
-  }
+.scrollbar::-webkit-scrollbar-track {
+  scrollbar-width: thin;
+  border-radius: 100vh;
+}
 
-  .scrollbar::-webkit-scrollbar-thumb {
-    scrollbar-width: thin;
-    background-color: var(--scrollbar-background);
-    border-radius: 100vh;
-    border: 1px solid var(--scrollbar-border);
-  }
+.scrollbar::-webkit-scrollbar-thumb {
+  scrollbar-width: thin;
+  background-color: var(--scrollbar-background);
+  border-radius: 100vh;
+  border: 1px solid var(--scrollbar-border);
+}
 
-  .scrollbar::-webkit-scrollbar-thumb:hover {
-    background-color: var(--scrollbar-hover);
-    scrollbar-width: thin;
-  }
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-hover);
+  scrollbar-width: thin;
 }

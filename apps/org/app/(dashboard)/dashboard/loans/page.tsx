@@ -1,8 +1,8 @@
 import { Metadata } from "next"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { LiveLoans } from "@/components/loansTable"
 import { Web3Wrapper } from "@/components/web3/wrapper"
+import { LiveLoans } from "@/app/(dashboard)/components/loansTable"
 
 import { DashboardContainer } from "../../components/dashboard-container"
 import { DashboardTitle } from "../../components/dashboard-title"
