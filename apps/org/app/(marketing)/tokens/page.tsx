@@ -1,15 +1,15 @@
 import { ContractsEnum } from "common"
 import { cn } from "utils"
-import { buttonVariants } from "ui"
+import { buttonVariants } from "ui-server"
 
 import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { Heading } from "@/components/heading"
 import { PioneerDrop } from "@/components/pioneer-drop"
 import { SiteContentContainer } from "@/components/site-content-container"
+import { Heading } from "@/app/(marketing)/components/heading"
 
 const metadata = {
   title: "Tokens",

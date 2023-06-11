@@ -1,14 +1,13 @@
 "use client"
 
 import { remToPx } from "utils"
+import { Tag } from "ui-server"
 import { LinkIcon } from "icons"
 
 import { useRef } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useInView } from "framer-motion"
-
-import { Tag } from "@/components/tag"
 
 function Eyebrow({ tag, label }: any) {
   if (!tag && !label) {

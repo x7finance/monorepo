@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "ui"
+import { Button } from "ui-server"
 import { SearchIcon } from "icons"
 
 import { useCallback, useEffect, useState } from "react"

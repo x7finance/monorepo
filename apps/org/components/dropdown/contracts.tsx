@@ -2,7 +2,7 @@
 
 import { XCHANGE } from "common"
 import { cn } from "utils"
-import { Button } from "ui"
+import { Button } from "ui-server"
 import { ChainsArray, ChevronDownIcon } from "icons"
 
 import { Fragment } from "react"
@@ -22,9 +22,9 @@ export function Dropdown({
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button as="div" className="inline-flex w-full justify-center ">
+        <Menu.Button as="div" className="inline-flex w-full justify-center">
           <Button
-            variant={type === "scan" ? "secondary" : "default"}
+            variant={type === "scan" ? "outline" : "default"}
             aria-label={label}
           >
             {name}

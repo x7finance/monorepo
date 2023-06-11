@@ -1,5 +1,5 @@
 import { cn } from "utils"
-import { buttonVariants } from "ui"
+import { buttonVariants } from "ui-server"
 
 import Link from "next/link"
 

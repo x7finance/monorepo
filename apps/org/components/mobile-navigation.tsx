@@ -2,7 +2,7 @@
 
 import { X7LinksEnum } from "common"
 import { cn } from "utils"
-import { buttonVariants } from "ui"
+import { buttonVariants } from "ui-server"
 import { ChevronUpIcon, MenuIcon, X7Logo } from "icons"
 
 import Link from "next/link"

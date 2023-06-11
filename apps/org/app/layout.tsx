@@ -7,8 +7,8 @@ import "@/styles/globals.css"
 import { cn } from "utils"
 
 import { siteConfig } from "@/config/site"
-import { Toaster } from "@/components/ui/toaster"
 import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "@/components/ui-client/toast/toaster"
 
 const fontSans = FontSans({
   subsets: ["latin"],

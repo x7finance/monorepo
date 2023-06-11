@@ -1,16 +1,16 @@
 "use client"
 
 import { cn } from "utils"
+import { Input } from "ui-server"
 
-import * as React from "react"
+import { HTMLAttributes, SyntheticEvent } from "react"
 
-import { Input } from "@/components/ui/input"
-import { toast } from "@/components/ui/use-toast"
+import { toast } from "./ui-client/toast/use-toast"
 
-interface DocsSearchProps extends React.HTMLAttributes<HTMLFormElement> {}
+interface DocsSearchProps extends HTMLAttributes<HTMLFormElement> {}
 
 export function DocsSearch({ className, ...props }: DocsSearchProps) {
-  function onSubmit(event: React.SyntheticEvent) {
+  function onSubmit(event: SyntheticEvent) {
     event.preventDefault()
 
     return toast({

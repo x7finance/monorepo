@@ -1,15 +1,16 @@
 import { X7LinksEnum } from "common"
 import { cn } from "utils"
-import { buttonVariants } from "ui"
+import { buttonVariants } from "ui-server"
 import { X7LongLogo, Xchange } from "icons"
 
+import { HTMLAttributes } from "react"
 import Link from "next/link"
 
 import { DESKTOP_NAV_LINKS } from "@/config/site"
 
 import { MobileNavigation } from "./mobile-navigation"
 
-export function SiteHeader({ className }: React.HTMLAttributes<HTMLElement>) {
+export function SiteHeader({ className }: HTMLAttributes<HTMLElement>) {
   return (
     <header className={className}>
       <div className="flex-1 flex justify-center items-center">
