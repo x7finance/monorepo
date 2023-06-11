@@ -2,6 +2,7 @@
 
 import { ContractsEnum } from "common"
 import { cn } from "utils"
+import { Button } from "ui"
 import { AllPairsLength } from "contracts"
 
 import { useEffect, useState } from "react"
@@ -12,7 +13,6 @@ import { generateWagmiChain } from "@/lib/generateWagmiChain"
 import { Loading } from "../loading"
 import { Pagination } from "../pagination"
 import { Pair } from "../pair"
-import { Button } from "../ui/button"
 
 export function LivePairs() {
   const [activeTab, setActiveTab] = useState("ethereum")

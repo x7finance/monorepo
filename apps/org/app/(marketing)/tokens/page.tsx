@@ -1,12 +1,12 @@
 import { ContractsEnum } from "common"
 import { cn } from "utils"
+import { buttonVariants } from "ui"
 
 import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { buttonVariants } from "@/components/ui/button"
 import { Heading } from "@/components/heading"
 import { PioneerDrop } from "@/components/pioneer-drop"
 import { SiteContentContainer } from "@/components/site-content-container"

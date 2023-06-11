@@ -2,12 +2,11 @@
 
 import { XCHANGE } from "common"
 import { cn } from "utils"
+import { Button } from "ui"
 import { ChainsArray, ChevronDownIcon } from "icons"
 
 import { Fragment } from "react"
 import { Menu, Transition } from "@headlessui/react"
-
-import { Button } from "../ui/button"
 
 export function Dropdown({
   name,
