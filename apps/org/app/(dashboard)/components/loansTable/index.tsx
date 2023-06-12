@@ -27,7 +27,7 @@ export function LiveLoans() {
 
   return (
     <>
-      <div className="justify-center p-4 mt-6 overflow-x-auto border rounded-md dark:border-zinc-800 border-zinc-200">
+      <div className="justify-center px-1 pt-5 pb-1 overflow-x-auto ">
         <div className="md:justify-center flex space-x-4">
           <Button
             size={"sm"}
@@ -106,7 +106,7 @@ export function LiveLoans() {
           </Button>
         </div>
       </div>
-      <div className="justify-center p-4 mt-6 overflow-x-auto border rounded-md dark:border-zinc-800 border-zinc-200">
+      <div className="justify-center overflow-x-auto px-3 mt-1 pt-1 pb-5">
         <div className="md:justify-center flex space-x-4">
           <Button
             size={"sm"}
@@ -115,7 +115,7 @@ export function LiveLoans() {
               `border-zinc-800`,
               `${
                 activeLoanTab === "001"
-                  ? "text-blue-600 ring-blue-600 ring-1 bg-blue-600/5"
+                  ? "text-lime-600 ring-lime-600 ring-1 bg-lime-600/5"
                   : "text-zinc-500"
               }`
             )}
@@ -130,7 +130,7 @@ export function LiveLoans() {
               `border-zinc-800`,
               `${
                 activeLoanTab === "002"
-                  ? "text-yellow-600 ring-1 ring-yellow-600 bg-yellow-600/5"
+                  ? "text-cyan-600 ring-1 ring-cyan-600 bg-cyan-600/5"
                   : "text-zinc-500"
               }`
             )}
@@ -145,7 +145,7 @@ export function LiveLoans() {
               `border-zinc-800`,
               `${
                 activeLoanTab === "003"
-                  ? "text-purple-600 ring-1 ring-purple-600 bg-purple-600/5"
+                  ? "text-amber-600 ring-1 ring-amber-600 bg-amber-600/5"
                   : "text-zinc-500"
               }`
             )}
@@ -216,7 +216,7 @@ function LoansTable({ chainId, loanId }) {
 
   return (
     <>
-      <div className="ring-zinc-900/7.5 -mx-4 mt-6 ring-1 dark:ring-white/10 sm:-mx-6 md:mx-0 md:rounded-2xl">
+      <div className="ring-zinc-900/7.5 -mx-4 ring-1 dark:ring-white/10 sm:-mx-6 md:mx-0 md:rounded-2xl">
         <table className="divide-zinc-900/7.5 min-w-full divide-y dark:divide-white/10">
           <thead>
             <tr>

@@ -10,7 +10,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     <div className="bg-[#fafafa] dark:bg-[#111111]">
       <AppHeader />
       <div className="dashboard-container">
-        <div className="py-16 flex-1">{children}</div>
+        <div className="sm:py-10 pb-10 flex-1">{children}</div>
       </div>
       <SiteFooter className="border-t dark:border-gray-800 border-gray-200  dark:bg-black bg-white" />
     </div>

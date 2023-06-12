@@ -22,16 +22,14 @@ export function Dropdown({
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button as="div" className="inline-flex w-full justify-center">
+        <Menu.Button as="span" className="inline-flex w-full justify-center">
           <Button
+            icon={<ChevronDownIcon className="w-4 h-4" />}
+            iconPosition="end"
             variant={type === "scan" ? "outline" : "default"}
             aria-label={label}
           >
             {name}
-            <ChevronDownIcon
-              className="relative top-0.5 -mr-1 h-5 w-5"
-              aria-hidden="true"
-            />
           </Button>
         </Menu.Button>
       </div>
