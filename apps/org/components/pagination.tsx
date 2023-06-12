@@ -23,7 +23,7 @@ export function Pagination(props: PaginationProps) {
       <Button
         size={"sm"}
         variant={"outline"}
-        className={cn(`ring-blue-600 ring-1 m-2`)}
+        className={cn(`m-2`)}
         disabled={currentPage === 1}
         onClick={goToPreviousPage}
       >
@@ -37,7 +37,7 @@ export function Pagination(props: PaginationProps) {
       <Button
         size={"sm"}
         variant={"outline"}
-        className={cn(`ring-blue-600 ring-1 m-2`)}
+        className={cn(`m-2`)}
         disabled={currentPage * itemsPerPage >= pageLength}
         onClick={goToNextPage}
       >

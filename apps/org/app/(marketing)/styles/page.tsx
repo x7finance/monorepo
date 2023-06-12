@@ -51,9 +51,12 @@ export default function GettingStartedPage() {
       <SiteContentContainer>
         <PioneerDrop pioneerId="2239" lineColor="to-emerald-500" />
         <div>
-          <div className="grid grid-cols-2 gap-4 p-4">
+          <div className="grid grid-cols-2 p-4">
             {colorList.map((color) => (
-              <div key={color} className="flex items-center">
+              <div
+                key={color}
+                className="flex items-center p-2 rounded-md odd:rounded-r-none even:rounded-l-none odd:border-r-0 even:border-l-0 mb-2 border-zinc-200/30 border"
+              >
                 <div
                   className="w-12 h-12 mr-4 rounded-full border dark:border-zinc-700 border-zinc-300"
                   style={{ backgroundColor: `hsl(var(--${color}))` }}

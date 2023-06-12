@@ -38,7 +38,7 @@ export function AppTabNavigation() {
           ))}
         </select>
       </div>
-      <div className="hidden sm:block mt-3">
+      <div className="hidden sm:block mt-1">
         <div className="nav-shadow px-6">
           <nav className="-mb-px flex" aria-label="Tabs">
             {DASHBOARD_TABS_NAV.map((tab) => {
