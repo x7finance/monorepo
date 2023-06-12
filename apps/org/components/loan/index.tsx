@@ -215,20 +215,14 @@ export function Loan({ id, chainId, loanType }: LoansProps) {
         <div className="flex justify-center w-full">
           {loanID ? (
             <Link
-              href={`${generateChainBase(
-                chainId
-              )}/token/${generateX7InitialLiquidityLoanTermContract(
-                loanType
-              )}?a=${loanID}`}
+              href={`/dashboard/loans/[id]`}
+              as={`/dashboard/loans/${id}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex justify-center gap-0.5 overflow-hidden rounded-full bg-violet-400/20 px-3 py-1 text-sm font-medium text-violet-600 ring-1 ring-inset ring-violet-400/80 transition hover:bg-violet-400/70 hover:text-white hover:ring-violet-700 dark:bg-violet-400/10 dark:text-violet-400 dark:ring-violet-400/20 dark:hover:bg-violet-400/10 dark:hover:text-violet-300 dark:hover:ring-violet-300"
             >
               <span className="whitespace-nowrap">
                 <span>View</span>
-                <span className="hidden xl:ml-1 xl:inline-block">
-                  on Explorer
-                </span>
               </span>
             </Link>
           ) : null}
