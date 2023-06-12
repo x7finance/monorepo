@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function MarketplacePage() {
   return (
-    <div className="my-10 xl:max-w-none">
+    <div className="xl:max-w-none">
       <DashboardTitle
         title="NFT Marketplace"
         secondaryButton={{

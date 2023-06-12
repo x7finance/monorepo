@@ -62,9 +62,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const content = (
       <>
-        {iconPosition === "start" && icon}
+        {icon && iconPosition === "start" && (
+          <span className="mr-2">{icon}</span>
+        )}
         <span className={loading ? "opacity-0" : ""}>{children}</span>
-        {iconPosition === "end" && icon}
+        {icon && iconPosition === "end" && <span className="ml-2">{icon}</span>}
       </>
     )
 
@@ -72,7 +74,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         className={cn(
           baseStyle,
-          loading ? "opacity-75 cursor-not-allowed" : ""
+          loading ? "opacity-75 cursor-not-allowed" : "",
+          className
         )}
         ref={ref}
         disabled={loading}

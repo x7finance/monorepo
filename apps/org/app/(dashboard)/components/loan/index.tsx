@@ -7,6 +7,7 @@ import {
   generateChainDenomination,
   generateX7InitialLiquidityLoanTermContract,
 } from "utils"
+import { buttonVariants } from "ui-server"
 import { AlertCircle, CheckCircleIcon, ClipboardIcon, FlagIcon } from "icons"
 
 import Link from "next/link"
@@ -215,7 +216,12 @@ export function Loan({ id, chainId, loanType }: LoansProps) {
               )}?a=${loanID}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex justify-center gap-0.5 overflow-hidden rounded-full bg-violet-400/20 px-3 py-1 text-sm font-medium text-violet-600 ring-1 ring-inset ring-violet-400/80 transition hover:bg-violet-400/70 hover:text-white hover:ring-violet-700 dark:bg-violet-400/10 dark:text-violet-400 dark:ring-violet-400/20 dark:hover:bg-violet-400/10 dark:hover:text-violet-300 dark:hover:ring-violet-300"
+              className={cn(
+                buttonVariants({
+                  variant: "outline",
+                }),
+                "inline-flex"
+              )}
             >
               <span className="whitespace-nowrap">
                 <span>View</span>
