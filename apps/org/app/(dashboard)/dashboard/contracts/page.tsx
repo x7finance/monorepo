@@ -8,11 +8,12 @@ import Link from "next/link"
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { TokenLinksEnum } from "@/lib/types/links"
 import { Dropdown } from "@/components/dropdown/contracts"
+import { Table } from "@/components/table"
+import { ContractCopy } from "@/components/ui-client/contractCopy"
+import { CopyButton } from "@/components/ui-client/copy-button"
 import { DashboardContainer } from "@/app/(dashboard)/components/dashboard-container"
 import { DashboardSubheader } from "@/app/(dashboard)/components/dashboard-subheader"
 import { DashboardTitle } from "@/app/(dashboard)/components/dashboard-title"
-
-import { ContractCopy } from "./components/contractCopy"
 
 const intliq = [
   {
@@ -203,46 +204,16 @@ export default function ContractsPage() {
         />
         <DashboardContainer>
           <>
-            <div className="-mx-4 mt-10 ring-1 ring-zinc-900/7.5 dark:ring-white/10 sm:-mx-6 md:mx-0 md:rounded-2xl">
-              <table className="min-w-full divide-y divide-zinc-900/7.5 dark:divide-white/10">
-                <thead>
-                  <tr>
-                    <th
-                      scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 sm:pl-6"
-                    >
-                      Token
-                    </th>
-
-                    <th
-                      scope="col"
-                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell"
-                    >
-                      Description
-                    </th>
-                    <th
-                      scope="col"
-                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell"
-                    >
-                      Chart
-                    </th>
-                    <th
-                      scope="col"
-                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell"
-                    >
-                      Scan
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {tokens.map((t, idx) => (
-                    <tr key={t.contract}>
-                      <td
-                        className={cn(
-                          idx === 0 ? "" : "border-t border-transparent",
-                          "relative py-4 pl-4 pr-3 text-sm sm:pl-6"
-                        )}
-                      >
+            <div className="-mx-4 mt-10 md:mx-2">
+              <Table
+                data={tokens}
+                columns={[
+                  {
+                    header: "Token",
+                    accessor: "token",
+                    responsive: false,
+                    cellRenderer: (t) => (
+                      <>
                         <div className="font-medium text-zinc-900 dark:text-zinc-100">
                           {t.name}
                           <div className="relative inline-block ml-2 top-1 lg:hidden">
@@ -266,33 +237,52 @@ export default function ContractsPage() {
                           </div>
                         </div>
                         <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
-                          <span>{t.description}</span>
-                          <ContractCopy contract={t.contract} />
+                          <span className="text-zinc-600 dark:text-zinc-300">
+                            {t.description}
+                          </span>
+                          <span className="flex">
+                            <ContractCopy
+                              name={"Contract"}
+                              contract={t.contract}
+                            />
+                            <span className="ml-auto">
+                              <Dropdown
+                                type="xchange"
+                                contract={t.contract}
+                                label={"Trade this token on Xchange"}
+                                name={
+                                  <span className="whitespace-nowrap">
+                                    <span>Trade</span>
+                                    <span className="hidden xl:ml-1 xl:inline-block">
+                                      on Xchange
+                                    </span>
+                                  </span>
+                                }
+                              />
+                            </span>
+                          </span>
                         </div>
-                        {idx !== 0 ? (
-                          <div className="absolute -top-px left-6 right-0 h-px bg-zinc-900/7.5 dark:bg-white/10" />
-                        ) : null}
-                      </td>
-                      <td
-                        className={cn(
-                          idx === 0
-                            ? ""
-                            : "border-t border-zinc-900/7.5 dark:border-white/10",
-                          "hidden px-3 py-3.5 text-xs text-zinc-500 dark:text-zinc-400 lg:table-cell"
-                        )}
-                      >
+                      </>
+                    ),
+                  },
+
+                  {
+                    header: "Description",
+                    accessor: "description",
+                    responsive: true,
+                    cellRenderer: (t) => (
+                      <div className="text-xs text-zinc-700 dark:text-zinc-200">
                         <span>{t.description}</span>
                         <ContractCopy contract={t.contract} />
-                      </td>
-
-                      <td
-                        className={cn(
-                          idx === 0
-                            ? ""
-                            : "border-t border-zinc-900/7.5 dark:border-white/10",
-                          "hidden px-3 py-3.5 text-sm text-zinc-500 dark:text-zinc-400 lg:table-cell"
-                        )}
-                      >
+                      </div>
+                    ),
+                  },
+                  {
+                    header: "Chart",
+                    accessor: "chart",
+                    responsive: true,
+                    cellRenderer: (t) => (
+                      <>
                         <div className="flex items-center space-x-2">
                           <div className="flex flex-shrink-0 space-x-1">
                             {ChainsArray.map((c, id) => (
@@ -310,29 +300,30 @@ export default function ContractsPage() {
                             ))}
                           </div>
                         </div>
-                      </td>
-
-                      <td
-                        className={cn(
-                          idx === 0
-                            ? ""
-                            : "border-t border-zinc-900/7.5 dark:border-white/10",
-                          "hidden px-3 py-3.5 text-sm text-zinc-500 dark:text-zinc-400 lg:table-cell"
-                        )}
-                      >
+                      </>
+                    ),
+                  },
+                  {
+                    header: "Scan",
+                    accessor: "scan",
+                    responsive: true,
+                    cellRenderer: (t) => (
+                      <>
                         <Dropdown
                           type="scan"
                           contract={t.contract}
                           label={"Scan this contract on the blockchain scanner"}
                           name={"Scan"}
                         />
-                      </td>
-                      <td
-                        className={cn(
-                          idx === 0 ? "" : "border-t border-transparent",
-                          "relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6"
-                        )}
-                      >
+                      </>
+                    ),
+                  },
+                  {
+                    header: "",
+                    accessor: "trade",
+                    responsive: true,
+                    cellRenderer: (t) => (
+                      <>
                         <div className="flex justify-center w-full">
                           <Dropdown
                             type="xchange"
@@ -348,18 +339,15 @@ export default function ContractsPage() {
                             }
                           />
                         </div>
-                        {idx !== 0 ? (
-                          <div className="absolute -top-px left-0 right-6 h-px bg-zinc-900/7.5 dark:bg-white/10" />
-                        ) : null}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                      </>
+                    ),
+                  },
+                ]}
+              />
             </div>
           </>
 
-          <>
+          <div className="-mx-4 mt-10 md:mx-2">
             <DashboardSubheader
               id="utility"
               title="Utility Tokens"
@@ -447,7 +435,7 @@ export default function ContractsPage() {
                 </tbody>
               </table>
             </div>
-          </>
+          </div>
 
           <>
             <DashboardSubheader
