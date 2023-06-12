@@ -22,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function DashboardIndexPage() {
   return (
-    <div className="my-10 xl:max-w-none">
+    <div className="xl:max-w-none">
       <DashboardTitle
         title="Live Pairs"
         subHeader="The latest pairs created on Xchange"

@@ -23,7 +23,7 @@ export function LivePairsTable() {
 
   return (
     <>
-      <div className="justify-center p-4 mt-6 overflow-x-auto border rounded-md dark:border-zinc-800 border-zinc-200">
+      <div className="justify-center px-1 py-5 overflow-x-auto">
         <div className="md:justify-center flex space-x-4">
           <Button
             size={"sm"}
@@ -154,7 +154,7 @@ function PairsTable({ chainId }) {
 
   return (
     <>
-      <div className="ring-zinc-900/7.5 -mx-4 mt-6 ring-1 dark:ring-white/10 sm:-mx-6 md:mx-0 md:rounded-2xl">
+      <div className="ring-zinc-900/7.5 -mx-4 ring-1 dark:ring-white/10 sm:-mx-6 md:mx-0 md:rounded-2xl">
         <table className="divide-zinc-900/7.5 min-w-full divide-y dark:divide-white/10">
           <thead>
             <tr>
