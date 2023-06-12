@@ -3,11 +3,13 @@ export enum DashboardLinksEnum {
   DAO = "/dashboard/dao/",
   Contracts = "/dashboard/contracts/",
   Marketplace = "/dashboard/marketplace/",
+  Loans = "/dashboard/loans/",
 }
 
 export enum TokenLinksEnum {
   Index = "/tokens/",
-  X7D = "/tokens/x7d/",
+  // TODO: fix this
+  X7D = "/products/x7d/",
   X7R = "/tokens/x7r/",
   X7DAO = "/tokens/x7dao/",
   X7101 = "/tokens/x7101/",

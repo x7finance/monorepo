@@ -1,6 +1,7 @@
 import { SocialsEnum, X7LinksEnum } from "common"
 import { cn } from "utils"
-import { Xchange } from "icons"
+import { buttonVariants } from "ui-server"
+import { DotIcon, RocketIcon, Xchange } from "icons"
 
 import { Metadata } from "next"
 import Image from "next/image"
@@ -8,10 +9,11 @@ import Link from "next/link"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { DocsLinks, TokenLinksEnum } from "@/lib/types/links"
-import { buttonVariants } from "@/components/ui/button"
 import { GradientTypes } from "@/components/gradients"
 import { PioneerDrop } from "@/components/pioneer-drop"
 
+import { SectionHeader } from "./components/section-header"
+import { SectionStep } from "./components/section-step"
 import { HeaderVideoComponent } from "./components/video"
 
 const metadata = {
@@ -32,41 +34,27 @@ export default function IndexPage() {
       <section className="space-y-6 pb-8 md:pb-12">
         <HeaderVideoComponent />
         <div className="pointer-events-none absolute inset-x-0 text-sm md:text-base top-4 sm:flex sm:justify-center sm:px-6 sm:pb-5 lg:px-8">
-          <div className="pointer-events-auto flex items-center announcement-shadow justify-between gap-x-6 bg-black border-zinc-900 border px-6 py-3 sm:rounded-xl sm:py-3 sm:pl-4 sm:pr-3.5">
-            <p className="text-zinc-400 tracking-tight">
-              <Link
-                href={X7LinksEnum.Xchange}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-4 w-4 inline-block text-zinc-400 mr-2"
-                >
-                  <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
-                  <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
-                  <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
-                  <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
-                </svg>
-                <strong className="font-semibold text-zinc-200">
-                  X7 has launched on 5 chains
-                </strong>
-                <svg
-                  viewBox="0 0 2 2"
-                  className="mx-2 inline h-0.5 w-0.5 fill-current"
-                  aria-hidden="true"
-                >
-                  <circle cx={1} cy={1} r={1} />
-                </svg>
-                Launch with an Initial Liquidity Loan{` `}
-                <span aria-hidden="true">&rarr;</span>
-              </Link>
-            </p>
+          <div className="pointer-events-auto announcement-shadow justify-between gap-x-6 bg-black border-zinc-900 border px-6 py-1.5 sm:rounded-xl sm:py-3 sm:pl-4 sm:pr-3.5">
+            <Link
+              href={X7LinksEnum.Xchange}
+              target="_blank"
+              className="text-zinc-400 tracking-tight"
+              rel="noopener noreferrer"
+            >
+              <div className="flex flex-col sm:flex-row justify-center items-center">
+                <div>
+                  <RocketIcon className="h-4 w-4 inline-block text-zinc-400 mr-2" />
+                  <strong className="font-semibold text-zinc-200">
+                    X7 has launched on 5 chains
+                  </strong>
+                </div>
+                <div className="block">
+                  <DotIcon className="mx-2 hidden sm:inline h-2 w-2 fill-current" />
+                  Launch with an Initial Liquidity Loan{` `}
+                  <span aria-hidden="true">&rarr;</span>
+                </div>
+              </div>
+            </Link>
           </div>
         </div>
         <div className="container flex flex-col items-center sm:gap-4 text-center relative mt-16">
@@ -99,7 +87,7 @@ export default function IndexPage() {
 
           <span
             data-content="On"
-            className="relative sm:text-3xl xl:text-4xl block italic before:content-[attr(data-content)] before:w-full before:z-0 before:block before:absolute before:top-0 before:px-2 before:bottom-0 before:left-0 before:text-center before:text-hero-header"
+            className="relative text-2xl sm:text-3xl xl:text-4xl block italic before:content-[attr(data-content)] before:w-full before:z-0 before:block before:absolute before:top-0 before:px-2 before:bottom-0 before:left-0 before:text-center before:text-hero-header"
           >
             <span className="px-6 text-hero text-on">On</span>
           </span>
@@ -114,7 +102,7 @@ export default function IndexPage() {
             />
           </span>
 
-          <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8 bg-transparent"></p>
+          <p className="max-w-[42rem] leading-normal sm:text-xl sm:leading-8 bg-transparent"></p>
           <div className="gap-y-2 md:gap-x-3 md:gap-y-0 flex flex-col-reverse md:flex-row items-center">
             <Link
               href={DocsLinks.Index}
@@ -123,7 +111,7 @@ export default function IndexPage() {
                   variant: "outline",
                   size: "lg",
                 }),
-                "text-md h-12 border-zinc-500 text-white hover:text-white hover:shadow-sm transition-all duration-500 hover:shadow-white hover:bg-transparent w-full"
+                "text-md h-12 border-zinc-500 hover:text-white hover:shadow-sm transition-all duration-500 hover:shadow-white hover:bg-transparent w-full"
               )}
             >
               Read Docs
@@ -190,7 +178,7 @@ export default function IndexPage() {
                 />
                 <div className="mx-auto max-w-2xl sm:mx-0 sm:max-w-none">
                   <Image
-                    src="/images/home/xchange-3.png"
+                    src={`${process.env.NEXT_PUBLIC_ASSETS_URL}/images/home/xchange.png`}
                     alt="Xchange screenshot"
                     width={2432}
                     height={1442}
@@ -219,7 +207,7 @@ export default function IndexPage() {
         />
         <div className="mx-auto max-w-7xl md:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl px-2 lg:max-w-none">
-            <StepSection
+            <SectionStep
               header="Kickstart Your Project with the Right Liquidity"
               subHeader="Determine the optimal liquidity level to make your project's launch a success. By borrowing liquidity from Xchange to launch your token, you'll have the ability to attract larger investments early with healthier liquidity levels"
               pioneerId="0600"
@@ -235,7 +223,7 @@ export default function IndexPage() {
                 "Preserve cash that you'd otherwise tie up in liquidity",
               ]}
             />
-            <StepSection
+            <SectionStep
               header="Choose the Perfect Loan for Your Project"
               subHeader="Flexible loan options to fuel the growth of your project - regardless of size"
               pioneerId="0621"
@@ -250,13 +238,13 @@ export default function IndexPage() {
                 "ETH, BNB, MATIC, and more",
               ]}
             />
-            <StepSection
+            <SectionStep
               header="Make a Splash with Your Launch on Xchange"
               subHeader="Seamless Launches for Maximum Impact"
               pioneerId="0590"
               gradient={GradientTypes.redLight}
               checkColor="text-rose-600"
-              highlightHeader="Diverse loan options"
+              highlightHeader="High Availability Launch Tooling"
               highlights={[
                 "Smooth pair launch",
                 "High liquidity provision",
@@ -264,7 +252,7 @@ export default function IndexPage() {
                 "All pairs available at your investors fingertips",
               ]}
             />
-            <StepSection
+            <SectionStep
               header="Choose How You Want to Pay Off Your Loan"
               subHeader="Seamless Launches for Maximum Impact"
               pioneerId="0166"
@@ -291,21 +279,21 @@ export default function IndexPage() {
         >
           <div className="flex h-full w-full items-center justify-center bg-white dark:bg-black rounded-3xl">
             <div className="mx-auto max-w-2xl lg:max-w-4xl py-12">
-              <h3 className="mt-1 mx-4 sm:text-3xl text-xl font-bold tracking-tight dark:text-hero-header text-hero-header-light italic text-center">
+              <h3 className="mt-1 mx-4 sm:text-3xl text-xl font-bold tracking-tight dark:text-hero-header-regular text-hero-header-light italic text-center">
                 Common Token Launch Scenario
               </h3>
               <PioneerDrop lineColor="to-emerald-500" height={50} />
               <figure>
                 <blockquote className="text-center mx-4 font-semibold tracking-tight leading-8 text-zinc-900 dark:text-zinc-300 sm:leading-9">
                   <p className="italic text-base sm:text-lg md:text-2xl">
-                    {`Bruce Lee has a great idea for a token, but only has 10 Eth
-                    for his startup captial. Bruce needs to pay for product,
+                    {`Bruce Lee has a great idea for a token, but only has 10 ETH
+                    in startup captial available. Bruce needs to pay for product,
                     marketing, community growth, and many other expenses.`}
                   </p>
                   <p className="italic mt-5 text-base sm:text-lg md:text-2xl">
                     {`Before X7, Bruce would need to use 20-30% of his startup
                     capital just for liquidity, and he'd rarely get it back.
-                    Using X7, Bruce can take just 0.5 Eth and leverage it 10X to
+                    Using X7, Bruce can take just 0.5 ETH and leverage it 10X to
                     launch with sufficient liquidity and use his cash on hand
                     more efficiently.`}
                   </p>
@@ -318,19 +306,11 @@ export default function IndexPage() {
                     src={"https://img.x7.finance/pioneers/1234.png"}
                     alt="Bruce Lee Pioneer Image"
                   />
-                  <div className="mt-4 flex items-center justify-center space-x-3 text-base">
+                  <div className="mt-4 flex items-center justify-center space-x-1 text-base">
                     <div className="font-semibold text-zinc-900 dark:text-zinc-100">
                       Bruce Lee
                     </div>
-                    <svg
-                      viewBox="0 0 2 2"
-                      width={3}
-                      height={3}
-                      aria-hidden="true"
-                      className="fill-zinc-900 dark:fill-zinc-100"
-                    >
-                      <circle cx={1} cy={1} r={1} />
-                    </svg>
+                    <DotIcon className="fill-zinc-900 dark:fill-zinc-100" />
                     <div className="text-zinc-600 dark:text-zinc-400">
                       Project Dev
                     </div>
@@ -369,8 +349,8 @@ export default function IndexPage() {
 
               <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg bg-zinc-100 md:order-last">
                 <Image
-                  src="/images/home/astronaut.gif"
-                  alt="Xchange screenshot"
+                  src={`${process.env.NEXT_PUBLIC_ASSETS_URL}/images/home/astronaut.gif`}
+                  alt="Pioneer Astronaut Image"
                   width={1000}
                   height={1000}
                   className="object-cover object-center"
@@ -459,51 +439,13 @@ const features = [
   },
 ]
 
-function SectionHeader(props: any) {
-  const {
-    pioneerId,
-    subHeader,
-    header,
-    description,
-    lineColor,
-    gradientColor,
-    hasSubSection,
-  } = props
-
-  return (
-    <div
-      className={cn(
-        "mx-auto max-w-2xl text-center",
-        !hasSubSection ? `mb-16` : ``
-      )}
-    >
-      <PioneerDrop pioneerId={pioneerId} lineColor={lineColor} />
-      <p
-        className={cn(
-          gradientColor,
-          `inline font-bold bg-gradient-to-r bg-clip-text font-display text-xl sm:text-3xl my-3 uppercase text-transparent`
-        )}
-      >
-        {subHeader}
-      </p>
-      <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl dark:text-white text-black">
-        {header}
-      </h2>
-
-      <p className="mt-6 text-xl leading-8 text-zinc-400 dark:text-zinc-500">
-        {description}
-      </p>
-    </div>
-  )
-}
-
 const incentives = [
   {
     name: "Diverse Opportunities",
     imageSrc: "https://img.x7.finance/pioneers/0123.png",
     description:
       "X7 Finance provides a range of investment avenues including participating in trading ERC-20 tokens on Xchange, to contributing to our lending pool to earn potential returns, or purchasing our unique Utility NFTs for exclusive benefits, and holding our native tokens like X7 DAO for governance rights, all while emphasizing the importance of individual research and risk assessment.",
-    href: TokenLinksEnum.X7DAO,
+    href: "/docs/whitepaper/tokenomics/",
     linkText: <>Explore Tokenomics &#8594;</>,
     gradient: GradientTypes.marsSunset,
   },
@@ -527,86 +469,3 @@ const incentives = [
     isExternal: true,
   },
 ]
-
-function StepSection(props: any) {
-  const {
-    header,
-    subHeader,
-    highlightHeader,
-    highlights,
-    pioneerId,
-    gradient,
-    checkColor,
-    isReverse,
-  } = props
-
-  return (
-    <>
-      <span
-        className={
-          "w-[1px] mx-auto block h-[100px] bg-gradient-to-b pioneer-line-drop to-zinc-600 relative top-10"
-        }
-      />
-      <span className="w-[11px] h-[11px] rounded-full my-1 circle-shadow mx-auto block top-10 relative" />
-      <div
-        className={cn(
-          isReverse ? `lg:flex-row-reverse` : ``,
-          `mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-zinc-200 dark:ring-zinc-800 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none`
-        )}
-      >
-        <div className="p-8 sm:p-10 lg:flex-auto">
-          <h3 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
-            {header}
-          </h3>
-          <p className="mt-6 text-base leading-7 text-zinc-600 dark:text-zinc-400">
-            {subHeader}
-          </p>
-          <div className="mt-10 flex items-center gap-x-4">
-            <h4
-              className={cn(
-                gradient,
-                `flex-none bg-gradient-to-r bg-clip-text font-display text-sm font-semibold leading-6 text-transparent`
-              )}
-            >
-              {highlightHeader}
-            </h4>
-            <div className="h-px flex-auto bg-zinc-100 dark:bg-zinc-900" />
-          </div>
-          <ul
-            role="list"
-            className="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-zinc-600 dark:text-zinc-400 sm:grid-cols-2 sm:gap-6"
-          >
-            {highlights.map((highlight, key) => (
-              <li key={key} className="flex gap-x-3">
-                <svg
-                  className={cn(checkColor, `h-6 w-5 flex-none`)}
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                {highlight}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
-          <div className="lg:flex lg:flex-col lg:justify-center">
-            <Image
-              src={`https://img.x7.finance/pioneers/${pioneerId}.png`}
-              alt="Random Pioneer Image"
-              width={1000}
-              height={1000}
-              className="object-cover rounded-2xl ring-1 ring-inset ring-zinc-900/5"
-            />
-          </div>
-        </div>
-      </div>
-    </>
-  )
-}

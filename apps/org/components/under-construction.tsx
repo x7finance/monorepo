@@ -1,4 +1,5 @@
 import { cn, getRandomPioneerNumber } from "utils"
+import { buttonVariants } from "ui-server"
 
 import Image from "next/image"
 import Link from "next/link"
@@ -6,7 +7,6 @@ import Link from "next/link"
 import { GradientTypes } from "@/components/gradients"
 
 import { PioneerDrop } from "./pioneer-drop"
-import { buttonVariants } from "./ui/button"
 
 interface ConstructionProps {
   description?: string

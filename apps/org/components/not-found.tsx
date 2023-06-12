@@ -4,30 +4,7 @@ import { ChevronRightIcon, X7Logo } from "icons"
 import Image from "next/image"
 import Link from "next/link"
 
-import { DashboardLinksEnum, DocsLinks } from "@/lib/types/links"
-
-const links = [
-  {
-    name: "Documentation",
-    href: DocsLinks.Index,
-    description: "Learn how to launch on Xchange.",
-  },
-  {
-    name: "Marketplace",
-    href: DashboardLinksEnum.Marketplace,
-    description: "Buy and sell X7 Finance NFTs",
-  },
-  {
-    name: "Guides",
-    href: DocsLinks.Guides,
-    description: "Comprehensive guides on how to launch an a pair on Xchange.",
-  },
-  {
-    name: "Whitepaper",
-    href: DocsLinks.Whitepaper,
-    description: "Read the X7 Finance whitepaper from our founding devs.",
-  },
-]
+import { NOT_FOUND_LINKS } from "@/config/site"
 
 export function NotFoundContent() {
   return (
@@ -40,7 +17,7 @@ export function NotFoundContent() {
           404
         </p>
         <h1 className="mt-4 text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-5xl">
-          Your trusted the code, <br />
+          You trusted the code, <br />
           {`but this page doesn't exist.`}
         </h1>
         <p className="mt-4 text-base leading-7 text-zinc-600 dark:text-zinc-500 sm:mt-6 sm:text-lg sm:leading-8">
@@ -53,7 +30,7 @@ export function NotFoundContent() {
           role="list"
           className="-mt-6 divide-y divide-zinc-900/5 border-b border-zinc-900/5 dark:divide-zinc-100/5 dark:border-zinc-100/5"
         >
-          {links.map((link, linkIdx) => (
+          {NOT_FOUND_LINKS.map((link, linkIdx) => (
             <li key={linkIdx} className="relative flex gap-x-6 py-6">
               <div className="flex h-14 w-14 flex-none items-center justify-center">
                 <Image

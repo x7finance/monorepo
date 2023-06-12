@@ -2,21 +2,17 @@
 
 import { X7LinksEnum } from "common"
 import { cn } from "utils"
-import { X7Logo } from "icons"
+import { buttonVariants } from "ui-server"
+import { ChevronUpIcon, MenuIcon, X7Logo } from "icons"
 
 import Link from "next/link"
 import { Popover } from "@headlessui/react"
 import { AnimatePresence, motion } from "framer-motion"
 
-import {
-  DashboardLinksEnum,
-  DocsLinks,
-  MarketingLinks,
-  ProductsLinkEnum,
-} from "@/lib/types/links"
+import { MOBILE_NAV_LINKS } from "@/config/site"
+import { DocsLinks } from "@/lib/types/links"
 
 import { ModeToggle } from "./mode-toggle"
-import { buttonVariants } from "./ui/button"
 
 function MobileNavLink({ children, ...props }) {
   return (
@@ -42,9 +38,9 @@ export function MobileNavigation({ className }: { className: string }) {
           >
             {({ open }) =>
               open ? (
-                <ChevronUpIcon className="h-6 w-6" />
+                <ChevronUpIcon className="w-6 h-6" />
               ) : (
-                <MenuIcon className="h-6 w-6" />
+                <MenuIcon className="w-6 h-6" />
               )
             }
           </Popover.Button>
@@ -69,28 +65,21 @@ export function MobileNavigation({ className }: { className: string }) {
                     y: -32,
                     transition: { duration: 0.2 },
                   }}
-                  className="absolute z-30 inset-x-0 top-0 origin-top rounded-b-2xl bg-zinc-50 dark:bg-zinc-900 px-6 pb-6 pt-4 shadow-2xl shadow-zinc-900/20 dark:shadow-zinc-50/20"
+                  className="absolute inset-x-0 top-0 z-30 px-6 pt-4 pb-6 origin-top shadow-2xl rounded-b-2xl bg-zinc-50 dark:bg-zinc-900 shadow-zinc-900/20 dark:shadow-zinc-50/20"
                 >
-                  <div className="flex mb-8 items-center">
-                    <X7Logo className="h-8 w-auto fill-black dark:fill-white" />
+                  <div className="flex items-center mb-8">
+                    <X7Logo className="w-auto h-8 fill-black dark:fill-white" />
                   </div>
                   <div className="space-y-4">
-                    <MobileNavLink href={MarketingLinks.GetStarted}>
-                      Get Started
-                    </MobileNavLink>
-                    <MobileNavLink href={DashboardLinksEnum.Marketplace}>
-                      Marketplace
-                    </MobileNavLink>
-                    <MobileNavLink href={DashboardLinksEnum.Contracts}>
-                      Tokens
-                    </MobileNavLink>
-                    <MobileNavLink href={DashboardLinksEnum.DAO}>
-                      DAO
-                    </MobileNavLink>
+                    {MOBILE_NAV_LINKS.map((link, key) => (
+                      <MobileNavLink key={`mobile-nav-${key}`} href={link.href}>
+                        {link.name}
+                      </MobileNavLink>
+                    ))}
                   </div>
-                  <div className="mt-8 flex flex-col gap-4 text-black dark:text-white">
+                  <div className="flex flex-col gap-4 mt-8 text-black dark:text-white">
                     <ModeToggle />
-                    <div className="text-xs text-zinc-500 italic text-center">
+                    <div className="text-xs italic text-center text-zinc-500">
                       Trust No One. Trust Code. Long Live DeFi
                     </div>
                     <Link
@@ -123,31 +112,5 @@ export function MobileNavigation({ className }: { className: string }) {
         </>
       )}
     </Popover>
-  )
-}
-
-function MenuIcon(props) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
-      <path
-        d="M5 6h14M5 18h14M5 12h14"
-        strokeWidth={2}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
-
-function ChevronUpIcon(props) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
-      <path
-        d="M17 14l-5-5-5 5"
-        strokeWidth={2}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
   )
 }

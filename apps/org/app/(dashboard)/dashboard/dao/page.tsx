@@ -1,10 +1,10 @@
 import { Metadata } from "next"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { DashboardContainer } from "@/components/dashboard-container"
-import { DashboardTitle } from "@/components/dashboard-title"
 import { UnderConstruction } from "@/components/under-construction"
-import { Web3Wrapper } from "@/components/web3-wrapper"
+import { Web3Wrapper } from "@/components/web3/wrapper"
+import { DashboardContainer } from "@/app/(dashboard)/components/dashboard-container"
+import { DashboardTitle } from "@/app/(dashboard)/components/dashboard-title"
 
 const metadata = {
   title: "X7 DAO",
@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function DAOPage() {
   return (
-    <div className="my-10 xl:max-w-none">
+    <div className="xl:max-w-none">
       <DashboardTitle
         title="X7 DAO"
         primaryButton={{ text: "DAO Overview", href: "/docs/whitepaper/dao" }}

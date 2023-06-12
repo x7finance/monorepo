@@ -9,7 +9,3 @@ export function QuickLinks({
     </div>
   )
 }
-
-export default {
-  render: QuickLinks,
-}

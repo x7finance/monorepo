@@ -7,8 +7,8 @@ import "@/styles/globals.css"
 import { cn } from "utils"
 
 import { siteConfig } from "@/config/site"
-import { Toaster } from "@/components/ui/toaster"
 import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "@/components/ui-client/toast/toaster"
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -73,14 +73,15 @@ export const metadata = {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
-    images: [`https://assets.x7finance.org/images/open-graph/background.png`],
+    images: [
+      `${process.env.NEXT_PUBLIC_ASSETS_URL}/images/open-graph/background.png`,
+    ],
     creator: "@X7_Finance",
   },
   icons: {
-    icon: "https://assets.x7finance.org/images/icons/favicon.ico",
-    shortcut: "https://assets.x7finance.org/images/icons/favicon-16x16.png",
-    apple:
-      "https://assets.x7finance.org/images/icons/apple-touch-icon-120x120.png",
+    icon: `${process.env.NEXT_PUBLIC_ASSETS_URL}/images/icons/favicon.ico`,
+    shortcut: `${process.env.NEXT_PUBLIC_ASSETS_URL}/images/icons/favicon-16x16.png`,
+    apple: `${process.env.NEXT_PUBLIC_ASSETS_URL}/images/icons/apple-touch-icon-120x120.png`,
   },
   manifest: `${siteConfig.url}/site.webmanifest`,
 }

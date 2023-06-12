@@ -1,12 +1,12 @@
 import { Metadata } from "next"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { DashboardContainer } from "@/components/dashboard-container"
-import { DashboardSubheader } from "@/components/dashboard-subheader"
-import { DashboardTitle } from "@/components/dashboard-title"
-import { LivePairs } from "@/components/pairsTable"
-import { SplittersOverview } from "@/components/splittersOverview"
-import { Web3Wrapper } from "@/components/web3-wrapper"
+import { Web3Wrapper } from "@/components/web3/wrapper"
+import { DashboardContainer } from "@/app/(dashboard)/components/dashboard-container"
+import { DashboardSubheader } from "@/app/(dashboard)/components/dashboard-subheader"
+import { DashboardTitle } from "@/app/(dashboard)/components/dashboard-title"
+import { LivePairsTable } from "@/app/(dashboard)/components/livePairsTable"
+import { SplittersOverview } from "@/app/(dashboard)/components/splittersOverview"
 
 const metadata = {
   title: "Live Pairs & Contracts",
@@ -22,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function DashboardIndexPage() {
   return (
-    <div className="my-10 xl:max-w-none">
+    <div className="xl:max-w-none">
       <DashboardTitle
         title="Live Pairs"
         subHeader="The latest pairs created on Xchange"
@@ -33,7 +33,7 @@ export default function DashboardIndexPage() {
       />
       <Web3Wrapper>
         <DashboardContainer>
-          <LivePairs />
+          <LivePairsTable />
 
           <DashboardSubheader
             id="splits"

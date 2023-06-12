@@ -1,8 +1,12 @@
 import { Metadata } from "next"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { Heading } from "@/components/heading"
+import { DashboardLinksEnum } from "@/lib/types/links"
+import { GradientTypes } from "@/components/gradients"
 import { SiteContentContainer } from "@/components/site-content-container"
+import { Heading } from "@/app/(marketing)/components/heading"
+
+import { SectionStep } from "../../components/section-step"
 
 const metadata = {
   title: "Liquidty Maxi NFT",
@@ -25,17 +29,30 @@ export default function LiquidityMaxiPage() {
         subHeader="Arbitrage optimizer"
       />
       <SiteContentContainer>
-        <div className="pt-10 mt-4 border-t border-zinc-900/5 dark:border-white/5">
-          Liquidity Maxi NFTs are designed to provide added insurance to larger
-          price movements. Ownership is for those who aim to preserve as much
-          capital as possible while trading.
-          <div>
-            <ul>
-              <li>50% fee discount on X7100</li>
-              <li>25% fee discount on X7R</li>
-              <li>15% fee discount on X7DAO</li>
-            </ul>
-          </div>
+        <div className="mt-4 border-t border-zinc-900/5 dark:border-white/5">
+          <SectionStep
+            showLeadIn={false}
+            header="Liquidity Maxi NFTs are designed to provide added insurance to
+            larger price movements"
+            subHeader="X7 tokens carry a tax to fund liquidity, protocol development and
+            marketing of the X7 ecosystem."
+            pioneerId="3591"
+            gradient={GradientTypes.redLight}
+            checkColor="text-rose-600"
+            highlightHeader="Preserve Capital while trading"
+            highlights={[
+              "50% fee discount on X7100",
+              "25% fee discount on X7R",
+              "15% fee discount on X7DAO",
+              `We are expecting high levels of arbitrage amongst the x7 tokens and
+              we believe this NFT will become more and more valuable to those
+              arbitrators`,
+            ]}
+            primaryAction={{
+              text: "Buy Liquidity Maxi NFT",
+              href: DashboardLinksEnum.Marketplace,
+            }}
+          />
         </div>
       </SiteContentContainer>
     </div>

@@ -1,4 +1,4 @@
-import { DashboardHeader } from "@/components/dashboard-header"
+import { AppHeader } from "@/components/app-header"
 import { SiteFooter } from "@/components/site-footer"
 
 interface DocsLayoutProps {
@@ -8,7 +8,7 @@ interface DocsLayoutProps {
 export default function DocsLayout({ children }: DocsLayoutProps) {
   return (
     <div className="bg-[#fafafa] dark:bg-[#111111]">
-      <DashboardHeader />
+      <AppHeader />
       <div className="dashboard-container">
         <div className="flex-1">{children}</div>
       </div>
