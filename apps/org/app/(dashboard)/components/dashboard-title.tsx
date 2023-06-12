@@ -20,7 +20,7 @@ export function DashboardTitle(props: HeaderProps) {
   const { title, subHeader, secondaryButton, primaryButton } = props
 
   return (
-    <div className="border-b dark:border-zinc-800 border-zinc-200 bg-black py-10">
+    <div className="border-b dark:border-zinc-800 border-zinc-200 dark:bg-black bg-white py-10">
       <div className="px-6 md:flex md:items-center md:justify-between md:space-x-5">
         <div className="flex items-start space-x-5">
           <div className="pt-1.5">
