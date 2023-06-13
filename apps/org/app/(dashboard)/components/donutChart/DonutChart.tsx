@@ -234,14 +234,18 @@ export const DonutChart: React.FC<Props> = ({
                       scope="col"
                       className="py-3.5 pl-6 pr-3 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 sm:pl-0 md:w-20 lg:w-full"
                     >
-                      <span className="group inline-flex">Name</span>
+                      <span className="group inline-flex uppercase text-zinc-500">
+                        Name
+                      </span>
                     </th>
 
                     <th
                       scope="col"
                       className="flex justify-end px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100"
                     >
-                      <span className="group inline-flex">Share</span>
+                      <span className="group inline-flex uppercase text-zinc-500">
+                        Share
+                      </span>
                     </th>
                   </tr>
                 </thead>

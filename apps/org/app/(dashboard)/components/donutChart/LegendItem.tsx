@@ -29,7 +29,7 @@ export const LegendItem: React.FC<Props> = ({ item }) => {
 
   return (
     <tr {...clickHandlers}>
-      <td className="max-w-[200px] whitespace-nowrap py-2 pl-6 pr-3 text-sm font-medium text-zinc-900 dark:text-zinc-100 sm:pl-0">
+      <td className="max-w-[200px] whitespace-nowrap py-2 pl-6 pr-3 text-sm font-medium text-zinc-900 dark:text-zinc-100 sm:pl-1">
         <span className="flex items-center">
           <svg height={20} width={20}>
             <g>
