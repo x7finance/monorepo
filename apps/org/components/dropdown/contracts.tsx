@@ -26,6 +26,7 @@ export function Dropdown({
           <Button
             icon={<ChevronDownIcon className="w-4 h-4" />}
             iconPosition="end"
+            size={"sm"}
             variant={type === "scan" ? "outline" : "default"}
             aria-label={label}
           >

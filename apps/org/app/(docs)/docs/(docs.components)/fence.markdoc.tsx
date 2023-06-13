@@ -5,7 +5,7 @@ import { cn } from "utils"
 import { Fragment } from "react"
 import { Highlight, themes } from "prism-react-renderer"
 
-import { CopyButton } from "./copy-button.markdoc"
+import { CopyButton } from "@/components/ui-client/copy-button"
 
 export function Fence({
   children,
@@ -28,7 +28,11 @@ export function Fence({
           )}
           style={style}
         >
-          <CopyButton code={children.trimEnd()} />
+          <CopyButton
+            title="Code"
+            buttonPositionClass="top-2 right-2 absolute"
+            content={children.trimEnd()}
+          />
           <code>
             {tokens.map((line, lineIndex) => (
               <Fragment key={lineIndex}>
