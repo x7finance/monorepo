@@ -1,5 +1,5 @@
 import { BlockchainType, ContractsEnum } from "common"
-import { cn, generateChainIdentifier } from "utils"
+import { generateChainIdentifier } from "utils"
 import { ChainsArray } from "icons"
 
 import { Metadata } from "next"
@@ -10,7 +10,6 @@ import { TokenLinksEnum } from "@/lib/types/links"
 import { Dropdown } from "@/components/dropdown/contracts"
 import { Table } from "@/components/table"
 import { ContractCopy } from "@/components/ui-client/contractCopy"
-import { CopyButton } from "@/components/ui-client/copy-button"
 import { DashboardContainer } from "@/app/(dashboard)/components/dashboard-container"
 import { DashboardSubheader } from "@/app/(dashboard)/components/dashboard-subheader"
 import { DashboardTitle } from "@/app/(dashboard)/components/dashboard-title"
@@ -203,128 +202,39 @@ export default function ContractsPage() {
           }}
         />
         <DashboardContainer>
-          <>
-            <div className="-mx-4 mt-10 md:mx-2">
-              <Table
-                data={tokens}
-                columns={[
-                  {
-                    header: "Token",
-                    accessor: "token",
-                    responsive: false,
-                    cellRenderer: (t) => (
-                      <>
-                        <div className="font-medium text-zinc-900 dark:text-zinc-100">
-                          {t.name}
-                          <div className="relative inline-block ml-2 top-1 lg:hidden">
-                            <div className="flex items-center space-x-2">
-                              <div className="flex flex-shrink-0 space-x-1">
-                                {ChainsArray.map((c, id) => (
-                                  <Link
-                                    href={`https://www.dextools.io/app/en/${generateChainIdentifier(
-                                      c?.id
-                                    )}/pair-explorer/${t.contract}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    key={`${t.contract}-${id}-chart`}
-                                    className="opacity-80 hover:opacity-100"
-                                  >
-                                    <span>{c.icon}</span>
-                                  </Link>
-                                ))}
-                              </div>
+          <div className="-mx-4 mt-10 md:mx-2">
+            <Table
+              data={tokens}
+              columns={[
+                {
+                  header: "Token",
+                  accessor: "token",
+                  responsive: false,
+                  width: "100",
+                  cellRenderer: (t) => (
+                    <>
+                      <div className="font-medium text-zinc-900 dark:text-zinc-100 w-full">
+                        {t.name}
+                        <div className="relative inline-block ml-2 top-1 lg:hidden">
+                          <div className="flex items-center space-x-2">
+                            <div className="flex flex-shrink-0 space-x-1">
+                              {ChainsArray.map((c, id) => (
+                                <Link
+                                  href={`https://www.dextools.io/app/en/${generateChainIdentifier(
+                                    c?.id
+                                  )}/pair-explorer/${t.contract}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  key={`${t.contract}-${id}-chart`}
+                                  className="opacity-80 hover:opacity-100"
+                                >
+                                  <span>{c.icon}</span>
+                                </Link>
+                              ))}
                             </div>
                           </div>
                         </div>
-                        <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
-                          <span className="text-zinc-600 dark:text-zinc-300">
-                            {t.description}
-                          </span>
-                          <span className="flex">
-                            <ContractCopy
-                              name={"Contract"}
-                              contract={t.contract}
-                            />
-                            <span className="ml-auto">
-                              <Dropdown
-                                type="xchange"
-                                contract={t.contract}
-                                label={"Trade this token on Xchange"}
-                                name={
-                                  <span className="whitespace-nowrap">
-                                    <span>Trade</span>
-                                    <span className="hidden xl:ml-1 xl:inline-block">
-                                      on Xchange
-                                    </span>
-                                  </span>
-                                }
-                              />
-                            </span>
-                          </span>
-                        </div>
-                      </>
-                    ),
-                  },
-
-                  {
-                    header: "Description",
-                    accessor: "description",
-                    responsive: true,
-                    cellRenderer: (t) => (
-                      <div className="text-xs text-zinc-700 dark:text-zinc-200">
-                        <span>{t.description}</span>
-                        <ContractCopy contract={t.contract} />
-                      </div>
-                    ),
-                  },
-                  {
-                    header: "Chart",
-                    accessor: "chart",
-                    responsive: true,
-                    cellRenderer: (t) => (
-                      <>
-                        <div className="flex items-center space-x-2">
-                          <div className="flex flex-shrink-0 space-x-1">
-                            {ChainsArray.map((c, id) => (
-                              <Link
-                                href={`https://www.dextools.io/app/en/${generateChainIdentifier(
-                                  c?.id as BlockchainType
-                                )}/pair-explorer/${t.contract}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                key={`${t.contract}-${id}-chart`}
-                                className="opacity-80 hover:opacity-100"
-                              >
-                                <span>{c.icon}</span>
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-                      </>
-                    ),
-                  },
-                  {
-                    header: "Scan",
-                    accessor: "scan",
-                    responsive: true,
-                    cellRenderer: (t) => (
-                      <>
-                        <Dropdown
-                          type="scan"
-                          contract={t.contract}
-                          label={"Scan this contract on the blockchain scanner"}
-                          name={"Scan"}
-                        />
-                      </>
-                    ),
-                  },
-                  {
-                    header: "",
-                    accessor: "trade",
-                    responsive: true,
-                    cellRenderer: (t) => (
-                      <>
-                        <div className="flex justify-center w-full">
+                        <div className="inline-block float-right lg:hidden">
                           <Dropdown
                             type="xchange"
                             contract={t.contract}
@@ -339,172 +249,206 @@ export default function ContractsPage() {
                             }
                           />
                         </div>
-                      </>
-                    ),
-                  },
-                ]}
-              />
-            </div>
-          </>
+                      </div>
+                      <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
+                        <span className="text-zinc-600 dark:text-zinc-300">
+                          {t.description}
+                        </span>
+                        <span className="flex">
+                          <ContractCopy
+                            name={"Contract"}
+                            contract={t.contract}
+                          />
+                        </span>
+                      </div>
+                    </>
+                  ),
+                },
 
+                {
+                  header: "Description",
+                  accessor: "description",
+                  responsive: true,
+                  cellRenderer: (t) => (
+                    <div className="text-xs text-zinc-700 dark:text-zinc-300">
+                      <span>{t.description}</span>
+                      <ContractCopy contract={t.contract} />
+                    </div>
+                  ),
+                },
+                {
+                  header: "Chart",
+                  accessor: "chart",
+                  responsive: true,
+                  cellRenderer: (t) => (
+                    <>
+                      <div className="flex items-center space-x-2">
+                        <div className="flex flex-shrink-0 space-x-1">
+                          {ChainsArray.map((c, id) => (
+                            <Link
+                              href={`https://www.dextools.io/app/en/${generateChainIdentifier(
+                                c?.id as BlockchainType
+                              )}/pair-explorer/${t.contract}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              key={`${t.contract}-${id}-chart`}
+                              className="opacity-80 hover:opacity-100"
+                            >
+                              <span>{c.icon}</span>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </>
+                  ),
+                },
+                {
+                  header: "Scan",
+                  accessor: "scan",
+                  responsive: true,
+                  cellRenderer: (t) => (
+                    <>
+                      <Dropdown
+                        type="scan"
+                        contract={t.contract}
+                        label={"Scan this contract on the blockchain scanner"}
+                        name={"Scan"}
+                      />
+                    </>
+                  ),
+                },
+                {
+                  header: "Trade",
+                  accessor: "trade",
+                  responsive: true,
+                  cellRenderer: (t) => (
+                    <>
+                      <div className="float-right pr-4">
+                        <Dropdown
+                          type="xchange"
+                          contract={t.contract}
+                          label={"Trade this token on Xchange"}
+                          name={
+                            <span className="whitespace-nowrap">
+                              <span>Trade</span>
+                              <span className="hidden xl:ml-1 xl:inline-block">
+                                on Xchange
+                              </span>
+                            </span>
+                          }
+                        />
+                      </div>
+                    </>
+                  ),
+                },
+              ]}
+            />
+          </div>
           <div className="-mx-4 mt-10 md:mx-2">
             <DashboardSubheader
               id="utility"
               title="Utility Tokens"
               description="Tokens which are utilized to fund and borrow liquidity within the X7 ecosystem"
             />
-
-            <div className="-mx-4 mt-10 ring-1 ring-zinc-900/7.5 dark:ring-white/10 sm:-mx-6 md:mx-0 md:rounded-2xl">
-              <table className="min-w-full divide-y divide-zinc-900/7.5 dark:divide-white/10">
-                <thead>
-                  <tr>
-                    <th
-                      scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 sm:pl-6"
-                    >
-                      Hub
-                    </th>
-
-                    <th
-                      scope="col"
-                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell"
-                    >
-                      Description
-                    </th>
-
-                    <th scope="col" className="relative py-3.5 pr-4 sm:pr-6">
-                      Scan
-                      <span className="sr-only"></span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {utilityTokens.map((t, idx) => (
-                    <tr key={t.contract}>
-                      <td
-                        className={cn(
-                          idx === 0 ? "" : "border-t border-transparent",
-                          "relative py-4 pl-4 pr-3 text-sm sm:pl-6"
-                        )}
-                      >
-                        <div className="font-medium text-zinc-900 dark:text-zinc-100">
-                          {t.name}
-                        </div>
-                        <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
-                          <span>{t.description}</span>
-                          <ContractCopy contract={t.contract} />
-                        </div>
-                        {idx !== 0 ? (
-                          <div className="absolute -top-px left-6 right-0 h-px bg-zinc-900/7.5 dark:bg-white/10" />
-                        ) : null}
-                      </td>
-                      <td
-                        className={cn(
-                          idx === 0
-                            ? ""
-                            : "border-t border-zinc-900/7.5 dark:border-white/10",
-                          "hidden px-3 py-3.5 text-xs text-zinc-500 dark:text-zinc-400 lg:table-cell"
-                        )}
-                      >
-                        <span>{t.description}</span>
-                        <ContractCopy contract={t.contract} />
-                      </td>
-
-                      <td
-                        className={cn(
-                          idx === 0 ? "" : "border-t border-transparent",
-                          "relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6"
-                        )}
-                      >
-                        <div className="flex justify-center w-full">
+            <Table
+              data={utilityTokens}
+              columns={[
+                {
+                  header: "Token",
+                  accessor: "token",
+                  responsive: false,
+                  width: "100",
+                  cellRenderer: (t) => (
+                    <div>
+                      <div className="font-medium flex text-zinc-900 dark:text-zinc-100 relative">
+                        {t.name}
+                        <div className="inline-block ml-auto lg:hidden">
                           <Dropdown
-                            type="scan"
+                            type="xchange"
                             contract={t.contract}
-                            label={
-                              "Scan this contract on the blockchain scanner"
+                            label={"Mint X7D"}
+                            name={
+                              <span className="whitespace-nowrap">
+                                Mint X7D
+                              </span>
                             }
-                            name={"Scan"}
                           />
                         </div>
-                        {idx !== 0 ? (
-                          <div className="absolute -top-px left-0 right-6 h-px bg-zinc-900/7.5 dark:bg-white/10" />
-                        ) : null}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                      </div>
+                      <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
+                        <span>{t.description}</span>
+                        <ContractCopy contract={t.contract} />
+                      </div>
+                    </div>
+                  ),
+                },
+                {
+                  header: "Description",
+                  accessor: "description",
+                  responsive: true,
+                  cellRenderer: (t) => (
+                    <div className="text-xs text-zinc-700 dark:text-zinc-300">
+                      <span>{t.description}</span>
+                      <ContractCopy contract={t.contract} />
+                    </div>
+                  ),
+                },
+                {
+                  header: "Scan",
+                  accessor: "scan",
+                  responsive: true,
+                  cellRenderer: (t) => (
+                    <>
+                      <Dropdown
+                        type="scan"
+                        contract={t.contract}
+                        label={"Scan this contract on the blockchain scanner"}
+                        name={"Scan"}
+                      />
+                    </>
+                  ),
+                },
+                {
+                  header: "",
+                  accessor: "trade",
+                  responsive: true,
+                  cellRenderer: (t) => (
+                    <>
+                      <div className="flex justify-center w-full">
+                        <Dropdown
+                          type="xchange"
+                          contract={t.contract}
+                          label={"Mint X7D"}
+                          name={
+                            <span className="whitespace-nowrap">Mint X7D</span>
+                          }
+                        />
+                      </div>
+                    </>
+                  ),
+                },
+              ]}
+            />
           </div>
-
-          <>
+          <div className="-mx-4 mt-10 md:mx-2">
             <DashboardSubheader
               id="liquidity"
               title="Liquidity Hubs"
               description="Manages liquidity for a token within the X7 Finance ecosystem"
             />
-            <div className="-mx-4 mt-10 ring-1 ring-zinc-900/7.5 dark:ring-white/10 sm:-mx-6 md:mx-0 md:rounded-2xl">
-              <table className="min-w-full divide-y divide-zinc-900/7.5 dark:divide-white/10">
-                <thead>
-                  <tr>
-                    <th
-                      scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 sm:pl-6"
-                    >
-                      Hub
-                    </th>
-
-                    <th
-                      scope="col"
-                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell"
-                    >
-                      Description
-                    </th>
-
-                    <th scope="col" className="relative py-3.5 pr-4 sm:pr-6">
-                      Scan
-                      <span className="sr-only"></span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {liquidityHubs.map((t, idx) => (
-                    <tr key={t.contract}>
-                      <td
-                        className={cn(
-                          idx === 0 ? "" : "border-t border-transparent",
-                          "relative py-4 pl-4 pr-3 text-sm sm:pl-6"
-                        )}
-                      >
-                        <div className="font-medium text-zinc-900 dark:text-zinc-100">
-                          {t.name}
-                        </div>
-                        <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
-                          <span>{t.description}</span>
-                          <ContractCopy contract={t.contract} />
-                        </div>
-                        {idx !== 0 ? (
-                          <div className="absolute -top-px left-6 right-0 h-px bg-zinc-900/7.5 dark:bg-white/10" />
-                        ) : null}
-                      </td>
-                      <td
-                        className={cn(
-                          idx === 0
-                            ? ""
-                            : "border-t border-zinc-900/7.5 dark:border-white/10",
-                          "hidden px-3 py-3.5 text-xs text-zinc-500 dark:text-zinc-400 lg:table-cell"
-                        )}
-                      >
-                        <ContractCopy contract={t.contract} />
-                      </td>
-
-                      <td
-                        className={cn(
-                          idx === 0 ? "" : "border-t border-transparent",
-                          "relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6"
-                        )}
-                      >
-                        <div className="flex justify-center w-full">
+            <Table
+              data={liquidityHubs}
+              columns={[
+                {
+                  header: "Hub",
+                  accessor: "token",
+                  responsive: false,
+                  width: "300",
+                  cellRenderer: (t) => (
+                    <div>
+                      <div className="font-medium flex text-zinc-900 dark:text-zinc-100 relative">
+                        <span>{t.name}</span>
+                        <div className="inline-block ml-auto lg:hidden">
                           <Dropdown
                             type="scan"
                             contract={t.contract}
@@ -514,86 +458,62 @@ export default function ContractsPage() {
                             name={"Scan"}
                           />
                         </div>
-                        {idx !== 0 ? (
-                          <div className="absolute -top-px left-0 right-6 h-px bg-zinc-900/7.5 dark:bg-white/10" />
-                        ) : null}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </>
-
-          <>
+                      </div>
+                      <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
+                        <span>{t.description}</span>
+                        <ContractCopy contract={t.contract} />
+                      </div>
+                    </div>
+                  ),
+                },
+                {
+                  header: "Description",
+                  accessor: "description",
+                  responsive: true,
+                  cellRenderer: (t) => (
+                    <div className="text-xs text-zinc-700 dark:text-zinc-300">
+                      <span>{t.description}</span>
+                      <ContractCopy contract={t.contract} />
+                    </div>
+                  ),
+                },
+                {
+                  header: "Scan",
+                  accessor: "scan",
+                  responsive: true,
+                  cellRenderer: (t) => (
+                    <div className="float-right pr-4">
+                      <Dropdown
+                        type="scan"
+                        contract={t.contract}
+                        label={"Scan this contract on the blockchain scanner"}
+                        name={"Scan"}
+                      />
+                    </div>
+                  ),
+                },
+              ]}
+            />
+          </div>
+          <div className="-mx-4 mt-10 md:mx-2">
             <DashboardSubheader
               id="discount"
               title="Discount Authorities"
               description="Ensures discounts provided by X7 Utility NFT's are valid and applied appropriately."
             />
-            <div className="-mx-4 mt-10 ring-1 ring-zinc-900/7.5 dark:ring-white/10 sm:-mx-6 md:mx-0 md:rounded-2xl">
-              <table className="min-w-full divide-y divide-zinc-900/7.5 dark:divide-white/10">
-                <thead>
-                  <tr>
-                    <th
-                      scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 sm:pl-6"
-                    >
-                      Authority
-                    </th>
-
-                    <th
-                      scope="col"
-                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell"
-                    >
-                      Description
-                    </th>
-
-                    <th scope="col" className="relative py-3.5 pr-4 sm:pr-6">
-                      Scan
-                      <span className="sr-only"></span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {discountAuthorities.map((t, idx) => (
-                    <tr key={t.contract}>
-                      <td
-                        className={cn(
-                          idx === 0 ? "" : "border-t border-transparent",
-                          "relative py-4 pl-4 pr-3 text-sm sm:pl-6"
-                        )}
-                      >
-                        <div className="font-medium text-zinc-900 dark:text-zinc-100">
-                          {t.name}
-                        </div>
-                        <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
-                          <span>{t.description}</span>
-                          <ContractCopy contract={t.contract} />
-                        </div>
-                        {idx !== 0 ? (
-                          <div className="absolute -top-px left-6 right-0 h-px bg-zinc-900/7.5 dark:bg-white/10" />
-                        ) : null}
-                      </td>
-                      <td
-                        className={cn(
-                          idx === 0
-                            ? ""
-                            : "border-t border-zinc-900/7.5 dark:border-white/10",
-                          "hidden px-3 py-3.5 text-xs text-zinc-500 dark:text-zinc-400 lg:table-cell"
-                        )}
-                      >
-                        <span>{t.description}</span>
-                        <ContractCopy contract={t.contract} />
-                      </td>
-
-                      <td
-                        className={cn(
-                          idx === 0 ? "" : "border-t border-transparent",
-                          "relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6"
-                        )}
-                      >
-                        <div className="flex justify-center w-full">
+            <Table
+              data={discountAuthorities}
+              columns={[
+                {
+                  header: "Authorities",
+                  accessor: "token",
+                  responsive: false,
+                  width: "300",
+                  cellRenderer: (t) => (
+                    <div>
+                      <div className="font-medium flex text-zinc-900 dark:text-zinc-100 relative">
+                        <span>{t.name}</span>
+                        <div className="inline-block ml-auto lg:hidden">
                           <Dropdown
                             type="scan"
                             contract={t.contract}
@@ -603,86 +523,62 @@ export default function ContractsPage() {
                             name={"Scan"}
                           />
                         </div>
-                        {idx !== 0 ? (
-                          <div className="absolute -top-px left-0 right-6 h-px bg-zinc-900/7.5 dark:bg-white/10" />
-                        ) : null}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </>
-
-          <>
+                      </div>
+                      <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
+                        <span>{t.description}</span>
+                        <ContractCopy contract={t.contract} />
+                      </div>
+                    </div>
+                  ),
+                },
+                {
+                  header: "Description",
+                  accessor: "description",
+                  responsive: true,
+                  cellRenderer: (t) => (
+                    <div className="text-xs text-zinc-700 dark:text-zinc-300">
+                      <span>{t.description}</span>
+                      <ContractCopy contract={t.contract} />
+                    </div>
+                  ),
+                },
+                {
+                  header: "Scan",
+                  accessor: "scan",
+                  responsive: true,
+                  cellRenderer: (t) => (
+                    <div className="float-right pr-4">
+                      <Dropdown
+                        type="scan"
+                        contract={t.contract}
+                        label={"Scan this contract on the blockchain scanner"}
+                        name={"Scan"}
+                      />
+                    </div>
+                  ),
+                },
+              ]}
+            />
+          </div>
+          <div className="-mx-4 mt-10 md:mx-2">
             <DashboardSubheader
               id="splitter"
               title="Ecosystem Splitters"
               description="Moves a portion of the fees to different smart contracts within the X7 Ecosystem"
             />
-            <div className="-mx-4 mt-10 ring-1 ring-zinc-900/7.5 dark:ring-white/10 sm:-mx-6 md:mx-0 md:rounded-2xl">
-              <table className="min-w-full divide-y divide-zinc-900/7.5 dark:divide-white/10">
-                <thead>
-                  <tr>
-                    <th
-                      scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 sm:pl-6"
-                    >
-                      Splitter
-                    </th>
-
-                    <th
-                      scope="col"
-                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell"
-                    >
-                      Description
-                    </th>
-
-                    <th scope="col" className="relative py-3.5 pr-4 sm:pr-6">
-                      Scan
-                      <span className="sr-only"></span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {splitters.map((t, idx) => (
-                    <tr key={t.contract}>
-                      <td
-                        className={cn(
-                          idx === 0 ? "" : "border-t border-transparent",
-                          "relative py-4 pl-4 pr-3 text-sm sm:pl-6"
-                        )}
-                      >
-                        <div className="font-medium text-zinc-900 dark:text-zinc-100">
-                          {t.name}
-                        </div>
-                        <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
-                          <span>{t.description}</span>
-                          <ContractCopy contract={t.contract} />
-                        </div>
-                        {idx !== 0 ? (
-                          <div className="absolute -top-px left-6 right-0 h-px bg-zinc-900/7.5 dark:bg-white/10" />
-                        ) : null}
-                      </td>
-                      <td
-                        className={cn(
-                          idx === 0
-                            ? ""
-                            : "border-t border-zinc-900/7.5 dark:border-white/10",
-                          "hidden px-3 py-3.5 text-xs text-zinc-500 dark:text-zinc-400 lg:table-cell"
-                        )}
-                      >
-                        <span>{t.description}</span>
-                        <ContractCopy contract={t.contract} />
-                      </td>
-
-                      <td
-                        className={cn(
-                          idx === 0 ? "" : "border-t border-transparent",
-                          "relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6"
-                        )}
-                      >
-                        <div className="flex justify-center w-full">
+            <Table
+              data={splitters}
+              columns={[
+                {
+                  header: "Hub",
+                  accessor: "token",
+                  responsive: false,
+                  width: "300",
+                  cellRenderer: (t) => (
+                    <div>
+                      <div className="font-medium flex text-zinc-900 dark:text-zinc-100 relative">
+                        <span>{t.name}</span>
+                        <div className="inline-block ml-auto lg:hidden">
                           <Dropdown
                             type="scan"
                             contract={t.contract}
@@ -692,86 +588,62 @@ export default function ContractsPage() {
                             name={"Scan"}
                           />
                         </div>
-                        {idx !== 0 ? (
-                          <div className="absolute -top-px left-0 right-6 h-px bg-zinc-900/7.5 dark:bg-white/10" />
-                        ) : null}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </>
-
-          <>
+                      </div>
+                      <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
+                        <span>{t.description}</span>
+                        <ContractCopy contract={t.contract} />
+                      </div>
+                    </div>
+                  ),
+                },
+                {
+                  header: "Description",
+                  accessor: "description",
+                  responsive: true,
+                  cellRenderer: (t) => (
+                    <div className="text-xs text-zinc-700 dark:text-zinc-300">
+                      <span>{t.description}</span>
+                      <ContractCopy contract={t.contract} />
+                    </div>
+                  ),
+                },
+                {
+                  header: "Scan",
+                  accessor: "scan",
+                  responsive: true,
+                  cellRenderer: (t) => (
+                    <div className="float-right pr-4">
+                      <Dropdown
+                        type="scan"
+                        contract={t.contract}
+                        label={"Scan this contract on the blockchain scanner"}
+                        name={"Scan"}
+                      />
+                    </div>
+                  ),
+                },
+              ]}
+            />
+          </div>
+          <div className="-mx-4 mt-10 md:mx-2">
             <DashboardSubheader
               id="xchange"
               title="Xchange Smart Contracts"
               description="Key contracts that allow tokens to be traded on Xchange"
             />
-            <div className="-mx-4 mt-10 ring-1 ring-zinc-900/7.5 dark:ring-white/10 sm:-mx-6 md:mx-0 md:rounded-2xl">
-              <table className="min-w-full divide-y divide-zinc-900/7.5 dark:divide-white/10">
-                <thead>
-                  <tr>
-                    <th
-                      scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 sm:pl-6"
-                    >
-                      Contract
-                    </th>
-
-                    <th
-                      scope="col"
-                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell"
-                    >
-                      Description
-                    </th>
-
-                    <th scope="col" className="relative py-3.5 pr-4 sm:pr-6">
-                      Scan
-                      <span className="sr-only"></span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {xchange.map((t, idx) => (
-                    <tr key={t.contract}>
-                      <td
-                        className={cn(
-                          idx === 0 ? "" : "border-t border-transparent",
-                          "relative py-4 pl-4 pr-3 text-sm sm:pl-6"
-                        )}
-                      >
-                        <div className="font-medium text-zinc-900 dark:text-zinc-100">
-                          {t.name}
-                        </div>
-                        <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
-                          <span>{t.description}</span>
-                          <ContractCopy contract={t.contract} />
-                        </div>
-                        {idx !== 0 ? (
-                          <div className="absolute -top-px left-6 right-0 h-px bg-zinc-900/7.5 dark:bg-white/10" />
-                        ) : null}
-                      </td>
-                      <td
-                        className={cn(
-                          idx === 0
-                            ? ""
-                            : "border-t border-zinc-900/7.5 dark:border-white/10",
-                          "hidden px-3 py-3.5 text-xs text-zinc-500 dark:text-zinc-400 lg:table-cell"
-                        )}
-                      >
-                        <span>{t.description}</span>
-                        <ContractCopy contract={t.contract} />
-                      </td>
-
-                      <td
-                        className={cn(
-                          idx === 0 ? "" : "border-t border-transparent",
-                          "relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6"
-                        )}
-                      >
-                        <div className="flex justify-center w-full">
+            <Table
+              data={xchange}
+              columns={[
+                {
+                  header: "Hub",
+                  accessor: "token",
+                  responsive: false,
+                  width: "300",
+                  cellRenderer: (t) => (
+                    <div>
+                      <div className="font-medium flex text-zinc-900 dark:text-zinc-100 relative">
+                        <span>{t.name}</span>
+                        <div className="inline-block ml-auto lg:hidden">
                           <Dropdown
                             type="scan"
                             contract={t.contract}
@@ -781,85 +653,61 @@ export default function ContractsPage() {
                             name={"Scan"}
                           />
                         </div>
-                        {idx !== 0 ? (
-                          <div className="absolute -top-px left-0 right-6 h-px bg-zinc-900/7.5 dark:bg-white/10" />
-                        ) : null}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </>
-
-          <>
+                      </div>
+                      <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
+                        <span>{t.description}</span>
+                        <ContractCopy contract={t.contract} />
+                      </div>
+                    </div>
+                  ),
+                },
+                {
+                  header: "Description",
+                  accessor: "description",
+                  responsive: true,
+                  cellRenderer: (t) => (
+                    <div className="text-xs text-zinc-700 dark:text-zinc-300">
+                      <span>{t.description}</span>
+                      <ContractCopy contract={t.contract} />
+                    </div>
+                  ),
+                },
+                {
+                  header: "Scan",
+                  accessor: "scan",
+                  responsive: true,
+                  cellRenderer: (t) => (
+                    <div className="float-right pr-4">
+                      <Dropdown
+                        type="scan"
+                        contract={t.contract}
+                        label={"Scan this contract on the blockchain scanner"}
+                        name={"Scan"}
+                      />
+                    </div>
+                  ),
+                },
+              ]}
+            />
+          </div>
+          <div className="-mx-4 mt-10 md:mx-2">
             <DashboardSubheader
               id="misc"
               title="Miscellaneous Smart Contracts"
             />
-            <div className="-mx-4 mt-10 ring-1 ring-zinc-900/7.5 dark:ring-white/10 sm:-mx-6 md:mx-0 md:rounded-2xl">
-              <table className="min-w-full divide-y divide-zinc-900/7.5 dark:divide-white/10">
-                <thead>
-                  <tr>
-                    <th
-                      scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 sm:pl-6"
-                    >
-                      Contract
-                    </th>
-
-                    <th
-                      scope="col"
-                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell"
-                    >
-                      Description
-                    </th>
-
-                    <th scope="col" className="relative py-3.5 pr-4 sm:pr-6">
-                      Scan
-                      <span className="sr-only"></span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {misc.map((t, idx) => (
-                    <tr key={t.contract}>
-                      <td
-                        className={cn(
-                          idx === 0 ? "" : "border-t border-transparent",
-                          "relative py-4 pl-4 pr-3 text-sm sm:pl-6"
-                        )}
-                      >
-                        <div className="font-medium text-zinc-900 dark:text-zinc-100">
-                          {t.name}
-                        </div>
-                        <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
-                          <span>{t.description}</span>
-                          <ContractCopy contract={t.contract} />
-                        </div>
-                        {idx !== 0 ? (
-                          <div className="absolute -top-px left-6 right-0 h-px bg-zinc-900/7.5 dark:bg-white/10" />
-                        ) : null}
-                      </td>
-                      <td
-                        className={cn(
-                          idx === 0
-                            ? ""
-                            : "border-t border-zinc-900/7.5 dark:border-white/10",
-                          "hidden px-3 py-3.5 text-xs text-zinc-500 dark:text-zinc-400 lg:table-cell"
-                        )}
-                      >
-                        <span>{t.description}</span>
-                        <ContractCopy contract={t.contract} />
-                      </td>
-
-                      <td
-                        className={cn(
-                          idx === 0 ? "" : "border-t border-transparent",
-                          "relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6"
-                        )}
-                      >
-                        <div className="flex justify-center w-full">
+            <Table
+              data={misc}
+              columns={[
+                {
+                  header: "Hub",
+                  accessor: "token",
+                  responsive: false,
+                  width: "300",
+                  cellRenderer: (t) => (
+                    <div>
+                      <div className="font-medium flex text-zinc-900 dark:text-zinc-100 relative">
+                        <span>{t.name}</span>
+                        <div className="inline-block ml-auto lg:hidden">
                           <Dropdown
                             type="scan"
                             contract={t.contract}
@@ -869,85 +717,62 @@ export default function ContractsPage() {
                             name={"Scan"}
                           />
                         </div>
-                        {idx !== 0 ? (
-                          <div className="absolute -top-px left-0 right-6 h-px bg-zinc-900/7.5 dark:bg-white/10" />
-                        ) : null}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </>
-          <>
+                      </div>
+                      <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
+                        <span>{t.description}</span>
+                        <ContractCopy contract={t.contract} />
+                      </div>
+                    </div>
+                  ),
+                },
+                {
+                  header: "Description",
+                  accessor: "description",
+                  responsive: true,
+                  cellRenderer: (t) => (
+                    <div className="text-xs text-zinc-700 dark:text-zinc-300">
+                      <span>{t.description}</span>
+                      <ContractCopy contract={t.contract} />
+                    </div>
+                  ),
+                },
+                {
+                  header: "Scan",
+                  accessor: "scan",
+                  responsive: true,
+                  cellRenderer: (t) => (
+                    <div className="float-right pr-4">
+                      <Dropdown
+                        type="scan"
+                        contract={t.contract}
+                        label={"Scan this contract on the blockchain scanner"}
+                        name={"Scan"}
+                      />
+                    </div>
+                  ),
+                },
+              ]}
+            />
+          </div>
+          <div className="-mx-4 mt-10 md:mx-2">
             <DashboardSubheader
               id="intliq"
               title="Initial Liquiidty Time Lock Contracts"
               description="Responsbile for handling token liquidity prior to token launch"
             />
-            <div className="-mx-4 mt-10  ring-1 ring-zinc-900/7.5 dark:ring-white/10 sm:-mx-6 md:mx-0 md:rounded-2xl">
-              <table className="min-w-full divide-y divide-zinc-900/7.5 dark:divide-white/10">
-                <thead>
-                  <tr>
-                    <th
-                      scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 sm:pl-6"
-                    >
-                      Contract
-                    </th>
-
-                    <th
-                      scope="col"
-                      className="hidden px-3 py-3.5 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 lg:table-cell"
-                    >
-                      Description
-                    </th>
-
-                    <th scope="col" className="relative py-3.5 pr-4 sm:pr-6">
-                      Scan
-                      <span className="sr-only"></span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {intliq.map((t, idx) => (
-                    <tr key={t.contract}>
-                      <td
-                        className={cn(
-                          idx === 0 ? "" : "border-t border-transparent",
-                          "relative py-4 pl-4 pr-3 text-sm sm:pl-6"
-                        )}
-                      >
-                        <div className="font-medium text-zinc-900 dark:text-zinc-100">
-                          {t.name}
-                        </div>
-                        <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
-                          <span>{t.description}</span>
-                          <ContractCopy contract={t.contract} />
-                        </div>
-                        {idx !== 0 ? (
-                          <div className="absolute right-0 left-6 -top-px h-px bg-zinc-900/7.5 dark:bg-white/10" />
-                        ) : null}
-                      </td>
-                      <td
-                        className={cn(
-                          idx === 0
-                            ? ""
-                            : "border-t border-zinc-900/7.5 dark:border-white/10",
-                          "hidden px-3 py-3.5 text-xs text-zinc-500 dark:text-zinc-400 lg:table-cell"
-                        )}
-                      >
-                        <span>{t.description}</span>
-                        <ContractCopy contract={t.contract} />
-                      </td>
-
-                      <td
-                        className={cn(
-                          idx === 0 ? "" : "border-t border-transparent",
-                          "relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6"
-                        )}
-                      >
-                        <div className="flex justify-center w-full">
+            <Table
+              data={intliq}
+              columns={[
+                {
+                  header: "Hub",
+                  accessor: "token",
+                  responsive: false,
+                  width: "300",
+                  cellRenderer: (t) => (
+                    <div>
+                      <div className="font-medium flex text-zinc-900 dark:text-zinc-100 relative">
+                        <span>{t.name}</span>
+                        <div className="inline-block ml-auto lg:hidden">
                           <Dropdown
                             type="scan"
                             contract={t.contract}
@@ -957,16 +782,43 @@ export default function ContractsPage() {
                             name={"Scan"}
                           />
                         </div>
-                        {idx !== 0 ? (
-                          <div className="absolute left-0 right-6 -top-px h-px bg-zinc-900/7.5 dark:bg-white/10" />
-                        ) : null}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </>
+                      </div>
+                      <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
+                        <span>{t.description}</span>
+                        <ContractCopy contract={t.contract} />
+                      </div>
+                    </div>
+                  ),
+                },
+                {
+                  header: "Description",
+                  accessor: "description",
+                  responsive: true,
+                  cellRenderer: (t) => (
+                    <div className="text-xs text-zinc-700 dark:text-zinc-300">
+                      <span>{t.description}</span>
+                      <ContractCopy contract={t.contract} />
+                    </div>
+                  ),
+                },
+                {
+                  header: "Scan",
+                  accessor: "scan",
+                  responsive: true,
+                  cellRenderer: (t) => (
+                    <div className="float-right pr-4">
+                      <Dropdown
+                        type="scan"
+                        contract={t.contract}
+                        label={"Scan this contract on the blockchain scanner"}
+                        name={"Scan"}
+                      />
+                    </div>
+                  ),
+                },
+              ]}
+            />
+          </div>
         </DashboardContainer>
       </div>
     </>

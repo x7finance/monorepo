@@ -82,6 +82,8 @@ function generateLink(c: any, type: string, contract: string) {
       return `${XCHANGE}/#/swap?outputCurrency=${contract}`
     case "scan":
       return `${c?.scannerLink}/token/${contract}`
+    case "mint":
+      return `https://beta.x7.finance/#/fund`
     default:
       return ""
   }
