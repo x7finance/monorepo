@@ -1,6 +1,6 @@
 "use client"
 
-import { ChainEnum, ChainIdentifierEnum } from "common"
+import { ChainEnum, ChainIdentifierEnum, LoanType } from "common"
 
 import { Suspense, useState } from "react"
 
@@ -16,7 +16,7 @@ import { LoansTable } from "./table"
 
 export function LiveLoans() {
   const [activeTab, setActiveTab] = useState(ChainIdentifierEnum.erc)
-  const [loanTypeId, setLoanTypeId] = useState("001")
+  const [loanTypeId, setLoanTypeId] = useState<LoanType>("001")
 
   const handleLoanTypeTabChange = (tabId) => {
     setLoanTypeId(tabId)
