@@ -2,10 +2,6 @@
 
 /** @type {import("@ianvs/prettier-plugin-sort-imports").PrettierConfig} */
 
-// @ts-check
-
-/** @type {import("@ianvs/prettier-plugin-sort-imports").PrettierConfig} */
-
 /** @type {import('prettier').Config} */
 module.exports = {
   endOfLine: "lf",
@@ -16,7 +12,8 @@ module.exports = {
   importOrder: [
     "^common(.*)$",
     "^utils(.*)$",
-    "^ui(.*)$",
+    "^ui-server(.*)$",
+    "^ui-client(.*)$",
     "^icons(.*)$",
     "^contracts(.*)$",
     "",
