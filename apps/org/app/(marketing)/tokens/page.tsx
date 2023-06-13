@@ -34,10 +34,10 @@ export default function TokensPage() {
       <SiteContentContainer>
         <div className="pt-10 mt-4 border-t border-zinc-900/5 dark:border-white/5">
           <div className="grid grid-cols-2 gap-8">
-            <div className="col-span-2 md:col-span-1 w-96 mx-auto">
+            <div className="col-span-2 mx-auto md:col-span-1 w-96">
               <PioneerDrop lineColor="to-blue-500" />
               <div className="relative p-6 rounded-lg">
-                <div className="absolute inset-0 rounded-lg border-t-2 border-transparent w-96 h-80">
+                <div className="absolute inset-0 border-t-2 border-transparent rounded-lg w-96 h-80">
                   <div
                     className="absolute inset-0 top-1/2 bg-gradient-to-r dark:from-blue-500 dark:to-red-900 from-blue-100 to-red-300"
                     style={{ filter: "blur(20px)" }}
@@ -52,21 +52,21 @@ export default function TokensPage() {
                     <Image
                       height={200}
                       width={200}
-                      className="h-auto w-16"
+                      className="w-16 h-auto"
                       src={
                         "https://x7.finance/images/logos/x7r/X7R_LOGO_black_back_200_x_200_px.png"
                       }
                       alt="X7R image"
                     />
 
-                    <h3 className="text-2xl font-bold mt-6">X7R</h3>
-                    <p className="text-sm mt-4 text-center">
+                    <h3 className="mt-6 text-2xl font-bold">X7R</h3>
+                    <p className="mt-4 text-sm text-center">
                       {`The X7R token is designed to reward long-term holders
                       through deflationary mechanisms. This encourages users to
                       hold onto their tokens, stabilizing the token's value and
                       promoting a healthy ecosystem.`}
                     </p>
-                    <div className="gap-y-2 md:gap-x-3 md:gap-y-0 flex items-center relative top-6">
+                    <div className="relative flex items-center gap-y-2 md:gap-x-3 md:gap-y-0 top-6">
                       <Link
                         href={`/docs/whitepaper/x7r/`}
                         className={cn(
@@ -99,10 +99,10 @@ export default function TokensPage() {
                 </div>
               </div>
             </div>
-            <div className="col-span-2 md:col-span-1 w-96 mx-auto">
+            <div className="col-span-2 mx-auto md:col-span-1 w-96">
               <PioneerDrop lineColor="to-emerald-500" />
               <div className="relative p-6 rounded-lg">
-                <div className="absolute inset-0 rounded-lg border-t-2 border-transparent w-96 h-80">
+                <div className="absolute inset-0 border-t-2 border-transparent rounded-lg w-96 h-80">
                   <div
                     className="absolute inset-0 top-1/2 bg-gradient-to-r dark:from-blue-500 from-blue-100 to-yellow-300 dark:to-yellow-900"
                     style={{ filter: "blur(20px)" }}
@@ -117,23 +117,23 @@ export default function TokensPage() {
                     <Image
                       height={200}
                       width={200}
-                      className="h-auto w-16"
+                      className="w-16 h-auto"
                       src={
                         "https://x7.finance/images/logos/x7dao/X7_DAO_LOGO_black_back_200_x_200_px.png"
                       }
                       alt="X7R image"
                     />
 
-                    <h3 className="text-2xl font-bold mt-6">X7DAO</h3>
-                    <p className="text-sm mt-4 text-center">
+                    <h3 className="mt-6 text-2xl font-bold">X7DAO</h3>
+                    <p className="mt-4 text-sm text-center">
                       This token is engineered to lead the ecosystem through its
                       governance utility. It allows token holders to participate
                       in the decision-making process, influencing the direction
                       and development of the X7 ecosystem.
                     </p>
-                    <div className="gap-y-2 md:gap-x-3 md:gap-y-0 flex items-center relative top-6">
+                    <div className="relative flex items-center gap-y-2 md:gap-x-3 md:gap-y-0 top-6">
                       <Link
-                        href={`/docs/whitepaper/x7r/`}
+                        href={`/docs/whitepaper/x7dao/`}
                         className={cn(
                           buttonVariants({
                             variant: "ghost",
@@ -144,7 +144,7 @@ export default function TokensPage() {
                         Learn More
                       </Link>
                       <Link
-                        href={`https://beta.x7.finance/#/swap?outputCurrency=${ContractsEnum.X7R}`}
+                        href={`https://beta.x7.finance/#/swap?outputCurrency=${ContractsEnum.X7DAO}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={cn(
@@ -169,7 +169,7 @@ export default function TokensPage() {
               <div className="col-span-2 mx-auto">
                 <PioneerDrop height={50} lineColor="to-amber-500" />
                 <div className="relative p-6 rounded-lg">
-                  <div className="absolute inset-0 rounded-lg border-t-2 border-transparent">
+                  <div className="absolute inset-0 border-t-2 border-transparent rounded-lg">
                     <div
                       className="absolute inset-0 top-1/2 bg-gradient-to-r dark:from-red-900 from-red-200 to-yellow-100 dark:to-yellow-400"
                       style={{ filter: "blur(20px)" }}
@@ -184,16 +184,16 @@ export default function TokensPage() {
                       <Image
                         height={200}
                         width={200}
-                        className="h-auto w-16"
+                        className="w-16 h-auto"
                         src={
                           "https://x7.finance/images/logos/x7d/X7D_LOGO_black_back_200_x_200_px.png"
                         }
                         alt="X7R image"
                       />
 
-                      <h3 className="text-2xl font-bold mt-6">X7D</h3>
+                      <h3 className="mt-6 text-2xl font-bold">X7D</h3>
 
-                      <p className="text-sm relative top-8 text-center">
+                      <p className="relative text-sm text-center top-8">
                         With insurance of the investor at heart - individuals
                         and institutions will hold these tokens just as they
                         would underwrite treasury bills and other stable assets.
@@ -203,7 +203,7 @@ export default function TokensPage() {
                         only permit minting of new X7 Deposit tokens when
                         on-chain reserves permit.
                       </p>
-                      <div className="gap-y-2 md:gap-x-3 md:gap-y-0 flex items-center relative top-12">
+                      <div className="relative flex items-center gap-y-2 md:gap-x-3 md:gap-y-0 top-12">
                         <Link
                           href={`/docs/whitepaper/x7deposit/`}
                           className={cn(
@@ -238,15 +238,15 @@ export default function TokensPage() {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-4 md:grid-cols-5 gap-4 mt-8">
+          <div className="grid grid-cols-4 gap-4 mt-8 md:grid-cols-5">
             {quints.map((quint) => (
               <div
                 key={quint?.name}
-                className="col-span-2 md:col-span-1 mx-auto"
+                className="col-span-2 mx-auto md:col-span-1"
               >
                 <PioneerDrop height={25} lineColor="to-slate-500" />
                 <div className="relative p-6 rounded-lg">
-                  <div className="absolute inset-0 rounded-lg border-t-2 border-transparent">
+                  <div className="absolute inset-0 border-t-2 border-transparent rounded-lg">
                     <div
                       className="absolute inset-0 top-1/2 bg-gradient-to-r dark:from-blue-500 from-blue-200 dark:to-amber-900 to-amber-300"
                       style={{ filter: "blur(20px)" }}
@@ -261,13 +261,13 @@ export default function TokensPage() {
                       <Image
                         height={200}
                         width={200}
-                        className="h-auto w-16"
+                        className="w-16 h-auto"
                         src={quint?.logo}
                         alt={`${quint?.name} image`}
                       />
 
-                      <h3 className="text-2xl font-bold mt-6">{quint?.name}</h3>
-                      <div className="gap-y-2 flex flex-col items-center relative top-8">
+                      <h3 className="mt-6 text-2xl font-bold">{quint?.name}</h3>
+                      <div className="relative flex flex-col items-center gap-y-2 top-8">
                         <Link
                           href={`/docs/faq/constellations`}
                           className={cn(
@@ -301,8 +301,8 @@ export default function TokensPage() {
                 </div>
               </div>
             ))}
-            <div className="mt-2 col-span-5 text-center mx-auto max-w-2xl text-sm dark:text-zinc-200 text-zinc-900">
-              <h3 className="text-2xl font-bold my-6 mx-auto">
+            <div className="max-w-2xl col-span-5 mx-auto mt-2 text-sm text-center dark:text-zinc-200 text-zinc-900">
+              <h3 className="mx-auto my-6 text-2xl font-bold">
                 Constellation Tokens
               </h3>
               <p>
