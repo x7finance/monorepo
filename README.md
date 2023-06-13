@@ -1,4 +1,4 @@
-<p align="center">
+<p style="padding-top: 30px;" align="center">
   <img src="https://assets.x7finance.org/images/svgs/x7.svg" alt="X7 Banner Logo" />
 </p>
 
