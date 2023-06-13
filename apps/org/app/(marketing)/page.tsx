@@ -111,7 +111,7 @@ export default function IndexPage() {
                   variant: "outline",
                   size: "lg",
                 }),
-                "text-md h-12 border-zinc-500 hover:text-white hover:shadow-sm transition-all duration-500 hover:shadow-white hover:bg-transparent w-full"
+                "text-md text-zinc-300 h-12 border-zinc-500 hover:text-white hover:shadow-sm transition-all duration-500 hover:shadow-white hover:bg-transparent w-full"
               )}
             >
               Read Docs
