@@ -1,4 +1,4 @@
-import { BlockchainType, ContractsEnum } from "common"
+import { BlockchainType, ContractsEnum, LoanType } from "common"
 import {
   generateChainBase,
   generateX7InitialLiquidityLoanTermContract,
@@ -17,7 +17,7 @@ import { generateWagmiChain } from "../generateWagmiChain"
 export function useXchangeLoanData(
   id: number,
   chainId: BlockchainType,
-  loanType: string
+  loanType: LoanType
 ) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(loanType)
 

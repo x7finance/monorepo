@@ -17,13 +17,9 @@ export function ConnectionComponent() {
               </Button>
             </>
           ) : (
-            <Button onClick={show} size={"sm"}>
-              <span className="sr-only">
-                {isConnecting ? "Connecting..." : `Connect Wallet`}
-              </span>
-              <span className="whitespace-nowrap">
-                {isConnecting ? "Connecting..." : `Connect Wallet`}
-              </span>
+            <Button loading={isConnecting} onClick={show} size={"sm"}>
+              <span className="sr-only">Connect Wallet</span>
+              <span className="whitespace-nowrap">Connect Wallet</span>
             </Button>
           )
         }}

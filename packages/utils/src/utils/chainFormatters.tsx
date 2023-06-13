@@ -4,8 +4,10 @@ import {
   ChainEnum,
   ChainIdentifierEnum,
   ChainScannerLinksEnum,
+  ChainShortNameEnum,
   ChainTokenOracleEtherUSDEnum,
   ContractsEnum,
+  LoanType,
   TokenContractAddresses,
 } from "common"
 
@@ -79,6 +81,23 @@ export function generateChainAbbreviation(chain?: BlockchainType) {
   }
 }
 
+export function generateChainShortName(chain?: BlockchainType) {
+  switch (chain) {
+    case ChainEnum.erc:
+      return ChainShortNameEnum.erc
+    case ChainEnum.bsc:
+      return ChainShortNameEnum.bsc
+    case ChainEnum.arbitrum:
+      return ChainShortNameEnum.arbitrum
+    case ChainEnum.optimism:
+      return ChainShortNameEnum.optimism
+    case ChainEnum.polygon:
+      return ChainShortNameEnum.polygon
+    default:
+      return ChainShortNameEnum.erc
+  }
+}
+
 export function generateNativeQueryCommands(chainId?: BlockchainType) {
   switch (chainId) {
     case ChainEnum.erc:
@@ -130,7 +149,7 @@ export function generateChainTokenOracleEtherUSDEnum(chainId?: BlockchainType) {
   }
 }
 
-export function generateX7InitialLiquidityLoanTermContract(loantype: string) {
+export function generateX7InitialLiquidityLoanTermContract(loantype: LoanType) {
   switch (loantype) {
     case "001":
       return ContractsEnum.X7InitialLiquidityLoanTerm001

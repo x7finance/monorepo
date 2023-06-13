@@ -6,6 +6,7 @@ import { X7EcosystemSplitter, X7TreasurySplitterV2 } from "contracts"
 import { useEffect, useState } from "react"
 import { useContractReads } from "wagmi"
 
+import { DashboardSubheader } from "../dashboard-subheader"
 import { DonutChart } from "../donutChart/DonutChart"
 
 export function SplittersOverview() {
@@ -258,20 +259,16 @@ export function SplittersOverview() {
   }, [treasuryData, treasuryFetched])
 
   return (
-    <>
+    <div className="grid grid-cols-2 pb-12">
       <div className="col-span-1 px-6 lg:px-8">
-        <div className="sm:flex sm:items-center">
-          <div className="sm:flex-auto">
-            <h3 className="text-xl text-zinc-900 dark:text-zinc-100">
-              Treasury Splitter Breakdown
-            </h3>
-            <p className="mt-2 text-sm text-zinc-700 dark:text-zinc-300 xl:min-h-[150px]">
-              A percentage of all taxed tokens are sent to the treasury. Below
-              is how the treasury allocation is split. This allocation can be
-              adjusted by X7 DAO.
-            </p>
-          </div>
-        </div>
+        <DashboardSubheader
+          id="treasury-splitter"
+          title="Treasury Splitter Breakdown"
+          description="A percentage of all taxed tokens are sent to the treasury. Below
+          is how the treasury allocation is split. This allocation can be
+          adjusted by X7 DAO as well as the taxes set for each individual token once the X7 DAO is live."
+        />
+
         <DonutChart
           height={300}
           innerRadius={0.5}
@@ -280,19 +277,15 @@ export function SplittersOverview() {
         />
       </div>
       <div className="col-span-1 px-6 lg:px-8">
-        <div className="sm:flex sm:items-center">
-          <div className="sm:flex-auto">
-            <h3 className="text-xl text-zinc-900 dark:text-zinc-100">
-              Ecosystem Splitter Breakdown
-            </h3>
-            <p className="mt-2 text-sm text-zinc-700 dark:text-zinc-300 xl:min-h-[150px]">
-              A percentage of all taxed tokens are sent to the ecosystem
-              splitter. This splitter ensures liquidity is spread throughout the
-              ecosystem. Below is how the ecosystem allocation is split. This
-              allocation can be adjusted by X7 DAO.
-            </p>
-          </div>
-        </div>
+        <DashboardSubheader
+          id="ecosystem-splitter"
+          title="Ecosystem Splitter Breakdown"
+          description="A percentage of all taxed tokens are sent to the ecosystem
+          splitter. This splitter ensures liquidity is spread throughout the
+          ecosystem. Below is how the ecosystem allocation is split. This
+          allocation can be adjusted by X7 DAO."
+        />
+
         <DonutChart
           height={300}
           innerRadius={0.5}
@@ -300,7 +293,7 @@ export function SplittersOverview() {
           data={ecoSplit}
         />
       </div>
-    </>
+    </div>
   )
 }
 

@@ -1,26 +1,17 @@
 "use client"
 
-import { ChainEnum, ChainIdentifierEnum, LoanType } from "common"
+import { ChainEnum, ChainIdentifierEnum } from "common"
 
 import { Suspense, useState } from "react"
 
 import { useIsComponentReady } from "@/lib/hooks/useIsComponentReady"
 import { LoadingShimmer } from "@/components/table/loading-shimmer"
-import {
-  CHAIN_TAB_BUTTONS,
-  LOAN_TAB_BUTTONS,
-  TabButtons,
-} from "@/components/table/tabs"
+import { CHAIN_TAB_BUTTONS, TabButtons } from "@/components/table/tabs"
 
-import { LoansTable } from "./table"
+import { PairsTable } from "./table"
 
-export function LiveLoans() {
+export function LivePairs() {
   const [activeTab, setActiveTab] = useState(ChainIdentifierEnum.erc)
-  const [loanTypeId, setLoanTypeId] = useState<LoanType>("001")
-
-  const handleLoanTypeTabChange = (tabId) => {
-    setLoanTypeId(tabId)
-  }
   const isComponentReady = useIsComponentReady()
 
   const handleTabChange = (tabId) => {
@@ -42,24 +33,17 @@ export function LiveLoans() {
 
   return (
     <>
-      <div className="justify-center px-1 pt-5 overflow-x-auto">
+      <div className="justify-center px-1 py-5 overflow-x-auto">
         <TabButtons
           tabs={CHAIN_TAB_BUTTONS}
           activeTab={activeTab}
           handleTabChange={handleTabChange}
         />
-        <div className="justify-center overflow-x-auto px-3 mt-1 pt-1 pb-5">
-          <TabButtons
-            tabs={LOAN_TAB_BUTTONS}
-            activeTab={loanTypeId}
-            handleTabChange={handleLoanTypeTabChange}
-          />
-        </div>
       </div>
 
       {isComponentReady ? (
         <Suspense fallback={<LoadingShimmer />}>
-          <LoansTable loanTypeId={loanTypeId} chainId={activeChainId} />
+          <PairsTable chainId={activeChainId} />
         </Suspense>
       ) : (
         <LoadingShimmer />

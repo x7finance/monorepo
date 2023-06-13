@@ -4,6 +4,8 @@ import React, { FC, ReactNode } from "react"
 
 interface Column {
   header: string
+  responsiveHeader?: string
+  width?: string
   accessor: string
   responsive?: boolean
   cellRenderer?: (row: any) => ReactNode
@@ -21,13 +23,19 @@ export const Table: FC<TableProps> = ({ data, columns }) => {
         <tr>
           {columns.map((column, index) => (
             <th
+              {...(column?.width && index === 0
+                ? { width: column?.width }
+                : {})}
               key={index}
               className={cn(
-                column?.responsive ? "hidden sm:table-cell" : "",
-                "py-3 pl-4 pr-3 text-left text-xs font-semibold text-zinc-500 sm:pl-6 uppercase border-t border-b border-zinc-200 dark:border-zinc-800"
+                column?.responsive ? "hidden lg:table-cell" : "",
+                "py-3 px-3 text-left text-xs font-semibold text-zinc-500 first:sm:pl-6 last:text-right last:pr-8 uppercase border-t border-b border-zinc-200 dark:border-zinc-800"
               )}
             >
-              {column.header}
+              <span className="lg:hidden">
+                {column.responsiveHeader ?? column.header}
+              </span>
+              <span className="hidden lg:block">{column.header}</span>
             </th>
           ))}
         </tr>
@@ -37,10 +45,13 @@ export const Table: FC<TableProps> = ({ data, columns }) => {
           <tr className="border-none" key={index}>
             {columns.map((column, colIndex) => (
               <td
+                {...(column?.width && index === 0
+                  ? { width: column?.width }
+                  : {})}
                 className={cn(
                   index === 0 ? "" : "",
                   colIndex === 0 ? "sm:pl-6 pl-4" : "",
-                  column?.responsive ? "hidden sm:table-cell" : "",
+                  column?.responsive ? "hidden lg:table-cell" : "",
                   "relative py-3.5 px-3 text-sm"
                 )}
                 key={colIndex}
