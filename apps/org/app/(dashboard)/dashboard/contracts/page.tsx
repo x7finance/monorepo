@@ -6,177 +6,13 @@ import { Metadata } from "next"
 import Link from "next/link"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { TokenLinksEnum } from "@/lib/types/links"
 import { Dropdown } from "@/components/dropdown/contracts"
 import { Table } from "@/components/table"
 import { ContractCopy } from "@/components/ui-client/contractCopy"
+import { XchangeButton } from "@/components/xchange-button"
 import { DashboardContainer } from "@/app/(dashboard)/components/dashboard-container"
 import { DashboardSubheader } from "@/app/(dashboard)/components/dashboard-subheader"
 import { DashboardTitle } from "@/app/(dashboard)/components/dashboard-title"
-
-const intliq = [
-  {
-    name: "X7R Initital Liquidity Time Lock",
-    contract: ContractsEnum.X7RInitialLiquidityTimeLock,
-    description: "Time lock contract for initial liquidity for X7R Tokens.",
-  },
-  {
-    name: "X7DAO Initital Liquidity Time Lock",
-    contract: ContractsEnum.X7DAOInitialLiquidityTimeLock,
-    description: "Time lock contract for initial liquidity for X7DAO Tokens.",
-  },
-  {
-    name: "X7100 Initital Liquidity Time Lock",
-    contract: ContractsEnum.X7100InitialLiquidityTimeLock,
-    description: "Time lock contract for initial liquidity for X7100 Tokens.",
-  },
-]
-
-const tokens = [
-  {
-    name: "X7R",
-    contract: ContractsEnum.X7R,
-    description: "A deflationary reward token",
-  },
-  {
-    name: "X7DAO",
-    contract: ContractsEnum.X7DAO,
-    description: "Governance token utilized to govern the X7 ecosystem",
-  },
-  {
-    name: "X7101",
-    contract: ContractsEnum.X7101,
-    description: "First of the price consistent constellation tokens",
-  },
-  {
-    name: "X7102",
-    contract: ContractsEnum.X7102,
-    description: "Second of the price consistent constellation tokens",
-  },
-  {
-    name: "X7103",
-    contract: ContractsEnum.X7103,
-    description: "Third of the price consistent constellation tokens",
-  },
-  {
-    name: "X7104",
-    contract: ContractsEnum.X7104,
-    description: "Fourth of the price consistent constellation tokens",
-  },
-  {
-    name: "X7105",
-    contract: ContractsEnum.X7105,
-    description: "Fifth of the price consistent constellation tokens",
-  },
-]
-
-const utilityTokens = [
-  {
-    name: "X7D",
-    contract: ContractsEnum.X7D,
-    description: `When adding funds to the lending pool, X7D is minted - it's value is pegged 1:1 to the native chain currency`,
-  },
-]
-
-const liquidityHubs = [
-  {
-    name: "X7R Liquidity Hub",
-    contract: ContractsEnum.X7R_LiquidityHub,
-    description: "Liquidity hub for X7R - reward token",
-  },
-  {
-    name: "X7DAO Liquidity Hub",
-    contract: ContractsEnum.X7DAO_LiquidityHub,
-    description: "Liquidity hub for X7DAO - governance token",
-  },
-  {
-    name: "X7100 Liquidity Hub",
-    contract: ContractsEnum.X7100_LiquidityHub,
-    description: "Liquidity hub for X7100 - constellation tokens",
-  },
-]
-
-const discountAuthorities = [
-  {
-    name: "X7R Discount Authority",
-    contract: ContractsEnum.X7R_DiscountAuthority,
-    description: `Smart contract for X7R fee discounts - granted via X7 utility NFT's`,
-  },
-  {
-    name: "X7DAO Discount Authority",
-    contract: ContractsEnum.X7DAO_DiscountAuthority,
-    description: "Smart contract for X7DAO fee discounts",
-  },
-  {
-    name: "X7100 Discount Authority",
-    contract: ContractsEnum.X7100_DiscountAuthority,
-    description: "Smart contract for X7100 series token fee discounts",
-  },
-]
-
-const splitters = [
-  {
-    name: "Ecosystem Splitter",
-    contract: ContractsEnum.EcosystemSplitter,
-    description:
-      "Smart contract for balancing revenue across all revenue streams in the X7 ecosystem",
-  },
-  {
-    name: "Treasury Splitter",
-    contract: ContractsEnum.TreasurySplitter,
-    description: "Smart contract responsible for managing the treasury",
-  },
-]
-
-const misc = [
-  {
-    name: "Lending Pool",
-    contract: ContractsEnum.X7_LendingPool,
-    description:
-      "The lending pool where Initial Liquidity Loans funds are provided from",
-  },
-  {
-    name: "Token Burner",
-    contract: ContractsEnum.X7100_TokenBurner,
-    description: "Smart contract for burning tokens",
-  },
-  {
-    name: "Token Time Lock",
-    contract: ContractsEnum.TokenTimeLock,
-    description: "ERC-20 Token Time Lock",
-  },
-]
-
-const xchange = [
-  {
-    name: "Xchange Factory",
-    contract: ContractsEnum.XchangeFactory,
-    description:
-      "The secret sauce - this contract has yet to be verified to maintain competitive advantage",
-  },
-  {
-    name: "Xchange Router",
-    contract: ContractsEnum.XchangeRouter,
-    description:
-      "Uniswap v2 Fork - this contract includes functionality to remove liquidity in a failsafe manner to permit liquidation of fee liquidity in all cases.",
-  },
-  {
-    name: "Xchange Discount Authority",
-    contract: ContractsEnum.XchangeDiscountAuthority,
-    description: "Smart Contract for Xchange fee discounts",
-  },
-  {
-    name: "Lending Discount Authority",
-    contract: ContractsEnum.LendingDiscountAuthority,
-    description: "Smart Contract for calculating lending discounts",
-  },
-  {
-    name: "Lending Pool Reserve",
-    contract: ContractsEnum.LendingPoolReserve,
-    description:
-      "Smart Contract for minting and redeeming X7D and funding the Lending Pool with ETH.",
-  },
-]
 
 const metadata = {
   title: "Contracts",
@@ -197,8 +33,12 @@ export default function ContractsPage() {
         <DashboardTitle
           title="X7 Finance Token Contracts"
           secondaryButton={{
-            text: "Tokens Overview",
-            href: TokenLinksEnum.Index,
+            text: "Tokenomics",
+            href: "/docs/whitepaper/tokenomics/",
+          }}
+          primaryButton={{
+            text: "Ecosystem Splits",
+            href: "/dashboard/contracts/splits",
           }}
         />
         <DashboardContainer>
@@ -239,14 +79,7 @@ export default function ContractsPage() {
                             type="xchange"
                             contract={t.contract}
                             label={"Trade this token on Xchange"}
-                            name={
-                              <span className="whitespace-nowrap">
-                                <span>Trade</span>
-                                <span className="hidden xl:ml-1 xl:inline-block">
-                                  on Xchange
-                                </span>
-                              </span>
-                            }
+                            name={<XchangeButton />}
                           />
                         </div>
                       </div>
@@ -328,14 +161,7 @@ export default function ContractsPage() {
                           type="xchange"
                           contract={t.contract}
                           label={"Trade this token on Xchange"}
-                          name={
-                            <span className="whitespace-nowrap">
-                              <span>Trade</span>
-                              <span className="hidden xl:ml-1 xl:inline-block">
-                                on Xchange
-                              </span>
-                            </span>
-                          }
+                          name={<XchangeButton />}
                         />
                       </div>
                     </>
@@ -824,3 +650,167 @@ export default function ContractsPage() {
     </>
   )
 }
+
+const intliq = [
+  {
+    name: "X7R Initital Liquidity Time Lock",
+    contract: ContractsEnum.X7RInitialLiquidityTimeLock,
+    description: "Time lock contract for initial liquidity for X7R Tokens.",
+  },
+  {
+    name: "X7DAO Initital Liquidity Time Lock",
+    contract: ContractsEnum.X7DAOInitialLiquidityTimeLock,
+    description: "Time lock contract for initial liquidity for X7DAO Tokens.",
+  },
+  {
+    name: "X7100 Initital Liquidity Time Lock",
+    contract: ContractsEnum.X7100InitialLiquidityTimeLock,
+    description: "Time lock contract for initial liquidity for X7100 Tokens.",
+  },
+]
+
+const tokens = [
+  {
+    name: "X7R",
+    contract: ContractsEnum.X7R,
+    description: "A deflationary reward token",
+  },
+  {
+    name: "X7DAO",
+    contract: ContractsEnum.X7DAO,
+    description: "Governance token utilized to govern the X7 ecosystem",
+  },
+  {
+    name: "X7101",
+    contract: ContractsEnum.X7101,
+    description: "First of the price consistent constellation tokens",
+  },
+  {
+    name: "X7102",
+    contract: ContractsEnum.X7102,
+    description: "Second of the price consistent constellation tokens",
+  },
+  {
+    name: "X7103",
+    contract: ContractsEnum.X7103,
+    description: "Third of the price consistent constellation tokens",
+  },
+  {
+    name: "X7104",
+    contract: ContractsEnum.X7104,
+    description: "Fourth of the price consistent constellation tokens",
+  },
+  {
+    name: "X7105",
+    contract: ContractsEnum.X7105,
+    description: "Fifth of the price consistent constellation tokens",
+  },
+]
+
+const utilityTokens = [
+  {
+    name: "X7D",
+    contract: ContractsEnum.X7D,
+    description: `When adding funds to the lending pool, X7D is minted - it's value is pegged 1:1 to the native chain currency`,
+  },
+]
+
+const liquidityHubs = [
+  {
+    name: "X7R Liquidity Hub",
+    contract: ContractsEnum.X7R_LiquidityHub,
+    description: "Liquidity hub for X7R - reward token",
+  },
+  {
+    name: "X7DAO Liquidity Hub",
+    contract: ContractsEnum.X7DAO_LiquidityHub,
+    description: "Liquidity hub for X7DAO - governance token",
+  },
+  {
+    name: "X7100 Liquidity Hub",
+    contract: ContractsEnum.X7100_LiquidityHub,
+    description: "Liquidity hub for X7100 - constellation tokens",
+  },
+]
+
+const discountAuthorities = [
+  {
+    name: "X7R Discount Authority",
+    contract: ContractsEnum.X7R_DiscountAuthority,
+    description: `Smart contract for X7R fee discounts - granted via X7 utility NFT's`,
+  },
+  {
+    name: "X7DAO Discount Authority",
+    contract: ContractsEnum.X7DAO_DiscountAuthority,
+    description: "Smart contract for X7DAO fee discounts",
+  },
+  {
+    name: "X7100 Discount Authority",
+    contract: ContractsEnum.X7100_DiscountAuthority,
+    description: "Smart contract for X7100 series token fee discounts",
+  },
+]
+
+const splitters = [
+  {
+    name: "Ecosystem Splitter",
+    contract: ContractsEnum.EcosystemSplitter,
+    description:
+      "Smart contract for balancing revenue across all revenue streams in the X7 ecosystem",
+  },
+  {
+    name: "Treasury Splitter",
+    contract: ContractsEnum.TreasurySplitter,
+    description: "Smart contract responsible for managing the treasury",
+  },
+]
+
+const misc = [
+  {
+    name: "Lending Pool",
+    contract: ContractsEnum.X7_LendingPool,
+    description:
+      "The lending pool where Initial Liquidity Loans funds are provided from",
+  },
+  {
+    name: "Token Burner",
+    contract: ContractsEnum.X7100_TokenBurner,
+    description: "Smart contract for burning tokens",
+  },
+  {
+    name: "Token Time Lock",
+    contract: ContractsEnum.TokenTimeLock,
+    description: "ERC-20 Token Time Lock",
+  },
+]
+
+const xchange = [
+  {
+    name: "Xchange Factory",
+    contract: ContractsEnum.XchangeFactory,
+    description:
+      "The secret sauce - this contract has yet to be verified to maintain competitive advantage",
+  },
+  {
+    name: "Xchange Router",
+    contract: ContractsEnum.XchangeRouter,
+    description:
+      "Uniswap v2 Fork - this contract includes functionality to remove liquidity in a failsafe manner to permit liquidation of fee liquidity in all cases.",
+  },
+  {
+    name: "Xchange Discount Authority",
+    contract: ContractsEnum.XchangeDiscountAuthority,
+    description: "Smart Contract for Xchange fee discounts",
+  },
+  {
+    name: "Lending Discount Authority",
+    contract: ContractsEnum.LendingDiscountAuthority,
+    description: "Smart Contract for calculating lending discounts",
+  },
+  {
+    name: "Lending Pool Reserve",
+    contract: ContractsEnum.LendingPoolReserve,
+    description:
+      "Smart Contract for minting and redeeming X7D and funding the Lending Pool with ETH.",
+  },
+]

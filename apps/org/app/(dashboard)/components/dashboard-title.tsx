@@ -41,7 +41,6 @@ export function DashboardTitle(props: HeaderProps) {
               className={cn(
                 buttonVariants({
                   variant: "outline",
-                  size: "lg",
                 }),
                 "inline-flex"
               )}
@@ -56,7 +55,6 @@ export function DashboardTitle(props: HeaderProps) {
               className={cn(
                 buttonVariants({
                   variant: "default",
-                  size: "lg",
                 }),
                 "inline-flex"
               )}

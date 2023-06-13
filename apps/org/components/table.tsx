@@ -4,6 +4,7 @@ import React, { FC, ReactNode } from "react"
 
 interface Column {
   header: string
+  responsiveHeader?: string
   width?: string
   accessor: string
   responsive?: boolean
@@ -28,10 +29,13 @@ export const Table: FC<TableProps> = ({ data, columns }) => {
               key={index}
               className={cn(
                 column?.responsive ? "hidden lg:table-cell" : "",
-                "py-3 pl-4 pr-3 text-left text-xs font-semibold text-zinc-500 sm:pl-6 last:text-right last:pr-8 uppercase border-t border-b border-zinc-200 dark:border-zinc-800"
+                "py-3 px-3 text-left text-xs font-semibold text-zinc-500 first:sm:pl-6 last:text-right last:pr-8 uppercase border-t border-b border-zinc-200 dark:border-zinc-800"
               )}
             >
-              {column.header}
+              <span className="lg:hidden">
+                {column.responsiveHeader ?? column.header}
+              </span>
+              <span className="hidden lg:block">{column.header}</span>
             </th>
           ))}
         </tr>
