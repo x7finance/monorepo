@@ -1,6 +1,6 @@
 "use client"
 
-import { BlockchainType, ContractsEnum } from "common"
+import { BlockchainType, ContractsEnum, LoanType } from "common"
 import { X7InitialLiquidityLoanTerm001 } from "contracts"
 
 import { useEffect, useState } from "react"
@@ -16,7 +16,7 @@ const ITEMS_PER_PAGE = 8
 
 interface LoanTableProps {
   chainId: BlockchainType
-  loanTypeId: string
+  loanTypeId: LoanType
 }
 
 export function LoansTable(props: LoanTableProps) {
