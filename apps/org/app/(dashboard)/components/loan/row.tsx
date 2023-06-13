@@ -1,6 +1,6 @@
 "use client"
 
-import { BlockchainType } from "common"
+import { BlockchainType, LoanType } from "common"
 import {
   cn,
   generateChainBase,
@@ -25,7 +25,7 @@ import {
 interface LoansProps {
   id: number
   chainId: BlockchainType
-  loanType: string
+  loanType: LoanType
   type:
     | "index"
     | "id"
