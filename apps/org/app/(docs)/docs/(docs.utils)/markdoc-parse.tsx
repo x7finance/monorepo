@@ -60,27 +60,31 @@ export async function getMarkdownContent(params: ParamsProps) {
   }
 }
 
-function getNodeText(node: any) {
+function getNodeText(node: any): string {
   let text = ""
   for (let child of node.children ?? []) {
     if (typeof child === "string") {
       text += child
+    } else {
+      text += getNodeText(child)
     }
-    text += getNodeText(child)
   }
   return text
 }
 
-const SUBHEADINGS = [2, 3]
+const SUBHEADINGS: number[] = [2, 3]
 
-interface SectionsType {
+interface SectionType {
   id: string
   title: string
-  children: JSX.Element[] | JSX.Element
+  children: SectionType[]
 }
 
-function collectHeadings(nodes: any, slugify = slugifyWithCounter()) {
-  let sections = []
+function collectHeadings(
+  nodes: any,
+  slugify = slugifyWithCounter()
+): SectionType[] {
+  let sections: SectionType[] = []
 
   for (let node of nodes?.children ?? []) {
     if (
@@ -94,20 +98,19 @@ function collectHeadings(nodes: any, slugify = slugifyWithCounter()) {
         node.attributes.id = id
 
         if (node.name === "Heading" && node.attributes.level === 3) {
-          if (!sections[sections.length - 1]) {
+          if (sections.length === 0) {
             throw new Error(
-              "Cannot add `h3` to table of contents without a preceding `h2`"
+              "Cannot add `h3` to the table of contents without a preceding `h2`"
             )
           }
 
-          // @ts-expect-error
           sections[sections.length - 1].children.push({
-            ...node.attributes,
+            id,
             title,
+            children: [],
           })
         } else {
-          // @ts-expect-error
-          sections.push({ ...node.attributes, title, children: [] })
+          sections.push({ id, title, children: [] })
         }
       }
     }

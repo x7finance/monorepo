@@ -5,7 +5,7 @@ const nextConfig = {
   reactStrictMode: true,
   trailingSlash: true,
   webpack: (config, { isServer, webpack }) => {
-    config.externals.push("pino-pretty", "lokijs", "encoding")
+    // config.externals.push("pino-pretty", "lokijs", "encoding")
 
     if (!isServer) {
       config.resolve.fallback = {
@@ -16,16 +16,16 @@ const nextConfig = {
       }
     }
 
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      "react-native$": "react-native-web",
-    }
-    config.resolve.extensions = [
-      ".web.js",
-      ".web.ts",
-      ".web.tsx",
-      ...config.resolve.extensions,
-    ]
+    // config.resolve.alias = {
+    //   ...config.resolve.alias,
+    //   "react-native$": "react-native-web",
+    // }
+    // config.resolve.extensions = [
+    //   ".web.js",
+    //   ".web.ts",
+    //   ".web.tsx",
+    //   ...config.resolve.extensions,
+    // ]
 
     return config
   },
