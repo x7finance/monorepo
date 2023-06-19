@@ -41,6 +41,7 @@ export {
   SearchIcon,
   SunIcon,
   XIcon,
+  XCircleIcon,
 } from "lucide-react"
 
 export { ChainsArray } from "./utils/ChainsArray"

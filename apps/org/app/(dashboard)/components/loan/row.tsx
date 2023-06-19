@@ -88,7 +88,7 @@ export function LoanRow({ id, chainId, type, loanType }: LoansProps) {
                   <Link
                     href={`/dashboard/loans/${generateChainShortName(
                       chainId
-                    )}/${loanType}/${loanID}`}
+                    )}/${loanType}/${id}`}
                     className={cn(
                       buttonVariants({
                         variant: "outline",
@@ -182,7 +182,7 @@ export function LoanRow({ id, chainId, type, loanType }: LoansProps) {
               <Link
                 href={`/dashboard/loans/${generateChainShortName(
                   chainId
-                )}/${loanType}/${loanID}`}
+                )}/${loanType}/${id}`}
                 className={cn(
                   buttonVariants({
                     variant: "outline",

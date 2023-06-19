@@ -93,6 +93,20 @@ export function useXchangeLoanData(
         chainId: generateWagmiChain(chainId),
       },
       {
+        address: loanAddress,
+        abi: selectContract(loanType) as any,
+        functionName: "getPrincipalPaymentSchedule",
+        args: [tokenByIndex],
+        chainId: generateWagmiChain(chainId),
+      },
+      {
+        address: loanAddress,
+        abi: selectContract(loanType) as any,
+        functionName: "getPremiumPaymentSchedule",
+        args: [tokenByIndex],
+        chainId: generateWagmiChain(chainId),
+      },
+      {
         address: ContractsEnum.X7_LendingPool,
         abi: X7LendingPoolV1 as any,
         functionName: "canLiquidate",
@@ -127,8 +141,10 @@ export function useXchangeLoanData(
       ? parseInt(data?.[6]?.result?.toString() ?? "0", 10) / 10 ** 18
       : 0,
     loanState: parseInt(data?.[7]?.result?.toString() ?? "0", 10) || 0,
-    canLiquidate: data?.[8]?.result
-      ? parseInt(data?.[8]?.result?.toString() ?? "0", 10) / 10 ** 18
+    getPrincipalPaymentSchedule: data?.[8]?.result,
+    getPremiumPaymentSchedule: data?.[9]?.result,
+    canLiquidate: data?.[10]?.result
+      ? parseInt(data?.[10]?.result?.toString() ?? "0", 10) / 10 ** 18
       : 0,
   }
 }
