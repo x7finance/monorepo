@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "clsx": "^1.2.1",
-    "eslint": "^8.42.0",
+    "eslint": "^8.43.0",
     "eslint-config-custom": "workspace:*",
     "tailwind-merge": "^1.13.0",
     "tsconfig": "workspace:*",

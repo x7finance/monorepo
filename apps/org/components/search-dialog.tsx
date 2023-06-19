@@ -8,10 +8,12 @@ import Link from "next/link"
 import { DocSearchModal, useDocSearchKeyboardEvents } from "@docsearch/react"
 import { createPortal } from "react-dom"
 
+import { env } from "@/env.mjs"
+
 const docSearchConfig = {
-  appId: process.env.NEXT_PUBLIC_DOCSEARCH_APP_ID,
-  apiKey: process.env.NEXT_PUBLIC_DOCSEARCH_API_KEY,
-  indexName: process.env.NEXT_PUBLIC_DOCSEARCH_INDEX_NAME,
+  appId: env.NEXT_PUBLIC_DOCSEARCH_APP_ID,
+  apiKey: env.NEXT_PUBLIC_DOCSEARCH_API_KEY,
+  indexName: env.NEXT_PUBLIC_DOCSEARCH_INDEX_NAME,
 }
 
 function Hit({ hit, children }: { hit: any; children: any }) {
@@ -20,7 +22,7 @@ function Hit({ hit, children }: { hit: any; children: any }) {
 
 export function Search({ isMobile = false }) {
   let [isOpen, setIsOpen] = useState(false)
-  let [modifierKey, setModifierKey] = useState()
+  let [modifierKey, setModifierKey] = useState<string>("")
 
   const onOpen = useCallback(() => {
     setIsOpen(true)
@@ -33,10 +35,10 @@ export function Search({ isMobile = false }) {
   useDocSearchKeyboardEvents({ isOpen, onOpen, onClose })
 
   useEffect(() => {
-    setModifierKey(
-      // @ts-expect-error
-      /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform) ? "⌘" : "K"
-    )
+    const modifierKey = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)
+      ? "⌘"
+      : "K"
+    setModifierKey(modifierKey)
   }, [])
 
   return (
@@ -70,7 +72,6 @@ export function Search({ isMobile = false }) {
       )}
       {isOpen &&
         createPortal(
-          // @ts-expect-error
           <DocSearchModal
             {...docSearchConfig}
             initialScrollY={window.scrollY}
