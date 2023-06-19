@@ -1,7 +1,6 @@
-export function isNumeric(str: string) {
-  if (typeof str != 'string') {
-    return false;
+export function isNumeric(str: string): boolean {
+  if (typeof str !== "string") {
+    return false
   }
-  // @ts-expect-error
-  return !isNaN(str) && !isNaN(parseFloat(str));
+  return !isNaN(Number(str)) && !isNaN(parseFloat(str))
 }

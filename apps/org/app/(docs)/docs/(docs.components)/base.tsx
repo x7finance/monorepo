@@ -61,8 +61,8 @@ export function DocsBase(props: DocsBaseProps) {
       <div className="relative mx-auto flex max-w-8xl justify-center sm:px-2 lg:px-8 xl:px-12">
         <div className="hidden lg:relative lg:block lg:flex-none">
           <div className="absolute inset-y-0 right-0 w-[50vw] bg-zinc-50 dark:hidden" />
-          <div className="absolute bottom-0 right-0 hidden w-px h-12 top-16 bg-gradient-to-t from-zinc-800 dark:block" />
-          <div className="absolute bottom-0 right-0 hidden w-px top-28 bg-zinc-800 dark:block" />
+          <div className="absolute bottom-0 right-0  w-px h-12 top-16 bg-gradient-to-t dark:from-zinc-800 from-zinc-200 block" />
+          <div className="absolute bottom-0 right-0  w-px top-28 dark:bg-zinc-800 bg-zinc-200 block" />
           <div className="scrollbar sticky top-[4.5rem] -ml-0.5 h-[calc(100vh-4.5rem)] overflow-y-auto overflow-x-hidden pt-24 pb-16 pl-0.5">
             <Navigation
               navigation={navigation}

@@ -6,6 +6,7 @@ import "@/styles/globals.css"
 
 import { cn } from "utils"
 
+import { env } from "@/env.mjs"
 import { siteConfig } from "@/config/site"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui-client/toast/toaster"
@@ -73,15 +74,13 @@ export const metadata = {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
-    images: [
-      `${process.env.NEXT_PUBLIC_ASSETS_URL}/images/open-graph/background.png`,
-    ],
+    images: [`${env.NEXT_PUBLIC_ASSETS_URL}/images/open-graph/background.png`],
     creator: "@X7_Finance",
   },
   icons: {
-    icon: `${process.env.NEXT_PUBLIC_ASSETS_URL}/images/icons/favicon.ico`,
-    shortcut: `${process.env.NEXT_PUBLIC_ASSETS_URL}/images/icons/favicon-16x16.png`,
-    apple: `${process.env.NEXT_PUBLIC_ASSETS_URL}/images/icons/apple-touch-icon-120x120.png`,
+    icon: `${env.NEXT_PUBLIC_ASSETS_URL}/images/icons/favicon.ico`,
+    shortcut: `${env.NEXT_PUBLIC_ASSETS_URL}/images/icons/favicon-16x16.png`,
+    apple: `${env.NEXT_PUBLIC_ASSETS_URL}/images/icons/apple-touch-icon-120x120.png`,
   },
   manifest: `${siteConfig.url}/site.webmanifest`,
 }

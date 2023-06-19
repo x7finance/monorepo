@@ -10,7 +10,7 @@ const colorStyles = {
     medium:
       "ring-sky-300 dark:ring-sky-400/30 bg-sky-400/10 text-sky-500 dark:text-sky-400",
   },
-  emeral: {
+  emerald: {
     small: "text-emerald-500",
     medium:
       "ring-emerald-300 bg-emerald-400/10 text-emerald-500 dark:ring-emerald-400/30 dark:bg-emerald-400/10 dark:text-emerald-400",
@@ -46,19 +46,26 @@ const valueColorMap: ValueColorMap = {
   put: "amber",
   delete: "rose",
 }
+
+type TagProps = {
+  children: React.ReactNode
+  variant?: keyof typeof variantStyles
+  color?: keyof typeof colorStyles | keyof typeof valueColorMap
+}
+
 export function Tag({
-  children,
+  children = "", // Set an empty string as the default value
   variant = "medium",
-  color = valueColorMap[children.toLowerCase()] ?? "sky",
-}: any) {
+  color = valueColorMap[String(children).toLowerCase()] ?? "sky",
+}: TagProps) {
   return (
     <span
       className={cn(
         "font-mono text-[0.625rem] font-semibold leading-6",
-        // @ts-expect-error
-        variantStyles[variant],
-        // @ts-expect-error
-        colorStyles[color][variant]
+        variantStyles[variant as keyof typeof variantStyles],
+        colorStyles[color as keyof typeof colorStyles][
+          variant as keyof typeof variantStyles
+        ]
       )}
     >
       {children}

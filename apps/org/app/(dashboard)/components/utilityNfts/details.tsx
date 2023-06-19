@@ -17,6 +17,7 @@ import { ConnectKitButton } from "connectkit"
 import { formatEther, parseEther } from "viem"
 import { useContractReads, useNetwork, useSwitchNetwork } from "wagmi"
 
+import { env } from "@/env.mjs"
 import { useContractTx } from "@/lib/hooks/useContractTx"
 import { GradientTypes } from "@/components/gradients"
 import { toast } from "@/components/ui-client/toast/use-toast"
@@ -62,8 +63,7 @@ export default function UtilityNftDetails({ nft }: any) {
 
   const price =
     data?.[1]?.result && !!data?.[0]?.result
-      ? // @ts-expect-error
-        formatEther(data?.[1]?.result)
+      ? formatEther(data?.[1]?.result as bigint)
       : 0
 
   const maxSupply = !!data?.[2]?.result ? Number(data?.[2]?.result) : 0
@@ -72,8 +72,9 @@ export default function UtilityNftDetails({ nft }: any) {
   const mintNft = useCallback(
     async (quantity: number) => {
       try {
-        // @ts-ignore
-        if (quantity <= 0 && price > 0) {
+        const priceValue = Number(price)
+
+        if (quantity <= 0 && priceValue > 0) {
           return toast({
             title: "Error",
             description: "Please ensure you are minting at least 1 NFT",
@@ -94,7 +95,7 @@ export default function UtilityNftDetails({ nft }: any) {
         console.error(error)
       }
     },
-    [data]
+    [data, price]
   )
 
   const { switchNetworkAsync } = useSwitchNetwork({
@@ -112,7 +113,7 @@ export default function UtilityNftDetails({ nft }: any) {
           width={200}
           priority={true}
           className="h-auto w-full animate-blur-in"
-          src={`${process.env.NEXT_PUBLIC_ASSETS_URL}/images/nfts/${nft.slug}.gif`}
+          src={`${env.NEXT_PUBLIC_ASSETS_URL}/images/nfts/${nft.slug}.gif`}
           alt="Utility NFT Image"
         />
       </div>

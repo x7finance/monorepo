@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 
-export function useIsComponentReady() {
-  const [isComponentReady, setComponentReady] = useState(false)
+export function useIsComponentReady(): boolean {
+  const [isComponentReady, setComponentReady] = useState<boolean>(false)
 
   useEffect(() => {
     setComponentReady(true)
