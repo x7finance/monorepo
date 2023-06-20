@@ -9,15 +9,15 @@ import { DocType } from "@/lib/types"
 
 import { config } from "./config.markdoc"
 
-const SOURCE_FILES = "app/(docs)/docs/(source-files)"
+const SOURCE_FILES = "app/(docs)/(source-files)"
 export const SOURCE_DIR = path.join(process.cwd(), SOURCE_FILES)
 
 // Define the type for the slug
 type SlugType = string[] | undefined
 
-async function pathExists(pathString: string): Promise<boolean> {
+async function pathExists(path: string): Promise<boolean> {
   try {
-    await fs.promises.access(pathString)
+    await fs.promises.access(path)
     return true
   } catch {
     return false
@@ -25,7 +25,6 @@ async function pathExists(pathString: string): Promise<boolean> {
 }
 
 async function appendMdIfFileOrIndexMdIfDirectory(pathString) {
-  console.log("path string: ", pathString)
   try {
     if (await pathExists(pathString)) {
       const stats = await fs.promises.stat(pathString)
@@ -33,6 +32,8 @@ async function appendMdIfFileOrIndexMdIfDirectory(pathString) {
       if (stats.isDirectory()) {
         return path.join(pathString, "index.md")
       }
+    } else {
+      return `${pathString}.md`
     }
   } catch (error) {
     console.error(`Error reading path: ${error}`)
@@ -51,11 +52,7 @@ interface ParsedMarkdown {
 
 // Create function to parse the markdown file
 async function parseMarkdownFile(filePath: string): Promise<ParsedMarkdown> {
-  // console.log("filePath: ", filePath)
-  // const source = await fs.promises.readFile(filePath, "utf-8")
-  // console.log("source: ", source)
-
-  const source = ""
+  const source = await fs.promises.readFile(filePath, "utf-8")
 
   const matterResult = matter(source)
   const ast = Markdoc.parse(source)

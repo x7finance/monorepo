@@ -4,7 +4,7 @@
   "repository": "x7/monorepo",
   "homepage": "https://www.x7finance.org",
   "engines": {
-    "node": ">=16.8.0"
+    "node": "18.x"
   },
   "scripts": {
     "dev": "next dev",
