@@ -26,23 +26,29 @@ export const Table: FC<TableProps> = ({ data, columns }) => {
               {...(column?.width && index === 0
                 ? { width: column?.width }
                 : {})}
-              key={index}
+              key={`${column.header}-${index}}`}
               className={cn(
                 column?.responsive ? "hidden lg:table-cell" : "",
                 "py-3 px-3 text-left text-xs font-semibold text-zinc-500 first:sm:pl-6 last:text-right last:pr-8 uppercase border-t border-b border-zinc-200 dark:border-zinc-800"
               )}
             >
-              <span className="lg:hidden">
-                {column.responsiveHeader ?? column.header}
-              </span>
-              <span className="hidden lg:block">{column.header}</span>
+              <>
+                <span className="lg:hidden">
+                  {column.responsiveHeader || column.header}
+                </span>
+                <span className="hidden lg:block">{column.header}</span>
+              </>
             </th>
           ))}
         </tr>
       </thead>
       <tbody className="x-body">
         {data.map((row, index) => (
-          <tr className="border-none" key={index}>
+          <tr
+            className="border-none"
+            // @ts-expect-error
+            key={`${data?.accessor ?? data?.header}-${index}}`}
+          >
             {columns.map((column, colIndex) => (
               <td
                 {...(column?.width && index === 0

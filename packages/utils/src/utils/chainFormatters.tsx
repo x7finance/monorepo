@@ -11,142 +11,124 @@ import {
   TokenContractAddresses,
 } from "common"
 
-import { Chain } from "wagmi"
+type ChainMapping = {
+  [key in ChainEnum | ChainEnum.offline]: {
+    denomination: ChainDenominationEnum
+    identifier: ChainIdentifierEnum
+    base: ChainScannerLinksEnum
+    abbreviation: ChainDenominationEnum
+    shortName: ChainShortNameEnum
+    nativeQueryCommands: { nativeCurrency: string }
+    etherTokenEnum: string
+    tokenOracleEtherUSDEnum: ChainTokenOracleEtherUSDEnum
+  }
+}
+
+const chainMapping: ChainMapping = {
+  [ChainEnum.erc]: {
+    denomination: ChainDenominationEnum.erc,
+    identifier: ChainIdentifierEnum.erc,
+    base: ChainScannerLinksEnum.erc,
+    abbreviation: ChainDenominationEnum.erc,
+    shortName: ChainShortNameEnum.erc,
+    nativeQueryCommands: { nativeCurrency: "ethereum" },
+    etherTokenEnum: TokenContractAddresses.WETH,
+    tokenOracleEtherUSDEnum: ChainTokenOracleEtherUSDEnum.erc,
+  },
+  [ChainEnum.bsc]: {
+    denomination: ChainDenominationEnum.bsc,
+    identifier: ChainIdentifierEnum.bsc,
+    base: ChainScannerLinksEnum.bsc,
+    abbreviation: ChainDenominationEnum.bsc,
+    shortName: ChainShortNameEnum.bsc,
+    nativeQueryCommands: { nativeCurrency: "binancecoin" },
+    etherTokenEnum: TokenContractAddresses.BNB,
+    tokenOracleEtherUSDEnum: ChainTokenOracleEtherUSDEnum.bsc,
+  },
+  [ChainEnum.polygon]: {
+    denomination: ChainDenominationEnum.polygon,
+    identifier: ChainIdentifierEnum.polygon,
+    base: ChainScannerLinksEnum.polygon,
+    abbreviation: ChainDenominationEnum.polygon,
+    shortName: ChainShortNameEnum.polygon,
+    nativeQueryCommands: { nativeCurrency: "matic" },
+    etherTokenEnum: TokenContractAddresses.WETH,
+    tokenOracleEtherUSDEnum: ChainTokenOracleEtherUSDEnum.polygon,
+  },
+  [ChainEnum.optimism]: {
+    denomination: ChainDenominationEnum.optimism,
+    identifier: ChainIdentifierEnum.optimism,
+    base: ChainScannerLinksEnum.optimism,
+    abbreviation: ChainDenominationEnum.optimism,
+    shortName: ChainShortNameEnum.optimism,
+    nativeQueryCommands: { nativeCurrency: "ethereum" },
+    etherTokenEnum: TokenContractAddresses.WETH,
+    tokenOracleEtherUSDEnum: ChainTokenOracleEtherUSDEnum.optimism,
+  },
+  [ChainEnum.arbitrum]: {
+    denomination: ChainDenominationEnum.arbitrum,
+    identifier: ChainIdentifierEnum.arbitrum,
+    base: ChainScannerLinksEnum.arbitrum,
+    abbreviation: ChainDenominationEnum.arbitrum,
+    shortName: ChainShortNameEnum.arbitrum,
+    nativeQueryCommands: { nativeCurrency: "ethereum" },
+    etherTokenEnum: TokenContractAddresses.WETH,
+    tokenOracleEtherUSDEnum: ChainTokenOracleEtherUSDEnum.arbitrum,
+  },
+  [ChainEnum.offline]: {
+    denomination: ChainDenominationEnum.erc,
+    identifier: ChainIdentifierEnum.erc,
+    base: ChainScannerLinksEnum.erc,
+    abbreviation: ChainDenominationEnum.erc,
+    shortName: ChainShortNameEnum.erc,
+    nativeQueryCommands: { nativeCurrency: "ethereum" },
+    etherTokenEnum: TokenContractAddresses.WETH,
+    tokenOracleEtherUSDEnum: ChainTokenOracleEtherUSDEnum.erc,
+  },
+}
 
 export function generateChainDenomination(chain: BlockchainType) {
-  switch (chain) {
-    case ChainEnum.erc:
-      return ChainDenominationEnum.erc
-    case ChainEnum.optimism:
-      return ChainDenominationEnum.optimism
-    case ChainEnum.bsc:
-      return ChainDenominationEnum.bsc
-    case ChainEnum.polygon:
-      return ChainDenominationEnum.polygon
-    case ChainEnum.arbitrum:
-      return ChainDenominationEnum.arbitrum
-    default:
-      return ChainDenominationEnum.erc
-  }
+  return chainMapping[chain]?.denomination ?? ChainDenominationEnum.erc
 }
 
 export function generateChainIdentifier(chain: BlockchainType) {
-  switch (chain) {
-    case ChainEnum.erc:
-      return ChainIdentifierEnum.erc
-    case ChainEnum.optimism:
-      return ChainIdentifierEnum.optimism
-    case ChainEnum.bsc:
-      return ChainIdentifierEnum.bsc
-    case ChainEnum.polygon:
-      return ChainIdentifierEnum.polygon
-    case ChainEnum.arbitrum:
-      return ChainIdentifierEnum.arbitrum
-    default:
-      return ChainIdentifierEnum.erc
-  }
+  return chainMapping[chain]?.identifier ?? ChainIdentifierEnum.erc
 }
 
 export function generateChainBase(chain?: BlockchainType) {
-  switch (chain) {
-    case ChainEnum.erc:
-      return ChainScannerLinksEnum.erc
-    case ChainEnum.bsc:
-      return ChainScannerLinksEnum.bsc
-    case ChainEnum.polygon:
-      return ChainScannerLinksEnum.polygon
-    case ChainEnum.arbitrum:
-      return ChainScannerLinksEnum.arbitrum
-    case ChainEnum.optimism:
-      return ChainScannerLinksEnum.optimism
-    default:
-      return ChainScannerLinksEnum.erc
-  }
+  return chainMapping[chain ?? ChainEnum.erc]?.base ?? ChainScannerLinksEnum.erc
 }
 
 export function generateChainAbbreviation(chain?: BlockchainType) {
-  switch (chain) {
-    case ChainEnum.erc:
-      return ChainDenominationEnum.erc
-    case ChainEnum.bsc:
-      return ChainDenominationEnum.bsc
-    case ChainEnum.arbitrum:
-      return ChainDenominationEnum.arbitrum
-    case ChainEnum.optimism:
-      return ChainDenominationEnum.optimism
-    case ChainEnum.polygon:
-      return ChainDenominationEnum.polygon
-    default:
-      return "ETH"
-  }
+  return chainMapping[chain ?? ChainEnum.erc]?.abbreviation ?? "ETH"
 }
 
 export function generateChainShortName(chain?: BlockchainType) {
-  switch (chain) {
-    case ChainEnum.erc:
-      return ChainShortNameEnum.erc
-    case ChainEnum.bsc:
-      return ChainShortNameEnum.bsc
-    case ChainEnum.arbitrum:
-      return ChainShortNameEnum.arbitrum
-    case ChainEnum.optimism:
-      return ChainShortNameEnum.optimism
-    case ChainEnum.polygon:
-      return ChainShortNameEnum.polygon
-    default:
-      return ChainShortNameEnum.erc
-  }
+  return (
+    chainMapping[chain ?? ChainEnum.erc]?.shortName ?? ChainShortNameEnum.erc
+  )
 }
 
 export function generateNativeQueryCommands(chainId?: BlockchainType) {
-  switch (chainId) {
-    case ChainEnum.erc:
-      return { nativeCurrency: "ethereum" }
-    case ChainEnum.bsc:
-      return { nativeCurrency: "binancecoin" }
-    case ChainEnum.polygon:
-      return { nativeCurrency: "matic" }
-    case ChainEnum.optimism:
-      return { nativeCurrency: "ethereum" }
-    case ChainEnum.arbitrum:
-      return { nativeCurrency: "ethereum" }
-    default:
-      return { nativeCurrency: "ethereum" }
-  }
+  return (
+    chainMapping[chainId ?? ChainEnum.erc]?.nativeQueryCommands ?? {
+      nativeCurrency: "ethereum",
+    }
+  )
 }
 
 export function generateChainEtherTokenEnum(chainId?: BlockchainType) {
-  switch (chainId) {
-    case ChainEnum.erc:
-      return TokenContractAddresses.WETH
-    case ChainEnum.bsc:
-      return TokenContractAddresses.BNB
-    case ChainEnum.polygon:
-      return TokenContractAddresses.MATIC
-    case ChainEnum.arbitrum:
-      return TokenContractAddresses.WETH
-    case ChainEnum.optimism:
-      return TokenContractAddresses.WETH
-    default:
-      return TokenContractAddresses.WETH
-  }
+  return (
+    chainMapping[chainId ?? ChainEnum.erc]?.etherTokenEnum ??
+    TokenContractAddresses.WETH
+  )
 }
 
 export function generateChainTokenOracleEtherUSDEnum(chainId?: BlockchainType) {
-  switch (chainId) {
-    case ChainEnum.erc:
-      return ChainTokenOracleEtherUSDEnum.erc
-    case ChainEnum.bsc:
-      return ChainTokenOracleEtherUSDEnum.bsc
-    case ChainEnum.polygon:
-      return ChainTokenOracleEtherUSDEnum.polygon
-    case ChainEnum.arbitrum:
-      return ChainTokenOracleEtherUSDEnum.arbitrum
-    case ChainEnum.optimism:
-      return ChainTokenOracleEtherUSDEnum.optimism
-    default:
-      return ChainTokenOracleEtherUSDEnum.erc
-  }
+  return (
+    chainMapping[chainId ?? ChainEnum.erc]?.tokenOracleEtherUSDEnum ??
+    ChainTokenOracleEtherUSDEnum.erc
+  )
 }
 
 export function generateX7InitialLiquidityLoanTermContract(loantype: LoanType) {
@@ -159,55 +141,5 @@ export function generateX7InitialLiquidityLoanTermContract(loantype: LoanType) {
       return ContractsEnum.X7InitialLiquidityLoanTerm003
     default:
       return ContractsEnum.X7InitialLiquidityLoanTerm001
-  }
-}
-
-export function providerLinkGenerator(chain: Chain) {
-  switch (chain?.id) {
-    case ChainEnum.erc: {
-      return {
-        ankr: "eth",
-        blast: "eth-mainnet",
-        blockpi: "ethereum",
-        getblock: "eth",
-        pocket: "eth-mainnet",
-      }
-    }
-    case ChainEnum.bsc: {
-      return {
-        ankr: "bsc",
-        blast: "bsc-mainnet",
-        blockpi: "bsc",
-        getblock: "bsc",
-        pocket: "bsc-mainnet",
-      }
-    }
-    case ChainEnum.polygon: {
-      return {
-        ankr: "polygon",
-        blast: "polygon-mainnet",
-        blockpi: "polygon",
-        getblock: "matic",
-        pocket: "poly-mainnet",
-      }
-    }
-    case ChainEnum.optimism: {
-      return {
-        ankr: "optimism",
-        blast: "optimism-mainnet",
-        blockpi: "optimism",
-        getblock: "op",
-        pocket: "optimism-mainnet",
-      }
-    }
-    case ChainEnum.arbitrum: {
-      return {
-        ankr: "arbitrum",
-        blast: "eth-mainnet",
-        blockpi: "arbitrum",
-        getblock: "arbitrum",
-        pocket: "arbitrum-one",
-      }
-    }
   }
 }
