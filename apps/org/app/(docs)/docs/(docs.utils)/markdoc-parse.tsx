@@ -15,9 +15,9 @@ export const SOURCE_DIR = path.join(process.cwd(), SOURCE_FILES)
 // Define the type for the slug
 type SlugType = string[] | undefined
 
-async function pathExists(path: string): Promise<boolean> {
+async function pathExists(pathString: string): Promise<boolean> {
   try {
-    await fs.promises.access(path)
+    await fs.promises.access(pathString)
     return true
   } catch {
     return false
@@ -25,6 +25,7 @@ async function pathExists(path: string): Promise<boolean> {
 }
 
 async function appendMdIfFileOrIndexMdIfDirectory(pathString) {
+  console.log("path string: ", pathString)
   try {
     if (await pathExists(pathString)) {
       const stats = await fs.promises.stat(pathString)
@@ -32,8 +33,6 @@ async function appendMdIfFileOrIndexMdIfDirectory(pathString) {
       if (stats.isDirectory()) {
         return path.join(pathString, "index.md")
       }
-    } else {
-      return `${pathString}.md`
     }
   } catch (error) {
     console.error(`Error reading path: ${error}`)
@@ -41,13 +40,6 @@ async function appendMdIfFileOrIndexMdIfDirectory(pathString) {
 
   // Return original path if it's neither a file nor a directory
   return pathString
-}
-
-// Create function to build the path based on the slug
-function getBuiltPath(slug: SlugType): string {
-  const slugPath = !slug ? "" : slug.join("/")
-
-  return `/docs/${slugPath}/`
 }
 
 // Define the return type for parsing the markdown file
@@ -59,7 +51,11 @@ interface ParsedMarkdown {
 
 // Create function to parse the markdown file
 async function parseMarkdownFile(filePath: string): Promise<ParsedMarkdown> {
-  const source = await fs.promises.readFile(filePath, "utf-8")
+  // console.log("filePath: ", filePath)
+  // const source = await fs.promises.readFile(filePath, "utf-8")
+  // console.log("source: ", source)
+
+  const source = ""
 
   const matterResult = matter(source)
   const ast = Markdoc.parse(source)
@@ -101,7 +97,6 @@ export async function getMarkdownContent(
     const filePath = await appendMdIfFileOrIndexMdIfDirectory(
       path?.join(SOURCE_DIR, !chainPath ? `index` : chainPath)
     )
-    const builtPath = getBuiltPath(slug)
 
     const { matterResult, content, tableOfContents } = await parseMarkdownFile(
       filePath
@@ -117,7 +112,7 @@ export async function getMarkdownContent(
       tableOfContents,
       date,
       description,
-      slug: builtPath,
+      slug: `/docs/${!slug ? "" : slug.join("/")}`,
       seoTitle,
     }
   } catch (error) {
