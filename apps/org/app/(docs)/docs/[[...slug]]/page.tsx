@@ -19,18 +19,19 @@ import {
 export async function generateStaticParams() {
   const markdownPaths = await glob(path.join(SOURCE_DIR, "**/*.md"))
 
-  console.log("markdown: ", markdownPaths)
+  return markdownPaths.map((postPath) => {
+    const startIndex = postPath.indexOf("/docs/") + "/docs/".length
+    const endIndex = postPath.lastIndexOf(".md")
+    const sourceFilePath = postPath.substring(startIndex, endIndex)
 
-  const builtPaths = markdownPaths.map((postPath) => {
-    return {
-      slug: path.basename(postPath, path.extname(postPath)),
-    }
+    const slug = sourceFilePath
+      .replace("(source-files)", "")
+      .split("/")
+      .filter((slug) => slug !== "")
+
+    return { slug }
   })
-
-  console.log("builtPaths", builtPaths)
-  return builtPaths
 }
-
 export async function generateMetadata({
   params,
 }: DocsPageProps): Promise<Metadata> {
@@ -44,7 +45,7 @@ export async function generateMetadata({
 }
 
 export default async function DocsPage({ params }: DocsPageProps) {
-  const { content, title, tags, tableOfContents, date, slug } =
+  const { content, title, tags, tableOfContents, date, slug, section } =
     await getMarkdownContent(params)
 
   if (!content) {
@@ -53,7 +54,7 @@ export default async function DocsPage({ params }: DocsPageProps) {
 
   return (
     <DocsBase
-      docsType={params?.section}
+      docsType={section}
       date={date}
       tags={tags}
       title={title}

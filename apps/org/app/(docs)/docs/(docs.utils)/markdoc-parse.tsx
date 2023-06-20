@@ -13,7 +13,7 @@ const SOURCE_FILES = "app/(docs)/docs/(source-files)"
 export const SOURCE_DIR = path.join(process.cwd(), SOURCE_FILES)
 
 interface ParamsProps {
-  slug: string | undefined
+  slug?: string[]
   section: DocType
   description?: string
   title: string
@@ -25,12 +25,17 @@ export type DocsPageProps = {
 
 export async function getMarkdownContent(params: ParamsProps) {
   try {
-    const { slug, section = "" } = params
+    const { slug } = params
+
+    const isRoot = slug === undefined
 
     const filePath = path.join(
       SOURCE_DIR,
-      section,
-      slug === undefined ? "index.md" : `${slug}.md`
+      isRoot
+        ? "index.md"
+        : slug?.length === 1
+        ? `${slug[0]}/index.md`
+        : `${slug.join("/")}.md`
     )
 
     const source = fs.readFileSync(filePath, "utf-8")
@@ -38,21 +43,25 @@ export async function getMarkdownContent(params: ParamsProps) {
 
     const { title, tags = [], date, description, seoTitle } = matterResult.data
     const ast = Markdoc.parse(source)
+
     const content = Markdoc.transform(ast, config)
     const tableOfContents = collectHeadings(content) ?? []
 
-    const sectionPath = params?.section ? `/${params.section}` : ""
-    const slugPath = params?.slug ? `/${params.slug}` : ""
+    const builtPath = isRoot ? `/docs/` : `/docs/${slug.join("/")}/`
+
+    const parts = builtPath.split("/")
+
+    const section = (parts[2] || "docs") as DocType
 
     return {
-      section: "docs",
+      section,
       content,
       title,
       tags,
       tableOfContents,
       date,
       description,
-      slug: `/docs${sectionPath}${slugPath}/`,
+      slug: builtPath,
       seoTitle,
     }
   } catch (error) {
