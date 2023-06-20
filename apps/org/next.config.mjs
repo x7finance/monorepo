@@ -2,8 +2,6 @@ import "./env.mjs"
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  trailingSlash: true,
   webpack: (config, { isServer, webpack }) => {
     config.externals.push("pino-pretty", "lokijs", "encoding")
 
@@ -40,10 +38,9 @@ const nextConfig = {
       "x7.finance",
     ],
   },
+  reactStrictMode: true,
   experimental: {
-    scrollRestoration: true,
     appDir: true,
-    serverComponentsExternalPackages: [""],
   },
 }
 

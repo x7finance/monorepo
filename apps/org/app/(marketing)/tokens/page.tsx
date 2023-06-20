@@ -68,7 +68,7 @@ export default function TokensPage() {
                     </p>
                     <div className="relative flex items-center gap-y-2 md:gap-x-3 md:gap-y-0 top-6">
                       <Link
-                        href={`/docs/whitepaper/x7r/`}
+                        href={`/docs/whitepaper/x7r`}
                         className={cn(
                           buttonVariants({
                             variant: "ghost",
@@ -133,7 +133,7 @@ export default function TokensPage() {
                     </p>
                     <div className="relative flex items-center gap-y-2 md:gap-x-3 md:gap-y-0 top-6">
                       <Link
-                        href={`/docs/whitepaper/x7dao/`}
+                        href={`/docs/whitepaper/x7dao`}
                         className={cn(
                           buttonVariants({
                             variant: "ghost",
@@ -205,7 +205,7 @@ export default function TokensPage() {
                       </p>
                       <div className="relative flex items-center gap-y-2 md:gap-x-3 md:gap-y-0 top-12">
                         <Link
-                          href={`/docs/whitepaper/x7deposit/`}
+                          href={`/docs/whitepaper/x7deposit`}
                           className={cn(
                             buttonVariants({
                               variant: "ghost",

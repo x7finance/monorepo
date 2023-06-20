@@ -9,16 +9,25 @@ import { DocType } from "@/lib/types"
 
 import { config } from "./config.markdoc"
 
-const SOURCE_FILES = "app/(docs)/docs/(source-files)"
+export const SOURCE_FILES = "app/(docs)/(source-files)"
 export const SOURCE_DIR = path.join(process.cwd(), SOURCE_FILES)
 
 // Define the type for the slug
 type SlugType = string[] | undefined
 
+async function pathExists(path: string): Promise<boolean> {
+  try {
+    await fs.promises.access(path)
+    return true
+  } catch {
+    return false
+  }
+}
+
 async function appendMdIfFileOrIndexMdIfDirectory(pathString) {
   try {
-    if (fs.existsSync(pathString)) {
-      const stats = fs.statSync(pathString)
+    if (await pathExists(pathString)) {
+      const stats = await fs.promises.stat(pathString)
 
       if (stats.isDirectory()) {
         return path.join(pathString, "index.md")
@@ -34,13 +43,6 @@ async function appendMdIfFileOrIndexMdIfDirectory(pathString) {
   return pathString
 }
 
-// Create function to build the path based on the slug
-function getBuiltPath(slug: SlugType): string {
-  const slugPath = !slug ? "" : slug.join("/")
-
-  return `/docs/${slugPath}/`
-}
-
 // Define the return type for parsing the markdown file
 interface ParsedMarkdown {
   matterResult: matter.GrayMatterFile<string>
@@ -50,7 +52,18 @@ interface ParsedMarkdown {
 
 // Create function to parse the markdown file
 async function parseMarkdownFile(filePath: string): Promise<ParsedMarkdown> {
-  const source = await fs.readFileSync(filePath, "utf-8")
+  const absolutePath = path.resolve(filePath)
+
+  // Check if the file exists and is accessible
+  try {
+    await fs.promises.access(absolutePath, fs.constants.F_OK)
+  } catch (error) {
+    throw new Error(`File does not exist or is not accessible: ${absolutePath}`)
+  }
+
+  // If the file exists and is accessible, proceed with reading and parsing
+  const source = await fs.promises.readFile(absolutePath, "utf-8")
+
   const matterResult = matter(source)
   const ast = Markdoc.parse(source)
   const content = Markdoc.transform(ast, config)
@@ -88,11 +101,11 @@ export async function getMarkdownContent(
 
   try {
     const chainPath = slug?.join("/")
+
     const filePath = await appendMdIfFileOrIndexMdIfDirectory(
       path?.join(SOURCE_DIR, !chainPath ? `index` : chainPath)
     )
 
-    const builtPath = getBuiltPath(slug)
     const { matterResult, content, tableOfContents } = await parseMarkdownFile(
       filePath
     )
@@ -107,7 +120,7 @@ export async function getMarkdownContent(
       tableOfContents,
       date,
       description,
-      slug: builtPath,
+      slug: `/docs/${!slug ? "" : slug.join("/")}`,
       seoTitle,
     }
   } catch (error) {

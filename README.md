@@ -8,7 +8,7 @@
 <div align="center">X7 is a completely decentralized exchange - complete with it's innovative lending protocols.</div>
 <br />
 <div align="center">
-<a href="https://www.x7finance.org/">Website</a> 
+<a href="https://www.x7finance.org">Website</a> 
 <span> · </span>
 <a href="https://t.me/X7m105portal">Telegram</a> 
 <span> · </span>
@@ -48,7 +48,7 @@ This is like a decentralized Bank on the Blockchain. Borrowing money for new pro
 
 Everyone will be able to loan to the Lending Pool. Lock your ETH in the Lending Pool for 1 month RISK FREE and gain a specific % as reward on top of that when claiming that back (Just for example). This in turn makes the Lending Pool more liquid and helps with its growth and success.
 
-> \All profit from the DEX, goes back into the ecosystem (Tokens, Lending Pool, Future Development etc.)"
+> All profit from the DEX, goes back into the ecosystem (Tokens, Lending Pool, Future Development etc.)"
 
 > _- X7DAO Founding Team_
 
