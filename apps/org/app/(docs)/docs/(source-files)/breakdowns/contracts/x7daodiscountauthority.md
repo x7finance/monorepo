@@ -3,7 +3,7 @@ title: X7DAO Discount Authority Contract
 tags: [breakdowns]
 ---
 
-https://medium.com/@mikemurpher/x7dao-discount-authority-contract-c9ad4ad51e05
+[Original Medium Post](https://medium.com/@mikemurpher/x7dao-discount-authority-contract-c9ad4ad51e05)
 
 This contract `X7DAODiscountAuthority` is a contract that implements an interface called `IDiscountAuthority`. This interface has one public view function called `discountRatio` which takes an `address` parameter called `swapper` and returns two `uint256` values: `numerator` and `denominator`.
 

@@ -1,8 +1,11 @@
-## X7DAO Discount Liquidity Hub
+---
+title: X7DAO Discount Liquidity Hub Functions Breakdown
+tags: [breakdowns]
+---
 
 Contains the contract functions only with a link to the full function in the contract code
 
-### Interface
+## Interface
 
 [interface ILiquidityHub](/contracts/contract-source-code/X7DAOLiquidityHub.sol#L212)\
 [interface IX7EcosystemSplitter](/contracts/contract-source-code/X7DAOLiquidityHub.sol#L216)\

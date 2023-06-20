@@ -1,8 +1,11 @@
-## X7 Eco System Splitter
+---
+title: X7 Eco System Splitter Functions Breakdown
+tags: [breakdowns]
+---
 
 Contains the contract functions only with a link to the full function in the contract code
 
-### Interface
+## Interface
 
 [interface IWETH](/contracts/contract-source-code/X7EcosystemSplitter.sol#L103)\
 [interface IERC20](/contracts/contract-source-code/X7EcosystemSplitter.sol#L109)\

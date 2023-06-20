@@ -1,8 +1,11 @@
-## X7 Lending Discount Authority V1
+---
+title: X7 Lending Discount Authority V1 Functions Breakdown
+tags: [breakdowns]
+---
 
 Contains the contract functions only with a link to the full function in the contract code
 
-### Interface
+## Interface
 
 [interface IX7LendingDiscountAuthority](/contracts/contract-source-code/X7LendingDiscountAuthorityV1.sol#L148)\
 [interface IDiscountNFT](/contracts/contract-source-code/X7LendingDiscountAuthorityV1.sol#L162)\

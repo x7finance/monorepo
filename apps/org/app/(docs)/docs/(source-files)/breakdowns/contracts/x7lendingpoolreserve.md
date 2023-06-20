@@ -3,7 +3,7 @@ title: X7 Finance Lending Pool Reserve
 tags: [breakdowns]
 ---
 
-https://medium.com/@mikemurpher/x7-finance-lending-pool-reserve-4f1c361feff1
+[Original Medium Post](https://medium.com/@mikemurpher/x7-finance-lending-pool-reserve-4f1c361feff1)
 
 Smart contract
 
