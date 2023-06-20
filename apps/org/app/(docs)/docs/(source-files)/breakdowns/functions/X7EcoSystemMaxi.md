@@ -1,8 +1,11 @@
-## X7 Eco System Maxi
+---
+title: X7 Eco System Maxi Functions Breakdown
+tags: [breakdowns]
+---
 
 Contains the contract functions only with a link to the full function in the contract code
 
-### Interface
+## Interface
 
 [interface IX7Migration](/contracts/contract-source-code/X7EcosystemMaxi.sol#L1267)
 

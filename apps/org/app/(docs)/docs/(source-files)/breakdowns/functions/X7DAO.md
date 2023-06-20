@@ -1,8 +1,11 @@
-## X7D
+---
+title: X7DAO Functions Breakdown
+tags: [breakdowns]
+---
 
 Contains the contract functions only with a link to the full function in the contract code
 
-### Interface
+## Interface
 
 [interface ILiquidityHub](/contracts/contract-source-code/X7DAO.sol#L265)\
 [interface IDiscountAuthority](/contracts/contract-source-code/X7DAO.sol#L269)

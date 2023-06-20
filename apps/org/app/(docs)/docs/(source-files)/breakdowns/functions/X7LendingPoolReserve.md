@@ -1,8 +1,11 @@
-## X7 Lending Pool Reserve
+---
+title: X7 Lending Pool Reserve Functions Breakdown
+tags: [breakdowns]
+---
 
 Contains the contract functions only with a link to the full function in the contract code
 
-### Interface
+## Interface
 
 [interface IERC20](/contracts/contract-source-code/X7LendingPoolReserve.sol#L130)\
 [interface IX7D](/contracts/contract-source-code/X7D.sol#L134)\

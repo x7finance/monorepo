@@ -1,8 +1,11 @@
-## X7D
+---
+title: X7D Functions Breakdown
+tags: [breakdowns]
+---
 
 Contains the contract functions only with a link to the full function in the contract code
 
-### Interface
+## Interface
 
 [interface IX7D](/contracts/contract-source-code/X7D.sol#L310)\
 [interface X7DMinter](/contracts/contract-source-code/X7D.sol#L316)\

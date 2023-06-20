@@ -3,7 +3,7 @@ title: X7 Initial Liquidity Loan Term
 tags: [breakdowns]
 ---
 
-https://medium.com/@mikemurpher/x7-initial-liquidity-loan-term-225ecb32a706
+[Original Medium Post](https://medium.com/@mikemurpher/x7-initial-liquidity-loan-term-225ecb32a706)
 
 Smart Contract
 

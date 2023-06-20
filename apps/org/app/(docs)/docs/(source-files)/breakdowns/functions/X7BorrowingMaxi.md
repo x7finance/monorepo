@@ -1,8 +1,11 @@
-## X7 Borrowing Maxi
+---
+title: X7 Borrowing Maxi
+tags: [breakdowns]
+---
 
 Contains the contract functions only with a link to the full function in the contract code
 
-### Interface
+## Interface
 
 [interface IX7Migration](/contracts/contract-source-code/X7BorrowingMaxi.sol#L1267)
 

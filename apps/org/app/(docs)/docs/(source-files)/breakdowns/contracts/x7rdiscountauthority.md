@@ -3,7 +3,7 @@ title: X7R Discount Authority Contract
 tags: [breakdowns]
 ---
 
-https://medium.com/@mikemurpher/x7r-discount-authority-contract-58a864c80aa3
+[Original Medium Post](https://medium.com/@mikemurpher/x7r-discount-authority-contract-58a864c80aa3)
 
 The `X7RDiscountAuthority` contract has three interfaces defined for interacting with three different types of NFTs: `IERC721`, `ILiquidityMaxiNFT`, and `IMagisterNFT`. The contract also has three variables (`ecoMaxiNFT`, `liqMaxiNFT`, and `magisterNFT`) that are used to store the addresses of contracts that implement these interfaces.
 

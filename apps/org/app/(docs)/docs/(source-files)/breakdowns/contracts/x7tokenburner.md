@@ -3,7 +3,7 @@ title: X7 Token Burner Contract
 tags: [breakdowns]
 ---
 
-https://medium.com/@mikemurpher/x7-finance-x7-token-burner-contract-a39bf132afb
+[Original Medium Post](https://medium.com/@mikemurpher/x7-finance-x7-token-burner-contract-a39bf132afb)
 
 A smart contract that allows the owner to burn a specified token in exchange for ETH, using the V2 exchange. It also includes functions to set the V2 router contract and the target token to be burned, as well as a function to swap the burned tokens back for ETH and withdraw them. The contract also includes an Ownable contract, which allows the owner to transfer ownership or renounce ownership of the contract. The receive function allows the contract to receive ETH, and will automatically burn the target token in exchange for the received ETH if the target token is set. The swapTokensForEth function allows the contract to swap a specified amount of a given token for ETH, and the rescueTokens function allows the owner to retrieve any remaining tokens that have not been burned.
 

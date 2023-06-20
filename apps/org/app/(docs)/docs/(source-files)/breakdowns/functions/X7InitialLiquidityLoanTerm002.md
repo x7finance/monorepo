@@ -1,8 +1,11 @@
-## X7 Initial Liquidity Loan Term 002
+---
+title: X7 Initial Liquidity Loan Term 002 Functions Breakdown
+tags: [breakdowns]
+---
 
 Contains the contract functions only with a link to the full function in the contract code
 
-### Interface
+## Interface
 
 [interface IX7InitialLiquidityLoanTerm](/contracts/contract-source-code/X7InitialLiquidityLoanTerm002.sol#L63)
 

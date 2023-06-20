@@ -3,7 +3,7 @@ title: X7 Finance X7D Token Contract
 tags: [breakdowns]
 ---
 
-https://medium.com/@mikemurpher/x7-finance-x7d-token-contract-45b2edc886a6
+[Original Medium Post](https://medium.com/@mikemurpher/x7-finance-x7d-token-contract-45b2edc886a6)
 
 X7D is the ETH backed token of the X7 ecosystem. X7D can be minted from ETH by authorizedMinters and burned to ETH by authorizedRedeemers.
 All ETH underpinning X7D will be custodied by smart contracts.
