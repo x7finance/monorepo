@@ -2,7 +2,7 @@
 title: Project Launchers
 ---
 
-## Launch on [Xchange](https://beta.x7.finance/#/swap)
+## Launch on Xchange
 
 As a project dev, choosing the right DEX to launch your token is a critical decision. [Xchange](https://beta.x7.finance/#/swap), the native Decentralized Exchange (DEX) of X7 Finance, offers a range of benefits that can help ensure the success of your token launch. Here's why you should consider launching your token on [Xchange](https://beta.x7.finance/#/swap):
 

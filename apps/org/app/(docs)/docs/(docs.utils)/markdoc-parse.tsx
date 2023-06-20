@@ -15,19 +15,23 @@ export const SOURCE_DIR = path.join(process.cwd(), SOURCE_FILES)
 // Define the type for the slug
 type SlugType = string[] | undefined
 
-// Create function to build the file path based on the slug
-async function getFilePath(
-  slug: SlugType,
-  SOURCE_DIRECTORY: string
-): Promise<string> {
-  const isRoot = !slug
-  const filePathSuffix = isRoot
-    ? "index.md"
-    : slug?.length === 1
-    ? `${slug[0]}/index.md`
-    : `${slug?.join("/")}.md`
+async function appendMdIfFileOrIndexMdIfDirectory(pathString) {
+  try {
+    if (fs.existsSync(pathString)) {
+      const stats = fs.statSync(pathString)
 
-  return path?.join(SOURCE_DIRECTORY, filePathSuffix)
+      if (stats.isDirectory()) {
+        return path.join(pathString, "index.md")
+      }
+    } else {
+      return `${pathString}.md`
+    }
+  } catch (error) {
+    console.error(`Error reading path: ${error}`)
+  }
+
+  // Return original path if it's neither a file nor a directory
+  return pathString
 }
 
 // Create function to build the path based on the slug
@@ -83,7 +87,11 @@ export async function getMarkdownContent(
   const { slug } = params
 
   try {
-    const filePath = await getFilePath(slug, SOURCE_DIR)
+    const chainPath = slug?.join("/")
+    const filePath = await appendMdIfFileOrIndexMdIfDirectory(
+      path?.join(SOURCE_DIR, !chainPath ? `index` : chainPath)
+    )
+
     const builtPath = getBuiltPath(slug)
     const { matterResult, content, tableOfContents } = await parseMarkdownFile(
       filePath

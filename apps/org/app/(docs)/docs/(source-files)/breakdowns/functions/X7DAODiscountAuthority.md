@@ -1,8 +1,11 @@
-## X7DAO Discount Authority
+---
+title: X7DAO Discount Authority Functions Breakdown
+tags: [breakdowns]
+---
 
 Contains the contract functions only with a link to the full function in the contract code
 
-### Interface
+## Interface
 
 [interface IDiscountAuthority](/contracts/contract-source-code/X7DAODiscountAuthority.sol#L85)
 

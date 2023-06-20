@@ -3,7 +3,7 @@ title: X7100 Discount Authority Contract
 tags: [breakdowns]
 ---
 
-https://medium.com/@mikemurpher/x7100-discount-authority-contract-b5c4a274b3ee
+[Original Medium Post](https://medium.com/@mikemurpher/x7100-discount-authority-contract-b5c4a274b3ee)
 
 The `X7100DiscountAuthority` contract allows the owner to set the addresses of four different NFT & token contracts: `ecoMaxiNFT`, `liqMaxiNFT`, `magisterNFT`, and `x7dao`. The `X7100DiscountAuthority` contract also has a public function called `discountRatio` that takes an address as an argument and returns a fraction representing a discount. This contract allows for a discount percentage on X7100 Series tokens.
 
