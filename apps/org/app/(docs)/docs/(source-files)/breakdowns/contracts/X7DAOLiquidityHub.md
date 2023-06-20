@@ -9,7 +9,7 @@ The contract `X7DAOLiquidityHub` is a smart contract for managing a liquidity po
 
 The contract has several variables that define the behavior of the liquidity pool, such as `liquidityRatioTarget`, `minShare`, and `maxShare`. It also has variables for tracking the balances of various accounts, including `distributeBalance`, `auxiliaryBalance`, and `treasuryBalance`.
 
-```solidity
+```js
 interface IERC20 {
     function circulatingSupply() external view returns (uint256);
     function balanceOf(address account) external view returns (uint256);
@@ -57,7 +57,7 @@ interface IWETH {
 
 Above are the Interface functions of the contract
 
-```solidity
+```js
  function setShares(uint256 distributeShare_, uint256 liquidityShare_, uint256 auxiliaryShare_, uint256 treasuryShare_) external onlyOwner {
         require(distributeShare + liquidityShare + auxiliaryShare + treasuryShare == 1000);
 
@@ -81,7 +81,7 @@ The function first checks that the total percentage of fees being allocated adds
 
 This function can only be called by the contract owner.
 
-```solidity
+```js
  function setRouter(address router_) external onlyOwner {
         require(router_ != address(router));
         router = IUniswapV2Router(router_);
@@ -95,7 +95,7 @@ The function first checks that the provided address is not the same as the curre
 
 This function can only be called by the contract owner.
 
-```solidity
+```js
  function setOffRampPair(address offRampPairAddress) external onlyOwner {
         require(offRampPair != offRampPairAddress);
         offRampPair = offRampPairAddress;
@@ -109,7 +109,7 @@ The function first checks that the provided address is not the same as the curre
 
 This function can only be called by the contract owner.
 
-```solidity
+```js
  function setBalanceThreshold(uint256 threshold) external onlyOwner {
         require(!balanceThresholdFrozen);
         balanceThreshold = threshold;
@@ -123,7 +123,7 @@ The function takes a single argument, `threshold`, which is the new balance thre
 
 This function can only be called by the contract owner.
 
-```solidity
+```js
  function setLiquidityRatioTarget(uint256 liquidityRatioTarget_) external onlyOwner {
         require(liquidityRatioTarget_ != liquidityRatioTarget);
         require(liquidityRatioTarget_ >= minLiquidityRatioTarget && liquidityRatioTarget <= maxLiquidityRatioTarget);
@@ -138,7 +138,7 @@ The function takes a single argument, `liquidityRatioTarget_`, which is the new 
 
 This function can only be called by the contract owner.
 
-```solidity
+```js
  function setLiquidityTokenReceiver(address liquidityTokenReceiver_) external onlyOwner {
         require(
             liquidityTokenReceiver_ != address(0)
@@ -158,7 +158,7 @@ The function takes a single argument, `liquidityTokenReceiver_`, which is the ad
 
 This function can only be called by the contract owner.
 
-```solidity
+```js
  function setDistributionTarget(address target) external onlyOwner {
         require(
             target != address(0)
@@ -178,7 +178,7 @@ The function first checks that the provided address is not the zero address, is 
 
 This function can only be called by the contract owner.
 
-```solidity
+```js
  function setAuxiliaryTarget(address target) external onlyOwner {
         require(
             target != address(0) &&
@@ -198,7 +198,7 @@ The function first checks that the provided address is not the zero address, is 
 
 This function can only be called by the contract owner.
 
-```solidity
+```js
  function setTreasuryTarget(address target) external onlyOwner {
         require(
             target != address(0)
@@ -218,7 +218,7 @@ The function first checks that the provided address is not the zero address, is 
 
 This function can only be called by the contract owner.
 
-```solidity
+```js
  function freezeTreasuryTarget() external onlyOwner {
         require(!treasuryTargetFrozen);
         treasuryTargetFrozen = true;
@@ -232,7 +232,7 @@ The function has no arguments. It simply sets the `treasuryTargetFrozen` variabl
 
 This function can only be called by the contract owner.
 
-```solidity
+```js
  function freezeDistributeTarget() external onlyOwner {
         require(!distributeTargetFrozen);
         distributeTargetFrozen = true;
@@ -246,7 +246,7 @@ The function has no arguments. It simply sets the `distributeTargetFrozen` varia
 
 This function can only be called by the contract owner.
 
-```solidity
+```js
  function freezeAuxiliaryTarget() external onlyOwner {
         require(!auxiliaryTargetFrozen);
         auxiliaryTargetFrozen = true;
@@ -260,7 +260,7 @@ The function has no arguments. It simply sets the `auxiliaryTargetFrozen` variab
 
 This function can only be called by the contract owner.
 
-```solidity
+```js
  function freezeBalanceThreshold() external onlyOwner {
         require(!balanceThresholdFrozen);
         balanceThresholdFrozen = true;
@@ -274,7 +274,7 @@ The function has no arguments. It simply sets the `balanceThresholdFrozen` varia
 
 This function can only be called by the contract owner.
 
-```solidity
+```js
  function processFees(address tokenAddress) external {
         uint256 startingETHBalance = address(this).balance;
 
@@ -321,7 +321,7 @@ After the tokens are swapped for ETH, the function calculates the total ETH bala
 
 Finally, the function checks if any of the balances have reached or exceeded the `balanceThreshold`, and if so, calls the `sendDistributeBalance`, `sendAuxiliaryBalance`, `sendTreasuryBalance
 
-```solidity
+```js
  function sendDistributeBalance() public {
         if (distributeTarget == address(0)) {
             return;
@@ -348,7 +348,7 @@ Next, the function stores the current `distributeBalance` in the `ethToSend` var
 
 This function is marked `public` so it can be called externally.
 
-```solidity
+```js
  function sendTreasuryBalance() public {
         if (treasuryTarget == address(0)) {
             return;
@@ -371,7 +371,7 @@ The function first checks if the `treasuryTarget` address is not the zero addres
 
 This function is marked `public` so it can be called externally.
 
-```solidity
+```js
  function sendAuxiliaryBalance() internal {
         if (auxiliaryTarget == address(0)) {
             return;
@@ -394,7 +394,7 @@ The function first checks if the `auxiliaryTarget` address is not the zero addre
 
 This function is marked `internal`, which means it can only be called by other functions within the same contract or by derived contracts.
 
-```solidity
+```js
  function buyBackAndAddLiquidity() internal {
         uint256 ethForSwap;
         uint256 startingETHBalance = address(this).balance;
@@ -438,7 +438,7 @@ Finally, the function updates the `x7daoLiquidityBalance` variable to the curren
 
 This function is marked `internal`, which means that it can only be called by other functions within the same contract. This means that it is not possible to call this function directly from another contract or from an external actor.
 
-```solidity
+```js
  function addLiquidityETH(uint256 tokenAmount, uint256 ethAmount) internal {
         x7dao.approve(address(router), tokenAmount);
         router.addLiquidityETH{value: ethAmount}(
@@ -462,7 +462,7 @@ Then, the function calls the `addLiquidityETH` function in the router contract, 
 
 Finally, the function updates the `x7daoLiquidityBalance` variable to store the current balance of X7DAO tokens held by the liquidity hub contract. This variable is used to track the total amount of X7DAO tokens that have been added as liquidity to the exchange by the liquidity hub contract.
 
-```solidity
+```js
  function swapTokensForEth(address tokenAddress, uint256 tokenAmount) internal {
         address[] memory path = new address[](2);
         path[0] = tokenAddress;
@@ -485,7 +485,7 @@ The function first sets up an array `path` which contains the addresses of the t
 
 Next, the function calls the `swapExactTokensForETHSupportingFeeOnTransferTokens` function on the router contract, passing in the amount of tokens we want to swap, a value of 0 for the minimum amount of ETH we want to receive, the `path` array, the contract's own address as the recipient, and the current block timestamp as the deadline. This function will swap the tokens for an equivalent amount of ETH.
 
-```solidity
+```js
  function swapEthForTokens(uint256 ethAmount) internal {
         address[] memory path = new address[](2);
         path[0] = router.WETH();
@@ -510,7 +510,7 @@ The function also includes a `value` keyword in its function call, which specifi
 
 Finally, the function does not return any value. Instead, the tokens obtained from the swap will be transferred to the contract's own address.
 
-```solidity
+```js
  function rescueWETH() external {
         address wethAddress = router.WETH();
         IWETH(wethAddress).withdraw(IERC20(wethAddress).balanceOf(address(this)));

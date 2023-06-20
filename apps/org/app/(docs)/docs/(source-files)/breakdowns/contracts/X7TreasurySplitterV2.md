@@ -16,7 +16,7 @@ The contract has several functions:
 
 The contract also includes several modifiers and events, such as the `onlyOwner` modifier which allows only the owner to execute certain functions, and the `OutletControllerAuthorizationSet` event which is emitted when the authorization of an outlet controller is set.
 
-```solidity
+```js
  enum Outlet {
         NONE,
         X7DEV1,
@@ -39,7 +39,7 @@ The `Outlet` enum defines a list of possible outlets for the distribution of fun
 - `REWARD_POOL`: This outlet represents a pool of funds that can be distributed to multiple recipients.
 - `OTHER_SLOT1` and `OTHER_SLOT2`: These outlets represent additional recipients of the funds.
 
-```solidity
+```js
  mapping(Outlet => uint256) public outletBalance;
     mapping(Outlet => address) public outletRecipient;
     mapping(Outlet => uint256) public outletShare;
@@ -56,7 +56,7 @@ The `outletFrozen` mapping stores a boolean value indicating whether or not an o
 
 These mappings and their corresponding functions allow for the flexible distribution of funds among the outlets and their recipients.
 
-```solidity
+```js
  event OutletControllerAuthorizationSet(Outlet indexed outlet, address indexed setter, address indexed controller, bool authorization);
     event OutletRecipientSet(Outlet indexed outlet, address indexed oldRecipient, address indexed newRecipient);
     event SharesSet(uint256 oldOtherSlot1Share, uint256 oldOtherSlot2Share, uint256 oldRewardPoolShare, uint256 newOtherSlot1Share, uint256 newOtherSlot2Share, uint256 newRewardPoolShare);
@@ -76,7 +76,7 @@ The `RouterSet` event is emitted when the router for the contract is changed. Th
 
 These events allow for tracking changes to the outlets, their recipients, and the distribution of funds in the contract.
 
-```solidity
+```js
  constructor (address router_) Ownable(address(0x7000a09c425ABf5173FF458dF1370C25d1C58105)) {
         router = IUniswapV2Router02(router_);
 
@@ -130,7 +130,7 @@ The function then sets the initial authorization and recipients for each outlet.
 
 This constructor function initializes the outlets and their corresponding recipients and shares, as well as the authorization and control of these outlets.
 
-```solidity
+```js
  receive () external payable {}
 ```
 
@@ -142,7 +142,7 @@ The `receive` function is often used in combination with the `transfer` or `send
 
 The `receive` function is usually implemented to perform some action when the contract receives ether, such as storing the ether in a balance or distributing it among multiple recipients.
 
-```solidity
+```js
 function divvyUp() public {
         uint256 newETH = address(this).balance - reservedETH;
 
@@ -184,7 +184,7 @@ The function then sets the `reservedETH` variable to the contract's current bala
 
 This function allows for the automatic distribution of the contractÔÇÖs balance among the outlets based on their respective shares.
 
-```solidity
+```js
  function setRouter(address router_) external onlyOwner {
         require(router_ != address(router));
         router = IUniswapV2Router02(router_);
@@ -199,7 +199,7 @@ The function is marked with the `onlyOwner` modifier, which means that it can on
 
 This function allows the contract owner to change the address of the `router` variable, which is used to interact with the `IUniswapV2Router02` interface.
 
-```solidity
+```js
  function setOutletControllerAuthorization(Outlet outlet, address controller, bool authorization) external {
         require(!outletFrozen[outlet]);
         require(outlet != Outlet.OTHER_SLOT1 && outlet != Outlet.OTHER_SLOT2);
@@ -222,7 +222,7 @@ The function takes an `Outlet` enum value `outlet`, an address `controller`, and
 
 This function allows a controller of a given outlet to set the authorization of another address to control the outlet, subject to certain restrictions. It is used to manage the authorization of different addresses to control the outlets.
 
-```solidity
+```js
  function setOutletRecipient(Outlet outlet, address recipient) external {
         require(!outletFrozen[outlet]);
         require(outletRecipient[outlet] != recipient);
@@ -246,7 +246,7 @@ The function takes an `Outlet` enum value `outlet` and an address `recipient` as
 
 This function allows a controller of a given outlet to set the recipient of the outlet, subject to certain restrictions. It is used to manage the recipients of the different outlets.
 
-```solidity
+```js
  function freezeOutlet(Outlet outlet) external {
         require(outlet != Outlet.OTHER_SLOT1 && outlet != Outlet.OTHER_SLOT2);
         require(outletController[outlet][msg.sender]);
@@ -264,7 +264,7 @@ The function takes an `Outlet` enum value `outlet` as an argument. It performs t
 
 This function allows a controller of a given outlet to freeze the outlet, subject to certain restrictions. It is used to temporarily disable certain outlets from receiving new funds.
 
-```solidity
+```js
  function setOtherSlotRecipient(Outlet outlet, address recipient) external onlyOwner {
         require(outlet == Outlet.OTHER_SLOT1 || outlet == Outlet.OTHER_SLOT2 || outlet == Outlet.REWARD_POOL);
         require(!outletFrozen[outlet]);
@@ -290,7 +290,7 @@ The function takes an `Outlet` enum value `outlet` and an address `recipient` as
 
 This function allows the contract owner to set the recipient of the `OTHER_SLOT1`, `OTHER_SLOT2`, or `REWARD_POOL` outlets, subject to certain restrictions.
 
-```solidity
+```js
  function setOtherSlotShares(uint256 slot1Share, uint256 slot2Share, uint256 rewardPoolShare) external onlyOwner {
         require(slot1Share + slot2Share + rewardPoolShare == 51000);
         divvyUp();
@@ -308,7 +308,7 @@ This function allows the contract owner to set the recipient of the `OTHER_SLOT1
 
 This function allows the owner of the contract to set the percentage shares for the ÔÇ£OTHER_SLOT1ÔÇØ, ÔÇ£OTHER_SLOT2ÔÇØ, and ÔÇ£REWARD_POOLÔÇØ outlets. It requires that the sum of the three shares is 51000 (equivalent to 51%). The function first calls the `divvyUp()` function to redistribute the existing balance according to the new shares. Then, it updates the values of the `outletShare` mapping for the relevant outlets and emits an event to record the change. It also requires that the `outletFrozen` value for these outlets is false, indicating that they are not currently frozen and can be changed.
 
-```solidity
+```js
  function takeBalance() external {
         Outlet outlet = outletLookup[msg.sender];
         require(outlet != Outlet.NONE);
@@ -319,7 +319,7 @@ This function allows the owner of the contract to set the percentage shares for 
 
 This function allows the recipient of one of the outlets to withdraw their balance from the contract. It first checks that the sender is the recipient of an outlet by looking up the outlet associated with the senderÔÇÖs address in the `outletLookup` mapping. If the sender is not the recipient of an outlet, it will throw an error. If the sender is the recipient of an outlet, it will first call the `divvyUp` function to redistribute the contract's balance among the outlets based on their share percentages. Then it calls the `_sendBalance` function, passing in the outlet associated with the sender's address, to transfer the balance of the outlet to the sender's address.
 
-```solidity
+```js
  function takeCurrentBalance() external {
         Outlet outlet = outletLookup[msg.sender];
         require(outlet != Outlet.NONE);
@@ -331,7 +331,7 @@ The `takeCurrentBalance` function allows the recipient of an outlet to take the 
 
 Note that the `takeCurrentBalance` function does not call the `divvyUp` function, which means that the balance of the outlet is not updated to reflect any new ETH that has been received by the contract. This means that the balance that is transferred to the recipient may not include any ETH that has been received by the contract since the last time the balance was distributed.
 
-```solidity
+```js
  function pushAll() public {
         divvyUp();
         _sendBalance(Outlet.X7DEV1);
@@ -351,7 +351,7 @@ Is responsible for distributing the balance of the contract among the various ou
 
 ItÔÇÖs worth noting that this function can only be called by the contractÔÇÖs owner, as it is not marked with the `external` visibility modifier. This means that only the contract owner can initiate the distribution of the contract's balance.
 
-```solidity
+```js
  function rescueWETH() public {
         address weth = router.WETH();
         IWETH(weth).withdraw(IERC20(weth).balanceOf(address(this)));
@@ -365,7 +365,7 @@ The function first retrieves the address of the WETH contract by calling the `ro
 
 It is important to note that this function can only be called by the contract owner, as it is marked with the `public` visibility modifier, but not the `external` modifier. This means that it can only be called internally within the contract, and not from an external contract or from a user's wallet.
 
-```solidity
+```js
  function rescueTokens(address tokenAddress) external {
         if (tokenAddress == router.WETH()) {
             rescueWETH();
@@ -394,7 +394,7 @@ It is important to note that this function can only be called by the contract ow
 
 The function `rescueTokens` allows you to exchange a given token for ETH using the roueter exchange. The function first checks if the token is WETH (wrapped ETH), in which case it calls the `rescueWETH` function. If the token is not WETH, the function checks if the contract has any balance of the given token. If it does, the function approves the router contract to transfer the tokens on behalf of the contract, and then calls the `swapExactTokensForETHSupportingFeeOnTransferTokens` function on the router contract to exchange the tokens for ETH. Finally, the function calls the `pushAll` function to distribute the ETH among the outlets.
 
-```solidity
+```js
  function _sendBalance(Outlet outlet) internal {
         bool success;
         address payable recipient = payable(outletRecipient[outlet]);

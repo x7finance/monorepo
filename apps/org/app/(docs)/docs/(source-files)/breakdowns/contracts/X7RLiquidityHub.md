@@ -5,7 +5,7 @@ tags: [breakdowns]
 
 https://medium.com/@mikemurpher/x7-finance-x7r-liquidityhub-contract-4e1cca89fe22
 
-```solidity
+```js
 interface IERC20 {
     function circulatingSupply() external view returns (uint256);
     function balanceOf(address account) external view returns (uint256);
@@ -53,7 +53,7 @@ interface IWETH {
 
 Above are the Interface functions of the contract
 
-```solidity
+```js
     function setShares(uint256 distributeShare_, uint256 liquidityShare_, uint256 treasuryShare_) external onlyOwner {
         require(distributeShare + liquidityShare + treasuryShare == 1000);
 
@@ -73,7 +73,7 @@ The `setShares` function allows the owner of the contract to set the share perce
 
 This function is marked with the `onlyOwner` modifier, which means that it can only be called by the owner of the contract. This is implemented by calling the `_checkOwner` function, which checks that the caller of the function is the owner of the contract by comparing the caller's address to the `_owner` address stored in the contract. If the caller is not the owner, the function will throw an exception and terminate.
 
-```solidity
+```js
     function setRouter(address router_) external onlyOwner {
         require(router_ != address(router));
         router = IUniswapV2Router(router_);
@@ -89,7 +89,7 @@ Finally, the function emits a `RouterSet` event with the new router address as a
 
 Like the `setShares` function, this function is also marked with the `onlyOwner` modifier, which means that it can only be called by the owner of the contract.
 
-```solidity
+```js
     function setOffRampPair(address offRampPairAddress) external onlyOwner {
         require(offRampPair != offRampPairAddress);
         offRampPair = offRampPairAddress;
@@ -105,7 +105,7 @@ Finally, the function emits an `OffRampPairSet` event with the new off-ramp pair
 
 Like the `setShares` and `setRouter` functions, this function is also marked with the `onlyOwner` modifier, which means that it can only be called by the owner of the contract.
 
-```solidity
+```js
     function setBalanceThreshold(uint256 threshold) external onlyOwner {
         require(!balanceThresholdFrozen);
         balanceThreshold = threshold;
@@ -121,7 +121,7 @@ Finally, the function emits a `BalanceThresholdSet` event with the new balance t
 
 Like the previous functions, this function is also marked with the `onlyOwner` modifier, which means that it can only be called by the owner of the contract.
 
-```solidity
+```js
     function setLiquidityRatioTarget(uint256 liquidityRatioTarget_) external onlyOwner {
         require(liquidityRatioTarget_ != liquidityRatioTarget);
         require(liquidityRatioTarget_ >= minLiquidityRatioTarget && liquidityRatioTarget <= maxLiquidityRatioTarget);
@@ -138,7 +138,7 @@ Finally, the function emits a `LiquidityRatioTargetSet` event with the new liqui
 
 Like the previous functions, this function is also marked with the `onlyOwner` modifier, which means that it can only be called by the owner of the contract.
 
-```solidity
+```js
     function setLiquidityTokenReceiver(address liquidityTokenReceiver_) external onlyOwner {
         require(
             liquidityTokenReceiver_ != address(0)
@@ -160,7 +160,7 @@ Finally, the function emits a `LiquidityTokenReceiverSet` event with the old liq
 
 This function is also marked with the `onlyOwner` modifier, which means that it can only be called by the owner of the contract.
 
-```solidity
+```js
     function setDistributionTarget(address target) external onlyOwner {
         require(
             target != address(0)
@@ -182,7 +182,7 @@ Finally, the function emits a `DistributeTargetSet` event with the old distribut
 
 This function is also marked with the `onlyOwner` modifier, which means that it can only be called by the owner of the contract.
 
-```solidity
+```js
     function setTreasuryTarget(address target) external onlyOwner {
         require(
             target != address(0)
@@ -204,7 +204,7 @@ Finally, the function emits a `TreasuryTargetSet` event with the old treasury ta
 
 This function is also marked with the `onlyOwner` modifier, which means that it can only be called by the owner of the contract.
 
-```solidity
+```js
     function freezeTreasuryTarget() external onlyOwner {
         require(!treasuryTargetFrozen);
         treasuryTargetFrozen = true;
@@ -220,7 +220,7 @@ Finally, the function emits a `TreasuryTargetFrozen` event. This event can be us
 
 This function is also marked with the `onlyOwner` modifier, which means that it can only be called by the owner of the contract.
 
-```solidity
+```js
     function freezeDistributeTarget() external onlyOwner {
         require(!distributeTargetFrozen);
         distributeTargetFrozen = true;
@@ -236,7 +236,7 @@ Finally, the function emits a `DistributeTargetFrozen` event. This event can be 
 
 This function is also marked with the `onlyOwner` modifier, which means that it can only be called by the owner of the contract.
 
-```solidity
+```js
     function freezeBalanceThreshold() external onlyOwner {
         require(!balanceThresholdFrozen);
         balanceThresholdFrozen = true;
@@ -252,7 +252,7 @@ Finally, the function emits a `BalanceThresholdFrozen` event. This event can be 
 
 This function is also marked with the `onlyOwner` modifier, which means that it can only be called by the owner of the contract.
 
-```solidity
+```js
     function processFees(address tokenAddress) external {
         uint256 startingETHBalance = address(this).balance;
 
@@ -294,7 +294,7 @@ If there are any tokens to swap, the function calls the `swapTokensForEth` funct
 
 The function then calculates the distribute balance, treasury balance, and liquidity balance by allocating the available ETH according to the distribute share, treasury share, and liquidity share. If the distribute balance or treasury balance is greater than or equal to the balance threshold, the function calls the `sendDistributeBalance` or `sendTreasuryBalance` function to send the balance to the appropriate target address. If the liquidity balance is greater than or equal to the balance threshold, the function calls the `buyBackAndAddLiquidity` function to buy back and add liquidity to the X7R/ETH pair.
 
-```solidity
+```js
    function sendDistributeBalance() public {
         if (distributeTarget == address(0)) {
             return;
@@ -323,7 +323,7 @@ The function then sets the distribute balance to zero and tries to send the ETH 
 
 This function does not have any access control, which means that it can be called by any external party. However, it is generally only called by the `processFees` function, which is only called by the contract owner.
 
-```solidity
+```js
     function sendTreasuryBalance() public {
         if (treasuryTarget == address(0)) {
             return;
@@ -350,7 +350,7 @@ The function then sets the treasury balance to zero and tries to send the ETH to
 
 This function does not have any access control, which means that it can be called by any external party. However, it is generally only called by the `processFees` function, which is only called by the contract owner.
 
-```solidity
+```js
    function buyBackAndAddLiquidity() internal {
         uint256 ethForSwap;
         uint256 startingETHBalance = address(this).balance;
@@ -394,7 +394,7 @@ Finally, the function updates the X7R liquidity balance to the current balance o
 
 This function does not have any access control, which means that it can be called by any external party. However, it is generally only called by the `processFees` function, which is only called by the contract owner.
 
-```solidity
+```js
     function addLiquidityETH(uint256 tokenAmount, uint256 ethAmount) internal {
         x7r.approve(address(router), tokenAmount);
         router.addLiquidityETH{value: ethAmount}(
@@ -423,7 +423,7 @@ The function passes the following arguments to the `addLiquidityETH` function of
 
 This function does not have any access control, which means that it can be called by any external party. However, it is generally only called by the `buyBackAndAddLiquidity` function, which is only called by the `processFees` function, which is only called by the contract owner.
 
-```solidity
+```js
     function swapTokensForEth(address tokenAddress, uint256 tokenAmount) internal {
         address[] memory path = new address[](2);
         path[0] = tokenAddress;
@@ -454,7 +454,7 @@ Before calling the `swapExactTokensForETHSupportingFeeOnTransferTokens` function
 
 This function does not have any access control, which means that it can be called by any external party. However, it is generally only called by the `processFees` function, which is only called by the contract owner.
 
-```solidity
+```js
     function swapEthForTokens(uint256 ethAmount) internal {
         address[] memory path = new address[](2);
         path[0] = router.WETH();
@@ -482,7 +482,7 @@ Before calling the `swapExactTokensForETHSupportingFeeOnTransferTokens` function
 
 This function does not have any access control, which means that it can be called by any external party. However, it is generally only called by the `processFees` function, which is only called by the contract owner.
 
-```solidity
+```js
     function rescueWETH() external {
         address wethAddress = router.WETH();
         IWETH(wethAddress).withdraw(IERC20(wethAddress).balanceOf(address(this)));

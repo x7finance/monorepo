@@ -15,7 +15,7 @@ The contract also has a `takeBalance` function that allows the owner to withdraw
 
 The contract is also `Ownable`, meaning it has an `_owner` variable that represents the owner address, and it has functions for transferring ownership and renouncing ownership.
 
-```solidity
+```js
  enum Outlet {
         NONE,
         X7R,
@@ -28,7 +28,7 @@ The contract is also `Ownable`, meaning it has an `_owner` variable that represe
 
 The `Outlet` enum is a data type in the `X7EcosystemSplitter` contract that is used to represent different outlets that can receive a share of incoming funds. An outlet is a recipient of funds that is defined in the contract. The `Outlet` enum has six possible values: `NONE`, `X7R`, `X7DAO`, `X7100`, `LENDING_POOL`, and `TREASURY`. Each value represents a different outlet that can receive a share of incoming funds. For example, if the value of an `Outlet` variable is `X7R`, it means that the outlet represented by this variable is the `X7R` outlet, which will receive a share of incoming funds as specified in the contract. The `Outlet` enum is used in various functions and mappings in the `X7EcosystemSplitter` contract to identify the outlets and specify their share of incoming funds.
 
-```solidity
+```js
  mapping(Outlet => uint256) public outletBalance;
     mapping(Outlet => address) public outletRecipient;
     mapping(Outlet => uint256) public outletShare;
@@ -48,7 +48,7 @@ The `outletLookup` mapping is a mapping from an `address` value to an `Outlet` v
 
 The `isFrozen` mapping is a mapping from an `Outlet` value to a `bool` value. It is used to store a boolean flag that indicates whether an outlet is frozen or not. If an outlet is frozen, it means that its recipient and share cannot be changed until it is unfrozen. This mapping is used in the `setOutlet` and `setShares` functions to ensure that frozen outlets cannot be modified.
 
-```solidity
+```js
  event SharesSet(uint256 x7RShare, uint256 x7DAOShare, uint256 x7100Share, uint256 lendingPoolShare, uint256 treasuryShare);
     event OutletRecipientSet(Outlet outlet, address oldRecipient, address newRecipient);
     event OutletFrozen(Outlet outlet);
@@ -64,7 +64,7 @@ The `OutletFrozen` event is emitted whenever an outlet is frozen using the `free
 
 These events can be used by external users or contracts to track changes in the `X7EcosystemSplitter` contract and react to them accordingly. For example, a contract could watch for the `SharesSet` event and adjust its own allocation of funds based on the new shares of the outlets.
 
-```solidity
+```js
  constructor () Ownable(address(0x7000a09c425ABf5173FF458dF1370C25d1C58105)) {
         outletShare[Outlet.X7R] = 200;
         outletShare[Outlet.X7DAO] = 200;
@@ -84,7 +84,7 @@ Inside the constructor function, the shares of the outlets are set to 200, which
 
 Finally, the constructor function calls the constructor function of the `Ownable` contract, passing the initial owner address as a parameter. This sets the initial owner of the `X7EcosystemSplitter` contract to the specified address.
 
-```solidity
+```js
  receive () external payable {
         outletBalance[Outlet.X7R] += msg.value * outletShare[Outlet.X7R] / 1000;
         outletBalance[Outlet.X7DAO] += msg.value * outletShare[Outlet.X7DAO] / 1000;
@@ -104,7 +104,7 @@ Finally, the balance of the `TREASURY` outlet is set to the remaining balance of
 
 ItÔÇÖs important to note that the `receive` function does not send the funds to the outlets. It only updates their balances in the contract. The outlets can then withdraw their balances using the `takeBalance` function.
 
-```solidity
+```js
  function setWETH(address weth_) external onlyOwner {
         weth = weth_;
     }
@@ -118,7 +118,7 @@ The `setWETH` function is marked with the `onlyOwner` modifier, which means that
 
 The `setWETH` function does not return any value. It simply updates the value of the `weth` variable in the contract. This function is typically used to set the WETH contract address when the `X7EcosystemSplitter` contract is deployed or when the WETH contract address changes.
 
-```solidity
+```js
  function setOutlet(Outlet outlet, address recipient) external onlyOwner {
         require(!isFrozen[outlet]);
         require(outletRecipient[outlet] != recipient);
@@ -145,7 +145,7 @@ Finally, the function emits the `OutletRecipientSet` event with the outlet, the 
 
 ItÔÇÖs important to note that the `setOutlet` function does not transfer any funds to the new recipient. It only updates the recipient of the outlet in the contract. The recipient can then withdraw the balance of the outlet using the `takeBalance` function.
 
-```solidity
+```js
  function freezeOutletChange(Outlet outlet) external onlyOwner {
         require(!isFrozen[outlet]);
         isFrozen[outlet] = true;
@@ -166,7 +166,7 @@ Finally, the function emits the `OutletFrozen` event with the outlet as a parame
 
 ItÔÇÖs important to note that the `freezeOutletChange` function does not transfer any funds or change the recipient or share of the outlet. It only updates the `isFrozen` mapping for the outlet in the contract.
 
-```solidity
+```js
  function setShares(uint256 x7rShare_, uint256 x7daoShare_, uint256 x7100Share_, uint256 lendingPoolShare_, uint256 treasuryShare_) external onlyOwner {
         require(treasuryShare_ >= treasuryMinShare);
         require(x7rShare_ + x7daoShare_ + x7100Share_ + lendingPoolShare_ + treasuryShare_ == 1000);
@@ -201,7 +201,7 @@ Finally, the function emits the `SharesSet` event with the new shares as paramet
 
 ItÔÇÖs important to note that the `setShares` function does not transfer any funds or change the balances of the outlets. It only updates the shares of the outlets in the contract. The allocation of incoming funds to the outlets will be based on the new shares the next time the `receive` function is called.
 
-```solidity
+```js
  function takeBalance() external {
         Outlet outlet = outletLookup[msg.sender];
         require(outlet != Outlet.NONE);
@@ -221,7 +221,7 @@ If the caller is not the recipient of an outlet, the `require` statement at the 
 
 ItÔÇÖs important to note that the `takeBalance` function does not check whether the outlet is frozen. This means that the recipient can still withdraw the balance of a frozen outlet. However, the recipient will not be able to change the recipient or share of the outlet until it is unfrozen.
 
-```solidity
+```js
  function _sendBalance(Outlet outlet) internal {
         if (outletRecipient[outlet] == address(0)) {
             return;
@@ -252,7 +252,7 @@ If the `transfer` function call is successful (i.e. it returns `true`), the func
 
 ItÔÇÖs important to note that the `_sendBalance` function does not check whether the recipient of the outlet is frozen. This means that the recipient can still receive the balance of a frozen outlet. However, the recipient will not be able to change the recipient or share of the outlet until it is unfrozen.
 
-```solidity
+```js
  function pushAll() external {
         _sendBalance(Outlet.X7R);
         _sendBalance(Outlet.X7DAO);
@@ -270,7 +270,7 @@ ItÔÇÖs important to note that the `pushAll` function does not check whether t
 
 The `pushAll` function is useful when the owner wants to distribute the balances of the outlets to their respective recipients all at once, rather than having to call the `takeBalance` function for each outlet separately.
 
-```solidity
+```js
  function rescueWETH() external {
         IWETH(weth).withdraw(IERC20(weth).balanceOf(address(this)));
     }
@@ -286,7 +286,7 @@ ItÔÇÖs important to note that the `rescueWETH` function does not check whethe
 
 The `rescueWETH` function is useful when the owner wants to withdraw the balance of the contract from the WETH contract and transfer it to another contract or wallet. This might be necessary if the WETH contract is no longer being used or if the owner wants to use the balance in a different way.
 
-```solidity
+```js
  function rescueTokens(address tokenAddress) external {
         IERC20(tokenAddress).transfer(outletRecipient[Outlet.TREASURY], IERC20(tokenAddress).balanceOf(address(this)));
     }

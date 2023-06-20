@@ -9,7 +9,7 @@ Smart contract
 
 This is a smart contract for a lending pool reserve on the Ethereum blockchain. It is implemented as an extension of the X7DMinter, X7DBurner, and Ownable contracts, and it allows for the minting and burning of X7D tokens, as well as the deposit and withdrawal of ETH. The contract also has the ability to set and change the address of the lending pool, the ecosystem recipient, and the X7D contract. Additionally, it can also set certain addresses as ecosystem payers, which will redirect their deposit of ETH to the ecosystem recipient instead of themselves. The contract is also able to fund the lending pool, with the owner as the only one who can do this.
 
-```solidity
+```js
 interface IERC20 {
     function balanceOf(address account) external view returns (uint256);
 }
@@ -38,7 +38,7 @@ interface X7DBurner {
 
 Interfaces of the contract
 
-```solidity
+```js
 abstract contract TokensCanBeRecovered is Ownable {
     bytes4 private constant TRANSFERSELECTOR = bytes4(keccak256(bytes('transfer(address,uint256)')));
     address public recoveredTokenRecipient;
@@ -66,7 +66,7 @@ abstract contract TokensCanBeRecovered is Ownable {
 
 The contract `TokensCanBeRecovered` is an abstract contract that is meant to be inherited by other contracts. It provides functionality for recovering tokens that are held by the contract by transferring them to a specified recipient. The contract has a single public variable `recoveredTokenRecipient` which is an address that represents the recipient of recovered tokens. The contract has a function `setRecoveredTokenRecipient` which can be called by the contract owner to set the recipient of recovered tokens. The contract has a function `recoverTokens` which can be called to recover all tokens that are held by the contract and transfer them to the recipient address that is set in `recoveredTokenRecipient`. The contract also has a private function `_safeTransfer` which is used to safely transfer the tokens to the specified recipient address.
 
-```
+```js
 IX7D public                     X7D;
 address public                  lendingPool;
 address public                  ecosystemRecipient;
@@ -78,7 +78,7 @@ mapping(address => bool) public isEcosystemPayer;
 - address public ecosystemRecipient; declares a public variable named ecosystemRecipient of type address
 - mapping(address => bool) public isEcosystemPayer; declares a public mapping named isEcosystemPayer, which maps addresses to booleans. This can be used to track whether certain addresses are considered `ecosystem payers` or not.
 
-```solidity
+```js
 event X7DSet(address oldAddress, address newAddress);
 event EcosystemRecipientSet(address oldAddress, address newAddress);
 event EcosystemPayerSet(address payorAddress, bool isPayer);
@@ -89,7 +89,7 @@ event FundsReturned(address indexed sender, uint256 amount);
 
 These events are used to track changes to certain state variables within the contract, such as the X7D address, ecosystem recipient, ecosystem payers and lending pool address. Additionally, there are events for when funds are sent or returned by the contract. The events have indexed parameters, which can be used to filter and query the event data.
 
-```solidity
+```js
  constructor (address X7DAddress, address ecosystemRecipientAddress) Ownable(msg.sender) {
         X7D = IX7D(X7DAddress);
         ecosystemRecipient = ecosystemRecipientAddress;
@@ -107,7 +107,7 @@ The constructor is a special function that is called when a new instance of the 
 - The constructor emits an `X7DSet` event, which sets the `X7D` address to the `X7DAddress` passed in as an argument, and the old address to `address(0)`
 - The constructor emits an `EcosystemRecipientSet` event, which sets the `ecosystemRecipient` address to the `ecosystemRecipientAddress` passed in as an argument, and the old address to `address(0)`
 
-```solidity
+```js
  receive () external payable {
         address recipient = msg.sender;
 
@@ -124,7 +124,7 @@ The constructor is a special function that is called when a new instance of the 
 - Then, it checks if the address of the message sender is present in the `isEcosystemPayer` mapping. If it is, `recipient` is set to the address stored in the `ecosystemRecipient` variable.
 - Then it calls the `mint` function on the `X7D` contract, passing in the `recipient` and `msg.value` as arguments. This will mint new tokens and assign them to the `recipient`.
 
-```solidity
+```js
  function depositETH() external payable {
         X7D.mint(msg.sender, msg.value);
     }
@@ -135,7 +135,7 @@ The `depositETH()` function allows a user to deposit ETH into the contract by ca
 - Calls the `mint()` function of the X7D token contract (`X7D.mint()`), passing in the `msg.sender` (the address of the user calling the function) as the recipient, and `msg.value` (the amount of ETH being sent with the function call) as the amount of X7D tokens to be minted.
 - It is external and payable means it can be called by external address and also can receive ethers.
 
-```solidity
+```js
  function depositETHForRecipient(address recipient) external payable {
         X7D.mint(recipient, msg.value);
     }
@@ -148,7 +148,7 @@ The function `depositETHForRecipient()` allows for a user to deposit ether and h
 - Inside the function body, it calls the `mint()` function on the IX7D contract, passing the "recipient" address and the amount of ether in the msg.value as the arguments.
 - This function does not have any return value.
 
-```solidity
+```js
  function withdrawETH(uint256 amount) external {
         require(amount <= address(this).balance, "Insufficient funds to redeem that amount of X7D");
         X7D.burn(msg.sender, amount);
@@ -164,7 +164,7 @@ The function withdrawETH(uint256 amount) allows a user to withdraw a specified a
 - It sends the specified amount of ETH to the userÔÇÖs address by using the low-level call function with empty data and the specified amount as the value.
 - It checks if the call was successful and reverts the transaction if it failed.
 
-```solidity
+```js
  function returnETH() external payable {
         emit FundsReturned(msg.sender, msg.value);
     }
@@ -177,7 +177,7 @@ The `returnETH` function is an external function that can be called by any addre
 - msg.value represents the amount of Ether that was sent to the smart contract when the function was called.
 - This function does not perform any other action besides emitting the event, so any Ether sent to the contract when calling this function will stay in the contractÔÇÖs balance and can be withdrawn by the smart contract owner.
 
-```solidity
+```js
  function setLendingPool(address lendingPool_) external onlyOwner {
         require(lendingPool != lendingPool_);
         address oldLendingPool = lendingPool;
@@ -189,7 +189,7 @@ The `returnETH` function is an external function that can be called by any addre
 
 The function `setLendingPool` allows the owner of the contract to set a new lending pool address. It takes in a single parameter, `lendingPool_`, which is the new address of the lending pool. The function first checks if the new address is different from the current one, and if so, it updates the value of the `lendingPool` variable to the new address. It also emits an event, `LendingPoolSet`, which logs the old and new lending pool addresses. The function has a `onlyOwner` modifier, which means that it can only be called by the owner of the contract.
 
-```solidity
+```js
  function setEcosystemRecipientAddress(address recipient) external onlyOwner {
         require(ecosystemRecipient != recipient);
         address oldRecipient = ecosystemRecipient;
@@ -201,7 +201,7 @@ The function `setLendingPool` allows the owner of the contract to set a new lend
 
 This function, named `setEcosystemRecipientAddress,` allows the contract owner to set a new address for the ecosystem recipient. It takes in one parameter, `recipient,` which is the new address for the ecosystem recipient. The function first checks if the current ecosystem recipient address is different from the new address, and if so, it sets the new address and emits an event `EcosystemRecipientSet` with the old and new recipient address as the parameters. The function also has an `onlyOwner` modifier that prevents anyone other than the contract owner from executing this function.
 
-```solidity
+```js
  function setX7D(address X7DAddress) external onlyOwner {
         require(address(X7D) != X7DAddress);
         address oldX7D = address(X7D);
@@ -220,7 +220,7 @@ The function `setX7D` allows the contract owner to change the address of the IX7
 
 This function is protected by the modifier `onlyOwner`, so that only the owner of the contract can execute this function.
 
-```solidity
+```js
  function setEcosystemPayer(address ecosystemPayerAddress, bool value) external onlyOwner {
         require(isEcosystemPayer[ecosystemPayerAddress] != value);
         isEcosystemPayer[ecosystemPayerAddress] = value;
@@ -231,7 +231,7 @@ This function is protected by the modifier `onlyOwner`, so that only the owner o
 
 The function `setEcosystemPayer` allows the contract owner to set whether a specific address is considered an `ecosystem payer` or not. It takes two parameters: an address representing the ecosystem payer and a boolean value representing whether the address should be considered an ecosystem payer or not. The function first checks that the address being set as an ecosystem payer is not already set to the same value. It then sets the value of isEcosystemPayer for the address to the value provided and emits an event called EcosystemPayerSet, which will log the address of the ecosystem payer and the new value.
 
-```solidity
+```js
  function fundLendingPool(uint256 amount) external onlyOwner {
         require(lendingPool != address(0));
         require(amount <= address(this).balance);

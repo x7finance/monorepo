@@ -1,6 +1,7 @@
 import Link from "next/link"
 
 import {
+  breakdownsNavigation,
   docsNavigation,
   faqNavigation,
   guidesNavigation,
@@ -27,6 +28,8 @@ interface DocsBaseProps {
 
 function getNavigation(docsType: DocType) {
   switch (docsType) {
+    case DocsTypes.breakdowns:
+      return breakdownsNavigation
     case DocsTypes.onchains:
       return onchainsNavigation
     case DocsTypes.whitepaper:

@@ -7,7 +7,7 @@ https://medium.com/@mikemurpher/x7-finance-x7100-liquidity-hub-contract-1ed44358
 
 The contract has several variables that store information about the distribution of liquidity, including `distributeShare`, `liquidityShare`, `lendingPoolShare`, and `treasuryShare`. It also has variables that store information about the targets for these distributions, such as `distributeTarget` and `lendingPoolTarget`.
 
-```solidity
+```js
 interface IERC20 {
     function circulatingSupply() external view returns (uint256);
     function balanceOf(address account) external view returns (uint256);
@@ -55,7 +55,7 @@ interface IWETH {
 
 Above are the Interface functions of the contract
 
-```solidity
+```js
     function setShares(uint256 distributeShare_, uint256 liquidityShare_, uint256 lendingPoolShare_, uint256 treasuryShare_) external onlyOwner {
         require(distributeShare + liquidityShare + lendingPoolShare + treasuryShare == 1000);
 
@@ -81,7 +81,7 @@ The function then checks that each of the input values is within a certain range
 
 If these checks pass, the function sets the values of the `distributeShare`, `liquidityShare`, `lendingPoolShare`, and `treasuryShare` variables to the input values. It then emits the `SharesSet` event, which includes the new values for these variables as arguments.
 
-```solidity
+```js
     function setRouter(address router_) external onlyOwner {
         require(router_ != address(router));
         router = IUniswapV2Router(router_);
@@ -95,7 +95,7 @@ The function first checks that the new address is different from the current add
 
 If this check passes, the function sets the value of the `router` variable to the new address, after casting it to the `IUniswapV2Router` interface. The function then emits the `RouterSet` event, which includes the new address of the router contract as an argument.
 
-```solidity
+```js
     function setOffRampPair(address tokenAddress, address offRampPairAddress) external onlyOwner {
         require(nativeTokenPairs[tokenAddress] != offRampPairAddress);
         nativeTokenPairs[tokenAddress] = offRampPairAddress;
@@ -111,7 +111,7 @@ The function first checks that the off-ramp pair for the given token is not alre
 
 If this check passes, the function sets the off-ramp pair for the given token to the input pair by storing the pairÔÇÖs address in the `nativeTokenPairs` mapping. The function then emits the `OffRampPairSet` event, which includes the token address and the off-ramp pair address as arguments.
 
-```solidity
+```js
     function setBalanceThreshold(uint256 threshold) external onlyOwner {
         require(!balanceThresholdFrozen);
         balanceThreshold = threshold;
@@ -127,7 +127,7 @@ The function first checks that the `balanceThresholdFrozen` variable is not set 
 
 If the `balanceThresholdFrozen` variable is not set to `true`, the function sets the value of the `balanceThreshold` variable to the input threshold. It then emits the `BalanceThresholdSet` event, which includes the new balance threshold as an argument. This allows other contracts or external parties to be notified when the balance threshold has been changed.
 
-```solidity
+```js
  function setLiquidityBalanceThreshold(uint256 threshold) external onlyOwner {
         require(!liquidityBalanceThresholdFrozen);
         liquidityBalanceThreshold = threshold;
@@ -143,7 +143,7 @@ The function first checks that the `liquidityBalanceThresholdFrozen` variable is
 
 If the `liquidityBalanceThresholdFrozen` variable is not set to `true`, the function sets the value of the `liquidityBalanceThreshold` variable to the input threshold. It then emits the `LiquidityBalanceThresholdSet` event, which includes the new liquidity balance threshold as an argument. This allows other contracts or external parties to be notified when the liquidity balance threshold has been changed.
 
-```solidity
+```js
     function setLiquidityRatioTarget(uint256 liquidityRatioTarget_) external onlyOwner {
         require(liquidityRatioTarget_ != liquidityRatioTarget);
         require(liquidityRatioTarget_ >= minLiquidityRatioTarget && liquidityRatioTarget <= maxLiquidityRatioTarget);
@@ -160,7 +160,7 @@ The function first checks that the new liquidity ratio target is different from 
 
 If these checks pass, the function sets the value of the `liquidityRatioTarget` variable to the input target. It then emits the `LiquidityRatioTargetSet` event, which includes the new liquidity ratio target as an argument. This allows other contracts or external parties to be notified when the liquidity ratio target has been changed.
 
-```solidity
+```js
     function setLiquidityTokenReceiver(address liquidityTokenReceiver_) external onlyOwner {
         require(
             liquidityTokenReceiver_ != address(0)
@@ -182,7 +182,7 @@ The function first checks that the new liquidity token receiver is not the zero 
 
 If these checks pass, the function sets the value of the `liquidityTokenReceiver` variable to the input address. It then emits the `LiquidityTokenReceiverSet` event, which includes the old liquidity token receiver and the new liquidity token receiver as arguments. This allows other contracts or external parties to be notified when the liquidity token receiver has been changed.
 
-```solidity
+```js
  function setDistributionTarget(address target) external onlyOwner {
         require(
             target != address(0)
@@ -206,7 +206,7 @@ The function also checks that the `distributeTargetFrozen` variable is not set t
 
 If these checks pass, the function sets the value of the `distributeTarget` variable to the input address, after casting it to a payable address. It then emits the `DistributeTargetSet` event, which includes the old distribution target and the new distribution target as arguments. This allows other contracts or external parties to be notified when the distribution target has been changed.
 
-```solidity
+```js
  function setLendingPoolTarget(address target) external onlyOwner {
         require(
             target != address(0) &&
@@ -230,7 +230,7 @@ The function also checks that the `lendingPoolTargetFrozen` variable is not set 
 
 If these checks pass, the function sets the value of the `lendingPoolTarget` variable to the input address, after casting it to a payable address. It then emits the `LendingPoolTargetSet` event, which includes the old lending pool target and the new lending pool target as arguments. This allows other contracts or external parties to be notified when the lending pool target has been changed.
 
-```solidity
+```js
     function setConstellationToken(address tokenAddress, bool isQuint) external onlyOwner {
         require(isConstellationToken[tokenAddress] != isQuint);
         isConstellationToken[tokenAddress] = isQuint;
@@ -249,7 +249,7 @@ The function first checks that the new constellation token status is different f
 
 If this check passes, the function sets the value of the `isConstellationToken[tokenAddress]` mapping to the input value. It then emits the `ConstellationTokenSet` event, which includes the address of the token and its new constellation token status as arguments. This allows other contracts or external parties to be notified when the constellation token status of a token has been changed.
 
-```solidity
+```js
     function setTreasuryTarget(address target) external onlyOwner {
         require(
             target != address(0)
@@ -273,7 +273,7 @@ The function also checks that the `treasuryTargetFrozen` variable is not set to 
 
 If these checks pass, the function sets the value of the `treasuryTarget` variable to the input address, after casting it to a payable address. It then emits the `TreasuryTargetSet` event, which includes the old treasury target and the new treasury target as arguments. This allows other contracts or external parties to be notified when the treasury target has been changed.
 
-```solidity
+```js
     function freezeTreasuryTarget() external onlyOwner {
         require(!treasuryTargetFrozen);
         treasuryTargetFrozen = true;
@@ -287,7 +287,7 @@ The function does not take any arguments and only has a single line of code, whi
 
 The function also emits the `TreasuryTargetFrozen` event to allow other contracts or external parties to be notified when the treasury target has been frozen.
 
-```solidity
+```js
     function freezeLendingPoolTarget() external onlyOwner {
         require(!lendingPoolTargetFrozen);
         lendingPoolTargetFrozen = true;
@@ -301,7 +301,7 @@ The function does not take any arguments and only has a single line of code, whi
 
 The function also emits the `DistributeTargetFrozen` event to allow other contracts or external parties to be notified when the distribute target has been frozen.
 
-```solidity
+```js
     function freezeLendingPoolTarget() external onlyOwner {
         require(!lendingPoolTargetFrozen);
         lendingPoolTargetFrozen = true;
@@ -315,7 +315,7 @@ The function does not take any arguments and only has a single line of code, whi
 
 The function also emits the `LendingPoolTargetFrozen` event to allow other contracts or external parties to be notified when the lending pool target has been frozen.
 
-```solidity
+```js
     function freezeBalanceThreshold() external onlyOwner {
         require(!balanceThresholdFrozen);
         balanceThresholdFrozen = true;
@@ -329,7 +329,7 @@ The function does not take any arguments and only has a single line of code, whi
 
 The function also emits the `BalanceThresholdFrozen` event to allow other contracts or external parties to be notified when the balance threshold has been frozen.
 
-```solidity
+```js
     function freezeLiquidityBalanceThreshold() external onlyOwner {
         require(!liquidityBalanceThresholdFrozen);
         liquidityBalanceThresholdFrozen = true;
@@ -343,7 +343,7 @@ The function does not take any arguments and only has a single line of code, whi
 
 The function also emits the `LiquidityBalanceThresholdFrozen` event to allow other contracts or external parties to be notified when the liquidity balance threshold has been frozen.
 
-```solidity
+```js
     function freezeConstellationTokens() external onlyOwner {
         require(!constellationTokensFrozen);
         constellationTokensFrozen = true;
@@ -357,7 +357,7 @@ The function does not take any arguments and only has a single line of code, whi
 
 The function also emits the `ConstellationTokensFrozen` event to allow other contracts or external parties to be notified when the constellation tokens have been frozen.
 
-```solidity
+```js
     function processFees(address tokenAddress) external {
         uint256 startingETHBalance = address(this).balance;
 
@@ -419,7 +419,7 @@ The function then calculates the amount of ETH that should be distributed to eac
 
 Finally, the function checks the values of each of the balances against their respective thresholds (`balanceThreshold` and `liquidityBalanceThreshold`) and, if any of them are above the threshold, calls the appropriate function to send the balance to the specified destination. If the liquidity balance is above the threshold, the function calls the `buyBackAndAddLiquidity` function, passing it the address of the least liquid constellation token as an argument.
 
-```solidity
+```js
     function sendDistributeBalance() public {
         if (distributeTarget == address(0)) {
             return;
@@ -444,7 +444,7 @@ The function first checks that the `distributeTarget` variable is not the zero a
 
 The function then stores the value of the `distributeBalance` variable in a local variable called `ethToSend`, and sets the `distributeBalance` variable to 0. It then attempts to call the fallback function of the `distributeTarget` contract, passing it `ethToSend` as the value of the transaction. If the call is successful, the function returns. If the call is not successful, the function sets the `distributeBalance` variable back to the value of `ethToSend`.
 
-```solidity
+```js
     function sendTreasuryBalance() public {
         if (treasuryTarget == address(0)) {
             return;
@@ -465,7 +465,7 @@ The `sendTreasuryBalance` function is responsible for sending the balance in the
 
 The function first checks that the `treasuryTarget` variable is not the zero address. If it is, the function returns without doing anything. If the `treasuryTarget` variable is not the zero address, the function stores the value of the `treasuryBalance` variable in a local variable called `ethToSend`, and sets the `treasuryBalance` variable to 0. It then attempts to call the fallback function of the `treasuryTarget` contract, passing it `ethToSend` as the value of the transaction. If the call is successful, the function returns. If the call is not successful, the function sets the `treasuryBalance` variable back to the value of `ethToSend`.
 
-```solidity
+```js
     function sendLendingPoolBalance() public {
         if (lendingPoolTarget == address(0)) {
             return;
@@ -486,7 +486,7 @@ The `sendLendingPoolBalance` function is responsible for sending the balance in 
 
 The function first checks that the `lendingPoolTarget` variable is not the zero address. If it is, the function returns without doing anything. If the `lendingPoolTarget` variable is not the zero address, the function stores the value of the `lendingPoolBalance` variable in a local variable called `ethToSend`, and sets the `lendingPoolBalance` variable to 0. It then attempts to call the fallback function of the `lendingPoolTarget` contract, passing it `ethToSend` as the value of the transaction. If the call is successful, the function returns. If the call is not successful, the function sets the `lendingPoolBalance` variable back to the value of `ethToSend`.
 
-```solidity
+```js
     function buyBackAndAddLiquidity(address tokenAddress) internal {
         uint256 ethForSwap;
         uint256 startingETHBalance = address(this).balance;
@@ -527,7 +527,7 @@ If the balance of the token in the pair is not greater than the `liquidityRatioT
 
 Finally, the function updates the `liquidityTokenBalance` mapping for the specified token to the contract's current balance of the token.
 
-```solidity
+```js
     function addLiquidityETH(address tokenAddress, uint256 tokenAmount, uint256 ethAmount) internal {
         IERC20(tokenAddress).approve(address(router), tokenAmount);
         router.addLiquidityETH{value: ethAmount}(
@@ -543,7 +543,7 @@ Finally, the function updates the `liquidityTokenBalance` mapping for the specif
 
 This function allows the contract to add liquidity to a V2 exchange pair. The function first approves the router contract to transfer the specified amount of tokens on behalf of the contract. It then calls the `addLiquidityETH` function on the router contract, passing in the token address, the amount of tokens to add, and the amount of ETH to add as liquidity. The `0` values passed in for the minimum liquidity and the deadline are default values used by liquidity pool. The `liquidityTokenReceiver` address is also passed in as the recipient of any liquidity tokens that may be created as a result of the liquidity addition.
 
-```solidity
+```js
     function addLiquidityETH(address tokenAddress, uint256 tokenAmount, uint256 ethAmount) internal {
         IERC20(tokenAddress).approve(address(router), tokenAmount);
         router.addLiquidityETH{value: ethAmount}(
@@ -559,7 +559,7 @@ This function allows the contract to add liquidity to a V2 exchange pair. The fu
 
 This function is used to exchange a certain amount of tokens of a given `tokenAddress` for ETH. The function first approves the router contract to move the tokens on behalf of the contract, and then calls the `swapExactTokensForETHSupportingFeeOnTransferTokens` function on the router contract to perform the exchange. The `path` array specifies the route for the token exchange, which in this case is an array with two elements, the `tokenAddress` and the address of the wrapped ETH (WETH) token. The `swapExactTokensForETHSupportingFeeOnTransferTokens` function allows the contract to specify the amount of tokens it wants to exchange and receives the exact amount of ETH in return. It also supports a fee on the token transfer, which means that a small portion of the tokens will be transferred to the router contract as a fee for facilitating the exchange.
 
-```solidity
+```js
     function swapTokensForEth(address tokenAddress, uint256 tokenAmount) internal {
         address[] memory path = new address[](2);
         path[0] = tokenAddress;
@@ -584,7 +584,7 @@ Next, the function calls the `approve` function on the token contract to allow t
 
 Finally, the function calls the `swapExactTokensForETHSupportingFeeOnTransferTokens` function on the router contract, passing in the amount of tokens to be exchanged, a value of 0 for the minimum amount of ETH to receive (meaning any amount of ETH is acceptable), the path array, the contract's own address as the recipient of the ETH, and the current block timestamp. This function will execute the token-to-ETH exchange and send the resulting ETH to the contract's address.
 
-```solidity
+```js
     function swapEthForTokens(address tokenAddress, uint256 ethAmount) internal {
         address[] memory path = new address[](2);
         path[0] = router.WETH();
@@ -600,7 +600,7 @@ Finally, the function calls the `swapExactTokensForETHSupportingFeeOnTransferTok
 
 It exchanges ETH for tokens instead of tokens for ETH. It first calls the `swapExactETHForTokensSupportingFeeOnTransferTokens` function of the router contract, passing in the amount of ETH to exchange, the path of tokens to receive, and the recipient of the tokens. This function will transfer the specified amount of ETH from the contract's balance to the router contract and return the specified tokens to the recipient.
 
-```solidity
+```js
  function rescueWETH() external {
         address wethAddress = router.WETH();
         IWETH(wethAddress).withdraw(IERC20(wethAddress).balanceOf(address(this)));
