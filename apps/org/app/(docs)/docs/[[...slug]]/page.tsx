@@ -8,22 +8,27 @@ import { glob } from "glob"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 
-import { DocsBase } from "../../../docs/(docs.components)/base"
-import { components } from "../../(docs.utils)/config.markdoc"
+import { DocsBase } from "../(docs.components)/base"
+import { components } from "../(docs.utils)/config.markdoc"
 import {
   DocsPageProps,
   getMarkdownContent,
   SOURCE_DIR,
-} from "../../(docs.utils)/markdoc-parse"
+} from "../(docs.utils)/markdoc-parse"
 
 export async function generateStaticParams() {
   const markdownPaths = await glob(path.join(SOURCE_DIR, "**/*.md"))
 
-  return markdownPaths.map((postPath) => {
+  console.log("markdown: ", markdownPaths)
+
+  const builtPaths = markdownPaths.map((postPath) => {
     return {
       slug: path.basename(postPath, path.extname(postPath)),
     }
   })
+
+  console.log("builtPaths", builtPaths)
+  return builtPaths
 }
 
 export async function generateMetadata({
