@@ -50,6 +50,7 @@ export enum DocsLinks {
   Onchains = "/docs/onchains/",
   FAQ = "/docs/faq/",
   Integrating = "/docs/integration/",
+  Breakdowns = "/docs/breakdowns/",
   Guides = "/docs/guides/",
 
   // secondary
