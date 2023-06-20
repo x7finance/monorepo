@@ -26,6 +26,12 @@ const topNavigation = [
     pioneerId: "0018",
   },
   {
+    section: "breakdowns",
+    href: DocsLinks.Breakdowns,
+    title: "Breakdowns",
+    pioneerId: "2436",
+  },
+  {
     section: "onchains",
     href: DocsLinks.Onchains,
     title: "Onchains",

@@ -8,27 +8,35 @@ import { glob } from "glob"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 
-import { DocsBase } from "../../../docs/(docs.components)/base"
-import { components } from "../../(docs.utils)/config.markdoc"
+import { DocsBase } from "../(docs.components)/base"
+import { components } from "../(docs.utils)/config.markdoc"
 import {
-  DocsPageProps,
   getMarkdownContent,
+  ParamsProps,
   SOURCE_DIR,
-} from "../../(docs.utils)/markdoc-parse"
+} from "../(docs.utils)/markdoc-parse"
 
 export async function generateStaticParams() {
   const markdownPaths = await glob(path.join(SOURCE_DIR, "**/*.md"))
 
   return markdownPaths.map((postPath) => {
-    return {
-      slug: path.basename(postPath, path.extname(postPath)),
-    }
+    const startIndex = postPath.indexOf("/docs/") + "/docs/".length
+    const endIndex = postPath.lastIndexOf(".md")
+    const sourceFilePath = postPath.substring(startIndex, endIndex)
+
+    const slug = sourceFilePath
+      .replace("(source-files)", "")
+      .split("/")
+      .filter((slug) => slug !== "")
+
+    return { slug }
   })
 }
-
 export async function generateMetadata({
   params,
-}: DocsPageProps): Promise<Metadata> {
+}: {
+  params: ParamsProps
+}): Promise<Metadata> {
   const doc = await getMarkdownContent(params)
 
   if (!doc) {
@@ -38,8 +46,8 @@ export async function generateMetadata({
   return generateMetadataFromDoc(doc)
 }
 
-export default async function DocsPage({ params }: DocsPageProps) {
-  const { content, title, tags, tableOfContents, date, slug } =
+export default async function DocsPage({ params }) {
+  const { content, title, tags, tableOfContents, date, slug, section } =
     await getMarkdownContent(params)
 
   if (!content) {
@@ -48,7 +56,7 @@ export default async function DocsPage({ params }: DocsPageProps) {
 
   return (
     <DocsBase
-      docsType={params?.section}
+      docsType={section}
       date={date}
       tags={tags}
       title={title}

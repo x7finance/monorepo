@@ -37,8 +37,8 @@ export enum NftsLinkEnum {
   Index = "/nfts/",
   BorrowingMaxi = "/nfts/borrowing-maxi/",
   DexMaxi = "/nfts/dex-maxi/",
-  LiquidityMaxi = "/nfts/liquidity-maxi/",
   EcosystemMaxi = "/nfts/ecosystem-maxi/",
+  LiquidityMaxi = "/nfts/liquidity-maxi/",
   Magister = "/nfts/magister/",
   Pioneers = "/nfts/pioneers/",
 }
@@ -46,18 +46,19 @@ export enum NftsLinkEnum {
 export enum DocsLinks {
   // roots
   Index = "/docs/",
-  Whitepaper = "/docs/whitepaper/",
-  Onchains = "/docs/onchains/",
+  Breakdowns = "/docs/breakdowns/",
   FAQ = "/docs/faq/",
-  Integrating = "/docs/integration/",
   Guides = "/docs/guides/",
+  Integrating = "/docs/integration/",
+  Onchains = "/docs/onchains/",
+  Whitepaper = "/docs/whitepaper/",
 
   // secondary
   IntegratingTemplates = "/docs/integration/templates/",
-  TradeGuide = "/docs/guides/trade/",
-  LaunchGuide = "/docs/guides/launch/",
   IntegrationGuide = "/docs/guides/integrate/",
+  LaunchGuide = "/docs/guides/launch/",
   LendingGuide = "/docs/guides/lending/",
+  TradeGuide = "/docs/guides/trade/",
 }
 
 export enum CommunityLinks {

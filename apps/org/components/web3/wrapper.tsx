@@ -11,6 +11,7 @@ import { WalletConnectConnector } from "wagmi/connectors/walletConnect"
 import { alchemyProvider } from "wagmi/providers/alchemy"
 import { publicProvider } from "wagmi/providers/public"
 
+import { env } from "@/env.mjs"
 import { ConnectionComponent } from "@/components/web3/connect-button"
 
 interface Web3WrapperProps {
@@ -21,7 +22,7 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
   [mainnet, optimism, polygon, bsc, arbitrum],
   [
     alchemyProvider({
-      apiKey: `${process.env.NEXT_PUBLIC_ALCHEMY_ID}`,
+      apiKey: `${env.NEXT_PUBLIC_ALCHEMY_ID}`,
     }),
     // PUBLIC
     publicProvider(),
@@ -48,7 +49,7 @@ const config = createConfig({
     }),
     new WalletConnectConnector({
       options: {
-        projectId: `${process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID}`,
+        projectId: `${env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID}`,
       },
     }),
   ],

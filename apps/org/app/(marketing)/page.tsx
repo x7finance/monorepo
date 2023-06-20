@@ -7,6 +7,7 @@ import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 
+import { env } from "@/env.mjs"
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { DocsLinks, TokenLinksEnum } from "@/lib/types/links"
 import { GradientTypes } from "@/components/gradients"
@@ -178,7 +179,7 @@ export default function IndexPage() {
                 />
                 <div className="mx-auto max-w-2xl sm:mx-0 sm:max-w-none">
                   <Image
-                    src={`${process.env.NEXT_PUBLIC_ASSETS_URL}/images/home/xchange.png`}
+                    src={`${env.NEXT_PUBLIC_ASSETS_URL}/images/home/xchange.png`}
                     alt="Xchange screenshot"
                     width={2432}
                     height={1442}
@@ -349,7 +350,7 @@ export default function IndexPage() {
 
               <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg bg-zinc-100 md:order-last">
                 <Image
-                  src={`${process.env.NEXT_PUBLIC_ASSETS_URL}/images/home/astronaut.gif`}
+                  src={`${env.NEXT_PUBLIC_ASSETS_URL}/images/home/astronaut.gif`}
                   alt="Pioneer Astronaut Image"
                   width={1000}
                   height={1000}

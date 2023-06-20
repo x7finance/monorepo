@@ -99,7 +99,7 @@ export function PairRow({ id, chainId, type }: PairsProps) {
         <div className="flex items-center space-x-2">
           <div className="flex flex-shrink-0 space-x-1">
             <span className="pl-1">$</span>
-            {tokenReserve !== -1 ? tokenPrice : ". . ."}
+            {tokenReserve !== "-1" ? tokenPrice : "..."}
           </div>
         </div>
       )
@@ -107,7 +107,7 @@ export function PairRow({ id, chainId, type }: PairsProps) {
       return (
         <div className="flex items-center space-x-2">
           <div className="flex flex-shrink-0 space-x-1">
-            {tokenReserve !== -1 ? tokenReserve : ". . ."}
+            {tokenReserve !== "-1" ? tokenReserve : "..."}
             <span className="pl-1">
               {generateChainDenomination(chainId as BlockchainType)}
             </span>
