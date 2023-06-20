@@ -3,7 +3,7 @@ import "./env.mjs"
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  trailingSlash: true,
+  // trailingSlash: true,
   webpack: (config, { isServer, webpack }) => {
     config.externals.push("pino-pretty", "lokijs", "encoding")
 
@@ -41,7 +41,7 @@ const nextConfig = {
     ],
   },
   experimental: {
-    scrollRestoration: true,
+    // scrollRestorastion: true,
     appDir: true,
     serverComponentsExternalPackages: [""],
   },
