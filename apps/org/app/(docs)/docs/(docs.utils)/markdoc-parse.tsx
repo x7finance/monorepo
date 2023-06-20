@@ -1,7 +1,7 @@
 import fs from "fs"
 import path from "path"
 
-import Markdoc from "@markdoc/markdoc"
+import Markdoc, { RenderableTreeNode } from "@markdoc/markdoc"
 import { slugifyWithCounter } from "@sindresorhus/slugify"
 import matter from "gray-matter"
 
@@ -12,46 +12,84 @@ import { config } from "./config.markdoc"
 const SOURCE_FILES = "app/(docs)/docs/(source-files)"
 export const SOURCE_DIR = path.join(process.cwd(), SOURCE_FILES)
 
-interface ParamsProps {
-  slug?: string[]
+// Define the type for the slug
+type SlugType = string[] | undefined
+
+// Create function to build the file path based on the slug
+async function getFilePath(
+  slug: SlugType,
+  SOURCE_DIRECTORY: string
+): Promise<string> {
+  const isRoot = !slug
+  const filePathSuffix = isRoot
+    ? "index.md"
+    : slug?.length === 1
+    ? `${slug[0]}/index.md`
+    : `${slug?.join("/")}.md`
+
+  return path?.join(SOURCE_DIRECTORY, filePathSuffix)
+}
+
+// Create function to build the path based on the slug
+function getBuiltPath(slug: SlugType): string {
+  const slugPath = !slug ? "" : slug.join("/")
+
+  return `/docs/${slugPath}/`
+}
+
+// Define the return type for parsing the markdown file
+interface ParsedMarkdown {
+  matterResult: matter.GrayMatterFile<string>
+  content: RenderableTreeNode
+  tableOfContents: SectionType[]
+}
+
+// Create function to parse the markdown file
+async function parseMarkdownFile(filePath: string): Promise<ParsedMarkdown> {
+  const source = await fs.readFileSync(filePath, "utf-8")
+  const matterResult = matter(source)
+  const ast = Markdoc.parse(source)
+  const content = Markdoc.transform(ast, config)
+  const tableOfContents = collectHeadings(content) ?? []
+
+  return { matterResult, content, tableOfContents }
+}
+
+// Define the types for the parameters
+export interface ParamsProps {
+  slug: SlugType
   section: DocType
   description?: string
   title: string
 }
 
-export type DocsPageProps = {
-  params: ParamsProps
+// Define the type for the return object
+interface MarkdownContent {
+  section: DocType
+  content: RenderableTreeNode | null
+  title?: string
+  tags?: string[]
+  tableOfContents: SectionType[] | null
+  date?: string
+  description: string | null
+  slug?: string
+  seoTitle: string | null
 }
 
-export async function getMarkdownContent(params: ParamsProps) {
+// Main function to get the markdown content
+export async function getMarkdownContent(
+  params: ParamsProps
+): Promise<MarkdownContent> {
+  const { slug } = params
+
   try {
-    const { slug } = params
-
-    const isRoot = slug === undefined
-
-    const filePath = path.join(
-      SOURCE_DIR,
-      isRoot
-        ? "index.md"
-        : slug?.length === 1
-        ? `${slug[0]}/index.md`
-        : `${slug.join("/")}.md`
+    const filePath = await getFilePath(slug, SOURCE_DIR)
+    const builtPath = getBuiltPath(slug)
+    const { matterResult, content, tableOfContents } = await parseMarkdownFile(
+      filePath
     )
-
-    const source = fs.readFileSync(filePath, "utf-8")
-    const matterResult = matter(source)
-
     const { title, tags = [], date, description, seoTitle } = matterResult.data
-    const ast = Markdoc.parse(source)
-
-    const content = Markdoc.transform(ast, config)
-    const tableOfContents = collectHeadings(content) ?? []
-
-    const builtPath = isRoot ? `/docs/` : `/docs/${slug.join("/")}/`
-
-    const parts = builtPath.split("/")
-
-    const section = (parts[2] || "docs") as DocType
+    const section = (slug ? slug[0] : "docs") as DocType
 
     return {
       section,
@@ -65,6 +103,8 @@ export async function getMarkdownContent(params: ParamsProps) {
       seoTitle,
     }
   } catch (error) {
+    console.error(error)
+    // @ts-expect-error
     return { content: null, title: null, tags: null, tableOfContents: null }
   }
 }

@@ -11,8 +11,8 @@ import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { DocsBase } from "../(docs.components)/base"
 import { components } from "../(docs.utils)/config.markdoc"
 import {
-  DocsPageProps,
   getMarkdownContent,
+  ParamsProps,
   SOURCE_DIR,
 } from "../(docs.utils)/markdoc-parse"
 
@@ -34,7 +34,9 @@ export async function generateStaticParams() {
 }
 export async function generateMetadata({
   params,
-}: DocsPageProps): Promise<Metadata> {
+}: {
+  params: ParamsProps
+}): Promise<Metadata> {
   const doc = await getMarkdownContent(params)
 
   if (!doc) {
@@ -44,7 +46,7 @@ export async function generateMetadata({
   return generateMetadataFromDoc(doc)
 }
 
-export default async function DocsPage({ params }: DocsPageProps) {
+export default async function DocsPage({ params }) {
   const { content, title, tags, tableOfContents, date, slug, section } =
     await getMarkdownContent(params)
 

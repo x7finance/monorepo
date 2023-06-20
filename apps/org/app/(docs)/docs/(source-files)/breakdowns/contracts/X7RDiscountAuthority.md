@@ -11,7 +11,7 @@ The `X7RDiscountAuthority` contract has three functions for setting the addresse
 
 Finally, the `X7RDiscountAuthority` contract has a `discountRatio` function that returns the discount ratio for a given user (specified by the `swapper` parameter). The function checks the user's balance of each of the three NFT types and applies a discount based on the balances. If the user has a balance of `liqMaxiNFT` or `magisterNFT` NFTs, a 25% discount is applied. If the user has a balance of `ecoMaxiNFT` NFTs, a 10% discount is applied. If the user has no balance of any of these NFTs, no discount is applied.
 
-```solidity
+```js
  function setEcosystemMaxiNFT(address tokenAddress) external onlyOwner {
         require(address(ecoMaxiNFT) != tokenAddress);
         address oldTokenAddress = address(ecoMaxiNFT);
@@ -28,7 +28,7 @@ If the `tokenAddress` is different from the current contract address, the functi
 
 The `onlyOwner` modifier at the beginning of the function ensures that only the owner of the contract can call this function.
 
-```solidity
+```js
  function setLiquidityMaxiNFT(address tokenAddress) external onlyOwner {
         require(address(liqMaxiNFT) != tokenAddress);
         address oldTokenAddress = address(liqMaxiNFT);
@@ -43,7 +43,7 @@ The function first checks that the `tokenAddress` is not the same as the current
 
 The `onlyOwner` modifier at the beginning of the function ensures that only the owner of the contract can call this function.
 
-```solidity
+```js
  function setMagisterNFT(address tokenAddress) external onlyOwner {
         require(address(magisterNFT) != tokenAddress);
         address oldTokenAddress = address(magisterNFT);
@@ -57,7 +57,7 @@ The function first checks that the `tokenAddress` is not the same as the current
 
 The `onlyOwner` modifier at the beginning of the function ensures that only the owner of the contract can call this function.
 
-```solidity
+```js
  function discountRatio(address swapper) external view returns (uint256 numerator, uint256 denominator) {
         numerator = 1;
         denominator = 1;

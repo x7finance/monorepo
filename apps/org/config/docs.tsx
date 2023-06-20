@@ -27,6 +27,121 @@ const guidesNavigation = [
   },
 ]
 
+const breakdownsNavigation = [
+  {
+    title: "Contracts",
+    links: [
+      {
+        title: "X7 Borrowing Maxi",
+        href: "/docs/breakdowns/contracts/x7borrowingmaxi",
+      },
+      { title: "X7D", href: "/docs/breakdowns/contracts/x7d" },
+      { title: "X7DAO", href: "/docs/breakdowns/contracts/x7dao" },
+      {
+        title: "X7DAO Discount Authority",
+        href: "/docs/breakdowns/contracts/x7daodiscountauthority",
+      },
+      {
+        title: "X7DAO Liquidity Hub",
+        href: "/docs/breakdowns/contracts/x7daoliquidityhub",
+      },
+      { title: "X7 Dex Maxi", href: "/docs/breakdowns/contracts/x7dexmaxi" },
+      {
+        title: "X7 Ecosystem Maxi",
+        href: "/docs/breakdowns/contracts/x7ecosystemmaxi",
+      },
+      {
+        title: "X7 Ecosystem Splitter",
+        href: "/docs/breakdowns/contracts/x7ecosystemsplitter",
+      },
+      {
+        title: "X7 Initial Liquidity Loan Term 001",
+        href: "/docs/breakdowns/contracts/x7initialliquidityloanterm001",
+      },
+      {
+        title: "X7 Lending Pool Reserve",
+        href: "/docs/breakdowns/contracts/x7lendingpoolreserve",
+      },
+      {
+        title: "X7R Discount Authority",
+        href: "/docs/breakdowns/contracts/x7rdiscountauthority",
+      },
+      {
+        title: "X7R Liquidity Hub",
+        href: "/docs/breakdowns/contracts/x7rliquidityhub",
+      },
+      {
+        title: "X7 Token Burner",
+        href: "/docs/breakdowns/contracts/x7tokenburner",
+      },
+      {
+        title: "X7 Token Timelock",
+        href: "/docs/breakdowns/contracts/x7tokentimelock",
+      },
+      {
+        title: "X7 Treasury Splitter V2",
+        href: "/docs/breakdowns/contracts/x7treasurysplitterv2",
+      },
+      {
+        title: "X7 100 Discount Authority",
+        href: "/docs/breakdowns/contracts/x7100discountauthority",
+      },
+      {
+        title: "X7 100 Liquidity Hub",
+        href: "/docs/breakdowns/contracts/x7100liquidityhub)",
+      },
+    ],
+  },
+  {
+    title: "Functions",
+    links: [
+      {
+        title: "X7 Borrowing Maxi",
+        href: "/docs/breakdowns/functions/x7borrowingmaxi",
+      },
+      { title: "X7D", href: "/docs/breakdowns/functions/x7d" },
+      { title: "X7DAO", href: "/docs/breakdowns/functions/x7dao" },
+      {
+        title: "X7DAO Discount Authority",
+        href: "/docs/breakdowns/functions/x7daodiscountauthority",
+      },
+      {
+        title: "X7DAO Liquidity Hub",
+        href: "/docs/breakdowns/functions/x7daoliquidityhub",
+      },
+      { title: "X7 Dex Maxi", href: "/docs/breakdowns/functions/x7dexmaxi" },
+      {
+        title: "X7 Ecosystem Maxi",
+        href: "/docs/breakdowns/functions/x7ecosystemmaxi",
+      },
+      {
+        title: "X7 Ecosystem Splitter",
+        href: "/docs/breakdowns/functions/x7ecosystemsplitter",
+      },
+      {
+        title: "X7 Initial Liquidity Loan Term 001",
+        href: "/docs/breakdowns/functions/x7initialliquidityloanterm001",
+      },
+      {
+        title: "X7 Initial Liquidity Loan Term 002",
+        href: "/docs/breakdowns/functions/x7initialliquidityloanterm002",
+      },
+      {
+        title: "X7 Initial Liquidity Loan Term 003",
+        href: "/docs/breakdowns/functions/x7initialliquidityloanterm003",
+      },
+      {
+        title: "X7 Lending Discount Authority V1",
+        href: "/docs/breakdowns/functions/x7lendingdiscountauthorityv1",
+      },
+      {
+        title: "X7 Lending Pool Reserve",
+        href: "/docs/breakdowns/functions/x7lendingpoolreserve",
+      },
+    ],
+  },
+]
+
 const onchainsNavigation = [
   {
     title: "June 2023",
@@ -577,10 +692,11 @@ const faqNavigation = [
 ]
 
 export {
+  breakdownsNavigation,
   docsNavigation,
-  whitepaperNavigation,
   faqNavigation,
-  onchainsNavigation,
   guidesNavigation,
   integrationNavigation,
+  onchainsNavigation,
+  whitepaperNavigation,
 }
