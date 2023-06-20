@@ -9,7 +9,7 @@ import { DocType } from "@/lib/types"
 
 import { config } from "./config.markdoc"
 
-const SOURCE_FILES = "app/(docs)/(source-files)"
+export const SOURCE_FILES = "app/(docs)/(source-files)"
 export const SOURCE_DIR = path.join(process.cwd(), SOURCE_FILES)
 
 // Define the type for the slug
@@ -52,7 +52,17 @@ interface ParsedMarkdown {
 
 // Create function to parse the markdown file
 async function parseMarkdownFile(filePath: string): Promise<ParsedMarkdown> {
-  const source = await fs.promises.readFile(filePath, "utf-8")
+  const absolutePath = path.resolve(filePath)
+
+  // Check if the file exists and is accessible
+  try {
+    await fs.promises.access(absolutePath, fs.constants.F_OK)
+  } catch (error) {
+    throw new Error(`File does not exist or is not accessible: ${absolutePath}`)
+  }
+
+  // If the file exists and is accessible, proceed with reading and parsing
+  const source = await fs.promises.readFile(absolutePath, "utf-8")
 
   const matterResult = matter(source)
   const ast = Markdoc.parse(source)
@@ -91,6 +101,7 @@ export async function getMarkdownContent(
 
   try {
     const chainPath = slug?.join("/")
+
     const filePath = await appendMdIfFileOrIndexMdIfDirectory(
       path?.join(SOURCE_DIR, !chainPath ? `index` : chainPath)
     )

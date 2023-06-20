@@ -13,12 +13,13 @@ import { components } from "../../(docs.utils)/config.markdoc"
 import {
   getMarkdownContent,
   ParamsProps,
-  SOURCE_DIR,
+  SOURCE_FILES,
 } from "../../(docs.utils)/markdoc-parse"
 
 export async function generateStaticParams() {
-  const markdownPaths = await glob(path.join(SOURCE_DIR, "**/*.md"))
+  const markdownPaths = await glob(path.join(SOURCE_FILES, "**/*.md"))
 
+  console.log("markdownPaths length: ", markdownPaths?.length)
   return markdownPaths.map((postPath) => {
     const startIndex = postPath.indexOf("/docs/") + "/docs/".length
     const endIndex = postPath.lastIndexOf(".md")
@@ -31,6 +32,20 @@ export async function generateStaticParams() {
 
     return { slug }
   })
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: ParamsProps
+}): Promise<Metadata> {
+  const doc = await getMarkdownContent(params)
+
+  if (!doc) {
+    return {}
+  }
+
+  return generateMetadataFromDoc(doc)
 }
 
 export default async function DocsPage({ params }) {
