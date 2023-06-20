@@ -19,7 +19,6 @@ import {
 export async function generateStaticParams() {
   const markdownPaths = await glob(path.join(SOURCE_FILES, "**/*.md"))
 
-  console.log("markdownPaths length: ", markdownPaths?.length)
   return markdownPaths.map((postPath) => {
     const startIndex = postPath.indexOf("/docs/") + "/docs/".length
     const endIndex = postPath.lastIndexOf(".md")
