@@ -15,10 +15,19 @@ export const SOURCE_DIR = path.join(process.cwd(), SOURCE_FILES)
 // Define the type for the slug
 type SlugType = string[] | undefined
 
+async function pathExists(path: string): Promise<boolean> {
+  try {
+    await fs.promises.access(path)
+    return true
+  } catch {
+    return false
+  }
+}
+
 async function appendMdIfFileOrIndexMdIfDirectory(pathString) {
   try {
-    if (fs.existsSync(pathString)) {
-      const stats = fs.statSync(pathString)
+    if (await pathExists(pathString)) {
+      const stats = await fs.promises.stat(pathString)
 
       if (stats.isDirectory()) {
         return path.join(pathString, "index.md")
@@ -50,8 +59,8 @@ interface ParsedMarkdown {
 
 // Create function to parse the markdown file
 async function parseMarkdownFile(filePath: string): Promise<ParsedMarkdown> {
-  console.log("filePath: ", filePath)
-  const source = await fs.readFileSync(filePath, "utf-8")
+  const source = await fs.promises.readFile(filePath, "utf-8")
+
   const matterResult = matter(source)
   const ast = Markdoc.parse(source)
   const content = Markdoc.transform(ast, config)
