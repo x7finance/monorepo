@@ -9,7 +9,7 @@ Smart Contract
 
 This contract uses an abstract base contract shared among all our standard Initial Liquidity Loan Terms. Although this contract only allows a small number of configuration changes (namely minimum and maximum loan amounts and durations), variations can be deployed and added to the Active Loan terms of the Lending Pool.
 
-```solidity
+```js
 interface IX7InitialLiquidityLoanTerm {
     enum LiquidationPolicy {
         NONE,
@@ -90,7 +90,7 @@ interface IX7InitialLiquidityLoanTerm {
 
 The contract defines several functions and events related to managing loans, including: setting loan parameters such as amount limits and loan length limits, checking loan status, and paying off loans. The contract also defines several events related to updating the contractΓÇÖs settings, including setting the base URI, setting the loan authority, and setting the liquidation policy. Additionally, the contract defines several functions for querying the contract state, including functions for checking the loan amount, loan length, and loan state, as well as functions for calculating loan payments and remaining liabilities.
 
-```solidity
+```js
 interface IERC721Receiver {
     function onERC721Received(
         address operator,
@@ -110,7 +110,7 @@ The `IERC721Receiver` interface defines a single function `onERC721Received`, wh
 
 The function is expected to return the selector of the `onERC721Received` function, which is a 4-byte value that uniquely identifies the function. If any other value is returned or the interface is not implemented by the recipient contract, the transfer will be reverted.
 
-```solidity
+```js
 interface IERC165 {
     function supportsInterface(bytes4 interfaceId) external view returns (bool);
 }
@@ -118,7 +118,7 @@ interface IERC165 {
 
 The `IERC165` interface is a standard interface for contracts to implement in order to support the ERC-165 standard. It defines a single function, `supportsInterface(bytes4 interfaceId)`, which allows other contracts to query whether the implementing contract supports a specific interface. The function takes a single argument, `interfaceId`, which is the four-byte identifier of the interface in question. It returns a boolean value indicating whether the contract supports that interface. The function is marked as `view`, which means it is a read-only function and does not modify the state of the contract.
 
-```solidity
+```js
 abstract contract Context {
     function _msgSender() internal view virtual returns (address) {
         return msg.sender;
@@ -132,7 +132,7 @@ abstract contract Context {
 
 It provides two internal view functions, `_msgSender()` and `_msgData()`, that return the address of the message sender (`msg.sender`) and the data of the message (`msg.data`) respectively. These functions are marked as virtual, which means they can be overridden by contracts that inherit from the `Context` contract. The `internal` visibility specifier means that these functions can only be accessed by other contracts that inherit from the `Context` contract or from the contract itself.
 
-```solidity
+```js
 abstract contract X7InitialLiquidityLoanTerm is ERC721Enumerable, ERC721Holder, Ownable {}
 
 
@@ -143,11 +143,9 @@ function setLoanAuthority(address contractAddress, bool isAuthority) external on
  }
 ```
 
-```
 The function `setLoanAuthority` is used to set the loan authority status of a specific contract address. It can only be called by the contractΓÇÖs owner, and requires that the contract address passed as an argument is not already set to the same authority status (i.e. if the address is already an authority, it cannot be set as an authority again, and vice versa). The function then sets the loan authority status of the contract address passed as an argument to the value passed as the second argument, and emits an event `LoanAuthoritySet` with the contract address and the new authority status as parameters.
-```
 
-```solidity
+```js
 function setBaseURI(string memory baseURI*) external onlyOwner {
  require(keccak256(abi.encodePacked(internalBaseURI)) != keccak256(abi.encodePacked(baseURI*)));
  string memory oldBaseURI = internalBaseURI;
@@ -168,7 +166,7 @@ The function has several lines of code, letΓÇÖs breakdown what it does:
 
 In summary, this function allows the owner of the contract to set a new baseURI while checking if the new baseURI is different than the existing one and emitting an event with the old and new baseURI.
 
-```solidity
+```js
 
 function setUseBaseURIOnly(bool shouldUse) external onlyOwner {
  require(useBaseURIOnly != shouldUse);
@@ -180,7 +178,7 @@ function setUseBaseURIOnly(bool shouldUse) external onlyOwner {
 
 The `setUseBaseURIOnly` the function allows the owner to set a flag indicating whether to use only the base URI (a Uniform Resource Identifier) or not. This function requires that the current value of the flag `useBaseURIOnly` must not be equal to the argument `shouldUse` being passed in. The function updates the value of `useBaseURIOnly` with `shouldUse` and emits an event `UseBaseURIOnlySet` with the updated value as its argument.
 
-```solidity
+```js
 
 function numberOfRepaymentPeriods() external view returns (uint256) {
  return repaymentPeriodIndices.length;
@@ -190,7 +188,7 @@ function numberOfRepaymentPeriods() external view returns (uint256) {
 
 It returns the number of repayment periods by returning the length of the `repaymentPeriodIndices` array. The `view` keyword indicates that the function does not modify the state of the contract and can be safely called without triggering any changes. The `external` keyword indicates that the function can be called from outside the contract.
 
-```solidity
+```js
 
 function numberOfPremiumPeriods() external view returns (uint256) {
  return premiumPeriodIndices.length;
@@ -202,7 +200,7 @@ function numberOfPremiumPeriods() external view returns (uint256) {
 
 It returns the number of premium periods by returning the length of the `premiumPeriodIndices` array. The `view` keyword indicates that the function does not modify the state of the contract and can be safely called without triggering any changes. The `external` keyword indicates that the function can be called from outside the contract.
 
-```solidity
+```js
 function getOriginationAmounts(uint256 loanAmount*) external view returns (uint256 loanAmountRounded, uint256 originationFee) {
  (loanAmountRounded, originationFee) = \_getOriginationAmounts(loanAmount*);
  }
@@ -210,7 +208,7 @@ function getOriginationAmounts(uint256 loanAmount*) external view returns (uint2
 
 It takes in a uint256 argument `loanAmount_` and returns two values: `loanAmountRounded` and `originationFee`. The function calls another internal function `_getOriginationAmounts` with the input argument `loanAmount_`. The returned values from `_getOriginationAmounts` are then assigned to `loanAmountRounded` and `originationFee`. The `view` keyword indicates that the function does not modify the state of the contract and can be safely called without triggering any changes. The `external` keyword indicates that the function can be called from outside the contract.
 
-```solidity
+```js
 
 function isComplete(uint256 loanID) external view returns (bool) {
  return loanState[loanID] == LoanState.COMPLETE;
@@ -220,7 +218,7 @@ function isComplete(uint256 loanID) external view returns (bool) {
 
 It takes in a uint256 argument `loanID` and returns a boolean value indicating whether the loan associated with the loanID is complete or not. The function accesses the `loanState` mapping with the key `loanID` and compares its value to the constant `LoanState.COMPLETE`. If they are equal, the function returns true, otherwise it returns false. The `view` keyword indicates that the function does not modify the state of the contract and can be safely called without triggering any changes. The `external` keyword indicates that the function can be called from outside the contract.
 
-```solidity
+```js
 
 function liquidationAmount(uint256 loanID) external view returns (uint256) {
  require(loanState[loanID] == LoanState.ACTIVE);
@@ -266,7 +264,7 @@ Depending on the value of `liquidationPolicy`, the function returns either `rema
 
 The `view` keyword indicates that the function does not modify the state of the contract and can be safely called without triggering any changes. The `external` keyword indicates that the function can be called from outside the contract.
 
-```solidity
+```js
 
 function getQuote(uint256 loanAmount*) external view returns (uint256 loanAmountRounded, uint256 originationFee, uint256 totalPremium) {
  (loanAmountRounded, originationFee) = \_getOriginationAmounts(loanAmount*);
@@ -289,7 +287,7 @@ Finally, the function returns the loan amount rounded, the origination fee, and 
 
 The `view` keyword indicates that the function does not modify the state of the contract and can be safely called without triggering any changes. The `external` keyword indicates that the function can be called from outside the contract.
 
-```solidity
+```js
 
 function getDiscountedQuote(uint256 loanAmount*, uint256 premiumFeeModifier, uint256 originationFeeModifier) external view returns (uint256 loanAmountRounded, uint256 originationFee, uint256 totalPremium) {
  (loanAmountRounded, originationFee) = \_getOriginationAmounts(loanAmount*);
@@ -317,7 +315,7 @@ Finally, the function returns the loan amount rounded, the origination fee, and 
 
 The `view` keyword indicates that the function does not modify the state of the contract and can be safely called without triggering any changes. The `external` keyword indicates that the function can be called from outside the contract.
 
-```solidity
+```js
 function getPrincipalDue(uint256 loanID, uint256 asOf) external view returns (uint256) {
     require(loanAmount[loanID] > 0);
     return \_getPrincipalDue(loanID, asOf);
@@ -334,7 +332,7 @@ Finally, the function returns the calculated principal due.
 
 The `view` keyword indicates that the function does not modify the state of the contract and can be safely called without triggering any changes. The `external` keyword indicates that the function can be called from outside the contract.
 
-```solidity
+```js
 function getPremiumsDue(uint256 loanID, uint256 asOf) external view returns (uint256) {
     require(loanAmount[loanID] > 0);
     return \_getPremiumsDue(loanID, asOf);
@@ -351,7 +349,7 @@ Finally, the function returns the calculated premiums due.
 
 The `view` keyword indicates that the function does not modify the state of the contract and can be safely called without triggering any changes. The `external` keyword indicates that the function can be called from outside the contract.
 
-```solidity
+```js
 
 function getTotalDue(uint256 loanID, uint256 asOf) external view returns (uint256) {
  require(loanAmount[loanID] > 0);
@@ -362,7 +360,7 @@ function getTotalDue(uint256 loanID, uint256 asOf) external view returns (uint25
 
 This function calculates the total amount due for a loan with a given ID as of a certain timestamp. It first requires that the loan amount for the specified loan ID is greater than 0. Then, it calls two helper functions `_getPrincipalDue` and `_getPremiumsDue` to calculate the amount of principal and premiums due, respectively. Finally, it returns the sum of the two.
 
-```solidity
+```js
 
 function getRemainingLiability(uint256 loanID) external view returns (uint256) {
  require(loanAmount[loanID] > 0);
@@ -374,7 +372,7 @@ function getRemainingLiability(uint256 loanID) external view returns (uint256) {
 
 This function calculates the remaining liability for a loan with a given ID. It first requires that the loan amount for the specified loan ID is greater than 0. Then, it calculates the remaining liability as the sum of the remaining premiums and remaining principal, which is equal to the total amount of premiums minus the amount of premiums paid plus the total amount of the loan minus the amount of principal paid.
 
-```solidity
+```js
 
 function getPremiumPaymentSchedule(uint256 loanID) external view returns (uint256[] memory, uint256[] memory) {
  uint256 startTime = loanStartTime[loanID];
@@ -398,7 +396,7 @@ function getPremiumPaymentSchedule(uint256 loanID) external view returns (uint25
 
 The `getPremiumPaymentSchedule` function returns an array of due dates and an array of payment amounts, representing the premium payments schedule for a loan. It takes a loan ID as input and returns the due dates and payment amounts for all premium payments in the loan. It requires that the loan amount is greater than 0. The due dates are calculated as the duration of the loan in seconds multiplied by the premium period index divided by 60, plus the start time of the loan. The payment amounts are calculated as the loan amount multiplied by the premium fraction corresponding to the premium period index, divided by the principle fraction denominator, and rounded to the nearest precision of the loan.
 
-```solidity
+```js
 
 function getPrincipalPaymentSchedule(uint256 loanID) external view returns (uint256[] memory, uint256[] memory) {
  uint256 startTime = loanStartTime[loanID];
@@ -428,7 +426,7 @@ Then, the function creates two dynamic arrays: `dueDates` and `paymentAmounts`. 
 
 Finally, the function returns the `dueDates` and `paymentAmounts` arrays.
 
-```solidity
+```js
 
 function tokenURI(uint256 tokenId) public view override returns (string memory) {
  if (useBaseURIOnly) {
@@ -442,7 +440,7 @@ function tokenURI(uint256 tokenId) public view override returns (string memory) 
 
 The `tokenURI` function returns the URL of the token information. If the `useBaseURIOnly` variable is set to `true`, it returns the base URI defined by the `_baseURI` function. Otherwise, it calls the `tokenURI` function of the parent contract, which provides a unique URL for each token in the NFT collection. The token URI can be used to retrieve information about the token, such as its owner, metadata, or other information stored on the blockchain.
 
-```solidity
+```js
 
 function originateLoan(
  uint256 loanAmount*,
@@ -497,7 +495,7 @@ The `originateLoan` function is used to originate a loan, which is created and m
 
 The function starts by checking if the loan amount is within the minimum and maximum allowed loan amounts, and that the loan length is within the minimum and maximum allowed loan lengths. It then calculates the expected loan amount and origination fee based on the inputs, and checks if the actual origination fee matches the expected origination fee. If everything is in order, the function sets the loan parameters such as the loan amount, premium fee, origination fee, loan length, and loan start time, sets the loan state to active, and mints a new token for the loan receiver. Finally, it emits a `LoanOriginated` event.
 
-```solidity
+```js
 
 function recordPayment(uint256 loanID, uint256 amount) external onlyLoanAuthority returns (uint256 premiumPaid, uint256 principalPaid, uint256 refundAmount, uint256 remainingLiability) {
  if (loanState[loanID] == LoanState.COMPLETE) {
@@ -556,7 +554,7 @@ This function `recordPayment` is used to record payment for a loan given the loa
 6.  If the remaining liability is zero, it sets the loan state to complete and emits an `LoanComplete` event.
 7.  It returns the premium paid, principal paid, refund amount, and remaining liability.
 
-```solidity
+```js
 
 function recordPrincipalRepayment(uint256 loanID, uint256 amount) external onlyLoanAuthority returns (uint256 premiumPaid, uint256 principalPaid, uint256 refundAmount, uint256 remainingLiability) {
  uint256 excessAmount = \_recordPrincipalPayment(loanID, amount);
@@ -583,7 +581,7 @@ The function starts by calling the `_recordPrincipalPayment` function to record 
 
 The function then calculates the amounts paid for premium and principal, and the remaining liability for the loan. If the remaining liability is zero, it means that the loan has been fully repaid, so the state of the loan is updated to `LoanState.COMPLETE` and the `LoanComplete` event is emitted.
 
-```solidity
+```js
 
 function _getOriginationAmounts(uint256 loanAmount_) internal view returns (uint256 loanAmountRounded, uint256 originationFee) {
  for (uint i=0; i < repaymentPeriodIndices.length; i++) {
@@ -605,7 +603,7 @@ It then calculates the origination fee as the rounded product of the origination
 
 The function requires that the rounded up loan amount is greater than 0, otherwise it will revert.
 
-```solidity
+```js
 
 function _getTotalPremium(uint256 loanAmount_, uint256 discountModifier) internal view returns (uint256) {
  uint256 totalPremium;
@@ -621,7 +619,7 @@ function _getTotalPremium(uint256 loanAmount_, uint256 discountModifier) interna
 
 The `_getTotalPremium` function calculates the total premium for a loan given its loan amount and a discount modifier. It loops over the `premiumPeriodIndices` array and calculates the premium for each period by multiplying the loan amount with the corresponding `premiumFractions` fraction, then dividing it by `principleFractionDenominator` and finally rounding it to the nearest multiple of `loanPrecision`. The total premium is the sum of premiums of all periods and is returned by the function.
 
-```solidity
+```js
 
 function _getPrincipalDue(uint256 loanID, uint256 asOf) internal view returns (uint256) {
  uint256 startTime = loanStartTime[loanID];
@@ -655,7 +653,7 @@ The calculation starts by initializing a variable `totalRepaymentDue` to 0. Then
 
 Finally, the function checks if the `totalRepaymentDue` is greater than the `principalAmountPaid[loanID]`. If it is, the function returns the difference between the two. If not, it returns 0, indicating that the total repayment due has already been paid.
 
-```solidity
+```js
 
 function _getPremiumsDue(uint256 loanID, uint256 asOf) internal view returns (uint256) {
  uint256 startTime = loanStartTime[loanID];
@@ -685,7 +683,7 @@ function _getPremiumsDue(uint256 loanID, uint256 asOf) internal view returns (ui
 
 It calculates the total amount of premiums that are due for a given loan (specified by `loanID`) up to a certain point in time (specified by `asOf`). It starts by initializing a variable `totalPremiumsDue` to keep track of the total amount of premiums due. The function then loops through all the `premiumPeriodIndices` and adds the amount of premiums due at each period to `totalPremiumsDue`. If the current time is after the due time for a period, the loop breaks. The function then calculates the remaining amount of premiums due by subtracting the amount of premiums already paid (`premiumAmountPaid[loanID]`) from the total amount of premiums due (`totalPremiumsDue`). If all the premiums have already been paid, the function returns 0.
 
-```solidity
+```js
 
 function \_recordPremiumPayment(uint256 loanID, uint256 amount) internal returns (uint256 refundAmount) {
  if (amount == 0) {
@@ -717,7 +715,7 @@ Then, it checks if the `owedAmount` is greater than 0, meaning there is still a 
 
 If `owedAmount` is not greater than 0, meaning the balance has already been paid in full, the function returns the `amount` as the refund amount, since no further payment is due.
 
-```solidity
+```js
 
 function \_recordPrincipalPayment(uint256 loanID, uint256 amount) internal returns (uint256 refundAmount) {
  if (amount == 0) {
@@ -749,7 +747,7 @@ Then, it updates the amount paid towards the principal. If the owed amount is gr
 
 If the owed amount is less than or equal to the amount paid, it adds the amount paid to the amount already paid towards the principal, and sets the refund amount to the difference between the amount paid and the owed amount.
 
-```solidity
+```js
 
 function \_setRepaymentTerms(uint16[60] memory fractions) internal {
  uint256 totalFraction;
@@ -781,7 +779,7 @@ This function `_setRepaymentTerms` sets the repayment terms of the loans, based 
 - The total fraction is accumulated and is required to be equal to `principleFractionDenominator`.
 - The period and the fraction are stored in the `repaymentPeriodIndices` and `repaymentFractions` arrays, respectively.
 
-```solidity
+```js
 
 function \_setPremiumTerms(uint16[60] memory fractions) internal {
  uint256 totalFraction;
@@ -810,7 +808,7 @@ The function loops through the array and checks if the fraction for a period is 
 
 Note that this function does not check if the total fraction of premiums equals 100%, unlike the `_setRepaymentTerms` function.
 
-```solidity
+```js
 
 function \_setOriginationFeeNumerator(uint16 feeNumerator) internal {
  require(feeNumerator < principleFractionDenominator);
@@ -825,7 +823,7 @@ The function requires that `feeNumerator` is less than `principleFractionDenomin
 
 The value of `feeNumerator` is stored in the `originationFeeNumerator` state variable.
 
-```solidity
+```js
 
 function \_setLoanAmountLimits(uint256 minimumAmount, uint256 maximumAmount) internal {
  require(minimumAmount < maximumAmount);
@@ -846,7 +844,7 @@ The function starts by requiring that `minimumAmount` is less than `maximumAmoun
 
 Finally, the function emits an event `LoanAmountLimitsSet` that indicates that the loan amount limits have been set, passing the old and new minimum and maximum amounts as arguments.
 
-```solidity
+```js
 
 function _setLiquidationPolicy(LiquidationPolicy liquidationPolicy_) internal {
  require(liquidationPolicy* != LiquidationPolicy.NONE);
@@ -857,7 +855,7 @@ function _setLiquidationPolicy(LiquidationPolicy liquidationPolicy_) internal {
 
 This function sets the liquidation policy for loans on the contract. The function takes in an input `liquidationPolicy_` of type `LiquidationPolicy`, which is an enumeration type that represents the different options for liquidation policies. The function then checks that the input policy is not equal to `LiquidationPolicy.NONE`, which is an invalid option. If this check passes, the global state variable `liquidationPolicy` is set to the input policy.
 
-```solidity
+```js
 
 function \_setLoanLengthLimits(uint256 minimumSeconds, uint256 maximumSeconds) internal {
  require(minimumSeconds <= maximumSeconds);
@@ -878,7 +876,7 @@ It starts by checking if the minimum loan length is less than or equal to the ma
 
 Finally, it emits an event `LoanLengthLimitsSet` to log the change in the loan length limits, providing the old and new minimum and maximum values.
 
-```solidity
+```js
 
 function \_baseURI() internal view override returns (string memory) {
  return internalBaseURI;
@@ -888,7 +886,7 @@ function \_baseURI() internal view override returns (string memory) {
 
 This is a function that returns the base URI of an ERC721 token. The function is declared as `internal view override` which means it has internal visibility, is a view function (i.e., it does not modify the state of the contract) and overrides a function of the same name in a parent contract. The function returns a `string` type variable named `internalBaseURI`.
 
-```solidity
+```js
 
 contract X7InitialLiquidityLoanTerm001 is X7InitialLiquidityLoanTerm {
  constructor () Ownable(msg.sender) ERC721("X7 Initial Liquidity Loan Term (001)", "X7ILL001") {

@@ -13,18 +13,18 @@ The `X7DAODiscountAuthority` contract has two public variables of type `IERC721`
 
 The `discountRatio` function of the `X7DAODiscountAuthority` contract checks the balances of the `ecoMaxiNFT` and `liqMaxiNFT` tokens for the `swapper` address and returns a discount ratio based on the balance. If the `swapper` has a balance of either token greater than 0, a discount is applied. If the `swapper` has a balance of the `liqMaxiNFT` token, a 15% discount is applied. If the `swapper` has a balance of the `ecoMaxiNFT` token, a 10% discount is applied. If the `swapper` has a balance of 0 for both tokens, no discount is applied and the ratio returned is 1:1.
 
-```solidity
+```js
 IERC721 public ecoMaxiNFT;
 IERC721 public liqMaxiNFT;
 ```
 
-`IERC721` is an interface for an ERC-721 token. ERC-721 is a standard for non-fungible tokens (NFTs) on the Ethereum blockchain. NFTs are unique digital assets that represent ownership of a unique item or asset, such as a piece of art, a collectible, or a virtual real estate. ERC-721 defines a set of functions and events that an NFT contract must implement to be considered compliant with the standard.
+`IERC721` is an interface for an ERC-721 token. ERC-721 is a standard for non-fungible tokens NFTs) on the Ethereum blockchain. NFTs are unique digital assets that represent ownership of a unique item or asset, such as a piece of art, a collectible, or a virtual real estate. ERC-721 defines a set of functions and events that an NFT contract must implement to be considered compliant with the standard.
 
 The `IERC721` interface specifies the functions and events that an ERC-721 token contract should implement. It has functions for transferring and approving the transfer of NFTs, as well as functions for querying the balance and owner of an NFT.
 
 The `IERC721` interface is being used to declare two public variables called `ecoMaxiNFT` and `liqMaxiNFT`. These variables are being used to store the addresses of two ERC-721 token contracts. The `setEcosystemMaxiNFT` and `setLiquidityMaxiNFT` functions allow the owner of the `X7DAODiscountAuthority` contract to set the addresses of these token contracts.
 
-```solidity
+```js
 event EcosystemMaxiNFTSet(address indexed oldTokenAddress, address indexed newTokenAddress);
 event LiquidityMaxiNFTSet(address indexed oldTokenAddress, address indexed newTokenAddress);
 ```
@@ -37,7 +37,7 @@ The `indexed` keyword is used to specify that a parameter should be indexed in t
 
 In this case, the `EcosystemMaxiNFTSet` and `LiquidityMaxiNFTSet` events are being emitted with the `oldTokenAddress` and `newTokenAddress` parameters as indexed. This allows listeners to filter or query the logs based on the old or new token address.
 
-```solidity
+```js
 constructor() Ownable(address(0x7000a09c425ABf5173FF458dF1370C25d1C58105)) {}
 ```
 
@@ -47,7 +47,7 @@ The `constructor` function is being called with the `Ownable` contract's constru
 
 This means that the `X7DAODiscountAuthority` contract will be initially owned by the address `0x7000a09c425ABf5173FF458dF1370C25d1C58105`. Only this address will be able to call functions that are protected by the `onlyOwner` modifier.
 
-```solidity
+```js
  function setEcosystemMaxiNFT(address tokenAddress) external onlyOwner {
         require(address(ecoMaxiNFT) != tokenAddress);
         address oldTokenAddress = address(ecoMaxiNFT);
@@ -62,7 +62,7 @@ The function takes an `address` parameter called `tokenAddress` which represents
 
 The function first checks that the address of the current `ecoMaxiNFT` token is not the same as the new `tokenAddress`. If the addresses are the same, the function does nothing and returns. If the addresses are different, the function sets the `ecoMaxiNFT` variable to the new `tokenAddress` and emits the `EcosystemMaxiNFTSet` event with the old and new token addresses as parameters.
 
-```solidity
+```js
  function setLiquidityMaxiNFT(address tokenAddress) external onlyOwner {
         require(address(liqMaxiNFT) != tokenAddress);
         address oldTokenAddress = address(liqMaxiNFT);
@@ -77,7 +77,7 @@ Like the `setEcosystemMaxiNFT` function, the `setLiquidityMaxiNFT` function take
 
 The function first checks that the address of the current `liqMaxiNFT` token is not the same as the new `tokenAddress`. If the addresses are the same, the function does nothing and returns. If the addresses are different, the function sets the `liqMaxiNFT` variable to the new `tokenAddress` and emits the `LiquidityMaxiNFTSet` event with the old and new token addresses as parameters.
 
-```solidity
+```js
  function discountRatio(address swapper) external view returns (uint256 numerator, uint256 denominator) {
         numerator = 1;
         denominator = 1;

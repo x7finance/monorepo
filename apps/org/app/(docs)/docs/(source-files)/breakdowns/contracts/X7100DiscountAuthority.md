@@ -9,7 +9,7 @@ The `X7100DiscountAuthority` contract allows the owner to set the addresses of f
 
 The `discountRatio` function determines the discount that should be applied to a given user (whose address is passed as an argument) based on the balance of certain tokens that they own.
 
-```solidity
+```js
  constructor() Ownable(address(0x7000a09c425ABf5173FF458dF1370C25d1C58105)) {}
 
     function setEcosystemMaxiNFT(address tokenAddress) external onlyOwner {
@@ -28,7 +28,7 @@ If the address of the `IERC721` contract currently stored in `ecoMaxiNFT` is dif
 
 The `setEcosystemMaxiNFT` function allows the owner of the `X7100DiscountAuthority` contract to change the address of the `IERC721` contract that is stored in the `ecoMaxiNFT` variable. This may be useful if the contract address of the `IERC721` contract needs to be changed for some reason.
 
-```solidity
+```js
  function setLiquidityMaxiNFT(address tokenAddress) external onlyOwner {
         require(address(liqMaxiNFT) != tokenAddress);
         address oldTokenAddress = address(liqMaxiNFT);
@@ -45,7 +45,7 @@ If the address of the `IERC721` contract currently stored in `liqMaxiNFT` is dif
 
 The `setLiquidityMaxiNFT` function allows the owner of the `X7100DiscountAuthority` contract to change the address of the `IERC721` contract that is stored in the `liqMaxiNFT` variable. This may be useful if the contract address of the `IERC721` contract needs to be changed for some reason.
 
-```solidity
+```js
  function setMagisterNFT(address tokenAddress) external onlyOwner {
         require(address(magisterNFT) != tokenAddress);
         address oldTokenAddress = address(magisterNFT);
@@ -62,7 +62,7 @@ If the address of the `IERC721` contract currently stored in `magisterNFT` is di
 
 The `setMagisterNFT` function allows the owner of the `X7100DiscountAuthority` contract to change the address of the `IERC721` contract that is stored in the `magisterNFT` variable. This may be useful if the contract address of the `IERC721` contract needs to be changed for some reason.
 
-```solidity
+```js
  function setX7DAO(address tokenAddress) external onlyOwner {
         require(address(x7dao) != tokenAddress);
         address oldTokenAddress = address(x7dao);
@@ -79,7 +79,7 @@ If the address of the `IERC20` contract currently stored in `x7dao` is different
 
 The `setX7DAO` function allows the owner of the `X7100DiscountAuthority` contract to change the address of the `IERC20` contract that is stored in the `x7dao` variable. This may be useful if the contract address of the `IERC20` contract needs to be changed for some reason.
 
-```solidity
+```js
  function discountRatio(address swapper) external view returns (uint256 numerator, uint256 denominator) {
         numerator = 1;
         denominator = 1;
