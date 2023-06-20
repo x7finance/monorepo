@@ -8,7 +8,7 @@
 <div align="center">X7 is a completely decentralized exchange - complete with it's innovative lending protocols.</div>
 <br />
 <div align="center">
-<a href="https://www.x7finance.org/">Website</a> 
+<a href="https://www.x7finance.org">Website</a> 
 <span> · </span>
 <a href="https://t.me/X7m105portal">Telegram</a> 
 <span> · </span>
