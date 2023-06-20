@@ -50,6 +50,7 @@ interface ParsedMarkdown {
 
 // Create function to parse the markdown file
 async function parseMarkdownFile(filePath: string): Promise<ParsedMarkdown> {
+  console.log("filePath: ", filePath)
   const source = await fs.readFileSync(filePath, "utf-8")
   const matterResult = matter(source)
   const ast = Markdoc.parse(source)
@@ -91,8 +92,8 @@ export async function getMarkdownContent(
     const filePath = await appendMdIfFileOrIndexMdIfDirectory(
       path?.join(SOURCE_DIR, !chainPath ? `index` : chainPath)
     )
-
     const builtPath = getBuiltPath(slug)
+
     const { matterResult, content, tableOfContents } = await parseMarkdownFile(
       filePath
     )
