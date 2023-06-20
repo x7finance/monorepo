@@ -133,7 +133,7 @@ function generatePairReserve(
   token1: any,
   reserves: any,
   chainId?: BlockchainType
-) {
+): string {
   if (reserves?.length) {
     const [_reserve0, _reserve1] = reserves
 
@@ -146,7 +146,7 @@ function generatePairReserve(
 
     return etherReserve !== -1
       ? roundToString(formatUnits(etherReserve, 18), 2)
-      : etherReserve
+      : etherReserve.toString()
   }
 
   return "0"
@@ -159,7 +159,7 @@ function generatePairUSDPrice(
   etherInUSD: number,
   tokenDecimals: number,
   chainId?: BlockchainType
-) {
+): string | number {
   if (reserves?.length) {
     const [_reserve0, _reserve1] = reserves
 
@@ -192,6 +192,7 @@ function generatePairUSDPrice(
 
 function roundToString(input: string, decimalPoints: number): string {
   const parsedNumber = parseFloat(input)
+
   if (isNaN(parsedNumber)) {
     throw new Error("Input is not a valid number.")
   }
