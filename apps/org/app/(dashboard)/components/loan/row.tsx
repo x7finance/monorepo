@@ -9,7 +9,13 @@ import {
   generateX7InitialLiquidityLoanTermContract,
 } from "utils"
 import { buttonVariants } from "ui-server"
-import { AlertCircle, CheckCircleIcon, ChevronRightIcon, FlagIcon } from "icons"
+import {
+  AlertCircle,
+  CheckCircleIcon,
+  ChevronRightIcon,
+  FlagIcon,
+  XCircleIcon,
+} from "icons"
 
 import Link from "next/link"
 
@@ -80,6 +86,7 @@ export function LoanRow({ id, chainId, type, loanType }: LoansProps) {
                   <IconAlerts
                     isCompleted={isCompleted}
                     canLiquidate={canLiquidate}
+                    loanState={loanState}
                   />
                 </div>
               </div>
@@ -147,7 +154,11 @@ export function LoanRow({ id, chainId, type, loanType }: LoansProps) {
       )
     case "status":
       return (
-        <IconAlerts isCompleted={isCompleted} canLiquidate={canLiquidate} />
+        <IconAlerts
+          isCompleted={isCompleted}
+          canLiquidate={canLiquidate}
+          loanState={loanState}
+        />
       )
     case "amount":
       return (
@@ -205,21 +216,31 @@ export function LoanRow({ id, chainId, type, loanType }: LoansProps) {
   }
 }
 
-function IconAlerts({ isCompleted, canLiquidate }) {
+function IconAlerts({ isCompleted, canLiquidate, loanState }) {
   return (
     <div className="flex space-x-2">
       <span className="">
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
-              {isCompleted ? (
-                <CheckCircleIcon className=" text-green-500 w-5 h-5" />
+              {loanState === 1 ? (
+                isCompleted ? (
+                  <CheckCircleIcon className="ml-4 text-green-500 w-5 h-5" />
+                ) : (
+                  <AlertCircle className="ml-4 text-yellow-500 w-5 h-5" />
+                )
               ) : (
-                <AlertCircle className="text-yellow-500 w-5 h-5" />
+                <XCircleIcon className="ml-4 text-red-500 w-5 h-5" />
               )}
             </TooltipTrigger>
             <TooltipContent>
-              <span>{isCompleted ? "Completed" : "Active"}</span>
+              <span>
+                {loanState === 1
+                  ? isCompleted
+                    ? "Loan Paided"
+                    : "Loan Active"
+                  : "Liquidated"}
+              </span>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
