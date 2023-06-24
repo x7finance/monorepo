@@ -236,7 +236,7 @@ export default function IndexPage() {
                 "Minimal fees",
                 "Complete protection of your LP",
                 "Discounts available from X7 DAO",
-                "ETH, BNB, MATIC, and more",
+                "ERC, BSC, Polygon, Arbitrum and more",
               ]}
             />
             <SectionStep
@@ -255,7 +255,7 @@ export default function IndexPage() {
             />
             <SectionStep
               header="Choose How You Want to Pay Off Your Loan"
-              subHeader="Seamless Launches for Maximum Impact"
+              subHeader="Under-collateralized loans with flexible terms"
               pioneerId="0166"
               isReverse={true}
               gradient={GradientTypes.marsSunset}
@@ -264,7 +264,7 @@ export default function IndexPage() {
               highlights={[
                 "Multiple repayment options",
                 "Have your LP work for you",
-                "Countless connected protocols to manage your liquidity",
+                "Protocol is completely extensible to manage your liquidity",
                 "Or don't pay it off at all!",
               ]}
             />
@@ -423,7 +423,7 @@ const features = [
   {
     name: "High Liquidity",
     description:
-      "Our unique lending protocol ensure high liquidity for a seamless trading experience.",
+      "Xchange searches for the deepest liquidity pools to reduce slippage on your orders.",
     id: "0013",
   },
   {

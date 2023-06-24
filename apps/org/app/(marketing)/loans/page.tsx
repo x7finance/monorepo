@@ -71,7 +71,7 @@ const loans = [
     name: "Amortizing Loan",
     subTitle: "with interest",
     description:
-      "Loan Retention Premium: 6.25% in premiums due by the end of each quarter of the loan term",
+      "Loan Retention Premium: 6.25% in premiums due by the end of each quarter of the loan term. Note: The AMM pool will still operate as normal after the lent liquidity is removed.",
     secondaryButton: {
       label: "View Contract",
       href: "https://etherscan.io/address/0x740019a6b3a9cf3bd193986a560b05726143b217#code",
@@ -86,7 +86,7 @@ const loans = [
       ["Max Loan Duration", "7"],
     ],
     liquidation:
-      "Failure to pay the principal or premium on time will result in full liquidation up to the liability amount",
+      "Failure to pay the principal or premium on time will result in full liquidation up to the liability amount. Note: The AMM pool will still operate as normal after the lent liquidity is removed.",
     logomarkClassName: "fill-fuchsia-500/40",
   },
   {
@@ -108,7 +108,7 @@ const loans = [
       ["Max Loan Duration", "7"],
     ],
     liquidation:
-      "Failure to pay the principal or premium on time will result in full liquidation up to the liability amount",
+      "Failure to pay the principal or premium on time will result in full liquidation up to the liability amount. Note: The AMM pool will still operate as normal after the lent liquidity is removed.",
     logomarkClassName: "fill-orange-500/40",
   },
 ]
