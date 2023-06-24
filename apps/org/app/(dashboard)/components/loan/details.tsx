@@ -284,7 +284,7 @@ export function LoanDetails(props: LoanProps) {
                   className={cn("h-6 w-6 flex-none text-white-400")}
                 />
                 <span className="ml-4 text-zinc-600 dark:text-zinc-400">
-                  Your Repayment Schedule
+                  Total Repayment Schedule
                 </span>
                 <span className="ml-auto text-right">
                   {getPrincipalPaymentSchedule?.map(
