@@ -31,6 +31,14 @@ const breakdownsNavigation = [
   {
     title: "Contracts",
     links: [
+      {
+        title: "X7DAO Token Contract",
+        href: "/docs/breakdowns/contracts/x7daotokencontract",
+      },
+      {
+        title: "X7100 Token Contract",
+        href: "/docs/breakdowns/contracts/x7100tokencontract",
+      },
       { title: "X7D", href: "/docs/breakdowns/contracts/x7d" },
       {
         title: "X7DAO Discount Authority",
@@ -49,12 +57,20 @@ const breakdownsNavigation = [
         href: "/docs/breakdowns/contracts/x7initialliquidityloanterm001",
       },
       {
+        title: "X7 Lending Pool",
+        href: "/docs/breakdowns/contracts/x7lendingpool",
+      },
+      {
         title: "X7 Lending Pool Reserve",
         href: "/docs/breakdowns/contracts/x7lendingpoolreserve",
       },
       {
         title: "X7R Discount Authority",
         href: "/docs/breakdowns/contracts/x7rdiscountauthority",
+      },
+      {
+        title: "X7 Lending Discount Authority",
+        href: "/docs/breakdowns/contracts/x7lendingdiscountauthority",
       },
       {
         title: "X7R Liquidity Hub",
@@ -79,6 +95,22 @@ const breakdownsNavigation = [
       {
         title: "X7 100 Liquidity Hub",
         href: "/docs/breakdowns/contracts/x7100liquidityhub",
+      },
+      {
+        title: "X7 Borrowing Maxi NFT",
+        href: "/docs/breakdowns/contracts/x7borrowingmaxinft",
+      },
+      {
+        title: "X7 Dex Maxi NFT",
+        href: "/docs/breakdowns/contracts/x7dexmaxi",
+      },
+      {
+        title: "X7 Ecosystem Maxi NFT",
+        href: "/docs/breakdowns/contracts/x7ecosystemmaxi",
+      },
+      {
+        title: "X7 Liquidity Maxi NFT",
+        href: "/docs/breakdowns/contracts/x7liquiditymaxi",
       },
     ],
   },
