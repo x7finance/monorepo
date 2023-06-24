@@ -33,7 +33,7 @@ export function MobileNavigation({ className }: { className: string }) {
       {({ open }) => (
         <>
           <Popover.Button
-            className="relative z-40 -m-2 top-1 inline-flex items-center rounded-lg stroke-zinc-900 border-zinc-600 border dark:stroke-zinc-100 p-2 hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 hover:stroke-zinc-600 dark:hover:stroke-zinc-500 active:stroke-zinc-900 dark:active:stroke-zinc-100 [&:not(:focus-visible)]:focus:outline-none"
+            className="relative z-40 -m-2 top-1 inline-flex items-center rounded-lg text-black dark:text-white stroke-zinc-900 border-zinc-600 border dark:stroke-zinc-100 p-2 hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 hover:stroke-zinc-600 dark:hover:stroke-zinc-500 active:stroke-zinc-900 dark:active:stroke-zinc-100 [&:not(:focus-visible)]:focus:outline-none"
             aria-label="Toggle site navigation"
           >
             {({ open }) =>
