@@ -118,10 +118,20 @@ export function generateNativeQueryCommands(chainId?: BlockchainType) {
 }
 
 export function generateChainEtherTokenEnum(chainId?: BlockchainType) {
-  return (
-    chainMapping[chainId ?? ChainEnum.erc]?.etherTokenEnum ??
-    TokenContractAddresses.WETH
-  )
+  switch (chainId) {
+    case ChainEnum.erc:
+      return TokenContractAddresses.WETH
+    case ChainEnum.bsc:
+      return TokenContractAddresses.BNB
+    case ChainEnum.polygon:
+      return TokenContractAddresses.WMATIC
+    case ChainEnum.optimism:
+      return TokenContractAddresses.OPTIMISM_ETH
+    case ChainEnum.arbitrum:
+      return TokenContractAddresses.ARBITRUM_ETH
+    default:
+      return TokenContractAddresses.WETH
+  }
 }
 
 export function generateChainTokenOracleEtherUSDEnum(chainId?: BlockchainType) {
