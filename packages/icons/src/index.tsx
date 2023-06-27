@@ -19,6 +19,7 @@ export * from "./svgs/x7-long-logo"
 export {
   AlertCircle,
   BoxIcon,
+  BookIcon,
   CheckCircleIcon,
   CheckIcon,
   ChevronDownIcon,
