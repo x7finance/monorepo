@@ -1,9 +1,9 @@
 import { SocialsEnum } from "common"
 import { cn } from "utils"
 import {
+  BookIcon,
   Discord,
   MediaIcon,
-  Medium,
   Megaphone,
   SnapshotLogo,
   Telegram,
@@ -16,6 +16,7 @@ import { Metadata } from "next"
 import Link from "next/link"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
+import { MarketingLinks } from "@/lib/types/links"
 import { SiteContentContainer } from "@/components/site-content-container"
 import { Heading } from "@/app/(marketing)/components/heading"
 
@@ -79,13 +80,13 @@ function Social({ social }: any) {
 
 function SocialIcon({ icon: Icon, fill }: any) {
   return (
-    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-900/5 ring-1 ring-zinc-900/25 backdrop-blur-[2px] transition duration-300 group-hover:bg-white/50 group-hover:ring-zinc-900/25 dark:bg-white/7.5 dark:ring-white/15 dark:group-hover:bg-violet-300/10 dark:group-hover:ring-violet-400">
+    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-900/5 ring-1 ring-zinc-900/25 backdrop-blur-[2px] transition duration-300 group-hover:bg-white/50 group-hover:ring-zinc-900/25 dark:bg-white/7.5 dark:ring-white/15 dark:group-hover:bg-violet-300/10 dark:group-hover:ring-white">
       <Icon
         className={cn(
           !!fill
             ? fill
             : `dark:fill-white/10 dark:stroke-zinc-400 fill-zinc-700/10 stroke-zinc-700`,
-          `transition-colors duration-300 h-7 w-7 group-hover:stroke-zinc-900 dark:group-hover:fill-violet-300/10 dark:group-hover:stroke-violet-400`
+          `transition-colors duration-300 h-7 w-7 group-hover:stroke-zinc-900 dark:group-hover:fill-white dark:group-hover:stroke-white`
         )}
       />
     </div>
@@ -143,21 +144,23 @@ const socials = [
   {
     href: SocialsEnum.media,
     name: "Media Channel",
+    fill: "text-[#ff8800] fill-[#ff8800]",
     description:
       "Join us on Discord for a more focused experience by topic. We have a dedicated channel for each topic of discussion.",
     icon: MediaIcon,
   },
   {
-    href: SocialsEnum.medium,
-    name: "Medium",
-    fill: "text-[#000000]",
+    href: MarketingLinks.Blog,
+    name: "Blog",
+    fill: "text-[#ffffff]",
     description:
-      "On Medium you can find many articles detailing, educating and speculating about the past and future of the X7 Ecosystem.",
-    icon: Medium,
+      "The X7 Blog is where you can find longer form content about the X7 Protocol, including history of the protocol, in-depth reviews, and more.",
+    icon: BookIcon,
   },
   {
     href: SocialsEnum.snapshot,
     name: "Snapshot.org",
+    fill: "fill-[#f4bd03]",
     description:
       "Have your say on changes to the X7 Ecosystem, hold $X7DAO tokens to vote, or cast advisory proposals if you hold 500k $X7DAO tokens.",
     icon: SnapshotLogo,

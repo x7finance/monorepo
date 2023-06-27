@@ -508,7 +508,7 @@ export function CountdownTimer({
       ? parseInt(endDate.getTime().toString() ?? "0", 10) || 0
       : 0
     let timeDifference = currentTime - targetTime
-    console.log("timeDifference", timeDifference)
+
     if (timeDifference < 0 && !isCompleted && loanState === 1) {
       timeDifference = timeDifference * -1
       const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24))
