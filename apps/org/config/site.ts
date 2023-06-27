@@ -66,7 +66,7 @@ export const DESKTOP_NAV_LINKS = [
     href: DashboardLinksEnum.Index,
   },
   { name: "Loans", href: LoansLinksEnum.Index },
-  { name: "DAO", href: DashboardLinksEnum.DAO },
+  { name: "Blog", href: MarketingLinks.Blog },
   { name: "Trade", href: X7LinksEnum.Xchange, isExternal: true },
 ]
 
@@ -80,10 +80,7 @@ export const MOBILE_NAV_LINKS = [
     href: DashboardLinksEnum.Contracts,
     name: "Tokens",
   },
-  {
-    href: DashboardLinksEnum.DAO,
-    name: "DAO",
-  },
+  { href: MarketingLinks.Blog, name: "Blog" },
 ]
 
 export const DASHBOARD_TABS_NAV = [
@@ -133,7 +130,7 @@ export const FOOTER_NAVIGATION = {
     { name: "Twitter", href: SocialsEnum.twitter },
     { name: "Discord", href: SocialsEnum.discord },
     { name: "Announcements", href: SocialsEnum.announcements },
-    { name: "Medium", href: SocialsEnum.medium },
+    { name: "Blog", href: MarketingLinks.Blog },
     { name: "Snapshot", href: SocialsEnum.snapshot },
   ],
   socials: [
@@ -161,11 +158,6 @@ export const FOOTER_NAVIGATION = {
       name: "Reddit",
       href: SocialsEnum.reddit,
       icon: Reddit,
-    },
-    {
-      name: "Medium",
-      href: SocialsEnum.medium,
-      icon: Medium,
     },
     {
       name: "GitHub",
