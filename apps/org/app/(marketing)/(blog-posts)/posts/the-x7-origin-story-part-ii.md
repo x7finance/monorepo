@@ -79,7 +79,7 @@ The developers gave an exact timeframe for when constellation trading would go l
 
 The VC speakers pulled up the transaction and read it out loud to the listeners. This was the biggest reveal in X7 history, and was published live on that community call. The developers had dropped an entire diagram of the ecosystem, including the promised trading guide:
 
-![](<(https://assets.x7finance.org/images/blog/posts/the-x7-origin-story-part-ii/1.png)>)
+![](https://assets.x7finance.org/images/blog/posts/the-x7-origin-story-part-ii/1.png)
 
 The updated X7 ecosystem diagram
 
