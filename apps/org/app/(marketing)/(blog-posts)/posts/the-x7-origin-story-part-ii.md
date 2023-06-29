@@ -2,7 +2,7 @@
 title: The X7 Origin Story Part II
 authors: [crosschainalex, x7finance]
 date: Dec 11, 2022
-imageUrl: /images/blog/headers/origins-2.1.png
+imageUrl: /images/blog/headers/revolutionary-lending.png
 tags: [Project History]
 summary: In part 1, we were introduced to the birth of X7, the power of the community, and the first communications from the team. In part 2, development accelerated at a rapid pace. The team became more active, utility was revealed, and the ecosystem began to grow rapidly.
 ---
