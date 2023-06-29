@@ -1,4 +1,4 @@
-import { ContractsEnum } from "common"
+import { ContractsEnum, XCHANGE } from "common"
 import { cn } from "utils"
 import { buttonVariants } from "ui-server"
 
@@ -79,7 +79,7 @@ export default function TokensPage() {
                         Learn More
                       </Link>
                       <Link
-                        href={`https://beta.x7.finance/#/swap?outputCurrency=${ContractsEnum.X7R}`}
+                        href={`${XCHANGE}/#/swap?outputCurrency=${ContractsEnum.X7R}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={cn(
@@ -144,7 +144,7 @@ export default function TokensPage() {
                         Learn More
                       </Link>
                       <Link
-                        href={`https://beta.x7.finance/#/swap?outputCurrency=${ContractsEnum.X7DAO}`}
+                        href={`${XCHANGE}/#/swap?outputCurrency=${ContractsEnum.X7DAO}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={cn(
@@ -216,7 +216,7 @@ export default function TokensPage() {
                           Learn More
                         </Link>
                         <Link
-                          href={`https://beta.x7.finance/#/fund`}
+                          href={`${XCHANGE}/#/fund`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className={cn(
@@ -280,7 +280,7 @@ export default function TokensPage() {
                           Learn More
                         </Link>
                         <Link
-                          href={`https://beta.x7.finance/#/swap?outputCurrency=${quint?.token}`}
+                          href={`${XCHANGE}/#/swap?outputCurrency=${quint?.token}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className={cn(

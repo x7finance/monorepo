@@ -1,6 +1,6 @@
 "use client"
 
-import { BlockchainType } from "common"
+import { BlockchainType, XCHANGE } from "common"
 import {
   cn,
   generateChainBase,
@@ -65,7 +65,7 @@ export function PairRow({ id, chainId, type }: PairsProps) {
             </div>
             <div className="inline-block float-right lg:hidden">
               <Link
-                href={`https://beta.x7.finance/#/swap?outputCurrency=${tokenContract}`}
+                href={`${XCHANGE}/#/swap?outputCurrency=${tokenContract}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 key={`${tokenContract}-${id}-chart`}
@@ -153,7 +153,7 @@ export function PairRow({ id, chainId, type }: PairsProps) {
         <div className="float-right pr-4">
           <div className="flex w-full justify-center">
             <Link
-              href={`https://beta.x7.finance/#/swap?outputCurrency=${tokenContract}`}
+              href={`${XCHANGE}/#/swap?outputCurrency=${tokenContract}`}
               target="_blank"
               rel="noopener noreferrer"
               key={`${tokenContract}-${id}-chart`}
