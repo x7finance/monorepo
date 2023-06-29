@@ -19,6 +19,8 @@ The AMA quickly changed this due to the excellent explanations from the well edu
 
 CultDAO x X7Finance AMA #1
 
+[YouTube Link](https://www.youtube.com/watch?v=5WuagGqpB2U)
+
 ## The upgrade
 
 As all of this was going on, the devs decided to throw an unexpected curveball. They announced that to achieve the maximum amount of censorship resistance, reduce centralization risk and achieve long term flexibility, a complete ecosystem upgrade was going to take place: the migration from v1 to v2.
