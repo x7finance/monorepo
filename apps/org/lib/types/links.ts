@@ -68,4 +68,5 @@ export enum CommunityLinks {
 
 export enum MarketingLinks {
   GetStarted = "/getstarted",
+  Blog = "/blog",
 }

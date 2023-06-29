@@ -76,14 +76,13 @@ async function parseMarkdownFile(filePath: string): Promise<ParsedMarkdown> {
 export interface ParamsProps {
   slug: SlugType
   section: DocType
-  description?: string
-  title: string
+  omitProperties?: (keyof MarkdownContent)[]
 }
 
 // Define the type for the return object
 interface MarkdownContent {
   section: DocType
-  content: RenderableTreeNode | null
+  content?: RenderableTreeNode | null
   title?: string
   tags?: string[]
   tableOfContents: SectionType[] | null
@@ -91,13 +90,15 @@ interface MarkdownContent {
   description: string | null
   slug?: string
   seoTitle: string | null
+  authors: string[]
+  headerImage: string | null
 }
 
 // Main function to get the markdown content
 export async function getMarkdownContent(
   params: ParamsProps
-): Promise<MarkdownContent> {
-  const { slug } = params
+): Promise<Partial<MarkdownContent>> {
+  const { slug, omitProperties = [] } = params
 
   try {
     const chainPath = slug?.join("/")
@@ -109,10 +110,17 @@ export async function getMarkdownContent(
     const { matterResult, content, tableOfContents } = await parseMarkdownFile(
       filePath
     )
-    const { title, tags = [], date, description, seoTitle } = matterResult.data
+    const {
+      title,
+      tags = [],
+      date,
+      description,
+      seoTitle,
+      authors,
+      headerImage,
+    } = matterResult.data
     const section = (slug ? slug[0] : "docs") as DocType
-
-    return {
+    let result: Partial<MarkdownContent> = {
       section,
       content,
       title,
@@ -120,9 +128,18 @@ export async function getMarkdownContent(
       tableOfContents,
       date,
       description,
+      authors,
+      headerImage,
       slug: `/docs/${!slug ? "" : slug.join("/")}`,
       seoTitle,
     }
+
+    // Omit the properties if any
+    omitProperties.forEach((prop) => {
+      delete result[prop]
+    })
+
+    return result
   } catch (error) {
     console.error(error)
     // @ts-expect-error

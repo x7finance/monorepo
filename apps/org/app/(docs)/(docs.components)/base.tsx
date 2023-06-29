@@ -22,11 +22,11 @@ interface DocsBaseProps {
   date?: string
   tags?: string[]
   tableOfContents?: any
-  docsType: DocType
+  docsType?: DocType
   slug?: string
 }
 
-function getNavigation(docsType: DocType) {
+function getNavigation(docsType?: DocType) {
   switch (docsType) {
     case DocsTypes.breakdowns:
       return breakdownsNavigation
