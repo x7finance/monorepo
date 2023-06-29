@@ -89,7 +89,7 @@ export default async function BlogPage() {
   const builtPosts = await getPreviewPostsMetadata()
 
   return (
-    <div>
+    <div className="relative -top-16 md:top-0">
       <SiteContentContainer className="max-w-6xl">
         <div className="py-6 lg:py-10 mx-auto md:p-8">
           <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
