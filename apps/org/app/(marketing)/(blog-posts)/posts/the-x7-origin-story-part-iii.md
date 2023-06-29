@@ -61,7 +61,7 @@ As per usual the community took the initiative. A dedicated community member wit
 
 This community website has lots of excellent features and information for holders and has been upgraded with further functions since then. Woxie, the creator of the community dashboard, has since stepped up to be among the community team with the “technician” role. The community dashboard can be found here: [https://x7community.space/](https://x7community.space/)
 
-![](https://assets.x7finance.org/images/blog/posts/the-x7-origin-story-part-iii/1.png)
+![](https://assets.x7finance.org/images/blog/posts/the-x7-origin-story-part-iii/2.png)
 
 The X7 community dashboard
 

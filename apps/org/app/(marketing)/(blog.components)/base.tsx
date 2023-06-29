@@ -86,10 +86,10 @@ export function BlogBase(props: BlogBaseProps) {
                       className="h-12 w-12 mr-3 flex-none rounded-full ring-1 dark:ring-white/30 ring-black/30"
                     />
                     <div className="flex flex-col">
-                      <h3 className="flex-auto truncate text-sm font-semibold leading-6 text-white">
+                      <h3 className="flex-auto truncate text-sm font-semibold leading-6 dark:text-white text-black">
                         {a.name}
                       </h3>
-                      <div className="flex-none text-xs dark:text-zinc-500 dark:hover:text-zinc-300">
+                      <div className="flex-none text-xs dark:text-zinc-500 dark:hover:text-zinc-300 text-zinc-600 hover:text-black">
                         <Link
                           href={`https://twitter.com/${a.twitter}`}
                           target="_blank"
@@ -107,7 +107,7 @@ export function BlogBase(props: BlogBaseProps) {
                 </li>
               ))}
             </ul>
-            <div className="xl:pr-0 pb-20 xl:border-r border-zinc-200/20 col-span-10 xl:col-span-3">
+            <div className="xl:pr-0 pb-20 xl:border-r dark:border-zinc-200/20 border-zinc-800/20 col-span-10 xl:col-span-3">
               <Prose>{children}</Prose>
             </div>
 
@@ -132,10 +132,10 @@ export function BlogBase(props: BlogBaseProps) {
                         className="h-12 w-12 flex-none rounded-full ring-1 dark:ring-white/30 ring-black/30"
                       />
                       <div className="flex flex-col">
-                        <h3 className="flex-auto truncate text-sm font-semibold leading-6 text-white">
+                        <h3 className="flex-auto truncate text-sm font-semibold leading-6 dark:text-white text-black">
                           {a.name}
                         </h3>
-                        <div className="flex-none text-xs dark:text-zinc-500 dark:hover:text-zinc-300">
+                        <div className="flex-none text-xs dark:text-zinc-500 dark:hover:text-zinc-300 text-zinc-600 hover:text-black">
                           <Link
                             href={`https://twitter.com/${a.twitter}`}
                             target="_blank"
