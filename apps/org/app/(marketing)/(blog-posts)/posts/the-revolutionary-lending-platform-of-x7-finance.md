@@ -2,7 +2,7 @@
 title: The Revolutionary Lending Platform of X7 Finance
 authors: [_CryptoBull]
 date: Oct 22, 2022
-imageUrl: /images/blog/headers/revolutionary-lending.png
+imageUrl: /images/blog/headers/pioneer-banker-v2.png
 tags: [Review]
 summary: In my previous articles about X7 Finance, I discussed the tokens which comprise the X7 ecosystem. We looked at each token’s unique investment opportunity and discussed which token(s) may be right for you.
 ---
