@@ -4,11 +4,11 @@ title: Project Engineers
 
 ## Elevate Your Project with Xchange by X7 Finance
 
-Hello, Smart Contract Engineers! Are you ready to take your project to the next level? [Xchange](https://beta.x7.finance/#/swap), the native Decentralized Exchange (DEX) of X7 Finance, is here to make your token launch a resounding success. Here's why [Xchange](https://beta.x7.finance/#/swap) is the perfect DEX for your token:
+Hello, Smart Contract Engineers! Are you ready to take your project to the next level? [Xchange](https://app.x7.finance/#/swap), the native Decentralized Exchange (DEX) of X7 Finance, is here to make your token launch a resounding success. Here's why [Xchange](https://app.x7.finance/#/swap) is the perfect DEX for your token:
 
 ## Unleash the Power of Robust Smart Contracts
 
-With [Xchange](https://beta.x7.finance/#/swap), you're not just launching your token - you're harnessing the power of our meticulously designed and rigorously tested smart contracts. Experience the peace of mind that comes with secure, trustless trades on the Ethereum blockchain.
+With [Xchange](https://app.x7.finance/#/swap), you're not just launching your token - you're harnessing the power of our meticulously designed and rigorously tested smart contracts. Experience the peace of mind that comes with secure, trustless trades on the Ethereum blockchain.
 
 ## Follow these steps to select and execute your loan on X7 Finance:
 
@@ -79,7 +79,7 @@ Say goodbye to price impact worries. With our unique lending solutions, includin
 
 ## Innovate with Our Unique Loan Mechanisms
 
-Stand out from the crowd with [Xchange](https://beta.x7.finance/#/swap)'s innovative loan mechanisms. By providing initial liquidity to trading pairs, these mechanisms reduce capital lock-in, giving your project the leverage it needs to soar.
+Stand out from the crowd with [Xchange](https://app.x7.finance/#/swap)'s innovative loan mechanisms. By providing initial liquidity to trading pairs, these mechanisms reduce capital lock-in, giving your project the leverage it needs to soar.
 
 ## Enjoy a Seamless Token Launch
 
@@ -87,15 +87,15 @@ We've made token launches a breeze with our user-friendly interface and robust s
 
 ## Be Part of a Vibrant Ecosystem
 
-When you launch your token on [Xchange](https://beta.x7.finance/#/swap), you're not just launching a token - you're joining a vibrant ecosystem. Give your token holders more than just a token - give them a world of opportunities with our lending pool and unique Utility NFTs.
+When you launch your token on [Xchange](https://app.x7.finance/#/swap), you're not just launching a token - you're joining a vibrant ecosystem. Give your token holders more than just a token - give them a world of opportunities with our lending pool and unique Utility NFTs.
 
 ## Launch Your Token on Xchange in 4 Easy Steps
 
 1. Determine your project's liquidity needs.
 2. Pick the Initial Liquidity Loan that fits your project like a glove.
-3. Use our smart contracts to launch your token on [Xchange](https://beta.x7.finance/#/swap).
+3. Use our smart contracts to launch your token on [Xchange](https://app.x7.finance/#/swap).
 4. Choose your preferred loan repayment option.
 
-Join us at [Xchange](https://beta.x7.finance/#/swap) and let's make your token launch a resounding success in the world of decentralized finance.
+Join us at [Xchange](https://app.x7.finance/#/swap) and let's make your token launch a resounding success in the world of decentralized finance.
 
 _Trust No One. Trust Code. Long Live DeFi!_
