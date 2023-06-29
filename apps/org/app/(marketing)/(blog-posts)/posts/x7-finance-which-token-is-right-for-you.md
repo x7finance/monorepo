@@ -2,7 +2,7 @@
 title: Which token is right for you?
 authors: [_CryptoBull]
 date: Oct 19, 2022
-imageUrl: /images/blog/headers/pioneer-banker-v2.png
+imageUrl: /images/blog/headers/story-3.png
 tags: [Review]
 summary: In this article, I will discuss the remaining tokens in the X7 ecosystem & try to present them in a way that is easy for you to understand how they fit into the X7 puzzle.
 ---

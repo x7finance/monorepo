@@ -2,7 +2,7 @@
 title: The X7 Origin Story Part I
 authors: [crosschainalex, x7finance]
 date: Dec 2, 2022
-imageUrl: /images/blog/headers/origins-3.png
+imageUrl: /images/blog/headers/story-2.png
 tags: [Project History]
 summary: On 13th August 2022, the mysterious X7m105 token was stealth launched on Uniswap. Many tokens are launched every day, and most amount to nothing. But once in a while it’s possible to uncover a true gem.
 ---

@@ -2,7 +2,7 @@
 title: The X7 Origin Story Part III
 authors: [crosschainalex, x7finance]
 date: Dec 28, 2022
-imageUrl: /images/blog/origins-1.2.png
+imageUrl: /images/blog/headers/story-1.png
 tags: [Project History]
 summary: With the scene set, it’s time for X7 to gain some more mainstream attention within the DeFi space, for the devs to flex their technical skills and time to prepare for the launch of the Xchange and leveraged liquidity loan platform.
 ---
