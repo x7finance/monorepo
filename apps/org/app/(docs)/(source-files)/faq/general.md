@@ -72,4 +72,4 @@ GitHub is a code hosting platform for version control and collaboration. It lets
 
 ### What is the URL address for Xchange?
 
-[https://beta.x7.finance/#/swap](https://beta.x7.finance/#/swap)
+[https://app.x7.finance/#/swap](https://app.x7.finance/#/swap)
