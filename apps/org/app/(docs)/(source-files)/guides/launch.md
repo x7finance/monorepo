@@ -4,7 +4,7 @@ title: Project Launchers
 
 ## Launch on Xchange
 
-As a project dev, choosing the right DEX to launch your token is a critical decision. [Xchange](https://beta.x7.finance/#/swap), the native Decentralized Exchange (DEX) of X7 Finance, offers a range of benefits that can help ensure the success of your token launch. Here's why you should consider launching your token on [Xchange](https://beta.x7.finance/#/swap):
+As a project dev, choosing the right DEX to launch your token is a critical decision. [Xchange](https://app.x7.finance/#/swap), the native Decentralized Exchange (DEX) of X7 Finance, offers a range of benefits that can help ensure the success of your token launch. Here's why you should consider launching your token on [Xchange](https://app.x7.finance/#/swap):
 
 ## Lower Launch Costs
 
@@ -12,7 +12,7 @@ Our unique Initial Liquidity Loans provide a mechanism to add initial liquidity 
 
 ## High Liquidity
 
-High liquidity is crucial for the success of any token launch. [Xchange](https://beta.x7.finance/#/swap) ensures high liquidity for your token through our unique lending solutions. This means your token holders can execute large trades without significantly impacting the price.
+High liquidity is crucial for the success of any token launch. [Xchange](https://app.x7.finance/#/swap) ensures high liquidity for your token through our unique lending solutions. This means your token holders can execute large trades without significantly impacting the price.
 
 ## Say Goodbye to Lost Launch Liquidity
 
@@ -44,16 +44,16 @@ Choose the loan option that best suits your project's needs, if you'd like to sp
 
 ## Trustless Transactions
 
-[Xchange](https://beta.x7.finance/#/swap) operates on most EVM compatible blockchains, ensuring that all trades are secure and trustless. Your token holders don't need to trust a central authority - the smart contract ensures that trades are executed as expected.
+[Xchange](https://app.x7.finance/#/swap) operates on most EVM compatible blockchains, ensuring that all trades are secure and trustless. Your token holders don't need to trust a central authority - the smart contract ensures that trades are executed as expected.
 
 ## Seamless Interface
 
-[Xchange](https://beta.x7.finance/#/swap) provides a seamless experience for traders on the Xchange. Our user-friendly interface and robust infrastructure which has removed all centralized API's is built to be completely censorship resistant. [Xchange](https://beta.x7.finance/#/swap) acts as a DEX aggregator - presenting the trader with the best price, everytime. To our knowledge this is the only DEX to offer this feature in a completely decentralized and privacy focused fashion.
+[Xchange](https://app.x7.finance/#/swap) provides a seamless experience for traders on the Xchange. Our user-friendly interface and robust infrastructure which has removed all centralized API's is built to be completely censorship resistant. [Xchange](https://app.x7.finance/#/swap) acts as a DEX aggregator - presenting the trader with the best price, everytime. To our knowledge this is the only DEX to offer this feature in a completely decentralized and privacy focused fashion.
 
 ## Participate in a Vibrant Ecosystem
 
-By launching your token on [Xchange](https://beta.x7.finance/#/swap), you're joining the vibrant X7 Finance ecosystem. Your token holders can also explore other products like our lending pool and unique Utility NFTs. This interconnected ecosystem provides opportunities for growth and diversification that are not available on other DEXs.
+By launching your token on [Xchange](https://app.x7.finance/#/swap), you're joining the vibrant X7 Finance ecosystem. Your token holders can also explore other products like our lending pool and unique Utility NFTs. This interconnected ecosystem provides opportunities for growth and diversification that are not available on other DEXs.
 
-Join us at [Xchange](https://beta.x7.finance/#/swap) and make your token launch a success in the world of decentralized finance.
+Join us at [Xchange](https://app.x7.finance/#/swap) and make your token launch a success in the world of decentralized finance.
 
 _Trust No One. Trust Code. Long Live DeFi!_
