@@ -167,15 +167,22 @@ export function useXchangeLoanData(
         functionName: "numberOfRepaymentPeriods",
         chainId: generateWagmiChain(chainId),
       },
+      {
+        address: loanAddress,
+        abi: selectContract(loanType) as any,
+        functionName: "liquidationAmount",
+        args: [id],
+        chainId: generateWagmiChain(chainId),
+      },
     ],
   })
 
   const premiumsDateArray = data?.[8]?.result?.[0]
   const premiumsDateArrayLength =
-    parseInt(data?.[18]?.result?.toString() ?? "0", 10) || 0
+    parseInt(data?.[17]?.result?.toString() ?? "0", 10) || 0
   const premiumsLastDate = premiumsDateArray?.[premiumsDateArrayLength - 1]
 
-  const principalDateArray = data?.[8]?.result?.[0]
+  const principalDateArray = data?.[7]?.result?.[0]
   const principalDateArrayLength =
     parseInt(data?.[18]?.result?.toString() ?? "0", 10) || 0
   const principalLastDate = principalDateArray?.[principalDateArrayLength - 1]
@@ -257,6 +264,10 @@ export function useXchangeLoanData(
       parseInt(data?.[17]?.result?.toString() ?? "0", 10) || 0,
     numberOfRepaymentPeriods:
       parseInt(data?.[18]?.result?.toString() ?? "0", 10) || 0,
+    liquidationAmount:
+      data?.[19]?.result === undefined
+        ? -1
+        : parseInt(data?.[19]?.result?.toString() ?? "0", 10),
     getPremiumsDue: dataDue?.[0]?.result
       ? parseInt(dataDue?.[0]?.result?.toString() ?? "0", 10) / 10 ** 18
       : 0,
