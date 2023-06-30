@@ -84,6 +84,7 @@ export function LoanDetails(props: LoanProps) {
     getPrincipalDue,
     numberOfPremiumPeriods,
     numberOfRepaymentPeriods,
+    liquidationAmount,
   } = useXchangeLoanData(parseInt(loanId), chainId, loanType)
 
   const loanDetails = [
@@ -111,22 +112,24 @@ export function LoanDetails(props: LoanProps) {
       title: "Loan State",
       value: (
         <span>
-          {loanState === 1
-            ? isCompleted
-              ? "Loan Paided"
-              : "Loan Active"
-            : "Liquidated"}
+          {liquidationAmount === -1
+            ? "Liquidated"
+            : loanState === 0
+            ? "Loan Active"
+            : loanState === 1
+            ? "Loan Paid"
+            : ""}
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger>
-                {loanState === 1 ? (
-                  isCompleted ? (
-                    <CheckCircleIcon className="ml-4 text-green-500 w-5 h-5" />
-                  ) : (
-                    <AlertCircle className="ml-4 text-yellow-500 w-5 h-5" />
-                  )
-                ) : (
+                {liquidationAmount === -1 ? (
                   <XCircleIcon className="ml-4 text-red-500 w-5 h-5" />
+                ) : loanState === 0 ? (
+                  <AlertCircle className="ml-4 text-yellow-500 w-5 h-5" />
+                ) : loanState === 1 ? (
+                  <CheckCircleIcon className="ml-4 text-green-500 w-5 h-5" />
+                ) : (
+                  ""
                 )}
               </TooltipTrigger>
               <TooltipContent>
@@ -361,7 +364,7 @@ export function LoanDetails(props: LoanProps) {
                 numberOfPremiumPeriods={numberOfPremiumPeriods}
                 numberOfRepaymentPeriods={numberOfRepaymentPeriods}
                 loanState={loanState}
-                isCompleted={isCompleted}
+                liquidationAmount={liquidationAmount}
               />
             ) : (
               ""
@@ -459,7 +462,7 @@ export function CountdownTimer({
   numberOfPremiumPeriods,
   numberOfRepaymentPeriods,
   loanState,
-  isCompleted,
+  liquidationAmount,
 }) {
   const [endDate, setEndDate] = useState<Date | null>(null)
   const [remainingTime, setRemainingTime] = useState(calculateRemainingTime())
@@ -498,7 +501,6 @@ export function CountdownTimer({
 
       for (let i = 0; i < arrayCount; i++) {
         const value = parseInt(paymentSchedule?.[0]?.[i] ?? "0", 10) || 0
-        console.log(nowUnix, value)
 
         if (value && value > nowUnix) {
           if (nextLargest === 0 || value < nextLargest) {
@@ -523,7 +525,7 @@ export function CountdownTimer({
       : 0
     let timeDifference = currentTime - targetTime
 
-    if (timeDifference < 0) {
+    if (timeDifference < 0 && loanState === 0 && liquidationAmount !== -1) {
       timeDifference = timeDifference * -1
       const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24))
       const hours = Math.floor(

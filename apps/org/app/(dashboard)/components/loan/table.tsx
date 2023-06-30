@@ -1,6 +1,7 @@
 "use client"
 
 import { BlockchainType, ContractsEnum, LoanType } from "common"
+import { generateX7InitialLiquidityLoanTermContract } from "utils"
 import { X7InitialLiquidityLoanTerm001 } from "contracts"
 
 import { useEffect, useState } from "react"
@@ -23,12 +24,11 @@ export function LoansTable(props: LoanTableProps) {
   const { chainId, loanTypeId } = props
   const [loansTotalSupply, setLoansTotalSupply] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
-  const loansPerPage = 8
 
   const { data } = useContractReads({
     contracts: [
       {
-        address: ContractsEnum.X7InitialLiquidityLoanTerm001,
+        address: generateX7InitialLiquidityLoanTermContract(loanTypeId),
         abi: X7InitialLiquidityLoanTerm001 as any,
         functionName: "totalSupply",
         chainId: generateWagmiChain(chainId),
@@ -42,8 +42,8 @@ export function LoansTable(props: LoanTableProps) {
     setLoansTotalSupply(totalSupply)
   }, [totalSupply])
 
-  const startIndex = (currentPage - 1) * loansPerPage
-  const endIndex = startIndex + loansPerPage
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
+  const endIndex = startIndex + ITEMS_PER_PAGE
 
   const loansToDisplay = Array.from(
     { length: loansTotalSupply },
@@ -55,7 +55,7 @@ export function LoansTable(props: LoanTableProps) {
   }
 
   const goToNextPage = () => {
-    const maxPage = Math.ceil(loansTotalSupply / loansPerPage)
+    const maxPage = Math.ceil(loansTotalSupply / ITEMS_PER_PAGE)
     setCurrentPage((prevPage) => Math.min(prevPage + 1, maxPage))
   }
 
