@@ -492,9 +492,23 @@ export function CountdownTimer({
           ? numberOfPremiumPeriods
           : numberOfRepaymentPeriods
 
-      const lastPayment = paymentSchedule?.[0]?.[arrayCount - 1]
-      if (lastPayment > 0) {
-        const timestamp = parseInt(lastPayment.toString(), 10)
+      const nowUnix = Math.floor(Date.now() / 1000) // Current Unix timestamp in seconds
+
+      let nextLargest: number = 0
+
+      for (let i = 0; i < arrayCount; i++) {
+        const value = parseInt(paymentSchedule?.[0]?.[i] ?? "0", 10) || 0
+        console.log(nowUnix, value)
+
+        if (value && value > nowUnix) {
+          if (nextLargest === 0 || value < nextLargest) {
+            nextLargest = value
+          }
+        }
+      }
+
+      if (nextLargest > 0) {
+        const timestamp = parseInt(nextLargest.toString(), 10)
         return new Date(timestamp * 1000)
       }
     }
@@ -509,7 +523,7 @@ export function CountdownTimer({
       : 0
     let timeDifference = currentTime - targetTime
 
-    if (timeDifference < 0 && !isCompleted && loanState === 1) {
+    if (timeDifference < 0) {
       timeDifference = timeDifference * -1
       const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24))
       const hours = Math.floor(
