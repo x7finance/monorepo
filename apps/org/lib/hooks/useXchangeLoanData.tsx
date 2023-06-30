@@ -81,13 +81,6 @@ export function useXchangeLoanData(
       {
         address: loanAddress,
         abi: selectContract(loanType) as any,
-        functionName: "getTotalDue",
-        args: [tokenByIndex, Math.floor(Date.now() / 1000)],
-        chainId: generateWagmiChain(chainId),
-      },
-      {
-        address: loanAddress,
-        abi: selectContract(loanType) as any,
         functionName: "loanState",
         args: [tokenByIndex],
         chainId: generateWagmiChain(chainId),
@@ -165,20 +158,6 @@ export function useXchangeLoanData(
       {
         address: loanAddress,
         abi: selectContract(loanType) as any,
-        functionName: "getPremiumsDue",
-        args: [tokenByIndex, timestamp],
-        chainId: generateWagmiChain(chainId),
-      },
-      {
-        address: loanAddress,
-        abi: selectContract(loanType) as any,
-        functionName: "getPrincipalDue",
-        args: [tokenByIndex, timestamp],
-        chainId: generateWagmiChain(chainId),
-      },
-      {
-        address: loanAddress,
-        abi: selectContract(loanType) as any,
         functionName: "numberOfPremiumPeriods",
         chainId: generateWagmiChain(chainId),
       },
@@ -190,11 +169,53 @@ export function useXchangeLoanData(
       },
     ],
   })
+
+  const premiumsDateArray = data?.[8]?.result?.[0]
+  const premiumsDateArrayLength =
+    parseInt(data?.[18]?.result?.toString() ?? "0", 10) || 0
+  const premiumsLastDate = premiumsDateArray?.[premiumsDateArrayLength - 1]
+
+  const principalDateArray = data?.[8]?.result?.[0]
+  const principalDateArrayLength =
+    parseInt(data?.[18]?.result?.toString() ?? "0", 10) || 0
+  const principalLastDate = principalDateArray?.[principalDateArrayLength - 1]
+
+  const { data: dataDue, isLoading: isDuePairLoading } = useContractReads({
+    contracts: [
+      {
+        address: loanAddress,
+        abi: selectContract(loanType) as any,
+        functionName: "getPremiumsDue",
+        args: [tokenByIndex, premiumsLastDate],
+        chainId: generateWagmiChain(chainId),
+      },
+      {
+        address: loanAddress,
+        abi: selectContract(loanType) as any,
+        functionName: "getPrincipalDue",
+        args: [tokenByIndex, principalLastDate],
+        chainId: generateWagmiChain(chainId),
+      },
+      {
+        address: loanAddress,
+        abi: selectContract(loanType) as any,
+        functionName: "getTotalDue",
+        args: [
+          tokenByIndex,
+          premiumsLastDate > principalLastDate
+            ? premiumsLastDate
+            : principalLastDate,
+        ],
+        chainId: generateWagmiChain(chainId),
+      },
+    ],
+  })
+
   return {
     fullLoanAddress: `${generateChainBase(
       chainId
     )}/address/${loanAddress}#code`,
-    isLoading: isInitialPairLoading || isInitialTokenIndex,
+    isLoading: isInitialPairLoading || isInitialTokenIndex || isDuePairLoading,
     loanID: parseInt(data?.[0]?.result?.toString() ?? "0", 10) || 0,
     symbol: data?.[1]?.result?.toString() ?? "",
     ownerOf: data?.[2]?.result?.toString() ?? "",
@@ -211,40 +232,40 @@ export function useXchangeLoanData(
           year: "2-digit",
         })
       : "",
-    totalDue: data?.[6]?.result
-      ? parseInt(data?.[6]?.result?.toString() ?? "0", 10) / 10 ** 18
+    loanState: parseInt(data?.[6]?.result?.toString() ?? "0", 10) || 0,
+    getPrincipalPaymentSchedule: data?.[7]?.result,
+    getPremiumPaymentSchedule: data?.[8]?.result,
+    canLiquidate: data?.[9]?.result
+      ? parseInt(data?.[9]?.result?.toString() ?? "0", 10) / 10 ** 18
       : 0,
-    loanState: parseInt(data?.[7]?.result?.toString() ?? "0", 10) || 0,
-    getPrincipalPaymentSchedule: data?.[8]?.result,
-    getPremiumPaymentSchedule: data?.[9]?.result,
-    canLiquidate: data?.[10]?.result
-      ? parseInt(data?.[10]?.result?.toString() ?? "0", 10) / 10 ** 18
-      : 0,
-    loanBorrower: data?.[11]?.result?.toString() ?? "",
-    loanToken: data?.[12]?.result?.toString() ?? "",
-    loanPair: data?.[13]?.result?.toString() ?? "",
+    loanBorrower: data?.[10]?.result?.toString() ?? "",
+    loanToken: data?.[11]?.result?.toString() ?? "",
+    loanPair: data?.[12]?.result?.toString() ?? "",
     originationFeeCollected: data?.[14]?.result
+      ? parseInt(data?.[13]?.result?.toString() ?? "0", 10) / 10 ** 18
+      : 0,
+    premiumAmount: data?.[14]?.result
       ? parseInt(data?.[14]?.result?.toString() ?? "0", 10) / 10 ** 18
       : 0,
-    premiumAmount: data?.[15]?.result
+    premiumAmountPaid: data?.[15]?.result
       ? parseInt(data?.[15]?.result?.toString() ?? "0", 10) / 10 ** 18
       : 0,
-    premiumAmountPaid: data?.[16]?.result
+    getRemainingLiablity: data?.[16]?.result
       ? parseInt(data?.[16]?.result?.toString() ?? "0", 10) / 10 ** 18
       : 0,
-    getRemainingLiablity: data?.[17]?.result
-      ? parseInt(data?.[17]?.result?.toString() ?? "0", 10) / 10 ** 18
-      : 0,
-    getPremiumsDue: data?.[18]?.result
-      ? parseInt(data?.[18]?.result?.toString() ?? "0", 10) / 10 ** 18
-      : 0,
-    getPrincipalDue: data?.[19]?.result
-      ? parseInt(data?.[19]?.result?.toString() ?? "0", 10) / 10 ** 18
-      : 0,
     numberOfPremiumPeriods:
-      parseInt(data?.[20]?.result?.toString() ?? "0", 10) || 0,
+      parseInt(data?.[17]?.result?.toString() ?? "0", 10) || 0,
     numberOfRepaymentPeriods:
-      parseInt(data?.[21]?.result?.toString() ?? "0", 10) || 0,
+      parseInt(data?.[18]?.result?.toString() ?? "0", 10) || 0,
+    getPremiumsDue: dataDue?.[0]?.result
+      ? parseInt(dataDue?.[0]?.result?.toString() ?? "0", 10) / 10 ** 18
+      : 0,
+    getPrincipalDue: dataDue?.[1]?.result
+      ? parseInt(dataDue?.[1]?.result?.toString() ?? "0", 10) / 10 ** 18
+      : 0,
+    totalDue: dataDue?.[2]?.result
+      ? parseInt(dataDue?.[2]?.result?.toString() ?? "0", 10) / 10 ** 18
+      : 0,
   }
 }
 
