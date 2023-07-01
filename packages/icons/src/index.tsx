@@ -29,6 +29,7 @@ export {
   CloudOffIcon,
   DatabaseIcon,
   DotIcon,
+  ExternalLinkIcon,
   FlagIcon,
   FlagOffIcon,
   LayoutListIcon,
