@@ -34,27 +34,22 @@ const config = createConfig({
   publicClient,
   webSocketPublicClient,
   connectors: [
-    // @ts-expect-error
     new MetaMaskConnector({ chains }),
-    // @ts-expect-error
     new LedgerConnector({
       chains,
       options: {
         projectId: `${env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID}`,
       },
     }),
-    // @ts-expect-error
     new CoinbaseWalletConnector({
       chains,
       options: {
         appName: "x7finance",
       },
     }),
-    // @ts-expect-error
     new SafeConnector({
       chains,
     }),
-    // @ts-expect-error
     new WalletConnectConnector({
       options: {
         projectId: `${env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID}`,
