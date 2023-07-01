@@ -31,15 +31,15 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 async function getPreviewPostsMetadata() {
-  const markdownPaths = await glob(path.join(SOURCE_FILES, "**/*.md"))
+  const markdownPaths = await glob(path.join(SOURCE_FILES, "**", "*.md"))
 
   const postsPromises = markdownPaths.map(async (postPath) => {
+    const relativePath = path
+      .relative(path.join(SOURCE_FILES, "posts"), postPath)
+      .replace(/\.md$/, "")
+
     return await getMarkdownContent({
-      slug: [
-        `${postPath
-          ?.replace(/^app\/\(marketing\)\/\(blog-posts\)\/posts\//, "")
-          .replace(/\.md$/, "")}`,
-      ],
+      slug: [relativePath],
       section: "posts",
       omitProperties: ["content"],
     })
