@@ -4,6 +4,7 @@ export * from "./utils/renderConnectedChain"
 // components
 export * from "./button"
 export * from "./tag"
+export * from "./loading"
 
 // not used yet
 export * from "./empty-placeholder"
