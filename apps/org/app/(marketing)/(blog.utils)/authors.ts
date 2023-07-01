@@ -23,4 +23,10 @@ export const AUTHORS = [
     image: "/images/blog/authors/frazierone.jpg",
     name: "Fraz",
   },
+  {
+    id: "mikemurpher",
+    twitter: "mikemurpher",
+    image: "/images/blog/authors/mikemurpher.jpg",
+    name: "mikemurpher",
+  },
 ]
