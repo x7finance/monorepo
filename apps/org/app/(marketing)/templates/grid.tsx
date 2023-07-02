@@ -83,8 +83,7 @@ const TEMPLATES = [
     imageUrl: `${env.NEXT_PUBLIC_ASSETS_URL}/images/templates/reflections-contract.png`,
     twitterUrl: "",
     linkedinUrl: "#",
-    externalLink:
-      "https://bscscan.com/token/0x42981d0bfbaf196529376ee702f2a9eb9092fcb5#code",
+    externalLink: "",
   },
   {
     name: "Standard Tax Token",
@@ -93,8 +92,7 @@ const TEMPLATES = [
     imageUrl: `${env.NEXT_PUBLIC_ASSETS_URL}/images/templates/standard-tax-contract.png`,
     twitterUrl: "#",
     linkedinUrl: "#",
-    externalLink:
-      "https://etherscan.io/token/0xf524f2d3f8e492bbcb618bce36e911eb55e8b368#code",
+    externalLink: "",
   },
   {
     name: "Self Renouncing Token",
@@ -103,7 +101,6 @@ const TEMPLATES = [
     imageUrl: `${env.NEXT_PUBLIC_ASSETS_URL}/images/templates/renouncing-contract.png`,
     twitterUrl: "#",
     linkedinUrl: "#",
-    externalLink:
-      "https://etherscan.io/token/0xf524f2d3f8e492bbcb618bce36e911eb55e8b368#code",
+    externalLink: "",
   },
 ]
