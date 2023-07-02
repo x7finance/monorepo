@@ -1,5 +1,7 @@
 import "./env.mjs"
 
+import withNextIntl from "next-intl/plugin"
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   webpack: (config, { isServer, webpack }) => {
@@ -45,4 +47,7 @@ const nextConfig = {
   },
 }
 
-export default nextConfig
+export default withNextIntl(
+  // This is the default (also the `src` folder is supported out of the box)
+  "./i18n.ts"
+)(nextConfig)
