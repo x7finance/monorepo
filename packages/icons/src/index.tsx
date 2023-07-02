@@ -22,6 +22,7 @@ export {
   BookIcon,
   CheckCircleIcon,
   CheckIcon,
+  PlusCircle,
   ChevronDownIcon,
   ChevronRightIcon,
   ChevronUpIcon,
