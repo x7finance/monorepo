@@ -5,12 +5,14 @@ import { X7LongLogo, Xchange } from "icons"
 
 import { HTMLAttributes } from "react"
 import Link from "next/link"
+import { useTranslations } from "next-intl"
 
 import { DESKTOP_NAV_LINKS } from "@/config/site"
 
 import { MobileNavigation } from "./mobile-navigation"
 
 export function SiteHeader({ className }: HTMLAttributes<HTMLElement>) {
+  const t = useTranslations("Navigation")
   return (
     <header className={className}>
       <div className="flex-1 flex justify-center items-center">
@@ -45,7 +47,7 @@ export function SiteHeader({ className }: HTMLAttributes<HTMLElement>) {
                       : {})}
                     href={link.href}
                   >
-                    {link.name}
+                    {t(link.name.toLowerCase())}
                   </Link>
                 </li>
               ))}

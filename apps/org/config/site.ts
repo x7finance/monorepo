@@ -58,7 +58,7 @@ export const NOT_FOUND_LINKS = [
 ]
 
 export const DESKTOP_NAV_LINKS = [
-  { name: "Get Started", href: MarketingLinks.GetStarted },
+  { name: "GetStarted", href: MarketingLinks.GetStarted },
   { name: "Tokens", href: TokenLinksEnum.Index },
   { name: "Docs", href: DocsLinks.Index },
   {
