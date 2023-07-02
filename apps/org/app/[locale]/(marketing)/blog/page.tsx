@@ -1,4 +1,3 @@
-// import { Heading } from "@/components/heading"
 import path from "path"
 
 import React from "react"
