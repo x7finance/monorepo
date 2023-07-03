@@ -10,12 +10,7 @@ import { BlogType } from "@/lib/types"
 import { AUTHORS } from "./authors"
 import { config } from "./config.markdoc"
 
-export const SOURCE_FILES = path.join(
-  "app",
-  "[locale]",
-  "(marketing)",
-  "(blog-posts)"
-)
+export const SOURCE_FILES = path.join("content", "blog")
 
 export const SOURCE_DIR = path.join(process.cwd(), SOURCE_FILES)
 

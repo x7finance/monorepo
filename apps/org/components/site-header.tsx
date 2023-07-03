@@ -12,7 +12,8 @@ import { DESKTOP_NAV_LINKS } from "@/config/site"
 import { MobileNavigation } from "./mobile-navigation"
 
 export function SiteHeader({ className }: HTMLAttributes<HTMLElement>) {
-  const t = useTranslations("Navigation")
+  // const t = useTranslations("Navigation")
+
   return (
     <header className={className}>
       <div className="flex-1 flex justify-center items-center">
@@ -47,7 +48,7 @@ export function SiteHeader({ className }: HTMLAttributes<HTMLElement>) {
                       : {})}
                     href={link.href}
                   >
-                    {t(link.name.toLowerCase())}
+                    {/* {t(link.name.toLowerCase())} */}
                   </Link>
                 </li>
               ))}

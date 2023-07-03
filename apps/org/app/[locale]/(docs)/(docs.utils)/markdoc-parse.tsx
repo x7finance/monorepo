@@ -9,7 +9,8 @@ import { DocType } from "@/lib/types"
 
 import { config } from "./config.markdoc"
 
-export const SOURCE_FILES = "app/[locale]/(docs)/(source-files)"
+export const SOURCE_FILES = path.join("content", "docs")
+
 export const SOURCE_DIR = path.join(process.cwd(), SOURCE_FILES)
 
 // Define the type for the slug

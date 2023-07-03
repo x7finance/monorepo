@@ -2,7 +2,6 @@ import path from "path"
 
 import React from "react"
 import { Metadata } from "next"
-import Link from "next/link"
 import { notFound } from "next/navigation"
 import Markdoc from "@markdoc/markdoc"
 import { glob } from "glob"
@@ -29,7 +28,7 @@ export async function generateStaticParams() {
       .split("/")
       .filter((slug) => slug !== "")
 
-    return { slug }
+    return { slug, locale: "en" }
   })
 }
 
