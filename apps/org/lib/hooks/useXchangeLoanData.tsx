@@ -1,8 +1,3 @@
-import { BlockchainType, ContractsEnum, LoanType } from "common"
-import {
-  generateChainBase,
-  generateX7InitialLiquidityLoanTermContract,
-} from "utils"
 import {
   X7InitialLiquidityLoanTerm001,
   X7InitialLiquidityLoanTerm002,
@@ -10,6 +5,11 @@ import {
   X7LendingPoolV1,
 } from "contracts"
 
+import { BlockchainType, ContractsEnum, LoanType } from "@x7/common"
+import {
+  generateChainBase,
+  generateX7InitialLiquidityLoanTermContract,
+} from "@x7/utils"
 import { useContractReads } from "wagmi"
 
 import { generateWagmiChain } from "../generateWagmiChain"

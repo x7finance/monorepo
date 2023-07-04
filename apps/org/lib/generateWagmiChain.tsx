@@ -1,5 +1,4 @@
-import { ChainEnum } from "common"
-
+import { ChainEnum } from "@x7/common"
 import { arbitrum, bsc, mainnet, optimism, polygon } from "wagmi/chains"
 
 export function generateWagmiChain(chainId: number) {

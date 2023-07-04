@@ -1,6 +1,5 @@
-import { cn } from "utils"
-
 import { useId } from "react"
+import { cn } from "@x7/utils"
 
 import { InstallationIcon } from "./InstallationIcon"
 import { LightbulbIcon } from "./LightbulbIcon"

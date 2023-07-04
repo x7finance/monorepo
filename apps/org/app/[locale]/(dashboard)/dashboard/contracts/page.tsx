@@ -1,18 +1,17 @@
-import { BlockchainType, ContractsEnum } from "common"
-import { generateChainIdentifier } from "utils"
-import { ChainsArray } from "icons"
-
 import { Metadata } from "next"
 import Link from "next/link"
+import { Dropdown } from "@/site-components/contracts-dropdown"
+import { XchangeButton } from "@/site-components/xchange-button"
+import { BlockchainType, ContractsEnum } from "@x7/common"
+import { ChainsArray } from "@x7/icons"
+import { generateChainIdentifier } from "@x7/utils"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { Dropdown } from "@/components/dropdown/contracts"
 import { Table } from "@/components/table"
 import { ContractCopy } from "@/components/ui-client/contractCopy"
-import { XchangeButton } from "@/components/xchange-button"
-import { DashboardContainer } from "@/app/[locale]/(dashboard)/components/dashboard-container"
-import { DashboardSubheader } from "@/app/[locale]/(dashboard)/components/dashboard-subheader"
-import { DashboardTitle } from "@/app/[locale]/(dashboard)/components/dashboard-title"
+import { DashboardContainer } from "@/app/[locale]/(dashboard)/(dashboard.components)/dashboard-container"
+import { DashboardSubheader } from "@/app/[locale]/(dashboard)/(dashboard.components)/dashboard-subheader"
+import { DashboardTitle } from "@/app/[locale]/(dashboard)/(dashboard.components)/dashboard-title"
 
 const metadata = {
   title: "Contracts",

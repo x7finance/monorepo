@@ -1,11 +1,11 @@
 import { Metadata } from "next"
+import { Web3Wrapper } from "@/site-components/web3-wrapper"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { Web3Wrapper } from "@/components/web3/wrapper"
 
-import { DashboardContainer } from "../../components/dashboard-container"
-import { DashboardTitle } from "../../components/dashboard-title"
-import { LiveLoans } from "../../components/loan"
+import { DashboardContainer } from "../../(dashboard.components)/dashboard-container"
+import { DashboardTitle } from "../../(dashboard.components)/dashboard-title"
+import { LiveLoans } from "../../(dashboard.components)/loan"
 
 const metadata = {
   title: "Live Loans",

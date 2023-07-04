@@ -1,12 +1,11 @@
-import { cn, getRandomPioneerNumber } from "utils"
-
 import { Metadata } from "next"
 import Image from "next/image"
+import { GradientTypes } from "@/site-components/gradients"
+import { PioneerDrop } from "@/site-components/pioneer-drop"
+import { SiteContentContainer } from "@/site-components/site-content-container"
+import { cn, getRandomPioneerNumber } from "@x7/utils"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { GradientTypes } from "@/components/gradients"
-import { PioneerDrop } from "@/components/pioneer-drop"
-import { SiteContentContainer } from "@/components/site-content-container"
 
 const metadata = {
   title: "X7DAO",

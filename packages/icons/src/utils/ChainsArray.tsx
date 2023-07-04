@@ -3,7 +3,7 @@ import {
   ChainNameEnum,
   ChainScannerEnum,
   ChainScannerLinksEnum,
-} from "common"
+} from "@x7/common"
 
 import { IconWrapper } from "./IconWrapper"
 

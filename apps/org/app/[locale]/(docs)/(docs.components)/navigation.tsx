@@ -1,10 +1,9 @@
 "use client"
 
-import { cn } from "utils"
-
 import { ReactNode, useEffect, useRef } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { cn } from "@x7/utils"
 
 import { SectionNavigation } from "./section-navigation"
 

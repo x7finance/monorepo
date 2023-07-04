@@ -1,9 +1,8 @@
 "use client"
 
-import { cn } from "utils"
-
 import { useEffect, useState } from "react"
 import Link from "next/link"
+import { cn } from "@x7/utils"
 
 export function OnThisPageNav(props: any) {
   const { tableOfContents, currentSlug } = props

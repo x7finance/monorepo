@@ -1,8 +1,7 @@
 "use client"
 
-import { cn } from "utils"
-
 import { Fragment } from "react"
+import { cn } from "@x7/utils"
 import { Highlight, themes } from "prism-react-renderer"
 
 import { CopyButton } from "@/components/ui-client/copy-button"

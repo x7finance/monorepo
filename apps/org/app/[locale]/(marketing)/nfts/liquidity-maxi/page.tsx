@@ -1,12 +1,12 @@
 import { Metadata } from "next"
+import { GradientTypes } from "@/site-components/gradients"
+import { SiteContentContainer } from "@/site-components/site-content-container"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { DashboardLinksEnum } from "@/lib/types/links"
-import { GradientTypes } from "@/components/gradients"
-import { SiteContentContainer } from "@/components/site-content-container"
-import { Heading } from "@/app/[locale]/(marketing)/components/heading"
+import { Heading } from "@/app/[locale]/(marketing)/(marketing.components)/heading"
 
-import { SectionStep } from "../../components/section-step"
+import { SectionStep } from "../../(marketing.components)/section-step"
 
 const metadata = {
   title: "Liquidty Maxi NFT",

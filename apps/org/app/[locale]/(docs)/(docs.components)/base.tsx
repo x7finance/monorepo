@@ -1,13 +1,13 @@
 import Link from "next/link"
 
 import {
-  breakdownsNavigation,
-  docsNavigation,
-  faqNavigation,
-  guidesNavigation,
-  integrationNavigation,
-  onchainsNavigation,
-  whitepaperNavigation,
+  BREAKDOWNS_NAVIGATION,
+  DOCS_NAVIGATION,
+  FAQ_NAVIGATION,
+  GUIDES_NAVIGATION,
+  INTEGRATION_NAVIGATION,
+  ONCHAINS_NAVIGATION,
+  WHITEPAPER_NAVIGATION,
 } from "@/config/docs"
 import { DocsTypes, DocType } from "@/lib/types"
 
@@ -29,19 +29,19 @@ interface DocsBaseProps {
 function getNavigation(docsType?: DocType) {
   switch (docsType) {
     case DocsTypes.breakdowns:
-      return breakdownsNavigation
+      return BREAKDOWNS_NAVIGATION
     case DocsTypes.onchains:
-      return onchainsNavigation
+      return ONCHAINS_NAVIGATION
     case DocsTypes.whitepaper:
-      return whitepaperNavigation
+      return WHITEPAPER_NAVIGATION
     case DocsTypes.faq:
-      return faqNavigation
+      return FAQ_NAVIGATION
     case DocsTypes.guides:
-      return guidesNavigation
+      return GUIDES_NAVIGATION
     case DocsTypes.integration:
-      return integrationNavigation
+      return INTEGRATION_NAVIGATION
     default:
-      return docsNavigation
+      return DOCS_NAVIGATION
   }
 }
 

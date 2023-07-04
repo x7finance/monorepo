@@ -1,10 +1,9 @@
 {
-  "name": "utils",
+  "name": "@x7/utils",
   "version": "0.0.1",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "sideEffects": false,
   "license": "MIT",
   "files": [
     "dist/**"
@@ -16,19 +15,15 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "common": "workspace:*"
+    "@x7/common": "0.0.1"
   },
   "devDependencies": {
+    "@x7/eslint-config": "0.0.1",
     "clsx": "^1.2.1",
     "eslint": "^8.44.0",
-    "eslint-config-custom": "workspace:*",
     "tailwind-merge": "^1.13.2",
-    "tsconfig": "workspace:*",
     "tsup": "^7.1.0",
     "typescript": "^5.1.6",
     "wagmi": "^1.3.4"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }

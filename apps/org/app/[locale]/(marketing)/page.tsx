@@ -1,22 +1,21 @@
-import { SocialsEnum, X7LinksEnum } from "common"
-import { cn } from "utils"
-import { buttonVariants } from "ui-server"
-import { DotIcon, RocketIcon, Xchange } from "icons"
-
 import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
+import { GradientTypes } from "@/site-components/gradients"
+import { PioneerDrop } from "@/site-components/pioneer-drop"
+import { SocialsEnum, X7LinksEnum } from "@x7/common"
+import { DotIcon, RocketIcon, Xchange } from "@x7/icons"
+import { buttonVariants } from "@x7/ui"
+import { cn } from "@x7/utils"
 import { useTranslations } from "next-intl"
 
 import { env } from "@/env.mjs"
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { DocsLinks, TokenLinksEnum } from "@/lib/types/links"
-import { GradientTypes } from "@/components/gradients"
-import { PioneerDrop } from "@/components/pioneer-drop"
 
-import { SectionHeader } from "./components/section-header"
-import { SectionStep } from "./components/section-step"
-import { HeaderVideoComponent } from "./components/video"
+import { SectionHeader } from "./(marketing.components)/section-header"
+import { SectionStep } from "./(marketing.components)/section-step"
+import { HeaderVideoComponent } from "./(marketing.components)/video"
 
 const metadata = {
   title: "Trust No One. Trust Code. Long Live DeFi.",

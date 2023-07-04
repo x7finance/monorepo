@@ -1,4 +1,4 @@
-import { cn } from "utils"
+import { cn } from "@x7/utils"
 
 interface CalloutProps {
   icon?: string

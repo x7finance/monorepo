@@ -1,12 +1,11 @@
 "use client"
 
-import { remToPx } from "utils"
-import { Tag } from "ui-server"
-import { LinkIcon } from "icons"
-
 import { useRef } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { LinkIcon } from "@x7/icons"
+import { Tag } from "@x7/ui"
+import { remToPx } from "@x7/utils"
 import { useInView } from "framer-motion"
 
 function Eyebrow({ tag, label }: any) {

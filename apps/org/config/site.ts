@@ -1,4 +1,4 @@
-import { SocialsEnum, X7LinksEnum } from "common"
+import { SocialsEnum, X7LinksEnum } from "@x7/common"
 import {
   Discord,
   Github,
@@ -7,7 +7,7 @@ import {
   Telegram,
   Twitter,
   YouTube,
-} from "icons"
+} from "@x7/icons"
 
 import { SiteConfig } from "types"
 import { env } from "@/env.mjs"

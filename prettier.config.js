@@ -12,8 +12,7 @@ module.exports = {
   importOrder: [
     "^common(.*)$",
     "^utils(.*)$",
-    "^ui-server(.*)$",
-    "^ui-client(.*)$",
+    "^ui(.*)$",
     "^icons(.*)$",
     "^contracts(.*)$",
     "",

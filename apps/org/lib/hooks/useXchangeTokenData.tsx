@@ -1,10 +1,10 @@
-import { BlockchainType, ContractsEnum } from "common"
+import { AllPairs, ChainLinkAbi, ERC20, PairsAbi } from "contracts"
+
+import { BlockchainType, ContractsEnum } from "@x7/common"
 import {
   generateChainEtherTokenEnum,
   generateChainTokenOracleEtherUSDEnum,
-} from "utils"
-import { AllPairs, ChainLinkAbi, ERC20, PairsAbi } from "contracts"
-
+} from "@x7/utils"
 import { Address, formatUnits } from "viem"
 import { useContractReads } from "wagmi"
 

@@ -1,7 +1,6 @@
-import { cn } from "utils"
-import { PlusCircle } from "icons"
-
 import Image from "next/image"
+import { PlusCircle } from "@x7/icons"
+import { cn } from "@x7/utils"
 
 import {
   ContextMenu,

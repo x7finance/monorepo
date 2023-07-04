@@ -1,10 +1,10 @@
 import { Metadata } from "next"
+import { UnderConstruction } from "@/site-components/under-construction"
+import { Web3Wrapper } from "@/site-components/web3-wrapper"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { UnderConstruction } from "@/components/under-construction"
-import { Web3Wrapper } from "@/components/web3/wrapper"
-import { DashboardContainer } from "@/app/[locale]/(dashboard)/components/dashboard-container"
-import { DashboardTitle } from "@/app/[locale]/(dashboard)/components/dashboard-title"
+import { DashboardContainer } from "@/app/[locale]/(dashboard)/(dashboard.components)/dashboard-container"
+import { DashboardTitle } from "@/app/[locale]/(dashboard)/(dashboard.components)/dashboard-title"
 
 const metadata = {
   title: "X7 DAO",

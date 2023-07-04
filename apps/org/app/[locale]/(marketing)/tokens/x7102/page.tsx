@@ -1,9 +1,9 @@
 import { Metadata } from "next"
+import { SiteContentContainer } from "@/site-components/site-content-container"
+import { UnderConstruction } from "@/site-components/under-construction"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { SiteContentContainer } from "@/components/site-content-container"
-import { UnderConstruction } from "@/components/under-construction"
-import { Heading } from "@/app/[locale]/(marketing)/components/heading"
+import { Heading } from "@/app/[locale]/(marketing)/(marketing.components)/heading"
 
 const metadata = {
   title: "X7102",

@@ -1,7 +1,6 @@
-import { Twitter } from "icons"
-
 import Image from "next/image"
 import Link from "next/link"
+import { Twitter } from "@x7/icons"
 
 import { env } from "@/env.mjs"
 import { BlogType } from "@/lib/types"

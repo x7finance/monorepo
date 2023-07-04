@@ -1,5 +1,5 @@
-import { NotFoundContent } from "@/components/not-found"
-import { SiteFooter } from "@/components/site-footer"
+import { NotFoundContent } from "@/site-components/not-found"
+import { SiteFooter } from "@/site-components/site-footer"
 
 export default function NotFoundPage() {
   return (

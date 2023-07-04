@@ -1,6 +1,5 @@
-import { cn } from "utils"
-
 import { createElement, MemoExoticComponent } from "react"
+import { cn } from "@x7/utils"
 
 import arbitrum from "../glyphs/arbitrum"
 import bsc from "../glyphs/bsc"

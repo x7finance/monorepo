@@ -1,16 +1,15 @@
-import { cn } from "utils"
-
 import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
+import { Assistance } from "@/site-components/assistance"
+import { GradientTypes } from "@/site-components/gradients"
+import { PioneerDrop } from "@/site-components/pioneer-drop"
+import { SiteContentContainer } from "@/site-components/site-content-container"
+import { cn } from "@x7/utils"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { DocsLinks, MarketingLinks } from "@/lib/types/links"
-import { Assistance } from "@/components/assistance"
-import { GradientTypes } from "@/components/gradients"
-import { PioneerDrop } from "@/components/pioneer-drop"
-import { SiteContentContainer } from "@/components/site-content-container"
-import { Heading } from "@/app/[locale]/(marketing)/components/heading"
+import { Heading } from "@/app/[locale]/(marketing)/(marketing.components)/heading"
 
 const metadata = {
   title: "Get Started",

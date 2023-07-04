@@ -1,14 +1,13 @@
-import { X7LinksEnum } from "common"
-import { cn } from "utils"
-import { buttonVariants } from "ui-server"
-import { CheckCircleIcon, X7Logo } from "icons"
-
 import { Metadata } from "next"
 import Link from "next/link"
+import { SiteContentContainer } from "@/site-components/site-content-container"
+import { X7LinksEnum } from "@x7/common"
+import { CheckCircleIcon, X7Logo } from "@x7/icons"
+import { buttonVariants } from "@x7/ui"
+import { cn } from "@x7/utils"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { SiteContentContainer } from "@/components/site-content-container"
-import { Heading } from "@/app/[locale]/(marketing)/components/heading"
+import { Heading } from "@/app/[locale]/(marketing)/(marketing.components)/heading"
 
 const metadata = {
   title: "Loans",

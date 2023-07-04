@@ -1,6 +1,5 @@
-import { ExternalLinkIcon, Telegram, Twitter } from "icons"
-
 import Link from "next/link"
+import { ExternalLinkIcon, Telegram, Twitter } from "@x7/icons"
 
 import { env } from "@/env.mjs"
 

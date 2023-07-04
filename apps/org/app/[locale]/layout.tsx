@@ -7,10 +7,10 @@ import { Analytics } from "@vercel/analytics/react"
 
 import "@/styles/globals.css"
 
-import { cn } from "utils"
+import { ThemeProvider } from "@/site-components/theme-provider"
+import { cn } from "@x7/utils"
 
 import { SITE_METADATA } from "@/config/metadata"
-import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui-client/toast/toaster"
 
 const fontSans = FontSans({

@@ -1,8 +1,8 @@
 import { Metadata } from "next"
+import { SiteContentContainer } from "@/site-components/site-content-container"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { SiteContentContainer } from "@/components/site-content-container"
-import { Heading } from "@/app/[locale]/(marketing)/components/heading"
+import { Heading } from "@/app/[locale]/(marketing)/(marketing.components)/heading"
 
 const metadata = {
   title: "DEX Maxi NFT",

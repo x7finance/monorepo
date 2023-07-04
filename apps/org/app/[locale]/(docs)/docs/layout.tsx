@@ -1,5 +1,5 @@
-import { AppHeader } from "@/components/app-header"
-import { SiteFooter } from "@/components/site-footer"
+import { AppHeader } from "@/site-components/app-header"
+import { SiteFooter } from "@/site-components/site-footer"
 
 interface DocsLayoutProps {
   children: React.ReactNode

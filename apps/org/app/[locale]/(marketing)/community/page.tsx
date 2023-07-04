@@ -1,5 +1,7 @@
-import { SocialsEnum } from "common"
-import { cn } from "utils"
+import { Metadata } from "next"
+import Link from "next/link"
+import { SiteContentContainer } from "@/site-components/site-content-container"
+import { SocialsEnum } from "@x7/common"
 import {
   BookIcon,
   Discord,
@@ -10,15 +12,12 @@ import {
   Twitter,
   X7Logo,
   YouTube,
-} from "icons"
-
-import { Metadata } from "next"
-import Link from "next/link"
+} from "@x7/icons"
+import { cn } from "@x7/utils"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { MarketingLinks } from "@/lib/types/links"
-import { SiteContentContainer } from "@/components/site-content-container"
-import { Heading } from "@/app/[locale]/(marketing)/components/heading"
+import { Heading } from "@/app/[locale]/(marketing)/(marketing.components)/heading"
 
 const metadata = {
   title: "Community",

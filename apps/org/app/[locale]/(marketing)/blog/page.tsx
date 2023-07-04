@@ -4,12 +4,12 @@ import React from "react"
 import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
+import { Assistance } from "@/site-components/assistance"
+import { SiteContentContainer } from "@/site-components/site-content-container"
 import { glob } from "glob"
 
 import { env } from "@/env.mjs"
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { Assistance } from "@/components/assistance"
-import { SiteContentContainer } from "@/components/site-content-container"
 
 import {
   getMarkdownContent,

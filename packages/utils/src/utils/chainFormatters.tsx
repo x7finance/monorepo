@@ -9,7 +9,7 @@ import {
   ContractsEnum,
   LoanType,
   TokenContractAddresses,
-} from "common"
+} from "@x7/common"
 
 type ChainMapping = {
   [key in ChainEnum | ChainEnum.offline]: {

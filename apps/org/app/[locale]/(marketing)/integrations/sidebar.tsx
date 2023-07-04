@@ -1,5 +1,5 @@
-import { cn } from "utils"
-import { Button } from "ui-server"
+import { Button } from "@x7/ui"
+import { cn } from "@x7/utils"
 
 import { ScrollArea } from "@/components/ui-client/scroll-area"
 

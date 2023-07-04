@@ -1,12 +1,11 @@
-import { ChainShortNameType, LoanType } from "common"
-
 import { Metadata } from "next"
+import { Web3Wrapper } from "@/site-components/web3-wrapper"
+import { ChainShortNameType, LoanType } from "@x7/common"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { Web3Wrapper } from "@/components/web3/wrapper"
-import { DashboardContainer } from "@/app/[locale]/(dashboard)/components/dashboard-container"
-import { DashboardTitle } from "@/app/[locale]/(dashboard)/components/dashboard-title"
-import { LoanDetails } from "@/app/[locale]/(dashboard)/components/loan/details"
+import { DashboardContainer } from "@/app/[locale]/(dashboard)/(dashboard.components)/dashboard-container"
+import { DashboardTitle } from "@/app/[locale]/(dashboard)/(dashboard.components)/dashboard-title"
+import { LoanDetails } from "@/app/[locale]/(dashboard)/(dashboard.components)/loan/details"
 
 const metadata = {
   title: "Loan Details",

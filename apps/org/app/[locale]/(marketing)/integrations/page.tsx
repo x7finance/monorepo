@@ -1,11 +1,10 @@
-import { Button } from "ui-server"
-import { PlusCircleIcon } from "icons"
-
 import { Metadata } from "next"
 import Image from "next/image"
+import { SiteContentContainer } from "@/site-components/site-content-container"
+import { PlusCircleIcon } from "@x7/icons"
+import { Button } from "@x7/ui"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { SiteContentContainer } from "@/components/site-content-container"
 import { ScrollArea, ScrollBar } from "@/components/ui-client/scroll-area"
 import { Separator } from "@/components/ui-client/separator"
 import {
@@ -15,7 +14,7 @@ import {
   TabsTrigger,
 } from "@/components/ui-client/tabs"
 
-import { Heading } from "../components/heading"
+import { Heading } from "../(marketing.components)/heading"
 import { AlbumArtwork } from "./album-artwork"
 import { listenNowAlbums, madeForYouAlbums, playlists } from "./data/playlists"
 import { Sidebar } from "./sidebar"
