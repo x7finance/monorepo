@@ -166,6 +166,15 @@ const breakdownsNavigation = [
 
 const onchainsNavigation = [
   {
+    title: "July 2023",
+    links: [
+      {
+        title: "July-04-2023-074259-AM",
+        href: "/docs/onchains/902-july-04-2023-074259-am-utc",
+      },
+    ],
+  },
+  {
     title: "June 2023",
     links: [
       {
