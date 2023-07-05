@@ -1,4 +1,4 @@
-import type { MemoExoticComponent } from "react"
+import type { FC, MouseEventHandler, ReactElement, SVGAttributes } from "react"
 import { createElement } from "react"
 
 import { cn } from "@x7/utils"
@@ -11,10 +11,15 @@ import loading from "../glyphs/loading"
 import optimism from "../glyphs/optimism"
 import polygon from "../glyphs/polygon"
 
+type GlyphProps = SVGAttributes<SVGSVGElement> & {
+  fill?: string
+  rotate?: number
+}
+
 interface IconProps {
-  glyph: glyph
+  glyph: Glyph
   size?: number
-  onClick?: any
+  onClick?: MouseEventHandler<SVGSVGElement>
   fill?: string
   rotate?: number
   height?: number
@@ -24,7 +29,7 @@ interface IconProps {
   containerClass?: string
 }
 
-export enum glyph {
+export enum Glyph {
   loading,
   arbitrum,
   bsc,
@@ -34,28 +39,29 @@ export enum glyph {
   dextools,
 }
 
-export const GLYPH_MAPS: Record<glyph, MemoExoticComponent<any>> = {
-  [glyph.loading]: loading,
-  [glyph.arbitrum]: arbitrum,
-  [glyph.bsc]: bsc,
-  [glyph.ethereum]: ethereum,
-  [glyph.optimism]: optimism,
-  [glyph.polygon]: polygon,
-  [glyph.dextools]: dextools,
+export const GLYPH_MAPS: Record<Glyph, FC<GlyphProps>> = {
+  // @ts-expect-error: TODO: fix this
+  [Glyph.loading]: loading,
+  [Glyph.arbitrum]: arbitrum,
+  [Glyph.bsc]: bsc,
+  [Glyph.ethereum]: ethereum,
+  [Glyph.optimism]: optimism,
+  [Glyph.polygon]: polygon,
+  [Glyph.dextools]: dextools,
 }
 
-export function IconWrapper(props: IconProps): JSX.Element {
+export function IconWrapper(props: IconProps): ReactElement {
   const { glyph, fill, rotate, size = 8, containerClass = "", ...res } = props
 
   return (
     <span className={cn(`w-${size} h-${size} inline-block`, containerClass)}>
       {createElement(GLYPH_MAPS[glyph], {
         fill: fill ? fill : "currentColor",
-        ...res,
         rotate,
+        ...res,
       })}
     </span>
   )
 }
 
-IconWrapper.glyph = glyph
+IconWrapper.Glyph = Glyph

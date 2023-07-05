@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { useCallback, useState } from "react"
 import Image from "next/image"
 import { GradientTypes } from "@/site-components/gradients"

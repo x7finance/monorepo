@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 
 import { ExternalLinkIcon, Telegram, Twitter } from "@x7/icons"
@@ -12,7 +13,9 @@ export function IntegrationsGrid() {
           key={t.name}
           className="group relative overflow-hidden rounded-lg border border-zinc-300 transition-all duration-300 hover:border-black dark:border-zinc-700 dark:hover:border-white"
         >
-          <img
+          <Image
+            height={300}
+            width={300}
             className="aspect-[3/2] w-full object-cover"
             src={t.imageUrl}
             alt=""

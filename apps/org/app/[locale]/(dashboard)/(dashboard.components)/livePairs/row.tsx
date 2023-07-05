@@ -5,7 +5,7 @@ import { XchangeButton } from "@/site-components/xchange-button"
 
 import type { BlockchainType } from "@x7/common"
 import { XCHANGE } from "@x7/common"
-import { IconWrapper } from "@x7/icons"
+import { Glyph, IconWrapper } from "@x7/icons"
 // @ts-expect-error todo: fix this
 import { buttonVariants } from "@x7/ui/button"
 // @ts-expect-error todo: fix this
@@ -62,7 +62,7 @@ export function PairRow({ id, chainId, type }: PairsProps) {
                     key={`${tokenContract}-${id}-chart`}
                     className="opacity-80 hover:opacity-100"
                   >
-                    <IconWrapper glyph={IconWrapper.glyph.dextools} size={5} />
+                    <IconWrapper glyph={Glyph.dextools} size={5} />
                   </Link>
                 </div>
               </div>
@@ -130,7 +130,7 @@ export function PairRow({ id, chainId, type }: PairsProps) {
                 key={`${tokenContract}-${id}-chart`}
                 className="flex h-full w-full items-center justify-center opacity-80 hover:opacity-100"
               >
-                <IconWrapper glyph={IconWrapper.glyph.dextools} size={5} />
+                <IconWrapper glyph={Glyph.dextools} size={5} />
               </Link>
             </div>
           </div>

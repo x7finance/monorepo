@@ -1,30 +1,31 @@
-module.exports = {
+/** @type {import('eslint').Linter.Config} */
+const config = {
   root: true,
-  extends: ["next", "turbo", "prettier"],
-  settings: {
-    react: {
-      version: "detect",
-    },
-  },
-  parserOptions: {
-    babelOptions: {
-      presets: [require.resolve("next/babel")],
-    },
-  },
-  overrides: [
-    {
-      files: ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      rules: {
-        "@next/next/no-img-element": "off",
-        "react-hooks/exhaustive-deps": "off",
-        "@next/next/no-html-link-for-pages": "off",
-      },
-    },
-    {
-      files: ["**/__tests__/**/*"],
-      env: {
-        jest: true,
-      },
-    },
+  extends: [
+    "@x7/eslint-config/base",
+    "@x7/eslint-config/nextjs",
+    "@x7/eslint-config/react",
   ],
+  parserOptions: {
+    project: "./tsconfig.json",
+  },
+  rules: {
+    "@typescript-eslint/no-unsafe-argument": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/no-unsafe-return": "off",
+    "@typescript-eslint/restrict-template-expressions": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "react-hooks/exhaustive-deps": "off",
+  },
+
+  // parserOptions: {
+  //   babelOptions: {
+  //     presets: [require.resolve("next/babel")],
+  //   },
+  // },
 }
+
+module.exports = config

@@ -2,17 +2,21 @@ import type { FC, ReactNode } from "react"
 
 import { cn } from "@x7/utils"
 
+interface DataRow {
+  [key: string]: ReactNode
+}
+
 interface Column {
   header: string
   responsiveHeader?: string
   width?: string
   accessor: string
   responsive?: boolean
-  cellRenderer?: (row: any) => ReactNode
+  cellRenderer?: (row: DataRow) => ReactNode
 }
 
 interface TableProps {
-  data: any[]
+  data: DataRow[]
   columns: Column[]
 }
 
@@ -46,7 +50,8 @@ export const Table: FC<TableProps> = ({ data, columns }) => {
         {data.map((row, index) => (
           <tr
             className="border-none"
-            // @ts-expect-error
+            // @ts-expect-error: TODO: fix this
+            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
             key={`${data?.accessor ?? data?.header}-${index}}`}
           >
             {columns.map((column, colIndex) => (

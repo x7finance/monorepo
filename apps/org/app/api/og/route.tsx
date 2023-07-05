@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unknown-property */
+/* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from "@vercel/og"
 
 import { ogImageSchema } from "@/lib/validations/og"
@@ -19,9 +21,9 @@ const interBold = fetch(
   new URL("../../../assets/fonts/CalSans-SemiBold.ttf", import.meta.url)
 ).then((res) => res.arrayBuffer())
 
-const pioneers = [1, 2, 3, 4]
+const pioneers: number[] = [1, 2, 3, 4]
 
-const sectionThemes = {
+const sectionThemes: Record<string, string> = {
   default: "#712fdd",
   docs: "#0184a2",
   dashboard: "#ff2e6e",

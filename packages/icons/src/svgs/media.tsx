@@ -1,4 +1,6 @@
-export function MediaIcon(props: any) {
+import type { SVGProps } from "react"
+
+export function MediaIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 512 371.43" {...props}>
       <g>

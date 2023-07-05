@@ -1,4 +1,4 @@
-import { IconWrapper } from "@x7/icons"
+import { Glyph, IconWrapper } from "@x7/icons"
 import { cn } from "@x7/utils"
 
 export function CircleLoading({
@@ -18,7 +18,7 @@ export function CircleLoading({
           : "relative z-50 flex flex-auto items-center justify-center self-stretch"
       )}
     >
-      <IconWrapper glyph={IconWrapper.glyph.loading} fill={fill} size={size} />
+      <IconWrapper glyph={Glyph.loading} fill={fill} size={size} />
     </div>
   )
 }

@@ -1,6 +1,7 @@
+import type { SVGProps } from "react"
 import { memo } from "react"
 
-function Polygon(props: any) {
+function Polygon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 100 100" fill="none" {...props}>
       <path

@@ -1,6 +1,7 @@
+import type { SVGProps } from "react"
 import { memo } from "react"
 
-function Arbitrum(props: any) {
+function Arbitrum(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 100 100" fill="none" {...props}>
       <path

@@ -31,6 +31,7 @@ EmptyPlaceholder.Title = function EmptyPlaceholderTitle({
   ...props
 }: EmptyPlacholderTitleProps) {
   return (
+    // eslint-disable-next-line jsx-a11y/heading-has-content
     <h2 className={cn("mt-6 text-xl font-semibold", className)} {...props} />
   )
 }

@@ -10,15 +10,7 @@ export type Props = { item: ItemWithRenderProps }
 
 export const LegendItem: React.FC<Props> = ({ item }) => {
   const { graphWidth, width } = useContext(DonutChartContext)
-  const {
-    classNames,
-    clickHandlers,
-    index,
-    isEmpty,
-    label,
-    value,
-    ...restItemRenderProps
-  } = item
+  const { clickHandlers, label, value, ...restItemRenderProps } = item
 
   const { chain } = useNetwork()
   const legendWidth = width - graphWidth

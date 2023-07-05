@@ -1,5 +1,11 @@
-export function Blockchain(props: any) {
+interface Props {
+  size?: number
+  fill?: string
+}
+
+export function Blockchain(props: Props) {
   const { size = 24, fill = "black" } = props
+
   return (
     <svg
       width={size}

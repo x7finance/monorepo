@@ -304,10 +304,7 @@ export function LoanDetails(props: LoanProps) {
                       {detail.value?.map(
                         (innerArray: number[], outerIndex: number) =>
                           innerArray
-                            .filter(
-                              (element: number, innerIndex: number) =>
-                                outerIndex === 0
-                            )
+                            .filter(() => outerIndex === 0)
                             .map((element: number, innerIndex: number) => (
                               <div key={`${outerIndex}-${innerIndex}`}>
                                 <span>

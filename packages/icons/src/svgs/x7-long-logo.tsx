@@ -1,4 +1,6 @@
-export function X7LongLogo(props: any) {
+import type { SVGProps } from "react"
+
+export function X7LongLogo(props: SVGProps<SVGSVGElement>) {
   return (
     <svg aria-label="X7 Long Logo" viewBox="0 0 956 166" fill="none" {...props}>
       <path

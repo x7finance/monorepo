@@ -2,12 +2,10 @@ export function QuickLink({
   title,
   description,
   href,
-  icon,
 }: {
   title: string
   description: string
   href: string
-  icon: string
 }) {
   return (
     <div className="group relative rounded-xl border border-zinc-200 dark:border-zinc-800">

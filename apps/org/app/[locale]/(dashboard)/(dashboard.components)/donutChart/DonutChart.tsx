@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 "use client"
 
 import React, { createContext, useEffect, useState } from "react"
@@ -69,7 +70,7 @@ export type Context = Pick<
 
 export const DonutChartContext = createContext<Context>(undefined!)
 
-export const DonutChart: React.FC<Props> = ({
+export const DonutChart: React.FC<Props> = function ({
   className = "donutchart",
   clickToggle = true,
   colorFunction = (colors, index) => colors[index % colors.length],
@@ -100,7 +101,6 @@ export const DonutChart: React.FC<Props> = ({
     Number.isNaN(value / total)
       ? "--"
       : `${((value / total) * 100).toFixed(0)}%`,
-  height = 500,
   interactive = true,
   innerRadius = 0.7,
   legend = true,
@@ -112,7 +112,7 @@ export const DonutChart: React.FC<Props> = ({
   strokeColor = "#212121",
   toggledOffset = 0.04,
   width = 750,
-}) => {
+}) {
   const [selected, setSelected] = useState<any>(null)
   const [toggleSelect, setToggleSelect] = useState(false)
 

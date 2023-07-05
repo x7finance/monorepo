@@ -1,4 +1,6 @@
-export function Megaphone(props: any) {
+import type { SVGProps } from "react"
+
+export function Megaphone(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 70 70" {...props}>
       <path d="M19 64.54h-6.9a2.25 2.25 0 0 1-2.25-2.25V43.72a1 1 0 0 1 .39-.79 1 1 0 0 1 .87-.18l5.76 1.53a1 1 0 0 1 .74 1.06c-.55 6.29.51 11.43 3.26 15.72a2.29 2.29 0 0 1 .08 2.33A2.21 2.21 0 0 1 19 64.54zM11.82 45V62.29a.25.25 0 0 0 .25.25H19a.22.22 0 0 0 .2-.12.29.29 0 0 0 0-.29c-2.87-4.47-4.07-9.76-3.64-16.13zM58.1 44.16a1 1 0 0 1-1-1V26.83a1 1 0 0 1 1-1 9.17 9.17 0 0 1 0 18.33zm1-16.26V42.09a7.17 7.17 0 0 0 0-14.19z" />

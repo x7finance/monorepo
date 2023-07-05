@@ -1,10 +1,12 @@
 {
+  "name": "x7finance",
   "scripts": {
     "build": "turbo run build",
     "clean": "git clean -xdf node_modules dist .next",
     "clean:workspaces": "turbo clean",
     "dev": "turbo run dev --concurrency 20",
     "lint": "turbo lint && manypkg check",
+    "manypkg": "manypkg check",
     "lint-staged-husky": "lint-staged",
     "test": "turbo run test",
     "format-lint": "prettier --config prettier.config.js --check --ignore-unknown .",
@@ -25,22 +27,20 @@
   },
   "packageManager": "pnpm@8.6.2",
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
     "@commitlint/cli": "^17.6.6",
     "@commitlint/config-conventional": "^17.6.6",
     "@commitlint/types": "^17.4.4",
     "@ianvs/prettier-plugin-sort-imports": "^4.0.2",
-    "@types/node": "^20.3.2",
+    "@manypkg/cli": "^0.21.0",
+    "@types/node": "^20.3.3",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
-    "@manypkg/cli": "^0.21.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "turbo": "^1.10.7",
     "typescript": "^5.1.3",
     "vercel": "^31.0.1"

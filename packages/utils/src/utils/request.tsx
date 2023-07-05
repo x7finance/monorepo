@@ -1,10 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+interface ResponseError extends Error {
+  name: string
+}
+
 export default function request(
   url: string,
   options?: RequestInit
-): Promise<any> {
+): Promise<unknown> {
   return fetch(
     url,
-    (Object as any).assign(
+    Object.assign(
       {},
       {
         headers: {
@@ -14,17 +22,17 @@ export default function request(
       options
     )
   )
-    .then((response) => {
+    .then((response: Response) => {
       const contentType = response.headers.get("content-type")
 
       if (contentType && contentType.indexOf("application/json") !== -1) {
-        return response.json().then((json) => {
+        return response.json().then((json: any) => {
           if (response.status >= 200 && response.status < 500) {
             return json
           } else {
-            const error = new Error()
+            const error: ResponseError = new Error()
             error.name = `${response.status}`
-            error.message = json.error
+            error.message = json?.error
             throw error
           }
         })
@@ -36,12 +44,12 @@ export default function request(
               text,
             }
           } else {
-            const error = new Error()
+            const error: ResponseError = new Error()
             error.name = `${response.status}`
             throw error
           }
         })
       }
     })
-    .catch((error) => console.error("error: ", error))
+    .catch((error: ResponseError) => console.error("error: ", error))
 }

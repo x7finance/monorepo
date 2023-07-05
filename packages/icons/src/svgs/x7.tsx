@@ -1,4 +1,6 @@
-export function X7Logo(props: any) {
+import type { SVGProps } from "react"
+
+export function X7Logo(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       style={{ padding: "1px" }}

@@ -1,6 +1,8 @@
-export function Medium(props: any) {
+import type { SVGProps } from "react"
+
+export function Medium(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg {...props} viewBox="0 0 24 24" fill="none">
+    <svg viewBox="0 0 24 24" fill="none" {...props}>
       <path
         d="M5.94271 16.8815C8.67249 16.8815 10.8854 14.6686 10.8854 11.9388C10.8854 9.20902 8.67249 6.99609 5.94271 6.99609C3.21293 6.99609 1 9.20902 1 11.9388C1 14.6686 3.21293 16.8815 5.94271 16.8815Z"
         fill="currentColor"

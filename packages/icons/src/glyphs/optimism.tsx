@@ -1,6 +1,7 @@
+import type { SVGProps } from "react"
 import { memo } from "react"
 
-function Optimism(props: any) {
+function Optimism(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 100 100" fill="none" {...props}>
       <path

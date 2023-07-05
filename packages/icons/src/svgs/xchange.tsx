@@ -1,4 +1,6 @@
-export function Xchange(props: any) {
+import type { SVGProps } from "react"
+
+export function Xchange(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 642 166" fill="none" {...props}>
       <path

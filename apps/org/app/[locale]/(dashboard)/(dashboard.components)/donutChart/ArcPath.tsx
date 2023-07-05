@@ -87,7 +87,6 @@ export const ArcPath: React.FC<Props> = ({ item }) => {
     angle,
     classNames,
     clickHandlers,
-    index,
     isEmpty,
     label,
     value,

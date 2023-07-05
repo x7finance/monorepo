@@ -47,6 +47,7 @@ SheetPortal.displayName = SheetPrimitive.Portal.displayName
 const SheetOverlay = forwardRef<
   ElementRef<typeof SheetPrimitive.Overlay>,
   ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay>
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 >(({ className, children, ...props }, ref) => (
   <SheetPrimitive.Overlay
     className={cn(

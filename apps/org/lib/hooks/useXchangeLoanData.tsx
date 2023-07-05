@@ -35,7 +35,7 @@ export function useXchangeLoanData(
   })
 
   const tokenByIndex = parseInt(token?.[0]?.result?.toString() ?? "0", 10) || 0
-  const timestamp = Math.floor(Date.now() / 1000)
+  // const timestamp = Math.floor(Date.now() / 1000)
   const { data, isLoading: isInitialPairLoading } = useContractReads({
     contracts: [
       {
