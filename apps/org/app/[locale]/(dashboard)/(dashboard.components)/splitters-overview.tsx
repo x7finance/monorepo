@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { X7EcosystemSplitter, X7TreasurySplitterV2 } from "contracts"
+import { X7EcosystemSplitter, X7TreasurySplitterV2 } from "@x7/contracts"
 import { useContractReads } from "wagmi"
 
 import { ContractsEnum } from "@x7/common"

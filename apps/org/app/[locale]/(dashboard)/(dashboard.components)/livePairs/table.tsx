@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { AllPairsLength } from "contracts"
+import { AllPairsLength } from "@x7/contracts"
 import { useContractReads } from "wagmi"
 
 import type { BlockchainType } from "@x7/common"

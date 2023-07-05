@@ -3,7 +3,7 @@ import { useCallback, useState } from "react"
 import Image from "next/image"
 import { GradientTypes } from "@/site-components/gradients"
 import { ConnectKitButton } from "connectkit"
-import { X7NFT } from "contracts"
+import { X7NFT } from "@x7/contracts"
 import { formatEther, parseEther } from "viem"
 import { useContractReads, useNetwork, useSwitchNetwork } from "wagmi"
 

@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { X7InitialLiquidityLoanTerm001 } from "contracts"
+import { X7InitialLiquidityLoanTerm001 } from "@x7/contracts"
 import { useContractReads } from "wagmi"
 
 import type { BlockchainType, LoanType } from "@x7/common"
