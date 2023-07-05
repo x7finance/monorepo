@@ -1,4 +1,5 @@
 import Image from "next/image"
+
 import { CheckCircleIcon } from "@x7/icons"
 
 const SUPPORT_ITEMS = [
@@ -10,7 +11,7 @@ const SUPPORT_ITEMS = [
   "Other",
 ]
 
-export function Assistance(props) {
+export function Assistance(props: { title?: string }) {
   const { title = "Not any of the above?" } = props
   return (
     <div className="py-24 sm:py-32">
@@ -26,17 +27,14 @@ export function Assistance(props) {
             />
 
             <div className="w-full flex-auto">
-              <h2 className="text-3xl font-bold tracking-tight dark:text-white text-black sm:text-4xl">
+              <h2 className="text-3xl font-bold tracking-tight text-black dark:text-white sm:text-4xl">
                 {title}
               </h2>
-              <p className="mt-6 text-lg leading-8 dark:text-slate-300 text-slate-800">
+              <p className="mt-6 text-lg leading-8 text-slate-800 dark:text-slate-300">
                 {`Reach out to the X7 DAO below and we'll be happy to get
             you answers to any of the following and more.`}
               </p>
-              <ul
-                role="list"
-                className="mt-10 grid grid-cols-1 gap-x-8 gap-y-3 text-base leading-7 dark:text-white text-black sm:grid-cols-2"
-              >
+              <ul className="mt-10 grid grid-cols-1 gap-x-8 gap-y-3 text-base leading-7 text-black dark:text-white sm:grid-cols-2">
                 {SUPPORT_ITEMS.map((benefit) => (
                   <li key={benefit} className="flex gap-x-3">
                     <CheckCircleIcon
@@ -51,7 +49,7 @@ export function Assistance(props) {
                 <a
                   rel="noopener noreferrer"
                   href="mailto:marketing@x7finance.org"
-                  className="text-sm font-semibold leading-6 dark:text-indigo-400 text-indigo-700"
+                  className="text-sm font-semibold leading-6 text-indigo-700 dark:text-indigo-400"
                 >
                   Shoot us a note <span aria-hidden="true">&rarr;</span>
                 </a>

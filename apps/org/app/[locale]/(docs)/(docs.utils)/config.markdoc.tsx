@@ -1,4 +1,4 @@
-import { Config } from "@markdoc/markdoc"
+import type { Config } from "@markdoc/markdoc"
 
 import { Fence } from "../(docs.components)/fence.markdoc"
 import { Heading } from "../(docs.components)/heading.markdoc"

@@ -1,5 +1,5 @@
 export function BSCIcon(props: any) {
-  const { size = 24 } = props;
+  const { size = 24 } = props
   return (
     <svg
       width={size}
@@ -12,5 +12,5 @@ export function BSCIcon(props: any) {
         fill="#F3BA2F"
       />
     </svg>
-  );
+  )
 }

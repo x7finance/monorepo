@@ -1,18 +1,19 @@
-import { Metadata } from "next"
+import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { GradientTypes } from "@/site-components/gradients"
 import { PioneerDrop } from "@/site-components/pioneer-drop"
+import { useTranslations } from "next-intl"
+
 import { SocialsEnum, X7LinksEnum } from "@x7/common"
 import { DotIcon, RocketIcon, Xchange } from "@x7/icons"
-import { buttonVariants } from "@x7/ui"
+// @ts-expect-error todo: fix this
+import { buttonVariants } from "@x7/ui/button"
 import { cn } from "@x7/utils"
-import { useTranslations } from "next-intl"
 
 import { env } from "@/env.mjs"
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { DocsLinks, TokenLinksEnum } from "@/lib/types/links"
-
 import { SectionHeader } from "./(marketing.components)/section-header"
 import { SectionStep } from "./(marketing.components)/section-step"
 import { HeaderVideoComponent } from "./(marketing.components)/video"
@@ -25,7 +26,7 @@ const metadata = {
   section: "default",
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export function generateMetadata(): Metadata {
   return generateMetadataFromDoc(metadata)
 }
 
@@ -36,23 +37,23 @@ export default function IndexPage() {
     <>
       <section className="space-y-6 pb-8 md:pb-12">
         <HeaderVideoComponent />
-        <div className="pointer-events-none absolute inset-x-0 text-sm md:text-base top-4 sm:flex sm:justify-center sm:px-6 sm:pb-5 lg:px-8">
-          <div className="pointer-events-auto announcement-shadow justify-between gap-x-6 bg-black border-zinc-900 border px-6 py-1.5 sm:rounded-xl sm:py-3 sm:pl-4 sm:pr-3.5">
+        <div className="pointer-events-none absolute inset-x-0 top-4 text-sm sm:flex sm:justify-center sm:px-6 sm:pb-5 md:text-base lg:px-8">
+          <div className="announcement-shadow pointer-events-auto justify-between gap-x-6 border border-zinc-900 bg-black px-6 py-1.5 sm:rounded-xl sm:py-3 sm:pl-4 sm:pr-3.5">
             <Link
               href={X7LinksEnum.Xchange}
               target="_blank"
-              className="text-zinc-400 tracking-tight"
+              className="tracking-tight text-zinc-400"
               rel="noopener noreferrer"
             >
-              <div className="flex flex-col sm:flex-row justify-center items-center">
+              <div className="flex flex-col items-center justify-center sm:flex-row">
                 <div>
-                  <RocketIcon className="h-4 w-4 inline-block text-zinc-400 mr-2" />
+                  <RocketIcon className="mr-2 inline-block h-4 w-4 text-zinc-400" />
                   <strong className="font-semibold text-zinc-200">
                     {t("banner.title")}
                   </strong>
                 </div>
                 <div className="block">
-                  <DotIcon className="mx-2 hidden sm:inline h-2 w-2 fill-current" />
+                  <DotIcon className="mx-2 hidden h-2 w-2 fill-current sm:inline" />
                   {t("banner.description")}
                   {` `}
                   <span aria-hidden="true">&rarr;</span>
@@ -61,29 +62,29 @@ export default function IndexPage() {
             </Link>
           </div>
         </div>
-        <div className="container flex flex-col items-center sm:gap-4 text-center relative mt-16">
-          <h1 className="flex mb-6 flex-col italic lg:flex-row justify-center text-center text-5xl sm:text-7xl md:text-8xl lg:text-[7rem] flex-wrap font-extrabold tracking-tightest">
+        <div className="container relative mt-16 flex flex-col items-center text-center sm:gap-4">
+          <h1 className="mb-6 flex flex-col flex-wrap justify-center text-center text-5xl font-extrabold italic tracking-tightest sm:text-7xl md:text-8xl lg:flex-row lg:text-[7rem]">
             <span
               data-content="Launch."
-              className="relative block before:text-hero-header before:content-[attr(data-content)] dark:before:content-[attr(data-content)] before:w-full before:block before:absolute before:top-0 before:bottom-0 before:left-0 before:px-2 before:text-center before:text-super-gradient before:animate-gradient-background-1"
+              className="before:text-hero-header before:text-super-gradient relative block before:absolute before:bottom-0 before:left-0 before:top-0 before:block before:w-full before:animate-gradient-background-1 before:px-2 before:text-center before:content-[attr(data-content)] dark:before:content-[attr(data-content)]"
             >
-              <span className="px-2 text-transparent bg-clip-text bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-100 to-gray-900 animate-gradient-foreground-1">
+              <span className="animate-gradient-foreground-1 bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-100 to-gray-900 bg-clip-text px-2 text-transparent">
                 Launch.
               </span>
             </span>
             <span
               data-content="Trade."
-              className="relative block before:text-hero-header before:content-[attr(data-content)] dark:before:content-[attr(data-content)] before:w-full before:block before:absolute before:top-0 before:bottom-0 before:left-0 before:px-2 before:text-center before:text-super-gradient before:animate-gradient-background-2"
+              className="before:text-hero-header before:text-super-gradient relative block before:absolute before:bottom-0 before:left-0 before:top-0 before:block before:w-full before:animate-gradient-background-2 before:px-2 before:text-center before:content-[attr(data-content)] dark:before:content-[attr(data-content)]"
             >
-              <span className="px-2 text-transparent bg-clip-text bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-100 to-gray-900 animate-gradient-foreground-2">
+              <span className="animate-gradient-foreground-2 bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-100 to-gray-900 bg-clip-text px-2 text-transparent">
                 Trade.
               </span>
             </span>
             <span
               data-content="Lend."
-              className="relative block before:text-hero-header before:content-[attr(data-content)] dark:before:content-[attr(data-content)] before:w-full before:block before:absolute before:top-0 before:bottom-0 before:left-0 before:px-2 before:text-center before:text-super-gradient before:animate-gradient-background-3"
+              className="before:text-hero-header before:text-super-gradient relative block before:absolute before:bottom-0 before:left-0 before:top-0 before:block before:w-full before:animate-gradient-background-3 before:px-2 before:text-center before:content-[attr(data-content)] dark:before:content-[attr(data-content)]"
             >
-              <span className="px-2 text-transparent bg-clip-text bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-100 to-gray-900 animate-gradient-foreground-3">
+              <span className="animate-gradient-foreground-3 bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-100 to-gray-900 bg-clip-text px-2 text-transparent">
                 Lend.
               </span>
             </span>
@@ -91,11 +92,11 @@ export default function IndexPage() {
 
           <span
             data-content="On"
-            className="relative text-2xl sm:text-3xl xl:text-4xl block italic before:content-[attr(data-content)] before:w-full before:z-0 before:block before:absolute before:top-0 before:px-2 before:bottom-0 before:left-0 before:text-center before:text-hero-header"
+            className="before:text-hero-header relative block text-2xl italic before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:block before:w-full before:px-2 before:text-center before:content-[attr(data-content)] sm:text-3xl xl:text-4xl"
           >
-            <span className="px-6 text-hero text-on">On</span>
+            <span className="text-hero text-on px-6">On</span>
           </span>
-          <span className="relative py-4 w-[350px] sm:w-[400px] xl:w-[550px] before:w-full before:z-0 before:block before:absolute before:top-0 before:px-2 before:bottom-0 before:left-0 before:text-center before:text-black">
+          <span className="relative w-[350px] py-4 before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:block before:w-full before:px-2 before:text-center before:text-black sm:w-[400px] xl:w-[550px]">
             <Image
               height={500}
               width={500}
@@ -106,8 +107,8 @@ export default function IndexPage() {
             />
           </span>
 
-          <p className="max-w-[42rem] leading-normal sm:text-xl sm:leading-8 bg-transparent"></p>
-          <div className="gap-y-2 md:gap-x-3 md:gap-y-0 flex flex-col-reverse md:flex-row items-center">
+          <p className="max-w-[42rem] bg-transparent leading-normal sm:text-xl sm:leading-8"></p>
+          <div className="flex flex-col-reverse items-center gap-y-2 md:flex-row md:gap-x-3 md:gap-y-0">
             <Link
               href={DocsLinks.Index}
               className={cn(
@@ -115,7 +116,7 @@ export default function IndexPage() {
                   variant: "outline",
                   size: "lg",
                 }),
-                "text-md text-zinc-300 h-12 border-zinc-500 hover:text-white hover:shadow-sm transition-all duration-500 hover:shadow-white hover:bg-transparent w-full"
+                "text-md h-12 w-full border-zinc-500 text-zinc-300 transition-all duration-500 hover:bg-transparent hover:text-white hover:shadow-sm hover:shadow-white"
               )}
             >
               Read Docs
@@ -124,9 +125,9 @@ export default function IndexPage() {
               href={X7LinksEnum.Xchange}
               target="_blank"
               rel="noopener noreferrer"
-              className="animate-background m-auto inline-block transition-all duration-1000 rounded-md bg-zinc-900 from-[#23094f] via-[#b74e4c] to-yellow-500 hover:bg-none bg-[length:400%_400%] p-[0.175rem] [animation-duration:_6s] bg-gradient-to-r dark:bg-black"
+              className="animate-background m-auto inline-block rounded-md bg-zinc-900 bg-gradient-to-r from-[#23094f] via-[#b74e4c] to-yellow-500 bg-[length:400%_400%] p-[0.175rem] transition-all duration-1000 [animation-duration:_6s] hover:bg-none dark:bg-black"
             >
-              <span className="flex items-center bg-white px-8 rounded-md py-3 text-md font-medium text-zinc-900 dark:bg-black dark:text-white hover:bg-gradient-to-tr hover:from-purple-500 hover:text-white hover:via-purple-800 hover:to-red-500">
+              <span className="text-md flex items-center rounded-md bg-white px-8 py-3 font-medium text-zinc-900 hover:bg-gradient-to-tr hover:from-purple-500 hover:via-purple-800 hover:to-red-500 hover:text-white dark:bg-black dark:text-white">
                 Enter <Xchange className="w-24 pl-1 pr-2" />
                 {` `}
                 <span aria-hidden="true">&rarr;</span>
@@ -136,7 +137,7 @@ export default function IndexPage() {
         </div>
       </section>
 
-      <div className="overflow-hidden py-24 sm:py-32 mt-12 sm:mt-48 md:mt-24 lg:mt-28">
+      <div className="mt-12 overflow-hidden py-24 sm:mt-48 sm:py-32 md:mt-24 lg:mt-28">
         <SectionHeader
           pioneerId="0069"
           subHeader="Trade"
@@ -162,11 +163,11 @@ export default function IndexPage() {
                           src={`https://img.x7.finance/pioneers/${feature.id}.png`}
                           alt="Random Pioneer Image"
                         />
-                        <h5 className="mt-2 mb-1 text-black dark:text-white text-[22px] font-semibold tracking-tighter">
+                        <h5 className="mb-1 mt-2 text-[22px] font-semibold tracking-tighter text-black dark:text-white">
                           {feature.name}
                         </h5>
                       </dt>{" "}
-                      <dd className="inline dark:text-zinc-500 text-zinc-400">
+                      <dd className="inline text-zinc-400 dark:text-zinc-500">
                         {feature.description}
                       </dd>
                     </div>
@@ -175,7 +176,7 @@ export default function IndexPage() {
               </div>
             </div>
             <div className="sm:px-6 lg:px-0">
-              <div className="relative isolate overflow-hidden bg-gradient-to-bl from-violet-800 to-black px-6 pt-8 sm:mx-auto sm:max-w-2xl rounded-tb-3xl rounded-tl-3xl sm:pl-16 sm:pr-0 sm:pt-16 lg:mx-0 lg:max-w-none">
+              <div className="rounded-tb-3xl relative isolate overflow-hidden rounded-tl-3xl bg-gradient-to-bl from-violet-800 to-black px-6 pt-8 sm:mx-auto sm:max-w-2xl sm:pl-16 sm:pr-0 sm:pt-16 lg:mx-0 lg:max-w-none">
                 <div
                   className="absolute -inset-y-px -left-3 -z-10 w-full origin-bottom-left skew-x-[-32deg] bg-indigo-100 opacity-20 ring-1 ring-inset ring-white"
                   aria-hidden="true"
@@ -186,7 +187,7 @@ export default function IndexPage() {
                     alt="Xchange screenshot"
                     width={2432}
                     height={1442}
-                    className="-mb-12 sm:w-[57rem] w-[40rem] max-w-none rounded-tl-xl bg-zinc-800 ring-1 ring-white/10"
+                    className="-mb-12 w-[40rem] max-w-none rounded-tl-xl bg-zinc-800 ring-1 ring-white/10 sm:w-[57rem]"
                   />
                 </div>
                 <div
@@ -278,23 +279,23 @@ export default function IndexPage() {
       <section className="relative isolate overflow-hidden px-6 py-12 lg:px-8">
         <div
           className={cn(
-            `w-full rounded-3xl bg-gradient-to-r p-[2px] from-emerald-400/50 via-green-500/50 to-cyan-400/50 max-w-5xl mx-auto`
+            `mx-auto w-full max-w-5xl rounded-3xl bg-gradient-to-r from-emerald-400/50 via-green-500/50 to-cyan-400/50 p-[2px]`
           )}
         >
-          <div className="flex h-full w-full items-center justify-center bg-white dark:bg-black rounded-3xl">
-            <div className="mx-auto max-w-2xl lg:max-w-4xl py-12">
-              <h3 className="mt-1 mx-4 sm:text-3xl text-xl font-bold tracking-tight dark:text-hero-header-regular text-hero-header-light italic text-center">
+          <div className="flex h-full w-full items-center justify-center rounded-3xl bg-white dark:bg-black">
+            <div className="mx-auto max-w-2xl py-12 lg:max-w-4xl">
+              <h3 className="dark:text-hero-header-regular text-hero-header-light mx-4 mt-1 text-center text-xl font-bold italic tracking-tight sm:text-3xl">
                 Common Token Launch Scenario
               </h3>
               <PioneerDrop lineColor="to-emerald-500" height={50} />
               <figure>
-                <blockquote className="text-center mx-4 font-semibold tracking-tight leading-8 text-zinc-900 dark:text-zinc-300 sm:leading-9">
-                  <p className="italic text-base sm:text-lg md:text-2xl">
+                <blockquote className="mx-4 text-center font-semibold leading-8 tracking-tight text-zinc-900 dark:text-zinc-300 sm:leading-9">
+                  <p className="text-base italic sm:text-lg md:text-2xl">
                     {`Bruce Lee has a great idea for a token, but only has 10 ETH
                     in startup captial available. Bruce needs to pay for product,
                     marketing, community growth, and many other expenses.`}
                   </p>
-                  <p className="italic mt-5 text-base sm:text-lg md:text-2xl">
+                  <p className="mt-5 text-base italic sm:text-lg md:text-2xl">
                     {`Before X7, Bruce would need to use 20-30% of his startup
                     capital just for liquidity, and he'd rarely get it back.
                     Using X7, Bruce can take just 0.5 ETH and leverage it 10X to
@@ -306,7 +307,7 @@ export default function IndexPage() {
                   <Image
                     height={200}
                     width={200}
-                    className="h-auto w-24 overflow-hidden rounded-lg shadow-sm ring-1 ring-zinc-900/10 dark:ring-zinc-100/10 mx-auto"
+                    className="mx-auto h-auto w-24 overflow-hidden rounded-lg shadow-sm ring-1 ring-zinc-900/10 dark:ring-zinc-100/10"
                     src={"https://img.x7.finance/pioneers/1234.png"}
                     alt="Bruce Lee Pioneer Image"
                   />
@@ -339,7 +340,7 @@ export default function IndexPage() {
           <div className="mx-auto max-w-2xl px-2 lg:max-w-none">
             <div className="grid grid-cols-1 items-center gap-x-16 gap-y-10 lg:grid-cols-2">
               <div className="order-last md:order-1">
-                <h2 className="sm:text-7xl text-4xl font-bold tracking-tight text-black dark:text-white lg:pl-9">
+                <h2 className="text-4xl font-bold tracking-tight text-black dark:text-white sm:text-7xl lg:pl-9">
                   Pioneers <br />
                   of
                   <br />
@@ -374,7 +375,7 @@ export default function IndexPage() {
                     />
                   </div>
                   <div className="mt-4 sm:ml-6 sm:mt-0 lg:ml-0 lg:mt-6">
-                    <h5 className="mt-2 mb-1 text-black dark:text-white text-[22px] font-semibold tracking-tighter">
+                    <h5 className="mb-1 mt-2 text-[22px] font-semibold tracking-tighter text-black dark:text-white">
                       {incentive.name}
                     </h5>
 
@@ -384,7 +385,7 @@ export default function IndexPage() {
                     <Link
                       className={cn(
                         incentive?.gradient,
-                        `flex-none mt-2 group-hover:opacity-90 bg-gradient-to-r bg-clip-text font-display font-semibold sm:group-hover:text-[25px] transform duration-300 leading-6 text-transparent text-sm`
+                        `font-display mt-2 flex-none transform bg-gradient-to-r bg-clip-text text-sm font-semibold leading-6 text-transparent duration-300 group-hover:opacity-90 sm:group-hover:text-[25px]`
                       )}
                       {...(incentive?.isExternal
                         ? { target: "_blank", rel: "noopener noreferrer" }
@@ -403,7 +404,7 @@ export default function IndexPage() {
 
       <section
         id="long-live-decentralization"
-        className="container pt-8 md:pt-12 lg:pt-24 mb-20"
+        className="container mb-20 pt-8 md:pt-12 lg:pt-24"
       >
         <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
           <PioneerDrop pioneerId={"4208"} lineColor={"to-sky-500"} />

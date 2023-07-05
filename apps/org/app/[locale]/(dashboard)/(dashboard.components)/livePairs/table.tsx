@@ -1,22 +1,28 @@
-import { AllPairsLength } from "contracts"
-
 import { useEffect, useState } from "react"
-import { ContractsEnum } from "@x7/common"
+import { AllPairsLength } from "contracts"
 import { useContractReads } from "wagmi"
 
-import { generateWagmiChain } from "@/lib/generateWagmiChain"
-import { Pagination } from "@/components/pagination"
-import { Table } from "@/components/table"
+import type { BlockchainType } from "@x7/common"
+import { ContractsEnum } from "@x7/common"
+// @ts-expect-error todo: fix this
+import { Pagination } from "@x7/ui/pagination"
+// @ts-expect-error todo: fix this
+import { Table } from "@x7/ui/table"
 
+import { generateWagmiChain } from "@/lib/generateWagmiChain"
 import { PairRow } from "./row"
+
+type PairsTableProps = {
+  chainId: BlockchainType
+}
 
 const ITEMS_PER_PAGE = 8
 
-export function PairsTable({ chainId }) {
+export function PairsTable({ chainId }: PairsTableProps) {
   const [allPairsLength, setAllPairsLength] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
 
-  const { data } = useContractReads({
+  const { data } = useContractReads<any>({
     contracts: [
       {
         address: ContractsEnum.XchangeFactory,
@@ -61,7 +67,7 @@ export function PairsTable({ chainId }) {
               accessor: "token",
               responsive: false,
               width: "100",
-              cellRenderer: (t) => (
+              cellRenderer: (t: number) => (
                 <PairRow id={t} chainId={chainId} type="token" />
               ),
             },
@@ -69,7 +75,7 @@ export function PairsTable({ chainId }) {
               header: "Pair Contract",
               accessor: "description",
               responsive: true,
-              cellRenderer: (t) => (
+              cellRenderer: (t: number) => (
                 <PairRow id={t} chainId={chainId} type="description" />
               ),
             },
@@ -77,7 +83,7 @@ export function PairsTable({ chainId }) {
               header: "Price",
               accessor: "price",
               responsive: true,
-              cellRenderer: (t) => (
+              cellRenderer: (t: number) => (
                 <PairRow id={t} chainId={chainId} type="price" />
               ),
             },
@@ -85,7 +91,7 @@ export function PairsTable({ chainId }) {
               header: "Pair Reserves",
               accessor: "reserves",
               responsive: true,
-              cellRenderer: (t) => (
+              cellRenderer: (t: number) => (
                 <PairRow id={t} chainId={chainId} type="reserves" />
               ),
             },
@@ -93,7 +99,7 @@ export function PairsTable({ chainId }) {
               header: "Chart",
               accessor: "chart",
               responsive: true,
-              cellRenderer: (t) => (
+              cellRenderer: (t: number) => (
                 <PairRow id={t} chainId={chainId} type="chart" />
               ),
             },
@@ -101,7 +107,7 @@ export function PairsTable({ chainId }) {
               header: "Scan",
               accessor: "scan",
               responsive: true,
-              cellRenderer: (t) => (
+              cellRenderer: (t: number) => (
                 <PairRow id={t} chainId={chainId} type="scan" />
               ),
             },
@@ -109,7 +115,7 @@ export function PairsTable({ chainId }) {
               header: "Trade",
               accessor: "trade",
               responsive: true,
-              cellRenderer: (t) => (
+              cellRenderer: (t: number) => (
                 <PairRow id={t} chainId={chainId} type="trade" />
               ),
             },
@@ -117,13 +123,11 @@ export function PairsTable({ chainId }) {
         />
       </div>
       <Pagination
-        {...{
-          currentPage,
-          pageLength: allPairsLength,
-          itemsPerPage: ITEMS_PER_PAGE,
-          goToPreviousPage,
-          goToNextPage,
-        }}
+        currentPage={currentPage}
+        pageLength={allPairsLength}
+        itemsPerPage={ITEMS_PER_PAGE}
+        goToPreviousPage={goToPreviousPage}
+        goToNextPage={goToNextPage}
       />
     </>
   )

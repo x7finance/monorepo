@@ -1,12 +1,17 @@
-"use client"
-
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 import { DocsLinks } from "@/lib/types/links"
 
-const topNavigation = [
+interface TopNavigationLink {
+  href: string
+  title: string
+  section: string
+  pioneerId: string
+}
+
+const TOP_NAVIGATION: TopNavigationLink[] = [
   {
     href: DocsLinks.Guides,
     title: "Guides",
@@ -45,7 +50,7 @@ const topNavigation = [
   },
 ]
 
-function getSection(str) {
+function getSection(str: string): string | null | undefined {
   const parts = str.split("/")
 
   if (parts.length >= 3) {
@@ -60,9 +65,9 @@ export function SectionNavigation({ className }: { className?: string }) {
   const currentSection = getSection(pathname)
 
   return (
-    <ul role="list" className={className}>
-      {topNavigation.map(
-        (link: any) =>
+    <ul className={className}>
+      {TOP_NAVIGATION.map(
+        (link) =>
           link.section !== currentSection && (
             <li key={link.href} className="relative">
               <Link href={link.href} className="group">
@@ -72,14 +77,14 @@ export function SectionNavigation({ className }: { className?: string }) {
                     height={200}
                     width={200}
                     src={`https://img.x7.finance/pioneers/${link.pioneerId}.png`}
-                    className="h-10 w-10 flex-none rounded-full ring-zinc-400/20 ring-[2px]"
+                    className="h-10 w-10 flex-none rounded-full ring-[2px] ring-zinc-400/20"
                   />
                   <div className="ml-4 flex-auto">
-                    <div className="font-medium dark:text-zinc-300 text-zinc-700 group-hover:dark:text-white">
+                    <div className="font-medium text-zinc-700 dark:text-zinc-300 group-hover:dark:text-white">
                       {link.title}
                     </div>
                   </div>
-                  <div className="pointer-events-auto ml-4 flex-none rounded-md px-2 py-[0.3125rem] font-medium text-zinc-700 dark:text-zinc-400 shadow-sm ring-1 ring-zinc-700/10 dark:ring-zinc-700/50 dark:group-hover:text-white dark:group-hover:bg-black">
+                  <div className="pointer-events-auto ml-4 flex-none rounded-md px-2 py-[0.3125rem] font-medium text-zinc-700 shadow-sm ring-1 ring-zinc-700/10 dark:text-zinc-400 dark:ring-zinc-700/50 dark:group-hover:bg-black dark:group-hover:text-white">
                     View
                   </div>
                 </div>

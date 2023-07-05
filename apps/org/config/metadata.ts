@@ -1,5 +1,4 @@
 import { env } from "@/env.mjs"
-
 import { siteConfig } from "./site"
 
 export const SITE_METADATA = {

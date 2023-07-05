@@ -2,9 +2,11 @@
 
 import { Fragment } from "react"
 import { Menu, Transition } from "@headlessui/react"
+
 import { XCHANGE } from "@x7/common"
 import { ChainsArray, ChevronDownIcon } from "@x7/icons"
-import { Button } from "@x7/ui"
+// @ts-expect-error todo: fix this
+import { Button } from "@x7/ui/button"
 import { cn } from "@x7/utils"
 
 export function Dropdown({
@@ -23,7 +25,7 @@ export function Dropdown({
       <div>
         <Menu.Button as="span" className="inline-flex w-full justify-center">
           <Button
-            icon={<ChevronDownIcon className="w-4 h-4" />}
+            icon={<ChevronDownIcon className="h-4 w-4" />}
             iconPosition="end"
             size={"sm"}
             variant={type === "scan" ? "outline" : "default"}

@@ -1,6 +1,7 @@
-import { Metadata } from "next"
+import type { Metadata } from "next"
 import Link from "next/link"
 import { SiteContentContainer } from "@/site-components/site-content-container"
+
 import { SocialsEnum } from "@x7/common"
 import {
   BookIcon,
@@ -27,7 +28,7 @@ const metadata = {
   section: "default",
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export function generateMetadata(): Metadata {
   return generateMetadataFromDoc(metadata)
 }
 
@@ -40,7 +41,7 @@ export default function CommunityPage() {
         subHeader="One of the best communities in all of DeFi, come say hello"
       />
       <SiteContentContainer>
-        <div className="grid grid-cols-1 gap-8 pt-10 mt-4 border-t not-prose border-zinc-900/5 dark:border-white/5 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="not-prose mt-4 grid grid-cols-1 gap-8 border-t border-zinc-900/5 pt-10 dark:border-white/5 sm:grid-cols-2 xl:grid-cols-4">
           {socials.map((social) => (
             <Social key={social.href} social={social} />
           ))}
@@ -57,7 +58,7 @@ function Social({ social }: any) {
       className="group relative flex rounded-2xl bg-zinc-50 transition-shadow hover:shadow-md hover:shadow-zinc-900/5 dark:bg-white/2.5 dark:hover:shadow-black/5"
     >
       <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-zinc-900/7.5  group-hover:ring-zinc-900/10 dark:ring-white/10 dark:group-hover:ring-white/20" />
-      <div className="relative px-4 pt-12 pb-4 rounded-2xl">
+      <div className="relative rounded-2xl px-4 pb-4 pt-12">
         <SocialIcon fill={social?.fill} icon={social.icon} />
         <h3 className="mt-4 text-sm font-semibold leading-7 text-zinc-900 dark:text-white">
           <Link
@@ -82,10 +83,10 @@ function SocialIcon({ icon: Icon, fill }: any) {
     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-900/5 ring-1 ring-zinc-900/25 backdrop-blur-[2px] transition duration-300 group-hover:bg-white/50 group-hover:ring-zinc-900/25 dark:bg-white/7.5 dark:ring-white/15 dark:group-hover:bg-violet-300/10 dark:group-hover:ring-white">
       <Icon
         className={cn(
-          !!fill
+          fill
             ? fill
-            : `dark:fill-white/10 dark:stroke-zinc-400 fill-zinc-700/10 stroke-zinc-700`,
-          `transition-colors duration-300 h-7 w-7 group-hover:stroke-zinc-900 dark:group-hover:fill-white dark:group-hover:stroke-white`
+            : `fill-zinc-700/10 stroke-zinc-700 dark:fill-white/10 dark:stroke-zinc-400`,
+          `h-7 w-7 transition-colors duration-300 group-hover:stroke-zinc-900 dark:group-hover:fill-white dark:group-hover:stroke-white`
         )}
       />
     </div>

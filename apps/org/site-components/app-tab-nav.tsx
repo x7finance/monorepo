@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
+
 import { cn } from "@x7/utils"
 
 import { DASHBOARD_TABS_NAV } from "@/config/site"
@@ -13,7 +14,7 @@ export function AppTabNavigation() {
 
   return (
     <>
-      <div className="relative pb-2 mx-3 sm:hidden tab-nav-select">
+      <div className="tab-nav-select relative mx-3 pb-2 sm:hidden">
         <label htmlFor="tabs" className="sr-only">
           Select a tab
         </label>
@@ -26,7 +27,7 @@ export function AppTabNavigation() {
           }}
           id="tabs"
           name="tabs"
-          className="block rounded-md border border-zinc-400 dark:border-zinc-600 pl-3 pr-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:bg-zinc-800 bg-zinc-200 h-12 text-base leading-7 w-full mx-0 my-1 px-6 py-0 font-semibold appearance-none"
+          className="mx-0 my-1 block h-12 w-full appearance-none rounded-md border border-zinc-400 bg-zinc-200 px-6 py-0 pl-3 pr-10 text-base font-semibold leading-7 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 dark:border-zinc-600 dark:bg-zinc-800 sm:text-sm"
           defaultValue={
             DASHBOARD_TABS_NAV.find((tab) => pathname.startsWith(tab.href))
               ?.name
@@ -37,7 +38,7 @@ export function AppTabNavigation() {
           ))}
         </select>
       </div>
-      <div className="hidden sm:block mt-1">
+      <div className="mt-1 hidden sm:block">
         <div className="nav-shadow px-6">
           <nav className="-mb-px flex" aria-label="Tabs">
             {DASHBOARD_TABS_NAV.map((tab) => {
@@ -47,9 +48,9 @@ export function AppTabNavigation() {
                   href={tab.href}
                   className={cn(
                     isActive(pathname, tab.href)
-                      ? "dark:border-white dark:text-white text-black border-black"
-                      : "border-transparent dark:text-zinc-400/80 text-zinc-600/80 dark:hover:border-zinc-300 hover:border-black",
-                    "whitespace-nowrap border-b-2 relative inline-block text-sm transition-colors duration-200 ease-in-out cursor-pointer px-3 dark:hover:bg-zinc-800 hover:bg-zinc-100 dark:hover:text-white hover:text-black py-2 rounded-t-md"
+                      ? "border-black text-black dark:border-white dark:text-white"
+                      : "border-transparent text-zinc-600/80 hover:border-black dark:text-zinc-400/80 dark:hover:border-zinc-300",
+                    "relative inline-block cursor-pointer whitespace-nowrap rounded-t-md border-b-2 px-3 py-2 text-sm transition-colors duration-200 ease-in-out hover:bg-zinc-100 hover:text-black dark:hover:bg-zinc-800 dark:hover:text-white"
                   )}
                   aria-current={
                     isActive(pathname, tab.href) ? "page" : undefined
@@ -66,7 +67,7 @@ export function AppTabNavigation() {
   )
 }
 
-function isActive(pathname, href) {
+function isActive(pathname: string, href: string): boolean {
   if (href === DashboardLinksEnum.Index) {
     return pathname === href
   }

@@ -1,10 +1,11 @@
 "use client"
 
 import { Fragment } from "react"
-import { cn } from "@x7/utils"
 import { Highlight, themes } from "prism-react-renderer"
 
-import { CopyButton } from "@/components/ui-client/copy-button"
+// @ts-expect-error todo: fix this
+import { CopyButton } from "@x7/ui/copy-buttons"
+import { cn } from "@x7/utils"
 
 export function Fence({
   children,
@@ -23,7 +24,7 @@ export function Fence({
         <pre
           className={cn(
             className,
-            "not-prose bg-zinc-800 rounded-lg p-4 overflow-auto w-full relative"
+            "not-prose relative w-full overflow-auto rounded-lg bg-zinc-800 p-4"
           )}
           style={style}
         >

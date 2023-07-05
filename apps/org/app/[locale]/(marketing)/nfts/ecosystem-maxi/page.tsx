@@ -1,4 +1,4 @@
-import { Metadata } from "next"
+import type { Metadata } from "next"
 import { SiteContentContainer } from "@/site-components/site-content-container"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
@@ -12,7 +12,7 @@ const metadata = {
   section: "default",
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export function generateMetadata(): Metadata {
   return generateMetadataFromDoc(metadata)
 }
 
@@ -25,7 +25,7 @@ export default function EcosystemMaxiPage() {
         subHeader="Lower fees on trades"
       />
       <SiteContentContainer>
-        <div className="pt-10 mt-4 border-t border-zinc-900/5 dark:border-white/5">
+        <div className="mt-4 border-t border-zinc-900/5 pt-10 dark:border-white/5">
           The Ecosystem Maxi NFTs are for your everyday X7 maximalist. Ownership
           will provide traders with added flexibility during their trading
           experience between trading pairs.

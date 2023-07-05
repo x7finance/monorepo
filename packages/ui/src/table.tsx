@@ -1,4 +1,5 @@
-import { FC, ReactNode } from "react"
+import type { FC, ReactNode } from "react"
+
 import { cn } from "@x7/utils"
 
 interface Column {
@@ -17,8 +18,8 @@ interface TableProps {
 
 export const Table: FC<TableProps> = ({ data, columns }) => {
   return (
-    <table className="min-w-full rounded-header-corners">
-      <thead className="dark:bg-black/80 sm:-mx-6 md:mx-0 bg-white/80">
+    <table className="rounded-header-corners min-w-full">
+      <thead className="bg-white/80 dark:bg-black/80 sm:-mx-6 md:mx-0">
         <tr>
           {columns.map((column, index) => (
             <th
@@ -28,7 +29,7 @@ export const Table: FC<TableProps> = ({ data, columns }) => {
               key={`${column.header}-${index}}`}
               className={cn(
                 column?.responsive ? "hidden lg:table-cell" : "",
-                "py-3 px-3 text-left text-xs font-semibold text-zinc-500 first:sm:pl-6 last:text-right last:pr-8 uppercase border-t border-b border-zinc-200 dark:border-zinc-800"
+                "border-b border-t border-zinc-200 px-3 py-3 text-left text-xs font-semibold uppercase text-zinc-500 last:pr-8 last:text-right dark:border-zinc-800 first:sm:pl-6"
               )}
             >
               <>
@@ -55,9 +56,9 @@ export const Table: FC<TableProps> = ({ data, columns }) => {
                   : {})}
                 className={cn(
                   index === 0 ? "" : "",
-                  colIndex === 0 ? "sm:pl-6 pl-4" : "",
+                  colIndex === 0 ? "pl-4 sm:pl-6" : "",
                   column?.responsive ? "hidden lg:table-cell" : "",
-                  "relative py-3.5 px-3 text-sm"
+                  "relative px-3 py-3.5 text-sm"
                 )}
                 key={colIndex}
               >

@@ -1,4 +1,5 @@
 import { useId } from "react"
+
 import { cn } from "@x7/utils"
 
 import { InstallationIcon } from "./InstallationIcon"
@@ -33,9 +34,10 @@ export function DocsIcon({
   icon: string
   className?: string
 }) {
-  let id = useId()
+  const id = useId()
 
-  let IconComponent: any = icons[icon]
+  // @ts-expect-error: todo: fix this
+  const IconComponent: any = icons[icon]
 
   return (
     <svg

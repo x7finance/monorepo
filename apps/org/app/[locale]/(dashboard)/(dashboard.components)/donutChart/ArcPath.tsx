@@ -1,6 +1,7 @@
 import React, { useContext } from "react"
 
-import { DonutChartContext, ItemWithRenderProps } from "./DonutChart"
+import type { ItemWithRenderProps } from "./DonutChart"
+import { DonutChartContext } from "./DonutChart"
 
 export type Props = { item: ItemWithRenderProps }
 

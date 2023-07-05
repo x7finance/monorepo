@@ -1,6 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
-import { buttonVariants } from "@x7/ui"
+
+// @ts-expect-error todo: fix this
+import { buttonVariants } from "@x7/ui/button"
 import { cn } from "@x7/utils"
 
 type SectionStepProps = {
@@ -39,10 +41,10 @@ export function SectionStep(props: SectionStepProps) {
         <>
           <span
             className={
-              "w-[1px] mx-auto block h-[100px] bg-gradient-to-b pioneer-line-drop to-zinc-600 relative top-10"
+              "pioneer-line-drop relative top-10 mx-auto block h-[100px] w-[1px] bg-gradient-to-b to-zinc-600"
             }
           />
-          <span className="w-[11px] h-[11px] rounded-full my-1 circle-shadow mx-auto block top-10 relative" />
+          <span className="circle-shadow relative top-10 mx-auto my-1 block h-[11px] w-[11px] rounded-full" />
         </>
       )}
 
@@ -63,17 +65,14 @@ export function SectionStep(props: SectionStepProps) {
             <h4
               className={cn(
                 gradient,
-                `flex-none bg-gradient-to-r bg-clip-text font-display text-sm font-semibold leading-6 text-transparent`
+                `font-display flex-none bg-gradient-to-r bg-clip-text text-sm font-semibold leading-6 text-transparent`
               )}
             >
               {highlightHeader}
             </h4>
             <div className="h-px flex-auto bg-zinc-100 dark:bg-zinc-900" />
           </div>
-          <ul
-            role="list"
-            className="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-zinc-600 dark:text-zinc-400 sm:grid-cols-2 sm:gap-6"
-          >
+          <ul className="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-zinc-600 dark:text-zinc-400 sm:grid-cols-2 sm:gap-6">
             {highlights.map((highlight, key) => (
               <li key={key} className="flex gap-x-3">
                 <svg
@@ -93,7 +92,7 @@ export function SectionStep(props: SectionStepProps) {
             ))}
           </ul>
           {primaryAction?.href && (
-            <div className="flex justify-center mt-6">
+            <div className="mt-6 flex justify-center">
               <Link
                 href={primaryAction.href}
                 className={cn(
@@ -116,7 +115,7 @@ export function SectionStep(props: SectionStepProps) {
               alt="Random Pioneer Image"
               width={1000}
               height={1000}
-              className="object-cover rounded-2xl ring-1 ring-inset ring-zinc-900/5"
+              className="rounded-2xl object-cover ring-1 ring-inset ring-zinc-900/5"
             />
           </div>
         </div>

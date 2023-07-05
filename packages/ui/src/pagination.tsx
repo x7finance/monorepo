@@ -20,7 +20,7 @@ export function Pagination(props: PaginationProps) {
   } = props
 
   return (
-    <div className="flex justify-center mt-4">
+    <div className="mt-4 flex justify-center">
       <Button
         size={"sm"}
         variant={"outline"}
@@ -30,7 +30,7 @@ export function Pagination(props: PaginationProps) {
       >
         Previous
       </Button>
-      <div className="flex items-center mx-2">
+      <div className="mx-2 flex items-center">
         <span className="mr-1 text-gray-500">
           {currentPage} of {Math.ceil(pageLength / itemsPerPage)}
         </span>

@@ -1,24 +1,24 @@
 module.exports = {
-  extends: ['next', 'turbo', 'prettier'],
+  extends: ["next", "turbo", "prettier"],
   rules: {
-    '@next/next/no-html-link-for-pages': 'off',
+    "@next/next/no-html-link-for-pages": "off",
   },
-  settings: {
-    react: {
-      version: 'detect',
-    },
-  },
+  // settings: {
+  //   react: {
+  //     version: "detect",
+  //   },
+  // },
   parserOptions: {
     babelOptions: {
-      presets: [require.resolve('next/babel')],
+      presets: [require.resolve("next/babel")],
     },
   },
   overrides: [
     {
-      files: ['**/__tests__/**/*'],
+      files: ["**/__tests__/**/*"],
       env: {
         jest: true,
       },
     },
   ],
-};
+}

@@ -1,7 +1,6 @@
 import Image from "next/image"
-import { PlusCircle } from "@x7/icons"
-import { cn } from "@x7/utils"
 
+import { PlusCircle } from "@x7/icons"
 import {
   ContextMenu,
   ContextMenuContent,
@@ -11,9 +10,12 @@ import {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuTrigger,
-} from "@/components/ui-client/context-menu"
+  // @ts-expect-error todo: fix this
+} from "@x7/ui/context-menu"
+import { cn } from "@x7/utils"
 
-import { Album, playlists } from "./data/playlists"
+import type { Album } from "./data/playlists"
+import { playlists } from "./data/playlists"
 
 interface AlbumArtworkProps extends React.HTMLAttributes<HTMLDivElement> {
   album: Album

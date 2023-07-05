@@ -1,12 +1,11 @@
 import fs from "fs"
 import path from "path"
-
-import Markdoc, { RenderableTreeNode } from "@markdoc/markdoc"
+import type { RenderableTreeNode } from "@markdoc/markdoc"
+import Markdoc from "@markdoc/markdoc"
 import { slugifyWithCounter } from "@sindresorhus/slugify"
 import matter from "gray-matter"
 
-import { DocType } from "@/lib/types"
-
+import type { DocType } from "@/lib/types"
 import { config } from "./config.markdoc"
 
 export const SOURCE_FILES = path.join("content", "docs")
@@ -25,7 +24,7 @@ async function pathExists(path: string): Promise<boolean> {
   }
 }
 
-async function appendMdIfFileOrIndexMdIfDirectory(pathString) {
+async function appendMdIfFileOrIndexMdIfDirectory(pathString: string) {
   try {
     if (await pathExists(pathString)) {
       const stats = await fs.promises.stat(pathString)
@@ -121,7 +120,7 @@ export async function getMarkdownContent(
       headerImage,
     } = matterResult.data
     const section = (slug ? slug[0] : "docs") as DocType
-    let result: Partial<MarkdownContent> = {
+    const result: Partial<MarkdownContent> = {
       section,
       content,
       title,
@@ -150,7 +149,7 @@ export async function getMarkdownContent(
 
 function getNodeText(node: any): string {
   let text = ""
-  for (let child of node.children ?? []) {
+  for (const child of node.children ?? []) {
     if (typeof child === "string") {
       text += child
     } else {
@@ -168,21 +167,23 @@ interface SectionType {
   children: SectionType[]
 }
 
+type SlugifyFunction = (title: string) => string
+
 function collectHeadings(
   nodes: any,
-  slugify = slugifyWithCounter()
+  slugify: SlugifyFunction = slugifyWithCounter()
 ): SectionType[] {
-  let sections: SectionType[] = []
+  const sections: SectionType[] = []
 
-  for (let node of nodes?.children ?? []) {
+  for (const node of nodes?.children ?? []) {
     if (
-      node.name === "Heading" &&
-      SUBHEADINGS.includes(node.attributes.level)
+      node?.name === "Heading" &&
+      SUBHEADINGS.includes(node?.attributes?.level)
     ) {
-      let title = getNodeText(node)
+      const title = getNodeText(node)
 
       if (title) {
-        let id = slugify(title)
+        const id = slugify(title)
         node.attributes.id = id
 
         if (node.name === "Heading" && node.attributes.level === 3) {
@@ -192,7 +193,8 @@ function collectHeadings(
             )
           }
 
-          sections[sections.length - 1].children.push({
+          // @ts-expect-error
+          sections?.[sections.length - 1].children.push({
             id,
             title,
             children: [],

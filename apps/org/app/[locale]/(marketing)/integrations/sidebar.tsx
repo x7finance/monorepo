@@ -1,9 +1,10 @@
-import { Button } from "@x7/ui"
+// @ts-expect-error todo: fix this
+import { Button } from "@x7/ui/button"
+// @ts-expect-error todo: fix this
+import { ScrollArea } from "@x7/ui/scroll-area"
 import { cn } from "@x7/utils"
 
-import { ScrollArea } from "@/components/ui-client/scroll-area"
-
-import { Playlist } from "./data/playlists"
+import type { Playlist } from "./data/playlists"
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   playlists: Playlist[]

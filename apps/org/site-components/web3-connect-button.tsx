@@ -1,12 +1,14 @@
 "use client"
 
-import { Button } from "@x7/ui"
-import { shortenHex } from "@x7/utils"
 import { ConnectKitButton } from "connectkit"
+
+// @ts-expect-error todo: fix this
+import { Button } from "@x7/ui/button"
+import { shortenHex } from "@x7/utils"
 
 export function ConnectionComponent() {
   return (
-    <div className="fixed top-2.5 right-28 sm:right-0 sm:top-0 z-10 sm:p-2.5">
+    <div className="fixed right-28 top-2.5 z-10 sm:right-0 sm:top-0 sm:p-2.5">
       <ConnectKitButton.Custom>
         {({ isConnected, isConnecting, show, address, ensName }) => {
           return isConnected ? (

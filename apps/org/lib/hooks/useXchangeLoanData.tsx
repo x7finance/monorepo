@@ -4,13 +4,14 @@ import {
   X7InitialLiquidityLoanTerm003,
   X7LendingPoolV1,
 } from "contracts"
+import { useContractReads } from "wagmi"
 
-import { BlockchainType, ContractsEnum, LoanType } from "@x7/common"
+import type { BlockchainType, LoanType } from "@x7/common"
+import { ContractsEnum } from "@x7/common"
 import {
   generateChainBase,
   generateX7InitialLiquidityLoanTermContract,
 } from "@x7/utils"
-import { useContractReads } from "wagmi"
 
 import { generateWagmiChain } from "../generateWagmiChain"
 
@@ -180,11 +181,13 @@ export function useXchangeLoanData(
   const premiumsDateArray = data?.[8]?.result?.[0]
   const premiumsDateArrayLength =
     parseInt(data?.[17]?.result?.toString() ?? "0", 10) || 0
+  // @ts-expect-error: TODO: fix this
   const premiumsLastDate = premiumsDateArray?.[premiumsDateArrayLength - 1]
 
   const principalDateArray = data?.[7]?.result?.[0]
   const principalDateArrayLength =
     parseInt(data?.[18]?.result?.toString() ?? "0", 10) || 0
+  // @ts-expect-error: TODO: fix this
   const principalLastDate = principalDateArray?.[principalDateArrayLength - 1]
 
   const { data: dataDue, isLoading: isDuePairLoading } = useContractReads({

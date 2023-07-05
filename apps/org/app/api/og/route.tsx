@@ -2,14 +2,14 @@ import { ImageResponse } from "@vercel/og"
 
 import { ogImageSchema } from "@/lib/validations/og"
 
-function classNames(...classes) {
+function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ")
 }
 
 function getRandomPioneerNumber(): string {
-  let min: number = 1
-  let max: number = 641
-  let number: number = Math.floor(Math.random() * (max - min + 1)) + min
+  const min = 1
+  const max = 641
+  const number: number = Math.floor(Math.random() * (max - min + 1)) + min
   return number.toString().padStart(4, "0")
 }
 
@@ -59,7 +59,7 @@ export async function GET(req: Request) {
             background: mode === "dark" ? "black" : "white",
           }}
         >
-          <ul role="list" tw="absolute p-4">
+          <ul tw="absolute p-4">
             {pioneers.map((person) => (
               <li key={person}>
                 <img
@@ -73,7 +73,7 @@ export async function GET(req: Request) {
               </li>
             ))}
           </ul>
-          <ul role="list" tw="absolute bottom-0 p-4">
+          <ul tw="absolute bottom-0 p-4">
             {pioneers.map((person) => (
               <li key={person}>
                 <img
@@ -95,6 +95,7 @@ export async function GET(req: Request) {
                   width: "150px",
                   height: "10px",
                   background:
+                    // @ts-expect-error: TODO: fix this
                     sectionThemes[values?.type] ?? sectionThemes.default,
                 }}
               />

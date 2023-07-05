@@ -1,4 +1,4 @@
-import { Metadata } from "next"
+import type { Metadata } from "next"
 import { SiteContentContainer } from "@/site-components/site-content-container"
 import { UnderConstruction } from "@/site-components/under-construction"
 
@@ -13,7 +13,7 @@ const metadata = {
   section: "default",
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export function generateMetadata(): Metadata {
   return generateMetadataFromDoc(metadata)
 }
 export default function X7103TokenPage() {
@@ -25,7 +25,7 @@ export default function X7103TokenPage() {
         subHeader="X7103 is the third constellation token"
       />
       <SiteContentContainer>
-        <div className="pt-10 mt-4 border-t border-zinc-900/5 dark:border-white/5">
+        <div className="mt-4 border-t border-zinc-900/5 pt-10 dark:border-white/5">
           <UnderConstruction />
         </div>
       </SiteContentContainer>

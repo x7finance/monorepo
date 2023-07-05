@@ -1,23 +1,30 @@
 "use client"
 
 import { Suspense, useState } from "react"
+
 import { ChainEnum, ChainIdentifierEnum } from "@x7/common"
+// @ts-expect-error todo: fix this
+import { TableLoadingShimmer } from "@x7/ui/table-loading-shimmer"
 
 import { useIsComponentReady } from "@/lib/hooks/useIsComponentReady"
-import { LoadingShimmer } from "@/components/table/loading-shimmer"
-import { CHAIN_TAB_BUTTONS, TabButtons } from "@/components/table/tabs"
-
+import { CHAIN_TAB_BUTTONS, TabButtons } from "../tabs"
 import { PairsTable } from "./table"
 
 export function LivePairs() {
-  const [activeTab, setActiveTab] = useState(ChainIdentifierEnum.erc)
+  const [activeTab, setActiveTab] = useState<ChainIdentifierEnum>(
+    ChainIdentifierEnum.erc
+  )
   const isComponentReady = useIsComponentReady()
 
-  const handleTabChange = (tabId) => {
-    setActiveTab(tabId)
+  const handleTabChange = (id: string) => {
+    if (
+      Object.values(ChainIdentifierEnum).includes(id as ChainIdentifierEnum)
+    ) {
+      setActiveTab(id as ChainIdentifierEnum)
+    }
   }
 
-  const activeChainId =
+  const activeChainId: ChainEnum =
     activeTab === ChainIdentifierEnum.erc
       ? ChainEnum.erc
       : activeTab === ChainIdentifierEnum.bsc
@@ -32,7 +39,7 @@ export function LivePairs() {
 
   return (
     <>
-      <div className="justify-center px-1 py-5 overflow-x-auto">
+      <div className="justify-center overflow-x-auto px-1 py-5">
         <TabButtons
           tabs={CHAIN_TAB_BUTTONS}
           activeTab={activeTab}
@@ -41,11 +48,11 @@ export function LivePairs() {
       </div>
 
       {isComponentReady ? (
-        <Suspense fallback={<LoadingShimmer />}>
+        <Suspense fallback={<TableLoadingShimmer />}>
           <PairsTable chainId={activeChainId} />
         </Suspense>
       ) : (
-        <LoadingShimmer />
+        <TableLoadingShimmer />
       )}
     </>
   )

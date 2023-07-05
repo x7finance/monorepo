@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo } from "react"
 
 function Dextools(props: any) {
   return (
@@ -10,7 +10,7 @@ function Dextools(props: any) {
         fill="#00B8D8"
       ></path>
     </svg>
-  );
+  )
 }
 
-export default memo(Dextools);
+export default memo(Dextools)

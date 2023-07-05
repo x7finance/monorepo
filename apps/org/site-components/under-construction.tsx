@@ -1,7 +1,9 @@
 import Image from "next/image"
 import Link from "next/link"
 import { GradientTypes } from "@/site-components/gradients"
-import { buttonVariants } from "@x7/ui"
+
+// @ts-expect-error todo: fix this
+import { buttonVariants } from "@x7/ui/button"
 import { cn, getRandomPioneerNumber } from "@x7/utils"
 
 import { PioneerDrop } from "./pioneer-drop"
@@ -14,7 +16,7 @@ export function UnderConstruction(props: ConstructionProps) {
   const { description } = props
 
   return (
-    <div className="isolate min-h-screen relative z-0 -top-20">
+    <div className="relative -top-20 isolate z-0 min-h-screen">
       <div className="flow-root pb-16 lg:pb-0">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="relative">
@@ -22,7 +24,7 @@ export function UnderConstruction(props: ConstructionProps) {
               <div className="relative z-0">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                   <div className="relative lg:grid lg:grid-cols-7">
-                    <div className="mx-auto max-w-md lg:col-start-1 lg:col-end-3 lg:row-start-2 lg:row-end-3 lg:mx-0 lg:max-w-none hidden lg:flex">
+                    <div className="mx-auto hidden max-w-md lg:col-start-1 lg:col-end-3 lg:row-start-2 lg:row-end-3 lg:mx-0 lg:flex lg:max-w-none">
                       <div className="flex h-full flex-col overflow-hidden rounded-lg shadow-lg lg:rounded-none lg:rounded-l-lg">
                         <div className="flex flex-1 flex-col">
                           <Image
@@ -47,7 +49,7 @@ export function UnderConstruction(props: ConstructionProps) {
                             <span
                               className={cn(
                                 GradientTypes.grape,
-                                `inline-flex rounded-full font-mono bg-gradient-to-b  px-4 py-1 text-base font-semibold text-white`
+                                `inline-flex rounded-full bg-gradient-to-b px-4  py-1 font-mono text-base font-semibold text-white`
                               )}
                             >
                               Under Construction
@@ -63,7 +65,7 @@ export function UnderConstruction(props: ConstructionProps) {
                         />
                         <div className="rounded-b-lg border-t-2 border-zinc-800 px-6 pb-8 pt-6 sm:px-10 ">
                           <div>
-                            <p className="text-center mt-2 mb-4 text-zinc-700 dark:text-zinc-400">
+                            <p className="mb-4 mt-2 text-center text-zinc-700 dark:text-zinc-400">
                               {description
                                 ? description
                                 : `Pioneers are hard at work to provide the best
@@ -79,7 +81,7 @@ export function UnderConstruction(props: ConstructionProps) {
                                 variant: "default",
                                 size: "lg",
                               }),
-                              "mt-2 sm:mt-0 w-full"
+                              "mt-2 w-full sm:mt-0"
                             )}
                           >
                             Back Home
@@ -87,7 +89,7 @@ export function UnderConstruction(props: ConstructionProps) {
                         </div>
                       </div>
                     </div>
-                    <div className="mx-auto mt-10 max-w-md hidden lg:flex lg:col-start-6 lg:col-end-8 lg:row-start-2 lg:row-end-3 lg:m-0 lg:max-w-none">
+                    <div className="mx-auto mt-10 hidden max-w-md lg:col-start-6 lg:col-end-8 lg:row-start-2 lg:row-end-3 lg:m-0 lg:flex lg:max-w-none">
                       <div className="flex h-full flex-col overflow-hidden rounded-lg shadow-lg lg:rounded-none lg:rounded-r-lg">
                         <div className="flex flex-1 flex-col">
                           <Image

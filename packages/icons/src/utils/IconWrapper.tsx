@@ -1,4 +1,6 @@
-import { createElement, MemoExoticComponent } from "react"
+import type { MemoExoticComponent } from "react"
+import { createElement } from "react"
+
 import { cn } from "@x7/utils"
 
 import arbitrum from "../glyphs/arbitrum"

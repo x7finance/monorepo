@@ -1,10 +1,11 @@
-import { Metadata } from "next"
+import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { Assistance } from "@/site-components/assistance"
 import { GradientTypes } from "@/site-components/gradients"
 import { PioneerDrop } from "@/site-components/pioneer-drop"
 import { SiteContentContainer } from "@/site-components/site-content-container"
+
 import { cn } from "@x7/utils"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
@@ -19,7 +20,7 @@ const metadata = {
   section: "default",
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export function generateMetadata(): Metadata {
   return generateMetadataFromDoc(metadata)
 }
 
@@ -30,13 +31,13 @@ export default function GettingStartedPage() {
       <SiteContentContainer>
         <div className="">
           <div className="mx-auto max-w-4xl">
-            <dl className="col-span-2 grid grid-cols-2 gap-x-4 sm:gap-x-8 gap-y-10 text-base leading-7 text-zinc-600 lg:gap-y-16">
+            <dl className="col-span-2 grid grid-cols-2 gap-x-4 gap-y-10 text-base leading-7 text-zinc-600 sm:gap-x-8 lg:gap-y-16">
               {roles.map((role) => (
                 <div key={role.name} className="relative">
                   <Link className="group" href={role.href}>
                     <div
                       className={cn(
-                        `mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-zinc-600 group-hover:ring-zinc-900 dark:group-hover:ring-zinc-600 duration-300 dark:ring-zinc-800 sm:mt-20 lg:mx-0 flex flex-col lg:max-w-none`
+                        `mx-auto mt-16 flex max-w-2xl flex-col rounded-3xl ring-1 ring-zinc-600 duration-300 group-hover:ring-zinc-900 dark:ring-zinc-800 dark:group-hover:ring-zinc-600 sm:mt-20 lg:mx-0 lg:max-w-none`
                       )}
                     >
                       <div className="-mt-2 p-2 lg:mt-0">
@@ -45,14 +46,14 @@ export default function GettingStartedPage() {
                           alt="Random Pioneer Image"
                           width={600}
                           height={600}
-                          className="object-cover rounded-2xl ring-1 ring-inset ring-zinc-900/5"
+                          className="rounded-2xl object-cover ring-1 ring-inset ring-zinc-900/5"
                         />
                       </div>
                       <div className="my-4 px-4">
                         <h4
                           className={cn(
                             role.gradient,
-                            `flex-none group-hover:opacity-90 bg-gradient-to-r bg-clip-text font-display font-semibold sm:group-hover:text-[25px] transform duration-300 leading-6 text-transparent text-sm sm:text-2xl`
+                            `font-display flex-none transform bg-gradient-to-r bg-clip-text text-sm font-semibold leading-6 text-transparent duration-300 group-hover:opacity-90 sm:text-2xl sm:group-hover:text-[25px]`
                           )}
                         >
                           {role.name}
@@ -60,7 +61,7 @@ export default function GettingStartedPage() {
                           &#8594;
                         </h4>
 
-                        <p className="dark:text-zinc-400/80 text-zinc-700">
+                        <p className="text-zinc-700 dark:text-zinc-400/80">
                           {role.description}
                         </p>
                       </div>
@@ -70,17 +71,17 @@ export default function GettingStartedPage() {
               ))}
             </dl>
             <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-12 lg:mx-0 lg:max-w-none">
-              <div className="w-full flex justify-center flex-col items-center">
+              <div className="flex w-full flex-col items-center justify-center">
                 <PioneerDrop lineColor="to-lime-600" pioneerId="0054" />
-                <p className="mt-6 text-base leading-7 text-zinc-600 dark:text-zinc-400 text-center mx-auto max-w-4xl">
+                <p className="mx-auto mt-6 max-w-4xl text-center text-base leading-7 text-zinc-600 dark:text-zinc-400">
                   {`X7 Finance and it's fantastic DEX is designed to serve
                   millions of DeFi traders as well as project launchers looking
                   for institutional size liquidity capital to launch their token
                   with.`}
                 </p>
               </div>
-              <p className="text-base leading-7 text-zinc-600 dark:text-zinc-400 text-center mx-auto max-w-4xl">
-                <span className="block mb-4">
+              <p className="mx-auto max-w-4xl text-center text-base leading-7 text-zinc-600 dark:text-zinc-400">
+                <span className="mb-4 block">
                   {`We've drafted comprehensive starting points for traders and
                   projects devs looking to get started with Xchange. As well as
                   detailed documentation for institutions, DAO's and funds
@@ -89,20 +90,20 @@ export default function GettingStartedPage() {
                 </span>
               </p>
             </div>
-            <dl className="col-span-2 grid grid-cols-2 gap-x-4 sm:gap-x-8 gap-y-10 text-base leading-7 text-zinc-600 lg:gap-y-16">
+            <dl className="col-span-2 grid grid-cols-2 gap-x-4 gap-y-10 text-base leading-7 text-zinc-600 sm:gap-x-8 lg:gap-y-16">
               {secondaryRoles.map((role) => (
                 <div key={role.name} className="relative">
                   <Link className="group" href={role.href}>
                     <div
                       className={cn(
-                        `mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-zinc-600 group-hover:ring-zinc-900 dark:group-hover:ring-zinc-600 duration-300 dark:ring-zinc-800 sm:mt-20 lg:mx-0 flex flex-col lg:max-w-none`
+                        `mx-auto mt-16 flex max-w-2xl flex-col rounded-3xl ring-1 ring-zinc-600 duration-300 group-hover:ring-zinc-900 dark:ring-zinc-800 dark:group-hover:ring-zinc-600 sm:mt-20 lg:mx-0 lg:max-w-none`
                       )}
                     >
                       <div className="my-4 px-4">
                         <h4
                           className={cn(
                             role.gradient,
-                            `flex-none group-hover:opacity-90 bg-gradient-to-r bg-clip-text font-display font-semibold sm:group-hover:text-[25px] transform duration-300 leading-6 text-transparent text-sm sm:text-2xl`
+                            `font-display flex-none transform bg-gradient-to-r bg-clip-text text-sm font-semibold leading-6 text-transparent duration-300 group-hover:opacity-90 sm:text-2xl sm:group-hover:text-[25px]`
                           )}
                         >
                           <Image
@@ -110,14 +111,14 @@ export default function GettingStartedPage() {
                             alt="Random Pioneer Image"
                             width={42}
                             height={42}
-                            className="object-cover inline mr-2 rounded-full ring-1 ring-inset ring-zinc-900/5"
+                            className="mr-2 inline rounded-full object-cover ring-1 ring-inset ring-zinc-900/5"
                           />
                           {role.name}
                           {` `}
                           &#8594;
                         </h4>
 
-                        <p className="dark:text-zinc-400/80 text-zinc-700">
+                        <p className="text-zinc-700 dark:text-zinc-400/80">
                           {role.description}
                         </p>
                       </div>

@@ -1,46 +1,41 @@
 import Link from "next/link"
+
 import { ExternalLinkIcon, Telegram, Twitter } from "@x7/icons"
 
 import { env } from "@/env.mjs"
 
 export function IntegrationsGrid() {
   return (
-    <ul
-      role="list"
-      className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3"
-    >
+    <ul className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
       {INTEGRATIONS.map((t) => (
         <li
           key={t.name}
-          className="border relative dark:border-zinc-700 border-zinc-300 rounded-lg overflow-hidden group dark:hover:border-white hover:border-black transition-all duration-300"
+          className="group relative overflow-hidden rounded-lg border border-zinc-300 transition-all duration-300 hover:border-black dark:border-zinc-700 dark:hover:border-white"
         >
           <img
             className="aspect-[3/2] w-full object-cover"
             src={t.imageUrl}
             alt=""
           />
-          <div className="p-4 relative">
-            <h3 className="font-semibold text-lg leading-8 tracking-tight text-zinc-900 dark:text-zinc-100">
-              <Link className="inset-0 absolute left-4 top-2" href="/blog">
+          <div className="relative p-4">
+            <h3 className="text-lg font-semibold leading-8 tracking-tight text-zinc-900 dark:text-zinc-100">
+              <Link className="absolute inset-0 left-4 top-2" href="/blog">
                 {t.name}
               </Link>
             </h3>
-            <p className="text-sm mt-6 leading-7 text-zinc-400 dark:text-zinc-500 h-20 line-clamp-2">
+            <p className="mt-6 line-clamp-2 h-20 text-sm leading-7 text-zinc-400 dark:text-zinc-500">
               {t.description}
             </p>
-            <ul
-              role="list"
-              className="flex gap-x-2 items-center relative w-full bottom-0"
-            >
+            <ul className="relative bottom-0 flex w-full items-center gap-x-2">
               <li>
-                <span className="text-zinc-400 text-sm dark:text-zinc-600  top-[-2px] z-10 flex justify-center items-center">
+                <span className="top-[-2px] z-10 flex  items-center justify-center text-sm text-zinc-400 dark:text-zinc-600">
                   by {t.entity}
                 </span>
               </li>
               <li>
                 <a
                   href={t.twitterUrl}
-                  className="text-zinc-400 hover:text-zinc-500 dark:text-zinc-600 dark:hover:text-zinc-100 z-10 transition-all duration-150"
+                  className="z-10 text-zinc-400 transition-all duration-150 hover:text-zinc-500 dark:text-zinc-600 dark:hover:text-zinc-100"
                 >
                   <span className="sr-only">Twitter</span>
                   <Twitter className="h-5 w-5 " aria-hidden="true" />
@@ -49,16 +44,16 @@ export function IntegrationsGrid() {
               <li>
                 <a
                   href={t.linkedinUrl}
-                  className="text-zinc-400 hover:text-zinc-500 dark:text-zinc-600 dark:hover:text-zinc-100 z-10 transition-all duration-150"
+                  className="z-10 text-zinc-400 transition-all duration-150 hover:text-zinc-500 dark:text-zinc-600 dark:hover:text-zinc-100"
                 >
                   <span className="sr-only">Telegram</span>
                   <Telegram className="h-5 w-5 " aria-hidden="true" />
                 </a>
               </li>
               {t.externalLink && (
-                <li className="ml-auto relative">
+                <li className="relative ml-auto">
                   <Link
-                    className="text-zinc-400 hover:text-zinc-500 dark:text-zinc-600 dark:hover:text-zinc-100 transition-all duration-150"
+                    className="text-zinc-400 transition-all duration-150 hover:text-zinc-500 dark:text-zinc-600 dark:hover:text-zinc-100"
                     href={t.externalLink}
                   >
                     <span className="sr-only">External Link</span>

@@ -1,11 +1,10 @@
-import { Metadata } from "next"
+import type { Metadata } from "next"
 import { GradientTypes } from "@/site-components/gradients"
 import { SiteContentContainer } from "@/site-components/site-content-container"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { DashboardLinksEnum } from "@/lib/types/links"
 import { Heading } from "@/app/[locale]/(marketing)/(marketing.components)/heading"
-
 import { SectionStep } from "../../(marketing.components)/section-step"
 
 const metadata = {
@@ -16,7 +15,7 @@ const metadata = {
   section: "default",
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export function generateMetadata(): Metadata {
   return generateMetadataFromDoc(metadata)
 }
 

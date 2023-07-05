@@ -1,4 +1,4 @@
-import { Metadata } from "next"
+import type { Metadata } from "next"
 import { PioneerDrop } from "@/site-components/pioneer-drop"
 import { SiteContentContainer } from "@/site-components/site-content-container"
 
@@ -13,7 +13,7 @@ const metadata = {
   section: "default",
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export function generateMetadata(): Metadata {
   return generateMetadataFromDoc(metadata)
 }
 
@@ -55,10 +55,10 @@ export default function GettingStartedPage() {
             {colorList.map((color) => (
               <div
                 key={color}
-                className="flex items-center p-2 rounded-md odd:rounded-r-none even:rounded-l-none odd:border-r-0 even:border-l-0 mb-2 border-zinc-200/30 border"
+                className="mb-2 flex items-center rounded-md border border-zinc-200/30 p-2 odd:rounded-r-none odd:border-r-0 even:rounded-l-none even:border-l-0"
               >
                 <div
-                  className="w-12 h-12 mr-4 rounded-full border dark:border-zinc-700 border-zinc-300"
+                  className="mr-4 h-12 w-12 rounded-full border border-zinc-300 dark:border-zinc-700"
                   style={{ backgroundColor: `hsl(var(--${color}))` }}
                 ></div>
                 <p className="text-sm font-bold">{color}</p>

@@ -1,6 +1,9 @@
-import { forwardRef, HTMLAttributes } from "react"
+import type { HTMLAttributes } from "react"
+import { forwardRef } from "react"
+import type { VariantProps } from "class-variance-authority"
+import { cva } from "class-variance-authority"
+
 import { cn } from "@x7/utils"
-import { cva, VariantProps } from "class-variance-authority"
 
 const alertVariants = cva(
   "relative w-full rounded-lg border p-4 [&>svg]:absolute [&>svg]:text-foreground [&>svg]:left-4 [&>svg]:top-4 [&>svg+div]:translate-y-[-3px] [&:has(svg)]:pl-11",

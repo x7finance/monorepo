@@ -1,5 +1,5 @@
+// @ts-expect-error // fs/promises is not in the types
 import { readFile, writeFile } from "fs/promises"
-
 import { defineConfig } from "tsup"
 import type { Options } from "tsup"
 
@@ -7,11 +7,9 @@ import type { Options } from "tsup"
 // and just have esbuild keep the directives so that components with
 // the directive stays a client component and the rest is server...
 const client = [
-  "./src/avatar.tsx",
-  "./src/calendar.tsx",
+  "./src/accordion.tsx",
   "./src/checkbox.tsx",
-  "./src/command.tsx",
-  "./src/data-table.tsx",
+  "./src/context-menu.tsx",
   "./src/dialog.tsx",
   "./src/dropdown-menu.tsx",
   "./src/form.tsx",
@@ -20,18 +18,24 @@ const client = [
   "./src/popover.tsx",
   "./src/scroll-area.tsx",
   "./src/select.tsx",
+  "./src/separator.tsx",
   "./src/sheet.tsx",
   "./src/tabs.tsx",
   "./src/toaster.tsx",
+  "./src/tooltip.tsx",
   "./src/use-toast.tsx",
+  "./src/copy-buttons.tsx",
 ]
 
 const server = [
   "./src/button.tsx",
-  "./src/icons.tsx",
   "./src/card.tsx",
+  "./src/circle-loading.tsx",
+  "./src/pagination.tsx",
   "./src/table.tsx",
+  "./src/tag.tsx",
   "./src/toast.tsx",
+  "./src/table-loading-shimmer.tsx",
 ]
 
 export default defineConfig((opts) => {

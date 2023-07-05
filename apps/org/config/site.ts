@@ -1,15 +1,7 @@
 import { SocialsEnum, X7LinksEnum } from "@x7/common"
-import {
-  Discord,
-  Github,
-  Medium,
-  Reddit,
-  Telegram,
-  Twitter,
-  YouTube,
-} from "@x7/icons"
+import { Discord, Github, Reddit, Telegram, Twitter, YouTube } from "@x7/icons"
 
-import { SiteConfig } from "types"
+import type { SiteConfig } from "types"
 import { env } from "@/env.mjs"
 import {
   CommunityLinks,

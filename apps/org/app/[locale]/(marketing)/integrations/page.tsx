@@ -1,19 +1,18 @@
-import { Metadata } from "next"
+import type { Metadata } from "next"
 import Image from "next/image"
 import { SiteContentContainer } from "@/site-components/site-content-container"
+
 import { PlusCircleIcon } from "@x7/icons"
-import { Button } from "@x7/ui"
+// @ts-expect-error todo: fix this
+import { Button } from "@x7/ui/button"
+// @ts-expect-error todo: fix this
+import { ScrollArea, ScrollBar } from "@x7/ui/scroll-area"
+// @ts-expect-error todo: fix this
+import { Separator } from "@x7/ui/separator"
+// @ts-expect-error todo: fix this
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@x7/ui/tabs"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { ScrollArea, ScrollBar } from "@/components/ui-client/scroll-area"
-import { Separator } from "@/components/ui-client/separator"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui-client/tabs"
-
 import { Heading } from "../(marketing.components)/heading"
 import { AlbumArtwork } from "./album-artwork"
 import { listenNowAlbums, madeForYouAlbums, playlists } from "./data/playlists"
@@ -26,7 +25,7 @@ const metadata = {
   section: "default",
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export function generateMetadata(): Metadata {
   return generateMetadataFromDoc(metadata)
 }
 
@@ -39,7 +38,7 @@ export default function IntegrationsPage() {
         subHeader="Integrate your project with the popular blockchain products and services"
       />
       <SiteContentContainer>
-        <div className="pt-10 mt-4 border-t border-zinc-900/5 dark:border-white/5 min-h-[1200px]">
+        <div className="mt-4 min-h-[1200px] border-t border-zinc-900/5 pt-10 dark:border-white/5">
           <>
             <div className="md:hidden">
               <Image

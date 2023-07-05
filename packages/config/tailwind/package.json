@@ -1,7 +1,10 @@
 {
   "name": "@x7/tailwind-config",
   "version": "0.0.1",
-  "main": "index.js",
+  "files": [
+    "index.ts",
+    "postcss.js"
+  ],
   "devDependencies": {
     "tailwindcss": "^3.2.4",
     "tailwindcss-animate": "^1.0.6",

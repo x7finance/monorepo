@@ -1,6 +1,8 @@
 import * as React from "react"
+import type { VariantProps } from "class-variance-authority"
+import { cva } from "class-variance-authority"
+
 import { cn } from "@x7/utils"
-import { cva, VariantProps } from "class-variance-authority"
 
 import { Loading } from "./pulse-loading"
 
@@ -73,14 +75,14 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         className={cn(
           baseStyle,
-          loading ? "opacity-75 cursor-not-allowed" : "",
+          loading ? "cursor-not-allowed opacity-75" : "",
           className
         )}
         ref={ref}
         disabled={loading}
         {...props}
       >
-        <span className="relative flex justify-center items-center">
+        <span className="relative flex items-center justify-center">
           {content}
           {loading && <Loading size="md" className="absolute" />}
         </span>

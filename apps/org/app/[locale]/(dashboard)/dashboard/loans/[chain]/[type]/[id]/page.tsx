@@ -1,6 +1,7 @@
-import { Metadata } from "next"
+import type { Metadata } from "next"
 import { Web3Wrapper } from "@/site-components/web3-wrapper"
-import { ChainShortNameType, LoanType } from "@x7/common"
+
+import type { ChainShortNameType, LoanType } from "@x7/common"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { DashboardContainer } from "@/app/[locale]/(dashboard)/(dashboard.components)/dashboard-container"
@@ -14,7 +15,7 @@ const metadata = {
   section: "dashboard",
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export function generateMetadata(): Metadata {
   return generateMetadataFromDoc(metadata)
 }
 

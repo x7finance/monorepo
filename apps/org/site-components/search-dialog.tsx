@@ -3,9 +3,11 @@
 import { useCallback, useEffect, useState } from "react"
 import Link from "next/link"
 import { DocSearchModal, useDocSearchKeyboardEvents } from "@docsearch/react"
-import { SearchIcon } from "@x7/icons"
-import { Button } from "@x7/ui"
 import { createPortal } from "react-dom"
+
+import { SearchIcon } from "@x7/icons"
+// @ts-expect-error todo: fix this
+import { Button } from "@x7/ui/button"
 
 import { env } from "@/env.mjs"
 
@@ -20,8 +22,8 @@ function Hit({ hit, children }: { hit: any; children: any }) {
 }
 
 export function Search({ isMobile = false }) {
-  let [isOpen, setIsOpen] = useState(false)
-  let [modifierKey, setModifierKey] = useState<string>("")
+  const [isOpen, setIsOpen] = useState(false)
+  const [modifierKey, setModifierKey] = useState<string>("")
 
   const onOpen = useCallback(() => {
     setIsOpen(true)
@@ -42,7 +44,7 @@ export function Search({ isMobile = false }) {
 
   return (
     <>
-      <div className="hidden sm:block sm:max-w-sm lg:max-w-md sm:flex-auto">
+      <div className="hidden sm:block sm:max-w-sm sm:flex-auto lg:max-w-md">
         <button
           type="button"
           className="flex h-8 w-full items-center gap-2 rounded-full bg-white pl-2 pr-3 text-sm text-zinc-500 ring-1 ring-zinc-900/10 transition hover:ring-zinc-900/20 dark:bg-white/5 dark:text-zinc-400 dark:ring-inset dark:ring-white/10 dark:hover:ring-white/20 focus:[&:not(:focus-visible)]:outline-none"
@@ -61,7 +63,7 @@ export function Search({ isMobile = false }) {
           <Button
             variant="ghost"
             size="sm"
-            className="h-8 w-8 px-0 z-40 relative"
+            className="relative z-40 h-8 w-8 px-0"
             aria-label="Find something..."
             onClick={onOpen}
           >

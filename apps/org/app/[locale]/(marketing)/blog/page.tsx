@@ -1,7 +1,6 @@
 import path from "path"
-
 import React from "react"
-import { Metadata } from "next"
+import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { Assistance } from "@/site-components/assistance"
@@ -10,12 +9,8 @@ import { glob } from "glob"
 
 import { env } from "@/env.mjs"
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-
-import {
-  getMarkdownContent,
-  MarkdownContent,
-  SOURCE_FILES,
-} from "../(blog.utils)/markdoc-parse"
+import type { MarkdownContent } from "../(blog.utils)/markdoc-parse"
+import { getMarkdownContent, SOURCE_FILES } from "../(blog.utils)/markdoc-parse"
 
 const metadata = {
   title: "X7 Blog",
@@ -25,7 +20,7 @@ const metadata = {
   section: "default",
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export function generateMetadata(): Metadata {
   return generateMetadataFromDoc(metadata)
 }
 
@@ -71,7 +66,7 @@ async function getPreviewPostsMetadata() {
 
 interface Author {
   name: string
-  imageUrl: string
+  image: string
 }
 
 interface BlogPostType {
@@ -81,16 +76,17 @@ interface BlogPostType {
   slug?: string
   datetime?: string
   date?: string
-  authors?: Author[]
+  authors: Author[]
 }
 
 export default async function BlogPage() {
-  const builtPosts = await getPreviewPostsMetadata()
+  // @ts-expect-error todo: fix this
+  const builtPosts: BlogPostType[] = await getPreviewPostsMetadata()
 
   return (
     <div className="relative -top-16 md:top-0">
       <SiteContentContainer className="max-w-6xl">
-        <div className="py-6 lg:py-10 mx-auto md:p-8">
+        <div className="mx-auto py-6 md:p-8 lg:py-10">
           <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
             <div className="flex-1 space-y-4">
               <h1 className="inline-block font-heading text-4xl tracking-tight lg:text-5xl">
@@ -108,7 +104,7 @@ export default async function BlogPage() {
             <div className="mx-auto mt-12 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
               {builtPosts.map((post: BlogPostType) => (
                 <article
-                  className="relative isolate flex flex-col justify-end ring-1 ring-zinc-700 overflow-hidden rounded-2xl bg-zinc-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80"
+                  className="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-zinc-900 px-8 pb-8 pt-80 ring-1 ring-zinc-700 sm:pt-48 lg:pt-80"
                   key={post?.id}
                 >
                   <Image
@@ -135,7 +131,7 @@ export default async function BlogPage() {
                     <div className="flex items-center gap-x-4">
                       <div className="flex gap-x-0">
                         <AuthorImages authors={post?.authors} />
-                        <div className="flex justify-center items-center">
+                        <div className="flex items-center justify-center">
                           {post?.authors?.[0]?.name}
                         </div>
                       </div>
@@ -152,7 +148,7 @@ export default async function BlogPage() {
   )
 }
 
-function AuthorImages({ authors }) {
+function AuthorImages({ authors }: { authors: Author[] }) {
   return (
     <div className="isolate flex -space-x-2 overflow-hidden pr-2">
       {authors?.map((author, index) => (
@@ -164,7 +160,7 @@ function AuthorImages({ authors }) {
           height={100}
           className={`relative z-${
             3 - index
-          } bg-white/10 inline-block h-8 w-8 rounded-full ring-1 m-0.5 ring-white ring-opacity-50`}
+          } m-0.5 inline-block h-8 w-8 rounded-full bg-white/10 ring-1 ring-white ring-opacity-50`}
         />
       ))}
     </div>

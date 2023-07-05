@@ -1,16 +1,17 @@
 "use client"
 
-import { X7InitialLiquidityLoanTerm001 } from "contracts"
-
 import { useEffect, useState } from "react"
-import { BlockchainType, ContractsEnum, LoanType } from "@x7/common"
-import { generateX7InitialLiquidityLoanTermContract } from "@x7/utils"
+import { X7InitialLiquidityLoanTerm001 } from "contracts"
 import { useContractReads } from "wagmi"
 
-import { generateWagmiChain } from "@/lib/generateWagmiChain"
-import { Pagination } from "@/components/pagination"
-import { Table } from "@/components/table"
+import type { BlockchainType, LoanType } from "@x7/common"
+// @ts-expect-error todo: fix this
+import { Pagination } from "@x7/ui/pagination"
+// @ts-expect-error todo: fix this
+import { Table } from "@x7/ui/table"
+import { generateX7InitialLiquidityLoanTermContract } from "@x7/utils"
 
+import { generateWagmiChain } from "@/lib/generateWagmiChain"
 import { LoanRow } from "./row"
 
 const ITEMS_PER_PAGE = 8
@@ -71,7 +72,7 @@ export function LoansTable(props: LoanTableProps) {
               accessor: "index",
               responsive: false,
               width: "50",
-              cellRenderer: (t) => (
+              cellRenderer: (t: number) => (
                 <LoanRow
                   loanType={loanTypeId}
                   id={t}
@@ -84,7 +85,7 @@ export function LoansTable(props: LoanTableProps) {
               header: "ID",
               accessor: "id",
               responsive: true,
-              cellRenderer: (t) => (
+              cellRenderer: (t: number) => (
                 <LoanRow
                   loanType={loanTypeId}
                   id={t}
@@ -97,7 +98,7 @@ export function LoansTable(props: LoanTableProps) {
               header: "Loan Details",
               accessor: "description",
               responsive: true,
-              cellRenderer: (t) => (
+              cellRenderer: (t: number) => (
                 <LoanRow
                   loanType={loanTypeId}
                   id={t}
@@ -110,7 +111,7 @@ export function LoansTable(props: LoanTableProps) {
               header: "Status",
               accessor: "status",
               responsive: true,
-              cellRenderer: (t) => (
+              cellRenderer: (t: number) => (
                 <LoanRow
                   loanType={loanTypeId}
                   id={t}
@@ -123,7 +124,7 @@ export function LoansTable(props: LoanTableProps) {
               header: "Loan Amount",
               accessor: "amount",
               responsive: true,
-              cellRenderer: (t) => (
+              cellRenderer: (t: number) => (
                 <LoanRow
                   loanType={loanTypeId}
                   id={t}
@@ -136,7 +137,7 @@ export function LoansTable(props: LoanTableProps) {
               header: "Total Due",
               accessor: "totalDue",
               responsive: true,
-              cellRenderer: (t) => (
+              cellRenderer: (t: number) => (
                 <LoanRow
                   loanType={loanTypeId}
                   id={t}
@@ -149,7 +150,7 @@ export function LoansTable(props: LoanTableProps) {
               header: "Start Date",
               accessor: "startDate",
               responsive: true,
-              cellRenderer: (t) => (
+              cellRenderer: (t: number) => (
                 <LoanRow
                   loanType={loanTypeId}
                   id={t}
@@ -162,7 +163,7 @@ export function LoansTable(props: LoanTableProps) {
               header: "",
               accessor: "details",
               responsive: true,
-              cellRenderer: (t) => (
+              cellRenderer: (t: number) => (
                 <LoanRow
                   loanType={loanTypeId}
                   id={t}

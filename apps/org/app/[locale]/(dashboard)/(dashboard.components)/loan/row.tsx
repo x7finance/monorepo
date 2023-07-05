@@ -1,32 +1,21 @@
 "use client"
 
 import Link from "next/link"
-import { BlockchainType, LoanType } from "@x7/common"
-import {
-  AlertCircle,
-  CheckCircleIcon,
-  ChevronRightIcon,
-  FlagIcon,
-  XCircleIcon,
-} from "@x7/icons"
+
+import type { BlockchainType, LoanType } from "@x7/common"
+import { ChevronRightIcon } from "@x7/icons"
+// @ts-expect-error todo: fix this
+import { buttonVariants } from "@x7/ui/button"
+// @ts-expect-error todo: fix this
+import { ContractCopy } from "@x7/ui/copy-buttons"
 import {
   cn,
-  generateChainBase,
   generateChainDenomination,
   generateChainShortName,
-  generateX7InitialLiquidityLoanTermContract,
 } from "@x7/utils"
 
 import { useXchangeLoanData } from "@/lib/hooks/useXchangeLoanData"
-import { ContractCopy } from "@/components/ui-client/contractCopy"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui-client/tooltip"
-
-import { buttonVariants } from "../ui"
+import { IconAlerts } from "./icon-alerts"
 
 interface LoansProps {
   id: number
@@ -62,7 +51,7 @@ export function LoanRow({ id, chainId, type, loanType }: LoansProps) {
     case "index":
       return (
         <>
-          <div className="font-medium text-zinc-900 dark:text-zinc-100 w-full">
+          <div className="w-full font-medium text-zinc-900 dark:text-zinc-100">
             <div className="flex items-center">
               <div className="flex items-center">
                 <>
@@ -75,7 +64,7 @@ export function LoanRow({ id, chainId, type, loanType }: LoansProps) {
                   >
                     {loanID ? `${loanID}` : ". . ."}
                   </span>
-                  <div className="relative inline-block ml-2 lg:hidden">
+                  <div className="relative ml-2 inline-block lg:hidden">
                     <div className="flex items-center space-x-2">
                       <div className="flex flex-shrink-0 space-x-1">
                         {symbol}
@@ -91,7 +80,7 @@ export function LoanRow({ id, chainId, type, loanType }: LoansProps) {
                   />
                 </div>
               </div>
-              <div className="inline-block ml-auto lg:hidden">
+              <div className="ml-auto inline-block lg:hidden">
                 {loanID ? (
                   <Link
                     href={`/dashboard/loans/${generateChainShortName(
@@ -105,10 +94,10 @@ export function LoanRow({ id, chainId, type, loanType }: LoansProps) {
                       "inline-flex"
                     )}
                   >
-                    <span className="whitespace-nowrap flex items-center">
+                    <span className="flex items-center whitespace-nowrap">
                       <span>View</span>
                       <span>
-                        <ChevronRightIcon className="w-4 h-4 ml-1" />
+                        <ChevronRightIcon className="ml-1 h-4 w-4" />
                       </span>
                     </span>
                   </Link>
@@ -116,8 +105,8 @@ export function LoanRow({ id, chainId, type, loanType }: LoansProps) {
               </div>
             </div>
           </div>
-          <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
-            <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
+          <div className="mt-1 flex flex-col text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
+            <div className="mt-1 flex flex-col text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
               <span className="flex items-center opacity-70 dark:opacity-50">
                 Status : {isCompleted ? "Completed" : "Active"}
               </span>
@@ -166,9 +155,7 @@ export function LoanRow({ id, chainId, type, loanType }: LoansProps) {
         <div className="flex items-center space-x-2">
           <div className="flex flex-shrink-0 space-x-1">
             {loanAmount}
-            <span className="pl-1">
-              {generateChainDenomination(chainId as BlockchainType)}
-            </span>
+            <span className="pl-1">{generateChainDenomination(chainId)}</span>
           </div>
         </div>
       )
@@ -189,7 +176,7 @@ export function LoanRow({ id, chainId, type, loanType }: LoansProps) {
     case "more":
       return (
         <div className="float-right pr-4">
-          <div className="flex justify-center w-full">
+          <div className="flex w-full justify-center">
             {loanID ? (
               <Link
                 href={`/dashboard/loans/${generateChainShortName(
@@ -203,10 +190,10 @@ export function LoanRow({ id, chainId, type, loanType }: LoansProps) {
                   "inline-flex"
                 )}
               >
-                <span className="whitespace-nowrap flex items-center">
+                <span className="flex items-center whitespace-nowrap">
                   <span>View</span>
                   <span>
-                    <ChevronRightIcon className="w-4 h-4 ml-1" />
+                    <ChevronRightIcon className="ml-1 h-4 w-4" />
                   </span>
                 </span>
               </Link>
@@ -215,55 +202,4 @@ export function LoanRow({ id, chainId, type, loanType }: LoansProps) {
         </div>
       )
   }
-}
-
-function IconAlerts({ liquidationAmount, canLiquidate, loanState }) {
-  return (
-    <div className="flex space-x-2">
-      <span className="">
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              {liquidationAmount === -1 ? (
-                <XCircleIcon className="ml-4 text-red-500 w-5 h-5" />
-              ) : loanState === 0 ? (
-                <AlertCircle className="ml-4 text-yellow-500 w-5 h-5" />
-              ) : loanState === 1 ? (
-                <CheckCircleIcon className="ml-4 text-green-500 w-5 h-5" />
-              ) : (
-                ""
-              )}
-            </TooltipTrigger>
-            <TooltipContent>
-              <span>
-                {liquidationAmount === -1
-                  ? "Liquidated"
-                  : loanState === 0
-                  ? "Loan Active"
-                  : loanState === 1
-                  ? "Loan Paid"
-                  : ""}
-              </span>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      </span>
-      <span className="">
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              {canLiquidate > 0 ? (
-                <FlagIcon className=" text-green-500 w-5 h-5" />
-              ) : (
-                <FlagIcon className="text-red-500 w-5 h-5" />
-              )}
-            </TooltipTrigger>
-            <TooltipContent>
-              <span>{canLiquidate > 0 ? "Liquidable" : "Non-Liquidable"}</span>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      </span>
-    </div>
-  )
 }

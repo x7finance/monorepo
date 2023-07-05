@@ -1,8 +1,11 @@
-import { X7NFT } from "contracts"
-
 import { useCallback, useState } from "react"
 import Image from "next/image"
 import { GradientTypes } from "@/site-components/gradients"
+import { ConnectKitButton } from "connectkit"
+import { X7NFT } from "contracts"
+import { formatEther, parseEther } from "viem"
+import { useContractReads, useNetwork, useSwitchNetwork } from "wagmi"
+
 import { ONE_MILLION } from "@x7/common"
 import {
   BoxIcon,
@@ -12,11 +15,11 @@ import {
   MinusCircleIcon,
   PlusCircleIcon,
 } from "@x7/icons"
-import { Button, toast } from "@x7/ui"
+// @ts-expect-error todo: fix this
+import { Button } from "@x7/ui/button"
+// @ts-expect-error todo: fix this
+import { useToast } from "@x7/ui/use-toast"
 import { cn, generateChainAbbreviation, generateChainBase } from "@x7/utils"
-import { ConnectKitButton } from "connectkit"
-import { formatEther, parseEther } from "viem"
-import { useContractReads, useNetwork, useSwitchNetwork } from "wagmi"
 
 import { env } from "@/env.mjs"
 import { useContractTx } from "@/lib/hooks/useContractTx"
@@ -25,6 +28,7 @@ export default function UtilityNftDetails({ nft }: any) {
   const { chain } = useNetwork()
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [mintCount, setMintCount] = useState(1)
+  const toaster = useToast()
 
   const { data } = useContractReads({
     contracts: [
@@ -65,8 +69,8 @@ export default function UtilityNftDetails({ nft }: any) {
       ? formatEther(data?.[1]?.result as bigint)
       : 0
 
-  const maxSupply = !!data?.[2]?.result ? Number(data?.[2]?.result) : 0
-  const totalSupply = !!data?.[3]?.result ? Number(data?.[3]?.result) : -1
+  const maxSupply = data?.[2]?.result ? Number(data?.[2]?.result) : 0
+  const totalSupply = data?.[3]?.result ? Number(data?.[3]?.result) : -1
 
   const mintNft = useCallback(
     async (quantity: number) => {
@@ -74,14 +78,14 @@ export default function UtilityNftDetails({ nft }: any) {
         const priceValue = Number(price)
 
         if (quantity <= 0 && priceValue > 0) {
-          return toast({
+          return toaster.toast({
             title: "Error",
             description: "Please ensure you are minting at least 1 NFT",
             variant: "destructive",
           })
         }
 
-        if (!!mintMany) {
+        if (mintMany) {
           await mintMany({
             gas: ONE_MILLION,
             args: [quantity],
@@ -141,7 +145,6 @@ export default function UtilityNftDetails({ nft }: any) {
       </p>
       <div className="mt-2 px-4">
         <ul
-          role="list"
           className={cn(
             "-my-2 h-40 divide-y divide-zinc-200 text-sm text-zinc-700 dark:divide-zinc-800 dark:text-zinc-300 sm:h-48 md:h-48 lg:h-56"
           )}
@@ -241,7 +244,7 @@ export default function UtilityNftDetails({ nft }: any) {
             </a>
           </div>
           <div className="-ml-px flex w-0 flex-1 overflow-hidden">
-            <a
+            <button
               onClick={(e) => {
                 e.preventDefault()
 
@@ -255,7 +258,7 @@ export default function UtilityNftDetails({ nft }: any) {
               <span className="ml-3">
                 {data?.[0] ? (drawerOpen ? `Close` : "Mint") : `Not Ready`}
               </span>
-            </a>
+            </button>
           </div>
         </div>
       </div>
@@ -271,7 +274,7 @@ export default function UtilityNftDetails({ nft }: any) {
             className="isolate mt-3 inline-flex -space-x-px rounded-md"
             aria-label="Mint Count"
           >
-            <a
+            <button
               onClick={(e) => {
                 e.preventDefault()
 
@@ -281,18 +284,18 @@ export default function UtilityNftDetails({ nft }: any) {
             >
               <span className="sr-only">Subtract</span>
               <MinusCircleIcon className="h-5 w-5" aria-hidden="true" />
-            </a>
+            </button>
 
             <span className="relative z-10 inline-flex items-center border border-indigo-500 bg-indigo-50 px-4 py-2 text-lg font-bold text-indigo-600 focus:z-20">
               {mintCount}
             </span>
 
-            <a
+            <button
               onClick={(e) => {
                 e.preventDefault()
 
                 if (mintCount >= nft.maxMint) {
-                  return toast({
+                  return toaster.toast({
                     title: "Error",
                     description:
                       "This is the max you can mint in a single transaction",
@@ -306,7 +309,7 @@ export default function UtilityNftDetails({ nft }: any) {
             >
               <span className="sr-only">Add</span>
               <PlusCircleIcon className="h-5 w-5" aria-hidden="true" />
-            </a>
+            </button>
             <div className="flex w-full items-center pl-4">
               <Button
                 className="flex h-10 w-20 items-center"

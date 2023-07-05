@@ -20,7 +20,6 @@
         "X7_BOT_TWO_TOKEN"
       ]
     },
-    "lint": {},
     "test": {},
     "check-types": {},
     "dev": {
@@ -29,6 +28,17 @@
       "persistent": true
     },
     "clean": {
+      "cache": false
+    },
+    "lint": {
+      "dependsOn": ["build"]
+    },
+    "lint:fix": {},
+    "//#clean": {
+      "cache": false
+    },
+    "type-check": {
+      "dependsOn": ["build"],
       "cache": false
     }
   }

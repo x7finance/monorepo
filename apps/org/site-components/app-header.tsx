@@ -1,10 +1,10 @@
 import Link from "next/link"
+
 import { X7LinksEnum } from "@x7/common"
 import { X7Logo } from "@x7/icons"
 import { cn } from "@x7/utils"
 
 import { CommunityLinks } from "@/lib/types/links"
-
 import { AppTabNavigation } from "./app-tab-nav"
 import { MobileNavigation } from "./mobile-navigation"
 import { Search } from "./search-dialog"
@@ -12,12 +12,12 @@ import { Search } from "./search-dialog"
 export function AppHeader() {
   return (
     <>
-      <nav className="sticky z-10 w-full h-14">
-        <div className="fixed px-3 py-3 lg:px-5 lg:pl-3 dark:bg-black bg-white">
+      <nav className="sticky z-10 h-14 w-full">
+        <div className="fixed bg-white px-3 py-3 dark:bg-black lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
             <div
               className={cn(
-                "fixed inset-x-0 top-0 flex h-14 items-center justify-between sm:justify-normal md:justify-between lg:gap-12 gap-4 px-4 transition lg:left-20 lg:z-30 dark:bg-black bg-white"
+                "fixed inset-x-0 top-0 flex h-14 items-center justify-between gap-4 bg-white px-4 transition dark:bg-black sm:justify-normal md:justify-between lg:left-20 lg:z-30 lg:gap-12"
               )}
             >
               <div className="flex lg:hidden">
@@ -25,9 +25,9 @@ export function AppHeader() {
               </div>
               <Search />
               <div className="flex items-center gap-2 lg:hidden" />
-              <div className="flex md:items-center gap-0 md:gap-5 ">
+              <div className="flex gap-0 md:items-center md:gap-5 ">
                 <nav className="hidden md:block">
-                  <ul role="list" className="flex items-center gap-8">
+                  <ul className="flex items-center gap-8">
                     <li>
                       <Link
                         href={CommunityLinks.Support}
@@ -48,9 +48,9 @@ export function AppHeader() {
                     </li>
                   </ul>
                 </nav>
-                <div className="hidden lg:block md:h-5 md:w-px md:bg-zinc-900/10 md:dark:bg-white/15" />
-                <div className="hidden md:block w-32" />
-                <div className="flex sm:hidden mr-6">
+                <div className="hidden md:h-5 md:w-px md:bg-zinc-900/10 md:dark:bg-white/15 lg:block" />
+                <div className="hidden w-32 md:block" />
+                <div className="mr-6 flex sm:hidden">
                   <Search isMobile={true} />
                 </div>
                 <MobileNavigation className="sm:hidden" />
@@ -61,7 +61,7 @@ export function AppHeader() {
         </div>
       </nav>
 
-      <div className="sm:fixed w-full z-10 dark:bg-black bg-white">
+      <div className="z-10 w-full bg-white dark:bg-black sm:fixed">
         <AppTabNavigation />
       </div>
     </>
@@ -71,9 +71,9 @@ export function AppHeader() {
 function LogoMarkLink() {
   return (
     <div className="flex items-center">
-      <div className="flex items-center ml-3">
+      <div className="ml-3 flex items-center">
         <Link href="/">
-          <X7Logo className="h-8 mr-3 fill-black dark:fill-white" />
+          <X7Logo className="mr-3 h-8 fill-black dark:fill-white" />
         </Link>
       </div>
     </div>

@@ -1,18 +1,16 @@
 import path from "path"
-
 import React from "react"
-import { Metadata } from "next"
+import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import Markdoc from "@markdoc/markdoc"
 import { glob } from "glob"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-
 import { DocsBase } from "../../(docs.components)/base"
 import { components } from "../../(docs.utils)/config.markdoc"
+import type { ParamsProps } from "../../(docs.utils)/markdoc-parse"
 import {
   getMarkdownContent,
-  ParamsProps,
   SOURCE_FILES,
 } from "../../(docs.utils)/markdoc-parse"
 
@@ -47,7 +45,7 @@ export async function generateMetadata({
   return generateMetadataFromDoc(doc)
 }
 
-export default async function DocsPage({ params }) {
+export default async function DocsPage({ params }: { params: ParamsProps }) {
   const { content, title, tags, tableOfContents, date, slug, section } =
     await getMarkdownContent(params)
 

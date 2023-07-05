@@ -2,9 +2,16 @@
 
 import Link from "next/link"
 import { XchangeButton } from "@/site-components/xchange-button"
-import { BlockchainType, XCHANGE } from "@x7/common"
+
+import type { BlockchainType } from "@x7/common"
+import { XCHANGE } from "@x7/common"
 import { IconWrapper } from "@x7/icons"
-import { buttonVariants, CircleLoading, ContractCopy } from "@x7/ui"
+// @ts-expect-error todo: fix this
+import { buttonVariants } from "@x7/ui/button"
+// @ts-expect-error todo: fix this
+import { CircleLoading } from "@x7/ui/circle-loading"
+// @ts-expect-error todo: fix this
+import { ContractCopy } from "@x7/ui/copy-buttons"
 import {
   cn,
   generateChainBase,
@@ -41,14 +48,14 @@ export function PairRow({ id, chainId, type }: PairsProps) {
     case "token":
       return (
         <>
-          <div className="font-medium text-zinc-900 dark:text-zinc-100 w-full">
-            <>{tokenSymbol ? tokenSymbol : <Loading />}</>
-            <div className="relative inline-block ml-2 top-1 lg:hidden">
+          <div className="w-full font-medium text-zinc-900 dark:text-zinc-100">
+            <>{tokenSymbol ? tokenSymbol : <CircleLoading />}</>
+            <div className="relative top-1 ml-2 inline-block lg:hidden">
               <div className="flex items-center space-x-2">
                 <div className="flex flex-shrink-0 space-x-1">
                   <Link
                     href={`https://www.dextools.io/app/en/${generateChainIdentifier(
-                      chainId as BlockchainType
+                      chainId
                     )}/pair-explorer/${tokenContract}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -60,7 +67,7 @@ export function PairRow({ id, chainId, type }: PairsProps) {
                 </div>
               </div>
             </div>
-            <div className="inline-block float-right lg:hidden">
+            <div className="float-right inline-block lg:hidden">
               <Link
                 href={`${XCHANGE}/#/swap?outputCurrency=${tokenContract}`}
                 target="_blank"
@@ -77,7 +84,7 @@ export function PairRow({ id, chainId, type }: PairsProps) {
               </Link>
             </div>
           </div>
-          <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
+          <div className="mt-1 flex flex-col text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
             <span className="flex">
               <ContractCopy name={"Contract"} contract={tokenContract} />
             </span>
@@ -105,9 +112,7 @@ export function PairRow({ id, chainId, type }: PairsProps) {
         <div className="flex items-center space-x-2">
           <div className="flex flex-shrink-0 space-x-1">
             {tokenReserve !== "-1" ? tokenReserve : "..."}
-            <span className="pl-1">
-              {generateChainDenomination(chainId as BlockchainType)}
-            </span>
+            <span className="pl-1">{generateChainDenomination(chainId)}</span>
           </div>
         </div>
       )
@@ -118,7 +123,7 @@ export function PairRow({ id, chainId, type }: PairsProps) {
             <div className="flex flex-shrink-0 space-x-1">
               <Link
                 href={`https://www.dextools.io/app/en/${generateChainIdentifier(
-                  chainId as BlockchainType
+                  chainId
                 )}/pair-explorer/${tokenContract}`}
                 target="_blank"
                 rel="noopener noreferrer"

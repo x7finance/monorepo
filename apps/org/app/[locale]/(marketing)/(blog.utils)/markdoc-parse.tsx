@@ -1,12 +1,11 @@
 import fs from "fs"
 import path from "path"
-
-import Markdoc, { RenderableTreeNode } from "@markdoc/markdoc"
+import type { RenderableTreeNode } from "@markdoc/markdoc"
+import Markdoc from "@markdoc/markdoc"
 import { slugifyWithCounter } from "@sindresorhus/slugify"
 import matter from "gray-matter"
 
-import { BlogType } from "@/lib/types"
-
+import type { BlogType } from "@/lib/types"
 import { AUTHORS } from "./authors"
 import { config } from "./config.markdoc"
 
@@ -16,15 +15,6 @@ export const SOURCE_DIR = path.join(process.cwd(), SOURCE_FILES)
 
 // Define the type for the slug
 type SlugType = string[] | undefined
-
-async function pathExists(path: string): Promise<boolean> {
-  try {
-    await fs.promises.access(path)
-    return true
-  } catch {
-    return false
-  }
-}
 
 // Define the return type for parsing the markdown file
 interface ParsedMarkdown {
@@ -62,6 +52,13 @@ export interface ParamsProps {
   omitProperties?: (keyof MarkdownContent)[]
 }
 
+interface Author {
+  id: string
+  name: string
+  twitter: string
+  image: string
+}
+
 // Define the type for the return object
 export interface MarkdownContent {
   section: BlogType
@@ -74,11 +71,11 @@ export interface MarkdownContent {
   slug?: string
   seoTitle: string | null
   imageUrl?: string
-  authors: any[]
+  authors: Author[]
   summary?: string
 }
 
-function findAuthorsByIds(ids) {
+function findAuthorsByIds(ids: string[]): Author[] {
   return AUTHORS.filter((author) => ids.includes(author.id))
 }
 
@@ -107,7 +104,7 @@ export async function getMarkdownContent(
     } = matterResult.data
 
     const section = (slug ? slug[0] : "posts") as BlogType
-    let result: Partial<MarkdownContent> = {
+    const result: Partial<MarkdownContent> = {
       section,
       content,
       title,
@@ -130,14 +127,14 @@ export async function getMarkdownContent(
     return result
   } catch (error) {
     console.error(error)
-    // @ts-expect-error
+    // @ts-expect-error todo: fix this
     return { content: null, title: null, tags: null, tableOfContents: null }
   }
 }
 
 function getNodeText(node: any): string {
   let text = ""
-  for (let child of node.children ?? []) {
+  for (const child of node.children ?? []) {
     if (typeof child === "string") {
       text += child
     } else {
@@ -155,21 +152,23 @@ interface SectionType {
   children: SectionType[]
 }
 
+type SlugifyFunction = (title: string) => string
+
 function collectHeadings(
   nodes: any,
-  slugify = slugifyWithCounter()
+  slugify: SlugifyFunction = slugifyWithCounter()
 ): SectionType[] {
-  let sections: SectionType[] = []
+  const sections: SectionType[] = []
 
-  for (let node of nodes?.children ?? []) {
+  for (const node of nodes?.children ?? []) {
     if (
-      node.name === "Heading" &&
-      SUBHEADINGS.includes(node.attributes.level)
+      node?.name === "Heading" &&
+      SUBHEADINGS.includes(node?.attributes?.level)
     ) {
-      let title = getNodeText(node)
+      const title = getNodeText(node)
 
       if (title) {
-        let id = slugify(title)
+        const id = slugify(title)
         node.attributes.id = id
 
         if (node.name === "Heading" && node.attributes.level === 3) {
@@ -179,7 +178,8 @@ function collectHeadings(
             )
           }
 
-          sections[sections.length - 1].children.push({
+          // @ts-expect-error
+          sections?.[sections.length - 1].children.push({
             id,
             title,
             children: [],

@@ -1,9 +1,10 @@
 "use client"
 
 import { Suspense, useEffect, useState } from "react"
+import { useTheme } from "next-themes"
+
 import { MonitorIcon, MoonIcon, SunIcon } from "@x7/icons"
 import { cn } from "@x7/utils"
-import { useTheme } from "next-themes"
 
 export function ModeToggle() {
   const [mounted, setMounted] = useState(false)
@@ -20,11 +21,11 @@ export function ModeToggle() {
 
   return (
     <Suspense>
-      <div className="max-w-max mt-4">
+      <div className="mt-4 max-w-max">
         <div
           //
           className={cn(
-            "flex items-center relative p-1 border border-zinc-200 dark:border-zinc-800 rounded-full max-w-max"
+            "relative flex max-w-max items-center rounded-full border border-zinc-200 p-1 dark:border-zinc-800"
           )}
           role="radiogroup"
         >
@@ -33,15 +34,15 @@ export function ModeToggle() {
             aria-label="Dark"
             className={cn(
               theme === "dark"
-                ? "bg-zinc-200 dark:bg-zinc-800 rounded-full"
+                ? "rounded-full bg-zinc-200 dark:bg-zinc-800"
                 : "",
-              "w-8 h-8 px-0 m-0 cursor-pointer flex justify-center items-center"
+              "m-0 flex h-8 w-8 cursor-pointer items-center justify-center px-0"
             )}
             role="radio"
             type="button"
           >
             <span>
-              <MoonIcon className="w-4 h-4" />
+              <MoonIcon className="h-4 w-4" />
             </span>
           </button>
           <button
@@ -49,15 +50,15 @@ export function ModeToggle() {
             aria-label="Light"
             className={cn(
               theme === "light"
-                ? "bg-zinc-200 dark:bg-zinc-800 rounded-full"
+                ? "rounded-full bg-zinc-200 dark:bg-zinc-800"
                 : "",
-              "w-8 h-8 px-0 m-0 cursor-pointer flex justify-center items-center"
+              "m-0 flex h-8 w-8 cursor-pointer items-center justify-center px-0"
             )}
             role="radio"
             type="button"
           >
             <span>
-              <SunIcon className="w-4 h-4" />
+              <SunIcon className="h-4 w-4" />
             </span>
           </button>
           <button
@@ -65,15 +66,15 @@ export function ModeToggle() {
             aria-label="System"
             className={cn(
               theme === "system"
-                ? "bg-zinc-200 dark:bg-zinc-800 rounded-full"
+                ? "rounded-full bg-zinc-200 dark:bg-zinc-800"
                 : "",
-              "w-8 h-8 px-0 m-0 cursor-pointer flex justify-center items-center"
+              "m-0 flex h-8 w-8 cursor-pointer items-center justify-center px-0"
             )}
             role="radio"
             type="button"
           >
             <span>
-              <MonitorIcon className="w-4 h-4" />
+              <MonitorIcon className="h-4 w-4" />
             </span>
           </button>
         </div>

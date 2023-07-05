@@ -1,10 +1,10 @@
 "use client"
 
-import { X7EcosystemSplitter, X7TreasurySplitterV2 } from "contracts"
-
 import { useEffect, useState } from "react"
-import { ContractsEnum } from "@x7/common"
+import { X7EcosystemSplitter, X7TreasurySplitterV2 } from "contracts"
 import { useContractReads } from "wagmi"
+
+import { ContractsEnum } from "@x7/common"
 
 import { DashboardSubheader } from "./dashboard-subheader"
 import { DonutChart } from "./donutChart/DonutChart"

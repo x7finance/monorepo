@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo } from "react"
 
 function Polygon(props: any) {
   return (
@@ -8,7 +8,7 @@ function Polygon(props: any) {
         fill="#8247E5"
       />
     </svg>
-  );
+  )
 }
 
-export default memo(Polygon);
+export default memo(Polygon)

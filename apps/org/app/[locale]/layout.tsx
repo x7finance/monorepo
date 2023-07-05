@@ -8,10 +8,12 @@ import { Analytics } from "@vercel/analytics/react"
 import "@/styles/globals.css"
 
 import { ThemeProvider } from "@/site-components/theme-provider"
+
+// @ts-expect-error: TODO: fix this
+import { Toaster } from "@x7/ui/toaster"
 import { cn } from "@x7/utils"
 
 import { SITE_METADATA } from "@/config/metadata"
-import { Toaster } from "@/components/ui-client/toast/toaster"
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -31,14 +33,14 @@ export default function RootLayout({
   params,
 }: {
   children: React.ReactNode
-  params
+  params: any
 }) {
   return (
     <html lang={"en"}>
       <head />
       <body
         className={cn(
-          "bg-background min-h-screen font-sans antialiased",
+          "min-h-screen bg-background font-sans antialiased",
           fontSans.variable,
           fontHeading.variable
         )}

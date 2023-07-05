@@ -1,8 +1,10 @@
 "use client"
 
-import { ReactNode, useEffect, useRef } from "react"
+import type { ReactNode } from "react"
+import { useEffect, useRef } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+
 import { cn } from "@x7/utils"
 
 import { SectionNavigation } from "./section-navigation"
@@ -29,17 +31,14 @@ export function Navigation({ navigation, className }: NavigationProps) {
 
   return (
     <nav className={cn("text-base lg:text-sm", className)}>
-      <SectionNavigation className="space-y-1 mb-6" />
-      <ul role="list" className="space-y-9">
+      <SectionNavigation className="mb-6 space-y-1" />
+      <ul className="space-y-9">
         {navigation.map((section) => (
           <li key={section.title}>
             <h2 className="font-display font-medium text-zinc-900 dark:text-white">
               {section.title}
             </h2>
-            <ul
-              role="list"
-              className="mt-2 space-y-2 border-l-2 border-zinc-100 dark:border-zinc-800 lg:mt-4 lg:space-y-4 lg:border-zinc-200"
-            >
+            <ul className="mt-2 space-y-2 border-l-2 border-zinc-100 dark:border-zinc-800 lg:mt-4 lg:space-y-4 lg:border-zinc-200">
               {section.links.map((link) => (
                 <li key={link.href} className="relative">
                   <NavLink href={link.href} isActive={link.href === pathname}>
@@ -71,7 +70,7 @@ function NavLink({ href, isActive, children }: NavLinkProps) {
       ref={ref}
       className={cn(
         isActive ? "before:bg-sky-500" : "",
-        "block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 dark:text-zinc-400 before:w-1.5 before:-translate-y-1/2 before:rounded-full"
+        "block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full dark:text-zinc-400"
       )}
       href={href}
     >

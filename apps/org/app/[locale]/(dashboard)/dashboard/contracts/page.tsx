@@ -1,14 +1,18 @@
-import { Metadata } from "next"
+import type { Metadata } from "next"
 import Link from "next/link"
 import { Dropdown } from "@/site-components/contracts-dropdown"
 import { XchangeButton } from "@/site-components/xchange-button"
-import { BlockchainType, ContractsEnum } from "@x7/common"
+
+import type { BlockchainType } from "@x7/common"
+import { ContractsEnum } from "@x7/common"
 import { ChainsArray } from "@x7/icons"
+// @ts-expect-error todo: fix this
+import { ContractCopy } from "@x7/ui/copy-buttons"
+// @ts-expect-error todo: fix this
+import { Table } from "@x7/ui/table"
 import { generateChainIdentifier } from "@x7/utils"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { Table } from "@/components/table"
-import { ContractCopy } from "@/components/ui-client/contractCopy"
 import { DashboardContainer } from "@/app/[locale]/(dashboard)/(dashboard.components)/dashboard-container"
 import { DashboardSubheader } from "@/app/[locale]/(dashboard)/(dashboard.components)/dashboard-subheader"
 import { DashboardTitle } from "@/app/[locale]/(dashboard)/(dashboard.components)/dashboard-title"
@@ -21,7 +25,7 @@ const metadata = {
   section: "dashboard",
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export function generateMetadata(): Metadata {
   return generateMetadataFromDoc(metadata)
 }
 
@@ -50,11 +54,11 @@ export default function ContractsPage() {
                   accessor: "token",
                   responsive: false,
                   width: "100",
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <>
-                      <div className="font-medium text-zinc-900 dark:text-zinc-100 w-full">
+                      <div className="w-full font-medium text-zinc-900 dark:text-zinc-100">
                         {t.name}
-                        <div className="relative inline-block ml-2 top-1 lg:hidden">
+                        <div className="relative top-1 ml-2 inline-block lg:hidden">
                           <div className="flex items-center space-x-2">
                             <div className="flex flex-shrink-0 space-x-1">
                               {ChainsArray.map((c, id) => (
@@ -73,7 +77,7 @@ export default function ContractsPage() {
                             </div>
                           </div>
                         </div>
-                        <div className="inline-block float-right lg:hidden">
+                        <div className="float-right inline-block lg:hidden">
                           <Dropdown
                             type="xchange"
                             contract={t.contract}
@@ -82,7 +86,7 @@ export default function ContractsPage() {
                           />
                         </div>
                       </div>
-                      <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
+                      <div className="mt-1 flex flex-col text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
                         <span className="text-zinc-600 dark:text-zinc-300">
                           {t.description}
                         </span>
@@ -101,7 +105,7 @@ export default function ContractsPage() {
                   header: "Description",
                   accessor: "description",
                   responsive: true,
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <div className="text-xs text-zinc-700 dark:text-zinc-300">
                       <span>{t.description}</span>
                       <ContractCopy contract={t.contract} />
@@ -112,7 +116,7 @@ export default function ContractsPage() {
                   header: "Chart",
                   accessor: "chart",
                   responsive: true,
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <>
                       <div className="flex items-center space-x-2">
                         <div className="flex flex-shrink-0 space-x-1">
@@ -138,7 +142,7 @@ export default function ContractsPage() {
                   header: "Scan",
                   accessor: "scan",
                   responsive: true,
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <>
                       <Dropdown
                         type="scan"
@@ -153,7 +157,7 @@ export default function ContractsPage() {
                   header: "Trade",
                   accessor: "trade",
                   responsive: true,
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <>
                       <div className="float-right pr-4">
                         <Dropdown
@@ -183,11 +187,11 @@ export default function ContractsPage() {
                   accessor: "token",
                   responsive: false,
                   width: "100",
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <div>
-                      <div className="font-medium flex text-zinc-900 dark:text-zinc-100 relative">
+                      <div className="relative flex font-medium text-zinc-900 dark:text-zinc-100">
                         {t.name}
-                        <div className="inline-block ml-auto lg:hidden">
+                        <div className="ml-auto inline-block lg:hidden">
                           <Dropdown
                             type="xchange"
                             contract={t.contract}
@@ -200,7 +204,7 @@ export default function ContractsPage() {
                           />
                         </div>
                       </div>
-                      <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
+                      <div className="mt-1 flex flex-col text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
                         <span>{t.description}</span>
                         <ContractCopy contract={t.contract} />
                       </div>
@@ -211,7 +215,7 @@ export default function ContractsPage() {
                   header: "Description",
                   accessor: "description",
                   responsive: true,
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <div className="text-xs text-zinc-700 dark:text-zinc-300">
                       <span>{t.description}</span>
                       <ContractCopy contract={t.contract} />
@@ -222,7 +226,7 @@ export default function ContractsPage() {
                   header: "Scan",
                   accessor: "scan",
                   responsive: true,
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <>
                       <Dropdown
                         type="scan"
@@ -237,9 +241,9 @@ export default function ContractsPage() {
                   header: "",
                   accessor: "trade",
                   responsive: true,
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <>
-                      <div className="flex justify-center w-full">
+                      <div className="flex w-full justify-center">
                         <Dropdown
                           type="xchange"
                           contract={t.contract}
@@ -269,11 +273,11 @@ export default function ContractsPage() {
                   accessor: "token",
                   responsive: false,
                   width: "300",
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <div>
-                      <div className="font-medium flex text-zinc-900 dark:text-zinc-100 relative">
+                      <div className="relative flex font-medium text-zinc-900 dark:text-zinc-100">
                         <span>{t.name}</span>
-                        <div className="inline-block ml-auto lg:hidden">
+                        <div className="ml-auto inline-block lg:hidden">
                           <Dropdown
                             type="scan"
                             contract={t.contract}
@@ -284,7 +288,7 @@ export default function ContractsPage() {
                           />
                         </div>
                       </div>
-                      <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
+                      <div className="mt-1 flex flex-col text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
                         <span>{t.description}</span>
                         <ContractCopy contract={t.contract} />
                       </div>
@@ -295,7 +299,7 @@ export default function ContractsPage() {
                   header: "Description",
                   accessor: "description",
                   responsive: true,
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <div className="text-xs text-zinc-700 dark:text-zinc-300">
                       <span>{t.description}</span>
                       <ContractCopy contract={t.contract} />
@@ -306,7 +310,7 @@ export default function ContractsPage() {
                   header: "Scan",
                   accessor: "scan",
                   responsive: true,
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <div className="float-right pr-4">
                       <Dropdown
                         type="scan"
@@ -334,11 +338,11 @@ export default function ContractsPage() {
                   accessor: "token",
                   responsive: false,
                   width: "300",
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <div>
-                      <div className="font-medium flex text-zinc-900 dark:text-zinc-100 relative">
+                      <div className="relative flex font-medium text-zinc-900 dark:text-zinc-100">
                         <span>{t.name}</span>
-                        <div className="inline-block ml-auto lg:hidden">
+                        <div className="ml-auto inline-block lg:hidden">
                           <Dropdown
                             type="scan"
                             contract={t.contract}
@@ -349,7 +353,7 @@ export default function ContractsPage() {
                           />
                         </div>
                       </div>
-                      <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
+                      <div className="mt-1 flex flex-col text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
                         <span>{t.description}</span>
                         <ContractCopy contract={t.contract} />
                       </div>
@@ -360,7 +364,7 @@ export default function ContractsPage() {
                   header: "Description",
                   accessor: "description",
                   responsive: true,
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <div className="text-xs text-zinc-700 dark:text-zinc-300">
                       <span>{t.description}</span>
                       <ContractCopy contract={t.contract} />
@@ -371,7 +375,7 @@ export default function ContractsPage() {
                   header: "Scan",
                   accessor: "scan",
                   responsive: true,
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <div className="float-right pr-4">
                       <Dropdown
                         type="scan"
@@ -399,11 +403,11 @@ export default function ContractsPage() {
                   accessor: "token",
                   responsive: false,
                   width: "300",
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <div>
-                      <div className="font-medium flex text-zinc-900 dark:text-zinc-100 relative">
+                      <div className="relative flex font-medium text-zinc-900 dark:text-zinc-100">
                         <span>{t.name}</span>
-                        <div className="inline-block ml-auto lg:hidden">
+                        <div className="ml-auto inline-block lg:hidden">
                           <Dropdown
                             type="scan"
                             contract={t.contract}
@@ -414,7 +418,7 @@ export default function ContractsPage() {
                           />
                         </div>
                       </div>
-                      <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
+                      <div className="mt-1 flex flex-col text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
                         <span>{t.description}</span>
                         <ContractCopy contract={t.contract} />
                       </div>
@@ -425,7 +429,7 @@ export default function ContractsPage() {
                   header: "Description",
                   accessor: "description",
                   responsive: true,
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <div className="text-xs text-zinc-700 dark:text-zinc-300">
                       <span>{t.description}</span>
                       <ContractCopy contract={t.contract} />
@@ -436,7 +440,7 @@ export default function ContractsPage() {
                   header: "Scan",
                   accessor: "scan",
                   responsive: true,
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <div className="float-right pr-4">
                       <Dropdown
                         type="scan"
@@ -464,11 +468,11 @@ export default function ContractsPage() {
                   accessor: "token",
                   responsive: false,
                   width: "300",
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <div>
-                      <div className="font-medium flex text-zinc-900 dark:text-zinc-100 relative">
+                      <div className="relative flex font-medium text-zinc-900 dark:text-zinc-100">
                         <span>{t.name}</span>
-                        <div className="inline-block ml-auto lg:hidden">
+                        <div className="ml-auto inline-block lg:hidden">
                           <Dropdown
                             type="scan"
                             contract={t.contract}
@@ -479,7 +483,7 @@ export default function ContractsPage() {
                           />
                         </div>
                       </div>
-                      <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
+                      <div className="mt-1 flex flex-col text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
                         <span>{t.description}</span>
                         <ContractCopy contract={t.contract} />
                       </div>
@@ -490,7 +494,7 @@ export default function ContractsPage() {
                   header: "Description",
                   accessor: "description",
                   responsive: true,
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <div className="text-xs text-zinc-700 dark:text-zinc-300">
                       <span>{t.description}</span>
                       <ContractCopy contract={t.contract} />
@@ -501,7 +505,7 @@ export default function ContractsPage() {
                   header: "Scan",
                   accessor: "scan",
                   responsive: true,
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <div className="float-right pr-4">
                       <Dropdown
                         type="scan"
@@ -528,11 +532,11 @@ export default function ContractsPage() {
                   accessor: "token",
                   responsive: false,
                   width: "300",
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <div>
-                      <div className="font-medium flex text-zinc-900 dark:text-zinc-100 relative">
+                      <div className="relative flex font-medium text-zinc-900 dark:text-zinc-100">
                         <span>{t.name}</span>
-                        <div className="inline-block ml-auto lg:hidden">
+                        <div className="ml-auto inline-block lg:hidden">
                           <Dropdown
                             type="scan"
                             contract={t.contract}
@@ -543,7 +547,7 @@ export default function ContractsPage() {
                           />
                         </div>
                       </div>
-                      <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
+                      <div className="mt-1 flex flex-col text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
                         <span>{t.description}</span>
                         <ContractCopy contract={t.contract} />
                       </div>
@@ -554,7 +558,7 @@ export default function ContractsPage() {
                   header: "Description",
                   accessor: "description",
                   responsive: true,
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <div className="text-xs text-zinc-700 dark:text-zinc-300">
                       <span>{t.description}</span>
                       <ContractCopy contract={t.contract} />
@@ -565,7 +569,7 @@ export default function ContractsPage() {
                   header: "Scan",
                   accessor: "scan",
                   responsive: true,
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <div className="float-right pr-4">
                       <Dropdown
                         type="scan"
@@ -593,11 +597,11 @@ export default function ContractsPage() {
                   accessor: "token",
                   responsive: false,
                   width: "300",
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <div>
-                      <div className="font-medium flex text-zinc-900 dark:text-zinc-100 relative">
+                      <div className="relative flex font-medium text-zinc-900 dark:text-zinc-100">
                         <span>{t.name}</span>
-                        <div className="inline-block ml-auto lg:hidden">
+                        <div className="ml-auto inline-block lg:hidden">
                           <Dropdown
                             type="scan"
                             contract={t.contract}
@@ -608,7 +612,7 @@ export default function ContractsPage() {
                           />
                         </div>
                       </div>
-                      <div className="flex flex-col mt-1 text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
+                      <div className="mt-1 flex flex-col text-sm text-zinc-500 dark:text-zinc-400 sm:block lg:hidden">
                         <span>{t.description}</span>
                         <ContractCopy contract={t.contract} />
                       </div>
@@ -619,7 +623,7 @@ export default function ContractsPage() {
                   header: "Description",
                   accessor: "description",
                   responsive: true,
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <div className="text-xs text-zinc-700 dark:text-zinc-300">
                       <span>{t.description}</span>
                       <ContractCopy contract={t.contract} />
@@ -630,7 +634,7 @@ export default function ContractsPage() {
                   header: "Scan",
                   accessor: "scan",
                   responsive: true,
-                  cellRenderer: (t) => (
+                  cellRenderer: (t: any) => (
                     <div className="float-right pr-4">
                       <Dropdown
                         type="scan"

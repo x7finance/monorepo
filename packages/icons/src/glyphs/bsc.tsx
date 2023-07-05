@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo } from "react"
 
 function Bsc(props: any) {
   return (
@@ -24,7 +24,7 @@ function Bsc(props: any) {
         fill="#F3BA2F"
       />
     </svg>
-  );
+  )
 }
 
-export default memo(Bsc);
+export default memo(Bsc)

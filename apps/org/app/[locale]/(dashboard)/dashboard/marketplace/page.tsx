@@ -1,4 +1,4 @@
-import { Metadata } from "next"
+import type { Metadata } from "next"
 import { Web3Wrapper } from "@/site-components/web3-wrapper"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
@@ -14,7 +14,7 @@ const metadata = {
   section: "dashboard",
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export function generateMetadata(): Metadata {
   return generateMetadataFromDoc(metadata)
 }
 

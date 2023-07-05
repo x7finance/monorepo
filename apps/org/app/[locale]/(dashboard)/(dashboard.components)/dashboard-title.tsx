@@ -1,5 +1,7 @@
 import Link from "next/link"
-import { buttonVariants } from "@x7/ui"
+
+// @ts-expect-error todo: fix this
+import { buttonVariants } from "@x7/ui/button"
 import { cn } from "@x7/utils"
 
 interface HeaderProps {
@@ -19,7 +21,7 @@ export function DashboardTitle(props: HeaderProps) {
   const { title, subHeader, secondaryButton, primaryButton } = props
 
   return (
-    <div className="border-b dark:border-zinc-800 border-zinc-200 dark:bg-black bg-white py-10">
+    <div className="border-b border-zinc-200 bg-white py-10 dark:border-zinc-800 dark:bg-black">
       <div className="px-6 md:flex md:items-center md:justify-between md:space-x-5">
         <div className="flex items-start space-x-5">
           <div className="pt-1.5">

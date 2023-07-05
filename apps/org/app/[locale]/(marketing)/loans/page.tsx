@@ -1,9 +1,11 @@
-import { Metadata } from "next"
+import type { Metadata } from "next"
 import Link from "next/link"
 import { SiteContentContainer } from "@/site-components/site-content-container"
+
 import { X7LinksEnum } from "@x7/common"
 import { CheckCircleIcon, X7Logo } from "@x7/icons"
-import { buttonVariants } from "@x7/ui"
+// @ts-expect-error todo: fix this
+import { buttonVariants } from "@x7/ui/button"
 import { cn } from "@x7/utils"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
@@ -17,7 +19,7 @@ const metadata = {
   section: "default",
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export function generateMetadata(): Metadata {
   return generateMetadataFromDoc(metadata)
 }
 
@@ -30,7 +32,7 @@ export default function LoansPage() {
         subHeader="Discover the power of Initial Liquidity Loans at X7 Finance. Our unique lending solutions are designed to provide your project with the liquidity it needs to thrive from day one. With flexible terms and competitive rates, we make it easy for you to launch your token and grow your community."
       />
       <SiteContentContainer>
-        <div className="pt-10 mt-4 border-t border-zinc-900/5 dark:border-white/5">
+        <div className="mt-4 border-t border-zinc-900/5 pt-10 dark:border-white/5">
           <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 items-start gap-x-8 gap-y-10 sm:mt-20 lg:max-w-none lg:grid-cols-3">
             {loans.map((plan) => (
               <Loan key={plan.name} {...plan} />
@@ -144,13 +146,12 @@ function Loan({
         {name}
       </p>
       <p
-        className={cn("text-sm text-zinc-700 min-h-[75px] dark:text-zinc-400")}
+        className={cn("min-h-[75px] text-sm text-zinc-700 dark:text-zinc-400")}
       >
         {description}
       </p>
       <div className="order-last mt-6">
         <ul
-          role="list"
           className={cn(
             "-my-2 divide-y divide-zinc-200 text-sm text-zinc-700 dark:divide-zinc-800 dark:text-zinc-300"
           )}

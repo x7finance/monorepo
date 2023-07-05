@@ -2,20 +2,26 @@
 
 import Link from "next/link"
 import { Popover } from "@headlessui/react"
+import { AnimatePresence, motion } from "framer-motion"
+
 import { X7LinksEnum } from "@x7/common"
 import { ChevronUpIcon, MenuIcon, X7Logo } from "@x7/icons"
-import { buttonVariants } from "@x7/ui"
+// @ts-expect-error todo: fix this
+import { buttonVariants } from "@x7/ui/button"
 import { cn } from "@x7/utils"
-import { AnimatePresence, motion } from "framer-motion"
 
 import { MOBILE_NAV_LINKS } from "@/config/site"
 import { DocsLinks } from "@/lib/types/links"
-
 import { ModeToggle } from "./mode-toggle"
 
-function MobileNavLink({ children, ...props }) {
+function MobileNavLink({
+  children,
+  ...props
+}: {
+  children: React.ReactNode
+  href: string
+}) {
   return (
-    // @ts-ignore
     <Popover.Button
       as={Link}
       className="block text-base leading-7 tracking-tight text-zinc-700 dark:text-zinc-300"
@@ -32,14 +38,14 @@ export function MobileNavigation({ className }: { className: string }) {
       {({ open }) => (
         <>
           <Popover.Button
-            className="relative z-40 -m-2 top-1 inline-flex items-center rounded-lg text-black dark:text-white stroke-zinc-900 border-zinc-600 border dark:stroke-zinc-100 p-2 hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 hover:stroke-zinc-600 dark:hover:stroke-zinc-500 active:stroke-zinc-900 dark:active:stroke-zinc-100 [&:not(:focus-visible)]:focus:outline-none"
+            className="relative top-1 z-40 -m-2 inline-flex items-center rounded-lg border border-zinc-600 stroke-zinc-900 p-2 text-black hover:bg-zinc-200/50 hover:stroke-zinc-600 active:stroke-zinc-900 dark:stroke-zinc-100 dark:text-white dark:hover:bg-zinc-800/50 dark:hover:stroke-zinc-500 dark:active:stroke-zinc-100 [&:not(:focus-visible)]:focus:outline-none"
             aria-label="Toggle site navigation"
           >
             {({ open }) =>
               open ? (
-                <ChevronUpIcon className="w-6 h-6" />
+                <ChevronUpIcon className="h-6 w-6" />
               ) : (
-                <MenuIcon className="w-6 h-6" />
+                <MenuIcon className="h-6 w-6" />
               )
             }
           </Popover.Button>
@@ -52,7 +58,7 @@ export function MobileNavigation({ className }: { className: string }) {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="fixed inset-0 z-0 bg-zinc-300/60 dark:bg-zinc-700/60 backdrop-blur"
+                  className="fixed inset-0 z-0 bg-zinc-300/60 backdrop-blur dark:bg-zinc-700/60"
                 />
                 <Popover.Panel
                   static
@@ -64,10 +70,10 @@ export function MobileNavigation({ className }: { className: string }) {
                     y: -32,
                     transition: { duration: 0.2 },
                   }}
-                  className="absolute inset-x-0 top-0 z-30 px-6 pt-4 pb-6 origin-top shadow-2xl rounded-b-2xl bg-zinc-50 dark:bg-zinc-900 shadow-zinc-900/20 dark:shadow-zinc-50/20"
+                  className="absolute inset-x-0 top-0 z-30 origin-top rounded-b-2xl bg-zinc-50 px-6 pb-6 pt-4 shadow-2xl shadow-zinc-900/20 dark:bg-zinc-900 dark:shadow-zinc-50/20"
                 >
-                  <div className="flex items-center mb-8">
-                    <X7Logo className="w-auto h-8 fill-black dark:fill-white" />
+                  <div className="mb-8 flex items-center">
+                    <X7Logo className="h-8 w-auto fill-black dark:fill-white" />
                   </div>
                   <div className="space-y-4">
                     {MOBILE_NAV_LINKS.map((link, key) => (
@@ -76,9 +82,9 @@ export function MobileNavigation({ className }: { className: string }) {
                       </MobileNavLink>
                     ))}
                   </div>
-                  <div className="flex flex-col gap-4 mt-8 text-black dark:text-white">
+                  <div className="mt-8 flex flex-col gap-4 text-black dark:text-white">
                     <ModeToggle />
-                    <div className="text-xs italic text-center text-zinc-500">
+                    <div className="text-center text-xs italic text-zinc-500">
                       Trust No One. Trust Code. Long Live DeFi
                     </div>
                     <Link

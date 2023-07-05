@@ -3,5 +3,10 @@
   "compilerOptions": {
     "incremental": false
   },
-  "include": ["src", "*.ts", "*.cjs"]
+  "include": [
+    "src",
+    "*.ts",
+    "*.cjs",
+    "../../apps/org/app/[locale]/(dashboard)/(dashboard.components)/tabs.tsx"
+  ]
 }

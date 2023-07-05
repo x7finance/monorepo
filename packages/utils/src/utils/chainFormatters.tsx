@@ -1,5 +1,5 @@
+import type { BlockchainType, LoanType } from "@x7/common"
 import {
-  BlockchainType,
   ChainDenominationEnum,
   ChainEnum,
   ChainIdentifierEnum,
@@ -7,7 +7,6 @@ import {
   ChainShortNameEnum,
   ChainTokenOracleEtherUSDEnum,
   ContractsEnum,
-  LoanType,
   TokenContractAddresses,
 } from "@x7/common"
 

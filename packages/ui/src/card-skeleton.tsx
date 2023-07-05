@@ -1,4 +1,5 @@
-import { Card, CardContent, CardFooter, CardHeader, Skeleton } from "@x7/ui"
+import { Card, CardContent, CardFooter, CardHeader } from "./card"
+import { Skeleton } from "./skeleton"
 
 export function CardSkeleton() {
   return (

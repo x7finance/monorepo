@@ -1,7 +1,8 @@
-import { HTMLAttributes } from "react"
+import type { HTMLAttributes } from "react"
+
 import { cn } from "@x7/utils"
 
-interface EmptyPlaceholderProps extends HTMLAttributes<HTMLDivElement> {}
+type EmptyPlaceholderProps = HTMLAttributes<HTMLDivElement>
 
 export function EmptyPlaceholder({
   className,
@@ -23,8 +24,7 @@ export function EmptyPlaceholder({
   )
 }
 
-interface EmptyPlacholderTitleProps
-  extends HTMLAttributes<HTMLHeadingElement> {}
+type EmptyPlacholderTitleProps = HTMLAttributes<HTMLHeadingElement>
 
 EmptyPlaceholder.Title = function EmptyPlaceholderTitle({
   className,
@@ -35,8 +35,7 @@ EmptyPlaceholder.Title = function EmptyPlaceholderTitle({
   )
 }
 
-interface EmptyPlacholderDescriptionProps
-  extends HTMLAttributes<HTMLParagraphElement> {}
+type EmptyPlacholderDescriptionProps = HTMLAttributes<HTMLParagraphElement>
 
 EmptyPlaceholder.Description = function EmptyPlaceholderDescription({
   className,
