@@ -1,15 +1,7 @@
-import { SocialsEnum, X7LinksEnum } from "common"
-import {
-  Discord,
-  Github,
-  Medium,
-  Reddit,
-  Telegram,
-  Twitter,
-  YouTube,
-} from "icons"
+import { SocialsEnum, X7LinksEnum } from "@x7/common"
+import { Discord, Github, Reddit, Telegram, Twitter, YouTube } from "@x7/icons"
 
-import { SiteConfig } from "types"
+import type { SiteConfig } from "types"
 import { env } from "@/env.mjs"
 import {
   CommunityLinks,
@@ -58,7 +50,7 @@ export const NOT_FOUND_LINKS = [
 ]
 
 export const DESKTOP_NAV_LINKS = [
-  { name: "Get Started", href: MarketingLinks.GetStarted },
+  { name: "GetStarted", href: MarketingLinks.GetStarted },
   { name: "Tokens", href: TokenLinksEnum.Index },
   { name: "Docs", href: DocsLinks.Index },
   {

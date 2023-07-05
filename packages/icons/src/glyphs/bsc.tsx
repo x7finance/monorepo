@@ -1,6 +1,7 @@
-import { memo } from 'react';
+import type { SVGProps } from "react"
+import { memo } from "react"
 
-function Bsc(props: any) {
+function Bsc(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 100 100" fill="none" {...props}>
       <path
@@ -24,7 +25,7 @@ function Bsc(props: any) {
         fill="#F3BA2F"
       />
     </svg>
-  );
+  )
 }
 
-export default memo(Bsc);
+export default memo(Bsc)

@@ -1,3 +1,10 @@
 packages:
-  - "apps/*"
-  - "packages/*"
+  - apps/assets
+  - apps/org
+  - packages/common
+  - packages/config/*
+  - packages/contracts
+  - packages/icons
+  - packages/jest-presets
+  - packages/ui
+  - packages/utils

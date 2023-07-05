@@ -1,15 +1,17 @@
+/* eslint-disable react/no-unknown-property */
+/* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from "@vercel/og"
 
 import { ogImageSchema } from "@/lib/validations/og"
 
-function classNames(...classes) {
+function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ")
 }
 
 function getRandomPioneerNumber(): string {
-  let min: number = 1
-  let max: number = 641
-  let number: number = Math.floor(Math.random() * (max - min + 1)) + min
+  const min = 1
+  const max = 641
+  const number: number = Math.floor(Math.random() * (max - min + 1)) + min
   return number.toString().padStart(4, "0")
 }
 
@@ -19,9 +21,9 @@ const interBold = fetch(
   new URL("../../../assets/fonts/CalSans-SemiBold.ttf", import.meta.url)
 ).then((res) => res.arrayBuffer())
 
-const pioneers = [1, 2, 3, 4]
+const pioneers: number[] = [1, 2, 3, 4]
 
-const sectionThemes = {
+const sectionThemes: Record<string, string> = {
   default: "#712fdd",
   docs: "#0184a2",
   dashboard: "#ff2e6e",
@@ -59,7 +61,7 @@ export async function GET(req: Request) {
             background: mode === "dark" ? "black" : "white",
           }}
         >
-          <ul role="list" tw="absolute p-4">
+          <ul tw="absolute p-4">
             {pioneers.map((person) => (
               <li key={person}>
                 <img
@@ -73,7 +75,7 @@ export async function GET(req: Request) {
               </li>
             ))}
           </ul>
-          <ul role="list" tw="absolute bottom-0 p-4">
+          <ul tw="absolute bottom-0 p-4">
             {pioneers.map((person) => (
               <li key={person}>
                 <img

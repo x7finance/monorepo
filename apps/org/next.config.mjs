@@ -1,8 +1,10 @@
 import "./env.mjs"
 
+import withNextIntl from "next-intl/plugin"
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  webpack: (config, { isServer, webpack }) => {
+  webpack: (config, { isServer }) => {
     config.externals.push("pino-pretty", "lokijs", "encoding")
 
     if (!isServer) {
@@ -35,6 +37,7 @@ const nextConfig = {
       "mux.com",
       "stream.mux.com",
       "img.x7.finance",
+      "images.unsplash.com",
       "x7.finance",
     ],
   },
@@ -44,4 +47,7 @@ const nextConfig = {
   },
 }
 
-export default nextConfig
+export default withNextIntl(
+  // This is the default (also the `src` folder is supported out of the box)
+  "./i18n.ts"
+)(nextConfig)

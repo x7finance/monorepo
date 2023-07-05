@@ -1,5 +1,10 @@
-export function BSCIcon(props: any) {
-  const { size = 24 } = props;
+interface Props {
+  size?: number
+  fill?: string
+}
+
+export function BscIcon(props: Props) {
+  const { size = 24 } = props
   return (
     <svg
       width={size}
@@ -12,5 +17,5 @@ export function BSCIcon(props: any) {
         fill="#F3BA2F"
       />
     </svg>
-  );
+  )
 }

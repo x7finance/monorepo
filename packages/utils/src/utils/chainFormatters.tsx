@@ -1,5 +1,5 @@
+import type { BlockchainType, LoanType } from "@x7/common"
 import {
-  BlockchainType,
   ChainDenominationEnum,
   ChainEnum,
   ChainIdentifierEnum,
@@ -7,9 +7,8 @@ import {
   ChainShortNameEnum,
   ChainTokenOracleEtherUSDEnum,
   ContractsEnum,
-  LoanType,
   TokenContractAddresses,
-} from "common"
+} from "@x7/common"
 
 type ChainMapping = {
   [key in ChainEnum | ChainEnum.offline]: {

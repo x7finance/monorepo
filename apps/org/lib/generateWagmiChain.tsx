@@ -1,6 +1,6 @@
-import { ChainEnum } from "common"
-
 import { arbitrum, bsc, mainnet, optimism, polygon } from "wagmi/chains"
+
+import { ChainEnum } from "@x7/common"
 
 export function generateWagmiChain(chainId: number) {
   switch (chainId) {

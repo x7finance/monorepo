@@ -1,16 +1,17 @@
-import { BlockchainType, ContractsEnum, LoanType } from "common"
-import {
-  generateChainBase,
-  generateX7InitialLiquidityLoanTermContract,
-} from "utils"
+import { useContractReads } from "wagmi"
+
+import type { BlockchainType, LoanType } from "@x7/common"
+import { ContractsEnum } from "@x7/common"
 import {
   X7InitialLiquidityLoanTerm001,
   X7InitialLiquidityLoanTerm002,
   X7InitialLiquidityLoanTerm003,
   X7LendingPoolV1,
-} from "contracts"
-
-import { useContractReads } from "wagmi"
+} from "@x7/contracts"
+import {
+  generateChainBase,
+  generateX7InitialLiquidityLoanTermContract,
+} from "@x7/utils"
 
 import { generateWagmiChain } from "../generateWagmiChain"
 
@@ -34,7 +35,7 @@ export function useXchangeLoanData(
   })
 
   const tokenByIndex = parseInt(token?.[0]?.result?.toString() ?? "0", 10) || 0
-  const timestamp = Math.floor(Date.now() / 1000)
+  // const timestamp = Math.floor(Date.now() / 1000)
   const { data, isLoading: isInitialPairLoading } = useContractReads({
     contracts: [
       {

@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo } from "react"
 
 function Loading({ fill }: { fill: string }) {
   return (
@@ -15,7 +15,7 @@ function Loading({ fill }: { fill: string }) {
         d="M8 16a8 8 0 018-8V4C9.373 4 4 9.373 4 16h4zm2 5.291A7.962 7.962 0 018 16H4c0 3.042 1.135 5.824 3 7.938l3-2.647z"
       />
     </svg>
-  );
+  )
 }
 
-export default memo(Loading);
+export default memo(Loading)

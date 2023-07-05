@@ -1,6 +1,6 @@
 import { env } from "@/env.mjs"
 
-export function generateMetadataFromDoc(doc) {
+export function generateMetadataFromDoc(doc: any) {
   const url = env.NEXT_PUBLIC_APP_URL
 
   const ogUrl = new URL(`${url}/api/og`)
