@@ -49,7 +49,6 @@ export function LiveLoans() {
           <TabButtons
             tabs={LOAN_TAB_BUTTONS}
             activeTab={loanTypeId}
-            // @ts-expect-error: todo: fix this
             handleTabChange={handleLoanTypeTabChange}
           />
         </div>

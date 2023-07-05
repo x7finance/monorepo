@@ -1,11 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "React Library",
+  "display": "Default",
   "compilerOptions": {
-    "lib": ["dom", "ES2015"],
-    "module": "ESNext",
-    "target": "ES6",
-    "jsx": "react-jsx",
     "composite": false,
     "declaration": true,
     "declarationMap": true,
@@ -21,6 +17,5 @@
     "skipLibCheck": true,
     "strict": true
   },
-  "include": ["src", "*.ts", "*.cjs"],
-  "exclude": ["dist", "build", "node_modules"]
+  "exclude": ["node_modules"]
 }

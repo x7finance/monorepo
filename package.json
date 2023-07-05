@@ -24,11 +24,18 @@
     "node": ">=v18.16.0"
   },
   "packageManager": "pnpm@8.6.2",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
   "devDependencies": {
     "@commitlint/cli": "^17.6.6",
     "@commitlint/config-conventional": "^17.6.6",
     "@commitlint/types": "^17.4.4",
     "@ianvs/prettier-plugin-sort-imports": "^4.0.2",
+    "@types/node": "^20.3.2",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
     "@manypkg/cli": "^0.21.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",

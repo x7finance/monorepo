@@ -36,7 +36,6 @@ export function DocsIcon({
 }) {
   const id = useId()
 
-  // @ts-expect-error: todo: fix this
   const IconComponent: any = icons[icon]
 
   return (

@@ -22,8 +22,6 @@ const config = {
   //   importOrderSortSpecifiers: true,
   //   importOrderBuiltinModulesToTop: true,
   //   importOrderParserPlugins: ["typescript", "jsx", "decorators-legacy"],
-  //   importOrderMergeDuplicateImports: true,
-  //   importOrderCombineTypeAndValueImports: true,
   importOrder: [
     "^(react/(.*)$)|^(react$)|^(react-native(.*)$)",
     "^(next/(.*)$)|^(next$)",

@@ -1,12 +1,26 @@
 {
-  "extends": "../../tsconfig.json",
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "React Library",
   "compilerOptions": {
-    "incremental": false
+    "lib": ["dom", "ES2015"],
+    "module": "ESNext",
+    "target": "ES6",
+    "jsx": "react-jsx",
+    "composite": false,
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "inlineSources": false,
+    "isolatedModules": true,
+    "moduleResolution": "node",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "preserveWatchOutput": true,
+    "skipLibCheck": true,
+    "strict": true
   },
-  "include": [
-    "src",
-    "*.ts",
-    "*.cjs",
-    "../../apps/org/app/[locale]/(dashboard)/(dashboard.components)/tabs.tsx"
-  ]
+  "include": ["."],
+  "exclude": ["dist", "build", "node_modules"]
 }

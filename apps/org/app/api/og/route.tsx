@@ -95,7 +95,6 @@ export async function GET(req: Request) {
                   width: "150px",
                   height: "10px",
                   background:
-                    // @ts-expect-error: TODO: fix this
                     sectionThemes[values?.type] ?? sectionThemes.default,
                 }}
               />

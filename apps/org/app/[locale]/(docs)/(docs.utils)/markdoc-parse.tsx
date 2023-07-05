@@ -193,7 +193,6 @@ function collectHeadings(
             )
           }
 
-          // @ts-expect-error
           sections?.[sections.length - 1].children.push({
             id,
             title,

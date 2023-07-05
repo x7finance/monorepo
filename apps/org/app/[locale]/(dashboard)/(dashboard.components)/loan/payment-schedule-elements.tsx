@@ -18,14 +18,10 @@ export function PaymentScheduleElements(props: any): JSX.Element[] {
       paddedPrincipalPaymentSchedule[i] = []
       paddedPrincipalPaymentSchedule[i + 1] = []
       for (let j = 0; j < diffPeriods; j++) {
-        // @ts-expect-error: todo: fix this
         paddedPrincipalPaymentSchedule[i][j] = 0
-        // @ts-expect-error: todo: fix this
         paddedPrincipalPaymentSchedule[i + 1][j] = 0
       }
-      // @ts-expect-error: todo: fix this
       paddedPrincipalPaymentSchedule[i].push(...getPrincipalPaymentSchedule[i])
-      // @ts-expect-error: todo: fix this
       paddedPrincipalPaymentSchedule[i + 1].push(
         ...getPrincipalPaymentSchedule[i + 1]
       )
