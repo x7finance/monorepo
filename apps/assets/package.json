@@ -1,5 +1,5 @@
 {
-  "name": "assets",
+  "name": "@x7/assets",
   "version": "0.0.1",
   "description": "shared assets for x7 finance",
   "scripts": {

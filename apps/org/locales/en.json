@@ -1,0 +1,21 @@
+{
+  "IndexPage": {
+    "banner": {
+      "title": "X7 has launched on 5 chains",
+      "description": "Launch with an Initial Liquidity Loan"
+    }
+  },
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "locale": "{locale, select, de {German} en {English} other {Unknown}}"
+  },
+  "Navigation": {
+    "getstarted": "Get Started",
+    "tokens": "Tokens",
+    "docs": "Docs",
+    "dashboard": "Dashboard",
+    "loans": "Loans",
+    "blog": "Blog",
+    "trade": "Trade"
+  }
+}

@@ -1,20 +1,20 @@
 import { DocsLinks } from "@/lib/types/links"
 
-const docsNavigation = [
+const DOCS_NAVIGATION = [
   {
     title: "Introduction",
     links: [{ title: "Intro", href: DocsLinks.Index }],
   },
 ]
 
-const integrationNavigation = [
+const INTEGRATION_NAVIGATION = [
   {
     title: "Integration",
     links: [{ title: "Templates", href: DocsLinks.IntegratingTemplates }],
   },
 ]
 
-const guidesNavigation = [
+const GUIDES_NAVIGATION = [
   {
     title: "Guides",
     links: [
@@ -27,7 +27,7 @@ const guidesNavigation = [
   },
 ]
 
-const breakdownsNavigation = [
+const BREAKDOWNS_NAVIGATION = [
   {
     title: "Contracts",
     links: [
@@ -164,7 +164,7 @@ const breakdownsNavigation = [
   },
 ]
 
-const onchainsNavigation = [
+const ONCHAINS_NAVIGATION = [
   {
     title: "July 2023",
     links: [
@@ -620,7 +620,7 @@ const onchainsNavigation = [
   },
 ]
 
-const whitepaperNavigation = [
+const WHITEPAPER_NAVIGATION = [
   {
     title: "Whitepaper",
     links: [
@@ -708,7 +708,7 @@ const whitepaperNavigation = [
   },
 ]
 
-const faqNavigation = [
+const FAQ_NAVIGATION = [
   {
     title: "FAQ",
     links: [
@@ -731,11 +731,11 @@ const faqNavigation = [
 ]
 
 export {
-  breakdownsNavigation,
-  docsNavigation,
-  faqNavigation,
-  guidesNavigation,
-  integrationNavigation,
-  onchainsNavigation,
-  whitepaperNavigation,
+  BREAKDOWNS_NAVIGATION,
+  DOCS_NAVIGATION,
+  FAQ_NAVIGATION,
+  GUIDES_NAVIGATION,
+  INTEGRATION_NAVIGATION,
+  ONCHAINS_NAVIGATION,
+  WHITEPAPER_NAVIGATION,
 }

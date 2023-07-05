@@ -1,10 +1,10 @@
-import { BlockchainType } from "common"
-import { generateChainBase } from "utils"
-
 import { useEffect, useState } from "react"
 import { useContractWrite, useWaitForTransaction } from "wagmi"
 
-import { toast } from "@/components/ui-client/toast/use-toast"
+import type { BlockchainType } from "@x7/common"
+// @ts-expect-error todo: fix this
+import { useToast } from "@x7/ui/use-toast"
+import { generateChainBase } from "@x7/utils"
 
 type UseContractWriteArgs = Parameters<typeof useContractWrite>
 
@@ -51,10 +51,12 @@ export function useContractTx(
 
   const isSuccess = transaction.status === "success"
 
+  const toaster = useToast()
+
   // @ts-ignore
   useEffect(() => {
     if (isLoading && !result.data?.hash) {
-      return toast({
+      return toaster.toast({
         title: "Confirm",
         description: renderStatusWithHeader(
           "Confirm transaction in wallet",
@@ -64,7 +66,7 @@ export function useContractTx(
         variant: "information",
       })
     } else if (isLoading && result.data?.hash) {
-      return toast({
+      return toaster.toast({
         title: "Processing",
         description: renderStatusWithHeader(
           "Transaction is being processed on chain...",
@@ -74,7 +76,7 @@ export function useContractTx(
         variant: "pending",
       })
     } else if (isSuccess) {
-      return toast({
+      return toaster.toast({
         title: "Success",
         description: renderStatusWithHeader(
           "Transaction successful",
@@ -87,7 +89,7 @@ export function useContractTx(
       // @ts-ignore
       const message = generateErrorMessage(result.error?.code)
       setIsFinished(true)
-      return toast({
+      return toaster.toast({
         title: "Error",
         description: renderStatusWithHeader(
           message,
