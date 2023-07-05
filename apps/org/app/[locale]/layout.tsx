@@ -36,7 +36,7 @@ export default function RootLayout({
   params: any
 }) {
   return (
-    <html lang={"en"}>
+    <html lang={params?.locale}>
       <head />
       <body
         className={cn(

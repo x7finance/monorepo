@@ -1,6 +1,7 @@
 import type { HTMLAttributes } from "react"
 import Link from "next/link"
-import { useTranslations } from "next-intl"
+
+// import { useTranslations } from "next-intl"
 
 import { X7LinksEnum } from "@x7/common"
 import { X7LongLogo, Xchange } from "@x7/icons"
@@ -48,6 +49,7 @@ export function SiteHeader({ className }: HTMLAttributes<HTMLElement>) {
                       : {})}
                     href={link.href}
                   >
+                    {link.name}
                     {/* {t(link.name.toLowerCase())} */}
                   </Link>
                 </li>
