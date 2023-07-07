@@ -18,7 +18,7 @@ The expected outcome is that DAO holders will maximize the medium and long-term 
 The DAO shall operate through central governance contracts. For all functions the DAO may control, there will be two options:
 
 1. Make the relevant change
-1. Delegate the authority to make those kinds of changes to an address.
+2. Delegate the authority to make those kinds of changes to an address.
 
 The expected way that this will work is that multi-signature wallets will be deployed to form “committees” which can self-govern in terms of membership in the committee and the operations the committee executes.
 
@@ -36,7 +36,7 @@ However, it is not known a-priori how rapid voting phases should be. There is a 
 
 Voting will occur in multiple phases, each of which has either a minimum or maximum time phase duration.
 
-#### Phase 1: Quorum-seeking
+### Phase 1: Quorum-seeking
 
 **X7DAO** token holders will be able to stake their tokens as X7sDAO, a non-transferrable staked version of **X7DAO**.
 
@@ -46,7 +46,7 @@ Once a quorum is reached and a minimum quorum-seeking time period has passed, th
 
 X7sDAO tokens are temporarily locked (and no more **X7DAO** tokens may be staked until the next Quorum seeking period) and the governance process moves to the next phase
 
-#### Phase 2: Proposal creation
+### Phase 2: Proposal creation
 
 A proposal is created by running a transaction on the governance contract which specifies a specific transaction on a specific contract (e.g. setFeeNumerator(0) on the **X7R** token contract).
 
@@ -56,7 +56,7 @@ For example, if there were two proposals, the first to setFeeNumerator(0) and th
 
 Proposals can be made by X7sDAO stakes of 500,000 tokens or more. Additionally, holders of Magister tokens may make proposals. Proposals may require a refundable proposal fee to prevent process griefing.
 
-#### Phase 3: Proposal voting
+### Phase 3: Proposal voting
 
 Each proposal may be voted on once by each address. The voter may specify the weight of their vote between 0 and the total amount of X7sDAO they have staked.
 
@@ -66,15 +66,15 @@ A parallel voting process will occur with Magister tokens, where each Magister t
 
 If a majority of magister token holders vote against a proposal, the proposal must reach an X7sDAO vote of 75% of the quorum of X7sDAO tokens.
 
-#### Phase 4: Proposal adoption
+### Phase 4: Proposal adoption
 
 During this phase, proposals that have passed will be enqueued for execution. This step ensures proper ordering and is a guard against various forms of process griefing.
 
-#### Phase 5: Proposal execution
+### Phase 5: Proposal execution
 
 After proposal adoption, all passed proposals must be executed before a new Quorum Seeking phase may commence.
 
-#### Process Adaptation
+### Process Adaptation
 
 Since any change that the core DAO governance process can control may be delegated, novel other mechanisms for voting may be created and changes can be delegated to that new process.
 
@@ -84,7 +84,7 @@ If this process was ever corrupted, the DAO could regain trustless on-chain cont
 
 The X7 developers believe this governance structure will enable novel future governance innovation while never permanently relinquishing control to any external authority.
 
-#### Tokenized Governance
+### Tokenized Governance
 
 The X7 DAO structure is highly codified and provides almost no direct latitude for human intervention. This is by design and is one of the greatest strengths of the X7 DAO governance structure.
 

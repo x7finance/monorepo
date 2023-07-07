@@ -9,7 +9,6 @@ import "@/styles/globals.css"
 
 import { ThemeProvider } from "@/site-components/theme-provider"
 
-// @ts-expect-error: TODO: fix this
 import { Toaster } from "@x7/ui/toaster"
 import { cn } from "@x7/utils"
 

@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { SiteContentContainer } from "@/site-components/site-content-container"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { Heading } from "@/app/[locale]/(marketing)/(marketing.components)/heading"
+import { Heading } from "@/app/[locale]/(marketing)/_components/heading"
 
 const metadata = {
   title: "Ecosystem Maxi NFT",

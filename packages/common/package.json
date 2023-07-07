@@ -1,15 +1,22 @@
 {
   "name": "@x7/common",
   "version": "0.0.1",
+  "license": "MIT",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "license": "MIT",
+  "files": [
+    "dist/**"
+  ],
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts",
-    "lint": "eslint src",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+    "lint": "eslint ./src --ext .ts,.tsx,.js,.jsx,.cjs,.mjs,.mdx --cache --cache-location ../../.cache/eslint/common.eslintcache",
+    "lint:dist": "es-check -v",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs,.mdx --fix",
+    "lint:size": "size-limit --highlight-less",
+    "lint:types": "tsc --project ./tsconfig.json --noEmit"
   },
   "devDependencies": {
     "@types/jest": "^29.5.2",

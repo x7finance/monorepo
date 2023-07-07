@@ -12,7 +12,7 @@ export default function DocsLayout({ children }: DocsLayoutProps) {
       <div className="dashboard-container">
         <div className="flex-1">{children}</div>
       </div>
-      <SiteFooter className="border-t dark:border-gray-800 border-gray-200  dark:bg-black bg-white" />
+      <SiteFooter className="border-t border-gray-200 bg-white  dark:border-gray-800 dark:bg-black" />
     </div>
   )
 }

@@ -5,7 +5,6 @@ import { Menu, Transition } from "@headlessui/react"
 
 import { XCHANGE } from "@x7/common"
 import { ChainsArray, ChevronDownIcon } from "@x7/icons"
-// @ts-expect-error todo: fix this
 import { Button } from "@x7/ui/button"
 import { cn } from "@x7/utils"
 

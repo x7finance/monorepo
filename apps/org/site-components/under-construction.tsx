@@ -2,7 +2,6 @@ import Image from "next/image"
 import Link from "next/link"
 import { GradientTypes } from "@/site-components/gradients"
 
-// @ts-expect-error todo: fix this
 import { buttonVariants } from "@x7/ui/button"
 import { cn, getRandomPioneerNumber } from "@x7/utils"
 

@@ -7,7 +7,7 @@ tags: [Editorial]
 summary: The X7 Finance mantra is - “Trust no one. Trust code. Long live DeFi”. In light of recent events this has proved somewhat prophetic. The collapse of centralized “DeFi” services such as Celsius, and the centralized exchange FTX is a timely reminder of why DeFi was invented in the first place.
 ---
 
-![](https://assets.x7finance.org/images/blog/posts/the-case-for-decentralization/1.png)
+![The Case For Decentralization](https://assets.x7finance.org/images/blog/posts/the-case-for-decentralization/1.png)
 
 Source: [https://www.ledger.com/](https://www.ledger.com/)
 
@@ -17,7 +17,7 @@ Centralization of services within the crypto space did give the mirage of simpli
 
 Greed, coupled with a lack of transparency has led to catastrophic results with billions of dollars of investor funds lost. Yet the position we are in now was never the intention of decentralized finance. So whilst it is far from an ideal situation, it is an ideal time to reflect on the future of the crypto industry and the role that DeFi can play in evolving to solve real problems and meet real needs.
 
-![](https://assets.x7finance.org/images/blog/posts/the-case-for-decentralization/2.png)
+![The Case For Decentralization 2](https://assets.x7finance.org/images/blog/posts/the-case-for-decentralization/2.png)
 
 Source: [https://blog.cleo.one/](https://blog.cleo.one/)
 

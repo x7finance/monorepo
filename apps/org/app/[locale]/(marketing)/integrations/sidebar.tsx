@@ -1,6 +1,4 @@
-// @ts-expect-error todo: fix this
 import { Button } from "@x7/ui/button"
-// @ts-expect-error todo: fix this
 import { ScrollArea } from "@x7/ui/scroll-area"
 import { cn } from "@x7/utils"
 

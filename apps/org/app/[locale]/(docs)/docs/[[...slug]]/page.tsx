@@ -6,13 +6,10 @@ import Markdoc from "@markdoc/markdoc"
 import { glob } from "glob"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { DocsBase } from "../../(docs.components)/base"
-import { components } from "../../(docs.utils)/config.markdoc"
-import type { ParamsProps } from "../../(docs.utils)/markdoc-parse"
-import {
-  getMarkdownContent,
-  SOURCE_FILES,
-} from "../../(docs.utils)/markdoc-parse"
+import { DocsBase } from "../../_components/base"
+import { components } from "../../_utils/config.markdoc"
+import type { ParamsProps } from "../../_utils/markdoc-parse"
+import { getMarkdownContent, SOURCE_FILES } from "../../_utils/markdoc-parse"
 
 export async function generateStaticParams() {
   const markdownPaths = await glob(path.join(SOURCE_FILES, "**/*.md"))
@@ -27,7 +24,7 @@ export async function generateStaticParams() {
       .split("/")
       .filter((slug) => slug !== "")
 
-    return { slug }
+    return { slug, locale: "en" }
   })
 }
 

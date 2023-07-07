@@ -2,9 +2,9 @@ import type { Metadata } from "next"
 import { Web3Wrapper } from "@/site-components/web3-wrapper"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { DashboardContainer } from "@/app/[locale]/(dashboard)/(dashboard.components)/dashboard-container"
-import { DashboardTitle } from "@/app/[locale]/(dashboard)/(dashboard.components)/dashboard-title"
-import { UtitlityNfts } from "@/app/[locale]/(dashboard)/(dashboard.components)/utilityNfts"
+import { DashboardContainer } from "@/app/[locale]/(dashboard)/_components/dashboard-container"
+import { DashboardTitle } from "@/app/[locale]/(dashboard)/_components/dashboard-title"
+import { UtitlityNfts } from "@/app/[locale]/(dashboard)/_components/utilityNfts"
 
 const metadata = {
   title: "NFT Marketplace",

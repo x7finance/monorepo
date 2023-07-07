@@ -6,7 +6,6 @@ import { AnimatePresence, motion } from "framer-motion"
 
 import { X7LinksEnum } from "@x7/common"
 import { ChevronUpIcon, MenuIcon, X7Logo } from "@x7/icons"
-// @ts-expect-error todo: fix this
 import { buttonVariants } from "@x7/ui/button"
 import { cn } from "@x7/utils"
 

@@ -55,7 +55,7 @@ The developers nominated 5 dedicated community members to fill the roles as sign
 
 Then on 15th of September 2022, without prior warning, the IPFS website x7.finance went live. There was also some new information on the website that had not been shared anywhere else until then, including an updated [whitepaper](https://x7.finance/wp/v1_1_0/X7FinanceWhitepaper.pdf) and information on who the ecosystem had been designed for:
 
-![](https://assets.x7finance.org/images/blog/posts/the-x7-origin-story-part-iii/1.png)
+![Origin Story III - Image 1](https://assets.x7finance.org/images/blog/posts/the-x7-origin-story-part-iii/1.png)
 
 The X7 Finance website
 
@@ -63,7 +63,7 @@ As per usual the community took the initiative. A dedicated community member wit
 
 This community website has lots of excellent features and information for holders and has been upgraded with further functions since then. Woxie, the creator of the community dashboard, has since stepped up to be among the community team with the “technician” role. The community dashboard can be found here: [https://x7community.space/](https://x7community.space/)
 
-![](https://assets.x7finance.org/images/blog/posts/the-x7-origin-story-part-iii/2.png)
+![Origin Story III - Image 2](https://assets.x7finance.org/images/blog/posts/the-x7-origin-story-part-iii/2.png)
 
 The X7 community dashboard
 

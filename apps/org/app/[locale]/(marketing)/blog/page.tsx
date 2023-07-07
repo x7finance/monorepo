@@ -9,8 +9,8 @@ import { glob } from "glob"
 
 import { env } from "@/env.mjs"
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import type { MarkdownContent } from "../(blog.utils)/markdoc-parse"
-import { getMarkdownContent, SOURCE_FILES } from "../(blog.utils)/markdoc-parse"
+import type { MarkdownContent } from "../blog/_utils/markdoc-parse"
+import { getMarkdownContent, SOURCE_FILES } from "../blog/_utils/markdoc-parse"
 
 const metadata = {
   title: "X7 Blog",

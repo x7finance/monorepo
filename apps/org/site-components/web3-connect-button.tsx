@@ -2,7 +2,6 @@
 
 import { ConnectKitButton } from "connectkit"
 
-// @ts-expect-error todo: fix this
 import { Button } from "@x7/ui/button"
 import { shortenHex } from "@x7/utils"
 

@@ -3,7 +3,7 @@ import { SiteContentContainer } from "@/site-components/site-content-container"
 import { UnderConstruction } from "@/site-components/under-construction"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { Heading } from "@/app/[locale]/(marketing)/(marketing.components)/heading"
+import { Heading } from "@/app/[locale]/(marketing)/_components/heading"
 
 const metadata = {
   title: "X7104",

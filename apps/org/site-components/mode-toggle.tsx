@@ -39,6 +39,7 @@ export function ModeToggle() {
               "m-0 flex h-8 w-8 cursor-pointer items-center justify-center px-0"
             )}
             role="radio"
+            aria-checked={theme === "dark"}
             type="button"
           >
             <span>
@@ -55,6 +56,7 @@ export function ModeToggle() {
               "m-0 flex h-8 w-8 cursor-pointer items-center justify-center px-0"
             )}
             role="radio"
+            aria-checked={theme === "light"}
             type="button"
           >
             <span>
@@ -71,6 +73,7 @@ export function ModeToggle() {
               "m-0 flex h-8 w-8 cursor-pointer items-center justify-center px-0"
             )}
             role="radio"
+            aria-checked={theme === "system"}
             type="button"
           >
             <span>

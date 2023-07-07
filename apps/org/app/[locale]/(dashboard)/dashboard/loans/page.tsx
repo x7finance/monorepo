@@ -2,9 +2,9 @@ import type { Metadata } from "next"
 import { Web3Wrapper } from "@/site-components/web3-wrapper"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { DashboardContainer } from "../../(dashboard.components)/dashboard-container"
-import { DashboardTitle } from "../../(dashboard.components)/dashboard-title"
-import { LiveLoans } from "../../(dashboard.components)/loan"
+import { DashboardContainer } from "../../_components/dashboard-container"
+import { DashboardTitle } from "../../_components/dashboard-title"
+import { LiveLoans } from "../../_components/loan"
 
 const metadata = {
   title: "Live Loans",

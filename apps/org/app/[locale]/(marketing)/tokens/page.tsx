@@ -5,12 +5,11 @@ import { PioneerDrop } from "@/site-components/pioneer-drop"
 import { SiteContentContainer } from "@/site-components/site-content-container"
 
 import { ContractsEnum, XCHANGE } from "@x7/common"
-// @ts-expect-error todo: fix this
 import { buttonVariants } from "@x7/ui/button"
 import { cn } from "@x7/utils"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { Heading } from "@/app/[locale]/(marketing)/(marketing.components)/heading"
+import { Heading } from "@/app/[locale]/(marketing)/_components/heading"
 
 const metadata = {
   title: "Tokens",

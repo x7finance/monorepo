@@ -4,8 +4,8 @@ import { SiteContentContainer } from "@/site-components/site-content-container"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { DashboardLinksEnum } from "@/lib/types/links"
-import { Heading } from "@/app/[locale]/(marketing)/(marketing.components)/heading"
-import { SectionStep } from "../../(marketing.components)/section-step"
+import { Heading } from "@/app/[locale]/(marketing)/_components/heading"
+import { SectionStep } from "../../_components/section-step"
 
 const metadata = {
   title: "Liquidty Maxi NFT",

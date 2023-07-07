@@ -1,5 +1,6 @@
 import tailwindcssTypography from "@tailwindcss/typography"
 import type { Config } from "tailwindcss"
+// @ts-expect-errors
 import tailwindcssAnimate from "tailwindcss-animate"
 import { fontFamily } from "tailwindcss/defaultTheme"
 

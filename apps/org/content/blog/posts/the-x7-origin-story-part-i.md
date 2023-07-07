@@ -19,7 +19,7 @@ The deployer wallet is linked to a multitude of other wallets that have a histor
 
 Most importantly this web of wallets were linked to large volumes of Ethereum holdings and transactions. And then they went silent… until the launch of X7m105.
 
-![](https://assets.x7finance.org/images/blog/posts/the-x7-origin-story-part-i/1.jpg)
+![Origin Story 1](https://assets.x7finance.org/images/blog/posts/the-x7-origin-story-part-i/1.jpg)
 
 The original X7m105 deployment
 
@@ -31,7 +31,7 @@ So far speculative interest in a web of old, well funded wallets. We’ve heard 
 
 Could X7 refer to a super-massive blackhole 4.6 million times the mass of our sun, with a shape that evolves and changes over time?
 
-![](https://assets.x7finance.org/images/blog/posts/the-x7-origin-story-part-i/2.png)
+![Origin Story 2](https://assets.x7finance.org/images/blog/posts/the-x7-origin-story-part-i/2.png)
 
 Representation of the X7 black hole binary system
 
@@ -39,7 +39,7 @@ Representation of the X7 black hole binary system
 
 Messier 105, could refer to an elliptical galaxy in the Leo constellation. Star formation is taking place within this galaxy and another blackhole resides at its heart.
 
-![](https://assets.x7finance.org/images/blog/posts/the-x7-origin-story-part-i/3.png)
+![Origin Story 3](https://assets.x7finance.org/images/blog/posts/the-x7-origin-story-part-i/3.png)
 
 M105 as viewed by the HST
 
@@ -59,7 +59,7 @@ A protocol is a foundational layer of code that tells something how to function.
 
 At the heart of this protocol was the most well known DEX hinting at the potential for a brand new DeFi ecosystem.
 
-![](https://assets.x7finance.org/images/blog/posts/the-x7-origin-story-part-i/4.jpg)
+![Origin Story 4](https://assets.x7finance.org/images/blog/posts/the-x7-origin-story-part-i/4.jpg)
 
 The X7 Logo, before the reveal (community made)
 
@@ -75,7 +75,7 @@ The level of attention to detail also did not go unnoticed by the community. The
 
 1 day after the stealth launch of X7DAO, the connected wallet that burned X7m105 LP (0x7…..105) delivered the first ever on-chain message to the community:
 
-![](https://assets.x7finance.org/images/blog/posts/the-x7-origin-story-part-i/5.png)
+![Origin Story 5](https://assets.x7finance.org/images/blog/posts/the-x7-origin-story-part-i/5.png)
 
 The first [message](https://etherscan.io/tx/0x2c69fca5e19bfcd64bc5866d21138cea07cbd9e2f59c78c49c1cd0b4c3bf9d4d) sent by the developers
 

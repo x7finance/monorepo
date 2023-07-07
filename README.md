@@ -73,7 +73,7 @@ pnpm dev
 
 By default this template uses [Algolia DocSearch](https://docsearch.algolia.com) for the global search. DocSearch is free for open-source projects, and you can sign up for an account on their website. Once your DocSearch account is ready, update the following [environment variables](https://nextjs.org/docs/basic-features/environment-variables) in your project with the values provided by Algolia:
 
-```
+```bash
 NEXT_PUBLIC_DOCSEARCH_APP_ID=
 NEXT_PUBLIC_DOCSEARCH_API_KEY=
 NEXT_PUBLIC_DOCSEARCH_INDEX_NAME=

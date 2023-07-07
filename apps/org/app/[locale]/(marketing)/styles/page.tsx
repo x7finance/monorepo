@@ -3,7 +3,7 @@ import { PioneerDrop } from "@/site-components/pioneer-drop"
 import { SiteContentContainer } from "@/site-components/site-content-container"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { Heading } from "@/app/[locale]/(marketing)/(marketing.components)/heading"
+import { Heading } from "@/app/[locale]/(marketing)/_components/heading"
 
 const metadata = {
   title: "Styles",
