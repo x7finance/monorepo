@@ -3,8 +3,8 @@ import { UnderConstruction } from "@/site-components/under-construction"
 import { Web3Wrapper } from "@/site-components/web3-wrapper"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { DashboardContainer } from "@/app/[locale]/(dashboard)/(dashboard.components)/dashboard-container"
-import { DashboardTitle } from "@/app/[locale]/(dashboard)/(dashboard.components)/dashboard-title"
+import { DashboardContainer } from "@/app/[locale]/(dashboard)/_components/dashboard-container"
+import { DashboardTitle } from "@/app/[locale]/(dashboard)/_components/dashboard-title"
 
 const metadata = {
   title: "X7 DAO",

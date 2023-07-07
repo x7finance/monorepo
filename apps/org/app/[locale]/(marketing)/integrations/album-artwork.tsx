@@ -10,7 +10,6 @@ import {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuTrigger,
-  // @ts-expect-error todo: fix this
 } from "@x7/ui/context-menu"
 import { cn } from "@x7/utils"
 

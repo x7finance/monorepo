@@ -6,7 +6,6 @@ import { DocSearchModal, useDocSearchKeyboardEvents } from "@docsearch/react"
 import { createPortal } from "react-dom"
 
 import { SearchIcon } from "@x7/icons"
-// @ts-expect-error todo: fix this
 import { Button } from "@x7/ui/button"
 
 import { env } from "@/env.mjs"

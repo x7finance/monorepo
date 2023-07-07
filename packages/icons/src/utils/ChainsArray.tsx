@@ -1,3 +1,5 @@
+import React from "react"
+
 import {
   ChainEnum,
   ChainNameEnum,
@@ -7,7 +9,15 @@ import {
 
 import { Glyph, IconWrapper } from "./IconWrapper"
 
-export const ChainsArray = [
+interface Chain {
+  name: ChainNameEnum
+  id: ChainEnum
+  icon: React.ReactElement
+  scanner: ChainScannerEnum
+  scannerLink: ChainScannerLinksEnum
+}
+
+export const ChainsArray: Chain[] = [
   {
     name: ChainNameEnum.erc,
     id: ChainEnum.erc,

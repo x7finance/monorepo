@@ -50,7 +50,7 @@ export default function X7RDAO() {
           </div>
         </div>
         <div className="columns-8 gap-4 xl:columns-6 2xl:columns-8">
-          {imagesArray.map((i, key) => (
+          {imagesArray.map((_i, key) => (
             <div
               key={key}
               className="after:content after:shadow-highlight group relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg"

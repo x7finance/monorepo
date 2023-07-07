@@ -4,12 +4,11 @@ import { SiteContentContainer } from "@/site-components/site-content-container"
 
 import { X7LinksEnum } from "@x7/common"
 import { CheckCircleIcon, X7Logo } from "@x7/icons"
-// @ts-expect-error todo: fix this
 import { buttonVariants } from "@x7/ui/button"
 import { cn } from "@x7/utils"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { Heading } from "@/app/[locale]/(marketing)/(marketing.components)/heading"
+import { Heading } from "@/app/[locale]/(marketing)/_components/heading"
 
 const metadata = {
   title: "Loans",

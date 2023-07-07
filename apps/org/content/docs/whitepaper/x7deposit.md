@@ -16,8 +16,8 @@ X7Deposit tokens may be staked for rewards in the form of a perpetual annuity th
 When X7Deposit is staked an NFT is generated which records the following:
 
 1. Amount of X7D it is redeemable for
-1. The locked liquidity floor price of the constellation tokens
-1. The X7D Token lockup period
+2. The locked liquidity floor price of the constellation tokens
+3. The X7D Token lockup period
 
 After the maturity date, the holder of the NFT will be able to withdraw profit and restake or withdraw their X7Deposit.
 

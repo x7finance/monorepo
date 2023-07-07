@@ -178,12 +178,12 @@ export function useXchangeLoanData(
     ],
   })
 
-  const premiumsDateArray = data?.[8]?.result?.[0]
+  const premiumsDateArray: any = data?.[8]?.result?.[0]
   const premiumsDateArrayLength =
     parseInt(data?.[17]?.result?.toString() ?? "0", 10) || 0
   const premiumsLastDate = premiumsDateArray?.[premiumsDateArrayLength - 1]
 
-  const principalDateArray = data?.[7]?.result?.[0]
+  const principalDateArray: any = data?.[7]?.result?.[0]
   const principalDateArrayLength =
     parseInt(data?.[18]?.result?.toString() ?? "0", 10) || 0
   const principalLastDate = principalDateArray?.[principalDateArrayLength - 1]

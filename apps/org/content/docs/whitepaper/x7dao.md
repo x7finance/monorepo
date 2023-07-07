@@ -23,4 +23,4 @@ See the Governance section below for more details on the DAO governance system.
 | Fee Allocation         | 30% Ecosystem Splitter 20% Auto Liquidity 25% X7R Buyback and Burn 25% Treasury |
 | Excess Allocation      | Liquidity                                                                       |
 
-![](https://assets.x7finance.org/images/diagrams/x7dao-flow.jpg)
+![X7R DAO Flow](https://assets.x7finance.org/images/diagrams/x7dao-flow.jpg)

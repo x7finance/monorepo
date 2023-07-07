@@ -6,13 +6,13 @@ import Markdoc from "@markdoc/markdoc"
 import { glob } from "glob"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { BlogBase } from "@/app/[locale]/(marketing)/(blog.components)/base"
-import { components } from "@/app/[locale]/(marketing)/(blog.utils)/config.markdoc"
-import type { ParamsProps } from "@/app/[locale]/(marketing)/(blog.utils)/markdoc-parse"
+import { BlogBase } from "@/app/[locale]/(marketing)/blog/_components/base"
+import { components } from "@/app/[locale]/(marketing)/blog/_utils/config.markdoc"
 import {
   getMarkdownContent,
   SOURCE_FILES,
-} from "@/app/[locale]/(marketing)/(blog.utils)/markdoc-parse"
+} from "@/app/[locale]/(marketing)/blog/_utils/markdoc-parse"
+import type { ParamsProps } from "@/app/[locale]/(marketing)/blog/_utils/markdoc-parse"
 
 export async function generateStaticParams() {
   const markdownPaths = await glob(path.join(SOURCE_FILES, "**/*.md"))
@@ -22,10 +22,7 @@ export async function generateStaticParams() {
     const endIndex = postPath.lastIndexOf(".md")
     const sourceFilePath = postPath.substring(startIndex, endIndex)
 
-    const slug = sourceFilePath
-      .replace("(blog-posts)", "")
-      .split("/")
-      .filter((slug) => slug !== "")
+    const slug = sourceFilePath.split("/").filter((slug) => slug !== "")
 
     return { slug, locale: "en" }
   })

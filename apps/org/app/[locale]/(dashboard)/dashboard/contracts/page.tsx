@@ -6,16 +6,14 @@ import { XchangeButton } from "@/site-components/xchange-button"
 import type { BlockchainType } from "@x7/common"
 import { ContractsEnum } from "@x7/common"
 import { ChainsArray } from "@x7/icons"
-// @ts-expect-error todo: fix this
-import { ContractCopy } from "@x7/ui/copy-buttons"
-// @ts-expect-error todo: fix this
+import { ContractCopy } from "@x7/ui/contract-copy"
 import { Table } from "@x7/ui/table"
 import { generateChainIdentifier } from "@x7/utils"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { DashboardContainer } from "@/app/[locale]/(dashboard)/(dashboard.components)/dashboard-container"
-import { DashboardSubheader } from "@/app/[locale]/(dashboard)/(dashboard.components)/dashboard-subheader"
-import { DashboardTitle } from "@/app/[locale]/(dashboard)/(dashboard.components)/dashboard-title"
+import { DashboardContainer } from "@/app/[locale]/(dashboard)/_components/dashboard-container"
+import { DashboardSubheader } from "@/app/[locale]/(dashboard)/_components/dashboard-subheader"
+import { DashboardTitle } from "@/app/[locale]/(dashboard)/_components/dashboard-title"
 
 const metadata = {
   title: "Contracts",

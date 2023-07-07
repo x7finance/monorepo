@@ -1,4 +1,3 @@
-// @ts-expect-error // fs/promises is not in the types
 import { readFile, writeFile } from "fs/promises"
 import { defineConfig } from "tsup"
 import type { Options } from "tsup"
@@ -10,6 +9,8 @@ const client = [
   "./src/accordion.tsx",
   "./src/checkbox.tsx",
   "./src/context-menu.tsx",
+  "./src/contract-copy.tsx",
+  "./src/copy-button.tsx",
   "./src/dialog.tsx",
   "./src/dropdown-menu.tsx",
   "./src/form.tsx",
@@ -24,7 +25,6 @@ const client = [
   "./src/toaster.tsx",
   "./src/tooltip.tsx",
   "./src/use-toast.tsx",
-  "./src/copy-buttons.tsx",
 ]
 
 const server = [
@@ -32,10 +32,10 @@ const server = [
   "./src/card.tsx",
   "./src/circle-loading.tsx",
   "./src/pagination.tsx",
+  "./src/table-loading-shimmer.tsx",
   "./src/table.tsx",
   "./src/tag.tsx",
   "./src/toast.tsx",
-  "./src/table-loading-shimmer.tsx",
 ]
 
 export default defineConfig((opts) => {

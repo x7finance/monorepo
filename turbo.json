@@ -15,9 +15,7 @@
         "NEXT_PUBLIC_DOCSEARCH_INDEX_NAME",
         "NEXT_PUBLIC_MORALIS_API_KEY",
         "NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID",
-        "NODE_ENV",
-        "X7_BOT_TOKEN",
-        "X7_BOT_TWO_TOKEN"
+        "NODE_ENV"
       ]
     },
     "test": {},
@@ -31,9 +29,24 @@
       "cache": false
     },
     "lint": {
-      "dependsOn": ["build"]
+      "dependsOn": ["build"],
+      "outputs": []
     },
-    "lint:fix": {},
+    "lint:fix": {
+      "outputs": []
+    },
+    "lint:dist": {
+      "outputs": []
+    },
+    "lint:css": {
+      "outputs": []
+    },
+    "lint:html": {
+      "outputs": []
+    },
+    "lint:types": {
+      "outputs": []
+    },
     "//#clean": {
       "cache": false
     },

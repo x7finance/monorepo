@@ -21,4 +21,4 @@ This token is expected to eventually be traded on every major centralized exchan
 | Fee Allocation         | 30% Ecosystem Splitter, 40% Auto Liquidity, 30% Treasury |
 | Excess Allocation      | Liquidity                                                |
 
-![](https://assets.x7finance.org/images/diagrams/x7r-diagram.jpg)
+![X7R Diagram](https://assets.x7finance.org/images/diagrams/x7r-diagram.jpg)

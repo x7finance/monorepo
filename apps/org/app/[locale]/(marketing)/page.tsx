@@ -7,16 +7,15 @@ import { useTranslations } from "next-intl"
 
 import { SocialsEnum, X7LinksEnum } from "@x7/common"
 import { DotIcon, RocketIcon, Xchange } from "@x7/icons"
-// @ts-expect-error todo: fix this
 import { buttonVariants } from "@x7/ui/button"
 import { cn } from "@x7/utils"
 
 import { env } from "@/env.mjs"
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 import { DocsLinks, TokenLinksEnum } from "@/lib/types/links"
-import { SectionHeader } from "./(marketing.components)/section-header"
-import { SectionStep } from "./(marketing.components)/section-step"
-import { HeaderVideoComponent } from "./(marketing.components)/video"
+import { SectionHeader } from "./_components/section-header"
+import { SectionStep } from "./_components/section-step"
+import { HeaderVideoComponent } from "./_components/video"
 
 const metadata = {
   title: "Trust No One. Trust Code. Long Live DeFi.",

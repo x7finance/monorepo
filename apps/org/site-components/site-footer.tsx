@@ -2,14 +2,19 @@ import type { HTMLAttributes } from "react"
 import Link from "next/link"
 import { ModeToggle } from "@/site-components/mode-toggle"
 
+// import { useTranslations } from "next-intl"
+
 import { X7LongLogo } from "@x7/icons"
 
 import { FOOTER_NAVIGATION } from "@/config/site"
 
 export function SiteFooter({ className }: HTMLAttributes<HTMLElement>) {
+  // const t = useTranslations("Footer")
+
   return (
     <footer className={className} aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">
+        {/* {t("Title")} */}
         Footer
       </h2>
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">

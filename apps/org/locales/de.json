@@ -17,5 +17,8 @@
     "loans": "Kredite",
     "blog": "Blog",
     "trade": "Handel"
+  },
+  "Footer": {
+    "title": "Fusszeile"
   }
 }

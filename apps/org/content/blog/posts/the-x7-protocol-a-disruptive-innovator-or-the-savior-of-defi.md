@@ -21,7 +21,7 @@ $X7m105 (the origin token for the X7 Protocol) was stealth launched on August 13
 
 See Below for full X7R Tokenomics Flow👇🏻
 
-![](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/1.jpg)
+![Income Earners Dream](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/1.jpg)
 
 $X7DAO = the governance token. For now, it grants discounted trading of the $X7000 series tokens, in the very near future it will grant voting rights to dictate loan terms for the ILO platform, marketing deployment, and protocol tax plus much more.
 
@@ -39,7 +39,7 @@ _Any proposal may be vetoed by a majority of minted Magister tokens. It will req
 
 _An additional side effect of this governance feature is that the original ecosystem developers will retain a level of authority at the beginning of DAO control handover, but this authority can and will be diluted as Magister tokens are minted. The final governance influence of the original developers will become minimal once all Magister tokens have been minted, and once 8 additional Magister tokens are minted the original developers will no longer maintain a controlling voting block on Magister votes.”_
 
-![](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/2.jpg)
+![X7DAO Whitepaper Overview](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/2.jpg)
 
 The 5 $X7000 series tokens are all paired with ETH, as well as each other. When the DEX goes live, a portion of the fees will go to these pairs as liquidity. Long term holders can expect an ever deepening liquidity pool and price floor as funds from the DEX flow in. Short and mid term holders of X7001-X7005 can enjoy arbitrage opportunities across the pairs. In order to make arbitrage more practical the X7001-X7005 can be traded at a discounted fee by holding >= 50,000 #X7DAO tokens. Arbitrage will ensure that X7001-X7005 tokens will maintain a similar price (and due to liquidity tax and the DEX profits, these tokens will have a constantly rising floor). At the heart of X7 Finance Protocol lies the liquidity and this is where things get interesting. This ecosystem includes a pseudo-undercollateralized loan protocol in the context of Initial Liquidity Offerings. In that context it is possible for a borrower to borrow ETH and pay loan premiums, much like a traditional loan, and the liquidity pair itself can act as collateral. The liquidity hub will orchestrate these liquidity injection loans. Loan proceeds will flow across the $X7000 series, $X7DAO governance token, and $X7R in the form of liquidity injections and buy backs.
 
@@ -49,7 +49,7 @@ Dev Note: _The original stealth launched tokens had their liquidity tokens sent 
 
 While the X7 ecosystem of smart contracts are built with the flexibility and resilience to last, it is possible that eventually a systemic upgrade will need to take place. All X7 ecosystem tokens LP tokens (initial + auto liquidity) are being locked in a time-lock contract. **The default destination for this LP will be the burn wallet and the starting lock time will be 2 years.** The DAO will be able to perform any of the following actions on the time lock contract.
 
-![](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/3.jpg)
+![Constellation Tokens](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/3.jpg)
 
 The Dev team for this project has performed flawlessly in the roll out of this unique ecosystem, with no delays and ample communication via weekly sometimes daily on-chain messages. The next steps in the project are the creation of the DEX contract, and deployment of the user facing UI. More to come as more information is shared on chain regarding what is short to be a game changing protocol in our space. Please review the attached media below for a series of Dev launched supporting documents and visual aids.
 
@@ -159,9 +159,9 @@ Loan terms are defined by standalone smart contracts that provide the following:
 
 Spend some time reading through the white paper to understand simple loans, amortization, lending pool origination, and our loan poll governance. It is clear that our developers have master class support from both traditional banking thought and decentralized finance.
 
-![](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/4.jpg)
+![Creating a Swap ERC20](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/4.jpg)
 
-![](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/5.jpg)
+![Onchain Message 5](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/5.jpg)
 
 **V2 Post Launch Updates**
 
@@ -169,15 +169,15 @@ X7 Utility NFTs are built maximize your trading. 4 Maxi NFTs and 1 Magister NFT 
 
 [NFT Minting Link](https://x7.finance/mint)
 
-![](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/6.jpg)
+![Pioneer Commemorative NFT](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/6.jpg)
 
-![](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/7.jpg)
+![X7 NFT Overview](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/7.jpg)
 
 They provide a litany of benefits including trading discounts, reward benefits, and increased governance sway.
 
 X7D Info to Date
 
-![](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/8.jpg)
+![X7D Whitepaper](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/8.jpg)
 
 At a time with so many false promises, and failed launches it has been refreshing to see such an efficient, strategic, and thought-provoking launch centered around creating a censorship resistant DEX and DeFi protocol. Due to the uncertainty in the macro-global economic environment and the increase in censorship, and overreach. Never has a project had more right and/or market fit than the X7 protocol does today. Which is no doubt why it has garnered such rapid attention from thought-leaders throughout the space, the Cult DAO, and the formation of the XForce community worldwide. #XForceUnite
 
@@ -187,7 +187,7 @@ Sept. 12 Chain update\*
 
 Inclusive of nominations for the DAO multisig wallet. And most importantly the X7R contract will deploy within the next 24 hours.
 
-![](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/9.jpg)
+![Onchain message 9](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/9.jpg)
 
 Sept. 13th On-Chain Update \*\*
 
@@ -195,7 +195,7 @@ Sept. 13th On-Chain Update \*\*
 
 (Major) The V2/X7R migration will occur in
 
-![](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/10.jpg)
+![X7R Token](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/10.jpg)
 
 3 phases. Please review carefully!
 
@@ -209,7 +209,7 @@ Phase 1 will last for between 36–48 hours or until a sufficient number of toke
 
 **A dapp haS BEEN be provided for your convenience.**
 
-![](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/11.jpg)
+![Ecosystem Migration](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/11.jpg)
 
 Phase 2 will last for approximately 24 hours to ensure everyone can review the snapshot that has been written to the migration contract so we can correct any discrepancies.
 
@@ -229,7 +229,7 @@ Which we have confirmed to be the new merged version off X7 and 105 previously d
 
 Similar mechanics to 105. See below ⬇️
 
-![](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/12.jpg)
+![Dune Dashboard](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/12.jpg)
 
 Any address that fails to stage their tokens will need to deposit and manually withdraw their new tokens from the migration contract!
 
@@ -237,13 +237,13 @@ Sept 19th Update: _Migration/V2 is imminent. Please standby for instruction on M
 
 October On Chain Updates: Inclusive of linear timeline updates.
 
-![](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/13.jpg)
+![Onchain Announcement](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/13.jpg)
 
 The sun rises on the X7 v2 ecosystem, ready to meet the demands of a world class DEX, lending protocol, and DAO.
 
 **#XForceUnite**
 
-![](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/14.jpg)
+![Xchange Banner Image](https://assets.x7finance.org/images/blog/posts/x7-finance-deposit-token-passive-income-earners-dream/14.jpg)
 
 Stay tuned for further updates. Thanks for reading!
 

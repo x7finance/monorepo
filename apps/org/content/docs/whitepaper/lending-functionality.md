@@ -16,10 +16,10 @@ An initial liquidity loan provides a mechanism to add initial liquidity to an au
 Loan terms are defined by standalone smart contracts that provide the following:
 
 1. Loan origination fee
-1. Loan retention premium fee schedule
-1. Principal repayment condition/maximum loan duration
-1. Liquidation conditions and Reward
-1. Loan duration
+2. Loan retention premium fee schedule
+3. Principal repayment condition/maximum loan duration
+4. Liquidation conditions and Reward
+5. Loan duration
 
 ## Loan Duration
 

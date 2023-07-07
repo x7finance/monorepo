@@ -17,5 +17,8 @@
     "loans": "Loans",
     "blog": "Blog",
     "trade": "Trade"
+  },
+  "Footer": {
+    "title": "Footer"
   }
 }

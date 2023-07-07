@@ -4,9 +4,9 @@ import { Web3Wrapper } from "@/site-components/web3-wrapper"
 import type { ChainShortNameType, LoanType } from "@x7/common"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { DashboardContainer } from "@/app/[locale]/(dashboard)/(dashboard.components)/dashboard-container"
-import { DashboardTitle } from "@/app/[locale]/(dashboard)/(dashboard.components)/dashboard-title"
-import { LoanDetails } from "@/app/[locale]/(dashboard)/(dashboard.components)/loan/details"
+import { DashboardContainer } from "@/app/[locale]/(dashboard)/_components/dashboard-container"
+import { DashboardTitle } from "@/app/[locale]/(dashboard)/_components/dashboard-title"
+import { LoanDetails } from "@/app/[locale]/(dashboard)/_components/loan/details"
 
 const metadata = {
   title: "Loan Details",

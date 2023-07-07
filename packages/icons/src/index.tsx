@@ -16,6 +16,9 @@ export * from "./svgs/xchange"
 export * from "./svgs/x7"
 export * from "./svgs/x7-long-logo"
 
+export * from "./utils/ChainsArray"
+export * from "./utils/IconWrapper"
+
 export {
   AlertCircle,
   BoxIcon,
@@ -46,7 +49,3 @@ export {
   XIcon,
   XCircleIcon,
 } from "lucide-react"
-
-export { ChainsArray } from "./utils/ChainsArray"
-
-export * from "./utils/IconWrapper"

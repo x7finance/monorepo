@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { useContractWrite, useWaitForTransaction } from "wagmi"
 
 import type { BlockchainType } from "@x7/common"
-// @ts-expect-error todo: fix this
 import { useToast } from "@x7/ui/use-toast"
 import { generateChainBase } from "@x7/utils"
 

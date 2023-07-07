@@ -1,12 +1,17 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "React Library",
+  "display": "UI Library",
   "compilerOptions": {
-    "lib": ["dom", "ES2015"],
+    "baseUrl": "./src",
+    "outDir": "dist",
+    "allowJs": true,
+    "jsx": "react-jsx",
+    "noEmit": false,
+    "lib": ["dom", "dom.iterable", "esnext"],
     "module": "ESNext",
     "target": "ES6",
-    "jsx": "react-jsx",
     "composite": false,
+    "incremental": false,
     "declaration": true,
     "declarationMap": true,
     "esModuleInterop": true,
@@ -21,6 +26,6 @@
     "skipLibCheck": true,
     "strict": true
   },
-  "include": ["."],
-  "exclude": ["dist", "build", "node_modules"]
+  "include": ["src"],
+  "exclude": ["**/node_modules", "**/.*/", "dist", "build"]
 }

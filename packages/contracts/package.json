@@ -13,7 +13,11 @@
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts",
-    "lint": "eslint \"src/**/*.ts*\""
+    "lint": "eslint ./src --ext .ts,.tsx,.js,.jsx,.cjs,.mjs,.mdx --cache --cache-location ../../.cache/eslint/contracts.eslintcache",
+    "lint:dist": "es-check -v",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs,.mdx --fix",
+    "lint:size": "size-limit --highlight-less",
+    "lint:types": "tsc --project ./tsconfig.json --noEmit"
   },
   "devDependencies": {
     "@types/jest": "^29.5.2",

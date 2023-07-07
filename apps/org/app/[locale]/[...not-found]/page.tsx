@@ -5,7 +5,7 @@ export default function NotFoundPage() {
   return (
     <div>
       <NotFoundContent />
-      <SiteFooter className="border-t dark:border-gray-800 border-gray-200  dark:bg-[#111111] bg-[#fafafa]" />
+      <SiteFooter className="border-t border-gray-200 bg-[#fafafa]  dark:border-gray-800 dark:bg-[#111111]" />
     </div>
   )
 }

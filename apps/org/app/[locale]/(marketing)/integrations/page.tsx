@@ -3,17 +3,13 @@ import Image from "next/image"
 import { SiteContentContainer } from "@/site-components/site-content-container"
 
 import { PlusCircleIcon } from "@x7/icons"
-// @ts-expect-error todo: fix this
 import { Button } from "@x7/ui/button"
-// @ts-expect-error todo: fix this
 import { ScrollArea, ScrollBar } from "@x7/ui/scroll-area"
-// @ts-expect-error todo: fix this
 import { Separator } from "@x7/ui/separator"
-// @ts-expect-error todo: fix this
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@x7/ui/tabs"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
-import { Heading } from "../(marketing.components)/heading"
+import { Heading } from "../_components/heading"
 import { AlbumArtwork } from "./album-artwork"
 import { listenNowAlbums, madeForYouAlbums, playlists } from "./data/playlists"
 import { Sidebar } from "./sidebar"
