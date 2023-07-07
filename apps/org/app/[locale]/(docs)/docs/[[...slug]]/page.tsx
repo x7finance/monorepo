@@ -20,9 +20,12 @@ export async function generateStaticParams() {
     const sourceFilePath = postPath.substring(startIndex, endIndex)
 
     const slug = sourceFilePath
-      .replace("(source-files)", "")
       .split("/")
-      .filter((slug) => slug !== "")
+      .filter(
+        (slugPart, index, array) =>
+          slugPart !== "" &&
+          !(slugPart === "index" && index === array.length - 1)
+      )
 
     return { slug, locale: "en" }
   })

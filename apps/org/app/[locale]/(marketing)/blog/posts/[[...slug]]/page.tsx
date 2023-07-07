@@ -22,10 +22,7 @@ export async function generateStaticParams() {
     const endIndex = postPath.lastIndexOf(".md")
     const sourceFilePath = postPath.substring(startIndex, endIndex)
 
-    const slug = sourceFilePath
-      .replace("posts", "")
-      .split("/")
-      .filter((slug) => slug !== "")
+    const slug = sourceFilePath.split("/").filter((slug) => slug !== "")
 
     return { slug, locale: "en" }
   })
