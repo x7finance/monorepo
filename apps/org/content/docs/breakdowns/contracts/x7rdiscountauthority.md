@@ -3,8 +3,6 @@ title: X7R Discount Authority Contract
 tags: [breakdowns]
 ---
 
-[Original Medium Post](https://medium.com/@mikemurpher/x7r-discount-authority-contract-58a864c80aa3)
-
 The `X7RDiscountAuthority` contract has three interfaces defined for interacting with three different types of NFTs: `IERC721`, `ILiquidityMaxiNFT`, and `IMagisterNFT`. The contract also has three variables (`ecoMaxiNFT`, `liqMaxiNFT`, and `magisterNFT`) that are used to store the addresses of contracts that implement these interfaces.
 
 The `X7RDiscountAuthority` contract has three functions for setting the addresses of these NFT contracts: `setEcosystemMaxiNFT`, `setLiquidityMaxiNFT`, and `setMagisterNFT`. These functions can only be called by the contract's owner, and they emit events to record the change in the NFT contract address.

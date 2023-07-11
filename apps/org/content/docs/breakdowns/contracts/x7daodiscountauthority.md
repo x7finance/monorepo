@@ -3,8 +3,6 @@ title: X7DAO Discount Authority Contract
 tags: [breakdowns]
 ---
 
-[Original Medium Post](https://medium.com/@mikemurpher/x7dao-discount-authority-contract-c9ad4ad51e05)
-
 This contract `X7DAODiscountAuthority` is a contract that implements an interface called `IDiscountAuthority`. This interface has one public view function called `discountRatio` which takes an `address` parameter called `swapper` and returns two `uint256` values: `numerator` and `denominator`.
 
 The contract also extends the `Ownable` contract, which provides basic ownership functionality such as setting and transferring ownership, as well as a modifier called `onlyOwner` which can be applied to function to restrict the function to be called only by the owner of the contract.

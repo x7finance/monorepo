@@ -3,8 +3,6 @@ title: X7DAO Liquidity Hub Contract
 tags: [breakdowns]
 ---
 
-[Original Medium Post](https://medium.com/@mikemurpher/x7-finance-x7dao-liquidity-hub-contract-b2372bdf155c)
-
 The contract `X7DAOLiquidityHub` is a smart contract for managing a liquidity pool on a decentralized exchange (DEX). The contract includes several interfaces for interacting with other contracts, including `IUniswapV2Router` for interacting with the V2 DEX, `ILiquidityHub` for defining functions that can be called by other contracts to process fees, and `IERC20` for interacting with ERC20 tokens.
 
 The contract has several variables that define the behavior of the liquidity pool, such as `liquidityRatioTarget`, `minShare`, and `maxShare`. It also has variables for tracking the balances of various accounts, including `distributeBalance`, `auxiliaryBalance`, and `treasuryBalance`.
