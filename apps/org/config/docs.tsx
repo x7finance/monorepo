@@ -169,6 +169,10 @@ const ONCHAINS_NAVIGATION = [
     title: "July 2023",
     links: [
       {
+        title: "July-11-2023-072359-AM",
+        href: "/docs/onchains/901-july-11-2023-072359-am-utc",
+      },
+      {
         title: "July-04-2023-074259-AM",
         href: "/docs/onchains/902-july-04-2023-074259-am-utc",
       },
