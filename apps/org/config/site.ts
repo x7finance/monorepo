@@ -126,6 +126,7 @@ export const FOOTER_NAVIGATION = {
     { name: "Blog", href: MarketingLinks.Blog },
     { name: "Snapshot", href: SocialsEnum.snapshot },
     { name: "Dune", href: SocialsEnum.dune },
+    { name: "GitHub", href: SocialsEnum.github },
   ],
   socials: [
     {

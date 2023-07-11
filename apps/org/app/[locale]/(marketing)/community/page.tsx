@@ -7,6 +7,7 @@ import {
   BookIcon,
   Discord,
   Dune,
+  Github,
   MediaIcon,
   Megaphone,
   SnapshotLogo,
@@ -172,5 +173,12 @@ const socials = [
     fill: "fill-[#f4bd03]",
     description: "Track X7 Finance data via Dune - by @Mike_X7F",
     icon: Dune,
+  },
+  {
+    href: SocialsEnum.github,
+    name: "GitHub",
+    fill: "fill-[#f4bd03]",
+    description: "X7 Finance is open sourced, contribute here!",
+    icon: Github,
   },
 ]
