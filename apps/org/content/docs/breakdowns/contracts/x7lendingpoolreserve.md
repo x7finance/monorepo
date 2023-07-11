@@ -3,10 +3,6 @@ title: X7 Finance Lending Pool Reserve
 tags: [breakdowns]
 ---
 
-[Original Medium Post](https://medium.com/@mikemurpher/x7-finance-lending-pool-reserve-4f1c361feff1)
-
-Smart contract
-
 This is a smart contract for a lending pool reserve on the Ethereum blockchain. It is implemented as an extension of the X7DMinter, X7DBurner, and Ownable contracts, and it allows for the minting and burning of X7D tokens, as well as the deposit and withdrawal of ETH. The contract also has the ability to set and change the address of the lending pool, the ecosystem recipient, and the X7D contract. Additionally, it can also set certain addresses as ecosystem payers, which will redirect their deposit of ETH to the ecosystem recipient instead of themselves. The contract is also able to fund the lending pool, with the owner as the only one who can do this.
 
 ```js

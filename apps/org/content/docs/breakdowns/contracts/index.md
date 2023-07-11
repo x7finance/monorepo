@@ -4,6 +4,7 @@ title: Contract Breakdown Directory
 
 ## Contracts
 
+[X7R Token Contract](/docs/breakdowns/contracts/x7r)\
 [X7DAO Token Contract](/docs/breakdowns/contracts/x7daotokencontract)\
 [X7100 Token Contract](/docs/breakdowns/contracts/x7100tokencontract)\
 [X7D](/docs/breakdowns/contracts/x7d)\
@@ -23,5 +24,9 @@ title: Contract Breakdown Directory
 [X7 Liquidity Hub](/docs/breakdowns/contracts/x7100liquidityhub)\
 [X7 Borrowing Maxi NFT](/docs/breakdowns/contracts/x7borrowingmaxinft)\
 [X7 Dex Maxi NFT](/docs/breakdowns/contracts/x7dexmaxi)\
-[X7 Ecosystem Maxi NFT](/docs/breakdowns/contracts/x7ecosystemmaxi)
-[X7 Liquidity Maxi NFT](/docs/breakdowns/contracts/x7liquiditymaxi)
+[X7 Ecosystem Maxi NFT](/docs/breakdowns/contracts/x7ecosystemmaxi)\
+[X7 Liquidity Maxi NFT](/docs/breakdowns/contracts/x7liquiditymaxi)\
+[X7 Pioneer NFT](/docs/breakdowns/contracts/x7pioneer)\
+[X7 Magister NFT](/docs/breakdowns/contracts/x7magister)\
+[Xchange Factory](/docs/breakdowns/contracts/xchangefactory)\
+[Xchange Pair](/docs/breakdowns/contracts/xchangepair)

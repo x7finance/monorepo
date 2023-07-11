@@ -3,10 +3,6 @@ title: X7 Initial Liquidity Loan Term
 tags: [breakdowns]
 ---
 
-[Original Medium Post](https://medium.com/@mikemurpher/x7-initial-liquidity-loan-term-225ecb32a706)
-
-Smart Contract
-
 This contract uses an abstract base contract shared among all our standard Initial Liquidity Loan Terms. Although this contract only allows a small number of configuration changes (namely minimum and maximum loan amounts and durations), variations can be deployed and added to the Active Loan terms of the Lending Pool.
 
 ```js

@@ -3,8 +3,6 @@ title: X7 Treasury Splitter V2 Contract
 tags: [breakdowns]
 ---
 
-[Original Medium Post](https://medium.com/@mikemurpher/x7-treasury-splitter-v2-contract-2e43e20ba13f)
-
 The `X7TreasurySplitterV2` contract is an implementation of a contract that allows for the distribution of funds among multiple recipients, referred to as "outlets." Each outlet has a corresponding recipient address and a share of the funds to be distributed. The contract is owned by a specific address, which has the ability to modify the behavior of the contract. The contract is also associated with an instance of the `IUniswapV2Router02` interface, which is used to exchange tokens for ether.
 
 The contract has several functions:

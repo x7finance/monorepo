@@ -32,6 +32,10 @@ const BREAKDOWNS_NAVIGATION = [
     title: "Contracts",
     links: [
       {
+        title: "X7R Token Contract",
+        href: "/docs/breakdowns/contracts/x7r",
+      },
+      {
         title: "X7DAO Token Contract",
         href: "/docs/breakdowns/contracts/x7daotokencontract",
       },
@@ -111,6 +115,22 @@ const BREAKDOWNS_NAVIGATION = [
       {
         title: "X7 Liquidity Maxi NFT",
         href: "/docs/breakdowns/contracts/x7liquiditymaxi",
+      },
+      {
+        title: "X7 Pioneer NFT",
+        href: "/docs/breakdowns/contracts/x7pioneer",
+      },
+      {
+        title: "X7 Magister NFT",
+        href: "/docs/breakdowns/contracts/x7magister",
+      },
+      {
+        title: "Xchange Factory",
+        href: "/docs/breakdowns/contracts/xchangefactory",
+      },
+      {
+        title: "Xchange Pair",
+        href: "/docs/breakdowns/contracts/xchangepair",
       },
     ],
   },

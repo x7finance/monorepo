@@ -3,8 +3,6 @@ title: X7100 Liquidity Hub Contract
 tags: [breakdowns]
 ---
 
-[Original Medium Post](https://medium.com/@mikemurpher/x7-finance-x7100-liquidity-hub-contract-1ed44358a9cf)
-
 The contract has several variables that store information about the distribution of liquidity, including `distributeShare`, `liquidityShare`, `lendingPoolShare`, and `treasuryShare`. It also has variables that store information about the targets for these distributions, such as `distributeTarget` and `lendingPoolTarget`.
 
 ```js

@@ -3,8 +3,6 @@ title: X7 Token Time Lock Contract
 tags: [breakdowns]
 ---
 
-[Original Medium Post](https://medium.com/@mikemurpher/x7-token-time-lock-contract-d30dd2b352ae)
-
 The X7TokenTimeLock is a general purpose token time lock suitable for holding the Liquidity Provider tokens for all X7 ecosystem uniswap pairs.
 
 There is a global unlock time and token specific unlock times. If a token is locked either by the global lock or the token specific lock, it will be locked.

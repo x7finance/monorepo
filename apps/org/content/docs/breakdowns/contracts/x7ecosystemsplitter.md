@@ -3,8 +3,6 @@ title: X7 Ecosystem Splitter Contract
 tags: [breakdowns]
 ---
 
-[Original Medium Post](https://medium.com/@mikemurpher/x7-ecosystem-splitter-contract-6942ea3aa36b)
-
 The `X7EcosystemSplitter` contract is a contract that allows the owner to split incoming funds between different outlets (recipients) in predetermined proportions.
 
 The outlets are represented by an `enum` called `Outlet` and are defined as `X7R`, `X7DAO`, `X7100`, `LENDING_POOL`, and `TREASURY`. The owner can specify the proportions (shares) of incoming funds that should be sent to each outlet using the `setShares` function.

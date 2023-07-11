@@ -3,8 +3,6 @@ title: X7R LiquidityHub Contract
 tags: [breakdowns]
 ---
 
-[Original Medium Post](https://medium.com/@mikemurpher/x7-finance-x7r-liquidityhub-contract-4e1cca89fe22)
-
 ```js
 interface IERC20 {
     function circulatingSupply() external view returns (uint256);
