@@ -12,8 +12,8 @@ import { SectionStep } from "../../_components/section-step"
 const metadata = {
   title: "DEX Maxi NFT",
   description:
-    "Uncover X7 Finance's Borrowing Maxi NFT: A unique digital asset that offers holders exclusive benefits in our lending pools. Learn how the Borrowing Maxi NFT can enhance your borrowing provision experience, provide preferential rates, and unlock new opportunities in the DeFi market. Understand the mechanics, benefits, and potential returns of our Borrowing Maxi NFT and optimize your decentralized finance journey.",
-  slug: "/nfts/liquidity-maxi",
+    "Explore X7 Finance's Dex Maxi NFT: A unique digital asset that offers holders exclusive benefits on our Automated Market Making (AMM) Decentralized Exchange (DEX). Learn how the Dex Maxi NFT can enhance your trading experience, provide preferential rates, and unlock new trading opportunities. Understand the mechanics, benefits, and potential returns of our Dex Maxi NFT and elevate your decentralized trading journey.",
+  slug: "/nfts/dex-maxi",
   section: "default",
 }
 
@@ -21,7 +21,7 @@ export function generateMetadata(): Metadata {
   return generateMetadataFromDoc(metadata)
 }
 
-export default function DEXMaxiPage() {
+export default function DexMaxiPage() {
   return (
     <div>
       <Heading

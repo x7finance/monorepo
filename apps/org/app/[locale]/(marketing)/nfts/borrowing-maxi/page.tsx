@@ -10,10 +10,10 @@ import { Heading } from "@/app/[locale]/(marketing)/_components/heading"
 import { SectionStep } from "../../_components/section-step"
 
 const metadata = {
-  title: "Liquidty Maxi NFT",
+  title: "Borrowing Maxi NFT",
   description:
     "Uncover X7 Finance's Borrowing Maxi NFT: A unique digital asset that offers holders exclusive benefits in our lending pools. Learn how the Borrowing Maxi NFT can enhance your borrowing provision experience, provide preferential rates, and unlock new opportunities in the DeFi market. Understand the mechanics, benefits, and potential returns of our Borrowing Maxi NFT and optimize your decentralized finance journey.",
-  slug: "/nfts/liquidity-maxi",
+  slug: "/nfts/borrowing-maxi",
   section: "default",
 }
 
@@ -21,11 +21,11 @@ export function generateMetadata(): Metadata {
   return generateMetadataFromDoc(metadata)
 }
 
-export default function BorrowMaxiPage() {
+export default function BorrowingMaxiPage() {
   return (
     <div>
       <Heading
-        id={"borrow-maxi"}
+        id={"borrowing-maxi"}
         title={"Borrowing Maxi NFT"}
         subHeader="Borrow at lower costs"
       />

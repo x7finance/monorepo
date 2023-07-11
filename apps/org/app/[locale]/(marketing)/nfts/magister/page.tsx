@@ -21,7 +21,7 @@ export function generateMetadata(): Metadata {
   return generateMetadataFromDoc(metadata)
 }
 
-export default function MagisterPage() {
+export default function MagisterNftPage() {
   return (
     <div>
       <Heading

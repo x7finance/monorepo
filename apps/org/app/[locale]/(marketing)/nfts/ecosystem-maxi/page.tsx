@@ -21,12 +21,12 @@ export function generateMetadata(): Metadata {
   return generateMetadataFromDoc(metadata)
 }
 
-export default function EcosyetemMaxiPage() {
+export default function EcosystemMaxiPage() {
   return (
     <div>
       <Heading
-        id={"eco-maxi"}
-        title={"Ecosysten Maxi NFT"}
+        id={"ecosystem-maxi"}
+        title={"Ecosystem Maxi NFT"}
         subHeader="Lower fees on trades"
       />
       <SiteContentContainer>
