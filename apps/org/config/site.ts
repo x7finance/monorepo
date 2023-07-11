@@ -89,6 +89,7 @@ export const FOOTER_NAVIGATION = {
     { name: "Xchange", href: ProductsLinkEnum.Xchange },
     { name: "X7D", href: TokenLinksEnum.X7D },
     { name: "X7R", href: TokenLinksEnum.X7R },
+    { name: "X7DAO", href: TokenLinksEnum.X7DAO },
     { name: "X7101", href: TokenLinksEnum.X7101 },
     { name: "X7102", href: TokenLinksEnum.X7102 },
     { name: "X7103", href: TokenLinksEnum.X7103 },
