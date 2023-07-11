@@ -1,9 +1,12 @@
 import type { Metadata } from "next"
 import Image from "next/image"
+import Link from "next/link"
 import { GradientTypes } from "@/site-components/gradients"
 import { PioneerDrop } from "@/site-components/pioneer-drop"
 import { SiteContentContainer } from "@/site-components/site-content-container"
 
+import { ContractsEnum, XCHANGE } from "@x7/common"
+import { buttonVariants } from "@x7/ui/button"
 import { cn, getRandomPioneerNumber } from "@x7/utils"
 
 import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
@@ -11,7 +14,7 @@ import { generateMetadataFromDoc } from "@/lib/generateMetadataFromDoc"
 const metadata = {
   title: "X7DAO",
   description:
-    "Dive into X7 DAO: The governance token of X7 Finance, playing a crucial role in our decentralized finance ecosystem. Learn how X7 DAO empowers holders with voting rights, enabling them to participate in key protocol decisions, from modifying tokenomics to determining the long-term fate of locked liquidity. Understand the tokenomics, benefits, and potential returns of holding X7 DAO. Experience the power of decentralized governance with X7 DAO, the voice of X7 Finance.",
+    "The governance token of X7 Finance, playing a crucial role in our decentralized finance ecosystem. X7 DAO empowers holders with voting rights, enabling them to participate in key protocol decisions, from modifying tokenomics to determining the long-term fate of locked liquidity. Understand the tokenomics, benefits, and potential returns of holding X7 DAO. Experience the power of decentralized governance with X7 DAO, the voice of X7 Finance.",
   slug: "/tokens/x7dao",
   section: "default",
 }
@@ -22,7 +25,7 @@ export function generateMetadata(): Metadata {
 
 const imagesArray = Array.from({ length: 64 }, (_, index) => index)
 
-export default function X7RDAO() {
+export default function X7DAO() {
   return (
     <div>
       <SiteContentContainer>
@@ -35,17 +38,43 @@ export default function X7RDAO() {
                   GradientTypes.bank,
                   `font-display my-3 inline bg-gradient-to-r bg-clip-text text-xl font-bold uppercase text-transparent`
                 )}
-              >
-                Welcome
-              </p>
+              ></p>
               <h2 className="font-heading text-3xl leading-[1.1] text-black dark:text-white sm:text-3xl md:text-6xl">
-                We Are X7 DAO
+                X7DAO
               </h2>
 
               <p className="mt-6 text-base leading-8 text-zinc-400 dark:text-zinc-500 sm:text-xl">
-                X7 DAO is the governance token of X7 Finance, playing a crucial
-                role in maintaining a balance of the X7 Protocol
+                {metadata.description}
               </p>
+              <div className="mt-6 flex flex-col items-center gap-y-2 md:gap-x-3 md:gap-y-0">
+                <Link
+                  href={`/docs/whitepaper/x7dao`}
+                  className={cn(
+                    buttonVariants({
+                      variant: "ghost",
+                      size: "sm",
+                    })
+                  )}
+                >
+                  Learn More
+                </Link>
+                <Link
+                  href={`${XCHANGE}/#/swap?outputCurrency=${ContractsEnum.X7DAO}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cn(
+                    buttonVariants({
+                      variant: "outline",
+                      size: "sm",
+                    }),
+                    "border-white border-opacity-60 hover:border-opacity-100"
+                  )}
+                >
+                  Trade
+                  {` `}
+                  <span aria-hidden="true">&rarr;</span>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
