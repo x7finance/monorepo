@@ -10,4 +10,5 @@ export enum SocialsEnum {
   media = "https://t.me/X7MediaChannel",
   snapshot = "https://snapshot.org/#/x7community.eth",
   reddit = "https://www.reddit.com/r/x7finance",
+  dune = "https://dune.com/mike_x7f/x7finance",
 }

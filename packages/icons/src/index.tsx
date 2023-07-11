@@ -9,6 +9,7 @@ export * from "./svgs/telegram"
 export * from "./svgs/snapshot"
 export * from "./svgs/github"
 export * from "./svgs/reddit"
+export * from "./svgs/dune"
 
 export * from "./svgs/megaphone"
 export * from "./svgs/media"

@@ -6,6 +6,7 @@ import { SocialsEnum } from "@x7/common"
 import {
   BookIcon,
   Discord,
+  Dune,
   MediaIcon,
   Megaphone,
   SnapshotLogo,
@@ -164,5 +165,12 @@ const socials = [
     description:
       "Have your say on changes to the X7 Ecosystem, hold $X7DAO tokens to vote, or cast advisory proposals if you hold 500k $X7DAO tokens.",
     icon: SnapshotLogo,
+  },
+  {
+    href: SocialsEnum.dune,
+    name: "Dune Dashboard",
+    fill: "fill-[#f4bd03]",
+    description: "Track X7 Finance data via Dune - by @Mike_X7F",
+    icon: Dune,
   },
 ]
