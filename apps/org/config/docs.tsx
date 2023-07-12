@@ -69,12 +69,12 @@ const BREAKDOWNS_NAVIGATION = [
         href: "/docs/breakdowns/contracts/x7lendingpoolreserve",
       },
       {
-        title: "X7R Discount Authority",
-        href: "/docs/breakdowns/contracts/x7rdiscountauthority",
-      },
-      {
         title: "X7 Lending Discount Authority",
         href: "/docs/breakdowns/contracts/x7lendingdiscountauthority",
+      },
+      {
+        title: "X7R Discount Authority",
+        href: "/docs/breakdowns/contracts/x7rdiscountauthority",
       },
       {
         title: "X7R Liquidity Hub",
@@ -93,11 +93,11 @@ const BREAKDOWNS_NAVIGATION = [
         href: "/docs/breakdowns/contracts/x7treasurysplitterv2",
       },
       {
-        title: "X7 100 Discount Authority",
+        title: "X7100 Discount Authority",
         href: "/docs/breakdowns/contracts/x7100discountauthority",
       },
       {
-        title: "X7 100 Liquidity Hub",
+        title: "X7100 Liquidity Hub",
         href: "/docs/breakdowns/contracts/x7100liquidityhub",
       },
       {
@@ -138,11 +138,18 @@ const BREAKDOWNS_NAVIGATION = [
     title: "Functions",
     links: [
       {
-        title: "X7 Borrowing Maxi",
-        href: "/docs/breakdowns/functions/x7borrowingmaxi",
+        title: "X7R Token Contract",
+        href: "/docs/breakdowns/functions/x7r",
+      },
+      {
+        title: "X7DAO Token Contract",
+        href: "/docs/breakdowns/functions/x7dao",
+      },
+      {
+        title: "X7100 Token Contract",
+        href: "/docs/breakdowns/functions/x7100tokencontract",
       },
       { title: "X7D", href: "/docs/breakdowns/functions/x7d" },
-      { title: "X7DAO", href: "/docs/breakdowns/functions/x7dao" },
       {
         title: "X7DAO Discount Authority",
         href: "/docs/breakdowns/functions/x7daodiscountauthority",
@@ -150,11 +157,6 @@ const BREAKDOWNS_NAVIGATION = [
       {
         title: "X7DAO Liquidity Hub",
         href: "/docs/breakdowns/functions/x7daoliquidityhub",
-      },
-      { title: "X7 Dex Maxi", href: "/docs/breakdowns/functions/x7dexmaxi" },
-      {
-        title: "X7 Ecosystem Maxi",
-        href: "/docs/breakdowns/functions/x7ecosystemmaxi",
       },
       {
         title: "X7 Ecosystem Splitter",
@@ -173,12 +175,73 @@ const BREAKDOWNS_NAVIGATION = [
         href: "/docs/breakdowns/functions/x7initialliquidityloanterm003",
       },
       {
-        title: "X7 Lending Discount Authority V1",
-        href: "/docs/breakdowns/functions/x7lendingdiscountauthorityv1",
+        title: "X7 Lending Pool",
+        href: "/docs/breakdowns/functions/x7lendingpool",
       },
       {
         title: "X7 Lending Pool Reserve",
         href: "/docs/breakdowns/functions/x7lendingpoolreserve",
+      },
+      {
+        title: "X7 Lending Discount Authority",
+        href: "/docs/breakdowns/functions/x7lendingdiscountauthorityv1",
+      },
+      {
+        title: "X7R Discount Authority",
+        href: "/docs/breakdowns/functions/x7rdiscountauthority",
+      },
+      {
+        title: "X7R Liquidity Hub",
+        href: "/docs/breakdowns/functions/x7rliquidityhub",
+      },
+      {
+        title: "X7 Token Burner",
+        href: "/docs/breakdowns/functions/x7tokenburner",
+      },
+      {
+        title: "X7 Token Timelock",
+        href: "/docs/breakdowns/functions/x7tokentimelock",
+      },
+      {
+        title: "X7 Treasury Splitter V2",
+        href: "/docs/breakdowns/functions/x7treasurysplitterv2",
+      },
+      {
+        title: "X7100 Discount Authority",
+        href: "/docs/breakdowns/functions/x7100discountauthority",
+      },
+      {
+        title: "X7100 Liquidity Hub",
+        href: "/docs/breakdowns/functions/x7100liquidityhub",
+      },
+      {
+        title: "X7 Borrowing Maxi",
+        href: "/docs/breakdowns/functions/x7borrowingmaxi",
+      },
+      { title: "X7 Dex Maxi", href: "/docs/breakdowns/functions/x7dexmaxi" },
+      {
+        title: "X7 Ecosystem Maxi",
+        href: "/docs/breakdowns/functions/x7ecosystemmaxi",
+      },
+      {
+        title: "X7 Liquidity Maxi NFT",
+        href: "/docs/breakdowns/functions/x7liquiditymaxi",
+      },
+      {
+        title: "X7 Pioneer NFT",
+        href: "/docs/breakdowns/functions/x7pioneer",
+      },
+      {
+        title: "X7 Magister NFT",
+        href: "/docs/breakdowns/functions/x7magister",
+      },
+      {
+        title: "Xchange Factory",
+        href: "/docs/breakdowns/functions/xchangefactory",
+      },
+      {
+        title: "Xchange Pair",
+        href: "/docs/breakdowns/functions/xchangepair",
       },
     ],
   },
