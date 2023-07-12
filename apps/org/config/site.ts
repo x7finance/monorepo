@@ -99,6 +99,7 @@ export const FOOTER_NAVIGATION = {
   explore: [
     { name: "Whitepaper", href: DocsLinks.Whitepaper },
     { name: "Docs", href: DocsLinks.Index },
+    { name: "On-Chains", href: DocsLinks.Onchains },
     { name: "Templates", href: DocsLinks.IntegratingTemplates },
 
     // need to add these pages
@@ -118,7 +119,6 @@ export const FOOTER_NAVIGATION = {
   ],
   community: [
     { name: "DAO", href: DashboardLinksEnum.DAO },
-    { name: "On-Chains", href: DocsLinks.Onchains },
     { name: "Telegram", href: SocialsEnum.telegram },
     { name: "Twitter", href: SocialsEnum.twitter },
     { name: "Discord", href: SocialsEnum.discord },

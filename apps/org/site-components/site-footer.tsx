@@ -74,11 +74,10 @@ export function SiteFooter({ className }: HTMLAttributes<HTMLElement>) {
                   ))}
                 </ul>
               </div>
-              <div className="mt-12 md:mt-0">
-                <h3 className="cursor-pointer text-sm font-medium text-black dark:text-white">
+              <div>
+                <h3 className="text-sm font-medium text-black dark:text-white">
                   Community
                 </h3>
-
                 <ul className="mt-4 space-y-4">
                   {FOOTER_NAVIGATION.community.map((item) => (
                     <li key={item.name}>
