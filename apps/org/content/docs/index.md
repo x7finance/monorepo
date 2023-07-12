@@ -15,9 +15,11 @@ Below you'll find starting points for information on how you plan to use and lev
 
 {% quickLink title="Integration" icon="plugins" href="/docs/integration" description="Friendly straighforward developer documentation to help you get launched on Xchange" /%}
 
-{% quickLink title="Onchain Messages" icon="theming" href="/docs/onchains" description="To maintain complete decentralization of protocol, the founding devs communicate with the community via on-chain messages." /%}
-
 {% quickLink title="Whitepaper" icon="lightbulb" href="/docs/whitepaper" description="Read the original whitepaper from the founding devs in document form" /%}
+
+{% quickLink title="Breakdowns" icon="presets" href="/docs/breakdowns" description="A comprehensive breakdown of the smart contracts in the X7 Finance ecosystem."/%}
+
+{% quickLink title="Onchain Messages" icon="theming" href="/docs/onchains" description="To maintain complete decentralization of protocol, the founding devs communicate with the community via on-chain messages."  /%}
 
 {% quickLink title="FAQ" icon="warning" href="/docs/faq" description="We've compiled answers to some of the most commonly asked questions within the community" /%}
 
