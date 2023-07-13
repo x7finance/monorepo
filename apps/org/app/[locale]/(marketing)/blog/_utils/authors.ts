@@ -29,4 +29,10 @@ export const AUTHORS = [
     image: "/images/blog/authors/mikemurpher.jpg",
     name: "mikemurpher",
   },
+  {
+    id: "cryptod0c",
+    twitter: "cryptod0c_",
+    image: "/images/blog/authors/cryptod0c.jpg",
+    name: "cryptod0c",
+  },
 ]
