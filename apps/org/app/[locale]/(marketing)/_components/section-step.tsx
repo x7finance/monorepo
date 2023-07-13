@@ -14,7 +14,11 @@ type SectionStepProps = {
   checkColor: string
   isReverse?: boolean
   showLeadIn?: boolean
-  primaryAction?: {
+  primaryAction: {
+    text: string
+    href: string
+  }
+  secondaryAction: {
     text: string
     href: string
   }
@@ -32,6 +36,7 @@ export function SectionStep(props: SectionStepProps) {
     isReverse,
     showLeadIn,
     primaryAction,
+    secondaryAction,
   } = props
 
   return (
@@ -91,7 +96,7 @@ export function SectionStep(props: SectionStepProps) {
             ))}
           </ul>
           {primaryAction?.href && (
-            <div className="mt-6 flex justify-center">
+            <div className="mt-6 flex justify-center space-x-4">
               <Link
                 href={primaryAction.href}
                 className={cn(
@@ -104,6 +109,20 @@ export function SectionStep(props: SectionStepProps) {
               >
                 {primaryAction.text}
               </Link>
+              {secondaryAction?.href && (
+                <Link
+                  href={secondaryAction.href}
+                  className={cn(
+                    buttonVariants({
+                      variant: "default",
+                      size: "lg",
+                    }),
+                    "inline-flex"
+                  )}
+                >
+                  {secondaryAction.text}
+                </Link>
+              )}
             </div>
           )}
         </div>
