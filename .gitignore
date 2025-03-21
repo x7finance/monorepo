@@ -1,0 +1,227 @@
+# ==============================
+# Dependency directories
+# ==============================
+node_modules
+node_modules/
+.pnp.*
+.pnp
+.pnp.js
+.pnpm-store
+.pnpm-store/
+
+# ==============================
+# Build directories
+# ==============================
+.next/
+out/
+build/
+build_local/
+dist/
+dist-ssr/
+artifacts/
+cache/
+
+# ==============================
+# Testing
+# ==============================
+coverage
+coverage/
+_Chutzpah*
+FakesAssemblies/
+
+# ==============================
+# Deployment platforms
+# ==============================
+.vercel
+.serverless/**/*.zip
+
+# ==============================
+# Storybook build directory
+# ==============================
+storybook-static/
+
+# ==============================
+# Temporary files
+# ==============================
+tmp/
+*.tmp
+.netrc
+
+# ==============================
+# Environment files
+# ==============================
+.env
+.env*
+!.env.example
+**/.env
+.env.local
+.env.*.local
+*.local
+
+# ==============================
+# Local directories (often used for local data)
+# ==============================
+local/
+
+# ==============================
+# Docker override files
+# ==============================
+docker-compose.override.yml
+
+# ==============================
+# Logs and debug
+# ==============================
+logs/
+pnpm-debug.log*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+**/.debug
+logs/
+*.log
+.turbo/
+**/.turbo/
+
+# ==============================
+# Cache files
+# ==============================
+.eslintcache
+**/.eslintcache
+.stylelintcache
+.cache/*
+.cache/
+tsconfig.tsbuildinfo
+**/tsconfig.tsbuildinfo
+
+# ==============================
+# Operating system generated files
+# ==============================
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ==============================
+# Security files (should not be committed)
+# ==============================
+*.pem
+# Pem Exceptions
+!localhost-cert.pem
+!localhost-key.pem
+keys.json
+
+# ==============================
+# Editor files (IDE settings and cache files)
+# ==============================
+# Visual Studio Code
+.idea
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.turbo
+
+# Visual Studio
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.vs/
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+# ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# JetBrains specific
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.xml
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/gradle.xml
+.idea/httpRequests
+*.iws
+
+# ==============================
+# TypeScript
+# ==============================
+*.tsbuildinfo
+
+# ==============================
+# Tool specific
+# ==============================
+# Million Lint
+.million
+
+# NuGet
+*.nupkg
+
+# Node.js Tools for Visual Studio
+.ntvs_analysis.dat
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+*.sap
+
+# Crashlytics
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# SQL Server files
+*.mdf
+*.ldf
+*.ndf
+
+# Web Development
+.sass-cache/
+bower_components/
+.plasmo
+.webpack
+
+# Version control
+.git
+
+# Business Intelligence projects
+*.rdl.data
+*.bim.layout
+*.bim_*.settings
+
+# CMake
+cmake-build-*/
+cmake-build-debug/
+
+# Prisma
+src/db/seed/*.csv
+
+# Cursor
+mcp.json

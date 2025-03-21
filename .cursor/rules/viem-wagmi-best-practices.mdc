@@ -1,0 +1,40 @@
+---
+description: 
+globs: **/*.{ts,tsx}
+alwaysApply: false
+---
+## Setup and Configuration
+- Use centralized `web3Config` for managing chain configurations instead of hardcoding them
+- Leverage the `Web3Provider` component for consistent provider connection management
+- Use fallback transports for better reliability across different networks
+
+## Reading from the Blockchain
+- Use `useReadContracts` for batched reads and `useReadContract` for single contract reads
+- Implement proper loading states with `isLoading` flags in all components
+- Use React Query integration for effective data caching and invalidation
+
+## Writing to the Blockchain
+- Use `useSimulateContract` before executing transactions to catch errors early
+- Use `useWriteContract` hook with consistent error handling patterns
+- Handle `UserRejectedRequestError` separately from other blockchain errors
+- Use `waitForTransactionReceipt` with appropriate polling intervals
+
+## Type Safety
+- Leverage TypeScript interfaces for all contract interactions
+- Import ABIs from the central contracts package for consistency
+- Use the `isAddress` utility from viem for reliable address validation
+
+## Performance Optimization
+- Use multicall pattern for batching read operations
+- Implement the `gasMargin` utility when estimating gas for transactions
+- Cache frequently used blockchain data to reduce RPC calls
+
+## Transaction Monitoring
+- Use the transaction store pattern for consistent transaction tracking
+- Implement proper logging for all blockchain interactions
+- Use toast notifications for user-friendly transaction status updates
+
+## Custom Hook Patterns
+- Follow established hook patterns like `useTokenApproval` and `useCreatePair`
+- Return standardized objects with loading states, data, and error information
+- Create specialized hooks for common operations to maintain consistency

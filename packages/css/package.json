@@ -1,0 +1,32 @@
+{
+  "name": "@x7/css",
+  "version": "0.0.1",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "clean": "git clean -xdf .turbo node_modules dist",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "prettier": "@x7/prettier-config",
+  "devDependencies": {
+    "@types/react": "catalog:react19",
+    "@types/react-dom": "catalog:react19",
+    "@x7/eslint-config": "workspace:*",
+    "@x7/prettier-config": "workspace:*",
+    "@x7/tsconfig": "workspace:*",
+    "clsx": "^2.1.1",
+    "eslint": "catalog:",
+    "tailwind-merge": "^3.0.2",
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:"
+  }
+}

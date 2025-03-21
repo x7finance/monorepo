@@ -1,0 +1,35 @@
+{
+  "name": "@x7/contracts",
+  "version": "0.0.1",
+  "description": "Contracts for building applications on top of Xchange",
+  "license": "UNLICENSED",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./src/index.ts"
+    },
+    "./artifacts/*": "./artifacts/*"
+  },
+  "scripts": {
+    "build": "hardhat compile && tsc",
+    "clean": "git clean -xdf .turbo artifacts node_modules cache dist",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "prettier": "@x7/prettier-config",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox-viem": "^3.0.0",
+    "@x7/eslint-config": "workspace:*",
+    "@x7/prettier-config": "workspace:*",
+    "@x7/tsconfig": "workspace:*",
+    "base64-sol": "1.0.1",
+    "decimal.js": "^10.5.0",
+    "dotenv": "^16.4.7",
+    "eslint": "catalog:",
+    "hardhat": "^2.22.19",
+    "hardhat-viem": "^1.0.0",
+    "typescript": "catalog:"
+  }
+}

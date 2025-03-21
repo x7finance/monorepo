@@ -1,0 +1,97 @@
+---
+title: X7 Lending Pool Functions Breakdown
+tags: [breakdowns]
+---
+
+Contains the contract functions only with a link to the full function in the contract code
+
+## Interface
+
+- [interface IWETH](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L306)
+- [interface IX7D](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L312)
+- [interface IX7LendingTerm](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L317)
+- [interface IX7LendingDiscountAuthority](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L330)
+- [interface IX7InitialLiquidityLoanTerm](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L344)
+- [interface IXchangeFactory](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L391)
+- [interface IXchangeRouter](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L396)
+- [interface IXchangePair](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L409)
+- [interface X7DMinter](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L417)
+
+## Contract events
+
+- [event EcosystemRecipientSet(address indexed oldEcosystemRecipient, address indexed newEcosystemRecipient)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L482)
+- [event RouterSet(address oldAddress, address newAddress)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L483)
+- [event WETHSet(address oldAddress, address newAddress)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L484)
+- [event X7DSet(address oldAddress, address newAddress)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L485)
+- [event LoanTermActiveStateSet(address indexed newAddress, bool isActive)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L486)
+- [event LiquidationRewardSet(uint256 oldReward, uint256 newReward)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L487)
+- [event OriginationSharesSet(uint256 oldEcosystemSplitterOriginationShare,uint256 oldX7DAOOriginationShare,uint256 oldX7100OriginationShare,uint256 oldLendingPoolOriginationShare,uint256 newEcosystemSplitterOriginationShare,uint256 newX7DAOOriginationShare,uint256 newX7100OriginationShare,uint256 newLendingPoolOriginationShare)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L488)
+- [event PremiumSharesSet(uint256 oldEcosystemSplitterOriginationShare,uint256 oldX7DAOOriginationShare,uint256 oldX7100OriginationShare,uint256 oldLendingPoolOriginationShare,uint256 newEcosystemSplitterOriginationShare,uint256 newX7DAOOriginationShare,uint256 newX7100OriginationShare,uint256 newLendingPoolOriginationShare)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L498)
+- [event EcosystemSplitterSet(address indexed oldEcosystemSplitter, address indexed newEcosystemSplitter)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L508)
+- [event X7100ReserveRecipientSet(address indexed oldX7100ReserveRecipient, address indexed newX7100ReserveRecipient)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L509)
+- [event X7DAORewardRecipientSet(address indexed oldX7DAORewardRecipient, address indexed newX7DAORewardRecipient)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L510)
+- [event DiscountAuthoritySet(address indexed oldDiscountAuthority, address indexed newDiscountAuthority)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L511)
+- [event RetainedFeeNumeratorSet(uint256 indexed oldRetainedFeeNumerator, uint256 indexed newRetainedFeeNumerator)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L512)
+- [event LendingPoolReserveSet(address indexed oldLendingPoolReserve, address indexed newLendingPoolReserve)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L513)
+- [event LendingHalted()](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L514)
+- [event LendingCommenced()](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L515)
+- [event AuthorizedCapitalManagerSet(address indexed manager, bool indexed isTrusted)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L516)
+- [event LoanBuyoutAllowed(bool isAllowed)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L517)
+- [event SyncSafeGasAmountSet(uint256 indexed oldSyncSafeGasAmount, uint256 indexed newSyncSafeGasAmount)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L518)
+- [event LoanBoughtOut(address indexed buyer, uint256 indexed loanID)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L519)
+
+## External Functions
+
+- [receive () external payable {}](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L533)
+- [function activeLoansByBorrower(address borrower) external view returns (uint256)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L535)
+- [function countOfActiveLoanTerms() external view returns (uint256)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L539)
+- [function availableCapital() external view returns (uint256)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L543)
+- [function getDiscountedQuote(address borrower,IX7InitialLiquidityLoanTerm loanTerm,uint256 loanAmount,uint256 loanDurationSeconds) external view returns (uint256[7] memory)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L547)
+- [function canLiquidate(uint256 loanID) external view returns (uint256)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L560)
+- [function getPrincipalDue(uint256 loanID, uint256 asOf) external view returns (uint256)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L567)
+- [function getPremiumsDue(uint256 loanID, uint256 asOf) external view returns (uint256)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L572)
+- [function getTotalDue(uint256 loanID, uint256 asOf) external view returns (uint256)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L577)
+- [function getRemainingLiability(uint256 loanID) external view returns (uint256)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L582)
+- [function getPremiumPaymentSchedule(uint256 loanID) external view returns (uint256[] memory, uint256[] memory)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L587)
+- [function getPrincipalPaymentSchedule(uint256 loanID) external view returns (uint256[] memory, uint256[] memory)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L593)
+- [function getQuote(address borrower,IX7InitialLiquidityLoanTerm loanTerm,uint256 loanAmount,uint256 loanDurationSeconds) external view returns (uint256[5] memory)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L599)
+- [function buyoutLoanQuote(uint256 loanID) external view returns (uint256)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L612)
+- [function setEcosystemRecipient(address recipient) external onlyOwner](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L612)
+- [function setRouter(address routerAddress) external onlyOwner](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L629)
+- [function setWETH(address wethAddress) external onlyOwner](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L636)
+- [function setX7D(address X7DAddress) external onlyOwner](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L643)
+- [function setLoanTermActiveState(address loanTermAddress, bool isActive) external onlyOwner](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L650)
+- [function setLiquidationReward(uint256 reward) external onlyOwner](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L668)
+- [function setOriginationShares(uint256 ecosystemSplitterOriginationShare*,uint256 X7DAOOriginationShare*,uint256 X7100OriginationShare*,uint256 lendingPoolOriginationShare*) external onlyOwner](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L675)
+- [function setPremiumShares(uint256 ecosystemSplitterPremiumShare*,uint256 X7DAOPremiumShare*,uint256 X7100PremiumShare*,uint256 lendingPoolPremiumShare*) external onlyOwner](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L705)
+- [function setEcosystemSplitter(address recipient) external onlyOwner](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L735)
+- [function setX7100ReserveRecipient(address recipient) external onlyOwner](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L742)
+- [function setX7DAORewardRecipient(address recipient) external onlyOwner](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L749)
+- [function setDiscountAuthority(address discountAuthorityAddress) external onlyOwner](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L756)
+- [function setRetainedFeeNumerator(uint256 numerator) external onlyOwner](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L766)
+- [function setLendingPoolReserve(address reserveAddress) external onlyOwner](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L774)
+- [function setLendingHalted(bool isHalted) external onlyOwner](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L784)
+- [function setAllowLoanBuyout(bool isAllowed) external onlyOwner](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L795)
+- [function setAuthorizedCapitalManager(address manager, bool isTrusted) external onlyOwner](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L795)
+- [function setSyncSafeGasAmount(uint256 amount) external onlyOwner](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L809)
+- [function returnETHToLendingPoolReserve(uint256 amount) external](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L816)
+- [function getInitialLiquidityLoan(address tokenAddress, uint256 amount, address loanTermContract, uint256 loanAmount, uint256 loanDurationSeconds, address liquidityReceiver, uint256 deadline) external lock payable returns (uint256 loanID)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L823)
+- [function payLiability(uint256 loanID) external lock payable](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L915)
+- [function liquidate(uint256 loanID) external lock](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L966)
+- [function buyoutLoan(uint256 loanID) external payable](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L1010)
+- [function buyoutLoanTo(uint256 loanID, address to) external payable](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L1014)
+- [function depositETH() external payable](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L1018)
+- [function depositETHForRecipient(address recipient) external payable](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L1022)
+- [function returnETH() external payable](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L1026)
+
+## Internal Functions
+
+- [function \_buyoutLoan(uint256 loanID, address to) internal](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L1030)
+- [function \_removeLoanFromIndex(uint256 loanID) internal](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L1042)
+- [function \_getQuote(address borrower, IX7InitialLiquidityLoanTerm loanTerm, uint256 loanAmount, uint256 loanDurationSeconds) internal view returns (uint256[5] memory)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L1053)
+- [function \_getDiscountedQuote(address borrower, IX7InitialLiquidityLoanTerm loanTerm, uint256 loanAmount, uint256 loanDurationSeconds) internal view returns (uint256[7] memory discountedQuote)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L1082)
+- [function \_useQuote(IX7InitialLiquidityLoanTerm loanTerm, uint256 loanAmount, uint256 loanDurationSeconds) internal returns (uint256[5] memory)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L1127)
+- [function \_splitOriginationFee(uint256 amount) internal](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L1155)
+- [function \_splitPremiumFee(uint256 amount) internal](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L1183)
+- [function \_payLiquidationFee(uint256 loanID, address recipient) internal](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L1210)
+- [function \_addLiquidity(address tokenAddress, uint256 amount, uint256 roundedLoanAmount, address liquidityTokenReceiver, uint256 timestamp) internal returns (address)](https://github.com/x7finance/monorepo/tree/main/packages/contracts/src/contracts/source/X7LendingPoolV1.sol#L1224)

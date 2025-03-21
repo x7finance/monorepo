@@ -1,0 +1,16 @@
+export enum SocialsEnum {
+  twitter = "https://x.com/X7_Finance",
+  github = "https://github.com/x7finance",
+  telegram = "https://t.me/X7portal",
+  medium = "https://medium.com/@X7Finance",
+  discord = "https://discord.gg/x7finance",
+  youtube = "https://youtube.com/channel/UCYnIyBwiomfUUAnjCbNFkqw",
+  announcements = "https://t.me/X7announcements",
+  media = "https://t.me/X7MediaChannel",
+  snapshot = "https://snapshot.org/#/x7finance.eth",
+  reddit = "https://www.reddit.com/r/x7finance",
+  dune = "https://dune.com/mike_x7f/x7finance",
+  warpcast = "https://warpcast.com/x7finance",
+  xchangealerts = "https://t.me/xchange_alerts",
+  daochat = "https://telegram.me/collablandbot?start=VFBDI1RFTCNDT01NIy0xMDAyMTM5MTc4NTQx",
+}

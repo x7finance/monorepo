@@ -1,0 +1,16 @@
+{
+  "name": "CoinGecko",
+  "logoURI": "https://static.coingecko.com/s/thumbnail-007177f3eca19695592f0b8b0eabbdae282b54154e1be912285c9034ea6cbaf2.png",
+  "keywords": ["defi"],
+  "timestamp": "2024-06-26T20:00:36.854+00:00",
+  "tokens": [
+    {
+      "chainId": 80002,
+      "address": "0x41e94eb019c0762f9bfcf9fb1e58725bfb0e7582",
+      "name": "USDC",
+      "symbol": "USDC",
+      "decimals": 18,
+      "logoURI": "https://assets.coingecko.com/coins/images/32847/thumb/usdc_%281%29.png?1699619355"
+    }
+  ]
+}

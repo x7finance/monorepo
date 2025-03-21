@@ -1,0 +1,113 @@
+description: X7 Finance is a decentralized protocol for automated liquidity provision on EVM blockchains.
+repository: https://github.com/x7finance/monorepo
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  # XChange Factory
+  - kind: ethereum/contract
+    name: XchangeFactory
+    network: base
+    source:
+      address: "ADDRESS"
+      abi: XchangeFactory
+      startBlock: 00000000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - PairCreated
+      abis:
+        - name: XchangeFactory
+          file: ./abis/XchangeFactory.json
+      eventHandlers:
+        - event: PairCreated(indexed address,indexed address,address,uint256)
+          handler: handlePairCreated
+      file: ./src/xchange-factory.ts
+  # Uniswap V2 Factory
+  - kind: ethereum/contract
+    name: UniswapFactory
+    network: base
+    source:
+      address: "ADDRESS"
+      abi: UniswapFactory
+      startBlock: 00000000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - PairCreated
+      abis:
+        - name: UniswapFactory
+          file: ./abis/UniswapFactory.json
+      eventHandlers:
+        - event: PairCreated(indexed address,indexed address,address,uint256)
+          handler: handlePairCreated
+      file: ./src/uniswap-factory.ts
+  # Uniswap V3 Factory
+  - kind: ethereum/contract
+    name: UniswapV3Factory
+    network: base
+    source:
+      address: "ADDRESS"
+      abi: UniswapV3Factory
+      startBlock: 00000000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - PoolCreated
+      abis:
+        - name: UniswapV3Factory
+          file: ./abis/UniswapV3Factory.json
+      eventHandlers:
+        - event: PoolCreated(indexed address,indexed address,indexed uint24,int24,address)
+          handler: handlePoolCreated
+      file: ./src/uniswap-factory.ts
+  # SushiSwap V2 Factory
+  - kind: ethereum/contract
+    name: SushiFactory
+    network: mainnet
+    source:
+      address: "ADDRESS"
+      abi: SushiFactory
+      startBlock: 00000000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - PairCreated
+      abis:
+        - name: SushiFactory
+          file: ./abis/SushiFactory.json
+      eventHandlers:
+        - event: PairCreated(indexed address,indexed address,address,uint256)
+          handler: handlePairCreated
+      file: ./src/sushi-factory.ts
+  # SushiSwap V3 Factory
+  - kind: ethereum/contract
+    name: SushiV3Factory
+    network: mainnet
+    source:
+      address: "ADDRESS"
+      abi: SushiV3Factory
+      startBlock: 00000000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - PoolCreated
+      abis:
+        - name: SushiV3Factory
+          file: ./abis/SushiV3Factory.json
+      eventHandlers:
+        - event: PoolCreated(indexed address,indexed address,indexed uint24,int24,address)
+          handler: handlePoolCreated
+      file: ./src/sushi-factory.ts

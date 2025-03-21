@@ -1,0 +1,21 @@
+---
+description: Best practices for TypeScript development
+globs: **/*.{ts,tsx}
+alwaysApply: false
+---
+
+- Prefer nullish coalescing operator (`??`) over logical OR (`||`) for default values, as `??` only falls back when values are `null` or `undefined`, while `||` falls back on any falsy value.
+- Use explicit type annotations when TypeScript cannot infer types correctly.
+- Avoid using `any` type; prefer `unknown` when the type is truly not known.
+- Use union types (`type | type`) to represent values that could be one of several types.
+- Enable strict TypeScript configuration for maximum type safety.
+- Use optional chaining (`?.`) for safely accessing nested properties.
+- Prefer type guards (`is` keyword) for narrowing types.
+- Leverage discriminated unions for more precise type handling.
+- Use the `satisfies` operator to validate object shapes while preserving literal types.
+- Implement typed error handling with custom error classes.
+- Avoid silent failures or empty catch blocks.
+- Properly type asynchronous code including Promise return types.
+- Be mindful of type complexity that might affect IDE performance.
+- Use interfaces for public APIs and types for internal implementation.
+- Consider using `readonly` for immutable data structures.

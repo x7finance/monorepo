@@ -1,0 +1,7 @@
+.github
+node_modules
+playwright-reports
+test-results
+.env
+.env.example
+README.md

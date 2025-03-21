@@ -1,0 +1,16 @@
+{
+  "name": "Xchange",
+  "logoURI": "",
+  "keywords": ["defi"],
+  "timestamp": "2024-11-20T00:03:09.211+00:00",
+  "tokens": [
+    {
+      "chainId": 11155420,
+      "address": "0x205cff4C8Ef6e0dDb11f916b51A86e2FC47EFd79",
+      "symbol": "X7D",
+      "name": "X7D",
+      "decimals": 18,
+      "logoURI": "https://assets.x7finance.org/images/tokens/x7d.png"
+    }
+  ]
+}

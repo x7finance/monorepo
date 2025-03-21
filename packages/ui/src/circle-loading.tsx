@@ -1,0 +1,24 @@
+import { cn } from "@x7/css";
+import { Glyph, IconWrapper } from "@x7/icons";
+
+export function CircleLoading({
+  size = 6,
+  fill = "currentColor",
+  containerClass = "",
+}: {
+  size?: number;
+  fill?: string;
+  containerClass?: string;
+}): React.ReactNode {
+  return (
+    <div
+      className={cn(
+        containerClass
+          ? containerClass
+          : "relative z-50 flex flex-auto items-center justify-center self-stretch",
+      )}
+    >
+      <IconWrapper glyph={Glyph.loading} fill={fill} size={size} />
+    </div>
+  );
+}

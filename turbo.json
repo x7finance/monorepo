@@ -1,0 +1,89 @@
+{
+  "$schema": "https://turborepo.org/schema.json",
+  "globalDependencies": ["**/.env.*local"],
+  "globalEnv": [
+    "NEXT_PUBLIC_APP_ENV",
+    "NEXT_PUBLIC_APP_URL",
+    "NEXT_PUBLIC_ASSETS_URL",
+    "NEXT_PUBLIC_DOCSEARCH_API_KEY",
+    "NEXT_PUBLIC_DOCSEARCH_APP_ID",
+    "NEXT_PUBLIC_DOCSEARCH_INDEX_NAME",
+    "NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID",
+    "NEXT_PUBLIC_DEFAULT_ETHER_RPC",
+    "NEXT_PUBLIC_DEFAULT_BSC_RPC",
+    "NEXT_PUBLIC_DEFAULT_POLY_RPC",
+    "NEXT_PUBLIC_DEFAULT_OPTI_RPC",
+    "NEXT_PUBLIC_DEFAULT_ARB_RPC",
+    "NEXT_PUBLIC_DEFAULT_BASE_RPC",
+    "NEXT_PUBLIC_DEFAULT_ETHER_RPC_FALLBACK",
+    "NEXT_PUBLIC_DEFAULT_BSC_RPC_FALLBACK",
+    "NEXT_PUBLIC_DEFAULT_POLY_RPC_FALLBACK",
+    "NEXT_PUBLIC_DEFAULT_OPTI_RPC_FALLBACK",
+    "NEXT_PUBLIC_DEFAULT_ARB_RPC_FALLBACK",
+    "NEXT_PUBLIC_DEFAULT_BASE_RPC_FALLBACK",
+    "NEXT_PUBLIC_DEFAULT_BASE_TESTNET_RPC",
+    "NEXT_PUBLIC_DEFAULT_ETHER_TESTNET_RPC",
+    "NEXT_PUBLIC_DEFAULT_OPTI_TESTNET_RPC",
+    "NEXT_PUBLIC_DEFAULT_ARB_TESTNET_RPC",
+    "NEXT_PUBLIC_DEFAULT_BSC_TESTNET_RPC",
+    "NEXT_PUBLIC_DEFAULT_POLY_TESTNET_RPC",
+    "NEXT_PUBLIC_DEFAULT_BSC_TESTNET_RPC_FALLBACK",
+    "NEXT_PUBLIC_DEFAULT_ARBITRUM_TESTNET_RPC_FALLBACK",
+    "NEXT_PUBLIC_DEFAULT_OPTIMISM_TESTNET_RPC_FALLBACK",
+    "NEXT_PUBLIC_DEFAULT_POLYGON_TESTNET_RPC_FALLBACK",
+    "NEXT_PUBLIC_DEFAULT_BASE_TESTNET_RPC_FALLBACK",
+    "NEXT_PUBLIC_DEFAULT_ETHER_TESTNET_RPC_FALLBACK",
+    "NEXT_PUBLIC_PINATA_AIP_KEY",
+    "NEXT_PUBLIC_PINATA_SECRECT_KEY",
+    "NEXT_PUBLIC_GATEWAY_URL",
+    "NEXT_PUBLIC_ALCHEMY_ID",
+    "PINATA_JWT",
+    "PORT",
+    "CI"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [
+        ".cache/tsbuildinfo.json",
+        "dist/**",
+        "artifacts/**",
+        "contracts/**"
+      ]
+    },
+    "dev": {
+      "dependsOn": ["^dev"],
+      "cache": false,
+      "persistent": false
+    },
+    "format": {
+      "outputs": [".cache/.prettiercache"],
+      "outputLogs": "new-only"
+    },
+    "lint": {
+      "outputs": [".cache/.eslintcache"]
+    },
+    "typecheck": {
+      "dependsOn": ["^build"],
+      "outputs": [".cache/tsbuildinfo.json"]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "outputLogs": "new-only"
+    },
+    "start": {
+      "dependsOn": ["^build"],
+      "persistent": true,
+      "cache": false
+    },
+    "e2e": {
+      "cache": false
+    },
+    "clean": {
+      "cache": false
+    },
+    "//#clean": {
+      "cache": false
+    }
+  }
+}

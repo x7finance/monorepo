@@ -1,0 +1,204 @@
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+
+import invariant from "tiny-invariant";
+
+import { Fraction, MAX_UINT256, Rounding, ZERO } from "../math";
+import Big from "../math/Big";
+import { Native } from "./Native";
+import { Share } from "./Share";
+import { Token } from "./Token";
+import type { Currency } from "./Type";
+import { amountSchema } from "./zod";
+import type { SerializedAmount } from "./zod";
+
+export class Amount<T extends Currency> extends Fraction {
+  public readonly currency: T;
+  public readonly scale: bigint;
+  /**
+   * Returns a new currency amount instance from the unitless amount of token, i.e. the raw amount
+   * @param currency the currency in the amount
+   * @param rawAmount the raw token or ether amount
+   */
+  public static fromRawAmount<T extends Currency>(
+    currency: T,
+    rawAmount: bigint | number,
+  ): Amount<T> {
+    return new Amount(currency, rawAmount);
+  }
+
+  public static fromShare<T extends Currency>(
+    currency: T,
+    shares: bigint | number,
+    rebase: { base: bigint; elastic: bigint },
+    roundUp = false,
+  ): Amount<T> {
+    if (rebase.base === ZERO) return new Amount(currency, shares);
+
+    const sharesBI =
+      typeof shares === "bigint" ? shares : BigInt(shares.toString());
+
+    const elastic = (sharesBI * rebase.elastic) / rebase.base;
+
+    if (roundUp && (elastic * rebase.base) / rebase.elastic < sharesBI) {
+      return new Amount(currency, elastic + 1n);
+    }
+
+    return new Amount(currency, elastic);
+  }
+
+  public toShare(rebase: { base: bigint; elastic: bigint }, roundUp = false) {
+    if (rebase.elastic === ZERO) {
+      return Share.fromRawShare(this.currency, this.quotient);
+    }
+
+    const base = (this.quotient * rebase.base) / rebase.elastic;
+
+    if (roundUp && (base * rebase.elastic) / rebase.base < this.quotient) {
+      return Share.fromRawShare(this.currency, base + 1n);
+    }
+
+    return Share.fromRawShare(this.currency, base);
+  }
+
+  /**
+   * Construct a currency amount with a denominator that is not equal to 1
+   * @param currency the currency
+   * @param numerator the numerator of the fractional token amount
+   * @param denominator the denominator of the fractional token amount
+   */
+  public static fromFractionalAmount<T extends Currency>(
+    currency: T,
+    numerator: bigint,
+    denominator: bigint,
+  ): Amount<T> {
+    return new Amount(currency, numerator, denominator);
+  }
+
+  protected constructor(
+    currency: T,
+    numerator: bigint | number,
+    denominator?: bigint,
+  ) {
+    super(numerator, denominator);
+    invariant(this.quotient <= MAX_UINT256, "AMOUNT");
+    this.currency = currency;
+    this.scale = 10n ** BigInt(currency.decimals);
+  }
+
+  public override add(other: Amount<T>): Amount<T> {
+    invariant(this.currency.equals(other.currency), "CURRENCY");
+    const added = super.add(other);
+    return Amount.fromFractionalAmount(
+      this.currency,
+      added.numerator,
+      added.denominator,
+    );
+  }
+
+  public override subtract(other: Amount<T>): Amount<T> {
+    invariant(this.currency.equals(other.currency), "CURRENCY");
+    const subtracted = super.subtract(other);
+    return Amount.fromFractionalAmount(
+      this.currency,
+      subtracted.numerator,
+      subtracted.denominator,
+    );
+  }
+
+  public override multiply(other: Fraction | bigint): Amount<T> {
+    const multiplied = super.multiply(other);
+    return Amount.fromFractionalAmount(
+      this.currency,
+      multiplied.numerator,
+      multiplied.denominator,
+    );
+  }
+
+  public override divide(other: Fraction | bigint): Amount<T> {
+    const divided = super.divide(other);
+    return Amount.fromFractionalAmount(
+      this.currency,
+      divided.numerator,
+      divided.denominator,
+    );
+  }
+
+  public override toSignificant(
+    significantDigits = 6,
+    format?: any,
+    rounding: Rounding = Rounding.ROUND_DOWN,
+  ): string {
+    return super
+      .divide(this.scale)
+      .toSignificant(significantDigits, format, rounding);
+  }
+
+  public override toFixed(
+    decimalPlaces: number = this.currency.decimals,
+    format?: object,
+    rounding: Rounding = Rounding.ROUND_DOWN,
+  ): string {
+    invariant(decimalPlaces <= this.currency.decimals, "DECIMALS");
+    return super.divide(this.scale).toFixed(decimalPlaces, format, rounding);
+  }
+
+  public toHex(): string {
+    return `0x${this.quotient.toString(16)}`;
+  }
+
+  public toExact(groupSeparator = ""): string {
+    Big.DP = this.currency.decimals;
+
+    const exactNumber = new Big(this.quotient.toString()).div(
+      this.scale.toString(),
+    );
+
+    const parts = exactNumber.toFixed().split(".");
+    const integerPart = parts[0];
+    const decimalPart = parts[1] || "";
+
+    const formattedIntegerPart = integerPart?.replace(
+      /\B(?=(\d{3})+(?!\d))/g,
+      groupSeparator,
+    );
+
+    return decimalPart
+      ? `${formattedIntegerPart}.${decimalPart}`
+      : `${formattedIntegerPart}`;
+  }
+
+  public get wrapped(): Amount<Token> {
+    if (this.currency.isToken) return this as Amount<Token>;
+    return Amount.fromFractionalAmount(
+      this.currency.wrapped,
+      this.numerator,
+      this.denominator,
+    );
+  }
+
+  public serialize(): SerializedAmount {
+    return amountSchema.parse({
+      amount: this.quotient.toString(),
+      currency: this.currency.serialize(),
+    });
+  }
+
+  public static deserialize<T extends Currency>(
+    amount: SerializedAmount,
+  ): Amount<T> {
+    if (amount.currency.isNative)
+      return Amount.fromRawAmount(
+        Native.deserialize(amount.currency) as T,
+        BigInt(amount.amount),
+      );
+    return Amount.fromRawAmount(
+      Token.deserialize(amount.currency) as T,
+      BigInt(amount.amount),
+    );
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "name": "Xchange",
+  "logoURI": "",
+  "keywords": ["defi"],
+  "timestamp": "2024-11-20T00:03:09.211+00:00",
+  "tokens": [
+    {
+      "chainId": 137,
+      "address": "0x7d000a1b9439740692f8942a296e1810955f5000",
+      "name": "X7D",
+      "symbol": "X7D",
+      "decimals": 18,
+      "logoURI": "https://assets.x7finance.org/images/tokens/x7d.png"
+    },
+    {
+      "chainId": 137,
+      "address": "",
+      "name": "X7R",
+      "symbol": "X7R",
+      "decimals": 18,
+      "logoURI": "https://assets.x7finance.org/images/tokens/x7r.png"
+    },
+    {
+      "chainId": 137,
+      "address": "",
+      "name": "X7DAO",
+      "symbol": "X7DAO",
+      "decimals": 18,
+      "logoURI": "https://assets.x7finance.org/images/tokens/x7dao.png"
+    },
+    {
+      "chainId": 137,
+      "address": "0x7101a9392eac53b01e7c07ca3baca945a56ee105",
+      "name": "X7101",
+      "symbol": "X7101",
+      "decimals": 18,
+      "logoURI": "https://assets.x7finance.org/images/tokens/x7101.png"
+    },
+    {
+      "chainId": 137,
+      "address": "0x7102dc82ef61bfb0410b1b1bf8ea74575bf0a105",
+      "name": "X7102",
+      "symbol": "X7102",
+      "decimals": 18,
+      "logoURI": "https://assets.x7finance.org/images/tokens/x7102.png"
+    },
+    {
+      "chainId": 137,
+      "address": "0x7103ebdbf1f89be2d53eff9b3cf996c9e775c105",
+      "name": "X7103",
+      "symbol": "X7103",
+      "decimals": 18,
+      "logoURI": "https://assets.x7finance.org/images/tokens/x7103.png"
+    },
+    {
+      "chainId": 137,
+      "address": "0x7104d1f179cc9cc7fb5c79be6da846e3fbc4c105",
+      "name": "X7104",
+      "symbol": "X7104",
+      "decimals": 18,
+      "logoURI": "https://assets.x7finance.org/images/tokens/x7104.png"
+    },
+    {
+      "chainId": 137,
+      "address": "0x7105faa4a26ed1c67b8b2b41bec98f06ee21d105",
+      "name": "X7105",
+      "symbol": "X7105",
+      "decimals": 18,
+      "logoURI": "https://assets.x7finance.org/images/tokens/x7105.png"
+    }
+  ]
+}

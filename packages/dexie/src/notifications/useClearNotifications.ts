@@ -1,0 +1,15 @@
+import { useCallback } from "react";
+
+import { db } from "../db";
+
+export const useClearNotifications = ({
+  account,
+}: {
+  account: `0x${string}` | undefined;
+}) => {
+  return useCallback(async () => {
+    if (!account) return;
+
+    return db.notifications.where("account").equals(account).delete();
+  }, [account]);
+};

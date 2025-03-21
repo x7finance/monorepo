@@ -1,0 +1,36 @@
+{
+  "name": "@x7/dexie",
+  "version": "0.0.1",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "clean": "git clean -xdf .turbo node_modules dist",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit"
+  },
+  "prettier": "@x7/prettier-config",
+  "dependencies": {
+    "dexie": "^4.0.11",
+    "dexie-react-hooks": "^1.1.7",
+    "lodash.groupby": "^4.6.0"
+  },
+  "devDependencies": {
+    "@types/lodash.groupby": "^4.6.9",
+    "@types/node": "^22.13.10",
+    "@types/react": "catalog:react19",
+    "@types/react-dom": "catalog:react19",
+    "@x7/eslint-config": "workspace:*",
+    "@x7/prettier-config": "workspace:*",
+    "@x7/tsconfig": "workspace:*",
+    "eslint": "catalog:",
+    "typescript": "catalog:"
+  }
+}

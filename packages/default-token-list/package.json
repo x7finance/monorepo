@@ -1,0 +1,29 @@
+{
+  "name": "@x7/default-token-list",
+  "version": "0.0.1",
+  "description": "The Xchange default token list",
+  "license": "UNLICENSED",
+  "main": "build/xchange-default.tokenlist.json",
+  "files": [
+    "build/xchange-default.tokenlist.json"
+  ],
+  "scripts": {
+    "build": "rimraf ./-p build && mkdir -p build && node src/write.js",
+    "clean": "git clean -xdf .turbo node_modules build ./-p",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "test": "mocha"
+  },
+  "prettier": "@x7/prettier-config",
+  "dependencies": {
+    "viem": "^2.23.13"
+  },
+  "devDependencies": {
+    "@x7/eslint-config": "workspace:*",
+    "@x7/prettier-config": "workspace:*",
+    "@x7/token-lists": "workspace:*",
+    "ajv": "^6.12.3",
+    "chai": "^4.2.0",
+    "dotenv": "^16.4.7",
+    "mocha": "^8.0.1"
+  }
+}

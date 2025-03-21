@@ -1,0 +1,21 @@
+{
+  "name": "@x7/e2e",
+  "version": "0.0.01",
+  "description": "e2e tests for Xchange",
+  "main": "index.js",
+  "devDependencies": {
+    "@inquirer/prompts": "^7.4.0",
+    "@playwright/test": "^1.51.1",
+    "@synthetixio/synpress": "^4.0.10",
+    "axios": "^1.8.4",
+    "@types/node": "^22.13.10",
+    "dotenv": "^16.4.7",
+    "@x7/eslint-config": "workspace:*",
+    "@x7/prettier-config": "workspace:*",
+    "@x7/tsconfig": "workspace:*"
+  },
+  "scripts": {
+    "e2e": "HEADLESS_MODE=true npx playwright test",
+    "e2e:headed": "npx playwright test"
+  }
+}

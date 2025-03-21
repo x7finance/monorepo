@@ -1,0 +1,31 @@
+{
+  "name": "@x7/token-lists",
+  "version": "0.0.1",
+  "description": "The Token Lists specification",
+  "license": "UNLICENSED",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./src/index.ts"
+    },
+    "./src/tokenlist.schema.json": "./src/tokenlist.schema.json"
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "git clean -xdf .turbo node_modules dist",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "postbuild:temp": "node copy-schema.cjs",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "prettier": "@x7/prettier-config",
+  "devDependencies": {
+    "@x7/eslint-config": "workspace:*",
+    "@x7/prettier-config": "workspace:*",
+    "@x7/tsconfig": "workspace:*",
+    "eslint": "catalog:",
+    "husky": "^9.1.7",
+    "typescript": "catalog:"
+  }
+}

@@ -1,0 +1,10 @@
+---
+description: Best practices for Next.js 15 applications using the App Router
+globs: **/*.{ts,tsx}
+---
+- Utilize React Server Components (RSC) for server-side rendering where possible to improve performance.
+- Minimize the use of 'use client' directives to reduce client-side JavaScript.
+- Implement proper error boundaries to handle errors gracefully.
+- Use Suspense for managing asynchronous operations and loading states.
+- Optimize for Core Web Vitals to ensure a fast and smooth user experience.
+- Leverage the new async runtime APIs (cookies, headers, draftMode) for server-side operations.

@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "target": "ES2020",
+    "allowJs": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./lib/*"]
+    }
+  }
+}

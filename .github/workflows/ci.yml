@@ -1,0 +1,125 @@
+name: CI
+
+on:
+  pull_request:
+    branches: ["*"]
+  merge_group:
+
+jobs:
+  setup:
+    name: Setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.6.2
+          run_install: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+
+      - name: Setup environment variables
+        run: |
+          cp .env.example .env.local
+          cp .env.example apps/org/.env.local
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build packages
+        run: pnpm run build:setup
+
+  lint-typecheck-test:
+    name: ${{ matrix.command }}
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        command: [lint, typecheck, test]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.6.2
+          run_install: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Setup environment variables
+        run: |
+          cp .env.example .env.local
+          cp .env.example apps/org/.env.local
+
+      - name: Run ${{ matrix.command }}
+        run: pnpm turbo ${{ matrix.command }}
+
+  build:
+    name: Build
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.6.2
+          run_install: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Setup environment variables
+        run: |
+          cp .env.example .env.local
+          cp .env.example apps/org/.env.local
+
+      - name: Cache Next.js
+        uses: actions/cache@v4
+        with:
+          path: apps/org/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
+            ${{ runner.os }}-nextjs-
+
+      - name: Build
+        run: pnpm run build
+
+      # Uncomment if you want to deploy to Fleek
+      # - name: Deploy to Fleek
+      #   if: github.ref == 'refs/heads/main'
+      #   id: deploy
+      #   uses: fleekhq/action-deploy@v1
+      #   with:
+      #     apiKey: ${{ secrets.FLEEK_API_KEY }}
+      #     workDir: apps/org
+
+      # - name: Output Deploy URL
+      #   if: github.ref == 'refs/heads/main'
+      #   run: echo "Deploy URL is ${{ steps.deploy.outputs.deployUrl }}"

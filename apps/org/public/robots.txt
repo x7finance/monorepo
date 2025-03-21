@@ -1,0 +1,43 @@
+# X7 Finance - Global rules
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /static/images/blur/
+Disallow: /*?*  # Block URLs with query parameters
+
+# Allow Google to crawl everything for optimal indexing
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Allow: /api/ogi/*
+
+# Google Image specific crawling
+User-agent: Googlebot-Image
+Allow: /static/images/
+Allow: /public/images/
+
+# Mobile-specific Googlebot
+User-agent: Googlebot-Mobile
+Allow: /
+
+# Bing crawler
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Allow: /api/ogi/*
+
+# Explicitly allow important directories
+Allow: /blog/
+Allow: /docs/
+Allow: /tokens/
+Allow: /products/
+Allow: /dashboard/
+Allow: /nfts/
+
+# Crawl-delay recommendation (in seconds) for bots that respect this
+# Some search engines might ignore this, but it helps with server load
+Crawl-delay: 1
+
+# Sitemap declaration
+Sitemap: https://www.x7finance.org/sitemap.xml

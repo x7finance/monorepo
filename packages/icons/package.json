@@ -1,0 +1,32 @@
+{
+  "name": "@x7/icons",
+  "version": "0.0.1",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "clean": "git clean -xdf .turbo node_modules dist",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "prettier": "@x7/prettier-config",
+  "dependencies": {
+    "@x7/css": "workspace:*",
+    "lucide-react": "^0.483.0"
+  },
+  "devDependencies": {
+    "@types/react": "catalog:react19",
+    "@types/react-dom": "catalog:react19",
+    "@x7/eslint-config": "workspace:*",
+    "@x7/prettier-config": "workspace:*",
+    "@x7/tsconfig": "workspace:*",
+    "eslint": "catalog:",
+    "typescript": "catalog:"
+  }
+}

@@ -1,0 +1,216 @@
+description: X7 Finance is a decentralized protocol for automated liquidity provision on EVM blockchains.
+repository: https://github.com/x7finance/monorepo
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  # XChange Factory
+  - kind: ethereum/contract
+    name: XchangeFactory
+    network: base
+    source:
+      address: "0x8B76C05676D205563ffC1cbd11c0A6e3d83929c5"
+      abi: XchangeFactory
+      startBlock: 16889973
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - PairCreated
+      abis:
+        - name: XchangeFactory
+          file: ./abis/XchangeFactory.json
+      eventHandlers:
+        - event: PairCreated(indexed address,indexed address,address,uint256)
+          handler: handlePairCreated
+      file: ./src/xchange-factory.ts
+  # Uniswap V2 Factory
+  - kind: ethereum/contract
+    name: UniswapFactory
+    network: base
+    source:
+      address: "0x8909dc15e40173ff4699343b6eb8132c65e18ec6"
+      abi: UniswapFactory
+      startBlock: 6601915
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - PairCreated
+      abis:
+        - name: UniswapFactory
+          file: ./abis/UniswapFactory.json
+      eventHandlers:
+        - event: PairCreated(indexed address,indexed address,address,uint256)
+          handler: handlePairCreated
+      file: ./src/uniswap-factory.ts
+  # Uniswap V3 Factory
+  - kind: ethereum/contract
+    name: UniswapV3Factory
+    network: base
+    source:
+      address: "0x33128a8fC17869897dcE68Ed026d694621f6FDfD"
+      abi: UniswapV3Factory
+      startBlock: 1371680
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - PoolCreated
+      abis:
+        - name: UniswapV3Factory
+          file: ./abis/UniswapV3Factory.json
+      eventHandlers:
+        - event: PoolCreated(indexed address,indexed address,indexed uint24,int24,address)
+          handler: handlePoolCreated
+      file: ./src/uniswap-factory.ts
+  # SushiSwap V2 Factory
+  - kind: ethereum/contract
+    name: SushiFactory
+    network: base
+    source:
+      address: "0x71524B4f93c58fcbF659783284E38825f0622859"
+      abi: SushiFactory
+      startBlock: 2631214
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - PairCreated
+      abis:
+        - name: SushiFactory
+          file: ./abis/SushiFactory.json
+      eventHandlers:
+        - event: PairCreated(indexed address,indexed address,address,uint256)
+          handler: handlePairCreated
+      file: ./src/sushi-factory.ts
+  # SushiSwap V3 Factory
+  - kind: ethereum/contract
+    name: SushiV3Factory
+    network: base
+    source:
+      address: "0xc35DADB65012eC5796536bD9864eD8773aBc74C4"
+      abi: SushiV3Factory
+      startBlock: 1759510
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - PoolCreated
+      abis:
+        - name: SushiV3Factory
+          file: ./abis/SushiV3Factory.json
+      eventHandlers:
+        - event: PoolCreated(indexed address,indexed address,indexed uint24,int24,address)
+          handler: handlePoolCreated
+      file: ./src/sushi-factory.ts
+  # PancakeSwap V2 Factory
+  - kind: ethereum/contract
+    name: PancakeFactory
+    network: base
+    source:
+      address: "0x02a84c1b3BBD7401a5f7fa98a384EBC70bB5749E"
+      abi: PancakeFactory
+      startBlock: 2910387
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - PairCreated
+      abis:
+        - name: PancakeFactory
+          file: ./abis/PancakeFactory.json
+      eventHandlers:
+        - event: PairCreated(indexed address,indexed address,address,uint256)
+          handler: handlePairCreated
+      file: ./src/pancake-factory.ts
+  # PancakeSwap V3 Factory
+  - kind: ethereum/contract
+    name: PancakeV3Factory
+    network: base
+    source:
+      address: "0x0BFbCF9fa4f9C56B0F40a671Ad40E0805A091865"
+      abi: PancakeV3Factory
+      startBlock: 2912007
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - PoolCreated
+      abis:
+        - name: PancakeV3Factory
+          file: ./abis/PancakeV3Factory.json
+      eventHandlers:
+        - event: PoolCreated(indexed address,indexed address,indexed uint24,int24,address)
+          handler: handlePoolCreated
+      file: ./src/pancake-factory.ts
+- templates:
+  - name: UniswapV2Pair
+    kind: ethereum/contract
+    network: base
+    source:
+      abi: UniswapV2Pair
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/uniswap-pair.ts
+      entities:
+        - UniswapV2Pair
+      entities:
+        - UniswapV2Pair
+      abis:
+        - name: UniswapV2Pair
+          file: ./abis/UniswapV2Pair.json
+        - name: UniswapV2Factory
+          file: ./abis/UniswapFactory.json
+      eventHandlers:
+        - event: Mint(indexed address,uint256,uint256)
+          handler: handleMintV2
+        - event: Burn(indexed address,uint256,uint256,indexed address)
+          handler: handleBurnV2
+        - event: Swap(indexed address,uint256,uint256,uint256,uint256,indexed address)
+          handler: handleSwapV2
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: Sync(uint112,uint112)
+          handler: handleSync
+  - name: UniswapV3Pool
+    kind: ethereum/contract
+    network: base
+    source:
+      abi: UniswapV3Pool
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/uniswap-pair.ts
+      entities:
+        - UniswapV3Pool
+      entities:
+        - UniswapV3Pool
+      abis:
+        - name: UniswapV3Pool
+          file: ./abis/UniswapV3Pool.json
+        - name: UniswapV3Factory
+          file: ./abis/UniswapV3Factory.json
+      eventHandlers:
+        - event: Mint(indexed address,uint256,uint256)
+          handler: handleMintV2
+        - event: Burn(indexed address,uint256,uint256,indexed address)
+          handler: handleBurnV2
+        - event: Swap(indexed address,uint256,uint256,uint256,uint256,indexed address)
+          handler: handleSwapV2
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: Sync(uint112,uint112)
+          handler: handleSync

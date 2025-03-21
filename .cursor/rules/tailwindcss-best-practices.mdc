@@ -1,0 +1,10 @@
+---
+description: Best practices for using Tailwind CSS in your project
+globs: **/*.{ts,tsx,css}
+---
+- Use utility-first approach for styling to keep your CSS modular and reusable.
+- Organize your Tailwind CSS classes in a logical order (e.g., layout, spacing, typography, colors).
+- Utilize Tailwind's responsive utilities to create mobile-friendly designs.
+- Keep your Tailwind configuration file clean and well-documented.
+- Use Tailwind's `@apply` directive sparingly and only when necessary for complex styles.
+

@@ -1,0 +1,96 @@
+{
+  "name": "Xchange",
+  "logoURI": "",
+  "keywords": ["defi"],
+  "timestamp": "2024-11-20T00:03:09.211+00:00",
+  "tokens": [
+    {
+      "chainId": 8453,
+      "address": "0x446906ed090364EC7d1b16cA8Fb6D0fFC50854bD",
+      "name": "X7D",
+      "symbol": "X7D",
+      "decimals": 18,
+      "logoURI": "https://assets.x7finance.org/images/tokens/x7d.png"
+    },
+    {
+      "chainId": 8453,
+      "address": "0xEe6bA04895613b20a9B200e9EB25293576f8F1e4",
+      "name": "X7R",
+      "symbol": "X7R",
+      "decimals": 18,
+      "logoURI": "https://assets.x7finance.org/images/tokens/x7r.png"
+    },
+    {
+      "chainId": 8453,
+      "address": "0xa30494c8bE9360a1Dd25108b7074628274b9fd6c",
+      "name": "X7DAO",
+      "symbol": "X7DAO",
+      "decimals": 18,
+      "logoURI": "https://assets.x7finance.org/images/tokens/x7dao.png"
+    },
+    {
+      "chainId": 8453,
+      "address": "0x6b7B78552aCB26B161f39E5731B1A2ebc2436253",
+      "name": "X7101",
+      "symbol": "X7101",
+      "decimals": 18,
+      "logoURI": "https://assets.x7finance.org/images/tokens/x7101.png"
+    },
+    {
+      "chainId": 8453,
+      "address": "0xA4A002ee15Ed6fc6C9459e4789856dD20ffdfe62",
+      "name": "X7102",
+      "symbol": "X7102",
+      "decimals": 18,
+      "logoURI": "https://assets.x7finance.org/images/tokens/x7102.png"
+    },
+    {
+      "chainId": 8453,
+      "address": "0xfF3a265b30450b41BaCf1B2413792da4769C7003",
+      "name": "X7103",
+      "symbol": "X7103",
+      "decimals": 18,
+      "logoURI": "https://assets.x7finance.org/images/tokens/x7103.png"
+    },
+    {
+      "chainId": 8453,
+      "address": "0xEDFc68F09d4B6211ede5ee06acF9f560FC561F04",
+      "name": "X7104",
+      "symbol": "X7104",
+      "decimals": 18,
+      "logoURI": "https://assets.x7finance.org/images/tokens/x7104.png"
+    },
+    {
+      "chainId": 8453,
+      "address": "0x941d37f4BCc92236ebE5aF46777b7E816d6d418A",
+      "name": "X7105",
+      "symbol": "X7105",
+      "decimals": 18,
+      "logoURI": "https://assets.x7finance.org/images/tokens/x7105.png"
+    },
+    {
+      "chainId": 8453,
+      "address": "0x5cbc213691E0B5b7572d86c5127dB845112Cffb9",
+      "symbol": "PINKY",
+      "name": "Pinky the Cat",
+      "decimals": 18,
+      "logoURI": "https://www.x7finance.org/tokens/pinky/logo.avif"
+    },
+    {
+      "chainId": 8453,
+      "address": "0x0E39c6DCB775a3Bd10125C0d3d29b6d060658F86",
+      "name": "KIWI THE CAT",
+      "symbol": "KTC",
+      "decimals": 18,
+      "logoURI": "https://www.x7finance.org/tokens/kiwi/logo.jpg"
+    },
+    {
+      "chainId": 8453,
+      "address": "0xa65A6d613BCFE5E29ce0dE33D0870f68cA175Be5",
+      "name": "SUPERS",
+      "symbol": "SUPERS",
+      "decimals": 18,
+      "logoURI": "https://www.x7finance.org/tokens/supsers/logo-supers.png"
+    }
+  ]
+}

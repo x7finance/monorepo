@@ -1,0 +1,8 @@
+{
+  "sites": [
+    {
+      "slug": "x7",
+      "distDir": "./.next"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+"use client";
+
+import { useMemo } from "react";
+import { useMode } from "nextjs-darkmode/hooks";
+import { Toaster as Sonner } from "sonner";
+
+type ToasterProps = React.ComponentProps<typeof Sonner>;
+
+const Toaster = ({ ...props }: ToasterProps) => {
+  const { resolvedMode } = useMode();
+
+  const toastOptions = useMemo(
+    () => ({
+      classNames: {
+        toast:
+          "group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg",
+        description: "group-[.toast]:text-muted-foreground",
+        actionButton:
+          "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
+        cancelButton:
+          "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
+      },
+    }),
+    [],
+  );
+
+  return (
+    <Sonner
+      theme={resolvedMode === "dark" ? "dark" : "light"}
+      className="toaster group"
+      toastOptions={toastOptions}
+      {...props}
+    />
+  );
+};
+
+export { Toaster };

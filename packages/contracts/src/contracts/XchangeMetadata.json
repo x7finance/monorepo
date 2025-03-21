@@ -1,0 +1,254 @@
+[
+  {
+    "inputs": [
+      { "internalType": "address", "name": "initialOwner", "type": "address" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  { "inputs": [], "name": "InvalidAddress", "type": "error" },
+  { "inputs": [], "name": "NotTokenOwner", "type": "error" },
+  { "inputs": [], "name": "StringTooLong", "type": "error" },
+  { "inputs": [], "name": "TokenNotFound", "type": "error" },
+  { "inputs": [], "name": "Unauthorized", "type": "error" },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "admin",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "status",
+        "type": "bool"
+      }
+    ],
+    "name": "AdministratorUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "tokenAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "description",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "twitterLink",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "telegramLink",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "websiteLink",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "tokenUri",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "bannerUri",
+        "type": "string"
+      }
+    ],
+    "name": "MetadataUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "changedBy",
+        "type": "address"
+      }
+    ],
+    "name": "OwnerChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "tokenAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "isEnabled",
+        "type": "bool"
+      }
+    ],
+    "name": "TokenMetadataStatusChanged",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "tokenAddress", "type": "address" },
+      { "internalType": "string", "name": "description", "type": "string" },
+      { "internalType": "string", "name": "twitterLink", "type": "string" },
+      { "internalType": "string", "name": "telegramLink", "type": "string" },
+      { "internalType": "string", "name": "websiteLink", "type": "string" },
+      { "internalType": "string", "name": "tokenUri", "type": "string" },
+      { "internalType": "string", "name": "bannerUri", "type": "string" }
+    ],
+    "name": "addToken",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "name": "administrators",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "newOwner", "type": "address" }
+    ],
+    "name": "changeOwner",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getRegisteredTokens",
+    "outputs": [
+      { "internalType": "address[]", "name": "", "type": "address[]" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "tokenAddress", "type": "address" }
+    ],
+    "name": "getTokenMetadata",
+    "outputs": [
+      {
+        "components": [
+          { "internalType": "string", "name": "description", "type": "string" },
+          { "internalType": "string", "name": "twitterLink", "type": "string" },
+          {
+            "internalType": "string",
+            "name": "telegramLink",
+            "type": "string"
+          },
+          { "internalType": "string", "name": "websiteLink", "type": "string" },
+          { "internalType": "string", "name": "tokenUri", "type": "string" },
+          { "internalType": "string", "name": "bannerUri", "type": "string" },
+          { "internalType": "bool", "name": "exists", "type": "bool" },
+          { "internalType": "bool", "name": "isEnabled", "type": "bool" }
+        ],
+        "internalType": "struct XchangeMetadata.TokenMetadata",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "name": "registeredTokens",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "admin", "type": "address" },
+      { "internalType": "bool", "name": "status", "type": "bool" }
+    ],
+    "name": "setAdministrator",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "tokenAddress", "type": "address" },
+      { "internalType": "bool", "name": "status", "type": "bool" }
+    ],
+    "name": "setTokenMetadataStatus",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "name": "tokenMetadata",
+    "outputs": [
+      { "internalType": "string", "name": "description", "type": "string" },
+      { "internalType": "string", "name": "twitterLink", "type": "string" },
+      { "internalType": "string", "name": "telegramLink", "type": "string" },
+      { "internalType": "string", "name": "websiteLink", "type": "string" },
+      { "internalType": "string", "name": "tokenUri", "type": "string" },
+      { "internalType": "string", "name": "bannerUri", "type": "string" },
+      { "internalType": "bool", "name": "exists", "type": "bool" },
+      { "internalType": "bool", "name": "isEnabled", "type": "bool" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "tokenAddress", "type": "address" },
+      { "internalType": "string", "name": "description", "type": "string" },
+      { "internalType": "string", "name": "twitterLink", "type": "string" },
+      { "internalType": "string", "name": "telegramLink", "type": "string" },
+      { "internalType": "string", "name": "websiteLink", "type": "string" },
+      { "internalType": "string", "name": "tokenUri", "type": "string" },
+      { "internalType": "string", "name": "bannerUri", "type": "string" }
+    ],
+    "name": "updateTokenMetadata",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

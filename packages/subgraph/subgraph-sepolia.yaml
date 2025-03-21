@@ -1,0 +1,71 @@
+description: X7 Finance is a decentralized protocol for automated liquidity provision on EVM blockchains.
+repository: https://github.com/x7finance/monorepo
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  # XChange Factory
+  - kind: ethereum/contract
+    name: XchangeFactory
+    network: sepolia
+    source:
+      address: "0x8B76C05676D205563ffC1cbd11c0A6e3d83929c5"
+      abi: XchangeFactory
+      startBlock: 6166971
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - PairCreated
+      abis:
+        - name: XchangeFactory
+          file: ./abis/XchangeFactory.json
+      eventHandlers:
+        - event: PairCreated(indexed address,indexed address,address,uint256)
+          handler: handlePairCreated
+      file: ./src/xchange-factory.ts
+  # Uniswap V2 Factory
+  - kind: ethereum/contract
+    name: UniswapFactory
+    network: sepolia
+    source:
+      address: "0xB7f907f7A9eBC822a80BD25E224be42Ce0A698A0"
+      abi: UniswapFactory
+      startBlock: 3525007
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - PairCreated
+      abis:
+        - name: UniswapFactory
+          file: ./abis/UniswapFactory.json
+      eventHandlers:
+        - event: PairCreated(indexed address,indexed address,address,uint256)
+          handler: handlePairCreated
+      file: ./src/uniswap-factory.ts
+  # Uniswap V3 Factory
+  - kind: ethereum/contract
+    name: UniswapV3Factory
+    network: sepolia
+    source:
+      address: "0x0227628f3F023bb0B980b67D528571c95c6DaC1c"
+      abi: UniswapV3Factory
+      startBlock: 3518270
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - PoolCreated
+      abis:
+        - name: UniswapV3Factory
+          file: ./abis/UniswapV3Factory.json
+      eventHandlers:
+        - event: PoolCreated(indexed address,indexed address,indexed uint24,int24,address)
+          handler: handlePoolCreated
+      file: ./src/uniswap-factory.ts
