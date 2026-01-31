@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import type { Config } from "@wagmi/core";
 import { getWalletClient } from "@wagmi/core";
+import { isAddress, isHex } from "viem";
 
 import type { SwapRoute } from "@x7/smart-order-router";
 import type { CurrencyAmount, Native, Token } from "@x7/utils";
@@ -24,9 +25,18 @@ export async function executeRoute(routeInfo: {
     throw new Error("Could not get address");
   }
 
-  // Derive router that needs allowances based on method parameters,
-  // we distinguish this already down the chain, no need to redo.
-  const routerAddress: `0x${string}` = route?.methodParameters?.to ?? `0x`;
+  // Validate router address and calldata before proceeding
+  if (!route?.methodParameters?.to || !isAddress(route.methodParameters.to)) {
+    throw new Error("Invalid router address");
+  }
+  if (
+    !route.methodParameters.calldata ||
+    !isHex(route.methodParameters.calldata)
+  ) {
+    throw new Error("Invalid calldata");
+  }
+
+  const routerAddress: `0x${string}` = route.methodParameters.to;
 
   // One last approval check
   const approval = await getTokenTransferApproval(
@@ -41,9 +51,9 @@ export async function executeRoute(routeInfo: {
   }
 
   const res = await walletClient.sendTransaction({
-    data: route?.methodParameters?.calldata as `0x${string}`,
+    data: route.methodParameters.calldata,
     to: routerAddress,
-    value: BigInt(route?.methodParameters?.value ?? 0),
+    value: BigInt(route.methodParameters.value ?? 0),
     account: walletClient.account.address,
   });
 

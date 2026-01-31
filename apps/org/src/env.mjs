@@ -4,6 +4,8 @@ import { z } from "zod";
 export const env = createEnv({
   server: {
     PINATA_JWT: z.string().min(1),
+    PINATA_API_KEY: z.string().min(1),
+    PINATA_SECRET_KEY: z.string().min(1),
   },
   client: {
     NEXT_PUBLIC_APP_ENV: z.string().min(1),
@@ -39,13 +41,11 @@ export const env = createEnv({
     NEXT_PUBLIC_DEFAULT_ETHER_TESTNET_RPC_FALLBACK: z.string().min(1),
     NEXT_PUBLIC_ALCHEMY_ID: z.string().min(1),
     NEXT_PUBLIC_GATEWAY_URL: z.string().min(1),
-    NEXT_PUBLIC_PINATA_AIP_KEY: z.string().min(1),
-    NEXT_PUBLIC_PINATA_SECRECT_KEY: z.string().min(1),
   },
   runtimeEnv: {
     NEXT_PUBLIC_GATEWAY_URL: process.env.NEXT_PUBLIC_GATEWAY_URL,
-    NEXT_PUBLIC_PINATA_AIP_KEY: process.env.NEXT_PUBLIC_PINATA_AIP_KEY,
-    NEXT_PUBLIC_PINATA_SECRECT_KEY: process.env.NEXT_PUBLIC_PINATA_SECRECT_KEY,
+    PINATA_API_KEY: process.env.PINATA_API_KEY,
+    PINATA_SECRET_KEY: process.env.PINATA_SECRET_KEY,
     NEXT_PUBLIC_APP_ENV: process.env.NEXT_PUBLIC_APP_ENV,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     NEXT_PUBLIC_ASSETS_URL: process.env.NEXT_PUBLIC_ASSETS_URL,
