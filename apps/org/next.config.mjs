@@ -73,16 +73,19 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === "production",
   },
   experimental: {
+    optimizePackageImports: [
+      "@x7/icons",
+      "@x7/ui",
+      "@x7/utils",
+      "@x7/sdk",
+      "@tanstack/react-query",
+      "recharts",
+      "zod",
+      "viem",
+      "wagmi",
+    ],
     turbo: {
-      resolveExtensions: [
-        ".mdx",
-        ".tsx",
-        ".ts",
-        ".jsx",
-        ".js",
-        ".mjs",
-        ".json",
-      ],
+      resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".mjs", ".json"],
       resolveAlias: {
         "react-native": "react-native-web",
       },
@@ -92,6 +95,8 @@ const nextConfig = {
     parallelServerBuildTraces: true,
     reactCompiler: true,
   },
+  serverExternalPackages: ["pino", "pino-pretty"],
+  productionBrowserSourceMaps: false,
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
 };

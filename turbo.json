@@ -1,5 +1,6 @@
 {
   "$schema": "https://turborepo.org/schema.json",
+  "ui": "stream",
   "globalDependencies": ["**/.env.*local"],
   "globalEnv": [
     "NEXT_PUBLIC_APP_ENV",
@@ -44,7 +45,10 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", "!**/*.test.*", "!**/*.spec.*"],
       "outputs": [
+        ".next/**",
+        "!.next/cache/**",
         ".cache/tsbuildinfo.json",
         "dist/**",
         "artifacts/**",
@@ -52,7 +56,6 @@
       ]
     },
     "dev": {
-      "dependsOn": ["^dev"],
       "cache": false,
       "persistent": false
     },
@@ -61,10 +64,12 @@
       "outputLogs": "new-only"
     },
     "lint": {
+      "inputs": ["src/**/*.ts", "src/**/*.tsx"],
       "outputs": [".cache/.eslintcache"]
     },
     "typecheck": {
       "dependsOn": ["^build"],
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "tsconfig.json"],
       "outputs": [".cache/tsbuildinfo.json"]
     },
     "test": {
