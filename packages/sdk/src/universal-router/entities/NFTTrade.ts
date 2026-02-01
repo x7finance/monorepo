@@ -3,10 +3,6 @@ import invariant from "tiny-invariant";
 import type { RoutePlanner } from "../utils/routerCommands";
 import type { Command, TradeConfig } from "./Command";
 import { RouterTradeType } from "./Command";
-import type { NFT20Data } from "./protocols/nft20";
-import type { SeaportData } from "./protocols/seaport";
-
-export type SupportedProtocolsData = SeaportData | NFT20Data;
 
 export abstract class NFTTrade<T> implements Command {
   readonly tradeType: RouterTradeType = RouterTradeType.NFTTrade;

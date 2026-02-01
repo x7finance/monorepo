@@ -1,4 +1,5 @@
-export const FACTORY_ADDRESS = "0x1F98431c8aD98523631AE4a59f267346ea31F984";
+// Re-export from core for backwards compatibility
+export { FACTORY_ADDRESS } from "../core/constants";
 
 export const ADDRESS_ZERO = "0x0000000000000000000000000000000000000000";
 

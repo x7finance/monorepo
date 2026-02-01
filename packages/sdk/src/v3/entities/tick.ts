@@ -1,6 +1,6 @@
 import invariant from "tiny-invariant";
 
-import { TickMath } from "../utils";
+import { TickMath } from "../utils/tickMath";
 
 export interface TickConstructorArgs {
   index: number;

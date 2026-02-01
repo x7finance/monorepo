@@ -30,7 +30,7 @@ import {
 import type { Currency } from "@x7/utils";
 
 import { BASIS_POINTS, ONE, validateAndParseAddress } from "../core";
-import { WETH_ADDRESS } from "../universal-router";
+import { WETH_ADDRESS } from "../universal-router/utils/constants";
 import { log } from "../utils/logger";
 import type { TradeV2 } from "../v2";
 import { TradeV2 as V2Trade } from "../v2";

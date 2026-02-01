@@ -10,7 +10,7 @@ import {
 } from "@x7/utils";
 
 import { constructSameAddressMap } from "../universal-router/utils/constructSameAddressMap";
-import { FACTORY_ADDRESS } from "../v3";
+import { FACTORY_ADDRESS } from "./constants";
 
 export type AddressMap = Record<number, `0x${string}` | undefined>;
 
