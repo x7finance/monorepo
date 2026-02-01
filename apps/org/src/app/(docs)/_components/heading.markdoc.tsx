@@ -1,23 +1,24 @@
-"use client";
+"use client"
 
-import type { ReactNode } from "react";
-import { useRef } from "react";
-import { usePathname } from "next/navigation";
+import type { ReactNode } from "react"
 
-import { remToPx } from "@x7/css";
-import { LinkIcon } from "@x7/icons";
-import { useInView } from "@x7/ui";
-import { LinkInternal } from "@x7/ui/link";
-import { Tag } from "@x7/ui/tag";
+import { usePathname } from "next/navigation"
+import { useRef } from "react"
+
+import { remToPx } from "@x7/css"
+import { LinkIcon } from "@x7/icons"
+import { useInView } from "@x7/ui"
+import { LinkInternal } from "@x7/ui/link"
+import { Tag } from "@x7/ui/tag"
 
 interface EyebrowProps {
-  tag?: string;
-  label?: string;
+  tag?: string
+  label?: string
 }
 
 function Eyebrow({ tag, label }: EyebrowProps) {
   if (!tag && !label) {
-    return null;
+    return null
   }
 
   return (
@@ -30,14 +31,14 @@ function Eyebrow({ tag, label }: EyebrowProps) {
         <span className="font-mono text-xs text-zinc-400">{label}</span>
       )}
     </div>
-  );
+  )
 }
 
 interface AnchorProps {
-  id: string;
-  inView: boolean;
-  children: ReactNode;
-  href: string;
+  id: string
+  inView: boolean
+  children: ReactNode
+  href: string
 }
 
 function Anchor({ id, inView, children, href }: AnchorProps) {
@@ -56,17 +57,17 @@ function Anchor({ id, inView, children, href }: AnchorProps) {
       )}
       {children}
     </LinkInternal>
-  );
+  )
 }
 
 interface HeadingProps {
-  level?: number;
-  children: ReactNode;
-  id: string;
-  tag?: string;
-  label?: string;
-  subHeader?: string;
-  anchor?: boolean;
+  level?: number
+  children: ReactNode
+  id: string
+  tag?: string
+  label?: string
+  subHeader?: string
+  anchor?: boolean
 }
 
 export function Heading({
@@ -79,19 +80,19 @@ export function Heading({
   anchor = true,
   ...props
 }: HeadingProps) {
-  const Component = `h${level}`;
-  const ref = useRef(null);
-  const pathname = usePathname();
+  const Component = `h${level}`
+  const ref = useRef(null)
+  const pathname = usePathname()
 
   const inView = useInView(ref, {
     margin: `${remToPx(-3.5)}px 0px 0px 0px`,
     amount: "all",
-  });
+  })
 
   return (
     <>
       <Eyebrow tag={tag} label={label} />
-      {/* 
+      {/*
       // @ts-expect-error: component props */}
       <Component
         ref={ref}
@@ -113,5 +114,5 @@ export function Heading({
         )}
       </Component>
     </>
-  );
+  )
 }

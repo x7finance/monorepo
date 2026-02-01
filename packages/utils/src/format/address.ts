@@ -1,14 +1,14 @@
 /* oxlint-disable @typescript-eslint/no-unused-vars */
-import { getAddress } from "viem";
+import { getAddress } from "viem"
 
 // shorten the checksummed version of the input address to have 0x + 4 characters at start and end
 export function shortenAddress(address: string, characters = 4): string {
   try {
-    const parsed = getAddress(address);
+    const parsed = getAddress(address)
     return `${parsed.substring(0, characters + 2)}...${parsed.substring(
-      42 - characters,
-    )}`;
+      42 - characters
+    )}`
   } catch (error) {
-    throw new Error(`Invalid 'address' parameter '${address}'.`);
+    throw new Error(`Invalid 'address' parameter '${address}'.`)
   }
 }

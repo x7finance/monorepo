@@ -1,11 +1,11 @@
+import type { Pool } from "./pool"
+import type { Currency, Token } from "@x7/utils"
+
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
-import invariant from "tiny-invariant";
+import invariant from "tiny-invariant"
 
-import type { Currency, Token } from "@x7/utils";
-import { Price } from "@x7/utils";
-
-import type { Pool } from "./pool";
+import { Price } from "@x7/utils"
 
 /**
  * Represents a list of pools through which a swap can occur
@@ -13,12 +13,12 @@ import type { Pool } from "./pool";
  * @template TOutput The output token
  */
 export class RouteV3<TInput extends Currency, TOutput extends Currency> {
-  public readonly pools: Pool[];
-  public readonly tokenPath: Token[];
-  public readonly input: TInput;
-  public readonly output: TOutput;
+  public readonly pools: Pool[]
+  public readonly tokenPath: Token[]
+  public readonly input: TInput
+  public readonly output: TOutput
 
-  private _midPrice: Price<TInput, TOutput> | null = null;
+  private _midPrice: Price<TInput, TOutput> | null = null
 
   /**
    * Creates an instance of route.
@@ -27,23 +27,23 @@ export class RouteV3<TInput extends Currency, TOutput extends Currency> {
    * @param output The output token
    */
   public constructor(pools: Pool[], input: TInput, output: TOutput) {
-    invariant(pools.length > 0, "POOLS");
+    invariant(pools.length > 0, "POOLS")
 
-    const chainId = pools[0]!.chainId;
-    const allOnSameChain = pools.every((pool) => pool.chainId === chainId);
-    invariant(allOnSameChain, "CHAIN_IDS");
+    const chainId = pools[0]!.chainId
+    const allOnSameChain = pools.every((pool) => pool.chainId === chainId)
+    invariant(allOnSameChain, "CHAIN_IDS")
 
-    const wrappedInput = input.wrapped;
-    invariant(pools[0]!.involvesToken(wrappedInput), "INPUT");
+    const wrappedInput = input.wrapped
+    invariant(pools[0]!.involvesToken(wrappedInput), "INPUT")
 
-    invariant(pools[pools.length - 1]!.involvesToken(output.wrapped), "OUTPUT");
+    invariant(pools[pools.length - 1]!.involvesToken(output.wrapped), "OUTPUT")
 
     /**
      * Normalizes token0-token1 order and selects the next token/fee step to add to the path
      * */
-    const tokenPath: Token[] = [wrappedInput];
+    const tokenPath: Token[] = [wrappedInput]
     for (const [i, pool] of pools.entries()) {
-      const currentInputToken = tokenPath[i];
+      const currentInputToken = tokenPath[i]
       // invariant(
       //   currentInputToken.equals(pool.token0) ||
       //     currentInputToken.equals(pool.token1),
@@ -51,25 +51,25 @@ export class RouteV3<TInput extends Currency, TOutput extends Currency> {
       // );
       const nextToken = currentInputToken?.equals(pool.token0)
         ? pool.token1
-        : pool.token0;
-      tokenPath.push(nextToken);
+        : pool.token0
+      tokenPath.push(nextToken)
     }
 
-    this.pools = pools;
-    this.tokenPath = tokenPath;
-    this.input = input;
-    this.output = output ?? tokenPath[tokenPath.length - 1];
+    this.pools = pools
+    this.tokenPath = tokenPath
+    this.input = input
+    this.output = output ?? tokenPath[tokenPath.length - 1]
   }
 
   public get chainId(): number {
-    return this.pools[0]!.chainId;
+    return this.pools[0]!.chainId
   }
 
   /**
    * Returns the mid price of the route
    */
   public get midPrice(): Price<TInput, TOutput> {
-    if (this._midPrice !== null) return this._midPrice;
+    if (this._midPrice !== null) return this._midPrice
 
     const price = this.pools.slice(1).reduce(
       ({ nextInput, price }, pool) => {
@@ -81,7 +81,7 @@ export class RouteV3<TInput extends Currency, TOutput extends Currency> {
           : {
               nextInput: pool.token0,
               price: price.multiply(pool.token1Price),
-            };
+            }
       },
       this.pools[0]!.token0.equals(this.input.wrapped)
         ? {
@@ -91,14 +91,14 @@ export class RouteV3<TInput extends Currency, TOutput extends Currency> {
         : {
             nextInput: this.pools[0]!.token0,
             price: this.pools[0]!.token1Price,
-          },
-    ).price;
+          }
+    ).price
 
     return (this._midPrice = new Price(
       this.input,
       this.output,
       price.denominator,
-      price.numerator,
-    ));
+      price.numerator
+    ))
   }
 }

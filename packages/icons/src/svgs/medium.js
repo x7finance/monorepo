@@ -1,7 +1,0 @@
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-export function Medium(props) {
-    return (_jsxs("svg", { viewBox: "0 0 24 24", fill: "none", ...props, children: [
-            _jsx("path", { d: "M5.94271 16.8815C8.67249 16.8815 10.8854 14.6686 10.8854 11.9388C10.8854 9.20902 8.67249 6.99609 5.94271 6.99609C3.21293 6.99609 1 9.20902 1 11.9388C1 14.6686 3.21293 16.8815 5.94271 16.8815Z", fill: "currentColor" }), _jsx("path", { d: "M18.0973 16.844C20.805 16.844 23 14.649 23 11.9413C23 9.23359 20.805 7.03857 18.0973 7.03857C15.3896 7.03857 13.1946 9.23359 13.1946 11.9413C13.1946 14.649 15.3896 16.844 18.0973 16.844Z", fill: "currentColor" })
-        ] }));
-}
-//# sourceMappingURL=medium.js.map

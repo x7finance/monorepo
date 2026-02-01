@@ -1,16 +1,16 @@
-import { create } from "zustand";
+import type { SwapAmountActions, SwapAmountState } from "./types"
+import type { CurrencyAmount, Native, Token } from "@x7/utils"
 
-import type { CurrencyAmount, Native, Token } from "@x7/utils";
-import { Percent } from "@x7/utils";
+import { create } from "zustand"
 
-import type { SwapAmountActions, SwapAmountState } from "./types";
+import { Percent } from "@x7/utils"
 
 interface SwapAmountStore extends SwapAmountState, SwapAmountActions {
-  _onAmountChange: (() => void) | null;
-  _setOnAmountChange: (callback: (() => void) | null) => void;
+  _onAmountChange: (() => void) | null
+  _setOnAmountChange: (callback: (() => void) | null) => void
 }
 
-const DEFAULT_SLIPPAGE = new Percent(50, 10_000);
+const DEFAULT_SLIPPAGE = new Percent(50, 10_000)
 
 export const useSwapAmountStore = create<SwapAmountStore>((set, get) => ({
   swapAmountString: "",
@@ -21,14 +21,15 @@ export const useSwapAmountStore = create<SwapAmountStore>((set, get) => ({
   _setOnAmountChange: (callback) => set({ _onAmountChange: callback }),
 
   setSwapAmount: (swapAmountString) => {
-    set({ swapAmountString });
+    set({ swapAmountString })
 
-    const callback = get()._onAmountChange;
-    if (callback) callback();
+    const callback = get()._onAmountChange
+    if (callback) callback()
   },
 
   setSlippage: (slippage) => set({ slippage }),
 
-  setSwapAmountParsed: (swapAmount: CurrencyAmount<Token | Native> | undefined) =>
-    set({ swapAmount }),
-}));
+  setSwapAmountParsed: (
+    swapAmount: CurrencyAmount<Token | Native> | undefined
+  ) => set({ swapAmount }),
+}))

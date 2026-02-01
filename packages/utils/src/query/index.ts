@@ -13,7 +13,7 @@ export const TIME = {
   MINUTE: 60 * 1000,
   HOUR: 60 * 60 * 1000,
   DAY: 24 * 60 * 60 * 1000,
-} as const;
+} as const
 
 /**
  * Cache tier configurations for TanStack Query
@@ -42,9 +42,9 @@ export const CACHE_TIERS = {
     gcTime: TIME.MINUTE,
     refetchOnWindowFocus: true,
   },
-} as const;
+} as const
 
-export type CacheTier = keyof typeof CACHE_TIERS;
+export type CacheTier = keyof typeof CACHE_TIERS
 
 /**
  * Default query client options
@@ -58,4 +58,4 @@ export const DEFAULT_QUERY_OPTIONS = {
   mutations: {
     retry: 0,
   },
-} as const;
+} as const

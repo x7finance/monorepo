@@ -1,4 +1,4 @@
-import type { SVGProps } from "react";
+import type { SVGProps } from "react"
 
 export function Uniswap(props: SVGProps<SVGSVGElement>) {
   return (
@@ -10,5 +10,5 @@ export function Uniswap(props: SVGProps<SVGSVGElement>) {
         fill="currentColor"
       />
     </svg>
-  );
+  )
 }

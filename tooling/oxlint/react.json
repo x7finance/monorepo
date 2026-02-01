@@ -1,0 +1,18 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oxc-project/oxc/main/npm/oxlint/configuration_schema.json",
+  "extends": ["./base.json"],
+  "plugins": ["typescript", "react"],
+  "rules": {
+    "react/jsx-no-duplicate-props": "error",
+    "react/jsx-key": "warn",
+    "react/no-children-prop": "error",
+    "react/no-danger-with-children": "error",
+    "react/no-direct-mutation-state": "error",
+    "react/no-find-dom-node": "error",
+    "react/no-render-return-value": "error",
+    "react/no-string-refs": "error",
+    "react/no-unescaped-entities": "off",
+    "react/require-render-return": "error",
+    "react/react-in-jsx-scope": "off"
+  }
+}

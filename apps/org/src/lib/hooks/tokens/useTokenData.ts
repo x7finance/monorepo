@@ -1,15 +1,16 @@
+import type { ChainId } from "@x7/utils"
+
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 /* oxlint-disable @typescript-eslint/no-unsafe-argument */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
-import { useQuery } from "@tanstack/react-query";
-import { erc20Abi, formatEther, formatUnits } from "viem";
-import { useChainId, useReadContract } from "wagmi";
+import { useQuery } from "@tanstack/react-query"
+import { erc20Abi, formatEther, formatUnits } from "viem"
+import { useChainId, useReadContract } from "wagmi"
 
-import { XchangeMetadataAbi } from "@x7/contracts";
-import { computePairAddress, X7ContractsEnum } from "@x7/sdk";
-import { chainIdToSubgraphChainName } from "@x7/smart-order-router";
-import type { ChainId } from "@x7/utils";
+import { XchangeMetadataAbi } from "@x7/contracts"
+import { computePairAddress, X7ContractsEnum } from "@x7/sdk"
+import { chainIdToSubgraphChainName } from "@x7/smart-order-router"
 import {
   formatCurrency,
   formatNumber,
@@ -17,11 +18,11 @@ import {
   Implementation,
   Token,
   WETH9,
-} from "@x7/utils";
+} from "@x7/utils"
+import { useChainedNativePrice } from "~/lib/hooks/prices/useChainedNativePrice"
+import { CACHE_TIERS, TIME } from "~/lib/query"
 
-import { useChainedNativePrice } from "~/lib/hooks/prices/useChainedNativePrice";
-import { CACHE_TIERS, TIME } from "~/lib/query";
-import { usePrice } from "../prices/usePrice";
+import { usePrice } from "../prices/usePrice"
 
 const ownerAbi = [
   {
@@ -31,7 +32,7 @@ const ownerAbi = [
     inputs: [],
     outputs: [{ type: "address" }],
   },
-] as const;
+] as const
 
 const pairAbi = [
   {
@@ -64,87 +65,87 @@ const pairAbi = [
       { indexed: true, type: "address", name: "to" },
     ],
   },
-] as const;
+] as const
 
 function normalizeDecimals(decimals: bigint | number | undefined): number {
-  if (!decimals) return 18;
-  if (decimals > 100) return 18;
-  return Number(decimals);
+  if (!decimals) return 18
+  if (decimals > 100) return 18
+  return Number(decimals)
 }
 
 export interface TokenData {
-  name: string;
-  symbol: string;
-  tokenOwner: `0x${string}`;
-  tokenDecimals: bigint;
-  normalizedDecimals: number;
-  totalSupply: number;
+  name: string
+  symbol: string
+  tokenOwner: `0x${string}`
+  tokenDecimals: bigint
+  normalizedDecimals: number
+  totalSupply: number
   reserves: {
-    ethReserve: string;
-    tokenReserve: string;
-  };
-  nativePrice: string;
-  marketCap: number;
-  priceInNative: string;
-  priceInUsd: number;
-  pairAddress: `0x${string}`;
-  volume24h: number;
-  percentChange24h: string;
-  bannerUrl?: string;
-  logoUrl?: string;
-  description?: string;
-  twitterLink?: string;
-  telegramLink?: string;
-  websiteLink?: string;
-  formattedPriceInUsd: string;
-  formattedMarketCap: string;
-  formattedVolume24h: string;
-  formattedTotalSupply: string;
-  formattedPercentChange24h: string;
-  priceChangeColor: "text-green-500" | "text-red-500";
+    ethReserve: string
+    tokenReserve: string
+  }
+  nativePrice: string
+  marketCap: number
+  priceInNative: string
+  priceInUsd: number
+  pairAddress: `0x${string}`
+  volume24h: number
+  percentChange24h: string
+  bannerUrl?: string
+  logoUrl?: string
+  description?: string
+  twitterLink?: string
+  telegramLink?: string
+  websiteLink?: string
+  formattedPriceInUsd: string
+  formattedMarketCap: string
+  formattedVolume24h: string
+  formattedTotalSupply: string
+  formattedPercentChange24h: string
+  priceChangeColor: "text-green-500" | "text-red-500"
 }
 
 interface UseTokenDataReturn {
-  data: TokenData;
-  isLoading: boolean;
+  data: TokenData
+  isLoading: boolean
 }
 
 interface UseTokenDataOptions {
-  skipHistoricalData?: boolean;
+  skipHistoricalData?: boolean
 }
 
 export function useTokenData(
   tokenAddress: `0x${string}`,
-  options: UseTokenDataOptions = {},
+  options: UseTokenDataOptions = {}
 ): UseTokenDataReturn {
-  const chainId = useChainId();
+  const chainId = useChainId()
   // const client = usePublicClient();
 
   const { data: onChainName, isLoading: isNameLoading } = useReadContract({
     address: tokenAddress,
     abi: erc20Abi,
     functionName: "name",
-  });
+  })
 
   const { data: onChainSymbol, isLoading: isSymbolLoading } = useReadContract({
     address: tokenAddress,
     abi: erc20Abi,
     functionName: "symbol",
-  });
+  })
 
   const { data: tokenOwner } = useReadContract({
     address: tokenAddress,
     abi: ownerAbi,
     functionName: "owner",
-  });
+  })
 
   const { data: tokenDecimals } = useReadContract({
     address: tokenAddress,
     abi: erc20Abi,
     functionName: "decimals",
-  });
+  })
 
-  const normalizedDecimals = normalizeDecimals(tokenDecimals);
+  const normalizedDecimals = normalizeDecimals(tokenDecimals)
 
   const { data: totalSupply } = useReadContract({
     address: tokenAddress,
@@ -153,7 +154,7 @@ export function useTokenData(
     query: {
       select: (data: bigint) => Number(formatUnits(data, normalizedDecimals)),
     },
-  });
+  })
 
   const ourToken = new Token({
     chainId: chainId as ChainId,
@@ -161,13 +162,13 @@ export function useTokenData(
     decimals: tokenDecimals ?? 0,
     symbol: onChainSymbol ?? "",
     name: onChainName ?? "",
-  });
+  })
 
   const pairAddress = computePairAddress({
     pairType: Implementation.XCHANGE,
     tokenA: ourToken,
     tokenB: WETH9[chainId as ChainId],
-  });
+  })
 
   const { data: reserves } = useReadContract({
     address: pairAddress,
@@ -175,40 +176,40 @@ export function useTokenData(
     functionName: "getReserves",
     query: {
       select: (data) => {
-        const isToken0 = ourToken.sortsBefore(WETH9[chainId as ChainId]);
-        const [reserve0, reserve1] = data;
+        const isToken0 = ourToken.sortsBefore(WETH9[chainId as ChainId])
+        const [reserve0, reserve1] = data
 
-        const ethReserve = formatEther(isToken0 ? reserve1 : reserve0);
+        const ethReserve = formatEther(isToken0 ? reserve1 : reserve0)
         const tokenReserve = formatUnits(
           isToken0 ? reserve0 : reserve1,
-          normalizedDecimals,
-        );
+          normalizedDecimals
+        )
 
         return {
           ethReserve,
           tokenReserve,
-        };
+        }
       },
     },
-  });
+  })
 
   const { data: priceData } = useChainedNativePrice({
     chainId: chainId as ChainId,
-  });
+  })
 
   const { data: tokenPrice } = usePrice({
     chainId: chainId as ChainId,
     currency: ourToken,
-  });
+  })
 
   const nativePrice = priceData
     ? (Number(priceData) / 1e18).toFixed(2)
-    : "- - -";
+    : "- - -"
 
-  const ourPriceInNative = tokenPrice ? tokenPrice.toExact() : 0;
+  const ourPriceInNative = tokenPrice ? tokenPrice.toExact() : 0
   const ourPriceInUsd = tokenPrice
     ? Number(ourPriceInNative) * Number(nativePrice)
-    : 0;
+    : 0
 
   const { data: marketCap } = useQuery({
     queryKey: [
@@ -222,46 +223,46 @@ export function useTokenData(
       nativePrice,
     ],
     queryFn: () => {
-      if (!reserves || !totalSupply || !nativePrice) return 0;
+      if (!reserves || !totalSupply || !nativePrice) return 0
 
       const priceInEth =
-        Number(reserves.ethReserve) / Number(reserves.tokenReserve);
-      const ethValue = priceInEth;
-      const nativePriceNumber = Number(nativePrice);
+        Number(reserves.ethReserve) / Number(reserves.tokenReserve)
+      const ethValue = priceInEth
+      const nativePriceNumber = Number(nativePrice)
 
-      return Number(totalSupply) * ethValue * nativePriceNumber;
+      return Number(totalSupply) * ethValue * nativePriceNumber
     },
     enabled: !!reserves && !!totalSupply && !!nativePrice,
     refetchInterval: 30 * TIME.SECOND,
     ...CACHE_TIERS.DYNAMIC,
-  });
+  })
 
   const { data: historicalData } = useQuery({
     queryKey: ["volume", tokenAddress, pairAddress],
     queryFn: async () => {
-      const networkName = chainIdToSubgraphChainName(chainId as ChainId);
+      const networkName = chainIdToSubgraphChainName(chainId as ChainId)
 
       const data = await fetch(
-        `https://api.geckoterminal.com/api/v2/networks/${networkName}/pools/${pairAddress}`,
-      );
-      const json = await data.json();
+        `https://api.geckoterminal.com/api/v2/networks/${networkName}/pools/${pairAddress}`
+      )
+      const json = await data.json()
       return {
         volume: parseFloat(json.data?.attributes?.volume_usd?.h24) ?? 0,
         percentChange:
           json.data?.attributes?.price_change_percentage?.h24 ?? "0.00",
-      };
+      }
     },
     enabled: !!pairAddress && !options.skipHistoricalData,
     refetchInterval: 30 * TIME.SECOND,
     ...CACHE_TIERS.DYNAMIC,
-  });
+  })
 
   const { data: metadata, isLoading: isMetadataLoading } = useReadContract({
     address: X7ContractsEnum.XchangeMetadata(chainId as ChainId),
     abi: XchangeMetadataAbi,
     functionName: "getTokenMetadata",
     args: [tokenAddress],
-  });
+  })
 
   return {
     data: {
@@ -293,7 +294,7 @@ export function useTokenData(
       formattedVolume24h: formatCurrency(historicalData?.volume ?? 0),
       formattedTotalSupply: `${formatNumber(totalSupply ?? 0)}`,
       formattedPercentChange24h: formatPercentage(
-        historicalData?.percentChange ?? "0.00",
+        historicalData?.percentChange ?? "0.00"
       ),
       priceChangeColor:
         parseFloat(historicalData?.percentChange ?? "0") > 0
@@ -301,5 +302,5 @@ export function useTokenData(
           : "text-red-500",
     },
     isLoading: isNameLoading || isSymbolLoading || isMetadataLoading,
-  };
+  }
 }

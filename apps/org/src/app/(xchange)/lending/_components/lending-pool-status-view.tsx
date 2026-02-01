@@ -1,20 +1,21 @@
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 
-import { Card, CardContent, CardHeader, CardTitle } from "@x7/ui/card";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@x7/ui/tooltip";
-import { ChainId, generateChainName } from "@x7/utils";
+import { Card, CardContent, CardHeader, CardTitle } from "@x7/ui/card"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@x7/ui/tooltip"
+import { ChainId, generateChainName } from "@x7/utils"
+import { DonutChart } from "~/app/(dashboard)/_components/donutChart/donut-chart"
 
-import { DonutChart } from "~/app/(dashboard)/_components/donutChart/donut-chart";
-import { useLendingPoolPrettyData } from "../_hooks/useLendingPoolPrettyData";
-import { StatusCard } from "./status-card";
+import { useLendingPoolPrettyData } from "../_hooks/useLendingPoolPrettyData"
+
+import { StatusCard } from "./status-card"
 
 interface StatusTableProps {
-  chainId: ChainId;
+  chainId: ChainId
 }
 
 export function LendingPoolStatusView({ chainId }: StatusTableProps) {
   const { statusData, splitData, utilizedData } =
-    useLendingPoolPrettyData(chainId);
+    useLendingPoolPrettyData(chainId)
 
   return (
     <div className="container mx-auto mt-8 max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -47,7 +48,10 @@ export function LendingPoolStatusView({ chainId }: StatusTableProps) {
             { label: "Available", value: statusData.available },
             {
               label: "Loans Initiated",
-              value: chainId !== ChainId.ETHEREUM ? statusData.loanCount - 20 : statusData.loanCount,
+              value:
+                chainId !== ChainId.ETHEREUM
+                  ? statusData.loanCount - 20
+                  : statusData.loanCount,
               useChainDenomination: false,
             },
             {
@@ -102,12 +106,12 @@ export function LendingPoolStatusView({ chainId }: StatusTableProps) {
         <ChartCard title="Pool Utilization" data={utilizedData} />
       </div>
     </div>
-  );
+  )
 }
 
 interface ChartCardProps {
-  title: string;
-  data: any[];
+  title: string
+  data: any[]
 }
 
 function ChartCard({ title, data }: ChartCardProps) {
@@ -122,5 +126,5 @@ function ChartCard({ title, data }: ChartCardProps) {
         </div>
       </CardContent>
     </Card>
-  );
+  )
 }

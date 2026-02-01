@@ -1,2 +1,0 @@
-export const A_PRECISION = 100n;
-//# sourceMappingURL=constants.js.map

@@ -5,24 +5,24 @@
  */
 export function maximum(...values: bigint[]): bigint | null {
   if (values.length === 0) {
-    return null;
+    return null
   }
 
-  let highest = values[0];
+  let highest = values[0]
   if (highest === undefined) {
-    throw new Error("Unexpected undefined value");
+    throw new Error("Unexpected undefined value")
   }
 
   for (let i = 1; i < values.length; i++) {
-    const value = values[i];
+    const value = values[i]
     if (value === undefined) {
-      throw new Error("Unexpected undefined value");
+      throw new Error("Unexpected undefined value")
     }
 
     if (value > highest) {
-      highest = value;
+      highest = value
     }
   }
 
-  return highest;
+  return highest
 }

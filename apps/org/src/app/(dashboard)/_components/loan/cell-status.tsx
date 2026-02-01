@@ -1,18 +1,19 @@
-"use client";
+"use client"
 
-import type { ChainId, LoanType } from "@x7/utils";
+import type { ChainId, LoanType } from "@x7/utils"
 
-import { useCanLiquidate } from "~/lib/hooks/loans/useXchangeLendingPoolData";
+import { useCanLiquidate } from "~/lib/hooks/loans/useXchangeLendingPoolData"
 import {
   useLiquidationAmount,
   useLoanState,
-} from "~/lib/hooks/loans/useXchangeLoanData";
-import { IconAlerts } from "./icon-alerts";
+} from "~/lib/hooks/loans/useXchangeLoanData"
+
+import { IconAlerts } from "./icon-alerts"
 
 interface LoansCellProps {
-  tokenByIndex: number;
-  chainId: ChainId;
-  loanType: LoanType;
+  tokenByIndex: number
+  chainId: ChainId
+  loanType: LoanType
 }
 
 export function LoanCellStatus({
@@ -20,13 +21,13 @@ export function LoanCellStatus({
   chainId,
   loanType,
 }: LoansCellProps) {
-  const loanState = useLoanState(tokenByIndex, chainId, loanType).loanState;
-  const canLiquidate = useCanLiquidate(tokenByIndex, chainId).canLiquidate;
+  const loanState = useLoanState(tokenByIndex, chainId, loanType).loanState
+  const canLiquidate = useCanLiquidate(tokenByIndex, chainId).canLiquidate
   const liquidationAmount = useLiquidationAmount(
     tokenByIndex,
     chainId,
-    loanType,
-  ).liquidationAmount;
+    loanType
+  ).liquidationAmount
 
   return (
     <IconAlerts
@@ -36,5 +37,5 @@ export function LoanCellStatus({
       loanId={tokenByIndex}
       chainId={chainId}
     />
-  );
+  )
 }

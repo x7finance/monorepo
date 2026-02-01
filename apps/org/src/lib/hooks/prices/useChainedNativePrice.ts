@@ -1,16 +1,16 @@
+import type { ChainId } from "@x7/utils"
+
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
-import { useQuery } from "@tanstack/react-query";
-import { createPublicClient, http } from "viem";
-import { arbitrum, base, bsc, mainnet, optimism, polygon } from "viem/chains";
+import { useQuery } from "@tanstack/react-query"
+import { createPublicClient, http } from "viem"
+import { arbitrum, base, bsc, mainnet, optimism, polygon } from "viem/chains"
 
-import type { ChainId } from "@x7/utils";
-import { LogCodes } from "@x7/utils";
-
-import { CACHE_TIERS } from "~/lib/query";
-import { log } from "~/lib/utils/log";
+import { LogCodes } from "@x7/utils"
+import { CACHE_TIERS } from "~/lib/query"
+import { log } from "~/lib/utils/log"
 
 interface UseChainedNativePrice {
-  chainId: ChainId;
+  chainId: ChainId
 }
 
 // Chainlink Price Feed addresses for different networks
@@ -21,7 +21,7 @@ const PRICE_FEEDS = {
   42161: "0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612", // ETH/USD Arbitrum
   56: "0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE", // BNB/USD BSC
   137: "0xAB594600376Ec9fD91F8e885dADF0CE036862dE0", // MATIC/USD Polygon
-} as const;
+} as const
 
 // Chain configurations
 const CHAIN_CONFIG = {
@@ -31,7 +31,7 @@ const CHAIN_CONFIG = {
   42161: arbitrum,
   56: bsc,
   137: polygon,
-} as const;
+} as const
 
 const CHAINLINK_ABI = [
   {
@@ -41,46 +41,46 @@ const CHAINLINK_ABI = [
     stateMutability: "view",
     type: "function",
   },
-] as const;
+] as const
 
 export const useChainedNativePrice = ({ chainId }: UseChainedNativePrice) => {
   return useQuery({
     queryKey: [`${chainId}-native-price`],
     queryFn: async () => {
       try {
-        const priceFeed = PRICE_FEEDS[chainId as keyof typeof PRICE_FEEDS];
-        const chain = CHAIN_CONFIG[chainId as keyof typeof CHAIN_CONFIG];
+        const priceFeed = PRICE_FEEDS[chainId as keyof typeof PRICE_FEEDS]
+        const chain = CHAIN_CONFIG[chainId as keyof typeof CHAIN_CONFIG]
 
         if (!priceFeed || !chain) {
           log.error(
             LogCodes.FETCHING_QUOTES,
-            `Unsupported chain ID: ${chainId}`,
-          );
-          return 0n;
+            `Unsupported chain ID: ${chainId}`
+          )
+          return 0n
         }
 
         const client = createPublicClient({
           chain,
           transport: http(),
-        });
+        })
 
         const result = await client.readContract({
           address: priceFeed,
           abi: CHAINLINK_ABI,
           functionName: "latestAnswer",
-        });
+        })
 
         // Chainlink prices come with 8 decimals, convert to 18 decimals
-        return BigInt(result) * 10n ** 10n;
+        return BigInt(result) * 10n ** 10n
       } catch (error) {
         log.error(
           LogCodes.FETCHING_QUOTES,
           "Error fetching native price:",
-          error,
-        );
-        return 0n;
+          error
+        )
+        return 0n
       }
     },
     ...CACHE_TIERS.SEMI_STATIC,
-  });
-};
+  })
+}

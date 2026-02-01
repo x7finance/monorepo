@@ -1,16 +1,16 @@
-import type { Metadata } from "next";
-import Image from "next/image";
+import type { Metadata } from "next"
 
-import { cn } from "@x7/css";
-import { X7ContractsEnum } from "@x7/sdk";
-import { buttonVariants } from "@x7/ui/button";
-import { LinkInternal } from "@x7/ui/link";
-import { ChainId, getRandomPioneerNumber } from "@x7/utils";
+import Image from "next/image"
 
-import { SiteContentContainer } from "~/lib/components/core/site-content-container";
-import { PioneerDrop } from "~/lib/components/utils/pioneer-drop";
-import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc";
-import { GradientTypes } from "~/lib/utils/gradients";
+import { cn } from "@x7/css"
+import { X7ContractsEnum } from "@x7/sdk"
+import { buttonVariants } from "@x7/ui/button"
+import { LinkInternal } from "@x7/ui/link"
+import { ChainId, getRandomPioneerNumber } from "@x7/utils"
+import { SiteContentContainer } from "~/lib/components/core/site-content-container"
+import { PioneerDrop } from "~/lib/components/utils/pioneer-drop"
+import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
+import { GradientTypes } from "~/lib/utils/gradients"
 
 const metadata = {
   title: "X7100",
@@ -18,12 +18,12 @@ const metadata = {
     " These tokens act as collateralized reserves for the X7 Lending Pool's X7 Deposit tokens. They accumulate token value and act as a lender of last resort against X7D token issuance. They are designed to be eventually price consistent, allowing for arbitrage opportunities. This series of tokens are burned on every transaction. While continually raising its floor price - it also provides further opportunities to mint new X7Deposit tokens.",
   slug: "/tokens/x7100",
   section: "default",
-};
+}
 export function generateMetadata(): Metadata {
-  return generateMetadataFromDoc(metadata);
+  return generateMetadataFromDoc(metadata)
 }
 
-const imagesArray = Array.from({ length: 60 }, (_, index) => index);
+const imagesArray = Array.from({ length: 60 }, (_, index) => index)
 
 export default function X7100() {
   return (
@@ -39,7 +39,7 @@ export default function X7100() {
               <p
                 className={cn(
                   GradientTypes.bank,
-                  `font-display my-3 inline bg-linear-to-r bg-clip-text text-xl font-bold text-transparent uppercase`,
+                  `font-display my-3 inline bg-linear-to-r bg-clip-text text-xl font-bold text-transparent uppercase`
                 )}
               ></p>
               <h2 className="font-heading text-3xl leading-[1.1] text-black sm:text-3xl md:text-6xl dark:text-white">
@@ -57,7 +57,7 @@ export default function X7100() {
                     buttonVariants({
                       variant: "ghost",
                       size: "sm",
-                    }),
+                    })
                   )}
                 >
                   Learn More
@@ -71,7 +71,7 @@ export default function X7100() {
                     buttonVariants({
                       variant: "outline",
                       size: "sm",
-                    }),
+                    })
                   )}
                 >
                   X7101
@@ -87,7 +87,7 @@ export default function X7100() {
                     buttonVariants({
                       variant: "outline",
                       size: "sm",
-                    }),
+                    })
                   )}
                 >
                   X7102
@@ -103,7 +103,7 @@ export default function X7100() {
                     buttonVariants({
                       variant: "outline",
                       size: "sm",
-                    }),
+                    })
                   )}
                 >
                   X7103
@@ -119,7 +119,7 @@ export default function X7100() {
                     buttonVariants({
                       variant: "outline",
                       size: "sm",
-                    }),
+                    })
                   )}
                 >
                   X7104
@@ -135,7 +135,7 @@ export default function X7100() {
                     buttonVariants({
                       variant: "outline",
                       size: "sm",
-                    }),
+                    })
                   )}
                 >
                   X7105
@@ -167,5 +167,5 @@ export default function X7100() {
         </div>
       </SiteContentContainer>
     </div>
-  );
+  )
 }

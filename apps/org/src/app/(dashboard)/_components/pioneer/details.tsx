@@ -1,116 +1,114 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
-"use client";
+"use client"
 
-import React, { useEffect, useState } from "react";
-import { toast } from "sonner";
-import { formatEther } from "viem";
-import { useAccount, useChainId, useReadContracts } from "wagmi";
+import React, { useEffect, useState } from "react"
+import { toast } from "sonner"
+import { formatEther } from "viem"
+import { useAccount, useChainId, useReadContracts } from "wagmi"
 
-import { X7Pioneer } from "@x7/contracts";
-import { cn } from "@x7/css";
-import { CheckCircleIcon, Glyph, IconWrapper, Loader2 } from "@x7/icons";
-import { X7ContractsEnum } from "@x7/sdk";
-import { Button, buttonVariants } from "@x7/ui/button";
+import { X7Pioneer } from "@x7/contracts"
+import { cn } from "@x7/css"
+import { CheckCircleIcon, Glyph, IconWrapper, Loader2 } from "@x7/icons"
+import { X7ContractsEnum } from "@x7/sdk"
+import { Button, buttonVariants } from "@x7/ui/button"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@x7/ui/card";
-import { LinkExternal } from "@x7/ui/link";
-import { ChainId } from "@x7/utils";
-
-import { ConnectionComponent } from "~/lib/components/utils/web3-connect-button";
-import { usePioneerClaim } from "~/lib/hooks/pioneers/usePioneerClaim";
-import { usePioneerUnlock } from "~/lib/hooks/pioneers/usePioneerUnlock";
+} from "@x7/ui/card"
+import { LinkExternal } from "@x7/ui/link"
+import { ChainId } from "@x7/utils"
+import { ConnectionComponent } from "~/lib/components/utils/web3-connect-button"
+import { usePioneerClaim } from "~/lib/hooks/pioneers/usePioneerClaim"
+import { usePioneerUnlock } from "~/lib/hooks/pioneers/usePioneerUnlock"
 
 export function useUnclaimedRewardsById(ids: number[]) {
-  const chainId = useChainId() as ChainId;
+  const chainId = useChainId() as ChainId
   const [unclaimedRewards, setUnclaimedRewards] = useState<Map<number, bigint>>(
-    new Map(),
-  );
+    new Map()
+  )
 
   const contractCalls = ids.map((id) => ({
     address: X7ContractsEnum.PioneerRewardPool(chainId),
     abi: X7Pioneer,
     functionName: "unclaimedRewards",
     args: [id],
-  }));
+  }))
 
   const { data, isFetched } = useReadContracts({
     // @ts-expect-error: todo check types
     contracts: contractCalls,
-  });
+  })
 
   useEffect(() => {
     if (isFetched && data) {
-      const rewardsMap = new Map<number, bigint>();
+      const rewardsMap = new Map<number, bigint>()
       data.forEach((result: any, index: number) => {
-        const reward = BigInt((result?.result ?? 0) as bigint);
-        const id = ids[index] ?? 0;
-        rewardsMap.set(id, reward);
-      });
-      setUnclaimedRewards(rewardsMap);
+        const reward = BigInt((result?.result ?? 0) as bigint)
+        const id = ids[index] ?? 0
+        rewardsMap.set(id, reward)
+      })
+      setUnclaimedRewards(rewardsMap)
     }
-  }, [data, isFetched, ids]);
+  }, [data, isFetched, ids])
 
-  return { unclaimedRewards, isFetched };
+  return { unclaimedRewards, isFetched }
 }
 
 export function useUnlockedById(ids: number[]) {
-  const chainId = useChainId() as ChainId;
-  const [isUnlocked, setIsUnlocked] = useState<Map<number, boolean>>(new Map());
+  const chainId = useChainId() as ChainId
+  const [isUnlocked, setIsUnlocked] = useState<Map<number, boolean>>(new Map())
 
   const contractCalls = ids.map((id) => ({
     address: X7ContractsEnum.PioneerRewardPool(chainId),
     abi: X7Pioneer,
     functionName: "transferUnlocked",
     args: [id],
-  }));
+  }))
 
   const { data, isFetched } = useReadContracts({
     // @ts-expect-error: todo check types
     contracts: contractCalls,
-  });
+  })
 
   useEffect(() => {
     if (isFetched && data) {
-      const unlockedMap = new Map<number, boolean>();
+      const unlockedMap = new Map<number, boolean>()
       data.forEach((result, index) => {
-        const unlocked = Boolean(result.result ?? false);
-        unlockedMap.set(ids[index] ?? 0, unlocked);
-      });
-      setIsUnlocked(unlockedMap);
+        const unlocked = Boolean(result.result ?? false)
+        unlockedMap.set(ids[index] ?? 0, unlocked)
+      })
+      setIsUnlocked(unlockedMap)
     }
-  }, [data, isFetched, ids]);
+  }, [data, isFetched, ids])
 
-  return { isUnlocked, isFetched };
+  return { isUnlocked, isFetched }
 }
 
 export function PioneerDetails() {
-  const [pioneerIds, setPioneerIds] = useState<number[]>([]);
-  const [pioneerId, setPioneerId] = useState<number>(0);
+  const [pioneerIds, setPioneerIds] = useState<number[]>([])
+  const [pioneerId, setPioneerId] = useState<number>(0)
   const { unclaimedRewards, isFetched: rewardsFetched } =
-    useUnclaimedRewardsById(pioneerIds);
-  const { isUnlocked, isFetched: unlockedFetched } =
-    useUnlockedById(pioneerIds);
+    useUnclaimedRewardsById(pioneerIds)
+  const { isUnlocked, isFetched: unlockedFetched } = useUnlockedById(pioneerIds)
 
-  let totalUnclaimed = 0n;
+  let totalUnclaimed = 0n
   if (rewardsFetched) {
     totalUnclaimed = Array.from(unclaimedRewards.values()).reduce(
       (acc, cur) => acc + cur,
-      0n,
-    );
+      0n
+    )
   }
 
-  const { address, isConnected } = useAccount();
-  const [walletBalance, setWalletBalance] = useState<number>(0);
-  const [unlockFee, setUnlockFee] = useState<number>(0);
-  const [poolBalance, setPoolBalance] = useState<string>("0.000");
-  const chainId = useChainId() as ChainId;
+  const { address, isConnected } = useAccount()
+  const [walletBalance, setWalletBalance] = useState<number>(0)
+  const [unlockFee, setUnlockFee] = useState<number>(0)
+  const [poolBalance, setPoolBalance] = useState<string>("0.000")
+  const chainId = useChainId() as ChainId
 
   const pioneerContracts = [
     {
@@ -132,23 +130,23 @@ export function PioneerDetails() {
       functionName: "transferUnlockFee",
       chainId,
     },
-  ];
+  ]
 
   const { data: pioneerData, isFetched: pioneerFetched } = useReadContracts({
     // @ts-expect-error: todo check types
     contracts: pioneerContracts,
-  });
+  })
 
   useEffect(() => {
     if (pioneerFetched) {
-      const walletBalance = pioneerData?.[0]?.result ?? 0;
-      const poolBalance = (pioneerData?.[1]?.result as bigint) ?? 0n;
-      const unlockFee = (pioneerData?.[2]?.result as bigint) ?? 0;
-      setWalletBalance(Number(walletBalance));
-      setPoolBalance(parseFloat(formatEther(poolBalance)).toFixed(3));
-      setUnlockFee(parseFloat(formatEther(unlockFee)));
+      const walletBalance = pioneerData?.[0]?.result ?? 0
+      const poolBalance = (pioneerData?.[1]?.result as bigint) ?? 0n
+      const unlockFee = (pioneerData?.[2]?.result as bigint) ?? 0
+      setWalletBalance(Number(walletBalance))
+      setPoolBalance(parseFloat(formatEther(poolBalance)).toFixed(3))
+      setUnlockFee(parseFloat(formatEther(unlockFee)))
     }
-  }, [pioneerData, pioneerFetched]);
+  }, [pioneerData, pioneerFetched])
 
   const pioneerIdContracts = Array.from(
     { length: walletBalance },
@@ -158,48 +156,48 @@ export function PioneerDetails() {
       functionName: "tokenOfOwnerByIndex",
       args: [address, index],
       chainId,
-    }),
-  );
+    })
+  )
 
   const { data: contractData, isFetched: pioneerIdFetched } = useReadContracts({
     // @ts-expect-error: todo check types
     contracts: pioneerIdContracts,
-  });
+  })
 
   useEffect(() => {
     if (pioneerIdFetched) {
       const ids =
-        contractData?.map((contract) => contract.result as number) ?? [];
-      setPioneerIds(ids);
+        contractData?.map((contract) => contract.result as number) ?? []
+      setPioneerIds(ids)
     }
-  }, [contractData, pioneerIdFetched]);
+  }, [contractData, pioneerIdFetched])
 
   const {
     writeContract: writeContractClaim,
     data: claimData,
     isPending: claimPending,
-  } = usePioneerClaim({ pioneerIds });
+  } = usePioneerClaim({ pioneerIds })
 
   const handleClaim = () => {
     if (claimData) {
-      writeContractClaim(claimData.request);
+      writeContractClaim(claimData.request)
     }
-  };
+  }
 
   const {
     writeContract: writeContractUnlock,
     data: unlockData,
     isPending: unlockPending,
-  } = usePioneerUnlock({ pioneerId, unlockFee });
+  } = usePioneerUnlock({ pioneerId, unlockFee })
 
   const handleUnlock = (id: number) => {
-    setPioneerId(id);
+    setPioneerId(id)
     if (unlockData) {
-      writeContractUnlock(unlockData.request);
+      writeContractUnlock(unlockData.request)
     } else {
-      toast.error(`Add ${0.07} ETH to unlock Pioneer ${id}`);
+      toast.error(`Add ${0.07} ETH to unlock Pioneer ${id}`)
     }
-  };
+  }
 
   return (
     <Card>
@@ -287,7 +285,7 @@ export function PioneerDetails() {
                                 {
                                   "border-t": index === 0,
                                   "border-b": true,
-                                },
+                                }
                               )}
                             >
                               <td className="flex flex-col py-2">
@@ -315,7 +313,7 @@ export function PioneerDetails() {
                                       {rewardsFetched &&
                                       unclaimedRewards.has(id)
                                         ? `${formatEther(
-                                            unclaimedRewards.get(id) ?? 0n,
+                                            unclaimedRewards.get(id) ?? 0n
                                           )} ETH`
                                         : "Loading..."}{" "}
                                     </div>
@@ -385,7 +383,7 @@ export function PioneerDetails() {
                             buttonVariants({
                               variant: "default",
                             }),
-                            "mt-2",
+                            "mt-2"
                           )}
                         >
                           Trade X7 Pioneer NFTs
@@ -400,5 +398,5 @@ export function PioneerDetails() {
         )}
       </CardContent>
     </Card>
-  );
+  )
 }

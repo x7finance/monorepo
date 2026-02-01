@@ -1,9 +1,10 @@
-/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
-import { parseEther } from "viem";
-
+import type { Currency, CurrencyAmount } from "@x7/utils"
 // import { ChainLinkAbi } from "@x7/contracts";
 
-import { PinIcon } from "@x7/icons";
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+import { parseEther } from "viem"
+
+import { PinIcon } from "@x7/icons"
 // import { useAccount, useReadContracts } from "wagmi";
 import {
   Card,
@@ -11,31 +12,29 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@x7/ui/card";
-import { CircleLoading } from "@x7/ui/circle-loading";
+} from "@x7/ui/card"
+import { CircleLoading } from "@x7/ui/circle-loading"
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@x7/ui/hover-card";
-import { Tag } from "@x7/ui/tag";
+} from "@x7/ui/hover-card"
+import { Tag } from "@x7/ui/tag"
 // import type { RouteWithValidQuote } from "@x7/smart-order-router";
 // import { SkeletonBox } from "@x7/ui/skeleton";
 // import { generateChainTokenOracleEtherUSDEnum, Native, WETH9 } from "@x7/utils";
-import { formatUSD } from "@x7/utils";
-import type { Currency, CurrencyAmount } from "@x7/utils";
-
-import { useLoanState } from "~/lib/stores/loan";
+import { formatUSD } from "@x7/utils"
+import { useLoanState } from "~/lib/stores/loan"
 
 interface LoanLaunchPriceProps {
   // collateralToken: Currency;
   // loanToken: Currency;
   // loanAmount: string;
   // collateralAmount: string;
-  isNativePriceLoading: boolean;
-  isMarketPriceLoading: boolean;
-  marketPrice: CurrencyAmount<Currency> | undefined;
-  nativePrice: CurrencyAmount<Currency> | undefined;
+  isNativePriceLoading: boolean
+  isMarketPriceLoading: boolean
+  marketPrice: CurrencyAmount<Currency> | undefined
+  nativePrice: CurrencyAmount<Currency> | undefined
 }
 
 export function LoanLaunchPrice({
@@ -51,7 +50,7 @@ export function LoanLaunchPrice({
   const {
     state: { collateralAmount, loanAmount, collateralToken, loanToken },
     mutate: { setCollateralAmount },
-  } = useLoanState();
+  } = useLoanState()
   // const { chainId } = useAccount();
 
   // const { data: usdPrice } = useReadContracts({
@@ -65,7 +64,7 @@ export function LoanLaunchPrice({
   // });
 
   if (!collateralToken || !loanToken || !nativePrice) {
-    return null;
+    return null
   }
 
   if (isNativePriceLoading || isMarketPriceLoading) {
@@ -73,29 +72,29 @@ export function LoanLaunchPrice({
       <div className="flex flex-col items-center justify-center gap-2">
         <CircleLoading size={8} />
       </div>
-    );
+    )
   }
 
   const unitPriceEther =
     parseInt(parseEther(loanAmount).toString()) /
-    parseInt(parseEther(collateralAmount).toString());
+    parseInt(parseEther(collateralAmount).toString())
   const etherInUSD = nativePrice
     ? Number(nativePrice.quotient ?? "0") /
       Number(`1e${nativePrice.currency.decimals}`)
-    : 0;
+    : 0
 
-  const launchPrice = (etherInUSD * unitPriceEther).toFixed(8);
+  const launchPrice = (etherInUSD * unitPriceEther).toFixed(8)
 
   if (marketPrice) {
     const usdOffOfNativePer = collateralToken?.isNative
       ? parseFloat(nativePrice.toExact())
       : parseFloat(nativePrice.toExact()) *
-        (parseFloat(marketPrice.toExact()) * 0.99);
+        (parseFloat(marketPrice.toExact()) * 0.99)
 
-    const _difference = usdOffOfNativePer / parseFloat(launchPrice) - 1;
+    const _difference = usdOffOfNativePer / parseFloat(launchPrice) - 1
 
     const optimalCollateral =
-      (parseFloat(loanAmount) * etherInUSD) / usdOffOfNativePer;
+      (parseFloat(loanAmount) * etherInUSD) / usdOffOfNativePer
 
     return (
       <Card className="overflow-hidden border border-emerald-500 shadow-md shadow-emerald-500/50 transition-all duration-200">
@@ -157,7 +156,7 @@ export function LoanLaunchPrice({
           </div>
         </CardContent>
       </Card>
-    );
+    )
   }
 
   return (
@@ -185,7 +184,7 @@ export function LoanLaunchPrice({
             <p className="text-muted-foreground">
               <Tag variant="large" color="emerald">
                 {formatUSD(
-                  parseFloat(launchPrice) * parseFloat(collateralAmount),
+                  parseFloat(launchPrice) * parseFloat(collateralAmount)
                 )}
               </Tag>
             </p>
@@ -193,5 +192,5 @@ export function LoanLaunchPrice({
         </div>
       </CardContent>
     </Card>
-  );
+  )
 }

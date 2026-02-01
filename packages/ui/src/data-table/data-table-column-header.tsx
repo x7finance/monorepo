@@ -1,19 +1,22 @@
-"use client";
+"use client"
 
-import { useCallback } from "react";
-import type { Column } from "@tanstack/react-table";
+import type { Column } from "@tanstack/react-table"
 
-import { cn } from "@x7/css";
-import { ArrowUpDownIcon, ChevronDownIcon, ChevronUpIcon } from "@x7/icons";
+import { useCallback } from "react"
 
-import { Button } from "../button";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../tooltip";
+import { cn } from "@x7/css"
+import { ArrowUpDownIcon, ChevronDownIcon, ChevronUpIcon } from "@x7/icons"
 
-interface DataTableColumnHeaderProps<TData, TValue>
-  extends React.HTMLAttributes<HTMLDivElement> {
-  column: Column<TData, TValue>;
-  title: string;
-  description?: string;
+import { Button } from "../button"
+import { Tooltip, TooltipContent, TooltipTrigger } from "../tooltip"
+
+interface DataTableColumnHeaderProps<
+  TData,
+  TValue,
+> extends React.HTMLAttributes<HTMLDivElement> {
+  column: Column<TData, TValue>
+  title: string
+  description?: string
 }
 
 export function DataTableColumnHeader<TData, TValue>({
@@ -25,19 +28,19 @@ export function DataTableColumnHeader<TData, TValue>({
   const onClick = useCallback(() => {
     if (column.getIsSorted() === false) {
       // desc
-      column.toggleSorting(true);
+      column.toggleSorting(true)
     }
 
     if (column.getIsSorted() === "desc") {
       // asc
-      column.toggleSorting(false);
+      column.toggleSorting(false)
     }
 
     if (column.getIsSorted() === "asc") {
       // clear
-      column.clearSorting();
+      column.clearSorting()
     }
-  }, [column]);
+  }, [column])
 
   if (!column.getCanSort()) {
     return (
@@ -53,7 +56,7 @@ export function DataTableColumnHeader<TData, TValue>({
           <span>{title}</span>
         )}
       </div>
-    );
+    )
   }
 
   return (
@@ -87,5 +90,5 @@ export function DataTableColumnHeader<TData, TValue>({
         </Button>
       )}
     </div>
-  );
+  )
 }

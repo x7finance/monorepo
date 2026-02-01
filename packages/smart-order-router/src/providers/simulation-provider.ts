@@ -1,35 +1,36 @@
+import type { SwapOptions, SwapRoute } from "../routers/router"
+import type { CurrencyAmount } from "../utils/amounts"
+import type { ViemProviderType } from "../utils/viemHelpers"
+import type { IPortionProvider } from "./portion-provider"
+import type { ProviderConfig } from "./provider"
+import type { ArbitrumGasData, OptimismGasData } from "./v3/gas-data-provider"
+import type { ChainId, Implementation } from "@x7/utils"
+
 /* oxlint-disable @typescript-eslint/restrict-template-expressions */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
-import { getContract } from "viem";
+import { getContract } from "viem"
 
-import { generateRouterAddress } from "@x7/sdk";
-import { LogCodes, PERMIT2_ADDRESS, TradeType } from "@x7/utils";
-import type { ChainId, Implementation } from "@x7/utils";
+import { generateRouterAddress } from "@x7/sdk"
+import { LogCodes, PERMIT2_ADDRESS, TradeType } from "@x7/utils"
 
-import { erc20ABI } from "../abis/erc20";
-import { permit2ABI } from "../abis/Permit2";
-import type { SwapOptions, SwapRoute } from "../routers/router";
-import { SwapType } from "../routers/router";
-import type { CurrencyAmount } from "../utils/amounts";
-import type { ViemProviderType } from "../utils/viemHelpers";
-import { log } from "../utils/log";
-import type { IPortionProvider } from "./portion-provider";
-import type { ProviderConfig } from "./provider";
-import type { ArbitrumGasData, OptimismGasData } from "./v3/gas-data-provider";
+import { erc20ABI } from "../abis/erc20"
+import { permit2ABI } from "../abis/Permit2"
+import { SwapType } from "../routers/router"
+import { log } from "../utils/log"
 
 export interface SimulationResult {
   transaction: {
-    hash: string;
-    gas_used: number;
-    gas: number;
-    error_message: string;
-  };
-  simulation: { state_overrides: Record<string, unknown> };
+    hash: string
+    gas_used: number
+    gas: number
+    error_message: string
+  }
+  simulation: { state_overrides: Record<string, unknown> }
 }
 
 // Import and re-export from simulation-types for backwards compatibility
-import { SimulationStatus } from "./simulation-types";
-export { SimulationStatus };
+import { SimulationStatus } from "./simulation-types"
+export { SimulationStatus }
 
 /**
  * Provider for dry running transactions.
@@ -38,8 +39,8 @@ export { SimulationStatus };
  * @class Simulator
  */
 export abstract class Simulator {
-  protected provider: ViemProviderType;
-  protected portionProvider: IPortionProvider;
+  protected provider: ViemProviderType
+  protected portionProvider: IPortionProvider
 
   /**
    * Returns a new SwapRoute with simulated gas estimates
@@ -48,10 +49,10 @@ export abstract class Simulator {
   constructor(
     provider: ViemProviderType,
     portionProvider: IPortionProvider,
-    protected chainId: ChainId,
+    protected chainId: ChainId
   ) {
-    this.provider = provider;
-    this.portionProvider = portionProvider;
+    this.provider = provider
+    this.portionProvider = portionProvider
   }
 
   public async simulate(
@@ -61,14 +62,14 @@ export abstract class Simulator {
     amount: CurrencyAmount,
     quote: CurrencyAmount,
     l2GasData?: OptimismGasData | ArbitrumGasData,
-    providerConfig?: ProviderConfig,
+    providerConfig?: ProviderConfig
   ): Promise<SwapRoute> {
     if (
       await this.userHasSufficientBalance(
         fromAddress,
         swapRoute.trade.tradeType,
         amount,
-        quote,
+        quote
       )
     ) {
       try {
@@ -77,24 +78,24 @@ export abstract class Simulator {
           swapOptions,
           swapRoute,
           l2GasData,
-          providerConfig,
-        );
+          providerConfig
+        )
       } catch (e) {
-        log.error(LogCodes.FAIL, "Error simulating transaction", { e });
+        log.error(LogCodes.FAIL, "Error simulating transaction", { e })
         return {
           ...swapRoute,
           simulationStatus: SimulationStatus.Failed,
-        };
+        }
       }
     } else {
       log.error(
         LogCodes.FAIL,
-        "User does not have sufficient balance to simulate.",
-      );
+        "User does not have sufficient balance to simulate."
+      )
       return {
         ...swapRoute,
         simulationStatus: SimulationStatus.InsufficientBalance,
-      };
+      }
     }
   }
 
@@ -103,24 +104,24 @@ export abstract class Simulator {
     swapOptions: SwapOptions,
     swapRoute: SwapRoute,
     l2GasData?: OptimismGasData | ArbitrumGasData,
-    providerConfig?: ProviderConfig,
-  ): Promise<SwapRoute>;
+    providerConfig?: ProviderConfig
+  ): Promise<SwapRoute>
 
   protected async userHasSufficientBalance(
     fromAddress: string,
     tradeType: TradeType,
     amount: CurrencyAmount,
-    quote: CurrencyAmount,
+    quote: CurrencyAmount
   ): Promise<boolean> {
     try {
-      const neededBalance = tradeType === TradeType.EXACT_INPUT ? amount : quote;
-      let balance;
+      const neededBalance = tradeType === TradeType.EXACT_INPUT ? amount : quote
+      let balance
       if (neededBalance.currency.isNative) {
         balance = BigInt(
           await this.provider.getBalance({
             address: fromAddress as `0x${string}`,
-          }),
-        );
+          })
+        )
       } else {
         const tokenContract = getContract({
           address: neededBalance.currency.address,
@@ -128,15 +129,15 @@ export abstract class Simulator {
           client: {
             public: this.provider,
           },
-        });
+        })
 
         balance = BigInt(
-          await tokenContract.read.balanceOf([fromAddress as `0x${string}`]),
-        );
+          await tokenContract.read.balanceOf([fromAddress as `0x${string}`])
+        )
       }
 
       const hasBalance =
-        balance >= BigInt(BigInt(neededBalance.quotient.toString()));
+        balance >= BigInt(BigInt(neededBalance.quotient.toString()))
       // log.info(
       //   {
       //     fromAddress,
@@ -147,10 +148,10 @@ export abstract class Simulator {
       //   },
       //   "Result of balance check for simulation",
       // );
-      return hasBalance;
+      return hasBalance
     } catch (e) {
-      log.error(LogCodes.FAIL, "Error while checking user balance", e);
-      return false;
+      log.error(LogCodes.FAIL, "Error while checking user balance", e)
+      return false
     }
   }
 
@@ -159,7 +160,7 @@ export abstract class Simulator {
     inputAmount: CurrencyAmount,
     swapOptions: SwapOptions,
     provider: ViemProviderType,
-    implementation: Implementation,
+    implementation: Implementation
   ): Promise<boolean> {
     // Check token has approved Permit2 more than expected amount.
 
@@ -169,13 +170,13 @@ export abstract class Simulator {
       client: {
         public: this.provider,
       },
-    });
+    })
 
     if (swapOptions.type === SwapType.UNIVERSAL_ROUTER) {
       const result: bigint = await tokenContract.read.allowance([
         fromAddress as `0x${string}`,
         PERMIT2_ADDRESS,
-      ]);
+      ])
 
       // If a permit has been provided we don't need to check if UR has already been allowed.
       if (swapOptions.inputTokenPermit) {
@@ -185,10 +186,10 @@ export abstract class Simulator {
           {
             permitAllowance: result.toString(),
             inputAmount: inputAmount.quotient.toString(),
-          },
-        );
+          }
+        )
 
-        return BigInt(result) >= BigInt(inputAmount.quotient.toString());
+        return BigInt(result) >= BigInt(inputAmount.quotient.toString())
       }
 
       // Check UR has been approved from Permit2.
@@ -199,7 +200,7 @@ export abstract class Simulator {
         client: {
           public: provider,
         },
-      });
+      })
 
       const [universalRouterAllowance, tokenExpiration, _nonce] =
         await permit2Contract.read.allowance([
@@ -207,14 +208,14 @@ export abstract class Simulator {
           inputAmount.currency.wrapped.address,
           // TODO: Possibly need this to be interchangable between, its just the simulator tho
           generateRouterAddress(this.chainId, implementation),
-        ]);
+        ])
 
-      const nowTimestampS = Math.round(Date.now() / 1000);
-      const inputAmountBN = BigInt(inputAmount.quotient.toString());
+      const nowTimestampS = Math.round(Date.now() / 1000)
+      const inputAmountBN = BigInt(inputAmount.quotient.toString())
 
-      const permit2Approved = BigInt(result) >= BigInt(inputAmountBN);
-      const universalRouterApproved = universalRouterAllowance > inputAmountBN;
-      const expirationValid = tokenExpiration > nowTimestampS;
+      const permit2Approved = BigInt(result) >= BigInt(inputAmountBN)
+      const universalRouterApproved = universalRouterAllowance > inputAmountBN
+      const expirationValid = tokenExpiration > nowTimestampS
       log.info(
         LogCodes.SIMULATE,
         {
@@ -227,9 +228,9 @@ export abstract class Simulator {
           universalRouterApproved,
           expirationValid,
         },
-        `Simulating on UR, Permit2 approved: ${permit2Approved}, UR approved: ${universalRouterApproved}, Expiraton valid: ${expirationValid}.`,
-      );
-      return permit2Approved && universalRouterApproved && expirationValid;
+        `Simulating on UR, Permit2 approved: ${permit2Approved}, UR approved: ${universalRouterApproved}, Expiraton valid: ${expirationValid}.`
+      )
+      return permit2Approved && universalRouterApproved && expirationValid
     } else if (swapOptions.type === SwapType.SWAP_ROUTER_02) {
       if (swapOptions.inputTokenPermit) {
         log.info(
@@ -237,18 +238,18 @@ export abstract class Simulator {
           {
             inputAmount: inputAmount.quotient.toString(),
           },
-          "Simulating on SwapRouter02 info - Permit was provided for simulation. Not checking allowances.",
-        );
-        return true;
+          "Simulating on SwapRouter02 info - Permit was provided for simulation. Not checking allowances."
+        )
+        return true
       }
 
       const allowance: bigint = await tokenContract.read.allowance([
         fromAddress as `0x${string}`,
         // TODO: Possibly need this to be interchangable between, its just the simulator tho
         generateRouterAddress(this.chainId, implementation),
-      ]);
+      ])
       const hasAllowance =
-        BigInt(allowance) >= BigInt(inputAmount.quotient.toString());
+        BigInt(allowance) >= BigInt(inputAmount.quotient.toString())
 
       log.info(
         LogCodes.SIMULATE,
@@ -257,12 +258,12 @@ export abstract class Simulator {
           allowance: allowance.toString(),
           inputAmount: inputAmount.quotient.toString(),
         },
-        `Simulating on SwapRouter02 - Has allowance: ${hasAllowance}`,
-      );
+        `Simulating on SwapRouter02 - Has allowance: ${hasAllowance}`
+      )
       // Return true if token allowance is greater than input amount
-      return hasAllowance;
+      return hasAllowance
     }
 
-    throw new Error(`Unsupported swap type ${swapOptions}`);
+    throw new Error(`Unsupported swap type ${swapOptions}`)
   }
 }

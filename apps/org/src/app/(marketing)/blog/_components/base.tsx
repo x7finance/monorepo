@@ -1,34 +1,35 @@
-import Image from "next/image";
+import type { BlogType } from "../_types"
+import type { SectionType } from "~/types"
 
-import { Twitter } from "@x7/icons";
-import { LinkExternal, LinkInternal } from "@x7/ui/link";
+import Image from "next/image"
 
-import { env } from "~/env.mjs";
-import type { SectionType } from "~/types";
-import { MarketingLinks } from "~/types/links";
-import type { BlogType } from "../_types";
-import { Prose } from "./tags/prose";
+import { Twitter } from "@x7/icons"
+import { LinkExternal, LinkInternal } from "@x7/ui/link"
+import { env } from "~/env.mjs"
+import { MarketingLinks } from "~/types/links"
+
+import { Prose } from "./tags/prose"
 
 interface BlogAuthor {
-  id: string;
-  name: string;
-  image: string;
-  twitter: string;
+  id: string
+  name: string
+  image: string
+  twitter: string
 }
 
 interface BlogBaseProps {
-  children: React.ReactNode;
-  title?: string;
-  date?: string;
-  tags?: string[];
-  tableOfContents?: SectionType[] | null;
-  blogsType?: BlogType;
-  slug?: string;
-  summary?: string;
-  authors?: BlogAuthor[];
+  children: React.ReactNode
+  title?: string
+  date?: string
+  tags?: string[]
+  tableOfContents?: SectionType[] | null
+  blogsType?: BlogType
+  slug?: string
+  summary?: string
+  authors?: BlogAuthor[]
 }
 export function BlogBase(props: BlogBaseProps) {
-  const { children, title, date, tags, summary, authors } = props;
+  const { children, title, date, tags, summary, authors } = props
 
   return (
     <>
@@ -59,7 +60,7 @@ export function BlogBase(props: BlogBaseProps) {
                               {tag}
                             </span>
                           </div>
-                        );
+                        )
                       })}
                       {date && (
                         <h2 className="font-display mt-0 mb-0 text-[14px] font-normal tracking-tight text-zinc-500">
@@ -180,5 +181,5 @@ export function BlogBase(props: BlogBaseProps) {
         </LinkInternal>
       </div>
     </>
-  );
+  )
 }

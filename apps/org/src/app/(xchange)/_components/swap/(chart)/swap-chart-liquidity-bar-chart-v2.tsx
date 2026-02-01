@@ -1,4 +1,9 @@
-import { scaleSymlog } from "d3-scale";
+import type { Pair } from "@x7/sdk"
+import type { SwapRoute } from "@x7/smart-order-router"
+import type { ChartConfig } from "@x7/ui/chart"
+import type { ChainId, Native, Token } from "@x7/utils"
+
+import { scaleSymlog } from "d3-scale"
 import {
   Bar,
   BarChart,
@@ -6,30 +11,26 @@ import {
   ResponsiveContainer,
   XAxis,
   YAxis,
-} from "recharts";
-import { useChainId, useReadContracts } from "wagmi";
+} from "recharts"
+import { useChainId, useReadContracts } from "wagmi"
 
-import { XchangePair } from "@x7/contracts";
-import type { Pair } from "@x7/sdk";
-import type { SwapRoute } from "@x7/smart-order-router";
+import { XchangePair } from "@x7/contracts"
 import {
   ChartContainer,
   ChartLegend,
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-} from "@x7/ui/chart";
-import type { ChartConfig } from "@x7/ui/chart";
-import type { ChainId, Native, Token } from "@x7/utils";
-import { DEAD_ADDRESS, Implementation, Protocol } from "@x7/utils";
+} from "@x7/ui/chart"
+import { DEAD_ADDRESS, Implementation, Protocol } from "@x7/utils"
 
 interface SwapChartLiquidityBarChartProps {
-  route?: SwapRoute | undefined;
-  pair: Pair;
-  protocol: Protocol;
-  isRouteFound: boolean;
-  token0: Token | Native | undefined;
-  token1: Token | Native | undefined;
+  route?: SwapRoute | undefined
+  pair: Pair
+  protocol: Protocol
+  isRouteFound: boolean
+  token0: Token | Native | undefined
+  token1: Token | Native | undefined
 }
 
 const chartConfig = {
@@ -41,7 +42,7 @@ const chartConfig = {
     label: "amount",
     color: "hsl(var(--chart-2))",
   },
-} satisfies ChartConfig;
+} satisfies ChartConfig
 
 export function SwapChartLiquidityBarChartV2({
   route,
@@ -51,10 +52,10 @@ export function SwapChartLiquidityBarChartV2({
   token0,
   token1,
 }: SwapChartLiquidityBarChartProps) {
-  const chainId = useChainId() as ChainId;
-  const scale = scaleSymlog();
-  const { token0Amount, token1Amount } = getTokenAmounts(pair, token0, token1);
-  const dex = pair.pairType;
+  const chainId = useChainId() as ChainId
+  const scale = scaleSymlog()
+  const { token0Amount, token1Amount } = getTokenAmounts(pair, token0, token1)
+  const dex = pair.pairType
   const loanToken =
     route?.trade.swaps[0]?.route.input.symbol === "WETH" ||
     route?.trade.swaps[0]?.route.input.symbol === "ETH"
@@ -63,7 +64,7 @@ export function SwapChartLiquidityBarChartV2({
         : token0?.wrapped
       : token1?.isToken
         ? token1
-        : token1?.wrapped;
+        : token1?.wrapped
 
   const { data: loanAmountResult } = useReadContracts({
     contracts: [
@@ -80,13 +81,13 @@ export function SwapChartLiquidityBarChartV2({
         chainId,
       },
     ],
-  });
+  })
 
   const loanAmount =
     Number(
       parseInt(loanAmountResult?.[0]?.result as string) /
-        10 ** pair.token0.decimals,
-    ) || 0;
+        10 ** pair.token0.decimals
+    ) || 0
 
   const chartData = [
     {
@@ -99,7 +100,7 @@ export function SwapChartLiquidityBarChartV2({
       loan: 0,
       amount: Number(token1Amount),
     },
-  ];
+  ]
 
   return (
     <ResponsiveContainer width={300} height="100%">
@@ -149,25 +150,25 @@ export function SwapChartLiquidityBarChartV2({
         </BarChart>
       </ChartContainer>
     </ResponsiveContainer>
-  );
+  )
 }
 function getTokenAmounts(
   pair: Pair | undefined,
   token0: Token | Native | undefined,
-  token1: Token | Native | undefined,
+  token1: Token | Native | undefined
 ) {
   if (!pair || !token0 || !token1) {
-    return { token0Amount: 0, token1Amount: 0 };
+    return { token0Amount: 0, token1Amount: 0 }
   }
 
   const token0Amount = (
     Number(BigInt(pair.token0Price.denominator)) /
     10 ** pair.token0.decimals
-  ).toFixed(4);
+  ).toFixed(4)
   const token1Amount = (
     Number(BigInt(pair.token1Price.denominator)) /
     10 ** pair.token1.decimals
-  ).toFixed(4);
+  ).toFixed(4)
 
-  return { token0Amount, token1Amount };
+  return { token0Amount, token1Amount }
 }

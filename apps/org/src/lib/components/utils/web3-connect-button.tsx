@@ -1,44 +1,44 @@
 /* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* oxlint-disable react-hooks/exhaustive-deps */
-"use client";
+"use client"
 
-import type { HTMLAttributes } from "react";
-import React, { lazy, Suspense, useMemo } from "react";
-import Image from "next/image";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useAccount, useBalance } from "wagmi";
+import type { ButtonProps } from "@x7/ui/button"
+import type { HTMLAttributes } from "react"
 
-import { cn } from "@x7/css";
-import { ChevronDownIcon, CogIcon } from "@x7/icons";
-import type { ButtonProps } from "@x7/ui/button";
-import { Button } from "@x7/ui/button";
-import { CircleLoading } from "@x7/ui/circle-loading";
-import { SliderOver } from "@x7/ui/slide-over";
+import { ConnectButton } from "@rainbow-me/rainbowkit"
+import Image from "next/image"
+import React, { lazy, Suspense, useMemo } from "react"
+import { useAccount, useBalance } from "wagmi"
 
-import { useWeb3Config } from "~/lib/providers/web3";
-import { useSlideOverStore } from "~/lib/stores/slide-over";
+import { cn } from "@x7/css"
+import { ChevronDownIcon, CogIcon } from "@x7/icons"
+import { Button } from "@x7/ui/button"
+import { CircleLoading } from "@x7/ui/circle-loading"
+import { SliderOver } from "@x7/ui/slide-over"
+import { useWeb3Config } from "~/lib/providers/web3"
+import { useSlideOverStore } from "~/lib/stores/slide-over"
 
 // Use React.lazy to dynamically import WalletSlide
 const WalletSlide = lazy(() =>
-  import("./wallet-slider").then((module) => ({ default: module.WalletSlide })),
-);
+  import("./wallet-slider").then((module) => ({ default: module.WalletSlide }))
+)
 
 export function ConnectionComponent(
   props: HTMLAttributes<HTMLButtonElement> &
-    ButtonProps & { "data-iscog"?: boolean },
+    ButtonProps & { "data-iscog"?: boolean }
 ) {
-  const { size, variant, ...rest } = props;
+  const { size, variant, ...rest } = props
 
-  const isSlideOverOpen = useSlideOverStore((state) => state.isSlideOverOpen);
+  const isSlideOverOpen = useSlideOverStore((state) => state.isSlideOverOpen)
 
   const setIsSlideOverOpen = useSlideOverStore(
-    (state) => state.setIsSlideOverOpen,
-  );
+    (state) => state.setIsSlideOverOpen
+  )
 
-  const { wagmiConfig } = useWeb3Config();
+  const { wagmiConfig } = useWeb3Config()
 
-  const { address } = useAccount();
-  const { data: account_ } = useBalance({ address, config: wagmiConfig });
+  const { address } = useAccount()
+  const { data: account_ } = useBalance({ address, config: wagmiConfig })
 
   const renderConnectButton = useMemo(() => {
     return (
@@ -50,7 +50,7 @@ export function ConnectionComponent(
                 mounted
                   ? `w-full opacity-100`
                   : `aria-hidden pointer-events-none select-none opacity-0`,
-                `connection-layout-shift`,
+                `connection-layout-shift`
               )}
             >
               {(() => {
@@ -60,14 +60,14 @@ export function ConnectionComponent(
                       <button
                         className="flex items-center gap-x-1 px-4 py-4 transition-opacity hover:opacity-80"
                         onClick={(e) => {
-                          e.preventDefault();
+                          e.preventDefault()
 
-                          openConnectModal();
+                          openConnectModal()
                         }}
                       >
                         <CogIcon className="h-4 w-4" />
                       </button>
-                    );
+                    )
                   }
                   return (
                     <Button
@@ -76,24 +76,22 @@ export function ConnectionComponent(
                       id="connectButton"
                       className={cn(
                         "flex items-center",
-                        "h-8 px-2 text-2xs sm:h-10 sm:px-4 sm:py-2 sm:text-sm",
+                        "h-8 px-2 text-2xs sm:h-10 sm:px-4 sm:py-2 sm:text-sm"
                       )}
                       onClick={(e) => {
-                        e.preventDefault();
+                        e.preventDefault()
 
-                        openConnectModal();
+                        openConnectModal()
                       }}
                       {...rest}
                     >
                       Connect Wallet
                     </Button>
-                  );
+                  )
                 }
 
                 if (chain.unsupported) {
-                  return (
-                    <Button onClick={openChainModal}>Wrong network</Button>
-                  );
+                  return <Button onClick={openChainModal}>Wrong network</Button>
                 }
 
                 return (
@@ -103,7 +101,7 @@ export function ConnectionComponent(
                       onClick={openChainModal}
                       className={cn(
                         "flex items-center border-zinc-300 dark:border-zinc-700",
-                        "h-8 px-2 text-2xs sm:h-10 sm:px-4 sm:py-2 sm:text-sm",
+                        "h-8 px-2 text-2xs sm:h-10 sm:px-4 sm:py-2 sm:text-sm"
                       )}
                       type="button"
                       {...props}
@@ -138,7 +136,7 @@ export function ConnectionComponent(
                       onClick={() => setIsSlideOverOpen(!isSlideOverOpen)}
                       className={cn(
                         "border-zinc-300 font-bold dark:border-zinc-700",
-                        "h-8 px-2 text-2xs sm:h-10 sm:px-4 sm:py-2 sm:text-sm",
+                        "h-8 px-2 text-2xs sm:h-10 sm:px-4 sm:py-2 sm:text-sm"
                       )}
                       data-testid="account-button"
                       type="button"
@@ -155,14 +153,14 @@ export function ConnectionComponent(
                       {account.displayName}
                     </Button>
                   </div>
-                );
+                )
               })()}
             </div>
-          );
+          )
         }}
       </ConnectButton.Custom>
-    );
-  }, [props["data-iscog"], isSlideOverOpen, account_]);
+    )
+  }, [props["data-iscog"], isSlideOverOpen, account_])
 
   return (
     <>
@@ -177,5 +175,5 @@ export function ConnectionComponent(
         </Suspense>
       </SliderOver>
     </>
-  );
+  )
 }

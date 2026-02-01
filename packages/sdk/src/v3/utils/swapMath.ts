@@ -1,11 +1,13 @@
 /* oxlint-disable @typescript-eslint/no-empty-function */
 
-import { NEGATIVE_ONE, ZERO } from "../../core/constants";
-import type { FeeAmount } from "../constants";
-import { FullMath } from "./fullMath";
-import { SqrtPriceMath } from "./sqrtPriceMath";
+import type { FeeAmount } from "../constants"
 
-const MAX_FEE = BigInt(10) ** BigInt(6);
+import { NEGATIVE_ONE, ZERO } from "../../core/constants"
+
+import { FullMath } from "./fullMath"
+import { SqrtPriceMath } from "./sqrtPriceMath"
+
+const MAX_FEE = BigInt(10) ** BigInt(6)
 
 export abstract class SwapMath {
   /**
@@ -18,45 +20,45 @@ export abstract class SwapMath {
     sqrtRatioTargetX96: bigint,
     liquidity: bigint,
     amountRemaining: bigint,
-    feePips: FeeAmount,
+    feePips: FeeAmount
   ): [bigint, bigint, bigint, bigint] {
     const returnValues: Partial<{
-      sqrtRatioNextX96: bigint;
-      amountIn: bigint;
-      amountOut: bigint;
-      feeAmount: bigint;
-    }> = {};
+      sqrtRatioNextX96: bigint
+      amountIn: bigint
+      amountOut: bigint
+      feeAmount: bigint
+    }> = {}
 
-    const zeroForOne = sqrtRatioCurrentX96 >= sqrtRatioTargetX96;
-    const exactIn = amountRemaining >= ZERO;
+    const zeroForOne = sqrtRatioCurrentX96 >= sqrtRatioTargetX96
+    const exactIn = amountRemaining >= ZERO
 
     if (exactIn) {
       const amountRemainingLessFee =
-        (amountRemaining * (MAX_FEE - BigInt(feePips))) / MAX_FEE;
+        (amountRemaining * (MAX_FEE - BigInt(feePips))) / MAX_FEE
 
       returnValues.amountIn = zeroForOne
         ? SqrtPriceMath.getAmount0Delta(
             sqrtRatioTargetX96,
             sqrtRatioCurrentX96,
             liquidity,
-            true,
+            true
           )
         : SqrtPriceMath.getAmount1Delta(
             sqrtRatioCurrentX96,
             sqrtRatioTargetX96,
             liquidity,
-            true,
-          );
+            true
+          )
 
       if (amountRemainingLessFee >= returnValues.amountIn) {
-        returnValues.sqrtRatioNextX96 = sqrtRatioTargetX96;
+        returnValues.sqrtRatioNextX96 = sqrtRatioTargetX96
       } else {
         returnValues.sqrtRatioNextX96 = SqrtPriceMath.getNextSqrtPriceFromInput(
           sqrtRatioCurrentX96,
           liquidity,
           amountRemainingLessFee,
-          zeroForOne,
-        );
+          zeroForOne
+        )
       }
     } else {
       returnValues.amountOut = zeroForOne
@@ -64,28 +66,28 @@ export abstract class SwapMath {
             sqrtRatioTargetX96,
             sqrtRatioCurrentX96,
             liquidity,
-            false,
+            false
           )
         : SqrtPriceMath.getAmount0Delta(
             sqrtRatioCurrentX96,
             sqrtRatioTargetX96,
             liquidity,
-            false,
-          );
+            false
+          )
       if (amountRemaining * NEGATIVE_ONE >= returnValues.amountOut) {
-        returnValues.sqrtRatioNextX96 = sqrtRatioTargetX96;
+        returnValues.sqrtRatioNextX96 = sqrtRatioTargetX96
       } else {
         returnValues.sqrtRatioNextX96 =
           SqrtPriceMath.getNextSqrtPriceFromOutput(
             sqrtRatioCurrentX96,
             liquidity,
             amountRemaining * NEGATIVE_ONE,
-            zeroForOne,
-          );
+            zeroForOne
+          )
       }
     }
 
-    const max = sqrtRatioTargetX96 === returnValues.sqrtRatioNextX96;
+    const max = sqrtRatioTargetX96 === returnValues.sqrtRatioNextX96
 
     if (zeroForOne) {
       returnValues.amountIn =
@@ -95,8 +97,8 @@ export abstract class SwapMath {
               returnValues.sqrtRatioNextX96,
               sqrtRatioCurrentX96,
               liquidity,
-              true,
-            );
+              true
+            )
       returnValues.amountOut =
         max && !exactIn
           ? returnValues.amountOut
@@ -104,8 +106,8 @@ export abstract class SwapMath {
               returnValues.sqrtRatioNextX96,
               sqrtRatioCurrentX96,
               liquidity,
-              false,
-            );
+              false
+            )
     } else {
       returnValues.amountIn =
         max && exactIn
@@ -114,8 +116,8 @@ export abstract class SwapMath {
               sqrtRatioCurrentX96,
               returnValues.sqrtRatioNextX96,
               liquidity,
-              true,
-            );
+              true
+            )
       returnValues.amountOut =
         max && !exactIn
           ? returnValues.amountOut
@@ -123,26 +125,26 @@ export abstract class SwapMath {
               sqrtRatioCurrentX96,
               returnValues.sqrtRatioNextX96,
               liquidity,
-              false,
-            );
+              false
+            )
     }
 
     if (
       !exactIn &&
       (returnValues.amountOut ?? 0) > amountRemaining * NEGATIVE_ONE
     ) {
-      returnValues.amountOut = amountRemaining * NEGATIVE_ONE;
+      returnValues.amountOut = amountRemaining * NEGATIVE_ONE
     }
 
     if (exactIn && returnValues.sqrtRatioNextX96 !== sqrtRatioTargetX96) {
       // we didn't reach the target, so take the remainder of the maximum input as fee
-      returnValues.feeAmount = amountRemaining - (returnValues.amountIn ?? 0n);
+      returnValues.feeAmount = amountRemaining - (returnValues.amountIn ?? 0n)
     } else {
       returnValues.feeAmount = FullMath.mulDivRoundingUp(
         returnValues.amountIn ?? 0n,
         BigInt(feePips),
-        MAX_FEE - BigInt(feePips),
-      );
+        MAX_FEE - BigInt(feePips)
+      )
     }
 
     return [
@@ -150,6 +152,6 @@ export abstract class SwapMath {
       returnValues.amountIn ?? 0n,
       returnValues.amountOut ?? 0n,
       returnValues.feeAmount,
-    ];
+    ]
   }
 }

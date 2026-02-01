@@ -1,21 +1,21 @@
+import type { Amount, Currency, Native } from "@x7/utils"
+import type { FC } from "react"
+import type { UserPositionsResponse } from "~/lib/hooks/tokens/useGetAllUserTokens"
+
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
-import { useMemo } from "react";
-import type { FC } from "react";
+import { useMemo } from "react"
 
-import { Card, CardContent } from "@x7/ui/card";
-import { Collapsible } from "@x7/ui/radix-collapsible";
-import { StatLabel, StatValue } from "@x7/ui/stat";
-import { CurrencyAmount } from "@x7/utils";
-import type { Amount, Currency, Native } from "@x7/utils";
-
-import type { UserPositionsResponse } from "~/lib/hooks/tokens/useGetAllUserTokens";
+import { Card, CardContent } from "@x7/ui/card"
+import { Collapsible } from "@x7/ui/radix-collapsible"
+import { StatLabel, StatValue } from "@x7/ui/stat"
+import { CurrencyAmount } from "@x7/utils"
 
 interface RemoveSectionPoolInfoCard {
-  position: UserPositionsResponse; // Use for left overs
-  input0: Amount<Currency | Native> | undefined; // Amount Removing
-  input1: Amount<Currency | Native> | undefined; // Amount Removing
-  remainingLiquidity: number;
+  position: UserPositionsResponse // Use for left overs
+  input0: Amount<Currency | Native> | undefined // Amount Removing
+  input1: Amount<Currency | Native> | undefined // Amount Removing
+  remainingLiquidity: number
 }
 
 export const RemoveSectionPoolInfoCard: FC<RemoveSectionPoolInfoCard> = ({
@@ -28,31 +28,31 @@ export const RemoveSectionPoolInfoCard: FC<RemoveSectionPoolInfoCard> = ({
     if (input0 && position) {
       return CurrencyAmount.fromRawAmount(
         input0.currency,
-        position.token0.balance!,
-      );
+        position.token0.balance!
+      )
     } else {
-      return null;
+      return null
     }
-  }, [position, input0]);
+  }, [position, input0])
 
   const token1Balance = useMemo(() => {
     if (input1 && position) {
       return CurrencyAmount.fromRawAmount(
         input1.currency,
-        position.token1.balance!,
-      );
+        position.token1.balance!
+      )
     } else {
-      return null;
+      return null
     }
-  }, [position, input1]);
+  }, [position, input1])
 
   const remainingShare = useMemo(() => {
     if (remainingLiquidity && position) {
-      return (remainingLiquidity / Number(position.liquidity)) * 100;
+      return (remainingLiquidity / Number(position.liquidity)) * 100
     } else {
-      return 0;
+      return 0
     }
-  }, [position, remainingLiquidity]);
+  }, [position, remainingLiquidity])
 
   return (
     <Collapsible
@@ -67,8 +67,8 @@ export const RemoveSectionPoolInfoCard: FC<RemoveSectionPoolInfoCard> = ({
                     .subtract(input0!)
                     .toFixed(
                       Math.floor(
-                        Math.log10(Number(token0Balance?.scale)) / 2,
-                      ) ?? 4,
+                        Math.log10(Number(token0Balance?.scale)) / 2
+                      ) ?? 4
                     )
                 : "Unknown"}
             </StatValue>
@@ -82,8 +82,8 @@ export const RemoveSectionPoolInfoCard: FC<RemoveSectionPoolInfoCard> = ({
                     .subtract(input1!)
                     .toFixed(
                       Math.floor(
-                        Math.log10(Number(token1Balance?.scale)) / 2,
-                      ) ?? 4,
+                        Math.log10(Number(token1Balance?.scale)) / 2
+                      ) ?? 4
                     )
                 : "Unknown"}
             </StatValue>
@@ -96,5 +96,5 @@ export const RemoveSectionPoolInfoCard: FC<RemoveSectionPoolInfoCard> = ({
         </CardContent>
       </Card>
     </Collapsible>
-  );
-};
+  )
+}

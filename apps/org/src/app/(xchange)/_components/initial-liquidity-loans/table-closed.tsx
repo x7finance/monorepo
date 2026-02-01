@@ -1,33 +1,34 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 /* oxlint-disable @typescript-eslint/no-explicit-any */
-"use client";
+"use client"
 
-import React from "react";
-import { useAccount } from "wagmi";
+import type { ChainId } from "@x7/utils"
 
-import type { ChainId } from "@x7/utils";
+import React from "react"
+import { useAccount } from "wagmi"
 
-import { EmptyPioneer } from "~/lib/components/core/empty-pioneer";
-import { useNextLoanID } from "~/lib/hooks/loans/useXchangeLendingPoolData";
-import { useClosedLoanStore } from "./closed-loan-store";
-import { ILLTableConnect } from "./connect";
-import { ILLClosedListItem } from "./initial-liquidity-loan-closed-item";
+import { EmptyPioneer } from "~/lib/components/core/empty-pioneer"
+import { useNextLoanID } from "~/lib/hooks/loans/useXchangeLendingPoolData"
+
+import { useClosedLoanStore } from "./closed-loan-store"
+import { ILLTableConnect } from "./connect"
+import { ILLClosedListItem } from "./initial-liquidity-loan-closed-item"
 
 export function ILLTableClosed() {
-  const { isConnected, chain } = useAccount();
+  const { isConnected, chain } = useAccount()
 
-  const chainId = chain?.id ?? 1;
-  const { closedLoans } = useClosedLoanStore((state) => state);
+  const chainId = chain?.id ?? 1
+  const { closedLoans } = useClosedLoanStore((state) => state)
 
-  const totalSupply = useNextLoanID(chainId as ChainId).nextLoanID;
+  const totalSupply = useNextLoanID(chainId as ChainId).nextLoanID
 
   const loansToDisplay = Array.from(
     { length: totalSupply },
-    (_, idx) => totalSupply - idx - 1,
-  );
+    (_, idx) => totalSupply - idx - 1
+  )
 
   if (!isConnected) {
-    return <ILLTableConnect />;
+    return <ILLTableConnect />
   }
 
   if (closedLoans <= 0) {
@@ -35,7 +36,7 @@ export function ILLTableClosed() {
       <div className="mb-96">
         <EmptyPioneer message="No Loan History" />
       </div>
-    );
+    )
   }
 
   return (
@@ -52,5 +53,5 @@ export function ILLTableClosed() {
         </ul>
       </div>
     </div>
-  );
+  )
 }

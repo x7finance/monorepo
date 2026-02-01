@@ -1,20 +1,19 @@
-import type { FC } from "react";
+import type { FC } from "react"
 
-import { cn } from "@x7/css";
-import { InfoIcon } from "@x7/icons";
-import { useEnabledImplentations } from "@x7/ui";
-import { CardDescription, CardHeader, CardTitle } from "@x7/ui/card";
+import { cn } from "@x7/css"
+import { InfoIcon } from "@x7/icons"
+import { useEnabledImplentations } from "@x7/ui"
+import { CardDescription, CardHeader, CardTitle } from "@x7/ui/card"
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@x7/ui/hover-card";
-import { Label } from "@x7/ui/label";
-import { LinkInternal } from "@x7/ui/link";
-import { Switch } from "@x7/ui/switch";
-import { Implementation } from "@x7/utils";
-
-import { ImplementationIcon } from "~/app/(xchange)/_components/swap/swap-implementation-logos";
+} from "@x7/ui/hover-card"
+import { Label } from "@x7/ui/label"
+import { LinkInternal } from "@x7/ui/link"
+import { Switch } from "@x7/ui/switch"
+import { Implementation } from "@x7/utils"
+import { ImplementationIcon } from "~/app/(xchange)/_components/swap/swap-implementation-logos"
 
 const implementationClassOverrides = {
   [Implementation.XCHANGE]: "h-5",
@@ -22,33 +21,33 @@ const implementationClassOverrides = {
   [Implementation.UNISWAP]: "h-5",
   [Implementation.PANCAKESWAP]: "h-5",
   [Implementation.SUSHISWAP]: "h-4 text-muted-foreground",
-};
+}
 
 export const EnabledImplementations: FC<{
   options?: {
-    storageKey?: string;
-    defaultValue?: string;
-  };
+    storageKey?: string
+    defaultValue?: string
+  }
 }> = ({ options }) => {
   const [enabledImplementations, setEnabledImplementations] =
-    useEnabledImplentations(options?.storageKey);
+    useEnabledImplentations(options?.storageKey)
 
   const onChange = (value: string) => {
-    const enabledCurrently = enabledImplementations.split(",");
+    const enabledCurrently = enabledImplementations.split(",")
 
     if (enabledCurrently.includes(value)) {
-      const newWithout = enabledCurrently.filter((v) => v !== value).join(",");
+      const newWithout = enabledCurrently.filter((v) => v !== value).join(",")
       if (newWithout.length === 0) {
-        setEnabledImplementations("XCHANGE,UNISWAP");
+        setEnabledImplementations("XCHANGE,UNISWAP")
       } else {
         setEnabledImplementations(
-          enabledCurrently.filter((v) => v !== value).join(","),
-        );
+          enabledCurrently.filter((v) => v !== value).join(",")
+        )
       }
     } else {
-      setEnabledImplementations([...enabledCurrently, value].join(","));
+      setEnabledImplementations([...enabledCurrently, value].join(","))
     }
-  };
+  }
 
   return (
     <HoverCard openDelay={0} closeDelay={0}>
@@ -89,7 +88,7 @@ export const EnabledImplementations: FC<{
               .map((imp) => {
                 const isEnabled = enabledImplementations
                   .split(",")
-                  .includes(imp);
+                  .includes(imp)
                 return (
                   <div key={imp} className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -103,15 +102,15 @@ export const EnabledImplementations: FC<{
                       onCheckedChange={() => onChange(imp)}
                       className={cn(
                         isEnabled ? "bg-emerald-500!" : "bg-zinc-300",
-                        "focus-visible:ring-emerald-500",
+                        "focus-visible:ring-emerald-500"
                       )}
                     />
                   </div>
-                );
+                )
               })}
           </div>
         </div>
       </div>
     </HoverCard>
-  );
-};
+  )
+}

@@ -1,1 +1,0 @@
-{"version":3,"file":"try-parse-amount.d.ts","sourceRoot":"","sources":["try-parse-amount.ts"],"names":[],"mappings":"AAGA,OAAO,EAAE,cAAc,EAAE,MAAM,qCAAqC,CAAC;AACrE,OAAO,KAAK,EAAE,QAAQ,EAAE,MAAM,SAAS,CAAC;AAGxC,wBAAgB,cAAc,CAAC,CAAC,SAAS,QAAQ,EAC/C,KAAK,CAAC,EAAE,MAAM,EACd,QAAQ,CAAC,EAAE,CAAC,GACX,cAAc,CAAC,CAAC,CAAC,GAAG,SAAS,CAgB/B"}

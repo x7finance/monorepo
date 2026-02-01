@@ -1,15 +1,15 @@
-import { Tag } from "@x7/ui/tag";
-import type { ChainId, LoanType } from "@x7/utils";
+import type { ChainId, LoanType } from "@x7/utils"
 
-import { PaymentButton } from "~/app/(dashboard)/_components/loan/payment-button";
-import { useGetTotalDue } from "~/lib/hooks/loans/useXchangeLoanData";
+import { Tag } from "@x7/ui/tag"
+import { PaymentButton } from "~/app/(dashboard)/_components/loan/payment-button"
+import { useGetTotalDue } from "~/lib/hooks/loans/useXchangeLoanData"
 
 interface ILLCardOutstandingAmountProps {
-  tokenByIndex: number;
-  chainId: ChainId;
-  loanType: LoanType;
-  premiumPaymentSchedule: number[][];
-  principalPaymentSchedule: number[][];
+  tokenByIndex: number
+  chainId: ChainId
+  loanType: LoanType
+  premiumPaymentSchedule: number[][]
+  principalPaymentSchedule: number[][]
 }
 
 export function ILLCardOutstandingAmount({
@@ -25,7 +25,7 @@ export function ILLCardOutstandingAmount({
       ? premiumPaymentSchedule[0] && premiumPaymentSchedule[0].length > 0
         ? premiumPaymentSchedule[0][premiumPaymentSchedule[0].length - 1]
         : 0
-      : 0;
+      : 0
 
   const lastPrincipalPayment =
     // oxlint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -33,15 +33,15 @@ export function ILLCardOutstandingAmount({
       ? principalPaymentSchedule[0] && principalPaymentSchedule[0].length > 0
         ? principalPaymentSchedule[0][principalPaymentSchedule[0].length - 1]
         : 0
-      : 0;
+      : 0
 
   const { getTotalDue } = useGetTotalDue(
     tokenByIndex,
     chainId,
     loanType,
     lastPremiumPayment ?? 0,
-    lastPrincipalPayment ?? 0,
-  );
+    lastPrincipalPayment ?? 0
+  )
 
   return (
     <div className="flex w-full border-t border-muted py-2">
@@ -67,5 +67,5 @@ export function ILLCardOutstandingAmount({
         )}
       </span>
     </div>
-  );
+  )
 }

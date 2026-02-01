@@ -1,27 +1,28 @@
-"use client";
+"use client"
 
-import type { Abi } from "viem";
-import { decodeFunctionData } from "viem";
+import type { Abi } from "viem"
 
-import { X7R } from "@x7/contracts";
-import { cn } from "@x7/css";
-import { shortenAddress } from "@x7/utils";
+import { decodeFunctionData } from "viem"
+
+import { X7R } from "@x7/contracts"
+import { cn } from "@x7/css"
+import { shortenAddress } from "@x7/utils"
 
 interface ProposalAction {
-  address: string;
-  calldata: `0x${string}`;
+  address: string
+  calldata: `0x${string}`
 }
 
 interface Proposal {
-  id: string;
-  title: string;
-  description: string;
-  actions: ProposalAction[];
+  id: string
+  title: string
+  description: string
+  actions: ProposalAction[]
   votes: {
-    for: number;
-    against: number;
-    obstained: number;
-  };
+    for: number
+    against: number
+    obstained: number
+  }
 }
 
 const ARBITRARY_DATA: Proposal[] = [
@@ -43,14 +44,14 @@ const ARBITRARY_DATA: Proposal[] = [
       obstained: 0,
     },
   },
-];
+]
 
 const GOVERNANCE_CONTRACTS: Record<string, { name: string; abi: Abi }> = {
   "0x70008f18fc58928dce982b0a69c2c21ff80dca54": {
     name: "X7R",
     abi: X7R as Abi,
   },
-};
+}
 
 const BUTTON_SETUP = {
   for: {
@@ -65,29 +66,29 @@ const BUTTON_SETUP = {
     title: "Obstain",
     className: "border-white bg-black/10",
   },
-};
+}
 
 interface VoteButtonProps {
-  buttonType: "for" | "against" | "obstain";
+  buttonType: "for" | "against" | "obstain"
 }
 
 const VoteButton = (props: VoteButtonProps) => {
-  const buttonDetails = BUTTON_SETUP[props.buttonType];
+  const buttonDetails = BUTTON_SETUP[props.buttonType]
   return (
     <a
       className={cn(
         "cursor-pointer border p-1 text-xs font-bold text-white hover:border-white hover:bg-white/20",
-        buttonDetails.className,
+        buttonDetails.className
       )}
     >
       {buttonDetails.title}
     </a>
-  );
-};
+  )
+}
 
 const Proposal = ({ proposal }: { proposal: Proposal }) => {
   const totalVotes =
-    proposal.votes.for + proposal.votes.against + proposal.votes.obstained;
+    proposal.votes.for + proposal.votes.against + proposal.votes.obstained
 
   return (
     <div
@@ -97,7 +98,7 @@ const Proposal = ({ proposal }: { proposal: Proposal }) => {
           ? "border-emerald-500/10 bg-emerald-500/10"
           : proposal.votes.against > proposal.votes.obstained
             ? "border-red-500/10 bg-red-500/10"
-            : "bg-black/10",
+            : "bg-black/10"
       )}
     >
       <div className="col-span-3">
@@ -110,7 +111,7 @@ const Proposal = ({ proposal }: { proposal: Proposal }) => {
               const { functionName, args } = decodeFunctionData({
                 abi: GOVERNANCE_CONTRACTS[action.address]?.abi ?? X7R,
                 data: action.calldata,
-              });
+              })
 
               return (
                 <div
@@ -121,7 +122,7 @@ const Proposal = ({ proposal }: { proposal: Proposal }) => {
                     shortenAddress(action.address)}
                   : {functionName}({args.join(",")})
                 </div>
-              );
+              )
             })}
           </div>
         </div>
@@ -177,8 +178,8 @@ const Proposal = ({ proposal }: { proposal: Proposal }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export function X7Proposals() {
   // const [open, setOpen] = useState(false);
@@ -187,8 +188,8 @@ export function X7Proposals() {
   return (
     <div className="flex w-full flex-col gap-2">
       {ARBITRARY_DATA.map((proposal) => {
-        return <Proposal key={proposal.id} proposal={proposal} />;
+        return <Proposal key={proposal.id} proposal={proposal} />
       })}
     </div>
-  );
+  )
 }

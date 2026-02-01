@@ -3,28 +3,28 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-call */
 /* oxlint-disable @typescript-eslint/no-unsafe-return */
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
-"use client";
+"use client"
 
-import React, { useEffect, useRef, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { useAccount } from "wagmi";
+import { useQuery } from "@tanstack/react-query"
+import React, { useEffect, useRef, useState } from "react"
+import { useAccount } from "wagmi"
 
-import { Card, CardContent } from "@x7/ui/card";
-import { TabsContent } from "@x7/ui/tabs";
+import { Card, CardContent } from "@x7/ui/card"
+import { TabsContent } from "@x7/ui/tabs"
+import { UnderConstruction } from "~/lib/components/core/under-construction"
+import { useAccountHistory } from "~/lib/hooks/account/useAccountHistory"
 
-import { UnderConstruction } from "~/lib/components/core/under-construction";
-import { useAccountHistory } from "~/lib/hooks/account/useAccountHistory";
-import { ActivityAlchemyTransaction } from "./activity-alchemy-transaction";
-import { ActivityScannerTransaction } from "./activity-scanner-transaction";
+import { ActivityAlchemyTransaction } from "./activity-alchemy-transaction"
+import { ActivityScannerTransaction } from "./activity-scanner-transaction"
 
 interface Transaction {
-  hash: string;
-  value: string;
-  asset: string;
-  timeStamp: string;
-  functionName: string;
-  gasPrice: string;
-  blockNumber: string;
+  hash: string
+  value: string
+  asset: string
+  timeStamp: string
+  functionName: string
+  gasPrice: string
+  blockNumber: string
 }
 
 const useFetchActivityData = (url: string, queryString: string) => {
@@ -32,7 +32,7 @@ const useFetchActivityData = (url: string, queryString: string) => {
     queryKey: ["activityData", url, queryString],
     queryFn: async () => {
       if (!url || !queryString) {
-        throw new Error("URL or queryString is missing");
+        throw new Error("URL or queryString is missing")
       }
       const response = await fetch(url, {
         method: "POST",
@@ -41,46 +41,46 @@ const useFetchActivityData = (url: string, queryString: string) => {
           "Content-Type": "application/json",
         },
         body: queryString,
-      });
+      })
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`HTTP error! status: ${response.status}`)
       }
 
-      return response.json();
+      return response.json()
     },
     enabled: Boolean(url) && Boolean(queryString),
-  });
-};
+  })
+}
 
 export function ActivityTab() {
-  const { address } = useAccount();
-  const containerRef = useRef(null);
-  const [tx, setTx] = useState<any>(null);
-  const [_error, setError] = useState<string | null>(null);
+  const { address } = useAccount()
+  const containerRef = useRef(null)
+  const [tx, setTx] = useState<any>(null)
+  const [_error, setError] = useState<string | null>(null)
 
-  const data = useAccountHistory();
-  const url = data.url || "";
+  const data = useAccountHistory()
+  const url = data.url || ""
   const queryString = data.queryString
     ? decodeURIComponent(data.queryString)
-    : "";
+    : ""
 
   const { data: queryData, error: queryError } = useFetchActivityData(
     url,
-    queryString,
-  );
+    queryString
+  )
 
   useEffect(() => {
     if (queryError) {
-      setError(`Error fetching transaction history: ${queryError.message}`);
+      setError(`Error fetching transaction history: ${queryError.message}`)
     } else if (queryData) {
-      setTx(queryData);
+      setTx(queryData)
     }
-  }, [queryData, queryError]);
+  }, [queryData, queryError])
 
   const renderTransactions = () => {
     if (!address || !tx?.result?.toString()) {
-      return <UnderConstruction type="small" />;
+      return <UnderConstruction type="small" />
     }
 
     if (tx.result?.length > 0 && tx.result.map) {
@@ -89,7 +89,7 @@ export function ActivityTab() {
           key={transaction.hash}
           transaction={transaction}
         />
-      ));
+      ))
     }
 
     if (tx.result?.transfers?.length > 0 && tx.result.transfers.map) {
@@ -100,11 +100,11 @@ export function ActivityTab() {
             key={transaction.hash}
             transaction={transaction}
           />
-        ));
+        ))
     }
 
-    return null;
-  };
+    return null
+  }
 
   return (
     <TabsContent value="activity">
@@ -114,5 +114,5 @@ export function ActivityTab() {
         </CardContent>
       </Card>
     </TabsContent>
-  );
+  )
 }

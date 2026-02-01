@@ -1,15 +1,15 @@
-"use client";
+"use client"
 
-import { useTradeChartPanelLiquidity } from "@x7/ui";
-import { Card, CardContent, CardHeader, CardTitle } from "@x7/ui/card";
+import { useTradeChartPanelLiquidity } from "@x7/ui"
+import { Card, CardContent, CardHeader, CardTitle } from "@x7/ui/card"
 
-import { SwapChartLiquidity } from "./swap-chart-liquidity";
+import { SwapChartLiquidity } from "./swap-chart-liquidity"
 
 export function SwapChartPanel() {
-  const [showTradeChartPanelLiquidity] = useTradeChartPanelLiquidity();
+  const [showTradeChartPanelLiquidity] = useTradeChartPanelLiquidity()
 
   if (!showTradeChartPanelLiquidity) {
-    return null;
+    return null
   }
 
   return (
@@ -30,5 +30,5 @@ export function SwapChartPanel() {
         </Card>
       </div>
     </div>
-  );
+  )
 }

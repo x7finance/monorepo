@@ -1,5 +1,6 @@
-import type { ChainId } from "../../chain";
-import { Token } from "../Token";
+import type { ChainId } from "../../chain"
+
+import { Token } from "../Token"
 
 export function addressMapToTokenMap(
   {
@@ -7,11 +8,11 @@ export function addressMapToTokenMap(
     symbol,
     name,
   }: {
-    decimals: number | string;
-    symbol?: string | undefined;
-    name?: string | undefined;
+    decimals: number | string
+    symbol?: string | undefined
+    name?: string | undefined
   },
-  map: Record<number, `0x${string}`>,
+  map: Record<number, `0x${string}`>
 ) {
   return Object.fromEntries(
     Object.entries(map).map(([chainId, address]) => [
@@ -23,6 +24,6 @@ export function addressMapToTokenMap(
         symbol,
         name,
       }),
-    ]),
-  );
+    ])
+  )
 }

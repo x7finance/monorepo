@@ -1,8 +1,8 @@
-import { cn } from "@x7/css";
+import { cn } from "@x7/css"
+import { ConnectionComponent } from "~/lib/components/utils/web3-connect-button"
 
-import { ConnectionComponent } from "~/lib/components/utils/web3-connect-button";
-import { MobileNav } from "./mobile-nav";
-import { NavItems } from "./nav-items";
+import { MobileNav } from "./mobile-nav"
+import { NavItems } from "./nav-items"
 
 export function MainNav({
   className,
@@ -23,5 +23,5 @@ export function MainNav({
         <ConnectionComponent />
       </div>
     </nav>
-  );
+  )
 }

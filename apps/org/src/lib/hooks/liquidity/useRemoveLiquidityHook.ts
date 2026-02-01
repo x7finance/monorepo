@@ -1,38 +1,39 @@
+import type { SendTransactionReturnType } from "@wagmi/core"
+import type { Amount, ChainId, Currency } from "@x7/utils"
+import type { Address } from "viem"
+import type { LiquidityFees } from "~/lib/hooks/tokens/useGetAllUserTokens"
+
 /* oxlint-disable @typescript-eslint/restrict-template-expressions */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
-import { useCallback, useMemo } from "react";
-import type { SendTransactionReturnType } from "@wagmi/core";
-import type { Address } from "viem";
-import { useSimulateContract, useWriteContract } from "wagmi";
+import { useCallback, useMemo } from "react"
+import { useSimulateContract, useWriteContract } from "wagmi"
 
-import type { Amount, ChainId, Currency } from "@x7/utils";
-import { gasMargin, LogCodes, Native, ZERO } from "@x7/utils";
-
+import { gasMargin, LogCodes, Native, ZERO } from "@x7/utils"
 import {
   ApprovalState,
   useTokenApproval,
-} from "~/lib/hooks/approvals/useTokenApproval";
-import type { LiquidityFees } from "~/lib/hooks/tokens/useGetAllUserTokens";
-import { log } from "~/lib/utils/log";
-import { getXchangeRouterContractConfig } from "../../config/getXchangeRouterContract";
+} from "~/lib/hooks/approvals/useTokenApproval"
+import { log } from "~/lib/utils/log"
+
+import { getXchangeRouterContractConfig } from "../../config/getXchangeRouterContract"
 
 interface UseRemoveLiquidityProps {
-  token0: Currency | Native | undefined;
-  token1: Currency | Native | undefined;
-  chainId: ChainId;
-  liquidityRemoving: Amount<Currency> | undefined;
-  address: Address | undefined;
-  minAmount0: Amount<Currency | Native> | undefined;
-  minAmount1: Amount<Currency | Native> | undefined;
-  deadline: bigint | undefined;
-  ammInput: Amount<Currency> | undefined;
-  contract: Address | undefined;
-  fees: LiquidityFees;
+  token0: Currency | Native | undefined
+  token1: Currency | Native | undefined
+  chainId: ChainId
+  liquidityRemoving: Amount<Currency> | undefined
+  address: Address | undefined
+  minAmount0: Amount<Currency | Native> | undefined
+  minAmount1: Amount<Currency | Native> | undefined
+  deadline: bigint | undefined
+  ammInput: Amount<Currency> | undefined
+  contract: Address | undefined
+  fees: LiquidityFees
   mutation: {
-    onSuccess: (data: SendTransactionReturnType) => void;
-    onError: (e: Error) => void;
-  };
+    onSuccess: (data: SendTransactionReturnType) => void
+    onError: (e: Error) => void
+  }
 }
 
 export function useRemoveLiquidity({
@@ -53,14 +54,14 @@ export function useRemoveLiquidity({
     amount: ammInput,
     spender: contract,
     enabled: true,
-  });
+  })
 
   const isAmmApproved = useMemo(
     () =>
       token0State === ApprovalState.APPROVED ||
       token0?.equals(Native.onChain(chainId).wrapped),
-    [token0, token0State, chainId],
-  );
+    [token0, token0State, chainId]
+  )
 
   const prepareNative = useCallback(() => {
     if (
@@ -73,26 +74,26 @@ export function useRemoveLiquidity({
       !deadline ||
       !isAmmApproved
     ) {
-      return undefined;
+      return undefined
     }
 
     if (minAmount0.equalTo(ZERO) || minAmount1.equalTo(ZERO)) {
-      return undefined;
+      return undefined
     }
 
-    const isToken0Native = token0.isNative;
+    const isToken0Native = token0.isNative
     const tokenAddress = isToken0Native
       ? token1.wrapped.address
-      : token0.wrapped.address;
+      : token0.wrapped.address
 
     // Apply 2% slippage buffer to minimum amounts
-    const slippageBuffer = 98n; // 98% of original amount (2% slippage)
+    const slippageBuffer = 98n // 98% of original amount (2% slippage)
     const tokenMinAmount = isToken0Native
       ? (minAmount1.quotient * slippageBuffer) / 100n
-      : (minAmount0.quotient * slippageBuffer) / 100n;
+      : (minAmount0.quotient * slippageBuffer) / 100n
     const ethMinAmount = isToken0Native
       ? (minAmount0.quotient * slippageBuffer) / 100n
-      : (minAmount1.quotient * slippageBuffer) / 100n;
+      : (minAmount1.quotient * slippageBuffer) / 100n
 
     const args = [
       tokenAddress,
@@ -101,15 +102,15 @@ export function useRemoveLiquidity({
       ethMinAmount,
       address,
       deadline,
-    ] as const;
+    ] as const
 
-    const contract = getXchangeRouterContractConfig(chainId);
+    const contract = getXchangeRouterContractConfig(chainId)
 
     const hasFees =
       fees.token0.buyFeeBps > 0n ||
       fees.token0.sellFeeBps > 0n ||
       fees.token1.buyFeeBps > 0n ||
-      fees.token1.sellFeeBps > 0n;
+      fees.token1.sellFeeBps > 0n
 
     return {
       account: address,
@@ -120,7 +121,7 @@ export function useRemoveLiquidity({
         ? "removeLiquidityETHSupportingFeeOnTransferTokens"
         : "removeLiquidityETH",
       args,
-    } as const;
+    } as const
   }, [
     token0,
     token1,
@@ -132,7 +133,7 @@ export function useRemoveLiquidity({
     fees,
     isAmmApproved,
     chainId,
-  ]);
+  ])
 
   const prepareNonNative = useCallback(() => {
     if (
@@ -145,11 +146,11 @@ export function useRemoveLiquidity({
       !deadline ||
       !isAmmApproved
     ) {
-      return undefined;
+      return undefined
     }
 
     if (minAmount0.equalTo(ZERO) || minAmount1.equalTo(ZERO)) {
-      return undefined;
+      return undefined
     }
 
     const args = [
@@ -160,9 +161,9 @@ export function useRemoveLiquidity({
       minAmount1.quotient,
       address,
       deadline,
-    ] as const;
+    ] as const
 
-    const contract = getXchangeRouterContractConfig(chainId);
+    const contract = getXchangeRouterContractConfig(chainId)
 
     return {
       account: address,
@@ -171,7 +172,7 @@ export function useRemoveLiquidity({
       abi: contract.abi,
       functionName: "removeLiquidity",
       args,
-    } as const;
+    } as const
   }, [
     token0,
     token1,
@@ -182,12 +183,12 @@ export function useRemoveLiquidity({
     deadline,
     isAmmApproved,
     chainId,
-  ]);
+  ])
 
   const prepare = useMemo(() => {
-    const isWithNative = token0?.isNative || token1?.isNative;
-    return isWithNative ? prepareNative() : prepareNonNative();
-  }, [token0, token1, prepareNative, prepareNonNative]);
+    const isWithNative = token0?.isNative || token1?.isNative
+    return isWithNative ? prepareNative() : prepareNonNative()
+  }, [token0, token1, prepareNative, prepareNonNative])
 
   const { data: simulation } = useSimulateContract(
     prepare
@@ -197,8 +198,8 @@ export function useRemoveLiquidity({
             enabled: Boolean(prepare),
           },
         }
-      : { query: { enabled: false } },
-  );
+      : { query: { enabled: false } }
+  )
 
   const {
     writeContractAsync,
@@ -206,10 +207,10 @@ export function useRemoveLiquidity({
     ...rest
   } = useWriteContract({
     mutation,
-  });
+  })
 
   const write = useMemo(() => {
-    if (!writeContractAsync || !simulation) return undefined;
+    if (!writeContractAsync || !simulation) return undefined
 
     return async (confirm: () => void) => {
       try {
@@ -218,16 +219,16 @@ export function useRemoveLiquidity({
           gas: simulation.request.gas
             ? gasMargin(simulation.request.gas)
             : undefined,
-        });
-        confirm();
+        })
+        confirm()
       } catch (error) {
-        log.error(LogCodes.FAIL, "Error removing liquidity: ", `${error}`);
+        log.error(LogCodes.FAIL, "Error removing liquidity: ", `${error}`)
       }
-    };
-  }, [writeContractAsync, simulation]);
+    }
+  }, [writeContractAsync, simulation])
 
   return {
     ...rest,
     write,
-  };
+  }
 }

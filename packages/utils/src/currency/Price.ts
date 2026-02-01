@@ -1,19 +1,20 @@
+import type Rounding from "../math/Rounding"
+import type { Currency } from "./Type"
+
 /* oxlint-disable @typescript-eslint/no-unsafe-argument */
 /* oxlint-disable @typescript-eslint/no-explicit-any */
-import invariant from "tiny-invariant";
+import invariant from "tiny-invariant"
 
-import { CurrencyAmount } from "../math/fractions/currencyAmount";
-import Fraction from "../math/Fraction";
-import type Rounding from "../math/Rounding";
-import type { Currency } from "./Type";
+import Fraction from "../math/Fraction"
+import { CurrencyAmount } from "../math/fractions/currencyAmount"
 
 export class Price<
   TBase extends Currency,
   TQuote extends Currency,
 > extends Fraction {
-  public readonly baseCurrency: TBase; // input i.e. denominator
-  public readonly quoteCurrency: TQuote; // output i.e. numerator
-  public readonly scalar: Fraction; // used to adjust the raw fraction w/r/t the decimals of the {base,quote}Token
+  public readonly baseCurrency: TBase // input i.e. denominator
+  public readonly quoteCurrency: TQuote // output i.e. numerator
+  public readonly scalar: Fraction // used to adjust the raw fraction w/r/t the decimals of the {base,quote}Token
 
   /**
    * Construct a price, either with the base and quote currency amount, or the
@@ -24,35 +25,35 @@ export class Price<
       | [TBase, TQuote, bigint, bigint]
       | [
           {
-            baseAmount: CurrencyAmount<TBase>;
-            quoteAmount: CurrencyAmount<TQuote>;
+            baseAmount: CurrencyAmount<TBase>
+            quoteAmount: CurrencyAmount<TQuote>
           },
         ]
   ) {
-    let baseCurrency: TBase;
-    let quoteCurrency: TQuote;
-    let denominator: bigint;
-    let numerator: bigint;
+    let baseCurrency: TBase
+    let quoteCurrency: TQuote
+    let denominator: bigint
+    let numerator: bigint
 
     if (args.length === 4) {
-      [baseCurrency, quoteCurrency, denominator, numerator] = args;
+      ;[baseCurrency, quoteCurrency, denominator, numerator] = args
     } else {
-      const result = args[0].quoteAmount.divide(args[0].baseAmount);
-      [baseCurrency, quoteCurrency, denominator, numerator] = [
+      const result = args[0].quoteAmount.divide(args[0].baseAmount)
+      ;[baseCurrency, quoteCurrency, denominator, numerator] = [
         args[0].baseAmount.currency,
         args[0].quoteAmount.currency,
         result.denominator,
         result.numerator,
-      ];
+      ]
     }
-    super(numerator, denominator);
+    super(numerator, denominator)
 
-    this.baseCurrency = baseCurrency;
-    this.quoteCurrency = quoteCurrency;
+    this.baseCurrency = baseCurrency
+    this.quoteCurrency = quoteCurrency
     this.scalar = new Fraction(
       10n ** BigInt(baseCurrency.decimals),
-      10n ** BigInt(quoteCurrency.decimals),
-    );
+      10n ** BigInt(quoteCurrency.decimals)
+    )
   }
 
   /**
@@ -63,8 +64,8 @@ export class Price<
       this.quoteCurrency,
       this.baseCurrency,
       this.numerator,
-      this.denominator,
-    );
+      this.denominator
+    )
   }
 
   /**
@@ -72,16 +73,16 @@ export class Price<
    * @param other the other price
    */
   public override multiply<TOtherQuote extends Currency>(
-    other: Price<TQuote, TOtherQuote>,
+    other: Price<TQuote, TOtherQuote>
   ): Price<TBase, TOtherQuote> {
-    invariant(this.quoteCurrency.equals(other.baseCurrency), "TOKEN");
-    const fraction = super.multiply(other);
+    invariant(this.quoteCurrency.equals(other.baseCurrency), "TOKEN")
+    const fraction = super.multiply(other)
     return new Price(
       this.baseCurrency,
       other.quoteCurrency,
       fraction.denominator,
-      fraction.numerator,
-    );
+      fraction.numerator
+    )
   }
 
   /**
@@ -89,14 +90,14 @@ export class Price<
    * @param currencyAmount the amount of base currency to quote against the price
    */
   public quote(currencyAmount: CurrencyAmount<TBase>): CurrencyAmount<TQuote> {
-    invariant(currencyAmount.currency.equals(this.baseCurrency), "TOKEN");
+    invariant(currencyAmount.currency.equals(this.baseCurrency), "TOKEN")
 
-    const result = super.multiply(currencyAmount);
+    const result = super.multiply(currencyAmount)
     return CurrencyAmount.fromFractionalAmount(
       this.quoteCurrency,
       result.numerator,
-      result.denominator,
-    );
+      result.denominator
+    )
   }
 
   /**
@@ -104,26 +105,26 @@ export class Price<
    * @private
    */
   private get adjustedForDecimals(): Fraction {
-    return super.multiply(this.scalar);
+    return super.multiply(this.scalar)
   }
 
   public override toSignificant(
     significantDigits = 6,
     format?: any,
-    rounding?: Rounding,
+    rounding?: Rounding
   ): string {
     return this.adjustedForDecimals.toSignificant(
       significantDigits,
       format,
-      rounding,
-    );
+      rounding
+    )
   }
 
   public override toFixed(
     decimalPlaces = 4,
     format?: object,
-    rounding?: Rounding,
+    rounding?: Rounding
   ): string {
-    return this.adjustedForDecimals.toFixed(decimalPlaces, format, rounding);
+    return this.adjustedForDecimals.toFixed(decimalPlaces, format, rounding)
   }
 }

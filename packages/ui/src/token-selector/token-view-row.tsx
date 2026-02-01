@@ -1,45 +1,46 @@
 /* oxlint-disable @typescript-eslint/unbound-method */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 
-import type { CSSProperties, FC, ReactElement } from "react";
-import React, { memo, useCallback } from "react";
+import type {
+  CurrencyAmount,
+  Currency as CurrencyType,
+  Fraction,
+} from "@x7/utils"
+import type { CSSProperties, FC, ReactElement } from "react"
 
-import { cn } from "@x7/css";
+import React, { memo, useCallback } from "react"
+
+import { cn } from "@x7/css"
 import {
   AlertCircleIcon,
   ArrowUpRightSquareIcon,
   CheckIcon,
   StarIcon,
-} from "@x7/icons";
-import { Chain, ZERO } from "@x7/utils";
-import type {
-  CurrencyAmount,
-  Currency as CurrencyType,
-  Fraction,
-} from "@x7/utils";
+} from "@x7/icons"
+import { Chain, ZERO } from "@x7/utils"
 
-import { Button } from "../button";
-import { CurrencyIcon } from "../currency/currency-icon";
-import { LinkExternal } from "../link";
-import { SkeletonText } from "../skeleton";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../tooltip";
+import { Button } from "../button"
+import { CurrencyIcon } from "../currency/currency-icon"
+import { LinkExternal } from "../link"
+import { SkeletonText } from "../skeleton"
+import { Tooltip, TooltipContent, TooltipTrigger } from "../tooltip"
 
 export interface TokenViewRow {
-  id: string;
-  account?: `0x${string}`;
-  currency: CurrencyType;
-  style?: CSSProperties;
-  className?: string;
-  onSelect(currency: CurrencyType): void;
-  balance?: CurrencyAmount<CurrencyType> | undefined;
-  showWarning: boolean;
-  price?: Fraction;
+  id: string
+  account?: `0x${string}`
+  currency: CurrencyType
+  style?: CSSProperties
+  className?: string
+  onSelect(currency: CurrencyType): void
+  balance?: CurrencyAmount<CurrencyType> | undefined
+  showWarning: boolean
+  price?: Fraction
   pin?: {
-    isPinned: boolean;
-    onPin(): void;
-  };
-  selected: boolean;
-  isBalanceLoading: boolean;
+    isPinned: boolean
+    onPin(): void
+  }
+  selected: boolean
+  isBalanceLoading: boolean
 }
 
 export const TokenViewRow: FC<TokenViewRow> = memo(function TokenViewRow({
@@ -55,16 +56,16 @@ export const TokenViewRow: FC<TokenViewRow> = memo(function TokenViewRow({
   showWarning,
 }) {
   const onClick = useCallback(() => {
-    onSelect(currency);
-  }, [currency, onSelect]);
+    onSelect(currency)
+  }, [currency, onSelect])
 
   const onPin = useCallback(
     (e: React.MouseEvent | React.KeyboardEvent) => {
-      e.stopPropagation();
-      pin?.onPin();
+      e.stopPropagation()
+      pin?.onPin()
     },
-    [pin],
-  );
+    [pin]
+  )
 
   return (
     <div className="relative h-[64px] py-0.5" style={style}>
@@ -74,7 +75,7 @@ export const TokenViewRow: FC<TokenViewRow> = memo(function TokenViewRow({
         className={cn(
           className,
           selected ? "bg-muted" : "",
-          `group hover:bg-background focus:bg-accent flex h-full w-full items-center rounded-lg px-3 token-${currency.symbol}`,
+          `group hover:bg-background focus:bg-accent flex h-full w-full items-center rounded-lg px-3 token-${currency.symbol}`
         )}
       >
         <div className="flex grow cursor-pointer items-center justify-between gap-2 rounded-sm">
@@ -147,7 +148,7 @@ export const TokenViewRow: FC<TokenViewRow> = memo(function TokenViewRow({
                     target="_blank"
                     rel="noopener noreferrer"
                     href={`${Chain.from(currency.chainId)?.getTokenUrl(
-                      currency.wrapped.address,
+                      currency.wrapped.address
                     )}`}
                     className="flex items-center justify-center gap-1 text-sky-500 hover:underline"
                   >
@@ -175,7 +176,7 @@ export const TokenViewRow: FC<TokenViewRow> = memo(function TokenViewRow({
                   <span
                     className={cn(
                       selected ? "font-semibold" : "font-medium",
-                      "truncate text-right text-zinc-900 dark:text-zinc-50",
+                      "truncate text-right text-zinc-900 dark:text-zinc-50"
                     )}
                   >
                     {balance.toFixed(6)}
@@ -198,7 +199,7 @@ export const TokenViewRow: FC<TokenViewRow> = memo(function TokenViewRow({
                     pin.isPinned
                       ? "fill-sky-300 text-sky-300 dark:fill-sky-500 dark:text-sky-500"
                       : "text-zinc-300 dark:text-zinc-700",
-                    "h-5 w-5",
+                    "h-5 w-5"
                   )}
                 />
               </Button>
@@ -207,14 +208,14 @@ export const TokenViewRow: FC<TokenViewRow> = memo(function TokenViewRow({
         </div>
       </div>
     </div>
-  );
-});
+  )
+})
 
 interface Badge {
-  badgeContent: ReactElement;
-  children: ReactElement;
-  className?: string;
-  position?: "top-left" | "bottom-right" | "top-right" | "bottom-left";
+  badgeContent: ReactElement
+  children: ReactElement
+  className?: string
+  position?: "top-left" | "bottom-right" | "top-right" | "bottom-left"
 }
 
 const Badge: FC<Badge> = ({
@@ -237,12 +238,12 @@ const Badge: FC<Badge> = ({
                 ? "top-[15%] -right-1/4"
                 : position === "bottom-left"
                   ? "-bottom-[15%] -left-1/4"
-                  : "",
+                  : ""
         )}
       >
         {badgeContent}
       </div>
       {children}
     </div>
-  );
-};
+  )
+}

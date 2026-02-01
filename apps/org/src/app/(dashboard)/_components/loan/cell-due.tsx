@@ -1,22 +1,22 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 /* oxlint-disable @typescript-eslint/no-unsafe-argument */
-"use client";
+"use client"
 
-import { Tag } from "@x7/ui/tag";
-import { generateChainDenomination } from "@x7/utils";
-import type { ChainId, LoanType } from "@x7/utils";
+import type { ChainId, LoanType } from "@x7/utils"
 
+import { Tag } from "@x7/ui/tag"
+import { generateChainDenomination } from "@x7/utils"
 import {
   useGetPremiumPaymentSchedule,
   useGetPrincipalPaymentSchedule,
   useGetTotalDue,
-} from "~/lib/hooks/loans/useXchangeLoanData";
+} from "~/lib/hooks/loans/useXchangeLoanData"
 
 interface LoansCellProps {
-  tokenByIndex: number;
-  chainId: ChainId;
-  loanType: LoanType;
+  tokenByIndex: number
+  chainId: ChainId
+  loanType: LoanType
 }
 
 export function LoanCellDue({
@@ -27,22 +27,22 @@ export function LoanCellDue({
   const premiumPaymentSchedule = useGetPremiumPaymentSchedule(
     tokenByIndex,
     chainId,
-    loanType,
-  ).getPremiumPaymentSchedule;
+    loanType
+  ).getPremiumPaymentSchedule
 
   const principalPaymentSchedule = useGetPrincipalPaymentSchedule(
     tokenByIndex,
     chainId,
-    loanType,
-  ).getPrincipalPaymentSchedule;
+    loanType
+  ).getPrincipalPaymentSchedule
 
   const totalDue = useGetTotalDue(
     tokenByIndex,
     chainId,
     loanType,
     premiumPaymentSchedule?.[premiumPaymentSchedule?.[0]?.length - 1],
-    principalPaymentSchedule?.[principalPaymentSchedule?.[0]?.length - 1],
-  ).getTotalDue;
+    principalPaymentSchedule?.[principalPaymentSchedule?.[0]?.length - 1]
+  ).getTotalDue
   return (
     <div className="flex items-center space-x-2">
       <div>
@@ -51,5 +51,5 @@ export function LoanCellDue({
         </Tag>
       </div>
     </div>
-  );
+  )
 }

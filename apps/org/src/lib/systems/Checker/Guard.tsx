@@ -1,12 +1,13 @@
-import type { FC } from "react";
-import React from "react";
+import type { ButtonProps } from "@x7/ui/button"
+import type { FC } from "react"
 
-import type { ButtonProps } from "@x7/ui/button";
-import { Button } from "@x7/ui/button";
+import React from "react"
+
+import { Button } from "@x7/ui/button"
 
 interface GuardProps extends ButtonProps {
-  guardWhen: boolean;
-  guardText: string;
+  guardWhen: boolean
+  guardText: string
 }
 
 const Guard: FC<GuardProps> = ({
@@ -22,10 +23,10 @@ const Guard: FC<GuardProps> = ({
       <Button size={size} fullWidth={fullWidth} disabled {...props}>
         {guardText}
       </Button>
-    );
+    )
   }
 
-  return <>{children}</>;
-};
+  return <>{children}</>
+}
 
-export { Guard, type GuardProps };
+export { Guard, type GuardProps }

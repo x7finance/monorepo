@@ -1,29 +1,30 @@
+import type { MetadataDocType } from "~/lib/utils/generateMetadataFromDoc"
+
+import Markdoc from "@markdoc/markdoc"
+import { notFound } from "next/navigation"
 /* oxlint-disable @typescript-eslint/no-unsafe-argument */
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
-import React from "react";
-import { notFound } from "next/navigation";
-import Markdoc from "@markdoc/markdoc";
+import React from "react"
 
-import { BlogBase } from "~/app/(marketing)/blog/_components/base";
-import { components } from "~/app/(marketing)/blog/_utils/config.markdoc";
-import { getMarkdownContent } from "~/app/(marketing)/blog/_utils/markdoc-parse";
-import { generateBlogPostSlugs } from "~/lib/utils/generateBlogPostSlugs";
-import type { MetadataDocType } from "~/lib/utils/generateMetadataFromDoc";
-import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc";
+import { BlogBase } from "~/app/(marketing)/blog/_components/base"
+import { components } from "~/app/(marketing)/blog/_utils/config.markdoc"
+import { getMarkdownContent } from "~/app/(marketing)/blog/_utils/markdoc-parse"
+import { generateBlogPostSlugs } from "~/lib/utils/generateBlogPostSlugs"
+import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
 
 export async function generateStaticParams() {
-  return await generateBlogPostSlugs();
+  return await generateBlogPostSlugs()
 }
 
 export async function generateMetadata({ params }: { params: any }) {
-  const post = await getMarkdownContent(params);
+  const post = await getMarkdownContent(params)
 
   if (!post) {
-    return {};
+    return {}
   }
 
-  return generateMetadataFromDoc(post as MetadataDocType);
+  return generateMetadataFromDoc(post as MetadataDocType)
 }
 
 export default async function BlogPage({ params }: { params: any }) {
@@ -37,10 +38,10 @@ export default async function BlogPage({ params }: { params: any }) {
     section,
     summary,
     authors,
-  } = await getMarkdownContent(params);
+  } = await getMarkdownContent(params)
 
   if (!content) {
-    notFound();
+    notFound()
   }
 
   return (
@@ -56,5 +57,5 @@ export default async function BlogPage({ params }: { params: any }) {
     >
       {Markdoc.renderers.react(content, React, { components })}
     </BlogBase>
-  );
+  )
 }

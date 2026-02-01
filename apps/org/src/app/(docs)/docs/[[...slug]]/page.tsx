@@ -1,37 +1,39 @@
+import type { MetadataDocType } from "~/lib/utils/generateMetadataFromDoc"
+
+import Markdoc from "@markdoc/markdoc"
+import { notFound } from "next/navigation"
 /* oxlint-disable @typescript-eslint/no-unsafe-argument */
 /* oxlint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
-import { notFound } from "next/navigation";
-import Markdoc from "@markdoc/markdoc";
+import React from "react"
 
-import { generateDocsSlugs } from "~/lib/utils/generateDocsSlugs";
-import type { MetadataDocType } from "~/lib/utils/generateMetadataFromDoc";
-import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc";
-import { DocsBase } from "../../_components/base";
-import { components } from "../../_utils/config.markdoc";
-import { getMarkdownContent } from "../../_utils/markdoc-parse";
+import { generateDocsSlugs } from "~/lib/utils/generateDocsSlugs"
+import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
+
+import { DocsBase } from "../../_components/base"
+import { components } from "../../_utils/config.markdoc"
+import { getMarkdownContent } from "../../_utils/markdoc-parse"
 
 export async function generateStaticParams() {
-  return generateDocsSlugs();
+  return generateDocsSlugs()
 }
 
 export async function generateMetadata({ params }: { params: any }) {
-  const doc = await getMarkdownContent(params);
+  const doc = await getMarkdownContent(params)
 
   // oxlint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!doc) {
-    return {};
+    return {}
   }
 
-  return generateMetadataFromDoc(doc as MetadataDocType);
+  return generateMetadataFromDoc(doc as MetadataDocType)
 }
 
 export default async function DocsPage({ params }: { params: any }) {
   const { content, title, tags, tableOfContents, date, slug, section } =
-    await getMarkdownContent(params);
+    await getMarkdownContent(params)
 
   if (!content) {
-    notFound();
+    notFound()
   }
 
   return (
@@ -45,5 +47,5 @@ export default async function DocsPage({ params }: { params: any }) {
     >
       {Markdoc.renderers.react(content, React, { components })}
     </DocsBase>
-  );
+  )
 }

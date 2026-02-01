@@ -1,27 +1,28 @@
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
-"use client";
+"use client"
 
-import type { CSSProperties, FC, ReactElement } from "react";
-import React, { useCallback } from "react";
-import AutoSizer from "react-virtualized-auto-sizer";
-import { FixedSizeList } from "react-window";
+import type { CSSProperties, FC, ReactElement } from "react"
+
+import React, { useCallback } from "react"
+import AutoSizer from "react-virtualized-auto-sizer"
+import { FixedSizeList } from "react-window"
 
 type RowCallback<_TData> = (row: {
-  index: number;
-  style: CSSProperties;
-}) => ReactElement;
+  index: number
+  style: CSSProperties
+}) => ReactElement
 
 export interface ListProps<TData> {
-  className?: string;
-  rowHeight?: number;
-  rowRenderer: FC<TData>;
-  rowData: TData[];
+  className?: string
+  rowHeight?: number
+  rowRenderer: FC<TData>
+  rowData: TData[]
 }
 
 export type ListComponent = <TData>(
-  props: ListProps<TData>,
-) => React.ReactElement | null;
+  props: ListProps<TData>
+) => React.ReactElement | null
 
 export function CurrencyList<TData>({
   className,
@@ -31,10 +32,10 @@ export function CurrencyList<TData>({
 }: ListProps<TData>) {
   const Row: any = useCallback<RowCallback<TData>>(
     ({ index, style }) => {
-      return <RowComponent style={style} {...rowData[index]!} />;
+      return <RowComponent style={style} {...rowData[index]!} />
     },
-    [RowComponent, rowData],
-  );
+    [RowComponent, rowData]
+  )
 
   return (
     <AutoSizer disableWidth className={className}>
@@ -50,8 +51,8 @@ export function CurrencyList<TData>({
           >
             {Row}
           </FixedSizeList>
-        );
+        )
       }}
     </AutoSizer>
-  );
+  )
 }

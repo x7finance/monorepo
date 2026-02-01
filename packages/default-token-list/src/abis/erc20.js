@@ -219,4 +219,4 @@ module.exports = [
     name: "Transfer",
     type: "event",
   },
-];
+]

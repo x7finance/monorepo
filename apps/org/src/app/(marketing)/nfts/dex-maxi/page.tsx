@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
+import type { Metadata } from "next"
 
-import { getRandomPioneerNumber } from "@x7/utils";
+import { getRandomPioneerNumber } from "@x7/utils"
+import { SiteContentContainer } from "~/lib/components/core/site-content-container"
+import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
+import { GradientTypes } from "~/lib/utils/gradients"
+import { DashboardLinksEnum, NftsLinkEnum } from "~/types/links"
 
-import { SiteContentContainer } from "~/lib/components/core/site-content-container";
-import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc";
-import { GradientTypes } from "~/lib/utils/gradients";
-import { DashboardLinksEnum, NftsLinkEnum } from "~/types/links";
-import { Heading } from "../../_components/heading";
-import { SectionStep } from "../../_components/section-step";
+import { Heading } from "../../_components/heading"
+import { SectionStep } from "../../_components/section-step"
 
 const metadata = {
   title: "DEX Maxi NFT",
@@ -15,10 +15,10 @@ const metadata = {
     "Explore X7 Finance's Dex Maxi NFT: A unique digital asset that offers holders exclusive benefits on our Automated Market Making (AMM) Decentralized Exchange (DEX). Learn how the Dex Maxi NFT can enhance your trading experience, provide preferential rates, and unlock new trading opportunities. Understand the mechanics, benefits, and potential returns of our Dex Maxi NFT and elevate your decentralized trading journey.",
   slug: NftsLinkEnum.DexMaxi,
   section: "default",
-};
+}
 
 export function generateMetadata(): Metadata {
-  return generateMetadataFromDoc(metadata);
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function DexMaxiPage() {
@@ -48,5 +48,5 @@ export default function DexMaxiPage() {
         </div>
       </SiteContentContainer>
     </div>
-  );
+  )
 }

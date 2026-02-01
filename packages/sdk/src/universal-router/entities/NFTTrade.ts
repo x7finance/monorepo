@@ -1,33 +1,34 @@
-import invariant from "tiny-invariant";
+import type { RoutePlanner } from "../utils/routerCommands"
+import type { Command, TradeConfig } from "./Command"
 
-import type { RoutePlanner } from "../utils/routerCommands";
-import type { Command, TradeConfig } from "./Command";
-import { RouterTradeType } from "./Command";
+import invariant from "tiny-invariant"
+
+import { RouterTradeType } from "./Command"
 
 export abstract class NFTTrade<T> implements Command {
-  readonly tradeType: RouterTradeType = RouterTradeType.NFTTrade;
-  readonly orders: T[];
-  readonly market: Market;
+  readonly tradeType: RouterTradeType = RouterTradeType.NFTTrade
+  readonly orders: T[]
+  readonly market: Market
 
   constructor(market: Market, orders: T[]) {
-    invariant(orders.length > 0, "no buy Items");
-    this.market = market;
-    this.orders = orders;
+    invariant(orders.length > 0, "no buy Items")
+    this.market = market
+    this.orders = orders
   }
 
-  abstract encode(planner: RoutePlanner, config: TradeConfig): void;
+  abstract encode(planner: RoutePlanner, config: TradeConfig): void
 
-  abstract getBuyItems(): BuyItem[];
+  abstract getBuyItems(): BuyItem[]
 
   // optional parameter for the markets that accept ERC20s not just ETH
-  abstract getTotalPrice(token?: string): bigint;
+  abstract getTotalPrice(token?: string): bigint
 }
 
 export interface BuyItem {
-  tokenAddress: string;
-  tokenId: bigint;
-  tokenType: TokenType;
-  amount?: bigint; // for 1155
+  tokenAddress: string
+  tokenId: bigint
+  tokenType: TokenType
+  amount?: bigint // for 1155
 }
 
 export enum Market {

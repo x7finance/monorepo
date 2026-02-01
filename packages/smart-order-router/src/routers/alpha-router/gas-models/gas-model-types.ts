@@ -1,10 +1,10 @@
-import type { CurrencyAmount } from "../../../utils/amounts";
+import type { CurrencyAmount } from "../../../utils/amounts"
 
 export interface L1ToL2GasCosts {
-  gasUsedL1: bigint;
-  gasUsedL1OnL2: bigint;
-  gasCostL1USD: CurrencyAmount;
-  gasCostL1QuoteToken: CurrencyAmount;
+  gasUsedL1: bigint
+  gasUsedL1OnL2: bigint
+  gasCostL1USD: CurrencyAmount
+  gasCostL1QuoteToken: CurrencyAmount
 }
 
 /**
@@ -23,10 +23,10 @@ export interface L1ToL2GasCosts {
  */
 export interface IGasModel<TRouteWithValidQuote> {
   estimateGasCost(routeWithValidQuote: TRouteWithValidQuote): {
-    gasEstimate: bigint;
-    gasCostInToken: CurrencyAmount;
-    gasCostInUSD: CurrencyAmount;
-    gasCostInGasToken?: CurrencyAmount;
-  };
-  calculateL1GasFees?(routes: TRouteWithValidQuote[]): Promise<L1ToL2GasCosts>;
+    gasEstimate: bigint
+    gasCostInToken: CurrencyAmount
+    gasCostInUSD: CurrencyAmount
+    gasCostInGasToken?: CurrencyAmount
+  }
+  calculateL1GasFees?(routes: TRouteWithValidQuote[]): Promise<L1ToL2GasCosts>
 }

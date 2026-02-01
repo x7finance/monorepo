@@ -1,3 +1,4 @@
+import type { CachedRoutes } from "./model/cached-routes"
 /**
  * Provider for getting token data from a Token List.
  *
@@ -10,11 +11,11 @@ import type {
   CurrencyAmount,
   Protocol,
   Token,
-} from "@x7/utils";
-import { TradeType } from "@x7/utils";
+} from "@x7/utils"
 
-import { CacheMode } from "./model";
-import type { CachedRoutes } from "./model/cached-routes";
+import { TradeType } from "@x7/utils"
+
+import { CacheMode } from "./model"
 
 /**
  * Abstract class for a RouteCachingProvider.
@@ -41,7 +42,7 @@ export abstract class IRouteCachingProvider {
     tradeType: TradeType,
     protocols: Protocol[],
     blockNumber: number,
-    optimistic = false,
+    optimistic = false
   ): Promise<CachedRoutes | undefined> => {
     if (
       (await this.getCacheMode(
@@ -49,10 +50,10 @@ export abstract class IRouteCachingProvider {
         amount,
         quoteToken,
         tradeType,
-        protocols,
+        protocols
       )) === CacheMode.Darkmode
     ) {
-      return undefined;
+      return undefined
     }
 
     const cachedRoute = await this._getCachedRoute(
@@ -62,11 +63,11 @@ export abstract class IRouteCachingProvider {
       tradeType,
       protocols,
       blockNumber,
-      optimistic,
-    );
+      optimistic
+    )
 
-    return this.filterExpiredCachedRoutes(cachedRoute, blockNumber, optimistic);
-  };
+    return this.filterExpiredCachedRoutes(cachedRoute, blockNumber, optimistic)
+  }
 
   /**
    * Final implementation of the public `setCachedRoute` method.
@@ -80,22 +81,22 @@ export abstract class IRouteCachingProvider {
   public readonly setCachedRoute = async (
     // Defined as a readonly member instead of a regular function to make it final.
     cachedRoutes: CachedRoutes,
-    amount: CurrencyAmount<Currency>,
+    amount: CurrencyAmount<Currency>
   ): Promise<boolean> => {
     if (
       (await this.getCacheModeFromCachedRoutes(cachedRoutes, amount)) ===
       CacheMode.Darkmode
     ) {
-      return false;
+      return false
     }
 
     cachedRoutes.blocksToLive = await this._getBlocksToLive(
       cachedRoutes,
-      amount,
-    );
+      amount
+    )
 
-    return this._setCachedRoute(cachedRoutes, amount);
-  };
+    return this._setCachedRoute(cachedRoutes, amount)
+  }
 
   /**
    * Returns the CacheMode for the given cachedRoutes and amount
@@ -105,20 +106,20 @@ export abstract class IRouteCachingProvider {
    */
   public getCacheModeFromCachedRoutes(
     cachedRoutes: CachedRoutes,
-    amount: CurrencyAmount<Currency>,
+    amount: CurrencyAmount<Currency>
   ): Promise<CacheMode> {
     const quoteToken =
       cachedRoutes.tradeType === TradeType.EXACT_INPUT
         ? cachedRoutes.tokenOut
-        : cachedRoutes.tokenIn;
+        : cachedRoutes.tokenIn
 
     return this.getCacheMode(
       cachedRoutes.chainId,
       amount,
       quoteToken,
       cachedRoutes.tradeType,
-      cachedRoutes.protocolsCovered,
-    );
+      cachedRoutes.protocolsCovered
+    )
   }
 
   /**
@@ -137,17 +138,17 @@ export abstract class IRouteCachingProvider {
     amount: CurrencyAmount<Currency>,
     quoteToken: Token,
     tradeType: TradeType,
-    protocols: Protocol[],
-  ): Promise<CacheMode>;
+    protocols: Protocol[]
+  ): Promise<CacheMode>
 
   protected filterExpiredCachedRoutes(
     cachedRoutes: CachedRoutes | undefined,
     blockNumber: number,
-    optimistic: boolean,
+    optimistic: boolean
   ): CachedRoutes | undefined {
     return cachedRoutes?.notExpired(blockNumber, optimistic)
       ? cachedRoutes
-      : undefined;
+      : undefined
   }
 
   /**
@@ -168,8 +169,8 @@ export abstract class IRouteCachingProvider {
     tradeType: TradeType,
     protocols: Protocol[],
     currentBlockNumber: number,
-    optimistic: boolean,
-  ): Promise<CachedRoutes | undefined>;
+    optimistic: boolean
+  ): Promise<CachedRoutes | undefined>
 
   /**
    * Internal function to insert the CachedRoute into cache.
@@ -181,8 +182,8 @@ export abstract class IRouteCachingProvider {
    */
   protected abstract _setCachedRoute(
     cachedRoutes: CachedRoutes,
-    amount: CurrencyAmount<Currency>,
-  ): Promise<boolean>;
+    amount: CurrencyAmount<Currency>
+  ): Promise<boolean>
 
   /**
    * Internal function to getBlocksToLive for a given cachedRoute.
@@ -195,6 +196,6 @@ export abstract class IRouteCachingProvider {
    */
   protected abstract _getBlocksToLive(
     cachedRoutes: CachedRoutes,
-    amount: CurrencyAmount<Currency>,
-  ): Promise<number>;
+    amount: CurrencyAmount<Currency>
+  ): Promise<number>
 }

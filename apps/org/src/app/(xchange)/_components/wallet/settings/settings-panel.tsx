@@ -1,5 +1,5 @@
 // import { SettingsScanView } from "./scan-view";
-import { SettingsView } from "./view";
+import { SettingsView } from "./view"
 
 export function SettingsPanel() {
   return (
@@ -7,5 +7,5 @@ export function SettingsPanel() {
       <SettingsView />
       {/* <SettingsScanView /> */}
     </>
-  );
+  )
 }

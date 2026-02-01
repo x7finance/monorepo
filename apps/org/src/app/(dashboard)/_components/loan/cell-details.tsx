@@ -1,21 +1,21 @@
-"use client";
+"use client"
 
-import Link from "next/link";
+import type { ChainId, LoanType } from "@x7/utils"
 
-import { ContractCopy } from "@x7/ui/contract-copy";
-import type { ChainId, LoanType } from "@x7/utils";
+import Link from "next/link"
 
-import { useLoanToken } from "~/lib/hooks/loans/useXchangeLendingPoolData";
+import { ContractCopy } from "@x7/ui/contract-copy"
+import { useLoanToken } from "~/lib/hooks/loans/useXchangeLendingPoolData"
 import {
   useFullLoanAddress,
   useSymbol,
   useTokenSymbol,
-} from "~/lib/hooks/loans/useXchangeLoanData";
+} from "~/lib/hooks/loans/useXchangeLoanData"
 
 interface LoansCellProps {
-  tokenByIndex: number;
-  chainId: ChainId;
-  loanType: LoanType;
+  tokenByIndex: number
+  chainId: ChainId
+  loanType: LoanType
 }
 
 export function LoanCellDetails({
@@ -23,10 +23,10 @@ export function LoanCellDetails({
   chainId,
   loanType,
 }: LoansCellProps) {
-  const symbol = useSymbol(tokenByIndex, chainId, loanType).symbol;
-  const loanAddress = useLoanToken(tokenByIndex, chainId).loanToken;
-  const tokenSymbol = useTokenSymbol(loanAddress, chainId).tokenSymbol;
-  const fullLoanAddress = useFullLoanAddress(chainId, loanType).fullLoanAddress;
+  const symbol = useSymbol(tokenByIndex, chainId, loanType).symbol
+  const loanAddress = useLoanToken(tokenByIndex, chainId).loanToken
+  const tokenSymbol = useTokenSymbol(loanAddress, chainId).tokenSymbol
+  const fullLoanAddress = useFullLoanAddress(chainId, loanType).fullLoanAddress
   return (
     <>
       <span className="flex flex-col">
@@ -44,5 +44,5 @@ export function LoanCellDetails({
 
       <ContractCopy contract={loanAddress} />
     </>
-  );
+  )
 }

@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata } from "next"
 
-import { SiteContentContainer } from "~/lib/components/core/site-content-container";
-import { UnderConstruction } from "~/lib/components/core/under-construction";
-import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc";
-import { Heading } from "../_components/heading";
+import { SiteContentContainer } from "~/lib/components/core/site-content-container"
+import { UnderConstruction } from "~/lib/components/core/under-construction"
+import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
+
+import { Heading } from "../_components/heading"
 
 const metadata = {
   title: "Products",
@@ -11,10 +12,10 @@ const metadata = {
     "Discover X7 Finance's DeFi Product Suite: A comprehensive platform showcasing our innovative decentralized finance solutions. Learn about our Automated Market Making (AMM) Decentralized Exchange (DEX), Lending Pool, Liquidity Loans, and unique Utility NFTs. Understand how our democratic DAO governance model works and how you can participate. Whether you're an investor seeking growth or a project launcher looking for support, X7 Finance's product suite is your gateway to the future of decentralized finance.",
   slug: "/products",
   section: "default",
-};
+}
 
 export function generateMetadata(): Metadata {
-  return generateMetadataFromDoc(metadata);
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function ProductsPage() {
@@ -31,5 +32,5 @@ export default function ProductsPage() {
         </div>
       </SiteContentContainer>
     </div>
-  );
+  )
 }

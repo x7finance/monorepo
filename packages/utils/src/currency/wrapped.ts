@@ -1,9 +1,10 @@
-import { ChainId } from "../chain";
-import { addressMapToTokenMap } from "./functions/address-map-to-token-map";
-import { Token } from "./Token";
-import { WETH9_ADDRESS, WRAPPED_CONTRACTS } from "./weth-addresses";
+import { ChainId } from "../chain"
 
-export { DEAD_ADDRESS, WRAPPED_CONTRACTS } from "./weth-addresses";
+import { addressMapToTokenMap } from "./functions/address-map-to-token-map"
+import { Token } from "./Token"
+import { WETH9_ADDRESS, WRAPPED_CONTRACTS } from "./weth-addresses"
+
+export { DEAD_ADDRESS, WRAPPED_CONTRACTS } from "./weth-addresses"
 
 export const WETH9 = addressMapToTokenMap(
   {
@@ -11,8 +12,8 @@ export const WETH9 = addressMapToTokenMap(
     symbol: "WETH",
     name: "Wrapped Ether",
   },
-  WETH9_ADDRESS,
-) as Record<keyof typeof WETH9_ADDRESS, Token>;
+  WETH9_ADDRESS
+) as Record<keyof typeof WETH9_ADDRESS, Token>
 
 export const WNATIVE = {
   [ChainId.ETHEREUM]: WETH9[ChainId.ETHEREUM],
@@ -51,4 +52,4 @@ export const WNATIVE = {
     symbol: "WBNB",
     name: "Wrapped BNB",
   }),
-} as const;
+} as const

@@ -1,29 +1,29 @@
-"use client";
+"use client"
 
-import { useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation"
 
-import { CreateCoinForm } from "./create-coin-form";
-import { ManageCoinForm } from "./manage-coin-form";
-import { DeployerTemp } from "./deployer-temp";
+import { CreateCoinForm } from "./create-coin-form"
+import { DeployerTemp } from "./deployer-temp"
+import { ManageCoinForm } from "./manage-coin-form"
 
 function getView(tab: string | null) {
   switch (tab) {
     case "create":
-      return <CreateCoinForm />;
+      return <CreateCoinForm />
     case "manage":
-      return  <ManageCoinForm />;
+      return <ManageCoinForm />
     case "deployer":
-      return  <DeployerTemp />;
+      return <DeployerTemp />
     default:
-      return <CreateCoinForm />;
+      return <CreateCoinForm />
   }
 }
 
 export function CreateBase() {
-  const router = useSearchParams();
-  const tab = router.get("tab");
+  const router = useSearchParams()
+  const tab = router.get("tab")
 
-  const view = getView(tab);
+  const view = getView(tab)
 
-  return <>{view}</>;
+  return <>{view}</>
 }

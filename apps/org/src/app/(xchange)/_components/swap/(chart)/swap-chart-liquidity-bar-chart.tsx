@@ -2,7 +2,9 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 /* oxlint-disable @typescript-eslint/no-unsafe-call */
 
-import { scaleSymlog } from "d3-scale";
+import type { ChartConfig } from "@x7/ui/chart"
+
+import { scaleSymlog } from "d3-scale"
 import {
   Bar,
   BarChart,
@@ -10,7 +12,7 @@ import {
   ResponsiveContainer,
   XAxis,
   YAxis,
-} from "recharts";
+} from "recharts"
 
 import {
   ChartContainer,
@@ -18,18 +20,17 @@ import {
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-} from "@x7/ui/chart";
-import type { ChartConfig } from "@x7/ui/chart";
+} from "@x7/ui/chart"
 
 interface ChartDataItem {
-  token: string;
-  loan: number;
-  amount: number;
+  token: string
+  loan: number
+  amount: number
 }
 
 interface SwapChartLiquidityBarChartProps {
-  chartData: ChartDataItem[];
-  dex: string;
+  chartData: ChartDataItem[]
+  dex: string
 }
 
 export function SwapChartLiquidityBarChart({
@@ -45,9 +46,9 @@ export function SwapChartLiquidityBarChart({
       label: "amount",
       color: "hsl(var(--chart-2))",
     },
-  } satisfies ChartConfig;
+  } satisfies ChartConfig
 
-  const scale = scaleSymlog();
+  const scale = scaleSymlog()
 
   return (
     <ResponsiveContainer width={300} height="100%">
@@ -91,5 +92,5 @@ export function SwapChartLiquidityBarChart({
         </BarChart>
       </ChartContainer>
     </ResponsiveContainer>
-  );
+  )
 }

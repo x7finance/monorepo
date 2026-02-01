@@ -1,21 +1,21 @@
-import { Container } from "@x7/ui/container";
+import { Container } from "@x7/ui/container"
+import { AnimatedTabs } from "~/lib/components/core/animate-tabs"
+import { GovernanceTabs } from "~/lib/types"
+import { XchangeLinks } from "~/types/links"
 
-import { AnimatedTabs } from "~/lib/components/core/animate-tabs";
-import { GovernanceTabs } from "~/lib/types";
-import { XchangeLinks } from "~/types/links";
-import { Hero } from "./_components/hero";
+import { Hero } from "./_components/hero"
 
 const governanceTabs = [
   { id: GovernanceTabs.Proposals, label: "Proposals" },
   { id: GovernanceTabs.Stake, label: "Stake" },
   { id: GovernanceTabs.MyVotes, label: "My Previous Votes" },
   { id: GovernanceTabs.PreviousProposals, label: "Previous Proposals" },
-];
+]
 
 export default function GovernanceLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <>
@@ -37,5 +37,5 @@ export default function GovernanceLayout({
         </Container>
       </div>
     </>
-  );
+  )
 }

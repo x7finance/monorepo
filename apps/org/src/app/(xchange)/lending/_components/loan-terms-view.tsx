@@ -2,35 +2,37 @@
 
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 
-import { useEffect, useState } from "react";
-import { useReadContracts } from "wagmi";
+import type { ChainId } from "@x7/utils"
 
-import { X7LendingPoolV2 } from "@x7/contracts";
-import { X7ContractsEnum } from "@x7/sdk";
+import { useEffect, useState } from "react"
+import { useReadContracts } from "wagmi"
+
+import { X7LendingPoolV2 } from "@x7/contracts"
+import { X7ContractsEnum } from "@x7/sdk"
 import {
   Table,
   TableBody,
   TableHead,
   TableHeader,
   TableRow,
-} from "@x7/ui/table";
-import type { ChainId } from "@x7/utils";
-import { generateChainName, LOAN_NAME_MAPPING } from "@x7/utils";
+} from "@x7/ui/table"
+import { generateChainName, LOAN_NAME_MAPPING } from "@x7/utils"
 
-import { useLoanTermData } from "../_hooks/useLoanTermData";
-import { LoanTermRow } from "./loan-term-row";
+import { useLoanTermData } from "../_hooks/useLoanTermData"
+
+import { LoanTermRow } from "./loan-term-row"
 
 interface StatusTableProps {
-  chainId: ChainId;
+  chainId: ChainId
 }
 
 interface LoanTermData {
-  result: string;
+  result: string
 }
 
 export function LoanTermsView({ chainId }: StatusTableProps) {
-  const [loanAddresses, setLoanAddresses] = useState<`0x${string}`[]>([]);
-  const lendingPoolContractAddress = X7ContractsEnum.X7_LendingPool(chainId);
+  const [loanAddresses, setLoanAddresses] = useState<`0x${string}`[]>([])
+  const lendingPoolContractAddress = X7ContractsEnum.X7_LendingPool(chainId)
 
   const { data: ReadContractData } = useReadContracts({
     contracts: [
@@ -41,11 +43,11 @@ export function LoanTermsView({ chainId }: StatusTableProps) {
         chainId,
       },
     ],
-  });
+  })
 
   const activeLoanTermsCount = ReadContractData?.[0]?.result
     ? Number(ReadContractData[0].result)
-    : 0;
+    : 0
 
   const loanContracts = Array.from(
     { length: activeLoanTermsCount },
@@ -55,38 +57,38 @@ export function LoanTermsView({ chainId }: StatusTableProps) {
       functionName: "activeLoanTerms",
       args: [i],
       chainId,
-    }),
-  );
+    })
+  )
 
   const { data: loanTermsData } = useReadContracts({
     contracts: loanContracts,
-  }) as { data: LoanTermData[] };
+  }) as { data: LoanTermData[] }
 
   useEffect(() => {
     if (loanTermsData) {
       const addresses = loanTermsData.map(
-        (item: LoanTermData) => item.result as `0x${string}`,
-      );
-      setLoanAddresses(addresses);
+        (item: LoanTermData) => item.result as `0x${string}`
+      )
+      setLoanAddresses(addresses)
     }
-  }, [loanTermsData]);
+  }, [loanTermsData])
 
-  const { loanTermData } = useLoanTermData(chainId, loanAddresses);
+  const { loanTermData } = useLoanTermData(chainId, loanAddresses)
 
-  const popularLoanOrder = ["Sagittarius", "Cygnus", "Messier", "Centaurus"];
+  const popularLoanOrder = ["Sagittarius", "Cygnus", "Messier", "Centaurus"]
 
   const updatedLoanTermData = loanTermData.map((loan) => ({
     ...loan,
 
     loanName: LOAN_NAME_MAPPING[loan.loanName] || loan.loanName,
-  }));
+  }))
 
   const mostPopular =
     popularLoanOrder.find((newName) =>
-      updatedLoanTermData.some((loan) => loan.loanName === newName),
-    ) || null;
+      updatedLoanTermData.some((loan) => loan.loanName === newName)
+    ) || null
 
-  const filteredLoans = updatedLoanTermData.filter((loan) => loan.loanName);
+  const filteredLoans = updatedLoanTermData.filter((loan) => loan.loanName)
 
   return (
     <>
@@ -132,5 +134,5 @@ export function LoanTermsView({ chainId }: StatusTableProps) {
         </Table>
       </div>
     </>
-  );
+  )
 }

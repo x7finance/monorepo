@@ -11,6 +11,7 @@ These providers were replaced with Zustand stores on 2026-01-31 as part of the c
 ## New Architecture
 
 State is now managed by Zustand stores in:
+
 - `~/lib/stores/swap/` - Swap state (tokens, amounts, quotes)
 - `~/lib/stores/loan/` - Loan state (tokens, terms, quotes)
 
@@ -80,6 +81,7 @@ Replace all imports from stores back to providers:
 ```
 
 Files that need import updates:
+
 - `apps/org/src/app/(xchange)/_components/swap/swap-form.tsx`
 - `apps/org/src/app/(xchange)/_components/swap/(hooks)/use-swap-form-logic.tsx`
 - `apps/org/src/app/(xchange)/_components/swap/swap-routes.tsx`

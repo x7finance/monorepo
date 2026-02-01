@@ -1,17 +1,16 @@
-"use client";
+"use client"
 
-import Image from "next/image";
+import Image from "next/image"
 
-import { LinkInternal } from "@x7/ui/link";
-import { getRandomPioneerNumber } from "@x7/utils";
-
-import { DocsLinks } from "~/types/links";
+import { LinkInternal } from "@x7/ui/link"
+import { getRandomPioneerNumber } from "@x7/utils"
+import { DocsLinks } from "~/types/links"
 
 interface TopNavigationLink {
-  href: string;
-  title: string;
-  section: string;
-  pioneerId: string;
+  href: string
+  title: string
+  section: string
+  pioneerId: string
 }
 
 const TOP_NAVIGATION: TopNavigationLink[] = [
@@ -51,7 +50,7 @@ const TOP_NAVIGATION: TopNavigationLink[] = [
     title: "FAQ",
     pioneerId: getRandomPioneerNumber(),
   },
-];
+]
 
 export function SectionNavigation({ className }: { className?: string }) {
   return (
@@ -80,5 +79,5 @@ export function SectionNavigation({ className }: { className?: string }) {
         </li>
       ))}
     </ul>
-  );
+  )
 }

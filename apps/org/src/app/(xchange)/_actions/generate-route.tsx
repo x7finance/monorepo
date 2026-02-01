@@ -1,55 +1,59 @@
 /* oxlint-disable @typescript-eslint/unbound-method */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
-"use client";
+"use client"
 
-import { getPublicClient, getWalletClient } from "@wagmi/core";
-import type { Config } from "@wagmi/core";
+import type { Config } from "@wagmi/core"
+import type { AlphaRouter, SwapRoute } from "@x7/smart-order-router"
+import type { SwapState } from "~/lib/stores/swap"
 
-import type { AlphaRouter, SwapRoute } from "@x7/smart-order-router";
-import { SwapType, WRAPPED_NATIVE_CURRENCY } from "@x7/smart-order-router";
-import { LogCodes, Percent, TradeType } from "@x7/utils";
+import { getPublicClient, getWalletClient } from "@wagmi/core"
 
-import type { SwapState } from "~/lib/stores/swap";
-import { log } from "~/lib/utils/log";
+import { SwapType, WRAPPED_NATIVE_CURRENCY } from "@x7/smart-order-router"
+import { LogCodes, Percent, TradeType } from "@x7/utils"
+import { log } from "~/lib/utils/log"
 
 export const generateRoute = async (
   swapState: SwapState,
   config: Config,
-  router: AlphaRouter,
+  router: AlphaRouter
 ): Promise<SwapRoute | null> => {
   const {
     state: { token1, token0, swapAmount, recipient },
     mutate: { clearPossibleRoutes },
-  } = swapState;
-  const publicClient = getPublicClient(config);
-  let walletClient;
+  } = swapState
+  const publicClient = getPublicClient(config)
+  let walletClient
 
   try {
-    walletClient = await getWalletClient(config);
+    walletClient = await getWalletClient(config)
   } catch (error) {
-    log.error(LogCodes.FAIL, "No wallet connected", { error });
+    log.error(LogCodes.FAIL, "No wallet connected", { error })
   }
 
   if (!walletClient && !publicClient) {
-    throw new Error("No Clients Detected");
+    throw new Error("No Clients Detected")
   }
 
   if (!token0 || !token1) {
-    throw new Error("No tokens selected!");
+    throw new Error("No tokens selected!")
   }
 
-  const [address] = (await walletClient?.requestAddresses()) ?? [];
+  if (!swapAmount) {
+    throw new Error("No swap amount specified!")
+  }
 
-  clearPossibleRoutes();
+  const [address] = (await walletClient?.requestAddresses()) ?? []
+
+  clearPossibleRoutes()
   //router.abortCurrentRoute();
   if (!router) {
-    throw new Error("No AlphaRouter instance setup");
+    throw new Error("No AlphaRouter instance setup")
   }
 
   // Check for wrap/unwrap cases
-  const nativeCurrency = WRAPPED_NATIVE_CURRENCY[token0.chainId];
-  const isWrap = !token0.isToken && token1.equals(nativeCurrency);
-  const isUnwrap = token0.equals(nativeCurrency) && !token1.isToken;
+  const nativeCurrency = WRAPPED_NATIVE_CURRENCY[token0.chainId]
+  const isWrap = !token0.isToken && token1.equals(nativeCurrency)
+  const isUnwrap = token0.equals(nativeCurrency) && !token1.isToken
 
   if (isWrap || isUnwrap) {
     return router.wrapUnwrap(swapAmount, TradeType.EXACT_INPUT, {
@@ -60,7 +64,7 @@ export const generateRoute = async (
       simulate: {
         fromAddress: recipient ?? address,
       },
-    });
+    })
   }
 
   const route = await router.route(
@@ -79,8 +83,8 @@ export const generateRoute = async (
     },
     {
       enableFeeOnTransferFeeFetching: true,
-    },
-  );
+    }
+  )
 
-  return route;
-};
+  return route
+}

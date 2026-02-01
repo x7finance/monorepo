@@ -1,5 +1,5 @@
 interface LoansCellProps {
-  id: number;
+  id: number
 }
 
 export function LoanCellId({ id }: LoansCellProps) {
@@ -7,5 +7,5 @@ export function LoanCellId({ id }: LoansCellProps) {
     <div>
       <span>{id}</span>
     </div>
-  );
+  )
 }

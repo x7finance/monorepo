@@ -1,5 +1,6 @@
-import type { SVGProps } from "react";
-import { memo } from "react";
+import type { SVGProps } from "react"
+
+import { memo } from "react"
 
 function Dextools(props: SVGProps<SVGSVGElement>) {
   return (
@@ -11,7 +12,7 @@ function Dextools(props: SVGProps<SVGSVGElement>) {
         fill="#00B8D8"
       ></path>
     </svg>
-  );
+  )
 }
 
-export default memo(Dextools);
+export default memo(Dextools)

@@ -1,15 +1,15 @@
+import type { FeeAmount } from "../constants"
+import type { Token } from "@x7/utils"
+
 /* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
 import {
   encodeAbiParameters,
   getContractAddress,
   keccak256,
   parseAbiParameters,
-} from "viem";
+} from "viem"
 
-import type { Token } from "@x7/utils";
-
-import type { FeeAmount } from "../constants";
-import { POOL_INIT_CODE_HASH } from "../constants";
+import { POOL_INIT_CODE_HASH } from "../constants"
 
 /**
  * Computes a pool address
@@ -27,17 +27,17 @@ export function computePoolAddress({
   fee,
   initCodeHashManualOverride,
 }: {
-  factoryAddress: string;
-  tokenA: Token;
-  tokenB: Token;
-  fee: FeeAmount;
-  initCodeHashManualOverride?: string;
+  factoryAddress: string
+  tokenA: Token
+  tokenB: Token
+  fee: FeeAmount
+  initCodeHashManualOverride?: string
 }): `0x${string}` {
   const [token0, token1] = tokenA.sortsBefore(tokenB)
     ? [tokenA, tokenB]
-    : [tokenB, tokenA]; // does safety checks
+    : [tokenB, tokenA] // does safety checks
 
-  const initHash = initCodeHashManualOverride || POOL_INIT_CODE_HASH;
+  const initHash = initCodeHashManualOverride || POOL_INIT_CODE_HASH
 
   return getContractAddress({
     bytecodeHash: initHash as `0x${string}`,
@@ -49,7 +49,7 @@ export function computePoolAddress({
         token1.address,
         fee,
       ]),
-      "hex",
+      "hex"
     ),
-  });
+  })
 }

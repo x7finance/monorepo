@@ -1,9 +1,9 @@
 interface DebounceOptions {
-  before?: boolean;
+  before?: boolean
 }
 
 /* oxlint-disable @typescript-eslint/no-explicit-any */
-type AnyFunction = (...args: any[]) => any;
+type AnyFunction = (...args: any[]) => any
 /* oxlint-enable @typescript-eslint/no-explicit-any */
 
 /**
@@ -19,44 +19,44 @@ type AnyFunction = (...args: any[]) => any;
 export function pDebounce<T extends AnyFunction>(
   fn: T,
   wait: number,
-  options: DebounceOptions = { before: false },
+  options: DebounceOptions = { before: false }
 ): (...args: Parameters<T>) => Promise<ReturnType<T>> {
   if (!Number.isFinite(wait)) {
-    throw new TypeError("Expected `wait` to be a finite number");
+    throw new TypeError("Expected `wait` to be a finite number")
   }
 
-  let leadingValue: ReturnType<T> | undefined;
-  let timeout: ReturnType<typeof setTimeout> | undefined;
-  let resolveList: ((value: ReturnType<T>) => void)[] = [];
+  let leadingValue: ReturnType<T> | undefined
+  let timeout: ReturnType<typeof setTimeout> | undefined
+  let resolveList: ((value: ReturnType<T>) => void)[] = []
 
   return function (this: unknown, ...args: Parameters<T>) {
     return new Promise<ReturnType<T>>((resolve) => {
-      const shouldCallNow = options.before && !timeout;
+      const shouldCallNow = options.before && !timeout
 
-      clearTimeout(timeout);
+      clearTimeout(timeout)
 
       timeout = setTimeout(() => {
-        timeout = undefined;
+        timeout = undefined
 
         const result = options.before
           ? leadingValue
-          : (fn.apply(this, args) as ReturnType<T>);
+          : (fn.apply(this, args) as ReturnType<T>)
 
         for (const resolveFunc of resolveList) {
-          resolveFunc(result as ReturnType<T>);
+          resolveFunc(result as ReturnType<T>)
         }
 
-        resolveList = [];
-      }, wait);
+        resolveList = []
+      }, wait)
 
       if (shouldCallNow) {
-        leadingValue = fn.apply(this, args) as ReturnType<T>;
-        resolve(leadingValue as ReturnType<T>);
+        leadingValue = fn.apply(this, args) as ReturnType<T>
+        resolve(leadingValue as ReturnType<T>)
       } else {
-        resolveList.push(resolve);
+        resolveList.push(resolve)
       }
-    });
-  };
+    })
+  }
 }
 
 /**
@@ -67,23 +67,23 @@ export function pDebounce<T extends AnyFunction>(
  * @returns A wrapped function that deduplicates concurrent calls
  */
 pDebounce.promise = function <T extends AnyFunction>(
-  fn: T,
+  fn: T
 ): (...args: Parameters<T>) => Promise<Awaited<ReturnType<T>>> {
-  let currentPromise: Promise<Awaited<ReturnType<T>>> | undefined;
+  let currentPromise: Promise<Awaited<ReturnType<T>>> | undefined
 
   return async function (
     this: unknown,
     ...args: Parameters<T>
   ): Promise<Awaited<ReturnType<T>>> {
     if (currentPromise) {
-      return currentPromise;
+      return currentPromise
     }
 
     try {
-      currentPromise = fn.apply(this, args) as Promise<Awaited<ReturnType<T>>>;
-      return await currentPromise;
+      currentPromise = fn.apply(this, args) as Promise<Awaited<ReturnType<T>>>
+      return await currentPromise
     } finally {
-      currentPromise = undefined;
+      currentPromise = undefined
     }
-  };
-};
+  }
+}

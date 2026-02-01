@@ -1,6 +1,7 @@
-import { diffTokenLists } from "./diffTokenLists";
-import { VersionUpgrade } from "./getVersionUpgrade";
-import type { TokenInfo } from "./types";
+import type { TokenInfo } from "./types"
+
+import { diffTokenLists } from "./diffTokenLists"
+import { VersionUpgrade } from "./getVersionUpgrade"
 
 /**
  * Returns the minimum version bump for the given list
@@ -9,11 +10,11 @@ import type { TokenInfo } from "./types";
  */
 export function minVersionBump(
   baseList: TokenInfo[],
-  updatedList: TokenInfo[],
+  updatedList: TokenInfo[]
 ): VersionUpgrade {
-  const diff = diffTokenLists(baseList, updatedList);
-  if (diff.removed.length > 0) return VersionUpgrade.MAJOR;
-  if (diff.added.length > 0) return VersionUpgrade.MINOR;
-  if (Object.keys(diff.changed).length > 0) return VersionUpgrade.PATCH;
-  return VersionUpgrade.NONE;
+  const diff = diffTokenLists(baseList, updatedList)
+  if (diff.removed.length > 0) return VersionUpgrade.MAJOR
+  if (diff.added.length > 0) return VersionUpgrade.MINOR
+  if (Object.keys(diff.changed).length > 0) return VersionUpgrade.PATCH
+  return VersionUpgrade.NONE
 }

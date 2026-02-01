@@ -1,33 +1,27 @@
 /* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* oxlint-disable @typescript-eslint/unbound-method */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
-"use client";
+"use client"
 
-import type { FC } from "react";
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  useTransition,
-} from "react";
-import { useAccount } from "wagmi";
+import type { CurrencyInputProps } from "@x7/ui/currency/currency-balance-panel"
+import type { FC } from "react"
 
-import { cn } from "@x7/css";
-import { ChevronDownIcon } from "@x7/icons";
-import { Button } from "@x7/ui/button";
-import { CurrencyBalancePanel } from "@x7/ui/currency/currency-balance-panel";
-import type { CurrencyInputProps } from "@x7/ui/currency/currency-balance-panel";
-import { CurrencyIcon } from "@x7/ui/currency/currency-icon";
-import { PricePanel } from "@x7/ui/currency/price-panel";
-import { SkeletonBox } from "@x7/ui/skeleton";
-import { TextField } from "@x7/ui/text-field";
-import { LogCodes, Native, tryParseAmount } from "@x7/utils";
+import { useCallback, useEffect, useMemo, useState, useTransition } from "react"
+import { useAccount } from "wagmi"
 
-import { TokenSelectorDialog } from "~/lib/components/utils/token-selector-dialog";
-import { useBalanceWeb3 } from "~/lib/hooks/balances/useBalanceWeb3";
-import { usePrice } from "~/lib/hooks/prices/usePrice";
-import { log } from "~/lib/utils/log";
+import { cn } from "@x7/css"
+import { ChevronDownIcon } from "@x7/icons"
+import { Button } from "@x7/ui/button"
+import { CurrencyBalancePanel } from "@x7/ui/currency/currency-balance-panel"
+import { CurrencyIcon } from "@x7/ui/currency/currency-icon"
+import { PricePanel } from "@x7/ui/currency/price-panel"
+import { SkeletonBox } from "@x7/ui/skeleton"
+import { TextField } from "@x7/ui/text-field"
+import { LogCodes, Native, tryParseAmount } from "@x7/utils"
+import { TokenSelectorDialog } from "~/lib/components/utils/token-selector-dialog"
+import { useBalanceWeb3 } from "~/lib/hooks/balances/useBalanceWeb3"
+import { usePrice } from "~/lib/hooks/prices/usePrice"
+import { log } from "~/lib/utils/log"
 
 export const CurrencyInput: FC<CurrencyInputProps> = ({
   id,
@@ -54,9 +48,9 @@ export const CurrencyInput: FC<CurrencyInputProps> = ({
   refetchCounter,
   actionType,
 }) => {
-  const [localValue, setLocalValue] = useState<string>("");
-  const { address } = useAccount();
-  const [pending, startTransition] = useTransition();
+  const [localValue, setLocalValue] = useState<string>("")
+  const { address } = useAccount()
+  const [pending, startTransition] = useTransition()
 
   const {
     data: balance,
@@ -66,30 +60,30 @@ export const CurrencyInput: FC<CurrencyInputProps> = ({
     chainId,
     account: address,
     currency,
-  });
+  })
 
   useEffect(() => {
     if (refetchCounter && refetchCounter > 0) {
       void refetchBalance({
         cancelRefetch: true,
-      });
+      })
     }
-  }, [refetchCounter, refetchBalance]);
+  }, [refetchCounter, refetchBalance])
 
   const { data: price, isLoading: isPriceLoading } = usePrice({
     chainId,
     currency,
-  });
+  })
 
   const { data: nativePrice, isLoading: isNativePriceLoading } = usePrice({
     chainId,
     currency: Native.onChain(chainId),
-  });
+  })
 
   const _value = useMemo(
     () => tryParseAmount(value, currency),
-    [value, currency],
-  );
+    [value, currency]
+  )
 
   const insufficientBalance = useMemo(
     () =>
@@ -99,51 +93,51 @@ export const CurrencyInput: FC<CurrencyInputProps> = ({
       _value &&
       balance.lessThan(_value) &&
       !disableInsufficientBalanceError,
-    [address, type, balance, _value, disableInsufficientBalanceError],
-  );
+    [address, type, balance, _value, disableInsufficientBalanceError]
+  )
 
   // If currency changes, trim input to decimals
   useEffect(() => {
     if (currency && onChange && value.includes(".")) {
-      const [, decimals] = value.split(".");
+      const [, decimals] = value.split(".")
 
       if (
         decimals &&
         currency.decimals !== undefined &&
         decimals.length > currency.decimals
       ) {
-        onChange(Number(value).toFixed(currency.decimals));
+        onChange(Number(value).toFixed(currency.decimals))
       }
     }
-  }, [onChange, currency, value]);
+  }, [onChange, currency, value])
 
   const isLoading =
-    loading ?? currencyLoading ?? isBalanceLoading ?? isNativePriceLoading;
+    loading ?? currencyLoading ?? isBalanceLoading ?? isNativePriceLoading
 
-  const _error = error ?? (insufficientBalance ? "Exceeds Balance" : undefined);
+  const _error = error ?? (insufficientBalance ? "Exceeds Balance" : undefined)
 
   const _onChange = useCallback(
     (value: string) => {
-      setLocalValue(value);
+      setLocalValue(value)
       startTransition(() => {
-        onChange?.(value);
-      });
+        onChange?.(value)
+      })
     },
-    [onChange],
-  );
+    [onChange]
+  )
 
   useEffect(() => {
     if (currency && chainId && currency.chainId !== chainId) {
       log.error(
         LogCodes.CURRENCY_INPUT_CHAIN_MISMATCH,
-        `Selected token chainId not equal to passed chainId, impossible state. Currency chainId: ${currency.chainId}, chainId: ${chainId}`,
-      );
+        `Selected token chainId not equal to passed chainId, impossible state. Currency chainId: ${currency.chainId}, chainId: ${chainId}`
+      )
     }
-  }, [currency, chainId]);
+  }, [currency, chainId])
 
   const selector = useMemo(() => {
     if (!onSelect) {
-      return null;
+      return null
     }
 
     return (
@@ -169,7 +163,7 @@ export const CurrencyInput: FC<CurrencyInputProps> = ({
               ? "bg-zinc-200 p-0 text-xl text-zinc-800 hover:bg-zinc-300 data-[state=inactive]:opacity-30 dark:bg-zinc-700 dark:text-zinc-200 dark:hover:bg-zinc-600"
               : "",
 
-            "font-heading h-9 rounded-full! border-0 data-[state=active]:flex",
+            "font-heading h-9 rounded-full! border-0 data-[state=active]:flex"
           )}
         >
           {currency ? (
@@ -192,7 +186,7 @@ export const CurrencyInput: FC<CurrencyInputProps> = ({
           )}
         </Button>
       </TokenSelectorDialog>
-    );
+    )
     // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, [
     isLoading,
@@ -204,16 +198,16 @@ export const CurrencyInput: FC<CurrencyInputProps> = ({
     allowNative,
     hidePinnedTokens,
     hideSearch,
-  ]);
+  ])
 
-  const memoizedBalance = useMemo(() => balance, [balance]);
+  const memoizedBalance = useMemo(() => balance, [balance])
 
   return (
     <div
       className={cn(
         "relative w-full space-y-1 overflow-hidden border border-zinc-300 pb-2 dark:border-zinc-700",
         className,
-        _error ? "bg-red-500/40 dark:bg-red-900/60" : "",
+        _error ? "bg-red-500/40 dark:bg-red-900/60" : ""
       )}
     >
       <div
@@ -228,7 +222,7 @@ export const CurrencyInput: FC<CurrencyInputProps> = ({
           data-state={isLoading || fetching ? "active" : "inactive"}
           className={cn(
             "data-[state=active]:block data-[state=inactive]:hidden",
-            "absolute inset-0 -left-4 flex items-center justify-between gap-4 px-4",
+            "absolute inset-0 -left-4 flex items-center justify-between gap-4 px-4"
           )}
         >
           <SkeletonBox className="h-[32px] w-24 rounded-lg" />
@@ -249,7 +243,7 @@ export const CurrencyInput: FC<CurrencyInputProps> = ({
             maxDecimals={currency?.decimals}
             data-state={fetching || isLoading ? "inactive" : "active"}
             className={cn(
-              "w-full p-0 py-1 text-3xl font-medium data-[state=inactive]:opacity-0 sm:text-3xl!",
+              "w-full p-0 py-1 text-3xl font-medium data-[state=inactive]:opacity-0 sm:text-3xl!"
             )}
           />
         </div>
@@ -259,7 +253,7 @@ export const CurrencyInput: FC<CurrencyInputProps> = ({
           <div
             id={`${id}-button`}
             className={cn(
-              "flex items-center gap-1 rounded-full py-2 pr-2 pl-2 text-xl font-medium whitespace-nowrap",
+              "flex items-center gap-1 rounded-full py-2 pr-2 pl-2 text-xl font-medium whitespace-nowrap"
             )}
           >
             {currency ? (
@@ -305,5 +299,5 @@ export const CurrencyInput: FC<CurrencyInputProps> = ({
         />
       </div>
     </div>
-  );
-};
+  )
+}

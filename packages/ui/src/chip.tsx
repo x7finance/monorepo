@@ -1,11 +1,11 @@
-import * as React from "react";
-import { cva } from "class-variance-authority";
-import type { VariantProps } from "class-variance-authority";
+import type { ExtractProps, IconComponent } from "./types"
+import type { VariantProps } from "class-variance-authority"
 
-import { cn } from "@x7/css";
-import { XIcon } from "@x7/icons";
+import { cva } from "class-variance-authority"
+import * as React from "react"
 
-import type { ExtractProps, IconComponent } from "./types";
+import { cn } from "@x7/css"
+import { XIcon } from "@x7/icons"
 
 const chipVariants = cva(
   "whitespace-nowrap inline-flex items-center rounded-lg px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2 ring-offset-background",
@@ -29,25 +29,26 @@ const chipVariants = cva(
     defaultVariants: {
       variant: "default",
     },
-  },
-);
+  }
+)
 
 export interface ChipProps
-  extends React.HTMLAttributes<HTMLDivElement>,
+  extends
+    React.HTMLAttributes<HTMLDivElement>,
     Omit<VariantProps<typeof chipVariants>, "hasRemove"> {
-  icon?: IconComponent;
+  icon?: IconComponent
   iconProps?: ExtractProps<React.ElementType<IconComponent>> & {
-    width?: number;
-    height?: number;
-    className?: string;
-  };
-  onClose?: () => void;
+    width?: number
+    height?: number
+    className?: string
+  }
+  onClose?: () => void
 }
 
 const Chip = React.forwardRef<HTMLDivElement, ChipProps>(
   (
     { className, variant, icon: Icon, onClose, iconProps, children, ...props },
-    ref,
+    ref
   ) => {
     return (
       <div
@@ -56,7 +57,7 @@ const Chip = React.forwardRef<HTMLDivElement, ChipProps>(
             variant,
             className: cn(className, "flex flex-nowrap items-center gap-1"),
             hasRemove: onClose ? "yes" : "no",
-          }),
+          })
         )}
         ref={ref}
         {...props}
@@ -74,9 +75,9 @@ const Chip = React.forwardRef<HTMLDivElement, ChipProps>(
           </div>
         ) : null}
       </div>
-    );
-  },
-);
-Chip.displayName = "Chip";
+    )
+  }
+)
+Chip.displayName = "Chip"
 
-export { Chip, chipVariants };
+export { Chip, chipVariants }

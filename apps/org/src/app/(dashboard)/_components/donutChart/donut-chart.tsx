@@ -4,17 +4,18 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-call */
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
-"use client";
+"use client"
 
-import React, { useEffect, useState } from "react";
+import type { Colors, Item, ItemWithRenderProps, Props } from "./types"
 
-import { ArcPath } from "./arc-path";
-import { LegendItem } from "./legend-item";
-import type { Colors, Item, ItemWithRenderProps, Props } from "./types";
-import { DonutChartContext } from "./types";
+import React, { useEffect, useState } from "react"
 
-export type { Colors, Context, Item, ItemWithRenderProps, Props } from "./types";
-export { DonutChartContext } from "./types";
+import { ArcPath } from "./arc-path"
+import { LegendItem } from "./legend-item"
+import { DonutChartContext } from "./types"
+
+export type { Colors, Context, Item, ItemWithRenderProps, Props } from "./types"
+export { DonutChartContext } from "./types"
 
 export const DonutChart: React.FC<Props> = function ({
   className = "donutchart",
@@ -60,21 +61,21 @@ export const DonutChart: React.FC<Props> = function ({
   toggledOffset = 0.04,
   width = 750,
 }) {
-  const [selected, setSelected] = useState<any>(null);
-  const [toggleSelect, setToggleSelect] = useState(false);
+  const [selected, setSelected] = useState<any>(null)
+  const [toggleSelect, setToggleSelect] = useState(false)
 
   useEffect(() => {
     if (interactive) {
-      setSelected(null);
-      setToggleSelect(false);
+      setSelected(null)
+      setToggleSelect(false)
     }
-  }, [interactive, data]);
+  }, [interactive, data])
 
-  const graphWidth = legend ? width * (2 / 3) : width;
+  const graphWidth = legend ? width * (2 / 3) : width
   const total = data.reduce(
     (sum: number, { value }: { value: number }) => sum + value,
-    0,
-  );
+    0
+  )
 
   const { dataWithRenderProps } = data.reduce(
     (
@@ -83,11 +84,11 @@ export const DonutChart: React.FC<Props> = function ({
         dataWithRenderProps,
       }: { angle: number; dataWithRenderProps: ItemWithRenderProps[] },
       item: Item,
-      index: number,
+      index: number
     ) => {
-      const { className, isEmpty, label, value } = item;
-      const isSelected = selected?.label === label;
-      const isToggled = isSelected && toggleSelect;
+      const { className, isEmpty, label, value } = item
+      const isSelected = selected?.label === label
+      const isToggled = isSelected && toggleSelect
 
       return {
         angle: angle + (value / total) * 360,
@@ -107,22 +108,22 @@ export const DonutChart: React.FC<Props> = function ({
               ? {
                   onClick: () => {
                     if (selected?.label === label) {
-                      const toggle = clickToggle ? !toggleSelect : false;
-                      setSelected(item);
-                      setToggleSelect(toggle);
-                      onClick(item, toggle);
+                      const toggle = clickToggle ? !toggleSelect : false
+                      setSelected(item)
+                      setToggleSelect(toggle)
+                      onClick(item, toggle)
                     }
                   },
                   onMouseEnter: () => {
                     if (!toggleSelect) {
-                      setSelected(item);
-                      onMouseEnter(item);
+                      setSelected(item)
+                      onMouseEnter(item)
                     }
                   },
 
                   onMouseLeave: () => {
                     if (!toggleSelect) {
-                      onMouseLeave(item);
+                      onMouseLeave(item)
                     }
                   },
                 }
@@ -130,10 +131,10 @@ export const DonutChart: React.FC<Props> = function ({
           },
         ],
         total: total + value,
-      };
+      }
     },
-    { angle: 0, dataWithRenderProps: [] as ItemWithRenderProps[] },
-  );
+    { angle: 0, dataWithRenderProps: [] as ItemWithRenderProps[] }
+  )
 
   return (
     <>
@@ -214,7 +215,7 @@ export const DonutChart: React.FC<Props> = function ({
                         key={`legenditem-${item.index}-${idx}`}
                         item={item}
                       />
-                    ),
+                    )
                   )}
                 </tbody>
               </table>
@@ -223,5 +224,5 @@ export const DonutChart: React.FC<Props> = function ({
         </div>
       </DonutChartContext.Provider>
     </>
-  );
-};
+  )
+}

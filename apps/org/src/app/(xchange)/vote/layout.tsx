@@ -1,16 +1,16 @@
-"use client";
+"use client"
 
 // import { useSearchParams } from "next/navigation"
-import { Container } from "@x7/ui/container";
-import { LinkInternal } from "@x7/ui/link";
-import { PathnameButton } from "@x7/ui/pathname-button";
+import { Container } from "@x7/ui/container"
+import { LinkInternal } from "@x7/ui/link"
+import { PathnameButton } from "@x7/ui/pathname-button"
 
-import { Hero } from "./_components/hero";
+import { Hero } from "./_components/hero"
 
 export default function TabsLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   // const searchParams = useSearchParams()
 
@@ -101,5 +101,5 @@ export default function TabsLayout({
         </div>
       </section>
     </>
-  );
+  )
 }

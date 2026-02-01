@@ -1,21 +1,21 @@
-/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
-import { Native } from "@x7/utils";
-import type { ChainId, LoanType } from "@x7/utils";
+import type { ChainId, LoanType } from "@x7/utils"
 
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+import { Native } from "@x7/utils"
 import {
   usePremiumFractions,
   useRepaymentFractions,
-} from "~/lib/hooks/loans/useXchangeLoanData";
+} from "~/lib/hooks/loans/useXchangeLoanData"
 
 interface LoanTypeRepaymentFractionProps {
-  key: string;
-  period: number;
-  loanDuration: number;
-  chainId: ChainId;
-  loanTermNumber: LoanType;
-  totalIndices: number;
-  principalFractionDenominator: number;
-  loanAmount: string;
+  key: string
+  period: number
+  loanDuration: number
+  chainId: ChainId
+  loanTermNumber: LoanType
+  totalIndices: number
+  principalFractionDenominator: number
+  loanAmount: string
 }
 
 export function LoanTypeRepaymentFraction({
@@ -27,27 +27,27 @@ export function LoanTypeRepaymentFraction({
   principalFractionDenominator,
   loanAmount,
 }: LoanTypeRepaymentFractionProps) {
-  const nativeCurrency = Native.onChain(chainId);
+  const nativeCurrency = Native.onChain(chainId)
   const { repaymentFractions } = useRepaymentFractions(
     period,
     chainId,
-    loanTermNumber,
-  );
+    loanTermNumber
+  )
   const { premiumFractions } = usePremiumFractions(
     period,
     chainId,
-    loanTermNumber,
-  );
+    loanTermNumber
+  )
 
   if (repaymentFractions === 0 && premiumFractions === 0) {
-    return null;
+    return null
   }
 
   const repaymentAmount =
-    (repaymentFractions / principalFractionDenominator) * Number(loanAmount);
+    (repaymentFractions / principalFractionDenominator) * Number(loanAmount)
   const premiumAmount =
     Number(loanAmount) * (1 + premiumFractions / principalFractionDenominator) -
-    Number(loanAmount);
+    Number(loanAmount)
 
   return (
     <div className="mb-2 flex items-center justify-between">
@@ -69,24 +69,24 @@ export function LoanTypeRepaymentFraction({
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 function formatDateTime(
   loanDuration: number,
   period: number,
-  totalperiod: number,
+  totalperiod: number
 ) {
-  const currentDate = new Date();
-  const adjustedLoanDuration = (loanDuration / totalperiod) * period;
+  const currentDate = new Date()
+  const adjustedLoanDuration = (loanDuration / totalperiod) * period
 
-  const futureDate = new Date(currentDate);
-  const milliseconds = adjustedLoanDuration * 24 * 60 * 60 * 1000;
+  const futureDate = new Date(currentDate)
+  const milliseconds = adjustedLoanDuration * 24 * 60 * 60 * 1000
 
-  futureDate.setTime(currentDate.getTime() + milliseconds);
+  futureDate.setTime(currentDate.getTime() + milliseconds)
 
   const formatDateTime = (dateTime: Date) => {
-    const day = dateTime.getUTCDate().toString().padStart(2, "0");
+    const day = dateTime.getUTCDate().toString().padStart(2, "0")
     const monthNames = [
       "Jan",
       "Feb",
@@ -100,14 +100,14 @@ function formatDateTime(
       "Oct",
       "Nov",
       "Dec",
-    ];
-    const month = monthNames[dateTime.getUTCMonth()];
-    const year = dateTime.getUTCFullYear().toString();
-    const hours = dateTime.getUTCHours().toString().padStart(2, "0");
-    const minutes = dateTime.getUTCMinutes().toString().padStart(2, "0");
+    ]
+    const month = monthNames[dateTime.getUTCMonth()]
+    const year = dateTime.getUTCFullYear().toString()
+    const hours = dateTime.getUTCHours().toString().padStart(2, "0")
+    const minutes = dateTime.getUTCMinutes().toString().padStart(2, "0")
 
-    return `${month} ${day} ${year} ${hours}:${minutes}`;
-  };
+    return `${month} ${day} ${year} ${hours}:${minutes}`
+  }
 
-  return formatDateTime(futureDate);
+  return formatDateTime(futureDate)
 }

@@ -1,13 +1,13 @@
-"use client";
+"use client"
 
-import { InfoIcon } from "@x7/icons";
-import { useTradeChartPanelNewest } from "@x7/ui";
-import { Switch } from "@x7/ui/switch";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@x7/ui/tooltip";
+import { InfoIcon } from "@x7/icons"
+import { useTradeChartPanelNewest } from "@x7/ui"
+import { Switch } from "@x7/ui/switch"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@x7/ui/tooltip"
 
 export function HotPairsToggle() {
   const [showTradeChartPanelNewest, setShowTradeChartPanelNewest] =
-    useTradeChartPanelNewest();
+    useTradeChartPanelNewest()
 
   return (
     <div className="mb-4 flex w-full flex-col gap-4">
@@ -34,5 +34,5 @@ export function HotPairsToggle() {
         </div>
       </div>
     </div>
-  );
+  )
 }

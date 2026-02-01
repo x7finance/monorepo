@@ -1,29 +1,29 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
-"use client";
+"use client"
 
-import type { FC } from "react";
-import { useAccount } from "wagmi";
+import type { ChainId } from "@x7/utils"
+import type { FC } from "react"
 
-import { cn } from "@x7/css";
-import { buttonVariants } from "@x7/ui/button";
+import { useAccount } from "wagmi"
+
+import { cn } from "@x7/css"
+import { buttonVariants } from "@x7/ui/button"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@x7/ui/card";
-import { LinkInternal } from "@x7/ui/link";
-import type { ChainId } from "@x7/utils";
-
-import { useNativeCurrency } from "~/lib/hooks/currency/useNativeCurrency";
+} from "@x7/ui/card"
+import { LinkInternal } from "@x7/ui/link"
+import { useNativeCurrency } from "~/lib/hooks/currency/useNativeCurrency"
 
 export const Hero: FC = () => {
-  const { chain } = useAccount();
+  const { chain } = useAccount()
 
-  const chainId = chain?.id as ChainId;
+  const chainId = chain?.id as ChainId
 
-  const { symbol } = useNativeCurrency({ chainId });
+  const { symbol } = useNativeCurrency({ chainId })
 
   return (
     <Card className="border-0 bg-transparent shadow-none">
@@ -47,7 +47,7 @@ export const Hero: FC = () => {
                 buttonVariants({
                   variant: "outline",
                 }),
-                "w-full flex-1 cursor-pointer sm:w-[unset] sm:flex-0",
+                "w-full flex-1 cursor-pointer sm:w-[unset] sm:flex-0"
               )}
             >
               Learn more about X7 lending
@@ -56,5 +56,5 @@ export const Hero: FC = () => {
         </div>
       </CardContent>
     </Card>
-  );
-};
+  )
+}

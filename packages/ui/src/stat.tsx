@@ -1,8 +1,9 @@
-import { forwardRef } from "react";
-import { cva } from "class-variance-authority";
-import type { VariantProps } from "class-variance-authority";
+import type { VariantProps } from "class-variance-authority"
 
-import { cn } from "@x7/css";
+import { cva } from "class-variance-authority"
+import { forwardRef } from "react"
+
+import { cn } from "@x7/css"
 
 const statVariants = cva("", {
   variants: {
@@ -17,10 +18,11 @@ const statVariants = cva("", {
   defaultVariants: {
     size: "default",
   },
-});
+})
 
 interface StatProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "label" | "value">,
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, "label" | "value">,
     VariantProps<typeof statVariants> {}
 
 const Stat = forwardRef<HTMLDivElement, StatProps>(
@@ -29,10 +31,10 @@ const Stat = forwardRef<HTMLDivElement, StatProps>(
       <div ref={ref} className={statVariants({ size, className })}>
         {children}
       </div>
-    );
-  },
-);
-Stat.displayName = "Stat";
+    )
+  }
+)
+Stat.displayName = "Stat"
 
 const statLabelVariants = cva("text-muted-foreground font-normal", {
   variants: {
@@ -53,10 +55,11 @@ const statLabelVariants = cva("text-muted-foreground font-normal", {
     size: "default",
     align: "left",
   },
-});
+})
 
 interface StatLabelProps
-  extends Omit<React.HTMLAttributes<HTMLSpanElement>, "label" | "value">,
+  extends
+    Omit<React.HTMLAttributes<HTMLSpanElement>, "label" | "value">,
     VariantProps<typeof statLabelVariants> {}
 
 const StatLabel = forwardRef<HTMLSpanElement, StatLabelProps>(
@@ -65,10 +68,10 @@ const StatLabel = forwardRef<HTMLSpanElement, StatLabelProps>(
       <span ref={ref} className={statLabelVariants({ size, align, className })}>
         {children}
       </span>
-    );
-  },
-);
-StatLabel.displayName = "StatLabel";
+    )
+  }
+)
+StatLabel.displayName = "StatLabel"
 
 const statValueVariants = cva("font-medium", {
   variants: {
@@ -92,10 +95,11 @@ const statValueVariants = cva("font-medium", {
     size: "default",
     align: "left",
   },
-});
+})
 
 interface StatValueProps
-  extends Omit<React.HTMLAttributes<HTMLSpanElement>, "label" | "value">,
+  extends
+    Omit<React.HTMLAttributes<HTMLSpanElement>, "label" | "value">,
     VariantProps<typeof statValueVariants> {}
 
 const StatValue = forwardRef<HTMLSpanElement, StatValueProps>(
@@ -107,9 +111,9 @@ const StatValue = forwardRef<HTMLSpanElement, StatValueProps>(
       >
         {children}
       </span>
-    );
-  },
-);
-StatValue.displayName = "StatValue";
+    )
+  }
+)
+StatValue.displayName = "StatValue"
 
-export { Stat, StatLabel, StatValue };
+export { Stat, StatLabel, StatValue }

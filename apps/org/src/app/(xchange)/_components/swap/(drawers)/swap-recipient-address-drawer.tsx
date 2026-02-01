@@ -1,12 +1,12 @@
-"use client";
+"use client"
 
-import React, { useEffect, useState } from "react";
-import { isAddress } from "viem";
+import React, { useEffect, useState } from "react"
+import { isAddress } from "viem"
 
-import { cn } from "@x7/css";
-import { PlusCircleIcon } from "@x7/icons";
-import { useRecipientAddress, useRecipientAddressState } from "@x7/ui";
-import { Button } from "@x7/ui/button";
+import { cn } from "@x7/css"
+import { PlusCircleIcon } from "@x7/icons"
+import { useRecipientAddress, useRecipientAddressState } from "@x7/ui"
+import { Button } from "@x7/ui/button"
 import {
   Drawer,
   DrawerClose,
@@ -16,19 +16,19 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@x7/ui/drawer";
-import { Input } from "@x7/ui/input";
-import { Label } from "@x7/ui/label";
-import { PasteButton } from "@x7/ui/paste-button";
+} from "@x7/ui/drawer"
+import { Input } from "@x7/ui/input"
+import { Label } from "@x7/ui/label"
+import { PasteButton } from "@x7/ui/paste-button"
 
 export function SwapRecipientAddressDrawer() {
-  const [recipientAddressState] = useRecipientAddressState();
-  const [recipientAddress] = useRecipientAddress();
-  const [open, setOpen] = useState(false);
+  const [recipientAddressState] = useRecipientAddressState()
+  const [recipientAddress] = useRecipientAddress()
+  const [open, setOpen] = useState(false)
 
   const displayAccountName = recipientAddress
     ? formatAddress(recipientAddress)
-    : "Add Address";
+    : "Add Address"
 
   return (
     recipientAddressState && (
@@ -71,39 +71,39 @@ export function SwapRecipientAddressDrawer() {
         </div>
       </div>
     )
-  );
+  )
 }
 
 function ProfileForm({ className }: { className: string }) {
-  const [inputValue, setInputValue] = useState("");
-  const [recipientAddress, setRecipientAddress] = useRecipientAddress();
+  const [inputValue, setInputValue] = useState("")
+  const [recipientAddress, setRecipientAddress] = useRecipientAddress()
 
   useEffect(() => {
-    setInputValue(recipientAddress);
+    setInputValue(recipientAddress)
     // oxlint-disable-next-line react-hooks/exhaustive-deps
-  }, [useRecipientAddress]);
+  }, [useRecipientAddress])
 
   const handlePaste = (pastedContent: string) => {
-    setInputValue(pastedContent);
-  };
+    setInputValue(pastedContent)
+  }
 
   const handleClick = () => {
     if (!isAddress(inputValue)) {
-      return;
+      return
     }
-    setRecipientAddress(inputValue);
-  };
+    setRecipientAddress(inputValue)
+  }
 
   const handleClear = () => {
-    setInputValue("");
-    setRecipientAddress("");
-  };
+    setInputValue("")
+    setRecipientAddress("")
+  }
 
   return (
     <div
       className={cn(
         "mx-auto grid w-full max-w-xl items-start gap-4 text-center",
-        className,
+        className
       )}
     >
       <div className="grid gap-2">
@@ -138,16 +138,16 @@ function ProfileForm({ className }: { className: string }) {
         </Button>
       )}
     </div>
-  );
+  )
 }
 
 function formatAddress(address: string): string {
-  const leadingChars = 5;
-  const trailingChars = 5;
+  const leadingChars = 5
+  const trailingChars = 5
 
   return address.length < leadingChars + trailingChars
     ? address
     : `${address.substring(0, leadingChars)}\u2026${address.substring(
-        address.length - trailingChars,
-      )}`;
+        address.length - trailingChars
+      )}`
 }

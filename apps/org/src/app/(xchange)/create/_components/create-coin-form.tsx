@@ -1,21 +1,23 @@
 /* oxlint-disable react-hooks/exhaustive-deps */
 /* oxlint-disable @typescript-eslint/no-unused-vars */
-"use client";
+"use client"
 
-import { useEffect, useMemo, useState } from "react";
-import Image from "next/image";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { parseEther } from "viem";
-import { useAccount, useChainId } from "wagmi";
-import { z } from "zod";
+import type { ChainId } from "@x7/utils"
 
-import { AlertCircleIcon, ChevronDownIcon, ChevronUpIcon } from "@x7/icons";
-import { X7ContractsEnum } from "@x7/sdk";
-import { Alert, AlertDescription } from "@x7/ui/alert";
-import { Button } from "@x7/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@x7/ui/card";
+import { zodResolver } from "@hookform/resolvers/zod"
+import Image from "next/image"
+import { useEffect, useMemo, useState } from "react"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { parseEther } from "viem"
+import { useAccount, useChainId } from "wagmi"
+import { z } from "zod"
+
+import { AlertCircleIcon, ChevronDownIcon, ChevronUpIcon } from "@x7/icons"
+import { X7ContractsEnum } from "@x7/sdk"
+import { Alert, AlertDescription } from "@x7/ui/alert"
+import { Button } from "@x7/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@x7/ui/card"
 import {
   Form,
   FormControl,
@@ -24,20 +26,19 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@x7/ui/form";
-import { Input } from "@x7/ui/input";
+} from "@x7/ui/form"
+import { Input } from "@x7/ui/input"
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@x7/ui/radix-collapsible";
-import { Textarea } from "@x7/ui/textarea";
-import type { ChainId } from "@x7/utils";
+} from "@x7/ui/radix-collapsible"
+import { Textarea } from "@x7/ui/textarea"
+import { LogCodes } from "@x7/utils"
+import { uploadMetadataToIPFS } from "~/lib/utils/ifps"
+import { log } from "~/lib/utils/log"
 
-import { uploadMetadataToIPFS } from "~/lib/utils/ifps";
-import { log } from "~/lib/utils/log";
-import { LogCodes } from "@x7/utils";
-import { useDeployToken } from "../_hooks/useDeployToken";
+import { useDeployToken } from "../_hooks/useDeployToken"
 
 const formSchema = z
   .object({
@@ -78,12 +79,12 @@ const formSchema = z
       .optional()
       .refine(
         (value) => {
-          if (!value) return true;
-          return /^0x[a-fA-F0-9]{40}$/.test(value);
+          if (!value) return true
+          return /^0x[a-fA-F0-9]{40}$/.test(value)
         },
         {
           message: "Invalid address",
-        },
+        }
       ),
 
     teamTokens: z.coerce
@@ -101,19 +102,19 @@ const formSchema = z
         path: ["taxWallet"],
         message:
           "Tax wallet is required when buy tax or sell tax is greater than 0",
-      });
+      })
     }
-  });
+  })
 
-type CreateCoinForm = z.infer<typeof formSchema>;
+type CreateCoinForm = z.infer<typeof formSchema>
 
 export function CreateCoinForm() {
-  const { address } = useAccount();
-  const chainId = useChainId() as ChainId;
+  const { address } = useAccount()
+  const chainId = useChainId() as ChainId
 
-  const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
-  const [isSocialsOpen, setIsSocialsOpen] = useState(false);
-  const [previewUrl, setPreviewUrl] = useState<string>();
+  const [isAdvancedOpen, setIsAdvancedOpen] = useState(false)
+  const [isSocialsOpen, setIsSocialsOpen] = useState(false)
+  const [previewUrl, setPreviewUrl] = useState<string>()
 
   const form = useForm<CreateCoinForm>({
     resolver: zodResolver(formSchema),
@@ -131,29 +132,29 @@ export function CreateCoinForm() {
       taxWallet: address,
       teamTokens: 0,
     },
-  });
+  })
 
   useEffect(() => {
     if (address) {
-      form.setValue("taxWallet", address);
+      form.setValue("taxWallet", address)
     }
-  }, [address, form]);
+  }, [address, form])
 
   const deployParams = useMemo(() => {
-    const name = form.watch("name");
-    const symbol = form.watch("ticker");
-    const description = form.watch("description");
-    const twitterLink = form.watch("twitterLink") ?? "";
-    const telegramLink = form.watch("telegramLink") ?? "";
-    const websiteLink = form.watch("websiteLink") ?? "";
-    const tokenURI = form.watch("tokenURI") ?? "";
-    const supply = BigInt(form.watch("supply"));
-    const buyTax = form.watch("buyTax");
-    const sellTax = form.watch("sellTax");
-    const taxWallet = form.watch("taxWallet") ?? address ?? "";
-    const teamTokens = form.watch("teamTokens");
+    const name = form.watch("name")
+    const symbol = form.watch("ticker")
+    const description = form.watch("description")
+    const twitterLink = form.watch("twitterLink") ?? ""
+    const telegramLink = form.watch("telegramLink") ?? ""
+    const websiteLink = form.watch("websiteLink") ?? ""
+    const tokenURI = form.watch("tokenURI") ?? ""
+    const supply = BigInt(form.watch("supply"))
+    const buyTax = form.watch("buyTax")
+    const sellTax = form.watch("sellTax")
+    const taxWallet = form.watch("taxWallet") ?? address ?? ""
+    const teamTokens = form.watch("teamTokens")
 
-    const deadline = BigInt(Math.floor(Date.now() / 1000) + 3600);
+    const deadline = BigInt(Math.floor(Date.now() / 1000) + 3600)
 
     const params = {
       name,
@@ -173,9 +174,9 @@ export function CreateCoinForm() {
       sellTax,
       taxWallet,
       enabled: Boolean(name && symbol && description),
-    };
+    }
 
-    return params;
+    return params
   }, [
     form.watch("name"),
     form.watch("ticker"),
@@ -190,80 +191,83 @@ export function CreateCoinForm() {
     form.watch("sellTax"),
     form.watch("taxWallet"),
     chainId,
-  ]);
+  ])
 
-  const { writeContract, isPending, data, error } =
-    useDeployToken(deployParams);
+  const { writeContract, isPending, data, error } = useDeployToken(deployParams)
 
   function onSubmit() {
     if (!address) {
-      toast.error("Please connect your wallet");
-      return;
+      toast.error("Please connect your wallet")
+      return
     }
 
     try {
       if (!data?.request) {
-        toast.error("There was an error with your request");
-        return;
+        toast.error("There was an error with your request")
+        return
       }
 
-      writeContract(data.request);
+      writeContract(data.request)
     } catch (error) {
       log.error(LogCodes.TX_FAIL, "Failed to deploy token", {
         error: error instanceof Error ? error.message : String(error),
-      });
+      })
       toast.error(
-        error instanceof Error ? error.message : "Failed to deploy token",
-      );
+        error instanceof Error ? error.message : "Failed to deploy token"
+      )
     }
   }
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.[0]) {
       try {
-        const file = e.target.files[0];
+        const file = e.target.files[0]
 
-        const objectUrl = URL.createObjectURL(file);
-        setPreviewUrl(objectUrl);
+        const objectUrl = URL.createObjectURL(file)
+        setPreviewUrl(objectUrl)
 
         const tokenURI = await uploadMetadataToIPFS(
           form.getValues("name"),
           form.getValues("description"),
-          file,
-        );
+          file
+        )
 
-        const cleanedTokenURI = tokenURI?.replace("ipfs://", "");
-        form.setValue("tokenURI", cleanedTokenURI);
+        const cleanedTokenURI = tokenURI?.replace("ipfs://", "")
+        form.setValue("tokenURI", cleanedTokenURI)
       } catch (error) {
-        toast.error("Failed to process image file");
-        log.error(LogCodes.IPFS_UPLOAD_FAIL, "Failed to process image file for IPFS upload", {
-          error: error instanceof Error ? error.message : String(error),
-        });
+        toast.error("Failed to process image file")
+        log.error(
+          LogCodes.IPFS_UPLOAD_FAIL,
+          "Failed to process image file for IPFS upload",
+          {
+            error: error instanceof Error ? error.message : String(error),
+          }
+        )
       }
     }
-  };
+  }
 
   useEffect(() => {
-    const formErrors = form.formState.errors;
+    const formErrors = form.formState.errors
     if (Object.keys(formErrors).length > 0) {
       log.debug(LogCodes.UI_FORM_VALIDATION, "Form validation errors", {
         errors: Object.keys(formErrors),
-      });
+      })
       Object.entries(formErrors).forEach(([field, error]) => {
         if (error.message) {
-          toast.error(`${field}: ${error.message}`);
+          toast.error(`${field}: ${error.message}`)
         }
-      });
+      })
     }
-  }, [form.formState.errors]);
+  }, [form.formState.errors])
 
   useEffect(() => {
     return () => {
       if (previewUrl) {
-        URL.revokeObjectURL(previewUrl);
+        URL.revokeObjectURL(previewUrl)
       }
-    };
-  }, [previewUrl]);
+    }
+  }, [previewUrl])
 
   return (
     <Card className="mx-auto mt-8 max-w-lg transition-colors duration-300 hover:border-emerald-500 focus:z-20">
@@ -546,5 +550,5 @@ export function CreateCoinForm() {
         </Form>
       </CardContent>
     </Card>
-  );
+  )
 }

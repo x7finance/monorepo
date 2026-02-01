@@ -1,7 +1,7 @@
-import Image from "next/image";
+import Image from "next/image"
 
-import { CircleLoading } from "@x7/ui/circle-loading";
-import { getRandomPioneerNumber } from "@x7/utils";
+import { CircleLoading } from "@x7/ui/circle-loading"
+import { getRandomPioneerNumber } from "@x7/utils"
 
 export function LoadingPioneer() {
   return (
@@ -19,5 +19,5 @@ export function LoadingPioneer() {
         </div>
       </div>
     </div>
-  );
+  )
 }

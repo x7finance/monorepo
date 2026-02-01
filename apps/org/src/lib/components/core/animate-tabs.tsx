@@ -1,14 +1,6 @@
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
-"use client";
-
-import { useEffect, useRef, useState } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
-import { easings, useSpring, useTransition } from "@react-spring/web";
-
-import { cn } from "@x7/css";
-import { AnimatedDiv } from "@x7/ui";
-import { LinkInternal } from "@x7/ui/link";
+"use client"
 
 import type {
   CreateTabs,
@@ -17,7 +9,15 @@ import type {
   GovernanceTabs,
   LendingTabs,
   LiquidityTabs,
-} from "~/lib/types";
+} from "~/lib/types"
+
+import { easings, useSpring, useTransition } from "@react-spring/web"
+import { usePathname, useSearchParams } from "next/navigation"
+import { useEffect, useRef, useState } from "react"
+
+import { cn } from "@x7/css"
+import { AnimatedDiv } from "@x7/ui"
+import { LinkInternal } from "@x7/ui/link"
 
 type ApprovedTabTypes =
   | LendingTabs
@@ -25,17 +25,17 @@ type ApprovedTabTypes =
   | FundingTabs
   | LiquidityTabs
   | DeployerTabs
-  | CreateTabs;
+  | CreateTabs
 
 interface TabItem {
-  id: ApprovedTabTypes;
-  label: string;
+  id: ApprovedTabTypes
+  label: string
 }
 
 interface AnimatedTabsProps {
-  tabs: TabItem[];
-  defaultTab: ApprovedTabTypes;
-  baseLink: string;
+  tabs: TabItem[]
+  defaultTab: ApprovedTabTypes
+  baseLink: string
 }
 
 export function AnimatedTabs({
@@ -43,53 +43,50 @@ export function AnimatedTabs({
   defaultTab,
   baseLink,
 }: AnimatedTabsProps) {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
   const [selectedTabId, setSelectedTabId] = useState<ApprovedTabTypes>(() => {
-    const tabFromUrl = searchParams.get("tab") as ApprovedTabTypes;
-    return tabs.some((tab) => tab.id === tabFromUrl) ? tabFromUrl : defaultTab;
-  });
+    const tabFromUrl = searchParams.get("tab") as ApprovedTabTypes
+    return tabs.some((tab) => tab.id === tabFromUrl) ? tabFromUrl : defaultTab
+  })
 
-  const [buttonRefs, setButtonRefs] = useState<(HTMLButtonElement | null)[]>(
-    [],
-  );
+  const [buttonRefs, setButtonRefs] = useState<(HTMLButtonElement | null)[]>([])
 
-  const isMobile = useMediaQuery("(max-width: 640px)");
+  const isMobile = useMediaQuery("(max-width: 640px)")
 
   useEffect(() => {
-    const tabFromUrl = searchParams.get("tab") as ApprovedTabTypes;
+    const tabFromUrl = searchParams.get("tab") as ApprovedTabTypes
     if (tabs.some((tab) => tab.id === tabFromUrl)) {
-      setSelectedTabId(tabFromUrl);
+      setSelectedTabId(tabFromUrl)
     } else {
-      setSelectedTabId(defaultTab);
+      setSelectedTabId(defaultTab)
     }
-  }, [pathname, searchParams, tabs, defaultTab]);
+  }, [pathname, searchParams, tabs, defaultTab])
 
   useEffect(() => {
-    setButtonRefs((prev) => prev.slice(0, tabs.length));
-  }, [tabs.length]);
+    setButtonRefs((prev) => prev.slice(0, tabs.length))
+  }, [tabs.length])
 
-  const navRef = useRef<HTMLDivElement>(null);
-  const navRect = navRef.current?.getBoundingClientRect();
+  const navRef = useRef<HTMLDivElement>(null)
+  const navRect = navRef.current?.getBoundingClientRect()
 
-  const selectedTabIndex = tabs.findIndex((tab) => tab.id === selectedTabId);
-  const selectedRect = buttonRefs[selectedTabIndex]?.getBoundingClientRect();
+  const selectedTabIndex = tabs.findIndex((tab) => tab.id === selectedTabId)
+  const selectedRect = buttonRefs[selectedTabIndex]?.getBoundingClientRect()
 
-  const [hoveredTabIndex, setHoveredTabIndex] = useState<number | null>(null);
-  const hoveredRect =
-    buttonRefs[hoveredTabIndex ?? -1]?.getBoundingClientRect();
+  const [hoveredTabIndex, setHoveredTabIndex] = useState<number | null>(null)
+  const hoveredRect = buttonRefs[hoveredTabIndex ?? -1]?.getBoundingClientRect()
 
   const onLeaveTabs = () => {
-    setHoveredTabIndex(null);
-  };
+    setHoveredTabIndex(null)
+  }
 
   const onEnterTab = (i: number) => {
-    setHoveredTabIndex(i);
-  };
+    setHoveredTabIndex(i)
+  }
 
   const onSelectTab = (id: ApprovedTabTypes) => {
-    setSelectedTabId(id);
-  };
+    setSelectedTabId(id)
+  }
 
   const stylesChangingOnUpdate =
     hoveredRect && navRect
@@ -100,7 +97,7 @@ export function AnimatedTabs({
           width: hoveredRect.width,
           height: hoveredRect.height,
         }
-      : {};
+      : {}
 
   const bgTransition = useTransition(hoveredTabIndex !== null, {
     from: () => ({
@@ -117,7 +114,7 @@ export function AnimatedTabs({
       duration: 150,
       easing: easings.easeOutCubic,
     },
-  });
+  })
 
   const underlineStyles = useSpring({
     to:
@@ -134,13 +131,13 @@ export function AnimatedTabs({
       duration: 150,
       easing: easings.easeOutCubic,
     },
-  });
+  })
 
   return (
     <nav
       ref={navRef}
       className={cn(
-        "relative z-0 flex shrink-0 flex-wrap items-center justify-center py-2 sm:flex-row sm:flex-nowrap sm:justify-start",
+        "relative z-0 flex shrink-0 flex-wrap items-center justify-center py-2 sm:flex-row sm:flex-nowrap sm:justify-start"
       )}
       onPointerLeave={onLeaveTabs}
     >
@@ -164,7 +161,7 @@ export function AnimatedTabs({
                 "bg-zinc-100 dark:bg-zinc-900":
                   (hoveredTabIndex === i || selectedTabId === item.id) &&
                   isMobile,
-              },
+              }
             )}
             // @ts-expect-error - Ref is not assignable to HTMLButtonElement
             ref={(el) => (buttonRefs[i] = el)}
@@ -183,7 +180,7 @@ export function AnimatedTabs({
               className="bg-muted absolute top-0 left-0 z-10 rounded-lg"
               style={styles}
             />
-          ),
+          )
       )}
 
       <AnimatedDiv
@@ -191,22 +188,22 @@ export function AnimatedTabs({
         style={underlineStyles as any}
       />
     </nav>
-  );
+  )
 }
 
 // Custom hook for media queries
 function useMediaQuery(query: string) {
-  const [matches, setMatches] = useState(false);
+  const [matches, setMatches] = useState(false)
 
   useEffect(() => {
-    const media = window.matchMedia(query);
+    const media = window.matchMedia(query)
     if (media.matches !== matches) {
-      setMatches(media.matches);
+      setMatches(media.matches)
     }
-    const listener = () => setMatches(media.matches);
-    media.addListener(listener);
-    return () => media.removeListener(listener);
-  }, [matches, query]);
+    const listener = () => setMatches(media.matches)
+    media.addListener(listener)
+    return () => media.removeListener(listener)
+  }, [matches, query])
 
-  return matches;
+  return matches
 }

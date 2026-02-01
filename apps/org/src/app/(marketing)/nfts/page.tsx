@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata } from "next"
 
-import { SiteContentContainer } from "~/lib/components/core/site-content-container";
-import { UnderConstruction } from "~/lib/components/core/under-construction";
-import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc";
-import { NftsLinkEnum } from "~/types/links";
-import { Heading } from "../_components/heading";
+import { SiteContentContainer } from "~/lib/components/core/site-content-container"
+import { UnderConstruction } from "~/lib/components/core/under-construction"
+import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
+import { NftsLinkEnum } from "~/types/links"
+
+import { Heading } from "../_components/heading"
 
 const metadata = {
   title: "X7 Utility NFTs",
@@ -12,10 +13,10 @@ const metadata = {
     "Discover X7 Finance's Utility NFTs: Unique digital assets that unlock exclusive benefits within the X7 DeFi ecosystem. From enhanced borrowing capacities and preferential trading rates to elevated governance rights, our Utility NFTs offer a range of privileges to holders. Learn how these NFTs can enhance your DeFi experience, provide tangible value, and unlock new financial opportunities. Experience the power of utility in the world of NFTs with X7 Finance.",
   slug: NftsLinkEnum.Index,
   section: "default",
-};
+}
 
 export function generateMetadata(): Metadata {
-  return generateMetadataFromDoc(metadata);
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function NftsPage() {
@@ -32,5 +33,5 @@ export default function NftsPage() {
         </div>
       </SiteContentContainer>
     </div>
-  );
+  )
 }

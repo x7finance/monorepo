@@ -1,10 +1,10 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
-import { cn } from "@x7/css";
+import { cn } from "@x7/css"
 
 const variantStyles = {
   medium: "rounded-lg px-1.5 ring-1 ring-inset text-[0.625rem]",
   large: "rounded-lg px-2 py-1 ring-1 ring-inset text-[12px]",
-} as const;
+} as const
 
 const colorStyles = {
   sky: {
@@ -42,23 +42,23 @@ const colorStyles = {
     large:
       "ring-zinc-200 bg-zinc-50 text-zinc-500 dark:ring-zinc-500/20 dark:bg-zinc-400/10 dark:text-zinc-400",
   },
-} as const;
+} as const
 
 const valueColorMap = {
   get: "sky",
   post: "emerald",
   put: "amber",
   delete: "rose",
-} as const;
+} as const
 
-type VariantType = keyof typeof variantStyles;
-type ColorType = keyof typeof colorStyles;
-type ValueColorType = keyof typeof valueColorMap;
+type VariantType = keyof typeof variantStyles
+type ColorType = keyof typeof colorStyles
+type ValueColorType = keyof typeof valueColorMap
 
 interface TagProps {
-  children: React.ReactNode;
-  variant?: VariantType;
-  color?: ColorType | ValueColorType;
+  children: React.ReactNode
+  variant?: VariantType
+  color?: ColorType | ValueColorType
 }
 
 export function Tag({
@@ -67,19 +67,19 @@ export function Tag({
   color = "sky",
 }: TagProps) {
   const childrenString =
-    typeof children === "string" ? children.toLowerCase() : "";
+    typeof children === "string" ? children.toLowerCase() : ""
   const resolvedColor = (valueColorMap[childrenString as ValueColorType] ||
-    color) as ColorType;
+    color) as ColorType
 
   return (
     <span
       className={cn(
         "font-semibold leading-6",
         variantStyles[variant],
-        colorStyles[resolvedColor][variant],
+        colorStyles[resolvedColor][variant]
       )}
     >
       {children}
     </span>
-  );
+  )
 }

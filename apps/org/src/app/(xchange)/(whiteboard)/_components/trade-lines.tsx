@@ -1,8 +1,8 @@
-"use client";
+"use client"
 
-import { cn } from "@x7/css";
-import { buttonVariants } from "@x7/ui/button";
-import { LinkInternal } from "@x7/ui/link";
+import { cn } from "@x7/css"
+import { buttonVariants } from "@x7/ui/button"
+import { LinkInternal } from "@x7/ui/link"
 
 const TRADEABLE_TOKENS = [
   {
@@ -45,7 +45,7 @@ const TRADEABLE_TOKENS = [
     description: "Deposit token",
     address: "0x7D000a1B9439740692F8942A296E1810955F5000",
   },
-];
+]
 
 export function TradeLines() {
   return (
@@ -71,5 +71,5 @@ export function TradeLines() {
         </div>
       ))}
     </div>
-  );
+  )
 }

@@ -1,12 +1,12 @@
-"use client";
+"use client"
 
-import { useReadContract } from "wagmi";
+import { useReadContract } from "wagmi"
 
-import { getMulticall3ContractConfig } from "../contracts/useMulticall3Contract";
+import { getMulticall3ContractConfig } from "../contracts/useMulticall3Contract"
 
 export const useCurrentBlockTimestamp = (
   chainId: number | undefined,
-  enabled = true,
+  enabled = true
 ) => {
   return useReadContract({
     ...getMulticall3ContractConfig(chainId),
@@ -14,5 +14,5 @@ export const useCurrentBlockTimestamp = (
     query: {
       enabled,
     },
-  });
-};
+  })
+}

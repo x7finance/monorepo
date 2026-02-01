@@ -1,6 +1,7 @@
-import type { V3RouteWithValidQuote } from "../../entities/route-with-valid-quote";
-import type { BuildOnChainGasModelFactoryType, IGasModel } from "../gas-model";
-import { TickBasedHeuristicGasModelFactory } from "../tick-based-heuristic-gas-model";
+import type { V3RouteWithValidQuote } from "../../entities/route-with-valid-quote"
+import type { BuildOnChainGasModelFactoryType, IGasModel } from "../gas-model"
+
+import { TickBasedHeuristicGasModelFactory } from "../tick-based-heuristic-gas-model"
 
 /**
  * Computes a gas estimate for a V3 swap using heuristics.
@@ -44,6 +45,6 @@ export class V3HeuristicGasModelFactory extends TickBasedHeuristicGasModelFactor
       v2poolProvider,
       l2GasDataProvider,
       providerConfig,
-    });
+    })
   }
 }

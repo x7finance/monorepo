@@ -1,6 +1,6 @@
-import { useLocalStorage } from "./use-local-storage";
+import { useLocalStorage } from "./use-local-storage"
 
 export const useDefaultTokenListDrawer = (
   key?: string,
-  defaultValue?: boolean,
-) => useLocalStorage(key ?? "defaultTokenListDrawer", defaultValue ?? false);
+  defaultValue?: boolean
+) => useLocalStorage(key ?? "defaultTokenListDrawer", defaultValue ?? false)

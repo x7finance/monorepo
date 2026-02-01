@@ -1,36 +1,37 @@
 /* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
-import type { FC, MouseEventHandler, ReactElement, SVGAttributes } from "react";
-import { createElement } from "react";
+import type { FC, MouseEventHandler, ReactElement, SVGAttributes } from "react"
 
-import { cn } from "@x7/css";
+import { createElement } from "react"
 
-import arbitrum from "../glyphs/arbitrum";
-import base from "../glyphs/base";
-import bsc from "../glyphs/bsc";
-import dextools from "../glyphs/dextools";
-import ethereum from "../glyphs/ethereum";
-import etherscan from "../glyphs/etherscan";
-import loading from "../glyphs/loading";
-import opensea from "../glyphs/opensea";
-import optimism from "../glyphs/optimism";
-import polygon from "../glyphs/polygon";
+import { cn } from "@x7/css"
+
+import arbitrum from "../glyphs/arbitrum"
+import base from "../glyphs/base"
+import bsc from "../glyphs/bsc"
+import dextools from "../glyphs/dextools"
+import ethereum from "../glyphs/ethereum"
+import etherscan from "../glyphs/etherscan"
+import loading from "../glyphs/loading"
+import opensea from "../glyphs/opensea"
+import optimism from "../glyphs/optimism"
+import polygon from "../glyphs/polygon"
 
 type GlyphProps = SVGAttributes<SVGSVGElement> & {
-  fill?: string;
-  rotate?: number;
-};
+  fill?: string
+  rotate?: number
+}
 
 interface IconProps {
-  glyph: Glyph;
-  size?: number;
-  onClick?: MouseEventHandler<SVGSVGElement>;
-  fill?: string;
-  rotate?: number;
-  height?: number;
-  isAbsolute?: boolean;
-  secondaryFill?: string;
-  text?: string;
-  containerClass?: string;
+  glyph: Glyph
+  size?: number
+  onClick?: MouseEventHandler<SVGSVGElement>
+  fill?: string
+  rotate?: number
+  height?: number
+  isAbsolute?: boolean
+  secondaryFill?: string
+  text?: string
+  containerClass?: string
 }
 
 export enum Glyph {
@@ -57,10 +58,10 @@ export const GLYPH_MAPS: Record<Glyph, FC<GlyphProps>> = {
   [Glyph.dextools]: dextools,
   [Glyph.base]: base,
   [Glyph.opensea]: opensea,
-};
+}
 
 export function IconWrapper(props: IconProps): ReactElement {
-  const { glyph, fill, rotate, size = 8, containerClass = "", ...res } = props;
+  const { glyph, fill, rotate, size = 8, containerClass = "", ...res } = props
 
   return (
     <span className={cn(`w-${size} h-${size} inline-block`, containerClass)}>
@@ -70,7 +71,7 @@ export function IconWrapper(props: IconProps): ReactElement {
         ...res,
       })}
     </span>
-  );
+  )
 }
 
-IconWrapper.Glyph = Glyph;
+IconWrapper.Glyph = Glyph

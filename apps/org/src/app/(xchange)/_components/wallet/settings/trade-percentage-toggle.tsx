@@ -1,21 +1,21 @@
-import type { FC } from "react";
+import type { FC } from "react"
 
-import { cn } from "@x7/css";
-import { InfoIcon } from "@x7/icons";
-import { useTradePercentage } from "@x7/ui";
-import { Switch } from "@x7/ui/switch";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@x7/ui/tooltip";
+import { cn } from "@x7/css"
+import { InfoIcon } from "@x7/icons"
+import { useTradePercentage } from "@x7/ui"
+import { Switch } from "@x7/ui/switch"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@x7/ui/tooltip"
 
 export const TradePercentageToggle: FC<{
   options?: {
-    storageKey?: string;
-    defaultValue?: string;
-    title?: string;
-  };
+    storageKey?: string
+    defaultValue?: string
+    title?: string
+  }
 }> = ({ options }) => {
   const [tradePercentage, setTradePercentage] = useTradePercentage(
-    options?.storageKey,
-  );
+    options?.storageKey
+  )
 
   return (
     <div className="mb-4 flex w-full flex-col gap-4">
@@ -40,11 +40,11 @@ export const TradePercentageToggle: FC<{
             onCheckedChange={setTradePercentage}
             className={cn(
               tradePercentage === true ? "bg-emerald-500!" : "bg-zinc-300",
-              "focus-visible:ring-emerald-500",
+              "focus-visible:ring-emerald-500"
             )}
           />
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

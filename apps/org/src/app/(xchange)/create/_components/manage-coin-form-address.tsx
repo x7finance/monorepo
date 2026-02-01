@@ -1,24 +1,25 @@
-import { useEffect, useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import type { Abi } from "viem";
-import { useChainId, useReadContracts } from "wagmi";
-import * as z from "zod";
+import type { ChainId } from "@x7/utils"
+import type { Abi } from "viem"
 
-import { XChangeFactoryABI, XchangeTokenAbi } from "@x7/contracts";
-import { X7ContractsEnum } from "@x7/sdk";
-import { Button } from "@x7/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@x7/ui/card";
-import { ContractCopy } from "@x7/ui/contract-copy";
-import { Form, FormControl, FormItem, FormMessage } from "@x7/ui/form";
-import { Input } from "@x7/ui/input";
-import { LinkExternal } from "@x7/ui/link";
-import type { ChainId } from "@x7/utils";
-import { generateChainIdentifier } from "@x7/utils";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useEffect, useState } from "react"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { useChainId, useReadContracts } from "wagmi"
+import * as z from "zod"
 
-import { ChainsArray } from "~/lib/components/utils/contracts-dropdown";
-import { useUpdateToken } from "../_hooks/useUpdateToken";
+import { XChangeFactoryABI, XchangeTokenAbi } from "@x7/contracts"
+import { X7ContractsEnum } from "@x7/sdk"
+import { Button } from "@x7/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@x7/ui/card"
+import { ContractCopy } from "@x7/ui/contract-copy"
+import { Form, FormControl, FormItem, FormMessage } from "@x7/ui/form"
+import { Input } from "@x7/ui/input"
+import { LinkExternal } from "@x7/ui/link"
+import { generateChainIdentifier } from "@x7/utils"
+import { ChainsArray } from "~/lib/components/utils/contracts-dropdown"
+
+import { useUpdateToken } from "../_hooks/useUpdateToken"
 
 const formSchema = z.object({
   buyTax: z.coerce
@@ -39,41 +40,41 @@ const formSchema = z.object({
     .refine((value) => !value || /^0x[a-fA-F0-9]{40}$/.test(value), {
       message: "Invalid wallet address",
     }),
-});
+})
 
 const getScannerLink = (chainId: ChainId): string | undefined => {
-  const chain = ChainsArray.find((chain) => chain.id === chainId);
-  return chain ? chain.scannerLink : undefined;
-};
+  const chain = ChainsArray.find((chain) => chain.id === chainId)
+  return chain ? chain.scannerLink : undefined
+}
 
 export function ManageCoinFormAddress({
   contractAddress,
 }: {
-  contractAddress: `0x${string}`;
+  contractAddress: `0x${string}`
 }) {
-  const chainId = useChainId() as ChainId;
-  const [buyTax, setBuyTax] = useState<number>(0);
-  const [sellTax, setSellTax] = useState<number>(0);
+  const chainId = useChainId() as ChainId
+  const [buyTax, setBuyTax] = useState<number>(0)
+  const [sellTax, setSellTax] = useState<number>(0)
   const [taxWallet, setTaxWallet] = useState<`0x${string}`>(
-    "0x" as `0x${string}`,
-  );
-  const [tokenName, setTokenName] = useState<string>("");
-  const [tokenBalance, setTokenBalance] = useState<number>(0);
-  const [tokenDecimals, setTokenDecimals] = useState<number>(0);
-  const [tokenSupply, setTokenSupply] = useState<number>(0);
-  const [tokenThreshold, setTokenThreshold] = useState<number>(0);
+    "0x" as `0x${string}`
+  )
+  const [tokenName, setTokenName] = useState<string>("")
+  const [tokenBalance, setTokenBalance] = useState<number>(0)
+  const [tokenDecimals, setTokenDecimals] = useState<number>(0)
+  const [tokenSupply, setTokenSupply] = useState<number>(0)
+  const [tokenThreshold, setTokenThreshold] = useState<number>(0)
   const [pairAddress, setPairAddress] = useState<`0x${string}`>(
-    "0x" as `0x${string}`,
-  );
+    "0x" as `0x${string}`
+  )
 
-  const tokenBalanceReadable = (tokenBalance / 10 ** tokenDecimals).toFixed(2);
-  const tokenPercentage = (tokenBalance / tokenSupply) * 100;
+  const tokenBalanceReadable = (tokenBalance / 10 ** tokenDecimals).toFixed(2)
+  const tokenPercentage = (tokenBalance / tokenSupply) * 100
 
   const manageForm = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: { buyTax: 0, sellTax: 0, taxWallet: "0x", threshold: 0 },
     mode: "onSubmit",
-  });
+  })
 
   const { data: contractData, isLoading: _isLoading } = useReadContracts({
     contracts: [
@@ -125,27 +126,27 @@ export function ManageCoinFormAddress({
         args: [contractAddress, "0x4200000000000000000000000000000000000006"],
       },
     ],
-  });
+  })
 
   useEffect(() => {
     if (contractData) {
-      setBuyTax(Number(contractData[0].result) || 0);
-      setSellTax(Number(contractData[1].result) || 0);
-      setTaxWallet(contractData[2].result as `0x${string}`);
-      setTokenName(contractData[3].result as string);
-      setTokenBalance(Number(contractData[4].result) || 0);
-      setTokenSupply(Number(contractData[5].result) || 0);
-      setTokenDecimals(Number(contractData[6].result) || 0);
-      setTokenThreshold(Number(contractData[7].result) || 0);
-      setPairAddress(contractData[8].result as `0x${string}`);
-      manageForm.setValue("buyTax", buyTax);
-      manageForm.setValue("sellTax", sellTax);
-      manageForm.setValue("taxWallet", taxWallet);
-      manageForm.setValue("threshold", tokenThreshold);
+      setBuyTax(Number(contractData[0].result) || 0)
+      setSellTax(Number(contractData[1].result) || 0)
+      setTaxWallet(contractData[2].result as `0x${string}`)
+      setTokenName(contractData[3].result as string)
+      setTokenBalance(Number(contractData[4].result) || 0)
+      setTokenSupply(Number(contractData[5].result) || 0)
+      setTokenDecimals(Number(contractData[6].result) || 0)
+      setTokenThreshold(Number(contractData[7].result) || 0)
+      setPairAddress(contractData[8].result as `0x${string}`)
+      manageForm.setValue("buyTax", buyTax)
+      manageForm.setValue("sellTax", sellTax)
+      manageForm.setValue("taxWallet", taxWallet)
+      manageForm.setValue("threshold", tokenThreshold)
     }
-  }, [buyTax, contractData, manageForm, sellTax, taxWallet, tokenThreshold]);
+  }, [buyTax, contractData, manageForm, sellTax, taxWallet, tokenThreshold])
 
-  const { executeContract, isPending } = useUpdateToken(contractAddress);
+  const { executeContract, isPending } = useUpdateToken(contractAddress)
 
   return (
     <Card className="mx-auto mt-8 max-w-lg transition-colors duration-300 hover:border-emerald-500 focus:z-20">
@@ -223,14 +224,14 @@ export function ManageCoinFormAddress({
                   variant="primary"
                   size="sm"
                   onClick={async () => {
-                    const isValid = await manageForm.trigger("buyTax");
+                    const isValid = await manageForm.trigger("buyTax")
                     if (!isValid) {
-                      toast.error(manageForm.formState.errors.buyTax?.message);
-                      return;
+                      toast.error(manageForm.formState.errors.buyTax?.message)
+                      return
                     }
                     await executeContract("setBuyTax", [
                       manageForm.getValues("buyTax"),
-                    ]);
+                    ])
                   }}
                   disabled={isPending}
                 >
@@ -254,14 +255,14 @@ export function ManageCoinFormAddress({
                   variant="primary"
                   size="sm"
                   onClick={async () => {
-                    const isValid = await manageForm.trigger("sellTax");
+                    const isValid = await manageForm.trigger("sellTax")
                     if (!isValid) {
-                      toast.error(manageForm.formState.errors.sellTax?.message);
-                      return;
+                      toast.error(manageForm.formState.errors.sellTax?.message)
+                      return
                     }
                     await executeContract("setSellTax", [
                       manageForm.getValues("sellTax"),
-                    ]);
+                    ])
                   }}
                   disabled={isPending}
                 >
@@ -288,14 +289,14 @@ export function ManageCoinFormAddress({
                 variant="primary"
                 size="sm"
                 onClick={async () => {
-                  const isValid = await manageForm.trigger("taxWallet");
+                  const isValid = await manageForm.trigger("taxWallet")
                   if (!isValid) {
-                    toast.error(manageForm.formState.errors.taxWallet?.message);
-                    return;
+                    toast.error(manageForm.formState.errors.taxWallet?.message)
+                    return
                   }
                   await executeContract("setTaxWallet", [
                     manageForm.getValues("taxWallet"),
-                  ]);
+                  ])
                 }}
                 disabled={isPending}
               >
@@ -322,7 +323,7 @@ export function ManageCoinFormAddress({
                 variant="primary"
                 size="sm"
                 onClick={async () => {
-                  await executeContract("processFees");
+                  await executeContract("processFees")
                 }}
                 disabled={isPending || tokenPercentage < 0.001}
               >
@@ -339,7 +340,7 @@ export function ManageCoinFormAddress({
                 variant="destructive"
                 size="sm"
                 onClick={async () => {
-                  await executeContract("renounceOwnership");
+                  await executeContract("renounceOwnership")
                 }}
                 disabled={isPending}
               >
@@ -357,5 +358,5 @@ export function ManageCoinFormAddress({
         </Form>
       </CardContent>
     </Card>
-  );
+  )
 }

@@ -1,17 +1,18 @@
-import React from "react";
+import type { ChainId } from "@x7/utils"
 
-import type { ChainId } from "@x7/utils";
-import { formatAddress, generateChainIdentifier } from "@x7/utils";
+import React from "react"
 
-import { CopyButton } from "./copy-button";
+import { formatAddress, generateChainIdentifier } from "@x7/utils"
+
+import { CopyButton } from "./copy-button"
 
 export function ContractCopy(props: { contract: string; chainId?: ChainId }) {
-  const { contract, chainId } = props;
+  const { contract, chainId } = props
 
-  const formattedAddress = formatAddress(contract);
+  const formattedAddress = formatAddress(contract)
 
-  const chainName = chainId ? generateChainIdentifier(chainId) : "";
-  const displayName = `${chainName} CA:`;
+  const chainName = chainId ? generateChainIdentifier(chainId) : ""
+  const displayName = `${chainName} CA:`
 
   return (
     <span className="flex items-center">
@@ -28,5 +29,5 @@ export function ContractCopy(props: { contract: string; chainId?: ChainId }) {
         </span>
       </span>
     </span>
-  );
+  )
 }

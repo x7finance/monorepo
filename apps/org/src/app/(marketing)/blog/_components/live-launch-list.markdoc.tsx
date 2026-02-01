@@ -1,10 +1,10 @@
-import { CheckCircleIcon, CircleDashedIcon, Loader2 } from "@x7/icons";
+import { CheckCircleIcon, CircleDashedIcon, Loader2 } from "@x7/icons"
 
 const ChecklistItemStatus = {
   Completed: "completed",
   InProgress: "inprogress",
   Pending: "pending",
-};
+}
 
 const checklistItems = [
   {
@@ -117,7 +117,7 @@ const checklistItems = [
     text: "Open source the Xchange code",
     status: ChecklistItemStatus.InProgress,
   },
-];
+]
 
 export function LiveLaunchList() {
   return (
@@ -148,5 +148,5 @@ export function LiveLaunchList() {
         </ul>
       </div>
     </div>
-  );
+  )
 }

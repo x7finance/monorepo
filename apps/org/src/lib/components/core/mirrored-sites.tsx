@@ -1,14 +1,14 @@
-"use client";
+"use client"
 
-import Link from "next/link";
+import Link from "next/link"
 
-import { BoxesIcon, ExternalLinkIcon } from "@x7/icons";
+import { BoxesIcon, ExternalLinkIcon } from "@x7/icons"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@x7/ui/dropdown-menu";
+} from "@x7/ui/dropdown-menu"
 
 export function MirroredSites() {
   return (
@@ -81,5 +81,5 @@ export function MirroredSites() {
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-  );
+  )
 }

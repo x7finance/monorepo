@@ -1,11 +1,12 @@
+import type { LucideProps } from "lucide-react"
 /* oxlint-disable @typescript-eslint/no-explicit-any */
-import type { ComponentType, RefAttributes } from "react";
-import type React from "react";
-import { animated } from "@react-spring/web";
-import type { LucideProps } from "lucide-react";
+import type { ComponentType, RefAttributes } from "react"
+import type React from "react"
 
-export type ExtractProps<T> = T extends ComponentType<infer P> ? P : T;
-export type AnyTag = keyof React.JSX.IntrinsicElements;
+import { animated } from "@react-spring/web"
+
+export type ExtractProps<T> = T extends ComponentType<infer P> ? P : T
+export type AnyTag = keyof React.JSX.IntrinsicElements
 
 // Source: https://github.com/emotion-js/emotion/blob/master/packages/styled-base/types/helper.d.ts
 // A more precise version of just React.ComponentPropsWithoutRef on its own
@@ -13,14 +14,14 @@ export type PropsOf<
   C extends
     | keyof React.JSX.IntrinsicElements
     | React.JSXElementConstructor<any>,
-> = React.JSX.LibraryManagedAttributes<C, React.ComponentPropsWithoutRef<C>>;
+> = React.JSX.LibraryManagedAttributes<C, React.ComponentPropsWithoutRef<C>>
 
 interface AsProp<C extends React.ElementType> {
   /**
    * An override of the default HTML tag.
    * Can also be another React component.
    */
-  as?: C;
+  as?: C
 }
 
 /**
@@ -31,7 +32,7 @@ interface AsProp<C extends React.ElementType> {
 export type ExtendableProps<
   ExtendedProps = Record<string, never>,
   OverrideProps = Record<string, never>,
-> = OverrideProps & Omit<ExtendedProps, keyof OverrideProps>;
+> = OverrideProps & Omit<ExtendedProps, keyof OverrideProps>
 
 /**
  * Allows for inheriting the props from the specified element type so that
@@ -41,7 +42,7 @@ export type ExtendableProps<
 export type InheritableElementProps<
   C extends React.ElementType,
   Props = Record<string, never>,
-> = ExtendableProps<PropsOf<C>, Props>;
+> = ExtendableProps<PropsOf<C>, Props>
 
 /**
  * A more sophisticated version of `InheritableElementProps` where
@@ -50,13 +51,13 @@ export type InheritableElementProps<
 export type PolymorphicComponentProps<
   C extends React.ElementType,
   Props = Record<string, never>,
-> = InheritableElementProps<C, Props & AsProp<C>>;
+> = InheritableElementProps<C, Props & AsProp<C>>
 
 /**
  * Utility type to extract the `ref` prop from a polymorphic component
  */
 export type PolymorphicRef<C extends React.ElementType> =
-  React.ComponentPropsWithRef<C>["ref"];
+  React.ComponentPropsWithRef<C>["ref"]
 
 /**
  * A wrapper of `PolymorphicComponentProps` that also includes the `ref`
@@ -65,20 +66,18 @@ export type PolymorphicRef<C extends React.ElementType> =
 export type PolymorphicComponentPropsWithRef<
   C extends React.ElementType,
   Props = Record<string, never>,
-> = PolymorphicComponentProps<C, Props> & { ref?: PolymorphicRef<C> };
+> = PolymorphicComponentProps<C, Props> & { ref?: PolymorphicRef<C> }
 
-export type IconComponent = React.FC<
-  LucideProps & RefAttributes<SVGSVGElement>
->;
+export type IconComponent = React.FC<LucideProps & RefAttributes<SVGSVGElement>>
 
 export interface IconProps extends React.SVGProps<SVGSVGElement> {
-  ref?: React.Ref<SVGSVGElement>;
-  width?: number;
-  height?: number;
-  className?: string;
+  ref?: React.Ref<SVGSVGElement>
+  width?: number
+  height?: number
+  className?: string
 }
 
 export const AnimatedDiv = animated.div as React.ForwardRefExoticComponent<
   React.PropsWithoutRef<React.HTMLAttributes<HTMLDivElement>> &
     React.RefAttributes<HTMLDivElement>
->;
+>

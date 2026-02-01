@@ -1,27 +1,28 @@
+import type { MixedRoute, Pool } from "@x7/sdk"
+import type { RouteWithValidQuote } from "@x7/smart-order-router"
+import type { Currency } from "@x7/utils"
+
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
-import React, { useState } from "react";
+import React, { useState } from "react"
 
-import { cn } from "@x7/css";
-import type { MixedRoute, Pool } from "@x7/sdk";
-import type { RouteWithValidQuote } from "@x7/smart-order-router";
-import { SkeletonBox } from "@x7/ui/skeleton";
-import type { Currency } from "@x7/utils";
-import { Implementation, Protocol } from "@x7/utils";
+import { cn } from "@x7/css"
+import { SkeletonBox } from "@x7/ui/skeleton"
+import { Implementation, Protocol } from "@x7/utils"
+import { useSwapState } from "~/lib/stores/swap"
 
-import { useSwapState } from "~/lib/stores/swap";
-import { implementationComponents } from "./swap-dexs";
-import { MixedImplementationDisplay } from "./swap-mixed-implementation";
+import { implementationComponents } from "./swap-dexs"
+import { MixedImplementationDisplay } from "./swap-mixed-implementation"
 
 export const ImplementationGroupTabbed = ({
   routes,
 }: {
-  routes: RouteWithValidQuote[];
+  routes: RouteWithValidQuote[]
 }) => {
   const {
     state: { bestRoute, secondaryRoute },
     mutate: { tryAlternativeRoute },
-  } = useSwapState();
-  const [showAllRoutes, setShowAllRoutes] = useState(false);
+  } = useSwapState()
+  const [showAllRoutes, setShowAllRoutes] = useState(false)
 
   const bestRouteImplementaton =
     bestRoute?.routes[0]?.protocol === Protocol.V3
@@ -29,7 +30,7 @@ export const ImplementationGroupTabbed = ({
       : bestRoute?.routes[0]?.protocol === Protocol.V2
         ? (bestRoute.routes[0]?.route?.pairs?.[0]?.pairType ??
           Implementation.UNISWAP)
-        : Implementation.MIXED;
+        : Implementation.MIXED
 
   const secondaryRouteImplementation =
     secondaryRoute?.routes[0]?.protocol === Protocol.V3
@@ -38,14 +39,14 @@ export const ImplementationGroupTabbed = ({
       : secondaryRoute?.routes[0]?.protocol === Protocol.V2
         ? (secondaryRoute.routes[0]?.route?.pairs?.[0]?.pairType ??
           Implementation.UNISWAP)
-        : Implementation.MIXED;
+        : Implementation.MIXED
 
   const displayedRouteImplementation =
     routes[0]?.protocol === Protocol.V3
       ? (routes[0]?.route.pools[0]?.poolType ?? Implementation.UNISWAP)
       : routes[0]?.protocol === Protocol.V2
         ? (routes[0]?.route.pairs[0]?.pairType ?? Implementation.UNISWAP)
-        : Implementation.MIXED;
+        : Implementation.MIXED
 
   const routesWithoutBest = routes.filter((route) => {
     const currentRouteimplementation =
@@ -53,18 +54,18 @@ export const ImplementationGroupTabbed = ({
         ? (route.route.pools[0]?.poolType ?? Implementation.UNISWAP)
         : route.protocol === Protocol.V2
           ? (route.route.pairs[0]?.pairType ?? Implementation.UNISWAP)
-          : Implementation.MIXED;
+          : Implementation.MIXED
 
     return (
       bestRoute?.routes[0]?.poolAddresses
         ?.join("-")
         .concat(bestRouteImplementaton) !==
       route.poolAddresses.join("-").concat(currentRouteimplementation)
-    );
-  });
+    )
+  })
   const routesToShow = showAllRoutes
     ? routesWithoutBest
-    : routesWithoutBest.slice(0, 3);
+    : routesWithoutBest.slice(0, 3)
 
   return (
     routes.length > 0 && (
@@ -78,7 +79,7 @@ export const ImplementationGroupTabbed = ({
               ? (route.route.pools[0]?.poolType ?? Implementation.UNISWAP)
               : route.protocol === Protocol.V2
                 ? (route.route.pairs[0]?.pairType ?? Implementation.UNISWAP)
-                : Implementation.MIXED;
+                : Implementation.MIXED
 
           const highlighted =
             (!secondaryRoute &&
@@ -91,17 +92,17 @@ export const ImplementationGroupTabbed = ({
             secondaryRoute?.routes[0]?.poolAddresses
               ?.join("-")
               .concat(secondaryRouteImplementation) ===
-              route.poolAddresses.join("-").concat(currentRouteimplementation);
+              route.poolAddresses.join("-").concat(currentRouteimplementation)
 
           return (
             <span
               key={`${route.poolAddresses.join("-")}-${i}`}
               className={cn(
                 "relative flex w-full cursor-pointer flex-col border border-b-0 border-zinc-300 bg-white px-2 py-2 first:rounded-t-none last:rounded-b-lg last:border-b dark:border-zinc-700 dark:bg-black/40 dark:hover:bg-emerald-500/10",
-                highlighted ? "dark:bg-emerald-900/20" : "",
+                highlighted ? "dark:bg-emerald-900/20" : ""
               )}
               onClick={() => {
-                void tryAlternativeRoute(route);
+                void tryAlternativeRoute(route)
               }}
             >
               <div className="flex items-center justify-between gap-2">
@@ -152,7 +153,7 @@ export const ImplementationGroupTabbed = ({
                 </div>
               </div>
             </span>
-          );
+          )
         })}
         {routes.length > 3 && (
           <span
@@ -164,5 +165,5 @@ export const ImplementationGroupTabbed = ({
         )}
       </div>
     )
-  );
-};
+  )
+}

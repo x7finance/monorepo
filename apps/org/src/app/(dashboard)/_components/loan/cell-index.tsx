@@ -1,19 +1,19 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 /* oxlint-disable @typescript-eslint/no-unsafe-argument */
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
-"use client";
+"use client"
 
-import { cn } from "@x7/css";
-import { ChevronRightIcon } from "@x7/icons";
-import { buttonVariants } from "@x7/ui/button";
-import { LinkInternal } from "@x7/ui/link";
-import type { ChainId, LoanType } from "@x7/utils";
-import { generateChainShortName } from "@x7/utils";
+import type { ChainId, LoanType } from "@x7/utils"
 
+import { cn } from "@x7/css"
+import { ChevronRightIcon } from "@x7/icons"
+import { buttonVariants } from "@x7/ui/button"
+import { LinkInternal } from "@x7/ui/link"
+import { generateChainShortName } from "@x7/utils"
 import {
   useCanLiquidate,
   useLoanToken,
-} from "~/lib/hooks/loans/useXchangeLendingPoolData";
+} from "~/lib/hooks/loans/useXchangeLendingPoolData"
 import {
   useGetPremiumPaymentSchedule,
   useGetPrincipalPaymentSchedule,
@@ -24,48 +24,49 @@ import {
   useSymbol,
   useTokenByIndex,
   useTokenSymbol,
-} from "~/lib/hooks/loans/useXchangeLoanData";
-import { IconAlerts } from "./icon-alerts";
+} from "~/lib/hooks/loans/useXchangeLoanData"
+
+import { IconAlerts } from "./icon-alerts"
 
 interface LoansCellProps {
-  id: number;
-  chainId: ChainId;
-  loanType: LoanType;
+  id: number
+  chainId: ChainId
+  loanType: LoanType
 }
 
 export function LoanCellIndex({ id, chainId, loanType }: LoansCellProps) {
-  const tokenByIndex = useTokenByIndex(id, chainId, loanType).tokenByIndex;
-  const symbol = useSymbol(tokenByIndex, chainId, loanType).symbol;
-  const loanState = useLoanState(tokenByIndex, chainId, loanType).loanState;
-  const loanAddress = useLoanToken(tokenByIndex, chainId).loanToken;
-  const tokenSymbol = useTokenSymbol(loanAddress, chainId).tokenSymbol;
-  const canLiquidate = useCanLiquidate(tokenByIndex, chainId).canLiquidate;
+  const tokenByIndex = useTokenByIndex(id, chainId, loanType).tokenByIndex
+  const symbol = useSymbol(tokenByIndex, chainId, loanType).symbol
+  const loanState = useLoanState(tokenByIndex, chainId, loanType).loanState
+  const loanAddress = useLoanToken(tokenByIndex, chainId).loanToken
+  const tokenSymbol = useTokenSymbol(loanAddress, chainId).tokenSymbol
+  const canLiquidate = useCanLiquidate(tokenByIndex, chainId).canLiquidate
   const liquidationAmount = useLiquidationAmount(
     tokenByIndex,
     chainId,
-    loanType,
-  ).liquidationAmount;
-  const isComplete = useIsComplete(tokenByIndex, chainId, loanType).isComplete;
+    loanType
+  ).liquidationAmount
+  const isComplete = useIsComplete(tokenByIndex, chainId, loanType).isComplete
 
   const premiumPaymentSchedule = useGetPremiumPaymentSchedule(
     tokenByIndex,
     chainId,
-    loanType,
-  ).getPremiumPaymentSchedule;
+    loanType
+  ).getPremiumPaymentSchedule
 
   const principalPaymentSchedule = useGetPrincipalPaymentSchedule(
     tokenByIndex,
     chainId,
-    loanType,
-  ).getPrincipalPaymentSchedule;
+    loanType
+  ).getPrincipalPaymentSchedule
 
   const totalDue = useGetTotalDue(
     tokenByIndex,
     chainId,
     loanType,
     premiumPaymentSchedule?.[premiumPaymentSchedule?.[0]?.length - 1],
-    principalPaymentSchedule?.[principalPaymentSchedule?.[0]?.length - 1],
-  ).getTotalDue;
+    principalPaymentSchedule?.[principalPaymentSchedule?.[0]?.length - 1]
+  ).getTotalDue
 
   return (
     <>
@@ -105,14 +106,14 @@ export function LoanCellIndex({ id, chainId, loanType }: LoansCellProps) {
               <LinkInternal
                 prefetch={true}
                 href={`/lending/${generateChainShortName(
-                  chainId,
+                  chainId
                 )}/${loanType}/${id}`}
                 className={cn(
                   buttonVariants({
                     variant: "outline",
                     size: "sm",
                   }),
-                  "inline-flex",
+                  "inline-flex"
                 )}
               >
                 <span className="flex items-center whitespace-nowrap">
@@ -137,5 +138,5 @@ export function LoanCellIndex({ id, chainId, loanType }: LoansCellProps) {
         </div>
       </div>
     </>
-  );
+  )
 }

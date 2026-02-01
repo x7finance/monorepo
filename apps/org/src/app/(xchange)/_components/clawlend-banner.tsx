@@ -1,4 +1,4 @@
-import { LinkExternal } from "@x7/ui/link";
+import { LinkExternal } from "@x7/ui/link"
 
 export function ClawLendBanner() {
   return (
@@ -16,5 +16,5 @@ export function ClawLendBanner() {
         </span>
       </div>
     </div>
-  );
+  )
 }

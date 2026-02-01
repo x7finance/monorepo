@@ -1,51 +1,50 @@
-import type { MultiRoute, RouteLeg, RPool } from "@x7/tines";
-
-import type { LiquidityProviders } from "../liquidity-providers/types";
+import type { LiquidityProviders } from "../liquidity-providers/types"
+import type { MultiRoute, RouteLeg, RPool } from "@x7/tines"
 
 // RPool extention for RP coding
 export abstract class PoolCode {
-  pool: RPool;
-  liquidityProvider: LiquidityProviders;
-  poolName: string;
+  pool: RPool
+  liquidityProvider: LiquidityProviders
+  poolName: string
 
   constructor(
     pool: RPool,
     liquidityProvider: LiquidityProviders,
-    poolName: string,
+    poolName: string
   ) {
-    this.pool = pool;
-    this.liquidityProvider = liquidityProvider;
-    this.poolName = poolName;
+    this.pool = pool
+    this.liquidityProvider = liquidityProvider
+    this.poolName = poolName
   }
 
-  static RouteProcessorAddress = "RouteProcessor";
+  static RouteProcessorAddress = "RouteProcessor"
 
   // the address where should be swap amount of liquidity before the swap
   // returns RouteProcessorAddress if it is a RouteProcessor
   getStartPoint(_leg: RouteLeg, _route: MultiRoute): string {
-    return this.pool.address;
+    return this.pool.address
   }
 
   abstract getSwapCodeForRouteProcessor(
     leg: RouteLeg,
     route: MultiRoute,
     to: string,
-    exactAmount?: bigint,
-  ): string;
+    exactAmount?: bigint
+  ): string
 
   getSwapCodeForRouteProcessor2(
     _leg: RouteLeg,
     _route: MultiRoute,
-    _to: string,
+    _to: string
   ): string {
-    return "unimplemented";
+    return "unimplemented"
   }
 
   getSwapCodeForRouteProcessor4(
     leg: RouteLeg,
     route: MultiRoute,
-    to: string,
+    to: string
   ): string {
-    return this.getSwapCodeForRouteProcessor2(leg, route, to);
+    return this.getSwapCodeForRouteProcessor2(leg, route, to)
   }
 }

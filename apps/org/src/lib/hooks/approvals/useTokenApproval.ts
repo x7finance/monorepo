@@ -1,24 +1,25 @@
-/* oxlint-disable react-hooks/exhaustive-deps */
-/* oxlint-disable @typescript-eslint/no-non-null-assertion */
-/* oxlint-disable @typescript-eslint/no-explicit-any */
-import { useCallback, useMemo, useState } from "react";
-import { toast } from "sonner";
-import { maxUint256, UserRejectedRequestError } from "viem";
-import type { Address } from "viem";
-import { useAccount, useSimulateContract, useWriteContract } from "wagmi";
+import type { Currency, CurrencyAmount } from "@x7/utils"
+import type { Address } from "viem"
 import type {
   WriteContractErrorType,
   WriteContractReturnType,
-} from "wagmi/actions";
-import { waitForTransactionReceipt } from "wagmi/actions";
+} from "wagmi/actions"
 
-import type { Currency, CurrencyAmount } from "@x7/utils";
-import { LogCodes, Native } from "@x7/utils";
+/* oxlint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+import { useCallback, useMemo, useState } from "react"
+import { toast } from "sonner"
+import { maxUint256, UserRejectedRequestError } from "viem"
+import { useAccount, useSimulateContract, useWriteContract } from "wagmi"
+import { waitForTransactionReceipt } from "wagmi/actions"
 
-import { useTransactionStore } from "~/lib/providers/tx";
-import { useWeb3Config } from "~/lib/providers/web3";
-import { log } from "~/lib/utils/log";
-import { useTokenAllowance } from "./useTokenAllowance";
+import { LogCodes, Native } from "@x7/utils"
+import { useTransactionStore } from "~/lib/providers/tx"
+import { useWeb3Config } from "~/lib/providers/web3"
+import { log } from "~/lib/utils/log"
+
+import { useTokenAllowance } from "./useTokenAllowance"
 
 export enum ApprovalState {
   LOADING = "LOADING",
@@ -29,10 +30,10 @@ export enum ApprovalState {
 }
 
 interface UseTokenApprovalParams {
-  spender: Address | undefined;
-  amount: CurrencyAmount<Currency> | undefined;
-  approveMax?: boolean;
-  enabled?: boolean;
+  spender: Address | undefined
+  amount: CurrencyAmount<Currency> | undefined
+  approveMax?: boolean
+  enabled?: boolean
 }
 
 export const useTokenApproval = ({
@@ -45,12 +46,12 @@ export const useTokenApproval = ({
   ReturnType<typeof useWriteContract<any, unknown>>,
   ReturnType<typeof useSimulateContract>["data"],
 ] => {
-  const { address } = useAccount();
-  const { wagmiConfig } = useWeb3Config();
+  const { address } = useAccount()
+  const { wagmiConfig } = useWeb3Config()
   const {
     mutate: { trackTransaction },
-  } = useTransactionStore();
-  const [pending, setPending] = useState(false);
+  } = useTransactionStore()
+  const [pending, setPending] = useState(false)
   const {
     data: allowance,
     isLoading: isAllowanceLoading,
@@ -61,7 +62,7 @@ export const useTokenApproval = ({
     spender,
     chainId: amount?.currency.chainId,
     enabled: Boolean(amount?.currency.isToken && enabled),
-  });
+  })
 
   const { data: simulatedData } = useSimulateContract({
     chainId: amount?.currency.chainId,
@@ -82,21 +83,21 @@ export const useTokenApproval = ({
     address: amount?.currency.wrapped.address,
     functionName: "approve",
     args: [spender!, approveMax ? maxUint256 : amount ? amount.quotient : 0n],
-  });
+  })
 
   const onSettled = useCallback(
     (hash: `0x${string}` | undefined, e: WriteContractErrorType | null) => {
       if (e instanceof Error) {
-        setPending(false);
+        setPending(false)
 
         if (!(e instanceof UserRejectedRequestError)) {
-          toast.error(e.message);
-          log.error(LogCodes.APPROVAL_FAIL, "Failed to approve token", { e });
+          toast.error(e.message)
+          log.error(LogCodes.APPROVAL_FAIL, "Failed to approve token", { e })
         }
       }
 
       if (hash && amount) {
-        setPending(true);
+        setPending(true)
         trackTransaction({
           txHash: hash,
           type: "approval",
@@ -106,19 +107,19 @@ export const useTokenApproval = ({
             failed: `Something went wrong approving ${amount.currency.symbol}`,
           },
           onFail: (e) => {
-            log.error(LogCodes.APPROVAL_FAIL, "Failed to approve token", { e });
+            log.error(LogCodes.APPROVAL_FAIL, "Failed to approve token", { e })
           },
-        });
+        })
       }
     },
-    [address, amount, wagmiConfig],
-  );
+    [address, amount, wagmiConfig]
+  )
 
   const execute = useWriteContract<any, unknown>({
     config: wagmiConfig,
     mutation: {
       onMutate: () => {
-        setPending(true);
+        setPending(true)
       },
       onSettled,
       onSuccess: (hash: WriteContractReturnType) => {
@@ -130,13 +131,13 @@ export const useTokenApproval = ({
         })
           .then(() =>
             refetch().then(() => {
-              setPending(false);
-            }),
+              setPending(false)
+            })
           )
-          .catch(() => setPending(false));
+          .catch(() => setPending(false))
       },
     },
-  });
+  })
 
   const approvalState = useMemo(() => {
     if (
@@ -144,25 +145,25 @@ export const useTokenApproval = ({
       amount?.currency.isNative ||
       amount?.currency.equals(Native.onChain(amount.currency.chainId).wrapped)
     ) {
-      return ApprovalState.APPROVED;
+      return ApprovalState.APPROVED
     }
 
     if (isAllowanceLoading) {
-      return ApprovalState.LOADING;
+      return ApprovalState.LOADING
     }
 
     if (pending) {
-      return ApprovalState.PENDING;
+      return ApprovalState.PENDING
     }
 
     if (allowance !== undefined && amount?.numerator !== undefined) {
       return allowance >= amount.numerator
         ? ApprovalState.APPROVED
-        : ApprovalState.NOT_APPROVED;
+        : ApprovalState.NOT_APPROVED
     }
 
-    return ApprovalState.UNKNOWN;
-  }, [allowance, amount, enabled, isAllowanceLoading, pending]);
+    return ApprovalState.UNKNOWN
+  }, [allowance, amount, enabled, isAllowanceLoading, pending])
 
-  return [approvalState, execute, simulatedData];
-};
+  return [approvalState, execute, simulatedData]
+}

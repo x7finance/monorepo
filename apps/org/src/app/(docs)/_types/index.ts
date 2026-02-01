@@ -5,6 +5,6 @@ export const DocsTypes = {
   integration: "integration",
   guides: "guides",
   breakdowns: "breakdowns",
-} as const;
+} as const
 
-export type DocType = (typeof DocsTypes)[keyof typeof DocsTypes];
+export type DocType = (typeof DocsTypes)[keyof typeof DocsTypes]

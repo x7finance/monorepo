@@ -1,34 +1,35 @@
+import type { IconProps, PolymorphicComponentProps } from "../types"
 /* oxlint-disable @typescript-eslint/unbound-method */
-import type { ReactNode } from "react";
-import React from "react";
+import type { ReactNode } from "react"
 
-import { cn } from "@x7/css";
+import React from "react"
 
-import { SkeletonCircle, SkeletonText } from "../skeleton";
-import type { IconProps, PolymorphicComponentProps } from "../types";
+import { cn } from "@x7/css"
+
+import { SkeletonCircle, SkeletonText } from "../skeleton"
 
 interface Props {
-  title: ReactNode;
-  subtitle?: ReactNode;
-  onClick?(): void;
-  value?: ReactNode;
-  loading?: boolean;
+  title: ReactNode
+  subtitle?: ReactNode
+  onClick?(): void
+  value?: ReactNode
+  loading?: boolean
 }
 
 export type ListItemProps<
   P extends React.ElementType,
   C extends React.ElementType,
 > = {
-  icon?: P;
-  iconProps: IconProps;
-} & PolymorphicComponentProps<C, Props>;
+  icon?: P
+  iconProps: IconProps
+} & PolymorphicComponentProps<C, Props>
 
 export type ListItemComponent = <
   P extends React.ElementType = "svg",
   C extends React.ElementType = "button",
 >(
-  props: ListItemProps<P, C>,
-) => React.ReactElement | null;
+  props: ListItemProps<P, C>
+) => React.ReactElement | null
 
 export const ListItem: ListItemComponent = ({
   as,
@@ -42,7 +43,7 @@ export const ListItem: ListItemComponent = ({
   loading = false,
   ...rest
 }) => {
-  const Component = as ?? "button";
+  const Component = as ?? "button"
 
   return (
     <Component
@@ -52,7 +53,7 @@ export const ListItem: ListItemComponent = ({
       className={cn(
         className,
         subtitle ? "items-start" : "items-center",
-        "relative flex w-full cursor-pointer gap-4 px-4 py-3",
+        "relative flex w-full cursor-pointer gap-4 px-4 py-3"
       )}
     >
       {loading ? (
@@ -80,7 +81,7 @@ export const ListItem: ListItemComponent = ({
                 ...iconProps,
                 className: cn(
                   iconProps.className,
-                  "text-emerald-500 rounded-full",
+                  "text-emerald-500 rounded-full"
                 ),
               })}
             </div>
@@ -105,5 +106,5 @@ export const ListItem: ListItemComponent = ({
         </>
       )}
     </Component>
-  );
-};
+  )
+}

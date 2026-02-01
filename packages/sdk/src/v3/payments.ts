@@ -1,21 +1,22 @@
+import type { Percent, Token } from "@x7/utils"
+
 /* oxlint-disable @typescript-eslint/no-empty-function */
-import { encodeFunctionData } from "viem";
+import { encodeFunctionData } from "viem"
 
-import { peripheryPaymentsWithFeeExtendedABI } from "@x7/contracts";
-import type { Percent, Token } from "@x7/utils";
+import { peripheryPaymentsWithFeeExtendedABI } from "@x7/contracts"
 
-import { validateAndParseAddress } from "../core/validateAndParseAddress";
+import { validateAndParseAddress } from "../core/validateAndParseAddress"
 
 export interface FeeOptions {
   /**
    * The percent of the output that will be taken as a fee.
    */
-  fee: Percent;
+  fee: Percent
 
   /**
    * The recipient of the fee.
    */
-  recipient: string;
+  recipient: string
 }
 
 export abstract class Payments {
@@ -25,21 +26,19 @@ export abstract class Payments {
   private constructor() {}
 
   private static encodeFeeBips(fee: Percent): bigint {
-    return fee.multiply(10_000).quotient;
+    return fee.multiply(10_000).quotient
   }
 
   public static encodeUnwrapWETH9(
     amountMinimum: bigint,
     recipient: string,
-    feeOptions?: FeeOptions,
+    feeOptions?: FeeOptions
   ): string {
-    recipient = validateAndParseAddress(recipient);
+    recipient = validateAndParseAddress(recipient)
 
     if (feeOptions) {
-      const feeBips = this.encodeFeeBips(feeOptions.fee);
-      const feeRecipient: string = validateAndParseAddress(
-        feeOptions.recipient,
-      );
+      const feeBips = this.encodeFeeBips(feeOptions.fee)
+      const feeRecipient: string = validateAndParseAddress(feeOptions.recipient)
 
       return encodeFunctionData({
         abi: peripheryPaymentsWithFeeExtendedABI,
@@ -50,13 +49,13 @@ export abstract class Payments {
           feeBips,
           feeRecipient as `0x${string}`,
         ],
-      });
+      })
     } else {
       return encodeFunctionData({
         abi: peripheryPaymentsWithFeeExtendedABI,
         functionName: "unwrapWETH9",
         args: [BigInt(amountMinimum), recipient as `0x${string}`],
-      });
+      })
     }
   }
 
@@ -64,15 +63,13 @@ export abstract class Payments {
     token: Token,
     amountMinimum: bigint,
     recipient: string,
-    feeOptions?: FeeOptions,
+    feeOptions?: FeeOptions
   ): string {
-    recipient = validateAndParseAddress(recipient);
+    recipient = validateAndParseAddress(recipient)
 
     if (feeOptions) {
-      const feeBips = this.encodeFeeBips(feeOptions.fee);
-      const feeRecipient: string = validateAndParseAddress(
-        feeOptions.recipient,
-      );
+      const feeBips = this.encodeFeeBips(feeOptions.fee)
+      const feeRecipient: string = validateAndParseAddress(feeOptions.recipient)
 
       return encodeFunctionData({
         abi: peripheryPaymentsWithFeeExtendedABI,
@@ -84,7 +81,7 @@ export abstract class Payments {
           feeBips,
           feeRecipient as `0x${string}`,
         ],
-      });
+      })
     } else {
       return encodeFunctionData({
         abi: peripheryPaymentsWithFeeExtendedABI,
@@ -94,7 +91,7 @@ export abstract class Payments {
           BigInt(amountMinimum),
           recipient as `0x${string}`,
         ],
-      });
+      })
     }
   }
 
@@ -102,6 +99,6 @@ export abstract class Payments {
     return encodeFunctionData({
       abi: peripheryPaymentsWithFeeExtendedABI,
       functionName: "refundETH",
-    });
+    })
   }
 }

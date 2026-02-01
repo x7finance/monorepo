@@ -1,4 +1,4 @@
-import { ArrowUpDownIcon } from "@x7/icons";
+import { ArrowUpDownIcon } from "@x7/icons"
 
 export function FlipSwapTokensButton({ onClick }: { onClick: () => void }) {
   return (
@@ -16,5 +16,5 @@ export function FlipSwapTokensButton({ onClick }: { onClick: () => void }) {
         </div>
       </button>
     </div>
-  );
+  )
 }

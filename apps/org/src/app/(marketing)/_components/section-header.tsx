@@ -1,16 +1,15 @@
-import { cn } from "@x7/css";
-
-import { PioneerDrop } from "~/lib/components/utils/pioneer-drop";
+import { cn } from "@x7/css"
+import { PioneerDrop } from "~/lib/components/utils/pioneer-drop"
 
 interface SectionHeaderProps {
-  pioneerId: string;
-  subHeader: string;
-  header: string;
-  description: string;
-  lineColor: string;
-  gradientColor: string;
-  hasSubSection?: boolean;
-  dataId?: string;
+  pioneerId: string
+  subHeader: string
+  header: string
+  description: string
+  lineColor: string
+  gradientColor: string
+  hasSubSection?: boolean
+  dataId?: string
 }
 
 export function SectionHeader(props: SectionHeaderProps) {
@@ -23,20 +22,20 @@ export function SectionHeader(props: SectionHeaderProps) {
     gradientColor,
     hasSubSection,
     dataId,
-  } = props;
+  } = props
 
   return (
     <div
       className={cn(
         "mx-auto max-w-2xl text-center",
-        !hasSubSection ? `mb-16` : ``,
+        !hasSubSection ? `mb-16` : ``
       )}
     >
       <PioneerDrop pioneerId={pioneerId} lineColor={lineColor} />
       <p
         className={cn(
           gradientColor,
-          `font-display my-3 inline bg-linear-to-r bg-clip-text text-xl font-bold uppercase text-transparent sm:text-3xl`,
+          `font-display my-3 inline bg-linear-to-r bg-clip-text text-xl font-bold uppercase text-transparent sm:text-3xl`
         )}
       >
         {subHeader}
@@ -52,5 +51,5 @@ export function SectionHeader(props: SectionHeaderProps) {
         {description}
       </p>
     </div>
-  );
+  )
 }

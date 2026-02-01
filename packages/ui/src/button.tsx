@@ -1,12 +1,12 @@
-import * as React from "react";
-import { Slot } from "@radix-ui/react-slot";
-import { cva } from "class-variance-authority";
-import type { VariantProps } from "class-variance-authority";
+import type { IconComponent, IconProps } from "./types"
+import type { VariantProps } from "class-variance-authority"
 
-import { cn } from "@x7/css";
-import { Loader2 } from "@x7/icons";
+import { Slot } from "@radix-ui/react-slot"
+import { cva } from "class-variance-authority"
+import * as React from "react"
 
-import type { IconComponent, IconProps } from "./types";
+import { cn } from "@x7/css"
+import { Loader2 } from "@x7/icons"
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium cursor-pointer transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background focus-visible:ring-emerald-600",
@@ -42,8 +42,8 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  },
-);
+  }
+)
 
 const buttonLoaderVariants = cva("animate-spin", {
   variants: {
@@ -58,7 +58,7 @@ const buttonLoaderVariants = cva("animate-spin", {
   defaultVariants: {
     size: "default",
   },
-});
+})
 
 const buttonIconVariants = cva("", {
   variants: {
@@ -73,17 +73,18 @@ const buttonIconVariants = cva("", {
   defaultVariants: {
     size: "default",
   },
-});
+})
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  icon?: IconComponent;
-  iconProps?: IconProps;
-  iconPosition?: "start" | "end";
-  asChild?: boolean;
-  loading?: boolean;
-  fullWidth?: boolean;
+  icon?: IconComponent
+  iconProps?: IconProps
+  iconPosition?: "start" | "end"
+  asChild?: boolean
+  loading?: boolean
+  fullWidth?: boolean
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -102,9 +103,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       loading = false,
       ...props
     },
-    ref,
+    ref
   ) => {
-    const Comp = asChild ? Slot : "button";
+    const Comp = asChild ? Slot : "button"
     return (
       <Comp
         disabled={loading ? true : disabled}
@@ -113,7 +114,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             variant,
             size,
             className: cn(className, fullWidth ? "w-full flex-1" : ""),
-          }),
+          })
         )}
         ref={ref}
         {...props}
@@ -146,14 +147,14 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           ) : null}
         </ButtonContent>
       </Comp>
-    );
-  },
-);
+    )
+  }
+)
 
-Button.displayName = "Button";
+Button.displayName = "Button"
 
 interface ButtonContentProps extends React.HTMLAttributes<HTMLDivElement> {
-  asChild?: boolean;
+  asChild?: boolean
 }
 
 const ButtonContent = React.forwardRef<HTMLDivElement, ButtonContentProps>(
@@ -163,11 +164,11 @@ const ButtonContent = React.forwardRef<HTMLDivElement, ButtonContentProps>(
         <div className="inline-flex gap-1" ref={ref} {...props}>
           {children}
         </div>
-      );
+      )
     }
 
-    return <>{children}</>;
-  },
-);
+    return <>{children}</>
+  }
+)
 
-export { Button, buttonIconVariants, buttonLoaderVariants, buttonVariants };
+export { Button, buttonIconVariants, buttonLoaderVariants, buttonVariants }

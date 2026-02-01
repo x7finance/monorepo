@@ -4,8 +4,21 @@
 
 /* oxlint-disable react-hooks/exhaustive-deps */
 
-"use client";
+"use client"
 
+import type { TokenApprovals } from "../../../app/(xchange)/_components/loans/types"
+import type {
+  BestSwapRoute,
+  RouteWithValidQuote,
+  SwapRoute,
+} from "@x7/smart-order-router"
+import type { Currency, Implementation, Token } from "@x7/utils"
+import type { FC } from "react"
+import type { Address } from "viem"
+import type { SwapState as NewSwapState } from "~/lib/stores/swap/types"
+
+import { watchAccount } from "@wagmi/core"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import React, {
   createContext,
   useCallback,
@@ -13,27 +26,17 @@ import React, {
   useEffect,
   useMemo,
   useState,
-} from "react";
-import type { FC } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { watchAccount } from "@wagmi/core";
-import type { Address } from "viem";
-import { isAddress, parseUnits } from "viem";
-import { useAccount, useChainId, useConfig } from "wagmi";
+} from "react"
+import { isAddress, parseUnits } from "viem"
+import { useAccount, useChainId, useConfig } from "wagmi"
 
-import { X7ContractsEnum } from "@x7/sdk";
-import { SwapType } from "@x7/smart-order-router";
-import type {
-  BestSwapRoute,
-  RouteWithValidQuote,
-  SwapRoute,
-} from "@x7/smart-order-router";
+import { X7ContractsEnum } from "@x7/sdk"
+import { SwapType } from "@x7/smart-order-router"
 import {
   useRecipientAddress,
   useRecipientAddressState,
   useSlippageTolerance,
-} from "@x7/ui";
-import type { Currency, Implementation, Token } from "@x7/utils";
+} from "@x7/ui"
 import {
   ChainId,
   CurrencyAmount,
@@ -42,81 +45,79 @@ import {
   Percent,
   TradeType,
   tryParseAmount,
-} from "@x7/utils";
+} from "@x7/utils"
+import { pDebounce } from "@x7/utils"
+import { useTokenApproval } from "~/lib/hooks/approvals/useTokenApproval"
+import { useTokenWithCache } from "~/lib/hooks/tokens/useTokenWithCache"
+import { useWeb3Config } from "~/lib/providers/web3"
 
-import { useTokenApproval } from "~/lib/hooks/approvals/useTokenApproval";
-import { useTokenWithCache } from "~/lib/hooks/tokens/useTokenWithCache";
-import { useWeb3Config } from "~/lib/providers/web3";
-import { pDebounce } from "@x7/utils";
-import { generateRoute } from "../../../app/(xchange)/_actions/generate-route";
-import type { TokenApprovals } from "../../../app/(xchange)/_components/loans/types";
-import { log } from "../../utils/log";
-import { useAlphaRouter } from "../router";
-import type { SwapState as NewSwapState } from "~/lib/stores/swap/types";
+import { generateRoute } from "../../../app/(xchange)/_actions/generate-route"
+import { log } from "../../utils/log"
+import { useAlphaRouter } from "../router"
 
 export interface SwapState {
   state: {
-    token0: Token | Native | undefined;
-    token1: Token | Native | undefined;
-    token0Address: Address;
-    token1Address: Address;
-    recipient: Address;
-    swapAmountString: string;
-    swapAmount: CurrencyAmount<Token | Native>;
-    route: SwapRoute | undefined;
-    slippage: Percent;
+    token0: Token | Native | undefined
+    token1: Token | Native | undefined
+    token0Address: Address
+    token1Address: Address
+    recipient: Address
+    swapAmountString: string
+    swapAmount: CurrencyAmount<Token | Native>
+    route: SwapRoute | undefined
+    slippage: Percent
     swapError: {
-      message: string;
-    };
-    token0Approval: TokenApprovals;
-    possibleRoutes: RouteWithValidQuote[];
-    bestRoute: BestSwapRoute | undefined;
-    secondaryRoute: BestSwapRoute | undefined;
-    enabledImplementations: Implementation[];
-    chainId: ChainId;
-  };
+      message: string
+    }
+    token0Approval: TokenApprovals
+    possibleRoutes: RouteWithValidQuote[]
+    bestRoute: BestSwapRoute | undefined
+    secondaryRoute: BestSwapRoute | undefined
+    enabledImplementations: Implementation[]
+    chainId: ChainId
+  }
   mutate: {
-    setToken0(token0: Token | Native | string): void;
-    setToken1(token1: Token | Native | string): void;
+    setToken0(token0: Token | Native | string): void
+    setToken1(token1: Token | Native | string): void
     setTokens(
       token0: Token | Native | string,
-      token1: Token | Native | string,
-    ): void;
-    setSwapAmount(swapAmount: string): void;
-    switchTokens(): void;
-    addPossibleRoutes(routes: RouteWithValidQuote[]): void;
-    setBestRoute(route: BestSwapRoute): void;
-    setSecondaryRoute(route: BestSwapRoute): void;
-    clearPossibleRoutes(): void;
+      token1: Token | Native | string
+    ): void
+    setSwapAmount(swapAmount: string): void
+    switchTokens(): void
+    addPossibleRoutes(routes: RouteWithValidQuote[]): void
+    setBestRoute(route: BestSwapRoute): void
+    setSecondaryRoute(route: BestSwapRoute): void
+    clearPossibleRoutes(): void
     tryAlternativeRoute: (
-      route: RouteWithValidQuote,
-    ) => Promise<SwapRoute | null>;
-  };
+      route: RouteWithValidQuote
+    ) => Promise<SwapRoute | null>
+  }
   loaders: {
-    token0Loading: boolean;
-    token1Loading: boolean;
-    isQuoteLoading: boolean;
-  };
+    token0Loading: boolean
+    token1Loading: boolean
+    isQuoteLoading: boolean
+  }
 }
-const getQuoteCurrency = (chainId: ChainId) => X7ContractsEnum.X7R(chainId);
+const getQuoteCurrency = (chainId: ChainId) => X7ContractsEnum.X7R(chainId)
 
 export const getTokenAsString = (token: Currency | string) =>
   typeof token === "string"
     ? token
     : token.isNative
       ? "NATIVE"
-      : token.wrapped.address;
+      : token.wrapped.address
 
-const X7SwapStateContext = createContext<SwapState>({} as SwapState);
+const X7SwapStateContext = createContext<SwapState>({} as SwapState)
 
 interface X7SwapProviderProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export const X7SwapStateProvider: FC<X7SwapProviderProps> = ({ children }) => {
-  const initialChainId = useChainId() as ChainId;
-  const { address } = useAccount();
-  const { wagmiConfig } = useWeb3Config();
+  const initialChainId = useChainId() as ChainId
+  const { address } = useAccount()
+  const { wagmiConfig } = useWeb3Config()
   const {
     state: {
       router,
@@ -132,60 +133,57 @@ export const X7SwapStateProvider: FC<X7SwapProviderProps> = ({ children }) => {
       setPossibleRoutes,
       setSecondaryRoute,
     },
-  } = useAlphaRouter();
-  const [isQuoteLoading, setIsQuoteLoading] = useState<boolean>(false);
-  const [swapError, setSwapError] = useState<Error>();
-  const [route, setRoute] = useState<SwapRoute>();
+  } = useAlphaRouter()
+  const [isQuoteLoading, setIsQuoteLoading] = useState<boolean>(false)
+  const [swapError, setSwapError] = useState<Error>()
+  const [route, setRoute] = useState<SwapRoute>()
 
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
 
-  const { push } = useRouter();
+  const { push } = useRouter()
 
-  const [slippageTolerance] = useSlippageTolerance("swapSlippage");
+  const [slippageTolerance] = useSlippageTolerance("swapSlippage")
 
   // Get the searchParams and complete with defaults.
   // This handles the case where some params might not be provided by the user
   const defaultedParams = useMemo(() => {
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams)
     if (!params.has("chainId")) {
-      params.set(
-        "chainId",
-        (initialChainId || ChainId.BASE).toString(),
-      );
+      params.set("chainId", (initialChainId || ChainId.BASE).toString())
     }
 
     if (!params.has("token0")) {
-      params.set("token0", "NATIVE");
+      params.set("token0", "NATIVE")
     }
 
     if (!params.has("token1")) {
       params.set(
         "token1",
-        getQuoteCurrency(Number(params.get("chainId")) as ChainId),
-      );
+        getQuoteCurrency(Number(params.get("chainId")) as ChainId)
+      )
     }
-    return params;
-  }, [initialChainId, searchParams]);
+    return params
+  }, [initialChainId, searchParams])
 
-  const chainId = Number(defaultedParams.get("chainId")) as ChainId;
+  const chainId = Number(defaultedParams.get("chainId")) as ChainId
 
   // Get a new searchParams string by merging the current
   // searchParams with a provided key/value pair
   const createQueryString = useCallback(
     (values: { name: string; value: string | null }[]) => {
-      const params = new URLSearchParams(defaultedParams);
+      const params = new URLSearchParams(defaultedParams)
       values.forEach(({ name, value }) => {
         if (value === null) {
-          params.delete(name);
+          params.delete(name)
         } else {
-          params.set(name, value);
+          params.set(name, value)
         }
-      });
-      return params.toString();
+      })
+      return params.toString()
     },
-    [defaultedParams],
-  );
+    [defaultedParams]
+  )
 
   // Switch token0 and token1
   const switchTokens = useCallback(() => {
@@ -196,24 +194,24 @@ export const X7SwapStateProvider: FC<X7SwapProviderProps> = ({ children }) => {
         { name: "token0", value: defaultedParams.get("token1") },
         { name: "token1", value: defaultedParams.get("token0") },
       ])}`,
-      { scroll: false },
-    );
-  }, [createQueryString, route, defaultedParams, pathname, push]);
+      { scroll: false }
+    )
+  }, [createQueryString, route, defaultedParams, pathname, push])
 
   const setToken0 = useCallback<(_token0: string | Currency) => void>(
     (_token0) => {
       // If entity is provided, parse it to a string
-      const token0 = getTokenAsString(_token0);
-      setPossibleRoutes([]);
-      setBestRoute(undefined);
-      setSecondaryRoute(undefined);
-      setRoute(undefined);
+      const token0 = getTokenAsString(_token0)
+      setPossibleRoutes([])
+      setBestRoute(undefined)
+      setSecondaryRoute(undefined)
+      setRoute(undefined)
 
       // Switch tokens if the new token0 is the same as the current token1
       if (
         defaultedParams.get("token1")?.toLowerCase() === token0.toLowerCase()
       ) {
-        switchTokens();
+        switchTokens()
       }
 
       // Push new route
@@ -222,28 +220,28 @@ export const X7SwapStateProvider: FC<X7SwapProviderProps> = ({ children }) => {
           `${pathname}?${createQueryString([
             { name: "token0", value: token0 },
           ])}`,
-          { scroll: false },
-        );
+          { scroll: false }
+        )
       }
     },
-    [createQueryString, defaultedParams, pathname, push, switchTokens],
-  );
+    [createQueryString, defaultedParams, pathname, push, switchTokens]
+  )
 
   // Update the URL with a new token1
   const setToken1 = useCallback<(_token1: string | Currency) => void>(
     (_token1) => {
       // If entity is provided, parse it to a string
-      const token1 = getTokenAsString(_token1);
-      setPossibleRoutes([]);
-      setBestRoute(undefined);
-      setSecondaryRoute(undefined);
-      setRoute(undefined);
+      const token1 = getTokenAsString(_token1)
+      setPossibleRoutes([])
+      setBestRoute(undefined)
+      setSecondaryRoute(undefined)
+      setRoute(undefined)
 
       // Switch tokens if the new token0 is the same as the current token1
       if (
         defaultedParams.get("token0")?.toLowerCase() === token1.toLowerCase()
       ) {
-        switchTokens();
+        switchTokens()
       }
 
       // Push new route
@@ -252,12 +250,12 @@ export const X7SwapStateProvider: FC<X7SwapProviderProps> = ({ children }) => {
           `${pathname}?${createQueryString([
             { name: "token1", value: token1 },
           ])}`,
-          { scroll: false },
-        );
+          { scroll: false }
+        )
       }
     },
-    [createQueryString, defaultedParams, pathname, push, switchTokens],
-  );
+    [createQueryString, defaultedParams, pathname, push, switchTokens]
+  )
 
   // Update the URL with both tokens
   const setTokens = useCallback<
@@ -265,12 +263,12 @@ export const X7SwapStateProvider: FC<X7SwapProviderProps> = ({ children }) => {
   >(
     (_token0, _token1) => {
       // If entity is provided, parse it to a string
-      const token0 = getTokenAsString(_token0);
-      const token1 = getTokenAsString(_token1);
-      setPossibleRoutes([]);
-      setBestRoute(undefined);
-      setSecondaryRoute(undefined);
-      setRoute(undefined);
+      const token0 = getTokenAsString(_token0)
+      const token1 = getTokenAsString(_token1)
+      setPossibleRoutes([])
+      setBestRoute(undefined)
+      setSecondaryRoute(undefined)
+      setRoute(undefined)
 
       push(
         `${pathname}?${createQueryString([
@@ -278,11 +276,11 @@ export const X7SwapStateProvider: FC<X7SwapProviderProps> = ({ children }) => {
           { name: "token0", value: token0 },
           { name: "token1", value: token1 },
         ])}`,
-        { scroll: false },
-      );
+        { scroll: false }
+      )
     },
-    [createQueryString, pathname, push],
-  );
+    [createQueryString, pathname, push]
+  )
 
   // Update the URL with a new swapAmount
   const setSwapAmount = useCallback<(value: string) => void>(
@@ -291,48 +289,48 @@ export const X7SwapStateProvider: FC<X7SwapProviderProps> = ({ children }) => {
         `${pathname}?${createQueryString([
           { name: "swapAmount", value: value },
         ])}`,
-        { scroll: false },
-      );
+        { scroll: false }
+      )
     },
-    [createQueryString, pathname, push],
-  );
+    [createQueryString, pathname, push]
+  )
 
-  const config = useConfig();
+  const config = useConfig()
 
   useEffect(() => {
     const unwatch = watchAccount(config, {
       onChange: ({ chain }) => {
-        if (!chain || chain.id === chainId) return;
-        push(pathname, { scroll: false });
+        if (!chain || chain.id === chainId) return
+        push(pathname, { scroll: false })
       },
-    });
-    return () => unwatch();
-  }, [config, chainId, pathname, push]);
+    })
+    return () => unwatch()
+  }, [config, chainId, pathname, push])
 
   const { data: token0, isLoading: token0Loading } = useTokenWithCache({
     chainId: chainId,
     address: defaultedParams.get("token0"),
     enabled: isAddress(defaultedParams.get("token0")!),
     keepPreviousData: true,
-  });
+  })
 
   const { data: token1, isLoading: token1Loading } = useTokenWithCache({
     chainId: chainId,
     address: defaultedParams.get("token1"),
     enabled: isAddress(defaultedParams.get("token1")!),
     keepPreviousData: true,
-  });
+  })
 
   const intendedRouterAddress: `0x${string}` =
-    route?.methodParameters?.to ?? `0x`;
+    route?.methodParameters?.to ?? `0x`
 
-  const swapAmountString = defaultedParams.get("swapAmount") ?? "";
+  const swapAmountString = defaultedParams.get("swapAmount") ?? ""
 
   const [token0ApprovalStatus] = useTokenApproval({
     amount: swapAmountString
       ? CurrencyAmount.fromRawAmount(
           token0 ?? Native.onChain(chainId),
-          parseUnits(swapAmountString, token0?.decimals ?? 18),
+          parseUnits(swapAmountString, token0?.decimals ?? 18)
         )
       : undefined,
     spender: intendedRouterAddress,
@@ -341,7 +339,7 @@ export const X7SwapStateProvider: FC<X7SwapProviderProps> = ({ children }) => {
       !!swapAmountString &&
       parseFloat(swapAmountString) > 0 &&
       intendedRouterAddress !== "0x",
-  });
+  })
 
   const token0Approval: TokenApprovals = {
     approval: token0ApprovalStatus,
@@ -350,11 +348,11 @@ export const X7SwapStateProvider: FC<X7SwapProviderProps> = ({ children }) => {
     amount: swapAmountString
       ? parseUnits(swapAmountString, token0?.decimals ?? 18)
       : 0n,
-  };
+  }
 
   const tryAlternativeRoute = async (routeToUse: RouteWithValidQuote) => {
     if (!router) {
-      throw new Error("No AlphaRouter instance setup");
+      throw new Error("No AlphaRouter instance setup")
     }
     const route = await router.routeFromValidQuote(
       tryParseAmount(swapAmountString, _token0)!,
@@ -371,63 +369,63 @@ export const X7SwapStateProvider: FC<X7SwapProviderProps> = ({ children }) => {
         simulate: {
           fromAddress: recipient ?? address!,
         },
-      },
-    );
+      }
+    )
     if (route) {
-      setRoute(route);
+      setRoute(route)
     }
 
-    return route;
-  };
+    return route
+  }
 
   // TODO: Monitor if this is ideal
   const throttleRouteGen = pDebounce(async (param: NewSwapState) => {
     if (!param.state.token0 || !param.state.token1 || !router) {
-      return;
+      return
     }
 
-    router.abortCurrentRoute();
+    router.abortCurrentRoute()
     await generateRoute(param, wagmiConfig, router)
       .then((_route) => {
-        setIsQuoteLoading(false);
+        setIsQuoteLoading(false)
 
         if (_route) {
-          setSwapError(undefined);
-          setRoute(_route);
+          setSwapError(undefined)
+          setRoute(_route)
         } else {
           // @ts-expect-error: todo fix
           setSwapError({
             message: `No quotes found, Routers used: ${enabledImplementations.join(",").toLowerCase()}`,
-          });
+          })
         }
       })
       .catch((error: Error) => {
-        log.error(LogCodes.FAIL, "Promise executed with error", `${error}`);
-        setPossibleRoutes([]);
-        setRoute(undefined);
-        setBestRoute(undefined);
-        setSecondaryRoute(undefined);
-        setIsQuoteLoading(false);
-        setSwapError(error);
-      });
-  }, 250);
+        log.error(LogCodes.FAIL, "Promise executed with error", `${error}`)
+        setPossibleRoutes([])
+        setRoute(undefined)
+        setBestRoute(undefined)
+        setSecondaryRoute(undefined)
+        setIsQuoteLoading(false)
+        setSwapError(error)
+      })
+  }, 250)
 
-  const [recipientAddressState] = useRecipientAddressState();
-  const [recipientAddress] = useRecipientAddress();
+  const [recipientAddressState] = useRecipientAddressState()
+  const [recipientAddress] = useRecipientAddress()
 
   const recipient =
     recipientAddressState && isAddress(recipientAddress)
       ? recipientAddress
-      : address;
+      : address
 
   const _token0 =
     defaultedParams.get("token0") === "NATIVE"
       ? Native.onChain(chainId)
-      : token0;
+      : token0
   const _token1 =
     defaultedParams.get("token1") === "NATIVE"
       ? Native.onChain(chainId)
-      : token1;
+      : token1
 
   const builtState: SwapState = {
     state: {
@@ -467,33 +465,33 @@ export const X7SwapStateProvider: FC<X7SwapProviderProps> = ({ children }) => {
       token1Loading,
       isQuoteLoading,
     },
-  };
+  }
 
   useEffect(() => {
-    setPossibleRoutes([]);
-    setBestRoute(undefined);
-    setSecondaryRoute(undefined);
-    setRoute(undefined);
-    setSwapError(undefined);
+    setPossibleRoutes([])
+    setBestRoute(undefined)
+    setSecondaryRoute(undefined)
+    setRoute(undefined)
+    setSwapError(undefined)
 
     if (_token0 && _token1 && parseFloat(`${swapAmountString}`) > 0) {
-      setIsQuoteLoading(true);
-      void throttleRouteGen(builtState as unknown as NewSwapState);
+      setIsQuoteLoading(true)
+      void throttleRouteGen(builtState as unknown as NewSwapState)
     }
-  }, [chainId, router, address, _token0, _token1, swapAmountString]);
+  }, [chainId, router, address, _token0, _token1, swapAmountString])
 
   return (
     <X7SwapStateContext.Provider value={builtState}>
       {children}
     </X7SwapStateContext.Provider>
-  );
-};
+  )
+}
 
 export const useSwapState = () => {
-  const context = useContext(X7SwapStateContext);
+  const context = useContext(X7SwapStateContext)
   if (!context) {
-    throw new Error("Hook can only be used inside Swap State Context");
+    throw new Error("Hook can only be used inside Swap State Context")
   }
 
-  return context;
-};
+  return context
+}

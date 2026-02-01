@@ -1,7 +1,8 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import type { Route } from "next";
+import type { Route } from "next"
+
+import { useState } from "react"
 
 import {
   ChevronDownIcon,
@@ -12,12 +13,11 @@ import {
   Twitter,
   Warpcast,
   X7Logo,
-} from "@x7/icons";
-import { Collapsible } from "@x7/ui/collapsible";
-import { Drawer, DrawerContent, DrawerTrigger } from "@x7/ui/drawer";
-import { LinkExternal, LinkInternal } from "@x7/ui/link";
-import { SocialsEnum } from "@x7/utils";
-
+} from "@x7/icons"
+import { Collapsible } from "@x7/ui/collapsible"
+import { Drawer, DrawerContent, DrawerTrigger } from "@x7/ui/drawer"
+import { LinkExternal, LinkInternal } from "@x7/ui/link"
+import { SocialsEnum } from "@x7/utils"
 import {
   DashboardLinksEnum,
   DocsLinks,
@@ -25,7 +25,7 @@ import {
   NftsLinkEnum,
   TokenLinksEnum,
   XchangeLinks,
-} from "~/types/links";
+} from "~/types/links"
 
 export const MOBILE_XCHANGE_NAV = [
   {
@@ -52,10 +52,10 @@ export const MOBILE_XCHANGE_NAV = [
     title: "More",
   },
 ] satisfies {
-  href: Route;
-  title: string | React.JSX.Element;
-  img?: string;
-}[];
+  href: Route
+  title: string | React.JSX.Element
+  img?: string
+}[]
 
 const navSections = [
   {
@@ -108,12 +108,12 @@ const navSections = [
       { label: "X7 Tokens", href: TokenLinksEnum.Index },
     ],
   },
-];
+]
 
 export function MobileNav() {
-  const [openSection, setOpenSection] = useState<string | null>(null);
-  const [isOpen, setIsOpen] = useState(false);
-  const closeDrawer = () => setIsOpen(false);
+  const [openSection, setOpenSection] = useState<string | null>(null)
+  const [isOpen, setIsOpen] = useState(false)
+  const closeDrawer = () => setIsOpen(false)
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
@@ -160,7 +160,7 @@ export function MobileNav() {
                 className="flex w-full items-center justify-between text-lg"
                 onClick={() =>
                   setOpenSection(
-                    openSection === section.title ? null : section.title,
+                    openSection === section.title ? null : section.title
                   )
                 }
               >
@@ -220,5 +220,5 @@ export function MobileNav() {
         </div>
       </DrawerContent>
     </Drawer>
-  );
+  )
 }

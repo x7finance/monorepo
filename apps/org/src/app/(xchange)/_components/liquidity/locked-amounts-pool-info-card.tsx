@@ -1,22 +1,22 @@
-import type { FC } from "react";
-import { formatUnits } from "viem";
+import type { FC } from "react"
+import type { UserPositionsResponse } from "~/lib/hooks/tokens/useGetAllUserTokens"
 
-import { cn } from "@x7/css";
-import { Card, CardContent } from "@x7/ui/card";
-import { Collapsible } from "@x7/ui/radix-collapsible";
-import { StatLabel, StatValue } from "@x7/ui/stat";
+import { formatUnits } from "viem"
 
-import type { UserPositionsResponse } from "~/lib/hooks/tokens/useGetAllUserTokens";
+import { cn } from "@x7/css"
+import { Card, CardContent } from "@x7/ui/card"
+import { Collapsible } from "@x7/ui/radix-collapsible"
+import { StatLabel, StatValue } from "@x7/ui/stat"
 
 interface LockedAmountsPoolInfoCardProps {
-  position: UserPositionsResponse;
+  position: UserPositionsResponse
 }
 
 export const LockedAmountsPoolInfoCard: FC<LockedAmountsPoolInfoCardProps> = ({
   position,
 }) => {
-  const lockedAmount0 = position.token0.minimumBalance;
-  const lockedAmount1 = position.token1.minimumBalance;
+  const lockedAmount0 = position.token0.minimumBalance
+  const lockedAmount1 = position.token1.minimumBalance
 
   return (
     <Collapsible open={Boolean(lockedAmount0 > 0n && lockedAmount1 > 0n)}>
@@ -57,5 +57,5 @@ export const LockedAmountsPoolInfoCard: FC<LockedAmountsPoolInfoCardProps> = ({
         </CardContent>
       </Card>
     </Collapsible>
-  );
-};
+  )
+}

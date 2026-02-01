@@ -1,17 +1,17 @@
-"use client";
+"use client"
 
-import { useMemo } from "react";
+import { useMemo } from "react"
 
-import { Percent } from "@x7/utils";
+import { Percent } from "@x7/utils"
 
-import { useLocalStorage } from "./use-local-storage";
+import { useLocalStorage } from "./use-local-storage"
 
 export const useSlippageTolerancePercent = (
-  key: string | undefined = "swapSlippage",
+  key: string | undefined = "swapSlippage"
 ) => {
   const [slippageTolerance, setSlippageTolerance] = useLocalStorage<
     number | string
-  >(key, 0.1);
+  >(key, 0.1)
 
   return useMemo(
     () =>
@@ -19,12 +19,12 @@ export const useSlippageTolerancePercent = (
         new Percent(
           Math.floor(
             Number(slippageTolerance === "AUTO" ? "0.1" : slippageTolerance) *
-              100,
+              100
           ),
-          10_000,
+          10_000
         ),
         setSlippageTolerance,
       ] as const,
-    [slippageTolerance, setSlippageTolerance],
-  );
-};
+    [slippageTolerance, setSlippageTolerance]
+  )
+}

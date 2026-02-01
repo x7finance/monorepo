@@ -1,53 +1,53 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
-import type { Config } from "@wagmi/core";
-import { getWalletClient } from "@wagmi/core";
-import { isAddress, isHex } from "viem";
+import type { Config } from "@wagmi/core"
+import type { SwapRoute } from "@x7/smart-order-router"
+import type { CurrencyAmount, Native, Token } from "@x7/utils"
 
-import type { SwapRoute } from "@x7/smart-order-router";
-import type { CurrencyAmount, Native, Token } from "@x7/utils";
+import { getWalletClient } from "@wagmi/core"
+import { isAddress, isHex } from "viem"
 
-import { getTokenTransferApproval } from "./get-token-transfer-approval";
+import { getTokenTransferApproval } from "./get-token-transfer-approval"
 
 export async function executeRoute(routeInfo: {
-  token0: Token | Native;
-  swapAmount: CurrencyAmount<Token | Native>;
-  route: SwapRoute | undefined;
-  config: Config;
+  token0: Token | Native
+  swapAmount: CurrencyAmount<Token | Native>
+  route: SwapRoute | undefined
+  config: Config
 }): Promise<`0x${string}`> {
-  const { token0, swapAmount, route, config } = routeInfo;
-  const walletClient = await getWalletClient(config);
+  const { token0, swapAmount, route, config } = routeInfo
+  const walletClient = await getWalletClient(config)
 
   if (!walletClient) {
-    throw new Error("No Clients Detected!");
+    throw new Error("No Clients Detected!")
   }
 
   if (!walletClient.account.address) {
-    throw new Error("Could not get address");
+    throw new Error("Could not get address")
   }
 
   // Validate router address and calldata before proceeding
   if (!route?.methodParameters?.to || !isAddress(route.methodParameters.to)) {
-    throw new Error("Invalid router address");
+    throw new Error("Invalid router address")
   }
   if (
     !route.methodParameters.calldata ||
     !isHex(route.methodParameters.calldata)
   ) {
-    throw new Error("Invalid calldata");
+    throw new Error("Invalid calldata")
   }
 
-  const routerAddress: `0x${string}` = route.methodParameters.to;
+  const routerAddress: `0x${string}` = route.methodParameters.to
 
   // One last approval check
   const approval = await getTokenTransferApproval(
     token0,
     swapAmount,
     routerAddress,
-    config,
-  );
+    config
+  )
 
   if (!approval) {
-    throw new Error("Could not get approval");
+    throw new Error("Could not get approval")
   }
 
   const res = await walletClient.sendTransaction({
@@ -55,7 +55,7 @@ export async function executeRoute(routeInfo: {
     to: routerAddress,
     value: BigInt(route.methodParameters.value ?? 0),
     account: walletClient.account.address,
-  });
+  })
 
-  return res;
+  return res
 }

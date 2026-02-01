@@ -1,7 +1,9 @@
 /* oxlint-disable no-restricted-properties */
 /* oxlint-disable turbo/no-undeclared-env-vars */
-import type { CreateConfigParameters } from "@wagmi/core";
-import { createConfig, fallback, http } from "@wagmi/core";
+import type { CreateConfigParameters } from "@wagmi/core"
+import type { Chain, Transport } from "viem"
+
+import { createConfig, fallback, http } from "@wagmi/core"
 import {
   arbitrum,
   arbitrumSepolia,
@@ -18,14 +20,12 @@ import {
   polygon,
   polygonAmoy,
   sepolia,
-} from "@wagmi/core/chains";
-import type { Chain, Transport } from "viem";
+} from "@wagmi/core/chains"
 
-import { ChainId } from "@x7/utils";
+import { ChainId } from "@x7/utils"
+import { env } from "~/env.mjs"
 
-import { env } from "~/env.mjs";
-
-const productionChains = [base, mainnet, polygon, optimism, arbitrum, bsc];
+const productionChains = [base, mainnet, polygon, optimism, arbitrum, bsc]
 const testnetChains = [
   sepolia,
   baseSepolia,
@@ -33,7 +33,7 @@ const testnetChains = [
   arbitrumSepolia,
   optimismSepolia,
   polygonAmoy,
-];
+]
 
 export const web3Config: CreateConfigParameters<
   readonly [Chain, ...Chain[]],
@@ -121,14 +121,14 @@ export const web3Config: CreateConfigParameters<
           ]),
         },
   ssr: true,
-};
+}
 
-export const baseConfig = createConfig(web3Config);
+export const baseConfig = createConfig(web3Config)
 
 export const defaultChains: Chain[] =
   process.env.NODE_ENV === "development"
     ? [foundry, hardhat, localhost, ...productionChains, ...testnetChains]
-    : productionChains;
+    : productionChains
 
 export const otherChains: Chain[] = [
   {
@@ -164,6 +164,6 @@ export const otherChains: Chain[] = [
       },
     },
   },
-];
+]
 
-export const allChains = [...defaultChains, ...otherChains];
+export const allChains = [...defaultChains, ...otherChains]

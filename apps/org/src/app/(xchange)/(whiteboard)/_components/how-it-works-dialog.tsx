@@ -1,7 +1,7 @@
-import { DialogContent, DialogHeader, DialogTitle } from "@x7/ui/dialog";
+import { DialogContent, DialogHeader, DialogTitle } from "@x7/ui/dialog"
 
 interface HowItWorksDialogContentProps {
-  _children?: React.ReactNode;
+  _children?: React.ReactNode
 }
 
 export function HowItWorksDialogContent({
@@ -58,5 +58,5 @@ export function HowItWorksDialogContent({
         </div>
       </div>
     </DialogContent>
-  );
+  )
 }

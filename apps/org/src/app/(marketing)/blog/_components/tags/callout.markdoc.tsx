@@ -1,13 +1,13 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
-import { cn } from "@x7/css";
+import { cn } from "@x7/css"
 
 interface Style {
-  container: string;
-  title: string;
-  body: string;
+  container: string
+  title: string
+  body: string
 }
 
-type Styles = Record<string, Style>;
+type Styles = Record<string, Style>
 
 const styles: Styles = {
   note: {
@@ -22,16 +22,16 @@ const styles: Styles = {
     title: "text-amber-900 dark:text-amber-500",
     body: "text-amber-800 [--tw-prose-underline:var(--color-amber-400)] [--tw-prose-background:var(--color-amber-50)] prose-a:text-amber-900 prose-code:text-amber-900 dark:text-zinc-300 dark:[--tw-prose-underline:var(--color-violet-700)] dark:prose-code:text-zinc-300",
   },
-};
+}
 
 export function Callout({
   type = "note",
   title,
   children,
 }: {
-  type?: string;
-  title: string;
-  children: React.JSX.Element;
+  type?: string
+  title: string
+  children: React.JSX.Element
 }) {
   return (
     <div className={cn("my-8 flex rounded-3xl p-6", styles[type]!.container)}>
@@ -39,7 +39,7 @@ export function Callout({
         <p
           className={cn(
             "font-display m-0 text-xl font-medium",
-            styles[type]!.title,
+            styles[type]!.title
           )}
         >
           {title}
@@ -47,5 +47,5 @@ export function Callout({
         <div className={cn("prose mt-2.5", styles[type]!.body)}>{children}</div>
       </div>
     </div>
-  );
+  )
 }

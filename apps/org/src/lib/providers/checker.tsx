@@ -1,10 +1,10 @@
 /* oxlint-disable @typescript-eslint/require-await */
-import { CheckerProvider } from "~/lib/systems/Checker/Provider";
+import { CheckerProvider } from "~/lib/systems/Checker/Provider"
 
 export async function CheckerProviderComponent({
   children,
 }: {
-  children: React.JSX.Element;
+  children: React.JSX.Element
 }) {
-  return <CheckerProvider>{children}</CheckerProvider>;
+  return <CheckerProvider>{children}</CheckerProvider>
 }

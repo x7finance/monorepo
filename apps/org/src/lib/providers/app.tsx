@@ -1,46 +1,46 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-return */
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
-"use client";
+"use client"
 
-import { memo, Suspense, useEffect, useMemo, useState } from "react";
-import { darkTheme, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { darkTheme, RainbowKitProvider } from "@rainbow-me/rainbowkit"
 import {
   QueryClientProvider as _QueryClientProvider,
   MutationCache,
   QueryCache,
   QueryClient,
   QueryClientProvider,
-} from "@tanstack/react-query";
+} from "@tanstack/react-query"
+import { memo, Suspense, useEffect, useMemo, useState } from "react"
 
-import { Toaster } from "@x7/ui/sonner";
-import { SplashController } from "@x7/ui/splash";
-import { TooltipProvider } from "@x7/ui/tooltip";
-
-import { TransactionStoreProvider } from "~/lib/providers/tx";
-import { Web3Provider } from "~/lib/providers/web3";
+import { Toaster } from "@x7/ui/sonner"
+import { SplashController } from "@x7/ui/splash"
+import { TooltipProvider } from "@x7/ui/tooltip"
+import { TransactionStoreProvider } from "~/lib/providers/tx"
+import { Web3Provider } from "~/lib/providers/web3"
 import {
   createMutationCacheConfig,
   createQueryCacheConfig,
   DEFAULT_QUERY_OPTIONS,
-} from "~/lib/query";
-import { AlphaRouterProvider } from "./router";
+} from "~/lib/query"
+
+import { AlphaRouterProvider } from "./router"
 
 interface ProvidersProps {
-  children: React.ReactNode;
+  children: React.ReactNode
   // oxlint-disable-next-line @typescript-eslint/no-explicit-any
-  initialState?: any;
+  initialState?: any
 }
 
 const appInfo = {
   appName: "Xchange",
-};
+}
 
-const MemoizedTooltipProvider = memo(TooltipProvider);
-const MemoizedSplashController = memo(SplashController);
+const MemoizedTooltipProvider = memo(TooltipProvider)
+const MemoizedSplashController = memo(SplashController)
 
 export function AppProviders(props: ProvidersProps) {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
 
   const queryClient = useMemo(
     () =>
@@ -49,14 +49,14 @@ export function AppProviders(props: ProvidersProps) {
         mutationCache: new MutationCache(createMutationCacheConfig()),
         defaultOptions: DEFAULT_QUERY_OPTIONS,
       }),
-    [],
-  );
+    []
+  )
 
   // Memoize the initial state to prevent unnecessary re-renders
   const initialStateMemo = useMemo(
     () => props.initialState,
-    [props.initialState],
-  );
+    [props.initialState]
+  )
 
   const theme = useMemo(
     () =>
@@ -66,8 +66,8 @@ export function AppProviders(props: ProvidersProps) {
         borderRadius: "medium",
         fontStack: "system",
       }),
-    [],
-  );
+    []
+  )
 
   const toastOptions = useMemo(
     () => ({
@@ -75,8 +75,8 @@ export function AppProviders(props: ProvidersProps) {
         bottom: 30,
       },
     }),
-    [],
-  );
+    []
+  )
 
   return (
     <Suspense>
@@ -107,5 +107,5 @@ export function AppProviders(props: ProvidersProps) {
         <Toaster richColors closeButton toastOptions={toastOptions} />
       </Web3Provider>
     </Suspense>
-  );
+  )
 }

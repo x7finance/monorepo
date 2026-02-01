@@ -8,4 +8,4 @@ export const GradientTypes = {
   redLight: "from-slate-400 via-rose-500 to-sky-400",
   marsSunset: "from-slate-400 via-amber-500 to-zinc-400",
   bank: "from-emerald-400 via-green-500 to-cyan-400",
-};
+}

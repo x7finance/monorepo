@@ -1,18 +1,19 @@
-"use client";
+"use client"
 
-import { Fragment } from "react";
-import type { Language } from "prism-react-renderer";
-import { Highlight, themes } from "prism-react-renderer";
+import type { Language } from "prism-react-renderer"
 
-import { cn } from "@x7/css";
-import { CopyButton } from "@x7/ui/copy-button";
+import { Highlight, themes } from "prism-react-renderer"
+import { Fragment } from "react"
+
+import { cn } from "@x7/css"
+import { CopyButton } from "@x7/ui/copy-button"
 
 export function Fence({
   children,
   language,
 }: {
-  children: string;
-  language: Language;
+  children: string
+  language: Language
 }) {
   return (
     <Highlight
@@ -24,7 +25,7 @@ export function Fence({
         <pre
           className={cn(
             className,
-            "not-prose relative w-full overflow-auto rounded-lg bg-zinc-800 p-4",
+            "not-prose relative w-full overflow-auto rounded-lg bg-zinc-800 p-4"
           )}
           style={style}
         >
@@ -42,7 +43,10 @@ export function Fence({
                 {line
                   .filter((token) => !token.empty)
                   .map((token, tokenIndex) => (
-                    <span key={`token-${lineIndex}-${tokenIndex}`} {...getTokenProps({ token })} />
+                    <span
+                      key={`token-${lineIndex}-${tokenIndex}`}
+                      {...getTokenProps({ token })}
+                    />
                   ))}
                 {"\n"}
               </Fragment>
@@ -51,5 +55,5 @@ export function Fence({
         </pre>
       )}
     </Highlight>
-  );
+  )
 }

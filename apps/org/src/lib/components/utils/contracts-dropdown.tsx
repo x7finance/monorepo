@@ -1,26 +1,25 @@
+import Link from "next/link"
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
-import React from "react";
-import Link from "next/link";
+import React from "react"
 
-import { ChevronDownIcon, Glyph, IconWrapper } from "@x7/icons";
-import { Button } from "@x7/ui/button";
+import { ChevronDownIcon, Glyph, IconWrapper } from "@x7/icons"
+import { Button } from "@x7/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@x7/ui/dropdown-menu";
-import { ChainId, ChainNameEnum, ChainScannerEnum } from "@x7/utils";
-
-import { BLOCK_EXPLORER_PREFIXES } from "~/lib/utils/getExplorerLink";
+} from "@x7/ui/dropdown-menu"
+import { ChainId, ChainNameEnum, ChainScannerEnum } from "@x7/utils"
+import { BLOCK_EXPLORER_PREFIXES } from "~/lib/utils/getExplorerLink"
 
 interface Chain {
-  name: ChainNameEnum;
-  id: ChainId;
-  icon: React.ReactElement;
-  scanner: ChainScannerEnum;
-  scannerLink: string;
+  name: ChainNameEnum
+  id: ChainId
+  icon: React.ReactElement
+  scanner: ChainScannerEnum
+  scannerLink: string
 }
 
 export const ChainsArray: Chain[] = [
@@ -80,7 +79,7 @@ export const ChainsArray: Chain[] = [
     scanner: ChainScannerEnum.optimism,
     scannerLink: BLOCK_EXPLORER_PREFIXES[ChainId.OPTIMISM]!,
   },
-];
+]
 
 export function Dropdown({
   name,
@@ -88,10 +87,10 @@ export function Dropdown({
   type,
   contract,
 }: {
-  name: string;
-  label: string;
-  type: string;
-  contract: string;
+  name: string
+  label: string
+  type: string
+  contract: string
 }) {
   return (
     <DropdownMenu modal={false} key={`${name}-dropdown`}>
@@ -127,25 +126,25 @@ export function Dropdown({
                   </div>
                 </Link>
               </DropdownMenuItem>
-            );
+            )
           })}
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
+  )
 }
 
 function generateLink(c: Chain, type: string, contract: string) {
   switch (type) {
     case "xchange":
-      return `/swap?token0=NATIVE&token1=${contract}`;
+      return `/swap?token0=NATIVE&token1=${contract}`
     case "address":
-      return `${c.scannerLink}/address/${contract}`;
+      return `${c.scannerLink}/address/${contract}`
     case "token":
-      return `${c.scannerLink}/token/${contract}`;
+      return `${c.scannerLink}/token/${contract}`
     case "mint":
-      return `/fund`;
+      return `/fund`
     default:
-      return "";
+      return ""
   }
 }

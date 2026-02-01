@@ -1,14 +1,14 @@
-import { Protocol } from "@x7/utils";
+import { Protocol } from "@x7/utils"
 
 export const TO_PROTOCOL = (protocol: string): Protocol => {
   switch (protocol.toLowerCase()) {
     case "v3":
-      return Protocol.V3;
+      return Protocol.V3
     case "v2":
-      return Protocol.V2;
+      return Protocol.V2
     case "mixed":
-      return Protocol.MIXED;
+      return Protocol.MIXED
     default:
-      throw new Error(`Unknown protocol: {id}`);
+      throw new Error(`Unknown protocol: {id}`)
   }
-};
+}

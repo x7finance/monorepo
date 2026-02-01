@@ -1,5 +1,6 @@
-import { env } from "~/env.mjs";
-import { siteConfig } from "./site";
+import { env } from "~/env.mjs"
+
+import { siteConfig } from "./site"
 
 export const SITE_METADATA = {
   title: {
@@ -58,4 +59,4 @@ export const SITE_METADATA = {
   },
   siteName: siteConfig.name,
   manifest: `${siteConfig.url}/site.webmanifest`,
-};
+}

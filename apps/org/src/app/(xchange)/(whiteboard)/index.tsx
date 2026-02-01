@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation"
+import { useState } from "react"
 
 // import { cn } from "@x7/css";
 // import { buttonVariants } from "@x7/ui/button";
@@ -11,7 +11,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@x7/ui/card";
+} from "@x7/ui/card"
 // import { Input } from "@x7/ui/input";
 // import {
 //   Select,
@@ -20,20 +20,20 @@ import {
 //   SelectTrigger,
 //   SelectValue,
 // } from "@x7/ui/select";
-import { SkeletonBox } from "@x7/ui/skeleton";
+import { SkeletonBox } from "@x7/ui/skeleton"
+import { useCreatedXchangeTokens } from "~/lib/hooks/tokens/useCreatedXchangeTokens"
 
-import { useCreatedXchangeTokens } from "~/lib/hooks/tokens/useCreatedXchangeTokens";
-import { TokenCard } from "./token-card";
+import { TokenCard } from "./token-card"
 
 export function XChangeBoard() {
   // const router = useRouter();
-  const searchParams = useSearchParams();
-  const { data: tokens, isLoading } = useCreatedXchangeTokens();
+  const searchParams = useSearchParams()
+  const { data: tokens, isLoading } = useCreatedXchangeTokens()
 
   const [_filter, _setFilter] = useState(
-    searchParams.get("filter") ?? "featured",
-  );
-  const [_sortedProjects, _setSortedProjects] = useState();
+    searchParams.get("filter") ?? "featured"
+  )
+  const [_sortedProjects, _setSortedProjects] = useState()
   // const [searchTerm, setSearchTerm] = useState("");
 
   // useEffect(() => {
@@ -108,7 +108,10 @@ export function XChangeBoard() {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
             {isLoading
               ? Array.from({ length: 9 }).map((_, i) => (
-                  <Card key={`skeleton-${i}`} className="flex h-full w-full flex-col">
+                  <Card
+                    key={`skeleton-${i}`}
+                    className="flex h-full w-full flex-col"
+                  >
                     <CardHeader className="relative p-0">
                       <div className="relative mb-2 h-24 w-full">
                         <SkeletonBox className="h-full w-full rounded-t-lg" />
@@ -143,5 +146,5 @@ export function XChangeBoard() {
         </div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,8 +1,10 @@
+import type { BigintIsh } from "../../core/constants"
+
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
-import invariant from "tiny-invariant";
-import { encodePacked, getContractAddress, keccak256, toBytes } from "viem";
+import invariant from "tiny-invariant"
+import { encodePacked, getContractAddress, keccak256, toBytes } from "viem"
 
 import {
   CurrencyAmount,
@@ -13,8 +15,9 @@ import {
   Price,
   Protocol,
   Token,
-} from "@x7/utils";
+} from "@x7/utils"
 
+import { FACTORY_ADDRESSES, PAIR_INIT_HASH } from "../../core/addresses"
 import {
   _997,
   _1000,
@@ -23,47 +26,45 @@ import {
   MINIMUM_LIQUIDITY,
   ONE,
   ZERO,
-} from "../../core/constants";
-import type { BigintIsh } from "../../core/constants";
-import { FACTORY_ADDRESSES, PAIR_INIT_HASH } from "../../core/addresses";
+} from "../../core/constants"
 
 export const computePairAddress = ({
   pairType,
   tokenA,
   tokenB,
 }: {
-  pairType: Implementation;
-  tokenA: Token;
-  tokenB: Token;
+  pairType: Implementation
+  tokenA: Token
+  tokenB: Token
 }): `0x${string}` => {
-  const chainIdFromToken = tokenA.chainId;
+  const chainIdFromToken = tokenA.chainId
   const [token0, token1] = tokenA.sortsBefore(tokenB)
     ? [tokenA, tokenB]
-    : [tokenB, tokenA]; // does safety checks
+    : [tokenB, tokenA] // does safety checks
 
   if (pairType === Implementation.AERODROME) {
-    const chainIdFromToken = tokenA.chainId;
+    const chainIdFromToken = tokenA.chainId
 
-    const prefix = "0x3d602d80600a3d3981f3363d3d373d3d3d363d73";
-    const suffix = "5af43d82803e903d91602b57fd5bf3";
-    const cleanImplementation = "a4e46b4f701c62e14df11b48dce76a7d793cd6d7";
-    const initCode = `${prefix}${cleanImplementation}${suffix}`;
+    const prefix = "0x3d602d80600a3d3981f3363d3d373d3d3d363d73"
+    const suffix = "5af43d82803e903d91602b57fd5bf3"
+    const cleanImplementation = "a4e46b4f701c62e14df11b48dce76a7d793cd6d7"
+    const initCode = `${prefix}${cleanImplementation}${suffix}`
     const salt = keccak256(
       encodePacked(
         ["address", "address", "bool"],
-        [token0.address, token1.address, false],
-      ),
-    );
+        [token0.address, token1.address, false]
+      )
+    )
 
     const factoryAddress =
-      FACTORY_ADDRESSES[chainIdFromToken][pairType][Protocol.V2];
+      FACTORY_ADDRESSES[chainIdFromToken][pairType][Protocol.V2]
 
     return getContractAddress({
       bytecodeHash: keccak256(toBytes(initCode)),
       from: factoryAddress,
       opcode: "CREATE2",
       salt: salt,
-    });
+    })
   }
 
   return getContractAddress({
@@ -73,62 +74,57 @@ export const computePairAddress = ({
     salt: keccak256(
       encodePacked(
         ["bytes"],
-        [
-          encodePacked(
-            ["address", "address"],
-            [token0.address, token1.address],
-          ),
-        ],
-      ),
+        [encodePacked(["address", "address"], [token0.address, token1.address])]
+      )
     ),
-  });
-};
-export const ZERO_PERCENT = new Percent(0);
-export const ONE_HUNDRED_PERCENT = new Percent(1);
+  })
+}
+export const ZERO_PERCENT = new Percent(0)
+export const ONE_HUNDRED_PERCENT = new Percent(1)
 
 export class Pair {
-  public readonly liquidityToken: Token;
-  private readonly tokenAmounts: [CurrencyAmount<Token>, CurrencyAmount<Token>];
-  public pairType: Implementation;
+  public readonly liquidityToken: Token
+  private readonly tokenAmounts: [CurrencyAmount<Token>, CurrencyAmount<Token>]
+  public pairType: Implementation
 
   public static getAddress(
     tokenA: Token,
     tokenB: Token,
-    pairType: Implementation,
+    pairType: Implementation
   ): `0x${string}` {
     return computePairAddress({
       pairType,
       tokenA,
       tokenB,
-    });
+    })
   }
 
   public constructor(
     currencyAmountA: CurrencyAmount<Token>,
     tokenAmountB: CurrencyAmount<Token>,
-    pairType: Implementation,
+    pairType: Implementation
   ) {
     const tokenAmounts = currencyAmountA.currency.sortsBefore(
-      tokenAmountB.currency,
+      tokenAmountB.currency
     ) // does safety checks
       ? [currencyAmountA, tokenAmountB]
-      : [tokenAmountB, currencyAmountA];
+      : [tokenAmountB, currencyAmountA]
     this.liquidityToken = new Token({
       chainId: tokenAmounts[0]!.currency.chainId,
       address: Pair.getAddress(
         tokenAmounts[0]!.currency,
         tokenAmounts[1]!.currency,
-        pairType,
+        pairType
       ),
       decimals: 18,
       symbol: "UNI-V2",
       name: "Uniswap V2",
-    });
-    this.pairType = pairType;
+    })
+    this.pairType = pairType
     this.tokenAmounts = tokenAmounts as [
       CurrencyAmount<Token>,
       CurrencyAmount<Token>,
-    ];
+    ]
   }
 
   /**
@@ -136,33 +132,33 @@ export class Pair {
    * @param token to check
    */
   public involvesToken(token: Token): boolean {
-    return token.equals(this.token0) || token.equals(this.token1);
+    return token.equals(this.token0) || token.equals(this.token1)
   }
 
   /**
    * Returns the current mid price of the pair in terms of token0, i.e. the ratio of reserve1 to reserve0
    */
   public get token0Price(): Price<Token, Token> {
-    const result = this.tokenAmounts[1].divide(this.tokenAmounts[0]);
+    const result = this.tokenAmounts[1].divide(this.tokenAmounts[0])
     return new Price(
       this.token0,
       this.token1,
       result.denominator,
-      result.numerator,
-    );
+      result.numerator
+    )
   }
 
   /**
    * Returns the current mid price of the pair in terms of token1, i.e. the ratio of reserve0 to reserve1
    */
   public get token1Price(): Price<Token, Token> {
-    const result = this.tokenAmounts[0].divide(this.tokenAmounts[1]);
+    const result = this.tokenAmounts[0].divide(this.tokenAmounts[1])
     return new Price(
       this.token1,
       this.token0,
       result.denominator,
-      result.numerator,
-    );
+      result.numerator
+    )
   }
 
   /**
@@ -170,36 +166,36 @@ export class Pair {
    * @param token token to return price of
    */
   public priceOf(token: Token): Price<Token, Token> {
-    invariant(this.involvesToken(token), "TOKEN");
-    return token.equals(this.token0) ? this.token0Price : this.token1Price;
+    invariant(this.involvesToken(token), "TOKEN")
+    return token.equals(this.token0) ? this.token0Price : this.token1Price
   }
 
   /**
    * Returns the chain ID of the tokens in the pair.
    */
   public get chainId(): number {
-    return this.token0.chainId;
+    return this.token0.chainId
   }
 
   public get token0(): Token {
-    return this.tokenAmounts[0].currency;
+    return this.tokenAmounts[0].currency
   }
 
   public get token1(): Token {
-    return this.tokenAmounts[1].currency;
+    return this.tokenAmounts[1].currency
   }
 
   public get reserve0(): CurrencyAmount<Token> {
-    return this.tokenAmounts[0];
+    return this.tokenAmounts[0]
   }
 
   public get reserve1(): CurrencyAmount<Token> {
-    return this.tokenAmounts[1];
+    return this.tokenAmounts[1]
   }
 
   public reserveOf(token: Token): CurrencyAmount<Token> {
-    invariant(this.involvesToken(token), "TOKEN");
-    return token.equals(this.token0) ? this.reserve0 : this.reserve1;
+    invariant(this.involvesToken(token), "TOKEN")
+    return token.equals(this.token0) ? this.reserve0 : this.reserve1
   }
 
   public get address(): `0x${string}` {
@@ -207,9 +203,9 @@ export class Pair {
       pairType: this.pairType,
       tokenA: this.token0,
       tokenB: this.token1,
-    });
+    })
 
-    return address;
+    return address
   }
   /**
    * getAmountOut is the linear algebra of reserve ratio against amountIn:amountOut.
@@ -273,52 +269,52 @@ export class Pair {
    */
   public getOutputAmount(
     inputAmount: CurrencyAmount<Token>,
-    calculateFotFees = false,
+    calculateFotFees = false
   ): [CurrencyAmount<Token>, Pair] {
-    invariant(this.involvesToken(inputAmount.currency), "TOKEN");
+    invariant(this.involvesToken(inputAmount.currency), "TOKEN")
     if (this.reserve0.quotient === ZERO || this.reserve1.quotient === ZERO) {
-      throw new InsufficientReservesError();
+      throw new InsufficientReservesError()
     }
 
-    const inputReserve = this.reserveOf(inputAmount.currency);
+    const inputReserve = this.reserveOf(inputAmount.currency)
     const outputReserve = this.reserveOf(
-      inputAmount.currency.equals(this.token0) ? this.token1 : this.token0,
-    );
+      inputAmount.currency.equals(this.token0) ? this.token1 : this.token0
+    )
 
     const percentAfterSellFees = calculateFotFees
       ? this.derivePercentAfterSellFees(inputAmount)
-      : ZERO_PERCENT;
+      : ZERO_PERCENT
     const inputAmountAfterTax = percentAfterSellFees.greaterThan(ZERO_PERCENT)
       ? CurrencyAmount.fromRawAmount(
           inputAmount.currency,
-          percentAfterSellFees.multiply(inputAmount).quotient, // fraction.quotient will round down by itself, which is desired
+          percentAfterSellFees.multiply(inputAmount).quotient // fraction.quotient will round down by itself, which is desired
         )
-      : inputAmount;
+      : inputAmount
 
-    const inputAmountWithFeeAndAfterTax = inputAmountAfterTax.quotient * _997;
-    const numerator = inputAmountWithFeeAndAfterTax * outputReserve.quotient;
+    const inputAmountWithFeeAndAfterTax = inputAmountAfterTax.quotient * _997
+    const numerator = inputAmountWithFeeAndAfterTax * outputReserve.quotient
     const denominator =
-      inputReserve.quotient * _1000 + inputAmountWithFeeAndAfterTax;
+      inputReserve.quotient * _1000 + inputAmountWithFeeAndAfterTax
     const outputAmount = CurrencyAmount.fromRawAmount(
       inputAmount.currency.equals(this.token0) ? this.token1 : this.token0,
-      numerator / denominator, // Division in BigInt will naturally round down
-    );
+      numerator / denominator // Division in BigInt will naturally round down
+    )
 
     if (outputAmount.quotient === ZERO) {
-      throw new InsufficientInputAmountError();
+      throw new InsufficientInputAmountError()
     }
 
     const percentAfterBuyFees = calculateFotFees
       ? this.derivePercentAfterBuyFees(outputAmount)
-      : ZERO_PERCENT;
+      : ZERO_PERCENT
     const outputAmountAfterTax = percentAfterBuyFees.greaterThan(ZERO_PERCENT)
       ? CurrencyAmount.fromRawAmount(
           outputAmount.currency,
-          outputAmount.multiply(percentAfterBuyFees).quotient, // fraction.quotient will round down by itself, which is desired
+          outputAmount.multiply(percentAfterBuyFees).quotient // fraction.quotient will round down by itself, which is desired
         )
-      : outputAmount;
+      : outputAmount
     if (outputAmountAfterTax.quotient === ZERO) {
-      throw new InsufficientInputAmountError();
+      throw new InsufficientInputAmountError()
     }
 
     return [
@@ -326,9 +322,9 @@ export class Pair {
       new Pair(
         inputReserve.add(inputAmountAfterTax),
         outputReserve.subtract(outputAmountAfterTax),
-        this.pairType,
+        this.pairType
       ),
-    ];
+    ]
   }
 
   /**
@@ -375,19 +371,19 @@ export class Pair {
    */
   public getInputAmount(
     outputAmount: CurrencyAmount<Token>,
-    calculateFotFees = false,
+    calculateFotFees = false
   ): [CurrencyAmount<Token>, Pair] {
-    invariant(this.involvesToken(outputAmount.currency), "TOKEN");
+    invariant(this.involvesToken(outputAmount.currency), "TOKEN")
     const percentAfterBuyFees = calculateFotFees
       ? this.derivePercentAfterBuyFees(outputAmount)
-      : ZERO_PERCENT;
+      : ZERO_PERCENT
 
     const outputAmountBeforeTax = percentAfterBuyFees.greaterThan(ZERO_PERCENT)
       ? CurrencyAmount.fromRawAmount(
           outputAmount.currency,
-          outputAmount.divide(percentAfterBuyFees).quotient + ONE, // add 1 for rounding up
+          outputAmount.divide(percentAfterBuyFees).quotient + ONE // add 1 for rounding up
         )
-      : outputAmount;
+      : outputAmount
 
     if (
       this.reserve0.quotient === ZERO ||
@@ -396,78 +392,78 @@ export class Pair {
       outputAmountBeforeTax.quotient >=
         this.reserveOf(outputAmount.currency).quotient
     ) {
-      throw new InsufficientReservesError();
+      throw new InsufficientReservesError()
     }
 
-    const outputReserve = this.reserveOf(outputAmount.currency);
+    const outputReserve = this.reserveOf(outputAmount.currency)
     const inputReserve = this.reserveOf(
-      outputAmount.currency.equals(this.token0) ? this.token1 : this.token0,
-    );
+      outputAmount.currency.equals(this.token0) ? this.token1 : this.token0
+    )
 
     const numerator =
-      inputReserve.quotient * outputAmountBeforeTax.quotient * _1000;
+      inputReserve.quotient * outputAmountBeforeTax.quotient * _1000
     const denominator =
-      (outputReserve.quotient - outputAmountBeforeTax.quotient) * _997;
+      (outputReserve.quotient - outputAmountBeforeTax.quotient) * _997
     const inputAmount = CurrencyAmount.fromRawAmount(
       outputAmount.currency.equals(this.token0) ? this.token1 : this.token0,
-      numerator / denominator + ONE, // Add 1 here as part of the formula
-    );
+      numerator / denominator + ONE // Add 1 here as part of the formula
+    )
 
     const percentAfterSellFees = calculateFotFees
       ? this.derivePercentAfterSellFees(inputAmount)
-      : ZERO_PERCENT;
+      : ZERO_PERCENT
     const inputAmountBeforeTax = percentAfterSellFees.greaterThan(ZERO_PERCENT)
       ? CurrencyAmount.fromRawAmount(
           inputAmount.currency,
-          inputAmount.quotient / percentAfterSellFees.quotient + ONE, // Add 1 for rounding up
+          inputAmount.quotient / percentAfterSellFees.quotient + ONE // Add 1 for rounding up
         )
-      : inputAmount;
+      : inputAmount
 
     return [
       inputAmountBeforeTax,
       new Pair(
         inputReserve.add(inputAmount),
         outputReserve.subtract(outputAmount),
-        this.pairType,
+        this.pairType
       ),
-    ];
+    ]
   }
 
   public getLiquidityMinted(
     totalSupply: CurrencyAmount<Token>,
     tokenAmountA: CurrencyAmount<Token>,
-    tokenAmountB: CurrencyAmount<Token>,
+    tokenAmountB: CurrencyAmount<Token>
   ): CurrencyAmount<Token> {
-    invariant(totalSupply.currency.equals(this.liquidityToken), "LIQUIDITY");
+    invariant(totalSupply.currency.equals(this.liquidityToken), "LIQUIDITY")
     const tokenAmounts = tokenAmountA.currency.sortsBefore(
-      tokenAmountB.currency,
+      tokenAmountB.currency
     ) // does safety checks
       ? [tokenAmountA, tokenAmountB]
-      : [tokenAmountB, tokenAmountA];
+      : [tokenAmountB, tokenAmountA]
     invariant(
       tokenAmounts[0]!.currency.equals(this.token0) &&
         tokenAmounts[1]!.currency.equals(this.token1),
-      "TOKEN",
-    );
+      "TOKEN"
+    )
 
-    let liquidity: bigint;
+    let liquidity: bigint
     if (totalSupply.quotient === BigInt(0)) {
       liquidity =
         sqrt(tokenAmounts[0]!.quotient * tokenAmounts[1]!.quotient) -
-        MINIMUM_LIQUIDITY;
+        MINIMUM_LIQUIDITY
     } else {
       const amount0 =
         (tokenAmounts[0]!.quotient * totalSupply.quotient) /
-        this.reserve0.quotient;
+        this.reserve0.quotient
       const amount1 =
         (tokenAmounts[1]!.quotient * totalSupply.quotient) /
-        this.reserve1.quotient;
-      liquidity = amount0 <= amount1 ? amount0 : amount1;
+        this.reserve1.quotient
+      liquidity = amount0 <= amount1 ? amount0 : amount1
     }
     if (liquidity <= BigInt(0)) {
-      throw new InsufficientInputAmountError();
+      throw new InsufficientInputAmountError()
     }
-    return CurrencyAmount.fromRawAmount(this.liquidityToken, liquidity);
+    return CurrencyAmount.fromRawAmount(this.liquidityToken, liquidity)
   }
 
   public getLiquidityValue(
@@ -475,72 +471,72 @@ export class Pair {
     totalSupply: CurrencyAmount<Token>,
     liquidity: CurrencyAmount<Token>,
     feeOn = false,
-    kLast?: BigintIsh,
+    kLast?: BigintIsh
   ): CurrencyAmount<Token> {
-    invariant(this.involvesToken(token), "TOKEN");
-    invariant(totalSupply.currency.equals(this.liquidityToken), "TOTAL_SUPPLY");
-    invariant(liquidity.currency.equals(this.liquidityToken), "LIQUIDITY");
-    invariant(liquidity.quotient <= totalSupply.quotient, "LIQUIDITY");
+    invariant(this.involvesToken(token), "TOKEN")
+    invariant(totalSupply.currency.equals(this.liquidityToken), "TOTAL_SUPPLY")
+    invariant(liquidity.currency.equals(this.liquidityToken), "LIQUIDITY")
+    invariant(liquidity.quotient <= totalSupply.quotient, "LIQUIDITY")
 
-    let totalSupplyAdjusted: CurrencyAmount<Token>;
+    let totalSupplyAdjusted: CurrencyAmount<Token>
     if (!feeOn) {
-      totalSupplyAdjusted = totalSupply;
+      totalSupplyAdjusted = totalSupply
     } else {
-      invariant(!!kLast, "K_LAST");
-      const kLastParsed = BigInt(kLast.toString());
+      invariant(!!kLast, "K_LAST")
+      const kLastParsed = BigInt(kLast.toString())
       if (kLastParsed !== ZERO) {
-        const rootK = sqrt(this.reserve0.quotient * this.reserve1.quotient);
+        const rootK = sqrt(this.reserve0.quotient * this.reserve1.quotient)
 
-        const rootKLast = sqrt(kLastParsed);
+        const rootKLast = sqrt(kLastParsed)
         if (rootK > rootKLast) {
-          const numerator = totalSupply.quotient * (rootK - rootKLast);
-          const denominator = rootK * FIVE + rootKLast;
-          const feeLiquidity = numerator / denominator;
+          const numerator = totalSupply.quotient * (rootK - rootKLast)
+          const denominator = rootK * FIVE + rootKLast
+          const feeLiquidity = numerator / denominator
           totalSupplyAdjusted = totalSupply.add(
-            CurrencyAmount.fromRawAmount(this.liquidityToken, feeLiquidity),
-          );
+            CurrencyAmount.fromRawAmount(this.liquidityToken, feeLiquidity)
+          )
         } else {
-          totalSupplyAdjusted = totalSupply;
+          totalSupplyAdjusted = totalSupply
         }
       } else {
-        totalSupplyAdjusted = totalSupply;
+        totalSupplyAdjusted = totalSupply
       }
     }
 
     return CurrencyAmount.fromRawAmount(
       token,
       (liquidity.quotient * this.reserveOf(token).quotient) /
-        totalSupplyAdjusted.quotient,
-    );
+        totalSupplyAdjusted.quotient
+    )
   }
 
   private derivePercentAfterSellFees(
-    inputAmount: CurrencyAmount<Token>,
+    inputAmount: CurrencyAmount<Token>
   ): Percent {
     const sellFeeBips = this.token0.wrapped.equals(inputAmount.wrapped.currency)
       ? this.token0.wrapped.sellFeeBps
-      : this.token1.wrapped.sellFeeBps;
+      : this.token1.wrapped.sellFeeBps
     if (BigInt(sellFeeBips ?? 0) > 0n) {
       return ONE_HUNDRED_PERCENT.subtract(
-        new Percent(BigInt(sellFeeBips!)).divide(BASIS_POINTS),
-      );
+        new Percent(BigInt(sellFeeBips!)).divide(BASIS_POINTS)
+      )
     } else {
-      return ZERO_PERCENT;
+      return ZERO_PERCENT
     }
   }
 
   private derivePercentAfterBuyFees(
-    outputAmount: CurrencyAmount<Token>,
+    outputAmount: CurrencyAmount<Token>
   ): Percent {
     const buyFeeBps = this.token0.wrapped.equals(outputAmount.wrapped.currency)
       ? this.token0.wrapped.buyFeeBps
-      : this.token1.wrapped.buyFeeBps;
+      : this.token1.wrapped.buyFeeBps
     if (BigInt(buyFeeBps ?? 0) > 0n) {
       return ONE_HUNDRED_PERCENT.subtract(
-        new Percent(BigInt(buyFeeBps!)).divide(BASIS_POINTS),
-      );
+        new Percent(BigInt(buyFeeBps!)).divide(BASIS_POINTS)
+      )
     } else {
-      return ZERO_PERCENT;
+      return ZERO_PERCENT
     }
   }
 }
@@ -548,5 +544,5 @@ export class Pair {
 function sqrt(value: bigint) {
   // Implement the square root function for BigInt
   // Placeholder implementation
-  return BigInt(Math.sqrt(Number(value)));
+  return BigInt(Math.sqrt(Number(value)))
 }

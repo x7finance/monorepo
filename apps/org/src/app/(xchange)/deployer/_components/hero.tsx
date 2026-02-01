@@ -1,6 +1,6 @@
-import type { FC } from "react";
+import type { FC } from "react"
 
-import { Card, CardDescription, CardHeader, CardTitle } from "@x7/ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "@x7/ui/card"
 
 export const Hero: FC = () => {
   return (
@@ -14,5 +14,5 @@ export const Hero: FC = () => {
         </CardDescription>
       </CardHeader>
     </Card>
-  );
-};
+  )
+}

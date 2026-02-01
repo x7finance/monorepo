@@ -2,8 +2,10 @@
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 
-import { LinkInternal } from "@x7/ui/link";
+import type { DocType } from "../_types"
+import type { SectionType } from "~/types"
 
+import { LinkInternal } from "@x7/ui/link"
 import {
   BREAKDOWNS_NAVIGATION,
   DOCS_NAVIGATION,
@@ -12,58 +14,57 @@ import {
   INTEGRATION_NAVIGATION,
   ONCHAINS_NAVIGATION,
   WHITEPAPER_NAVIGATION,
-} from "~/app/(docs)/_config/docs";
-import type { SectionType } from "~/types";
-import type { DocType } from "../_types";
-import { DocsTypes } from "../_types";
-import { Navigation } from "./navigation";
-import { OnThisPageNav } from "./on-this-page-navigation";
-import { SectionNavigation } from "./section-navigation";
-import { Prose } from "./tags/prose";
+} from "~/app/(docs)/_config/docs"
+
+import { DocsTypes } from "../_types"
+
+import { Navigation } from "./navigation"
+import { OnThisPageNav } from "./on-this-page-navigation"
+import { SectionNavigation } from "./section-navigation"
+import { Prose } from "./tags/prose"
 
 interface DocsBaseProps {
-  children: React.ReactNode;
-  title?: string;
-  date?: string;
-  tags?: string[];
-  tableOfContents?: SectionType[] | null;
-  docsType?: DocType;
-  slug?: string;
+  children: React.ReactNode
+  title?: string
+  date?: string
+  tags?: string[]
+  tableOfContents?: SectionType[] | null
+  docsType?: DocType
+  slug?: string
 }
 
 function getNavigation(docsType?: DocType) {
   switch (docsType) {
     case DocsTypes.breakdowns:
-      return BREAKDOWNS_NAVIGATION;
+      return BREAKDOWNS_NAVIGATION
     case DocsTypes.onchains:
-      return ONCHAINS_NAVIGATION;
+      return ONCHAINS_NAVIGATION
     case DocsTypes.whitepaper:
-      return WHITEPAPER_NAVIGATION;
+      return WHITEPAPER_NAVIGATION
     case DocsTypes.faq:
-      return FAQ_NAVIGATION;
+      return FAQ_NAVIGATION
     case DocsTypes.guides:
-      return GUIDES_NAVIGATION;
+      return GUIDES_NAVIGATION
     case DocsTypes.integration:
-      return INTEGRATION_NAVIGATION;
+      return INTEGRATION_NAVIGATION
     default:
-      return DOCS_NAVIGATION;
+      return DOCS_NAVIGATION
   }
 }
 
 export function DocsBase(props: DocsBaseProps) {
-  const { children, title, date, tags, tableOfContents, docsType, slug } =
-    props;
+  const { children, title, date, tags, tableOfContents, docsType, slug } = props
 
-  const navigation = getNavigation(docsType);
+  const navigation = getNavigation(docsType)
 
-  const allLinks = navigation.flatMap((section) => section.links);
-  const linkIndex = allLinks.findIndex((link) => link.href === slug);
-  const previousPage = allLinks[linkIndex - 1];
-  const nextPage = allLinks[linkIndex + 1];
+  const allLinks = navigation.flatMap((section) => section.links)
+  const linkIndex = allLinks.findIndex((link) => link.href === slug)
+  const previousPage = allLinks[linkIndex - 1]
+  const nextPage = allLinks[linkIndex + 1]
 
   const section = navigation.find((section) =>
-    section.links.find((link) => link.href === slug),
-  );
+    section.links.find((link) => link.href === slug)
+  )
 
   return (
     <>
@@ -93,7 +94,7 @@ export function DocsBase(props: DocsBaseProps) {
                   )}
                   {!!tags?.length &&
                     tags.map((tag: string, key: number) => {
-                      return <code key={`${tag}-${key}`}>{tag}</code>;
+                      return <code key={`${tag}-${key}`}>{tag}</code>
                     })}
                   {title && <h1>{title}</h1>}
                   {date && (
@@ -158,5 +159,5 @@ export function DocsBase(props: DocsBaseProps) {
         </div>
       </div>
     </>
-  );
+  )
 }

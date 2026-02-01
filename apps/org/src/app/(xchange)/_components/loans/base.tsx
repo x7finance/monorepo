@@ -2,19 +2,21 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { parseEther, parseUnits } from "viem";
-import { useAccount, useChainId } from "wagmi";
-import * as z from "zod";
+import type { ActiveChainId, ChainId } from "@x7/utils"
 
-import { cn } from "@x7/css";
-import { CheckCircleIcon } from "@x7/icons";
-import { Button, buttonVariants } from "@x7/ui/button";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useEffect, useState } from "react"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { parseEther, parseUnits } from "viem"
+import { useAccount, useChainId } from "wagmi"
+import * as z from "zod"
+
+import { cn } from "@x7/css"
+import { CheckCircleIcon } from "@x7/icons"
+import { Button, buttonVariants } from "@x7/ui/button"
 import {
   Card,
   CardContent,
@@ -22,7 +24,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@x7/ui/card";
+} from "@x7/ui/card"
 import {
   Form,
   FormControl,
@@ -30,37 +32,37 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@x7/ui/form";
-import { LinkInternal } from "@x7/ui/link";
-import { CurrencyAmount, LogCodes, Native } from "@x7/utils";
-import type { ActiveChainId, ChainId } from "@x7/utils";
+} from "@x7/ui/form"
+import { LinkInternal } from "@x7/ui/link"
+import { CurrencyAmount, LogCodes, Native } from "@x7/utils"
+import { CurrencyInput } from "~/lib/components/utils/currency-input"
+import { SECONDS_IN_A_DAY } from "~/lib/constants/misc"
+import { useGetInitialLiquidityLoan } from "~/lib/hooks/loans/useGetInitialLiquidityLoan"
+import { useLiquidationReward } from "~/lib/hooks/loans/useXchangeLendingPoolData"
+import { usePrice } from "~/lib/hooks/prices/usePrice"
+import { useTransactionDeadline } from "~/lib/hooks/utils/useTransactionDeadline"
+import { useLoanState } from "~/lib/stores/loan"
+import { ApproveERC20Multiple } from "~/lib/systems/Checker/ApproveERC20Multiple"
+import { log } from "~/lib/utils/log"
+import { XchangeLinks } from "~/types/links"
 
-import { CurrencyInput } from "~/lib/components/utils/currency-input";
-import { SECONDS_IN_A_DAY } from "~/lib/constants/misc";
-import { useGetInitialLiquidityLoan } from "~/lib/hooks/loans/useGetInitialLiquidityLoan";
-import { useLiquidationReward } from "~/lib/hooks/loans/useXchangeLendingPoolData";
-import { usePrice } from "~/lib/hooks/prices/usePrice";
-import { useTransactionDeadline } from "~/lib/hooks/utils/useTransactionDeadline";
-import { useLoanState } from "~/lib/stores/loan";
-import { ApproveERC20Multiple } from "~/lib/systems/Checker/ApproveERC20Multiple";
-import { log } from "~/lib/utils/log";
-import { XchangeLinks } from "~/types/links";
-import { StatusCard } from "../../lending/_components/status-card";
-import { useLendingPoolPrettyData } from "../../lending/_hooks/useLendingPoolPrettyData";
-import { LoanLaunchPrice } from "./(sections)/loan-launch-price";
+import { StatusCard } from "../../lending/_components/status-card"
+import { useLendingPoolPrettyData } from "../../lending/_hooks/useLendingPoolPrettyData"
+
+import { LoanLaunchPrice } from "./(sections)/loan-launch-price"
 // import { LoanPairCreation } from "./(sections)/loan-pair-creation";
-import { LoanSummary } from "./(sections)/loan-summary";
-import { LoanTokenAmount } from "./(sections)/loan-token-amount";
-import { LoanTypeDuration } from "./(sections)/loan-type-duration";
-import { LoanOptions } from "./loan-options";
+import { LoanSummary } from "./(sections)/loan-summary"
+import { LoanTokenAmount } from "./(sections)/loan-token-amount"
+import { LoanTypeDuration } from "./(sections)/loan-type-duration"
+import { LoanOptions } from "./loan-options"
 
 const FormSchema = z.object({
   duration: z.number().int().min(1).max(28),
-});
+})
 
 export function ILLBaseForm() {
-  const chainId = useChainId() as ActiveChainId;
-  const { address } = useAccount();
+  const chainId = useChainId() as ActiveChainId
+  const { address } = useAccount()
   const {
     state: {
       errors,
@@ -82,44 +84,44 @@ export function ILLBaseForm() {
       setLoan,
       setLoanAmount,
     },
-  } = useLoanState();
-  const [isActionDisabled, setIsActionDisabled] = useState<boolean>(true);
+  } = useLoanState()
+  const [isActionDisabled, setIsActionDisabled] = useState<boolean>(true)
   // const isActionDisabled = errors.length > 0 || !selectedQuote;
-  const [rawCollateralAmount, setRawCollateralAmount] = useState<string>("");
+  const [rawCollateralAmount, setRawCollateralAmount] = useState<string>("")
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-  });
+  })
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     log.error(
       LogCodes.FAIL,
       `On submit for loan needs to be implemented`,
-      JSON.stringify(data, null, 2),
-    );
+      JSON.stringify(data, null, 2)
+    )
   }
 
-  const { liquidationReward } = useLiquidationReward(chainId);
+  const { liquidationReward } = useLiquidationReward(chainId)
   const deadline = useTransactionDeadline({
     chainId: chainId,
     enabled: true,
-  });
+  })
 
   const { data: nativePrice, isLoading: isNativePriceLoading } = usePrice({
     chainId: chainId as ChainId,
     currency: Native.onChain(chainId as ChainId),
-  });
+  })
 
   const { data: marketPrice, isLoading: isMarketPriceLoading } = usePrice({
     chainId: chainId as ChainId,
     currency: collateralToken,
-  });
+  })
 
-  const { statusData } = useLendingPoolPrettyData(chainId);
+  const { statusData } = useLendingPoolPrettyData(chainId)
 
   const { writeContract, data, isPending } = useGetInitialLiquidityLoan({
     payableAmount: BigInt(
-      BigInt(selectedQuote?.result[3] ?? 0n) + BigInt(liquidationReward ?? 0n),
+      BigInt(selectedQuote?.result[3] ?? 0n) + BigInt(liquidationReward ?? 0n)
     ).toString(),
     tokenAddress: (collateralToken?.isNative
       ? ""
@@ -130,51 +132,51 @@ export function ILLBaseForm() {
     loanDuration: BigInt(loanDuration * SECONDS_IN_A_DAY), // uint256 loanDurationSeconds,
     liquidityReceiverAddress: address!, // address liquidityReceiver,
     deadline: deadline.data!, // uint256 deadline
-  });
+  })
 
   function handleQuote() {
     if (!data?.request) {
       toast.error(
-        "There was an error simulating your loan transaction - please try again later.",
-      );
-      return;
+        "There was an error simulating your loan transaction - please try again later."
+      )
+      return
     }
 
-    writeContract(data?.request);
+    writeContract(data?.request)
   }
 
   useEffect(() => {
     if (errors.length > 0 || !selectedQuote) {
-      setIsActionDisabled(true);
+      setIsActionDisabled(true)
     } else if (marketPrice && nativePrice) {
       // Check if the token doesn't have any liquidity yet
       if (
         parseFloat(marketPrice.toExact()) <= 1 ||
         parseFloat(nativePrice.toExact()) <= 1
       ) {
-        setIsActionDisabled(false);
-        return;
+        setIsActionDisabled(false)
+        return
       }
 
       const unitPriceEther =
         parseInt(parseEther(loanAmount).toString()) /
-        parseInt(parseEther(collateralAmount).toString());
+        parseInt(parseEther(collateralAmount).toString())
       const etherInUSD = nativePrice
         ? Number(nativePrice.quotient ?? "0") /
           Number(`1e${nativePrice.currency.decimals}`)
-        : 0;
+        : 0
 
-      const launchPrice = (etherInUSD * unitPriceEther).toFixed(8);
+      const launchPrice = (etherInUSD * unitPriceEther).toFixed(8)
 
       const usdOffOfNativePer = collateralToken?.isNative
         ? parseFloat(nativePrice.toExact())
-        : parseFloat(nativePrice.toExact()) * parseFloat(marketPrice.toExact());
+        : parseFloat(nativePrice.toExact()) * parseFloat(marketPrice.toExact())
 
-      const difference = usdOffOfNativePer / parseFloat(launchPrice) - 1;
+      const difference = usdOffOfNativePer / parseFloat(launchPrice) - 1
 
-      setIsActionDisabled(difference > 0.1 || difference < -0.1);
+      setIsActionDisabled(difference > 0.1 || difference < -0.1)
     } else {
-      setIsActionDisabled(false);
+      setIsActionDisabled(false)
     }
   }, [
     errors,
@@ -186,7 +188,7 @@ export function ILLBaseForm() {
     marketPrice,
     nativePrice,
     isActionDisabled,
-  ]);
+  ])
 
   return (
     <Card className="mx-auto mt-6 max-w-2xl">
@@ -285,17 +287,17 @@ export function ILLBaseForm() {
                       <FormControl>
                         <div
                           onBlur={() => {
-                            const parsedValue = parseFloat(rawCollateralAmount);
+                            const parsedValue = parseFloat(rawCollateralAmount)
                             if (!isNaN(parsedValue) && parsedValue > 0) {
                               const scaledValue = BigInt(
                                 Math.floor(
                                   parsedValue *
-                                    10 ** (collateralToken?.decimals ?? 18),
-                                ),
-                              );
-                              setCollateralAmount(scaledValue.toString());
+                                    10 ** (collateralToken?.decimals ?? 18)
+                                )
+                              )
+                              setCollateralAmount(scaledValue.toString())
                             } else {
-                              setCollateralAmount("0");
+                              setCollateralAmount("0")
                             }
                           }}
                         >
@@ -307,18 +309,18 @@ export function ILLBaseForm() {
                             onSelect={setCollateralToken}
                             value={rawCollateralAmount}
                             onChange={(value) => {
-                              setRawCollateralAmount(value);
-                              const parsedValue = parseFloat(value);
+                              setRawCollateralAmount(value)
+                              const parsedValue = parseFloat(value)
                               if (!isNaN(parsedValue) && parsedValue > 0) {
                                 const scaledValue = BigInt(
                                   Math.floor(
                                     parsedValue *
-                                      10 ** (collateralToken?.decimals ?? 18),
-                                  ),
-                                );
-                                setCollateralAmount(scaledValue.toString());
+                                      10 ** (collateralToken?.decimals ?? 18)
+                                  )
+                                )
+                                setCollateralAmount(scaledValue.toString())
                               } else {
-                                setCollateralAmount("0");
+                                setCollateralAmount("0")
                               }
                             }}
                             currency={collateralToken}
@@ -369,7 +371,7 @@ export function ILLBaseForm() {
                   amounts={neededApprovals.map((approval) => ({
                     amount: CurrencyAmount.fromRawAmount(
                       approval.token!,
-                      approval.amount,
+                      approval.amount
                     ),
                     contract: approval.address,
                   }))}
@@ -411,7 +413,7 @@ export function ILLBaseForm() {
       </CardContent>
       <CardFooter className="flex flex-col">
         {Boolean(
-          isActionDisabled || isPending || neededApprovals.length !== 0,
+          isActionDisabled || isPending || neededApprovals.length !== 0
         ) && (
           <div className="text-muted-foreground my-2 text-xs">
             Please complete the approvals above before initiating the loan
@@ -421,7 +423,7 @@ export function ILLBaseForm() {
           <Button
             onClick={() => {
               if (!isActionDisabled) {
-                handleQuote();
+                handleQuote()
               }
             }}
             disabled={
@@ -435,7 +437,7 @@ export function ILLBaseForm() {
                 variant: "primary",
                 size: "lg",
               }),
-              "w-full",
+              "w-full"
             )}
           >
             Initiate Loan
@@ -443,5 +445,5 @@ export function ILLBaseForm() {
         )}
       </CardFooter>
     </Card>
-  );
+  )
 }

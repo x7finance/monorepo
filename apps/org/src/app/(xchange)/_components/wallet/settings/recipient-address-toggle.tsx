@@ -1,20 +1,20 @@
-import type { FC } from "react";
+import type { FC } from "react"
 
-import { cn } from "@x7/css";
-import { InfoIcon } from "@x7/icons";
-import { useRecipientAddressState } from "@x7/ui";
-import { Switch } from "@x7/ui/switch";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@x7/ui/tooltip";
+import { cn } from "@x7/css"
+import { InfoIcon } from "@x7/icons"
+import { useRecipientAddressState } from "@x7/ui"
+import { Switch } from "@x7/ui/switch"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@x7/ui/tooltip"
 
 export const RecipientAddressToggle: FC<{
   options?: {
-    storageKey?: string;
-    defaultValue?: string;
-    title?: string;
-  };
+    storageKey?: string
+    defaultValue?: string
+    title?: string
+  }
 }> = ({ options }) => {
   const [recipientAddressState, setRecipientAddressState] =
-    useRecipientAddressState(options?.storageKey);
+    useRecipientAddressState(options?.storageKey)
 
   return (
     <div className="mb-4 flex w-full flex-col gap-4">
@@ -41,11 +41,11 @@ export const RecipientAddressToggle: FC<{
               recipientAddressState === true
                 ? "bg-emerald-500!"
                 : "bg-zinc-300",
-              "focus-visible:ring-emerald-500",
+              "focus-visible:ring-emerald-500"
             )}
           />
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

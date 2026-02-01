@@ -57,6 +57,16 @@
       "cache": false,
       "persistent": false
     },
+    "format": {
+      "cache": false,
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"],
+      "outputLogs": "new-only"
+    },
+    "format:fix": {
+      "cache": false,
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"],
+      "outputLogs": "new-only"
+    },
     "lint": {
       "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"]
     },
@@ -81,10 +91,6 @@
       "cache": false
     },
     "//#clean": {
-      "cache": false
-    },
-    "//#lint": {},
-    "//#lint:fix": {
       "cache": false
     }
   }

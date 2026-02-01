@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
+import type { Metadata } from "next"
 
-import { getRandomPioneerNumber } from "@x7/utils";
+import { getRandomPioneerNumber } from "@x7/utils"
+import { SiteContentContainer } from "~/lib/components/core/site-content-container"
+import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
+import { GradientTypes } from "~/lib/utils/gradients"
+import { NftsLinkEnum } from "~/types/links"
 
-import { SiteContentContainer } from "~/lib/components/core/site-content-container";
-import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc";
-import { GradientTypes } from "~/lib/utils/gradients";
-import { NftsLinkEnum } from "~/types/links";
-import { Heading } from "../../_components/heading";
-import { SectionStep } from "../../_components/section-step";
+import { Heading } from "../../_components/heading"
+import { SectionStep } from "../../_components/section-step"
 
 const metadata = {
   title: "Pioneer NFT",
@@ -15,10 +15,10 @@ const metadata = {
     "Uncover X7 Finance's Pioneer NFT: A unique digital asset that offers holders exclusive benefits in real yield. Learn how the Pioneer NFT can enhance your real yield experience, and unlock new opportunities in the DeFi market. Understand the mechanics, benefits, and potential returns of our Pioneer NFT and optimize your decentralized finance journey.",
   slug: NftsLinkEnum.Pioneers,
   section: "default",
-};
+}
 
 export function generateMetadata(): Metadata {
-  return generateMetadataFromDoc(metadata);
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function PionnersPage() {
@@ -50,5 +50,5 @@ export default function PionnersPage() {
         </div>
       </SiteContentContainer>
     </div>
-  );
+  )
 }

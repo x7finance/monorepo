@@ -1,24 +1,24 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
-import { generateBlogPostSlugs } from "~/lib/utils/generateBlogPostSlugs";
-import { generateDocsSlugs } from "~/lib/utils/generateDocsSlugs";
+import { generateBlogPostSlugs } from "~/lib/utils/generateBlogPostSlugs"
+import { generateDocsSlugs } from "~/lib/utils/generateDocsSlugs"
 
-const URL = "https://www.x7finance.org";
+const URL = "https://www.x7finance.org"
 
 interface PageType {
-  slug: string[];
-  locale: string;
-  lastmod?: string; // Optional last modification date
+  slug: string[]
+  locale: string
+  lastmod?: string // Optional last modification date
 }
 
 // Get current date in ISO format for lastmod
-const getCurrentDate = () => new Date().toISOString().split("T")[0];
+const getCurrentDate = () => new Date().toISOString().split("T")[0]
 
 function generateSiteMap({
   blogPosts,
   docsPosts,
 }: {
-  blogPosts: PageType[];
-  docsPosts: PageType[];
+  blogPosts: PageType[]
+  docsPosts: PageType[]
 }) {
   return `<?xml version="1.0" encoding="UTF-8"?>
    <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
@@ -212,7 +212,7 @@ function generateSiteMap({
                <changefreq>monthly</changefreq>
                <priority>0.8</priority>
            </url>
-         `;
+         `
        })
        .join("")}
        
@@ -226,18 +226,18 @@ function generateSiteMap({
                 <changefreq>monthly</changefreq>
                 <priority>0.7</priority>
             </url>
-          `;
+          `
          })
          .join("")}
    </urlset>
- `;
+ `
 }
 
 export async function GET() {
-  const blogPosts = await generateBlogPostSlugs();
-  const docsPosts = await generateDocsSlugs();
+  const blogPosts = await generateBlogPostSlugs()
+  const docsPosts = await generateDocsSlugs()
 
-  const body = generateSiteMap({ blogPosts, docsPosts });
+  const body = generateSiteMap({ blogPosts, docsPosts })
 
   return new Response(body, {
     status: 200,
@@ -245,5 +245,5 @@ export async function GET() {
       "Cache-control": "public, s-maxage=86400, stale-while-revalidate",
       "content-type": "application/xml",
     },
-  });
+  })
 }

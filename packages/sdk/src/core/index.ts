@@ -1,5 +1,5 @@
-export * from "./constants";
-export * from "./addresses";
-export * from "./chains";
+export * from "./constants"
+export * from "./addresses"
+export * from "./chains"
 
-export { validateAndParseAddress } from "./validateAndParseAddress";
+export { validateAndParseAddress } from "./validateAndParseAddress"

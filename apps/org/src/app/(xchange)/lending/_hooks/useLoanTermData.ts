@@ -1,38 +1,39 @@
-/* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
-import { useEffect, useMemo, useState } from "react";
-import { formatEther } from "viem";
-import type { Abi } from "viem";
-import { useReadContracts } from "wagmi";
+import type { ChainId } from "@x7/utils"
+import type { Abi } from "viem"
 
-import { X7InitialLiquidityLoanTerm001 } from "@x7/contracts";
-import type { ChainId } from "@x7/utils";
+/* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
+import { useEffect, useMemo, useState } from "react"
+import { formatEther } from "viem"
+import { useReadContracts } from "wagmi"
+
+import { X7InitialLiquidityLoanTerm001 } from "@x7/contracts"
 
 interface LoanTermData {
-  address: `0x${string}`;
-  loanSymbol: string;
-  loanName: string;
-  minimumLoanAmount: string;
-  maximumLoanAmount: string;
-  minimumLoanLengthSeconds: string;
-  maximumLoanLengthSeconds: string;
-  originationFeeNumerator: string;
-  numberOfPremiumPeriods: string;
-  numberOfRepaymentPeriods: string;
+  address: `0x${string}`
+  loanSymbol: string
+  loanName: string
+  minimumLoanAmount: string
+  maximumLoanAmount: string
+  minimumLoanLengthSeconds: string
+  maximumLoanLengthSeconds: string
+  originationFeeNumerator: string
+  numberOfPremiumPeriods: string
+  numberOfRepaymentPeriods: string
 }
 
 export function useLoanTermData(
   chainId: ChainId,
-  contractAddresses: `0x${string}` | `0x${string}`[],
+  contractAddresses: `0x${string}` | `0x${string}`[]
 ) {
-  const [loanTermData, setLoanTermData] = useState<LoanTermData[]>([]);
+  const [loanTermData, setLoanTermData] = useState<LoanTermData[]>([])
 
   const addressesArray = useMemo(
     () =>
       Array.isArray(contractAddresses)
         ? contractAddresses
         : [contractAddresses],
-    [contractAddresses],
-  );
+    [contractAddresses]
+  )
 
   const loanContracts = useMemo(
     () =>
@@ -92,23 +93,23 @@ export function useLoanTermData(
           chainId,
         },
       ]),
-    [addressesArray, chainId],
-  );
+    [addressesArray, chainId]
+  )
 
   const { data: loanTermsData } = useReadContracts({
     contracts: loanContracts,
-  });
+  })
 
   useEffect(() => {
-    if (!loanTermsData || addressesArray.length === 0) return;
+    if (!loanTermsData || addressesArray.length === 0) return
 
     const processedLoanData = addressesArray.map((address, index) => {
-      const baseIndex = index * 9;
+      const baseIndex = index * 9
 
       const getLoanValue = (idx: number) => {
-        const result = loanTermsData[baseIndex + idx]?.result;
-        return result?.toString() || "0";
-      };
+        const result = loanTermsData[baseIndex + idx]?.result
+        return result?.toString() || "0"
+      }
 
       return {
         address,
@@ -121,11 +122,11 @@ export function useLoanTermData(
         originationFeeNumerator: getLoanValue(6),
         numberOfPremiumPeriods: getLoanValue(7),
         numberOfRepaymentPeriods: getLoanValue(8),
-      };
-    });
+      }
+    })
 
-    setLoanTermData(processedLoanData);
-  }, [loanTermsData, addressesArray]);
+    setLoanTermData(processedLoanData)
+  }, [loanTermsData, addressesArray])
 
-  return { loanTermData };
+  return { loanTermData }
 }

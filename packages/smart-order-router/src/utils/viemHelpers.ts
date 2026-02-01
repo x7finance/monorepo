@@ -1,5 +1,5 @@
-import type { PublicClient } from "viem";
+import type { PublicClient } from "viem"
 
-export type PubClient = PublicClient;
+export type PubClient = PublicClient
 
-export type ViemProviderType = PubClient;
+export type ViemProviderType = PubClient

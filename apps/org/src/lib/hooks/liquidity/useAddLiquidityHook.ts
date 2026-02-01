@@ -4,46 +4,47 @@
 /* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 
-import { useCallback, useEffect, useMemo } from "react";
-import type { Address, WriteContractReturnType } from "viem";
-import { useSimulateContract, useWriteContract } from "wagmi";
-import { waitForTransactionReceipt } from "wagmi/actions";
+import type { Amount, ChainId, Currency, Native } from "@x7/utils"
+import type { Address, WriteContractReturnType } from "viem"
 
-import type { Amount, ChainId, Currency, Native } from "@x7/utils";
-import { gasMargin, LogCodes } from "@x7/utils";
+import { useCallback, useEffect, useMemo } from "react"
+import { useSimulateContract, useWriteContract } from "wagmi"
+import { waitForTransactionReceipt } from "wagmi/actions"
 
+import { gasMargin, LogCodes } from "@x7/utils"
 import {
   ApprovalState,
   useTokenApproval,
-} from "~/lib/hooks/approvals/useTokenApproval";
-import { useWeb3Config } from "~/lib/providers/web3";
-import { log } from "~/lib/utils/log";
-import { getXchangeRouterContractConfig } from "../../config/getXchangeRouterContract";
+} from "~/lib/hooks/approvals/useTokenApproval"
+import { useWeb3Config } from "~/lib/providers/web3"
+import { log } from "~/lib/utils/log"
+
+import { getXchangeRouterContractConfig } from "../../config/getXchangeRouterContract"
 
 interface UseAddLiquidityProps {
-  token0: Currency | Native | undefined;
-  token1: Currency | Native | undefined;
-  chainId: ChainId;
-  input0: Amount<Currency | Native> | undefined;
-  input1: Amount<Currency | Native> | undefined;
-  address: Address | undefined;
-  minAmount0: Amount<Currency | Native> | undefined;
-  minAmount1: Amount<Currency | Native> | undefined;
-  deadline: bigint | undefined;
+  token0: Currency | Native | undefined
+  token1: Currency | Native | undefined
+  chainId: ChainId
+  input0: Amount<Currency | Native> | undefined
+  input1: Amount<Currency | Native> | undefined
+  address: Address | undefined
+  minAmount0: Amount<Currency | Native> | undefined
+  minAmount1: Amount<Currency | Native> | undefined
+  deadline: bigint | undefined
   mutation: {
-    onSuccess: (data: `0x${string}`) => void;
-    onError: (e: Error) => void;
-  };
-  contract: Address | undefined;
+    onSuccess: (data: `0x${string}`) => void
+    onError: (e: Error) => void
+  }
+  contract: Address | undefined
 }
 
 interface UseAddLiquidityReturn {
-  isLoading: boolean;
-  isError: boolean;
-  error: Error | null;
-  write: ((confirm: () => void) => Promise<void>) | undefined;
-  isPending: boolean;
-  status: "idle" | "error" | "pending" | "success";
+  isLoading: boolean
+  isError: boolean
+  error: Error | null
+  write: ((confirm: () => void) => Promise<void>) | undefined
+  isPending: boolean
+  status: "idle" | "error" | "pending" | "success"
 }
 
 export function useAddLiquidity({
@@ -59,30 +60,30 @@ export function useAddLiquidity({
   mutation,
   contract,
 }: UseAddLiquidityProps): UseAddLiquidityReturn {
-  const { wagmiConfig: config } = useWeb3Config();
+  const { wagmiConfig: config } = useWeb3Config()
   const [token0State] = useTokenApproval({
     amount: input0,
     spender: contract,
     enabled: true,
-  });
+  })
   const [token1State] = useTokenApproval({
     amount: input1,
     spender: contract,
     enabled: true,
-  });
+  })
 
   const isInputValid = useMemo(() => {
     return Boolean(
       token0 &&
-        token1 &&
-        input0?.quotient &&
-        input1?.quotient &&
-        address &&
-        minAmount0?.quotient &&
-        minAmount1?.quotient &&
-        deadline &&
-        contract,
-    );
+      token1 &&
+      input0?.quotient &&
+      input1?.quotient &&
+      address &&
+      minAmount0?.quotient &&
+      minAmount1?.quotient &&
+      deadline &&
+      contract
+    )
   }, [
     token0,
     token1,
@@ -93,28 +94,28 @@ export function useAddLiquidity({
     minAmount1,
     deadline,
     contract,
-  ]);
+  ])
 
   const prepareNative = useCallback(() => {
     if (!isInputValid) {
-      return undefined;
+      return undefined
     }
 
-    const contract = getXchangeRouterContractConfig(chainId);
+    const contract = getXchangeRouterContractConfig(chainId)
 
-    const isToken0Native = token0?.isNative;
+    const isToken0Native = token0?.isNative
     const tokenAddress = isToken0Native
       ? token1?.wrapped.address
-      : token0?.wrapped.address;
-    const tokenAmount = isToken0Native ? input1?.quotient : input0?.quotient;
-    const ethAmount = isToken0Native ? input0?.quotient : input1?.quotient;
+      : token0?.wrapped.address
+    const tokenAmount = isToken0Native ? input1?.quotient : input0?.quotient
+    const ethAmount = isToken0Native ? input0?.quotient : input1?.quotient
 
     const tokenMinAmount = isToken0Native
       ? minAmount1?.quotient
-      : minAmount0?.quotient;
+      : minAmount0?.quotient
     const ethMinAmount = isToken0Native
       ? minAmount0?.quotient
-      : minAmount1?.quotient;
+      : minAmount1?.quotient
 
     const args = [
       tokenAddress,
@@ -123,7 +124,7 @@ export function useAddLiquidity({
       ethMinAmount,
       address,
       deadline,
-    ] as const;
+    ] as const
 
     return {
       account: address,
@@ -133,7 +134,7 @@ export function useAddLiquidity({
       functionName: "addLiquidityETH",
       args,
       value: ethAmount,
-    } as const;
+    } as const
   }, [
     isInputValid,
     token0,
@@ -145,14 +146,14 @@ export function useAddLiquidity({
     minAmount1,
     deadline,
     chainId,
-  ]);
+  ])
 
   const prepareNonNative = useCallback(() => {
     if (!isInputValid) {
-      return undefined;
+      return undefined
     }
 
-    const contract = getXchangeRouterContractConfig(chainId);
+    const contract = getXchangeRouterContractConfig(chainId)
     const args = [
       token0?.wrapped.address,
       token1?.wrapped.address,
@@ -162,7 +163,7 @@ export function useAddLiquidity({
       minAmount1?.quotient,
       address,
       deadline,
-    ] as const;
+    ] as const
 
     return {
       account: address,
@@ -171,7 +172,7 @@ export function useAddLiquidity({
       abi: contract.abi,
       functionName: "addLiquidity",
       args,
-    } as const;
+    } as const
   }, [
     isInputValid,
     token0,
@@ -183,7 +184,7 @@ export function useAddLiquidity({
     minAmount1,
     deadline,
     chainId,
-  ]);
+  ])
 
   const prepare = useMemo(() => {
     if (
@@ -191,11 +192,11 @@ export function useAddLiquidity({
       token0State !== ApprovalState.APPROVED ||
       token1State !== ApprovalState.APPROVED
     ) {
-      return undefined;
+      return undefined
     }
 
-    const isWithNative = token0?.isNative || token1?.isNative;
-    return isWithNative ? prepareNative() : prepareNonNative();
+    const isWithNative = token0?.isNative || token1?.isNative
+    return isWithNative ? prepareNative() : prepareNonNative()
   }, [
     isInputValid,
     token0,
@@ -204,7 +205,7 @@ export function useAddLiquidity({
     token1State,
     prepareNative,
     prepareNonNative,
-  ]);
+  ])
 
   const { data: simulation, error: simulationError } = useSimulateContract({
     ...(prepare ?? {}),
@@ -212,7 +213,7 @@ export function useAddLiquidity({
       enabled: Boolean(prepare),
       retry: false,
     },
-  } as any);
+  } as any)
 
   const {
     writeContractAsync,
@@ -230,15 +231,15 @@ export function useAddLiquidity({
           hash,
           pollingInterval: 2_500,
           retryDelay: 2_500,
-        });
+        })
       },
     },
-  });
+  })
 
   // const { status } = ;
 
   const write = useMemo(() => {
-    if (!writeContractAsync || !simulation?.request) return undefined;
+    if (!writeContractAsync || !simulation?.request) return undefined
 
     return async (confirm: () => void) => {
       try {
@@ -247,27 +248,27 @@ export function useAddLiquidity({
           gas: simulation.request.gas
             ? gasMargin(simulation.request.gas)
             : undefined,
-        });
-        mutation.onSuccess(tx);
-        confirm();
+        })
+        mutation.onSuccess(tx)
+        confirm()
       } catch (error) {
-        log.error(LogCodes.FAIL, "Error adding liquidity", { error });
+        log.error(LogCodes.FAIL, "Error adding liquidity", { error })
         if (error instanceof Error) {
-          mutation.onError(error);
+          mutation.onError(error)
         } else {
-          mutation.onError(new Error("Failed to add liquidity"));
+          mutation.onError(new Error("Failed to add liquidity"))
         }
       }
-    };
-  }, [writeContractAsync, simulation, mutation]);
+    }
+  }, [writeContractAsync, simulation, mutation])
 
   useEffect(() => {
     if (simulationError) {
       log.error(LogCodes.FAIL, "Error simulating contract", {
         error: simulationError,
-      });
+      })
     }
-  }, [simulationError]);
+  }, [simulationError])
 
   return {
     isLoading: isPending,
@@ -277,5 +278,5 @@ export function useAddLiquidity({
     isPending,
     status,
     ...rest,
-  };
+  }
 }

@@ -1,21 +1,22 @@
+import type { ChainId } from "@x7/utils"
+
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
-import { useAccount } from "wagmi";
+import { useAccount } from "wagmi"
 
-import type { ChainId } from "@x7/utils";
+import { EmptyPioneer } from "~/lib/components/core/empty-pioneer"
+import { useActiveLoansByBorrower } from "~/lib/hooks/loans/useXchangeLendingPoolData"
 
-import { EmptyPioneer } from "~/lib/components/core/empty-pioneer";
-import { useActiveLoansByBorrower } from "~/lib/hooks/loans/useXchangeLendingPoolData";
-import { ILLTableConnect } from "./connect";
-import { ILLOpenListItem } from "./initial-liquidity-loan-open-item";
+import { ILLTableConnect } from "./connect"
+import { ILLOpenListItem } from "./initial-liquidity-loan-open-item"
 
 export function ILLTableOpen() {
-  const { isConnected, chain, address } = useAccount();
-  const chainId = chain?.id ?? (1 as ChainId);
+  const { isConnected, chain, address } = useAccount()
+  const chainId = chain?.id ?? (1 as ChainId)
 
   const { activeLoansByBorrower } = useActiveLoansByBorrower(
     address!,
-    chainId as ChainId,
-  );
+    chainId as ChainId
+  )
 
   return (
     <>
@@ -34,7 +35,7 @@ export function ILLTableOpen() {
                       userloanCountIndex={index}
                       chainId={chainId as ChainId}
                     />
-                  ),
+                  )
                 )}
               </ul>
             </>
@@ -46,5 +47,5 @@ export function ILLTableOpen() {
         </>
       )}
     </>
-  );
+  )
 }

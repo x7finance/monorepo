@@ -1,37 +1,38 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-argument */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
-"use client";
+"use client"
 
-import type { FC } from "react";
-import { useState } from "react";
-import type { Address } from "viem";
+import type { ButtonProps } from "@x7/ui/button"
+import type { Currency, CurrencyAmount } from "@x7/utils"
+import type { FC } from "react"
+import type { Address } from "viem"
 
-import { cn } from "@x7/css";
-import { InfoIcon } from "@x7/icons";
-import type { ButtonProps } from "@x7/ui/button";
-import { Button } from "@x7/ui/button";
-import { CardDescription, CardHeader, CardTitle } from "@x7/ui/card";
+import { useState } from "react"
+
+import { cn } from "@x7/css"
+import { InfoIcon } from "@x7/icons"
+import { Button } from "@x7/ui/button"
+import { CardDescription, CardHeader, CardTitle } from "@x7/ui/card"
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@x7/ui/hover-card";
-import { LinkInternal } from "@x7/ui/link";
-import { Select, SelectContent, SelectItem } from "@x7/ui/select";
-import type { Currency, CurrencyAmount } from "@x7/utils";
-import { Native } from "@x7/utils";
+} from "@x7/ui/hover-card"
+import { LinkInternal } from "@x7/ui/link"
+import { Select, SelectContent, SelectItem } from "@x7/ui/select"
+import { Native } from "@x7/utils"
+import { DocsLinks } from "~/types/links"
 
-import { DocsLinks } from "~/types/links";
 import {
   ApprovalState,
   useTokenApproval,
-} from "../../hooks/approvals/useTokenApproval";
+} from "../../hooks/approvals/useTokenApproval"
 
 interface ApproveERC20Props extends ButtonProps {
-  id: string;
-  amount: CurrencyAmount<Currency> | undefined;
-  contract: Address | undefined;
-  enabled?: boolean;
+  id: string
+  amount: CurrencyAmount<Currency> | undefined
+  contract: Address | undefined
+  enabled?: boolean
 }
 
 const ApproveERC20: FC<ApproveERC20Props> = ({
@@ -44,20 +45,20 @@ const ApproveERC20: FC<ApproveERC20Props> = ({
   enabled = true,
   ...props
 }) => {
-  const [max, setMax] = useState(false);
+  const [max, setMax] = useState(false)
   const [state, approval, data] = useTokenApproval({
     amount,
     spender: contract,
     enabled,
     approveMax: max,
-  });
+  })
 
   if (
     state === ApprovalState.APPROVED ||
     !enabled ||
     amount?.currency.equals(Native.onChain(amount.currency.chainId).wrapped)
   ) {
-    return <>{children}</>;
+    return <>{children}</>
   }
 
   const loading =
@@ -65,7 +66,7 @@ const ApproveERC20: FC<ApproveERC20Props> = ({
       ApprovalState.UNKNOWN,
       ApprovalState.LOADING,
       ApprovalState.PENDING,
-    ].includes(state) || approval.isPending;
+    ].includes(state) || approval.isPending
 
   return (
     <Select
@@ -153,7 +154,7 @@ const ApproveERC20: FC<ApproveERC20Props> = ({
         </SelectItem>
       </SelectContent>
     </Select>
-  );
-};
+  )
+}
 
-export { ApproveERC20, type ApproveERC20Props };
+export { ApproveERC20, type ApproveERC20Props }

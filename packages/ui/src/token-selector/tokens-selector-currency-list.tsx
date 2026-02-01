@@ -1,33 +1,35 @@
-/* oxlint-disable @typescript-eslint/unbound-method */
-import type { FC } from "react";
-import React, { memo, useMemo } from "react";
-import { useAccount } from "wagmi";
-
 import type {
   ChainId,
   CurrencyAmount,
   Currency as CurrencyType,
   Fraction,
-} from "@x7/utils";
-import { Native } from "@x7/utils";
+} from "@x7/utils"
+/* oxlint-disable @typescript-eslint/unbound-method */
+import type { FC } from "react"
 
-import { CurrencyList } from "../currency/currency-list";
-import { TokenViewRow } from "./token-view-row";
+import React, { memo, useMemo } from "react"
+import { useAccount } from "wagmi"
+
+import { Native } from "@x7/utils"
+
+import { CurrencyList } from "../currency/currency-list"
+
+import { TokenViewRow } from "./token-view-row"
 
 interface TokenSelectorCurrencyListProps {
-  id: string;
-  currencies: CurrencyType[] | undefined;
-  chainId: ChainId;
-  officialTokenIds: string[];
-  onSelect(currency: CurrencyType): void;
+  id: string
+  currencies: CurrencyType[] | undefined
+  chainId: ChainId
+  officialTokenIds: string[]
+  onSelect(currency: CurrencyType): void
   pin?: {
-    isPinned: (currencyId: string) => boolean;
-    onPin: (currencyId: string) => void;
-  };
-  selected: CurrencyType | undefined;
-  balancesMap: Record<string, CurrencyAmount<CurrencyType>> | undefined;
-  pricesMap: Record<string, Fraction> | undefined;
-  isBalanceLoading: boolean;
+    isPinned: (currencyId: string) => boolean
+    onPin: (currencyId: string) => void
+  }
+  selected: CurrencyType | undefined
+  balancesMap: Record<string, CurrencyAmount<CurrencyType>> | undefined
+  pricesMap: Record<string, Fraction> | undefined
+  isBalanceLoading: boolean
 }
 
 export const TokenSelectorCurrencyList: FC<TokenSelectorCurrencyListProps> =
@@ -42,16 +44,16 @@ export const TokenSelectorCurrencyList: FC<TokenSelectorCurrencyListProps> =
     balancesMap,
     isBalanceLoading,
   }) {
-    const { address } = useAccount();
+    const { address } = useAccount()
 
     const rowData = useMemo(() => {
-      if (!currencies) return [];
+      if (!currencies) return []
 
       return currencies.map((currency) => {
-        const isNative = currency.isNative;
+        const isNative = currency.isNative
         const currencyAddress = isNative
           ? "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
-          : currency.address;
+          : currency.address
 
         return {
           id: id,
@@ -81,8 +83,8 @@ export const TokenSelectorCurrencyList: FC<TokenSelectorCurrencyListProps> =
                 currency.wrapped.address === selected.wrapped.address)
             : false,
           isBalanceLoading,
-        };
-      });
+        }
+      })
     }, [
       currencies,
       id,
@@ -94,7 +96,7 @@ export const TokenSelectorCurrencyList: FC<TokenSelectorCurrencyListProps> =
       pin,
       selected,
       isBalanceLoading,
-    ]);
+    ])
 
     return (
       <CurrencyList
@@ -103,5 +105,5 @@ export const TokenSelectorCurrencyList: FC<TokenSelectorCurrencyListProps> =
         rowRenderer={TokenViewRow}
         rowData={rowData}
       />
-    );
-  });
+    )
+  })

@@ -1,6 +1,6 @@
-import { cn } from "@x7/css";
-import { CheckCircleIcon, CheckIcon } from "@x7/icons";
-import { Button } from "@x7/ui/button";
+import { cn } from "@x7/css"
+import { CheckCircleIcon, CheckIcon } from "@x7/icons"
+import { Button } from "@x7/ui/button"
 
 const steps = [
   {
@@ -18,13 +18,13 @@ const steps = [
     href: "#",
     status: "upcoming",
   },
-];
+]
 
 // NOTE: initiate loan is just a lazy implementation
 export function LoanDeploymentProgress({
   initiateLoan,
 }: {
-  initiateLoan: () => void;
+  initiateLoan: () => void
 }) {
   return (
     <ol className="space-y-3 overflow-hidden border-t-2 pt-4">
@@ -33,7 +33,7 @@ export function LoanDeploymentProgress({
           key={step.name}
           className={cn(
             stepIdx !== steps.length - 1 ? "pb-10" : "",
-            "relative",
+            "relative"
           )}
         >
           {step.status === "complete" ? (
@@ -123,5 +123,5 @@ export function LoanDeploymentProgress({
         </li>
       ))}
     </ol>
-  );
+  )
 }

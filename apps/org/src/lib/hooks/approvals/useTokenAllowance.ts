@@ -1,19 +1,20 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
-"use client";
+"use client"
 
-import { erc20Abi } from "viem";
-import type { Address } from "viem";
-import { useReadContract } from "wagmi";
+import type { ChainId, Token } from "@x7/utils"
+import type { Address } from "viem"
 
-import type { ChainId, Token } from "@x7/utils";
-import { CurrencyAmount } from "@x7/utils";
+import { erc20Abi } from "viem"
+import { useReadContract } from "wagmi"
+
+import { CurrencyAmount } from "@x7/utils"
 
 interface UseTokenAllowance {
-  token?: Token;
-  chainId: ChainId | undefined;
-  owner: Address | undefined;
-  spender: Address | undefined;
-  enabled?: boolean;
+  token?: Token
+  chainId: ChainId | undefined
+  owner: Address | undefined
+  spender: Address | undefined
+  enabled?: boolean
 }
 
 export const useTokenAllowance = ({
@@ -32,8 +33,8 @@ export const useTokenAllowance = ({
     // @ts-expect-error: todo move to new react-query
     select: (data: number) => {
       if (token) {
-        return CurrencyAmount.fromRawAmount(token, data);
+        return CurrencyAmount.fromRawAmount(token, data)
       }
     },
-  });
-};
+  })
+}

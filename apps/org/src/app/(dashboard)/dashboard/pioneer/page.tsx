@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata } from "next"
 
-import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc";
-import { DashboardContainer } from "../../_components/dashboard-container";
-import { DashboardTitle } from "../../_components/dashboard-title";
-import { PioneerDetails } from "../../_components/pioneer/details";
+import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
+
+import { DashboardContainer } from "../../_components/dashboard-container"
+import { DashboardTitle } from "../../_components/dashboard-title"
+import { PioneerDetails } from "../../_components/pioneer/details"
 
 const metadata = {
   title: "X7 Pioneers",
@@ -11,10 +12,10 @@ const metadata = {
     "Discover X7 Finance's NFT Marketplace: A specialized platform designed for the DeFi enthusiast. Our marketplace is home to exclusive Utility NFTs that provide holders with unique benefits and privileges within the X7 DeFi ecosystem. Trade and invest in these NFTs to unlock enhanced financial opportunities and potential returns. Experience the future of decentralized finance with X7 Finance's NFT Marketplace.",
   slug: "/dashboard/pioneer",
   section: "dashboard",
-};
+}
 
 export function generateMetadata(): Metadata {
-  return generateMetadataFromDoc(metadata);
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function PioneerPage() {
@@ -38,5 +39,5 @@ export default function PioneerPage() {
         </section>
       </DashboardContainer>
     </div>
-  );
+  )
 }

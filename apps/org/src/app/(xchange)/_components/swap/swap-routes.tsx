@@ -1,21 +1,22 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
+import type { RouteWithValidQuote } from "@x7/smart-order-router"
 
-import { cn } from "@x7/css";
-import type { RouteWithValidQuote } from "@x7/smart-order-router";
-import { Implementation, LogCodes, Protocol } from "@x7/utils";
+import { useEffect, useState } from "react"
 
-import { useSwapState } from "~/lib/stores/swap";
-import { log } from "~/lib/utils/log";
-import { implementationComponents } from "./swap-dexs";
-import { ImplementationGroupTabbed } from "./swap-implementations-tabbed";
+import { cn } from "@x7/css"
+import { Implementation, LogCodes, Protocol } from "@x7/utils"
+import { useSwapState } from "~/lib/stores/swap"
+import { log } from "~/lib/utils/log"
+
+import { implementationComponents } from "./swap-dexs"
+import { ImplementationGroupTabbed } from "./swap-implementations-tabbed"
 
 export function SwapRoutes() {
   const {
     state: { possibleRoutes, enabledImplementations, bestRoute },
-  } = useSwapState();
+  } = useSwapState()
 
   const bestRouteImplementaton =
     bestRoute?.routes?.[0]?.protocol === Protocol.V3
@@ -24,12 +25,12 @@ export function SwapRoutes() {
       : bestRoute?.routes?.[0]?.protocol === Protocol.V2
         ? (bestRoute?.routes?.[0]?.route?.pairs?.[0]?.pairType ??
           Implementation.UNISWAP)
-        : Implementation.MIXED;
+        : Implementation.MIXED
 
   const [otherImplementations, setOtherImplementations] =
-    useState<Record<Implementation, RouteWithValidQuote[]>>();
+    useState<Record<Implementation, RouteWithValidQuote[]>>()
   const [selectedImplementation, setSelectedImplementation] =
-    useState<Implementation>();
+    useState<Implementation>()
 
   // useEffect / memo to group and filter the possibleRoutes into groups based on imp.
   useEffect(() => {
@@ -40,7 +41,7 @@ export function SwapRoutes() {
       [Implementation.SUSHISWAP]: [],
       [Implementation.AERODROME]: [],
       [Implementation.MIXED]: [],
-    };
+    }
 
     for (const route of possibleRoutes) {
       const currentRouteimplementation =
@@ -48,20 +49,20 @@ export function SwapRoutes() {
           ? (route?.route?.pools?.[0]?.poolType ?? Implementation.UNISWAP)
           : route?.protocol === Protocol.V2
             ? (route?.route?.pairs?.[0]?.pairType ?? Implementation.UNISWAP)
-            : Implementation.MIXED;
+            : Implementation.MIXED
 
       if (starterGroup[currentRouteimplementation]) {
-        starterGroup[currentRouteimplementation].push(route);
+        starterGroup[currentRouteimplementation].push(route)
       } else {
-        starterGroup[currentRouteimplementation] = [route];
+        starterGroup[currentRouteimplementation] = [route]
       }
     }
 
-    setOtherImplementations(starterGroup);
-  }, [possibleRoutes]);
+    setOtherImplementations(starterGroup)
+  }, [possibleRoutes])
 
   if (otherImplementations) {
-    log.info(LogCodes.SUCCESS, "otherImplementations", otherImplementations);
+    log.info(LogCodes.SUCCESS, "otherImplementations", otherImplementations)
   }
 
   return (
@@ -84,7 +85,7 @@ export function SwapRoutes() {
                   : "bg-white dark:bg-black/40",
                 enabledImplementations.includes(enabled)
                   ? "opacity-100"
-                  : "opacity-50",
+                  : "opacity-50"
               )}
             >
               {implementationComponents[enabled]}
@@ -112,5 +113,5 @@ export function SwapRoutes() {
         </div>
       )}
     </div>
-  );
+  )
 }

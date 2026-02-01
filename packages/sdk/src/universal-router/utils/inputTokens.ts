@@ -1,58 +1,59 @@
+import type { RoutePlanner } from "./routerCommands"
+
 /* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
-import { secp256k1 } from "@noble/curves/secp256k1";
-import invariant from "tiny-invariant";
-import { hexToNumber, toBytes } from "viem";
+import { secp256k1 } from "@noble/curves/secp256k1"
+import invariant from "tiny-invariant"
+import { hexToNumber, toBytes } from "viem"
 
-import { ETH_ADDRESS_02 as ROUTER_AS_RECIPIENT } from "@x7/utils";
+import { ETH_ADDRESS_02 as ROUTER_AS_RECIPIENT } from "@x7/utils"
 
-import { OPENSEA_CONDUIT_SPENDER_ID, SUDOSWAP_SPENDER_ID } from "./constants";
-import type { RoutePlanner } from "./routerCommands";
-import { CommandType } from "./routerCommands";
+import { OPENSEA_CONDUIT_SPENDER_ID, SUDOSWAP_SPENDER_ID } from "./constants"
+import { CommandType } from "./routerCommands"
 
 export interface PermitDetails {
-  token: string;
-  amount: bigint;
-  expiration: bigint;
-  nonce: bigint;
+  token: string
+  amount: bigint
+  expiration: bigint
+  nonce: bigint
 }
 
 export interface PermitSingle {
-  details: PermitDetails;
-  spender: string;
-  sigDeadline: bigint;
+  details: PermitDetails
+  spender: string
+  sigDeadline: bigint
 }
 
 export interface Permit2Permit extends PermitSingle {
-  signature: string;
+  signature: string
 }
 
 export interface ApproveProtocol {
-  token: string;
-  protocol: string;
+  token: string
+  protocol: string
 }
 
 export interface Permit2TransferFrom {
-  token: string;
-  amount: string;
-  recipient?: string;
+  token: string
+  amount: string
+  recipient?: string
 }
 
 export interface InputTokenOptions {
-  approval?: ApproveProtocol;
-  permit2Permit?: Permit2Permit;
-  permit2TransferFrom?: Permit2TransferFrom;
+  approval?: ApproveProtocol
+  permit2Permit?: Permit2Permit
+  permit2TransferFrom?: Permit2TransferFrom
 }
 
-const SIGNATURE_LENGTH = 65;
-const EIP_2098_SIGNATURE_LENGTH = 64;
+const SIGNATURE_LENGTH = 65
+const EIP_2098_SIGNATURE_LENGTH = 64
 
 export function encodePermit(
   planner: RoutePlanner,
-  permit2: Permit2Permit,
+  permit2: Permit2Permit
 ): void {
-  let signature = permit2.signature;
+  let signature = permit2.signature
 
-  const length = toBytes(permit2.signature).length;
+  const length = toBytes(permit2.signature).length
   // signature data provided for EIP-1271 may have length different from ECDSA signature
   if (length === SIGNATURE_LENGTH || length === EIP_2098_SIGNATURE_LENGTH) {
     // sanitizes signature to cover edge cases of malformed EIP-2098 sigs and v used as recovery id
@@ -60,13 +61,13 @@ export function encodePermit(
     //   ethers.utils.splitSignature(permit2.signature),
     // );
     const { r, s } = secp256k1.Signature.fromCompact(
-      permit2.signature.slice(2, 130),
-    );
-    const v = hexToNumber(`0x${permit2.signature.slice(130)}`);
-    signature = `0x${new secp256k1.Signature(r, s).toCompactHex()}${v}`;
+      permit2.signature.slice(2, 130)
+    )
+    const v = hexToNumber(`0x${permit2.signature.slice(130)}`)
+    signature = `0x${new secp256k1.Signature(r, s).toCompactHex()}${v}`
   }
 
-  planner.addCommand(CommandType.PERMIT2_PERMIT, [permit2, signature]);
+  planner.addCommand(CommandType.PERMIT2_PERMIT, [permit2, signature])
 }
 
 // Handles the encoding of commands needed to gather input tokens for a trade
@@ -76,36 +77,36 @@ export function encodePermit(
 // Transfer: A Permit2 TransferFrom of tokens from a user to either the router or another address
 export function encodeInputTokenOptions(
   planner: RoutePlanner,
-  options: InputTokenOptions,
+  options: InputTokenOptions
 ) {
   // first ensure that all tokens provided for encoding are the same
   if (!!options.approval && !!options.permit2Permit)
     invariant(
       options.approval.token === options.permit2Permit.details.token,
-      `inconsistent token`,
-    );
+      `inconsistent token`
+    )
   if (!!options.approval && !!options.permit2TransferFrom)
     invariant(
       options.approval.token === options.permit2TransferFrom.token,
-      `inconsistent token`,
-    );
+      `inconsistent token`
+    )
   if (!!options.permit2TransferFrom && !!options.permit2Permit)
     invariant(
       options.permit2TransferFrom.token === options.permit2Permit.details.token,
-      `inconsistent token`,
-    );
+      `inconsistent token`
+    )
 
   // if an options.approval is required, add it
   if (options.approval) {
     planner.addCommand(CommandType.APPROVE_ERC20, [
       options.approval.token,
       mapApprovalProtocol(options.approval.protocol),
-    ]);
+    ])
   }
 
   // if this order has a options.permit2Permit, encode it
   if (options.permit2Permit) {
-    encodePermit(planner, options.permit2Permit);
+    encodePermit(planner, options.permit2Permit)
   }
 
   if (options.permit2TransferFrom) {
@@ -115,19 +116,19 @@ export function encodeInputTokenOptions(
         ? options.permit2TransferFrom.recipient
         : ROUTER_AS_RECIPIENT,
       options.permit2TransferFrom.amount,
-    ]);
+    ])
   }
 }
 
 function mapApprovalProtocol(protocolAddress: string): number {
   switch (protocolAddress.toLowerCase()) {
     case "0x00000000000000adc04c56bf30ac9d3c0aaf14dc": // Seaport v1.5
-      return OPENSEA_CONDUIT_SPENDER_ID;
+      return OPENSEA_CONDUIT_SPENDER_ID
     case "0x00000000000001ad428e4906ae43d8f9852d0dd6": // Seaport v1.4
-      return OPENSEA_CONDUIT_SPENDER_ID;
+      return OPENSEA_CONDUIT_SPENDER_ID
     case "0x2b2e8cda09bba9660dca5cb6233787738ad68329": // Sudoswap
-      return SUDOSWAP_SPENDER_ID;
+      return SUDOSWAP_SPENDER_ID
     default:
-      throw new Error("unsupported protocol address");
+      throw new Error("unsupported protocol address")
   }
 }

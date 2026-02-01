@@ -2,16 +2,16 @@
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
-import { cn } from "@x7/css";
-import { CheckCircleIcon, Uniswap, Xchange } from "@x7/icons";
+import { cn } from "@x7/css"
+import { CheckCircleIcon, Uniswap, Xchange } from "@x7/icons"
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@x7/ui/form";
-import { RadioGroup, RadioGroupItem } from "@x7/ui/radio-group";
+} from "@x7/ui/form"
+import { RadioGroup, RadioGroupItem } from "@x7/ui/radio-group"
 
 const LOAN_POOL_OPTIONS = [
   {
@@ -34,7 +34,7 @@ const LOAN_POOL_OPTIONS = [
       </span>
     ),
   },
-];
+]
 
 export default function LoanPoolChoice(form: any) {
   return (
@@ -68,7 +68,7 @@ export default function LoanPoolChoice(form: any) {
         </FormItem>
       )}
     />
-  );
+  )
 
   function LoanPoolOption({ field, data }: { field: any; data: any }) {
     return (
@@ -77,7 +77,7 @@ export default function LoanPoolChoice(form: any) {
           field?.value === data.poolId
             ? "border-emerald-600 ring-2 ring-emerald-600"
             : "border-zinc-700",
-          "relative flex h-full w-full cursor-pointer rounded-lg border p-4 shadow-xs focus:outline-hidden",
+          "relative flex h-full w-full cursor-pointer rounded-lg border p-4 shadow-xs focus:outline-hidden"
         )}
       >
         <>
@@ -98,20 +98,20 @@ export default function LoanPoolChoice(form: any) {
             <CheckCircleIcon
               className={cn(
                 field?.value === data.poolId ? "" : "invisible",
-                "relative h-5 w-5 text-emerald-600",
+                "relative h-5 w-5 text-emerald-600"
               )}
               aria-hidden="true"
             />
           </span>
         </>
       </FormItem>
-    );
+    )
   }
 
   function DexDetailsHelper({
     value,
   }: {
-    value: "xchange" | "uniswap" | "halfnhalf";
+    value: "xchange" | "uniswap" | "halfnhalf"
   }) {
     if (value === "xchange") {
       return (
@@ -120,7 +120,7 @@ export default function LoanPoolChoice(form: any) {
             Your pair will be hosted on Xchange the most decentralized exchange.
           </span>
         </div>
-      );
+      )
     } else if (value === "uniswap") {
       return (
         <div className="mt-4 flex flex-col gap-2">
@@ -130,7 +130,7 @@ export default function LoanPoolChoice(form: any) {
             pool.
           </span>
         </div>
-      );
+      )
     } else if (value === "halfnhalf") {
       return (
         <div className="mt-4 flex flex-col gap-2">
@@ -140,9 +140,9 @@ export default function LoanPoolChoice(form: any) {
             traded on both DEXs.
           </span>
         </div>
-      );
+      )
     } else {
-      return <></>;
+      return <></>
     }
   }
 }

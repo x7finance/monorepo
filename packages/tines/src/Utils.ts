@@ -1,33 +1,33 @@
 export function ASSERT(f: () => boolean, t?: string) {
   // oxlint-disable-next-line turbo/no-undeclared-env-vars
   if (process.env.NODE_ENV !== "production") {
-    if (!f() && t) console.error(t);
+    if (!f() && t) console.error(t)
   }
 }
 
-let DEBUG_MODE = false;
+let DEBUG_MODE = false
 export function DEBUG(f: () => unknown) {
-  if (DEBUG_MODE) f();
+  if (DEBUG_MODE) f()
 }
 export function DEBUG_MODE_ON(on: boolean) {
-  DEBUG_MODE = on;
+  DEBUG_MODE = on
 }
 
 export function closeValues(
   a: number,
   b: number,
-  accuracy: number,
+  accuracy: number
   // logInfoIfFalse = "",
 ): boolean {
-  if (accuracy === 0) return a === b;
-  if (Math.abs(a) < 1 / accuracy) return Math.abs(a - b) <= 10;
-  if (Math.abs(b) < 1 / accuracy) return Math.abs(a - b) <= 10;
-  const res = Math.abs(a / b - 1) < accuracy;
+  if (accuracy === 0) return a === b
+  if (Math.abs(a) < 1 / accuracy) return Math.abs(a - b) <= 10
+  if (Math.abs(b) < 1 / accuracy) return Math.abs(a - b) <= 10
+  const res = Math.abs(a / b - 1) < accuracy
   if (!res) {
     // console.log("Expected close: ", a, b, accuracy, logInfoIfFalse);
     // debugger
   }
-  return res;
+  return res
 }
 
 // returns such x > 0 that f(x) = out or 0 if there is no such x or f defined not everywhere
@@ -36,44 +36,44 @@ export function closeValues(
 export function revertPositive(
   f: (x: number) => number,
   out: number,
-  hint = 1,
+  hint = 1
 ) {
   try {
-    if (out <= f(0)) return 0;
-    let min;
-    let max;
+    if (out <= f(0)) return 0
+    let min
+    let max
     if (f(hint) > out) {
-      min = hint / 2;
-      while (f(min) > out) min /= 2;
-      max = min * 2;
+      min = hint / 2
+      while (f(min) > out) min /= 2
+      max = min * 2
     } else {
-      max = hint * 2;
-      while (f(max) < out) max *= 2;
-      min = max / 2;
+      max = hint * 2
+      while (f(max) < out) max *= 2
+      min = max / 2
     }
 
     while (max / min - 1 > 1e-4) {
-      const x0: number = (min + max) / 2;
-      const y0 = f(x0);
-      if (out === y0) return x0;
-      if (out < y0) max = x0;
-      else min = x0;
+      const x0: number = (min + max) / 2
+      const y0 = f(x0)
+      if (out === y0) return x0
+      if (out < y0) max = x0
+      else min = x0
     }
-    return (min + max) / 2;
+    return (min + max) / 2
     // oxlint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (_e) {
-    return 0;
+    return 0
   }
 }
 
 export function getBigInt(value: number): bigint {
-  const v = Math.abs(value);
-  if (v < Number.MAX_SAFE_INTEGER) return BigInt(Math.round(value));
+  const v = Math.abs(value)
+  if (v < Number.MAX_SAFE_INTEGER) return BigInt(Math.round(value))
 
-  const exp = Math.floor(Math.log(v) / Math.LN2);
-  console.assert(exp >= 51, "Internal Error 314");
-  const shift = exp - 51;
-  const mant = Math.round(v / 2 ** shift);
-  const res = BigInt(mant) * 2n ** BigInt(shift);
-  return value > 0 ? res : res * -1n;
+  const exp = Math.floor(Math.log(v) / Math.LN2)
+  console.assert(exp >= 51, "Internal Error 314")
+  const shift = exp - 51
+  const mant = Math.round(v / 2 ** shift)
+  const res = BigInt(mant) * 2n ** BigInt(shift)
+  return value > 0 ? res : res * -1n
 }

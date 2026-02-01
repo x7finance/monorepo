@@ -1,43 +1,43 @@
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import type { Config } from "@wagmi/core";
-import { getPublicClient } from "@wagmi/core";
-import type { Client } from "viem";
-import { erc20Abi, getAddress, getContract } from "viem";
+import type { Config } from "@wagmi/core"
+import type { SavedToken, TokenStatus } from "@x7/dexie"
+import type { ChainId } from "@x7/utils"
+import type { Client } from "viem"
 
-import { tokenRegisteryABI } from "@x7/contracts";
-import type { SavedToken, TokenStatus } from "@x7/dexie";
-import { saveTokens } from "@x7/dexie";
-import { X7ContractsEnum } from "@x7/sdk";
-import type { ChainId } from "@x7/utils";
-import { LogCodes, Token } from "@x7/utils";
+import { keepPreviousData, useQuery } from "@tanstack/react-query"
+import { getPublicClient } from "@wagmi/core"
+import { erc20Abi, getAddress, getContract } from "viem"
 
-import { useWeb3Config } from "~/lib/providers/web3";
-import { CACHE_TIERS } from "~/lib/query";
-import { log } from "~/lib/utils/log";
+import { tokenRegisteryABI } from "@x7/contracts"
+import { saveTokens } from "@x7/dexie"
+import { X7ContractsEnum } from "@x7/sdk"
+import { LogCodes, Token } from "@x7/utils"
+import { useWeb3Config } from "~/lib/providers/web3"
+import { CACHE_TIERS } from "~/lib/query"
+import { log } from "~/lib/utils/log"
 
 interface UseTokensParams {
-  chainId: ChainId;
+  chainId: ChainId
 }
 
 export const fetchTokensQueryFn = async (chainId: ChainId, config: Config) => {
-  const publicClient = getPublicClient(config);
+  const publicClient = getPublicClient(config)
 
   const contract = getContract({
     address: X7ContractsEnum.TokenList,
     abi: tokenRegisteryABI,
     client: publicClient as Client,
-  });
+  })
 
-  const list = await contract.read.getRegisteredTokens();
+  const list = await contract.read.getRegisteredTokens()
 
   if (list.length > 0) {
     const fetchTokenWithTimeout = async (
       address: `0x${string}`,
-      timeout: number,
+      timeout: number
     ) => {
       const timeoutPromise = new Promise<null>((_, reject) =>
-        setTimeout(() => reject(new Error("Token fetch timeout")), timeout),
-      );
+        setTimeout(() => reject(new Error("Token fetch timeout")), timeout)
+      )
 
       try {
         const result = await Promise.race([
@@ -46,7 +46,7 @@ export const fetchTokensQueryFn = async (chainId: ChainId, config: Config) => {
               address,
               abi: erc20Abi,
               client: publicClient as Client,
-            });
+            })
 
             return {
               id: `${chainId}:${address}`,
@@ -56,41 +56,41 @@ export const fetchTokensQueryFn = async (chainId: ChainId, config: Config) => {
               name: await ercContract.read.name(),
               status: "APPROVED" as TokenStatus,
               chainId: Number(chainId),
-            };
+            }
           })(),
           timeoutPromise,
-        ]);
+        ])
 
-        return result;
+        return result
       } catch (error) {
         log.error(
           LogCodes.TOKEN_FETCH_ERROR,
           `Error or timeout fetching token ${address}:`,
-          error,
-        );
+          error
+        )
 
-        return null;
+        return null
       }
-    };
+    }
 
-    const FETCH_TIMEOUT = 5000; // 5 seconds timeout for each token
+    const FETCH_TIMEOUT = 5000 // 5 seconds timeout for each token
 
     return Promise.all(
-      list.map((address) => fetchTokenWithTimeout(address, FETCH_TIMEOUT)),
+      list.map((address) => fetchTokenWithTimeout(address, FETCH_TIMEOUT))
     ).then(async (tokens: (SavedToken | null)[]) => {
       const validTokens = tokens.filter(
-        (token): token is SavedToken => token !== null,
-      );
-      await saveTokens({ tokens: validTokens });
+        (token): token is SavedToken => token !== null
+      )
+      await saveTokens({ tokens: validTokens })
 
       return validTokens.reduce<Record<number, Record<string, Token>>>(
         (acc, { id, name, symbol, decimals, address }) => {
-          const [_chainId, _address] = id.split(":");
-          const chainId = Number(_chainId) as ChainId;
+          const [_chainId, _address] = id.split(":")
+          const chainId = Number(_chainId) as ChainId
 
-          if (!acc[chainId]) acc[chainId] = {};
+          if (!acc[chainId]) acc[chainId] = {}
 
-          const map = acc[chainId];
+          const map = acc[chainId]
 
           map[getAddress(address)] = new Token({
             chainId,
@@ -98,20 +98,20 @@ export const fetchTokensQueryFn = async (chainId: ChainId, config: Config) => {
             decimals,
             symbol,
             address,
-          });
+          })
 
-          return acc;
+          return acc
         },
-        {},
-      );
-    });
+        {}
+      )
+    })
   } else {
-    throw new Error("Could not fetch tokens");
+    throw new Error("Could not fetch tokens")
   }
-};
+}
 
 export const useTokens = ({ chainId }: UseTokensParams) => {
-  const { wagmiConfig } = useWeb3Config();
+  const { wagmiConfig } = useWeb3Config()
 
   return useQuery({
     queryKey: [`tokens-${chainId}`],
@@ -119,5 +119,5 @@ export const useTokens = ({ chainId }: UseTokensParams) => {
     select: (data) => data[chainId],
     placeholderData: keepPreviousData,
     ...CACHE_TIERS.STATIC,
-  });
-};
+  })
+}

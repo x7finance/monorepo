@@ -1,7 +1,7 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
-"use client";
+"use client"
 
-import { useEffect } from "react";
+import { useEffect } from "react"
 
 /**
  * Invokes callback repeatedly over an interval defined by the delay
@@ -14,32 +14,32 @@ import { useEffect } from "react";
 export function useInterval(
   callback: () => void | Promise<void>,
   delay: null | number,
-  leading = true,
+  leading = true
 ) {
   useEffect(() => {
     if (delay === null) {
-      return;
+      return
     }
 
-    let timeout: ReturnType<typeof setTimeout>;
+    let timeout: ReturnType<typeof setTimeout>
 
-    void tick(delay, /* skip= */ !leading);
+    void tick(delay, /* skip= */ !leading)
     return () => {
       if (timeout) {
-        clearInterval(timeout);
+        clearInterval(timeout)
       }
-    };
+    }
 
     async function tick(delay: number, skip = false) {
       if (!skip) {
-        const promise = callback();
+        const promise = callback()
 
         // Defer the next interval until the current callback has resolved.
-        if (promise) await promise;
+        if (promise) await promise
       }
 
       // oxlint-disable-next-line @typescript-eslint/no-misused-promises
-      timeout = setTimeout(() => tick(delay), delay);
+      timeout = setTimeout(() => tick(delay), delay)
     }
-  }, [callback, delay, leading]);
+  }, [callback, delay, leading])
 }

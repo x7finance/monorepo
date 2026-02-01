@@ -1,20 +1,20 @@
-import { encodePacked, getContractAddress, keccak256 } from "viem";
+import type { Token } from "@x7/utils"
 
-import type { Token } from "@x7/utils";
+import { encodePacked, getContractAddress, keccak256 } from "viem"
 
 export class Factory {
-  public readonly address: string;
-  public readonly init_code_hash: string;
+  public readonly address: string
+  public readonly init_code_hash: string
 
   constructor(address: string, init_code_hash: string) {
-    this.address = address;
-    this.init_code_hash = init_code_hash;
+    this.address = address
+    this.init_code_hash = init_code_hash
   }
 
   public computePairAddress(tokenA: Token, tokenB: Token): string {
     const [token0, token1] = tokenA.sortsBefore(tokenB)
       ? [tokenA, tokenB]
-      : [tokenB, tokenA]; // does safety checks
+      : [tokenB, tokenA] // does safety checks
 
     // return getCreate2Address(
     //   this.address,
@@ -35,11 +35,11 @@ export class Factory {
           [
             encodePacked(
               ["address", "address"],
-              [token0.address, token1.address],
+              [token0.address, token1.address]
             ),
-          ],
-        ),
+          ]
+        )
       ),
-    });
+    })
   }
 }

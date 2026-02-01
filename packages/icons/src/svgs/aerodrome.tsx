@@ -1,4 +1,4 @@
-import type { SVGProps } from "react";
+import type { SVGProps } from "react"
 
 export function Aerodrome(props: SVGProps<SVGSVGElement>) {
   return (
@@ -73,5 +73,5 @@ export function Aerodrome(props: SVGProps<SVGSVGElement>) {
         />
       </g>
     </svg>
-  );
+  )
 }

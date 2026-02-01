@@ -1,5 +1,7 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 
+import type { Token } from "@x7/utils"
+
 import {
   AMPL_ADDRESS,
   DAI,
@@ -20,9 +22,8 @@ import {
   USDC,
   USDT,
   WBTC,
-} from "@x7/sdk";
-import type { Token } from "@x7/utils";
-import { ChainId, WETH9, WNATIVE } from "@x7/utils";
+} from "@x7/sdk"
+import { ChainId, WETH9, WNATIVE } from "@x7/utils"
 
 export const BASES_TO_CHECK_TRADES_AGAINST: Readonly<Record<number, Token[]>> =
   {
@@ -79,7 +80,7 @@ export const BASES_TO_CHECK_TRADES_AGAINST: Readonly<Record<number, Token[]>> =
       USDC[ChainId.BASE],
       DAI[ChainId.BASE],
     ],
-  };
+  }
 
 export const ADDITIONAL_BASES: Record<number, Record<string, Token[]>> = {
   [ChainId.ETHEREUM]: {
@@ -105,7 +106,7 @@ export const ADDITIONAL_BASES: Record<number, Record<string, Token[]>> = {
     [FRAX_ADDRESS[ChainId.OPTIMISM]]: [FXS[ChainId.OPTIMISM]],
     [FXS_ADDRESS[ChainId.OPTIMISM]]: [FRAX[ChainId.OPTIMISM]],
   },
-};
+}
 
 /**
  * Some tokens can only be swapped via certain pairs, so we override the list of bases that are considered for these
@@ -118,4 +119,4 @@ export const CUSTOM_BASES: Record<number, Record<string, Token[]>> = {
       WNATIVE[ChainId.ETHEREUM],
     ],
   },
-};
+}

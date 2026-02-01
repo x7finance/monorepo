@@ -1,15 +1,16 @@
-import { X7Logo } from "@x7/icons";
-import type { ChainId } from "@x7/utils";
+import type { ChainId } from "@x7/utils"
 
-import { PaymentButton } from "~/app/(dashboard)/_components/loan/payment-button";
-import { Countdown } from "./countdown";
+import { X7Logo } from "@x7/icons"
+import { PaymentButton } from "~/app/(dashboard)/_components/loan/payment-button"
+
+import { Countdown } from "./countdown"
 
 interface PaymentCardProps {
-  tokenByIndex: number;
-  paymentDueTimeStamp: number;
-  paymentAmount: string;
-  canLiquidate: boolean;
-  chainId: ChainId;
+  tokenByIndex: number
+  paymentDueTimeStamp: number
+  paymentAmount: string
+  canLiquidate: boolean
+  chainId: ChainId
 }
 
 export function IILPaymentCard({
@@ -19,8 +20,8 @@ export function IILPaymentCard({
   canLiquidate,
   chainId,
 }: PaymentCardProps) {
-  const exactEnd = new Date(Number(paymentDueTimeStamp));
-  const paymentShortDate = new Date(Number(paymentDueTimeStamp) * 1000);
+  const exactEnd = new Date(Number(paymentDueTimeStamp))
+  const paymentShortDate = new Date(Number(paymentDueTimeStamp) * 1000)
 
   return (
     <>
@@ -50,5 +51,5 @@ export function IILPaymentCard({
         </div>
       </li>
     </>
-  );
+  )
 }

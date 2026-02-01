@@ -1,14 +1,14 @@
-import { useCallback, useEffect } from "react";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
+import * as Dialog from "@radix-ui/react-dialog"
+import * as VisuallyHidden from "@radix-ui/react-visually-hidden"
+import { useCallback, useEffect } from "react"
 
-import { cn } from "@x7/css";
-import { ChevronsRightIcon } from "@x7/icons";
+import { cn } from "@x7/css"
+import { ChevronsRightIcon } from "@x7/icons"
 
 interface SliderOverProps {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  children?: React.ReactNode;
+  open: boolean
+  setOpen: (open: boolean) => void
+  children?: React.ReactNode
 }
 
 export function SliderOver({ open, setOpen, children }: SliderOverProps) {
@@ -16,22 +16,22 @@ export function SliderOver({ open, setOpen, children }: SliderOverProps) {
   useEffect(() => {
     const escapeKeyDownHandler = (event: KeyboardEvent) => {
       if (event.key === "Escape" && open) {
-        event.preventDefault();
-        setOpen(false);
+        event.preventDefault()
+        setOpen(false)
       }
-    };
+    }
 
-    document.addEventListener("keydown", escapeKeyDownHandler);
-    return () => document.removeEventListener("keydown", escapeKeyDownHandler);
-  }, [open, setOpen]);
+    document.addEventListener("keydown", escapeKeyDownHandler)
+    return () => document.removeEventListener("keydown", escapeKeyDownHandler)
+  }, [open, setOpen])
 
   // Memoize the onOpenChange callback
   const handleOpenChange = useCallback(
     (isOpen: boolean) => {
-      setOpen(isOpen);
+      setOpen(isOpen)
     },
-    [setOpen],
-  );
+    [setOpen]
+  )
 
   return (
     <Dialog.Root open={open} onOpenChange={handleOpenChange}>
@@ -39,7 +39,7 @@ export function SliderOver({ open, setOpen, children }: SliderOverProps) {
         className={cn(
           `fixed inset-y-0 right-0 z-50 flex max-w-full transition duration-150 ease-in-out ${
             open ? "translate-x-0" : "translate-x-full"
-          }`,
+          }`
         )}
       >
         <Dialog.Overlay className="group relative left-4 mt-3 h-screen cursor-pointer pb-24 duration-150 ease-in-out hover:translate-x-2">
@@ -63,5 +63,5 @@ export function SliderOver({ open, setOpen, children }: SliderOverProps) {
         </Dialog.Content>
       </div>
     </Dialog.Root>
-  );
+  )
 }

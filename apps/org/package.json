@@ -10,6 +10,8 @@
     "build": "next build",
     "clean": "git clean -xdf .turbo node_modules .next",
     "dev": "next dev --turbo",
+    "format": "oxfmt --config ../../tooling/oxfmt/.oxfmtrc.json src/",
+    "format:fix": "oxfmt --write --config ../../tooling/oxfmt/.oxfmtrc.json src/",
     "lint": "oxlint src/",
     "preview": "next build && next start",
     "start": "next start",

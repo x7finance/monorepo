@@ -1,9 +1,8 @@
-import { encodePacked } from "viem";
+import type { Pool } from "../entities/pool"
+import type { RouteV3 } from "../entities/route"
+import type { Currency, Token } from "@x7/utils"
 
-import type { Currency, Token } from "@x7/utils";
-
-import type { Pool } from "../entities/pool";
-import type { RouteV3 } from "../entities/route";
+import { encodePacked } from "viem"
 
 /**
  * Converts a route to a hex encoded path
@@ -12,9 +11,9 @@ import type { RouteV3 } from "../entities/route";
  */
 export function encodeRouteToPath(
   route: RouteV3<Currency, Currency>,
-  exactOutput: boolean,
+  exactOutput: boolean
 ): `0x${string}` {
-  const firstInputToken: Token = route.input.wrapped;
+  const firstInputToken: Token = route.input.wrapped
 
   const { path, types } = route.pools.reduce(
     (
@@ -24,29 +23,29 @@ export function encodeRouteToPath(
         types,
       }: { inputToken: Token; path: (string | number)[]; types: string[] },
       pool: Pool,
-      index,
+      index
     ): { inputToken: Token; path: (string | number)[]; types: string[] } => {
       const outputToken: Token = pool.token0.equals(inputToken)
         ? pool.token1
-        : pool.token0;
+        : pool.token0
       if (index === 0) {
         return {
           inputToken: outputToken,
           types: ["address", "uint24", "address"],
           path: [inputToken.address, pool.fee, outputToken.address],
-        };
+        }
       } else {
         return {
           inputToken: outputToken,
           types: [...types, "uint24", "address"],
           path: [...path, pool.fee, outputToken.address],
-        };
+        }
       }
     },
-    { inputToken: firstInputToken, path: [], types: [] },
-  );
+    { inputToken: firstInputToken, path: [], types: [] }
+  )
 
   return exactOutput
     ? encodePacked(types.reverse(), path.reverse())
-    : encodePacked(types, path);
+    : encodePacked(types, path)
 }

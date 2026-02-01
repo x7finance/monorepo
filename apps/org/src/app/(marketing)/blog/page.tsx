@@ -1,19 +1,20 @@
-import path from "path";
-import React, { Suspense } from "react";
-import type { Metadata } from "next";
-import Image from "next/image";
-import { glob } from "glob";
+import type { MarkdownContent } from "./_utils/markdoc-parse"
+import type { Metadata } from "next"
+import path from "path"
 
-import { LinkInternal } from "@x7/ui/link";
-import { Splash } from "@x7/ui/splash";
+import { glob } from "glob"
+import Image from "next/image"
+import React, { Suspense } from "react"
 
-import { env } from "~/env.mjs";
-import { SiteContentContainer } from "~/lib/components/core/site-content-container";
-import { Assistance } from "~/lib/components/utils/assistance";
-import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc";
-import { MarketingLinks } from "~/types/links";
-import type { MarkdownContent } from "./_utils/markdoc-parse";
-import { getMarkdownContent, SOURCE_FILES } from "./_utils/markdoc-parse";
+import { LinkInternal } from "@x7/ui/link"
+import { Splash } from "@x7/ui/splash"
+import { env } from "~/env.mjs"
+import { SiteContentContainer } from "~/lib/components/core/site-content-container"
+import { Assistance } from "~/lib/components/utils/assistance"
+import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
+import { MarketingLinks } from "~/types/links"
+
+import { getMarkdownContent, SOURCE_FILES } from "./_utils/markdoc-parse"
 
 const metadata = {
   title: "X7 Blog",
@@ -21,64 +22,64 @@ const metadata = {
     "The X7 Blog is a place for the X7 community to learn about the latest developments, updates, and announcements from the X7 Finance team. Stay up to date with the latest news and developments from X7 Finance.",
   slug: MarketingLinks.Blog,
   section: "default",
-};
+}
 
 export function generateMetadata(): Metadata {
-  return generateMetadataFromDoc(metadata);
+  return generateMetadataFromDoc(metadata)
 }
 
 async function getPreviewPostsMetadata() {
-  const markdownPaths = await glob(path.join(SOURCE_FILES, "**", "*.md"));
+  const markdownPaths = await glob(path.join(SOURCE_FILES, "**", "*.md"))
 
   const postsPromises = markdownPaths.map(async (postPath) => {
     const relativePath = path
       .relative(path.join(SOURCE_FILES), postPath)
-      .replace(/\.md$/, "");
+      .replace(/\.md$/, "")
 
     return await getMarkdownContent({
       slug: [relativePath],
       section: "posts",
       omitProperties: ["content"],
-    });
-  });
+    })
+  })
 
   const postsMetadata: Partial<MarkdownContent>[] =
-    await Promise.all(postsPromises);
+    await Promise.all(postsPromises)
 
   // Sort the articles from newest to oldest based on the `date` property
   const sortedPostsMetadata: Partial<MarkdownContent>[] = postsMetadata.sort(
     (a, b) => {
-      const dateA: Date | undefined = a.date ? new Date(a.date) : undefined;
-      const dateB: Date | undefined = b.date ? new Date(b.date) : undefined;
+      const dateA: Date | undefined = a.date ? new Date(a.date) : undefined
+      const dateB: Date | undefined = b.date ? new Date(b.date) : undefined
 
       if (dateA && dateB) {
-        return dateB.getTime() - dateA.getTime();
+        return dateB.getTime() - dateA.getTime()
       } else if (dateA && !dateB) {
-        return -1;
+        return -1
       } else if (!dateA && dateB) {
-        return 1;
+        return 1
       } else {
-        return 0;
+        return 0
       }
-    },
-  );
+    }
+  )
 
-  return sortedPostsMetadata;
+  return sortedPostsMetadata
 }
 
 interface Author {
-  name: string;
-  image: string;
+  name: string
+  image: string
 }
 
 interface BlogPostType {
-  id?: string;
-  imageUrl?: string;
-  title?: string;
-  slug?: string;
-  datetime?: string;
-  date?: string;
-  authors: Author[];
+  id?: string
+  imageUrl?: string
+  title?: string
+  slug?: string
+  datetime?: string
+  date?: string
+  authors: Author[]
 }
 
 function AuthorImages({ authors }: { authors: Author[] }) {
@@ -97,12 +98,12 @@ function AuthorImages({ authors }: { authors: Author[] }) {
         />
       ))}
     </div>
-  );
+  )
 }
 
 async function BlogPostsList() {
   const builtPosts: BlogPostType[] =
-    (await getPreviewPostsMetadata()) as BlogPostType[];
+    (await getPreviewPostsMetadata()) as BlogPostType[]
 
   return (
     <div className="mx-auto max-w-7xl">
@@ -146,7 +147,7 @@ async function BlogPostsList() {
         ))}
       </div>
     </div>
-  );
+  )
 }
 
 export default function BlogPage() {
@@ -175,5 +176,5 @@ export default function BlogPage() {
         </div>
       </SiteContentContainer>
     </div>
-  );
+  )
 }

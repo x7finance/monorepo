@@ -1,20 +1,8 @@
 /* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* oxlint-disable @typescript-eslint/no-unused-vars */
 
-"use client";
+"use client"
 
-import type { ReactNode } from "react";
-import { default as React } from "react";
-import {
-  flexRender,
-  getCoreRowModel,
-  getFacetedRowModel,
-  getFacetedUniqueValues,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
 import type {
   ColumnDef,
   ColumnFiltersState,
@@ -26,9 +14,22 @@ import type {
   TableState,
   Table as TableType,
   VisibilityState,
-} from "@tanstack/react-table";
+} from "@tanstack/react-table"
+import type { ReactNode } from "react"
 
-import { cn } from "@x7/css";
+import {
+  flexRender,
+  getCoreRowModel,
+  getFacetedRowModel,
+  getFacetedUniqueValues,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from "@tanstack/react-table"
+import { default as React } from "react"
+
+import { cn } from "@x7/css"
 
 import {
   Table,
@@ -38,31 +39,32 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../table";
-import { DataTableColumnHeader } from "./data-table-column-header";
-import { DataTablePagination } from "./data-table-pagination";
+} from "../table"
+
+import { DataTableColumnHeader } from "./data-table-column-header"
+import { DataTablePagination } from "./data-table-pagination"
 
 declare module "@tanstack/react-table" {
   // biome-ignore lint/correctness/noUnusedVariables: <explanation>
   interface ColumnMeta<TData extends RowData, TValue> {
-    className?: string;
-    skeleton?: React.ReactNode;
-    headerDescription?: string;
+    className?: string
+    skeleton?: React.ReactNode
+    headerDescription?: string
   }
 }
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
-  toolbar?: (table: TableType<TData>) => ReactNode;
-  pagination?: boolean;
-  loading: boolean;
-  linkFormatter?: (value: TData) => string;
-  externalLink?: boolean;
-  state?: Partial<TableState>;
-  onSortingChange?: OnChangeFn<SortingState>;
-  onPaginationChange?: OnChangeFn<PaginationState>;
-  rowRenderer?: (row: Row<TData>, value: ReactNode) => ReactNode;
+  columns: ColumnDef<TData, TValue>[]
+  data: TData[]
+  toolbar?: (table: TableType<TData>) => ReactNode
+  pagination?: boolean
+  loading: boolean
+  linkFormatter?: (value: TData) => string
+  externalLink?: boolean
+  state?: Partial<TableState>
+  onSortingChange?: OnChangeFn<SortingState>
+  onPaginationChange?: OnChangeFn<PaginationState>
+  rowRenderer?: (row: Row<TData>, value: ReactNode) => ReactNode
 }
 
 export function DataTable<TData, TValue>({
@@ -78,13 +80,13 @@ export function DataTable<TData, TValue>({
   onPaginationChange,
   rowRenderer,
 }: DataTableProps<TData, TValue>) {
-  const [rowSelection, setRowSelection] = React.useState({});
+  const [rowSelection, setRowSelection] = React.useState({})
   const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
+    React.useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [],
-  );
-  const [sorting, setSorting] = React.useState<SortingState>([]);
+    []
+  )
+  const [sorting, setSorting] = React.useState<SortingState>([])
 
   const table = useReactTable({
     data,
@@ -111,7 +113,7 @@ export function DataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
-  });
+  })
 
   return (
     <div className="space-y-4 border-t border-secondary">
@@ -137,7 +139,7 @@ export function DataTable<TData, TValue>({
                       />
                     )}
                   </TableHead>
-                );
+                )
               })}
             </TableRow>
           ))}
@@ -156,7 +158,7 @@ export function DataTable<TData, TValue>({
                       >
                         {column.columnDef.meta?.skeleton}
                       </TableCell>
-                    );
+                    )
                   })}
                 </TableRow>
               ))
@@ -177,7 +179,7 @@ export function DataTable<TData, TValue>({
                       >
                         {flexRender(
                           cell.column.columnDef.cell,
-                          cell.getContext(),
+                          cell.getContext()
                         )}
                       </TableCellAsLink>
                     ) : (
@@ -187,16 +189,16 @@ export function DataTable<TData, TValue>({
                       >
                         {flexRender(
                           cell.column.columnDef.cell,
-                          cell.getContext(),
+                          cell.getContext()
                         )}
                       </TableCell>
-                    ),
+                    )
                   )}
                 </TableRow>
-              );
+              )
 
-              if (rowRenderer) return rowRenderer(row, _row);
-              return _row;
+              if (rowRenderer) return rowRenderer(row, _row)
+              return _row
             })
           ) : (
             <TableRow>
@@ -213,5 +215,5 @@ export function DataTable<TData, TValue>({
         </div>
       ) : null}
     </div>
-  );
+  )
 }

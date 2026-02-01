@@ -1,5 +1,6 @@
-import type { SVGProps } from "react";
-import { memo } from "react";
+import type { SVGProps } from "react"
+
+import { memo } from "react"
 
 function Polygon(props: SVGProps<SVGSVGElement>) {
   return (
@@ -9,7 +10,7 @@ function Polygon(props: SVGProps<SVGSVGElement>) {
         fill="#8247E5"
       />
     </svg>
-  );
+  )
 }
 
-export default memo(Polygon);
+export default memo(Polygon)

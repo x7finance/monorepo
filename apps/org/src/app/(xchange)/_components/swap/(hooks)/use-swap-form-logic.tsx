@@ -1,29 +1,29 @@
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable @typescript-eslint/unbound-method */
 
+import type { BaseError } from "@wagmi/core"
+import type { ChainId, Token } from "@x7/utils"
+
+import { getWalletClient } from "@wagmi/core"
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 /* oxlint-disable @typescript-eslint/no-unused-vars */
 /* oxlint-disable @typescript-eslint/no-unsafe-call */
 /* oxlint-disable react-hooks/exhaustive-deps */
-import { useCallback, useEffect, useState } from "react";
-import { getWalletClient } from "@wagmi/core";
-import type { BaseError } from "@wagmi/core";
-import { toast } from "sonner";
-import { encodeFunctionData, UserRejectedRequestError } from "viem";
-import { useAccount, useChainId } from "wagmi";
+import { useCallback, useEffect, useState } from "react"
+import { toast } from "sonner"
+import { encodeFunctionData, UserRejectedRequestError } from "viem"
+import { useAccount, useChainId } from "wagmi"
 
-import { LogCodes, Native } from "@x7/utils";
-import type { ChainId, Token } from "@x7/utils";
-
-import { executeRoute } from "~/app/(xchange)/_actions/execute-route";
-import { getErrorMessage } from "~/app/(xchange)/_actions/get-error-message";
-import { ApprovalState } from "~/lib/hooks/approvals/useTokenApproval";
-import { useSwapState } from "~/lib/stores/swap";
-import { useTransactionStore } from "~/lib/providers/tx";
-import { useWeb3Config } from "~/lib/providers/web3";
-import { log } from "~/lib/utils/log";
+import { LogCodes, Native } from "@x7/utils"
+import { executeRoute } from "~/app/(xchange)/_actions/execute-route"
+import { getErrorMessage } from "~/app/(xchange)/_actions/get-error-message"
+import { ApprovalState } from "~/lib/hooks/approvals/useTokenApproval"
+import { useTransactionStore } from "~/lib/providers/tx"
+import { useWeb3Config } from "~/lib/providers/web3"
+import { useSwapState } from "~/lib/stores/swap"
+import { log } from "~/lib/utils/log"
 
 export function useSwapFormLogic(
   _token0: Token | undefined,
@@ -31,35 +31,35 @@ export function useSwapFormLogic(
   token0: Token | undefined,
   token1: Token | undefined,
   route: any, // Replace 'any' with the correct type
-  swapAmountString: string,
+  swapAmountString: string
 ) {
-  const { wagmiConfig: config } = useWeb3Config();
+  const { wagmiConfig: config } = useWeb3Config()
   const {
     mutate: { trackTransaction },
-  } = useTransactionStore();
+  } = useTransactionStore()
   const {
     state: { swapAmount, token0Approval },
     mutate: { setToken0, setToken1, setSwapAmount },
     loaders: { isQuoteLoading },
-  } = useSwapState();
-  const chainId = useChainId() as ChainId;
-  const { address } = useAccount();
+  } = useSwapState()
+  const chainId = useChainId() as ChainId
+  const { address } = useAccount()
 
-  const [refetchCount, setRefetchCount] = useState(0);
-  const [isPending, setIsPending] = useState(false);
+  const [refetchCount, setRefetchCount] = useState(0)
+  const [isPending, setIsPending] = useState(false)
 
   const isWrap =
     token0?.isNative &&
-    token1?.wrapped.address === Native.onChain(chainId).wrapped.address;
+    token1?.wrapped.address === Native.onChain(chainId).wrapped.address
   const isUnwrap =
     token1?.isNative &&
-    token0?.wrapped.address === Native.onChain(chainId).wrapped.address;
+    token0?.wrapped.address === Native.onChain(chainId).wrapped.address
 
   useEffect(() => {
-    if (_token0 && !token0) setToken0(_token0);
-    if (_token1 && !token1) setToken1(_token1);
-    setRefetchCount((prev) => prev + 1);
-  }, [_token0, _token1, token0, token1, setToken0, setToken1]);
+    if (_token0 && !token0) setToken0(_token0)
+    if (_token1 && !token1) setToken1(_token1)
+    setRefetchCount((prev) => prev + 1)
+  }, [_token0, _token1, token0, token1, setToken0, setToken1])
 
   const swapActionAllowed =
     !!address &&
@@ -70,19 +70,19 @@ export function useSwapFormLogic(
     (!token0.isNative
       ? token0Approval.approval !== ApprovalState.NOT_APPROVED
       : true) &&
-    parseFloat(`${swapAmountString}`) > 0;
+    parseFloat(`${swapAmountString}`) > 0
 
   const onSettled = useCallback(
     (hash: `0x${string}` | undefined, e: Error | null) => {
       try {
         if (e instanceof Error) {
           if (!(e instanceof UserRejectedRequestError)) {
-            toast.error((e as BaseError).shortMessage || e.message);
+            toast.error((e as BaseError).shortMessage || e.message)
           }
         }
 
         if (hash) {
-          setIsPending(true);
+          setIsPending(true)
 
           trackTransaction({
             txHash: hash,
@@ -105,23 +105,23 @@ export function useSwapFormLogic(
               } ${token1?.symbol}`,
             },
             onSuccess: () => {
-              setSwapAmount("");
-              setIsPending(false);
-              setRefetchCount(refetchCount + 1);
+              setSwapAmount("")
+              setIsPending(false)
+              setRefetchCount(refetchCount + 1)
             },
             onFail: (error) => {
               log.error(LogCodes.FAIL, "Failed to track transaction", {
                 error,
-              });
+              })
             },
-          });
+          })
         }
       } catch (error) {
-        setIsPending(false);
-        setRefetchCount(refetchCount + 1);
+        setIsPending(false)
+        setRefetchCount(refetchCount + 1)
       } finally {
-        setSwapAmount("");
-        setIsPending(false);
+        setSwapAmount("")
+        setIsPending(false)
         // do we need to refetch balances?
       }
     },
@@ -132,23 +132,23 @@ export function useSwapFormLogic(
       token0?.symbol,
       token1?.symbol,
       route,
-    ],
-  );
+    ]
+  )
 
   const onExecute = useCallback(async () => {
     if (!token0) {
-      return;
+      return
     }
 
     try {
-      setIsPending(true);
-      let tx: `0x${string}`;
+      setIsPending(true)
+      let tx: `0x${string}`
 
       if (isWrap || isUnwrap) {
         // Handle wrap/unwrap directly without route
-        const walletClient = await getWalletClient(config);
+        const walletClient = await getWalletClient(config)
         if (!walletClient?.account.address)
-          throw new Error("No wallet connected");
+          throw new Error("No wallet connected")
 
         if (isWrap) {
           // Wrap ETH to WETH
@@ -156,7 +156,7 @@ export function useSwapFormLogic(
             to: token1?.wrapped.address,
             value: BigInt(swapAmount.quotient),
             data: "0xd0e30db0", // deposit() function selector
-          });
+          })
         } else {
           // Unwrap WETH to ETH
           tx = await walletClient.sendTransaction({
@@ -174,7 +174,7 @@ export function useSwapFormLogic(
               functionName: "withdraw",
               args: [BigInt(swapAmount.quotient)],
             }),
-          });
+          })
         }
       } else {
         // Regular swap using route
@@ -183,16 +183,16 @@ export function useSwapFormLogic(
           swapAmount,
           route,
           config,
-        });
+        })
       }
 
-      onSettled(tx, null);
+      onSettled(tx, null)
     } catch (e) {
-      const errorMessage = getErrorMessage(e as Error);
-      toast.error(errorMessage);
-      setIsPending(false);
+      const errorMessage = getErrorMessage(e as Error)
+      toast.error(errorMessage)
+      setIsPending(false)
     }
-  }, [token0, swapAmount, route, config, onSettled, isWrap, isUnwrap]);
+  }, [token0, swapAmount, route, config, onSettled, isWrap, isUnwrap])
 
   return {
     refetchCount,
@@ -201,5 +201,5 @@ export function useSwapFormLogic(
     isWrap,
     isUnwrap,
     onExecute,
-  };
+  }
 }

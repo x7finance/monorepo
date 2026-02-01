@@ -1,14 +1,15 @@
-import type { Address } from "viem";
-import { useReadContracts } from "wagmi";
+import type { ChainId } from "@x7/utils"
+import type { Address } from "viem"
 
-import { XchangeFactory } from "@x7/contracts";
-import type { ChainId } from "@x7/utils";
+import { useReadContracts } from "wagmi"
+
+import { XchangeFactory } from "@x7/contracts"
 
 export function useGetPair(
   chainId: ChainId,
   factoryAddress: Address,
   tokenA: Address,
-  tokenB: Address,
+  tokenB: Address
 ) {
   const { data, isLoading: isInitialGetPair } = useReadContracts({
     contracts: [
@@ -20,10 +21,10 @@ export function useGetPair(
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialGetPair,
     getPair: data?.[0]?.result as `0x${string}`,
-  };
+  }
 }

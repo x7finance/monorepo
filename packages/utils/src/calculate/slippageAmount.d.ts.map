@@ -1,1 +1,0 @@
-{"version":3,"file":"slippageAmount.d.ts","sourceRoot":"","sources":["slippageAmount.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,QAAQ,EAAE,MAAM,kBAAkB,CAAC;AACjD,OAAO,KAAK,EAAE,cAAc,EAAE,MAAM,kCAAkC,CAAC;AACvE,OAAO,KAAK,OAAO,MAAM,iBAAiB,CAAC;AAK3C,wBAAgB,cAAc,CAC5B,KAAK,EAAE,cAAc,CAAC,QAAQ,CAAC,EAC/B,QAAQ,EAAE,OAAO,GAChB,CAAC,MAAM,EAAE,MAAM,CAAC,CAOlB"}

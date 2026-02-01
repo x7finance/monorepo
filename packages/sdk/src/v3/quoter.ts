@@ -1,18 +1,19 @@
+import type { FeeAmount } from "./constants"
+import type { RouteV3 } from "./entities"
+import type { MethodParameters } from "./utils"
+import type { Currency, CurrencyAmount } from "@x7/utils"
+import type { Abi } from "viem"
+
 /* oxlint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/no-extraneous-class */
-import invariant from "tiny-invariant";
-import { encodeFunctionData, toHex } from "viem";
-import type { Abi } from "viem";
+import invariant from "tiny-invariant"
+import { encodeFunctionData, toHex } from "viem"
 
-import { quoterABI, quoterv2ABI } from "@x7/contracts";
-import type { Currency, CurrencyAmount } from "@x7/utils";
-import { TradeType } from "@x7/utils";
+import { quoterABI, quoterv2ABI } from "@x7/contracts"
+import { TradeType } from "@x7/utils"
 
-import type { FeeAmount } from "./constants";
-import type { RouteV3 } from "./entities";
-import type { MethodParameters } from "./utils";
-import { encodeRouteToPath } from "./utils";
+import { encodeRouteToPath } from "./utils"
 
 /**
  * Optional arguments to send to the quoter.
@@ -21,19 +22,19 @@ export interface QuoteOptions {
   /**
    * The optional price limit for the trade.
    */
-  sqrtPriceLimitX96?: bigint;
+  sqrtPriceLimitX96?: bigint
 
   /**
    * The optional quoter interface to use
    */
-  useQuoterV2?: boolean;
+  useQuoterV2?: boolean
 }
 
 interface BaseQuoteParams {
-  fee: FeeAmount;
-  sqrtPriceLimitX96: bigint;
-  tokenIn: `0x${string}`;
-  tokenOut: `0x${string}`;
+  fee: FeeAmount
+  sqrtPriceLimitX96: bigint
+  tokenIn: `0x${string}`
+  tokenOut: `0x${string}`
 }
 
 /**
@@ -59,12 +60,12 @@ export abstract class SwapQuoter {
     route: RouteV3<TInput, TOutput>,
     amount: CurrencyAmount<TInput | TOutput>,
     tradeType: TradeType,
-    options: QuoteOptions = {},
+    options: QuoteOptions = {}
   ): MethodParameters {
-    const singleHop = route.pools.length === 1;
-    const quoteAmount = amount.quotient;
-    let calldata: string;
-    const swapABI: Abi = options.useQuoterV2 ? quoterv2ABI : quoterABI;
+    const singleHop = route.pools.length === 1
+    const quoteAmount = amount.quotient
+    let calldata: string
+    const swapABI: Abi = options.useQuoterV2 ? quoterv2ABI : quoterABI
 
     if (singleHop) {
       const baseQuoteParams: BaseQuoteParams = {
@@ -72,14 +73,14 @@ export abstract class SwapQuoter {
         tokenOut: route.tokenPath[1]?.address!,
         fee: route.pools[0]?.fee!,
         sqrtPriceLimitX96: BigInt(options.sqrtPriceLimitX96 ?? 0),
-      };
+      }
 
       const v2QuoteParams = {
         ...baseQuoteParams,
         ...(tradeType === TradeType.EXACT_INPUT
           ? { amountIn: quoteAmount }
           : { amount: quoteAmount }),
-      };
+      }
 
       const v1QuoteParams = [
         baseQuoteParams.tokenIn,
@@ -87,41 +88,38 @@ export abstract class SwapQuoter {
         baseQuoteParams.fee,
         quoteAmount,
         baseQuoteParams.sqrtPriceLimitX96,
-      ];
+      ]
 
       const tradeTypeFunctionName =
         tradeType === TradeType.EXACT_INPUT
           ? "quoteExactInputSingle"
-          : "quoteExactOutputSingle";
+          : "quoteExactOutputSingle"
 
       calldata = encodeFunctionData({
         abi: swapABI,
         functionName: tradeTypeFunctionName,
         args: options.useQuoterV2 ? [v2QuoteParams] : v1QuoteParams,
-      });
+      })
     } else {
-      invariant(
-        options.sqrtPriceLimitX96 === undefined,
-        "MULTIHOP_PRICE_LIMIT",
-      );
+      invariant(options.sqrtPriceLimitX96 === undefined, "MULTIHOP_PRICE_LIMIT")
       const path: string = encodeRouteToPath(
         route,
-        tradeType === TradeType.EXACT_OUTPUT,
-      );
+        tradeType === TradeType.EXACT_OUTPUT
+      )
       const tradeTypeFunctionName =
         tradeType === TradeType.EXACT_INPUT
           ? "quoteExactInput"
-          : "quoteExactOutput";
+          : "quoteExactOutput"
 
       calldata = encodeFunctionData({
         abi: swapABI,
         functionName: tradeTypeFunctionName,
         args: [path, quoteAmount],
-      });
+      })
     }
     return {
       calldata,
       value: toHex(0),
-    };
+    }
   }
 }

@@ -3,47 +3,47 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 /* oxlint-disable @typescript-eslint/no-unused-vars */
 
-"use client";
-
-import type { ReactNode } from "react";
-import React, { useState } from "react";
-
-import { cn } from "@x7/css";
-import { ArrowRightIcon } from "@x7/icons";
+"use client"
 
 import type {
   ExtractProps,
   IconComponent,
   PolymorphicComponentProps,
-} from "../types";
+} from "../types"
+import type { ReactNode } from "react"
+
+import React, { useState } from "react"
+
+import { cn } from "@x7/css"
+import { ArrowRightIcon } from "@x7/icons"
 
 interface Props {
-  disabled?: boolean;
-  title: ReactNode;
-  subtitle?: ReactNode;
-  hoverIcon?: IconComponent;
+  disabled?: boolean
+  title: ReactNode
+  subtitle?: ReactNode
+  hoverIcon?: IconComponent
   // oxlint-disable-next-line @typescript-eslint/no-explicit-any
-  hoverIconProps?: any;
+  hoverIconProps?: any
 }
 
 export type ListMenuItemProps<
   P extends React.ElementType,
   C extends React.ElementType,
 > = {
-  icon?: P;
+  icon?: P
   iconProps?: ExtractProps<P> & {
-    width?: number;
-    height?: number;
-    className?: string;
-  };
-} & PolymorphicComponentProps<C, Props>;
+    width?: number
+    height?: number
+    className?: string
+  }
+} & PolymorphicComponentProps<C, Props>
 
 export type ListMenuItemComponent = <
   P extends React.ElementType = "svg",
   C extends React.ElementType = "button",
 >(
-  props: ListMenuItemProps<P, C>,
-) => React.ReactElement | null;
+  props: ListMenuItemProps<P, C>
+) => React.ReactElement | null
 
 export const ListMenuItem: ListMenuItemComponent = ({
   as,
@@ -58,11 +58,11 @@ export const ListMenuItem: ListMenuItemComponent = ({
   disabled = false,
   ...rest
 }) => {
-  const Component = as ?? "button";
+  const Component = as ?? "button"
 
-  const [hover, setHover] = useState(false);
+  const [hover, setHover] = useState(false)
 
-  const { ref, ...otherProps } = hoverIconProps;
+  const { ref, ...otherProps } = hoverIconProps
 
   return (
     <Component
@@ -75,7 +75,7 @@ export const ListMenuItem: ListMenuItemComponent = ({
         className,
         disabled ? "pointer-events-none! cursor-default opacity-40" : "",
         subtitle ? "items-start" : "items-center",
-        "hover:bg-muted relative flex w-full cursor-pointer gap-4 rounded-xl px-4 py-3",
+        "hover:bg-muted relative flex w-full cursor-pointer gap-4 rounded-xl px-4 py-3"
       )}
     >
       {Icon && (
@@ -119,5 +119,5 @@ export const ListMenuItem: ListMenuItemComponent = ({
         />
       </div>
     </Component>
-  );
-};
+  )
+}

@@ -1,15 +1,15 @@
-import type { Metadata } from "next";
-import Image from "next/image";
+import type { Metadata } from "next"
 
-import { cn } from "@x7/css";
-import { buttonVariants } from "@x7/ui/button";
-import { LinkInternal } from "@x7/ui/link";
-import { getRandomPioneerNumber } from "@x7/utils";
+import Image from "next/image"
 
-import { SiteContentContainer } from "~/lib/components/core/site-content-container";
-import { PioneerDrop } from "~/lib/components/utils/pioneer-drop";
-import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc";
-import { GradientTypes } from "~/lib/utils/gradients";
+import { cn } from "@x7/css"
+import { buttonVariants } from "@x7/ui/button"
+import { LinkInternal } from "@x7/ui/link"
+import { getRandomPioneerNumber } from "@x7/utils"
+import { SiteContentContainer } from "~/lib/components/core/site-content-container"
+import { PioneerDrop } from "~/lib/components/utils/pioneer-drop"
+import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
+import { GradientTypes } from "~/lib/utils/gradients"
 
 const metadata = {
   title: "X7D",
@@ -17,13 +17,13 @@ const metadata = {
     "X7's Decentralized Exchange is a peer-to-peer Automated Market Making (AMM) platform integrated with a novel trustless, permissionless on-chain undercollateralized loan origination and servicing system known as the Lending Pool. For end-users, swapping is intuitive: a user picks an input token and an output token. They specify an input amount, and the protocol calculates how much of the output token they'll receive. They then execute the swap with one click, receiving the output token in their wallet immediately.",
   slug: "/products/xchange",
   section: "default",
-};
-
-export function generateMetadata(): Metadata {
-  return generateMetadataFromDoc(metadata);
 }
 
-const imagesArray = Array.from({ length: 60 }, (_, index) => index);
+export function generateMetadata(): Metadata {
+  return generateMetadataFromDoc(metadata)
+}
+
+const imagesArray = Array.from({ length: 60 }, (_, index) => index)
 
 export default function X7D() {
   return (
@@ -39,7 +39,7 @@ export default function X7D() {
               <p
                 className={cn(
                   GradientTypes.bank,
-                  `font-display my-3 inline bg-linear-to-r bg-clip-text text-xl font-bold text-transparent uppercase`,
+                  `font-display my-3 inline bg-linear-to-r bg-clip-text text-xl font-bold text-transparent uppercase`
                 )}
               ></p>
               <h2 className="font-heading text-3xl leading-[1.1] text-black sm:text-3xl md:text-6xl dark:text-white">
@@ -57,7 +57,7 @@ export default function X7D() {
                     buttonVariants({
                       variant: "ghost",
                       size: "sm",
-                    }),
+                    })
                   )}
                 >
                   Learn More
@@ -71,7 +71,7 @@ export default function X7D() {
                       variant: "outline",
                       size: "sm",
                     }),
-                    "border-opacity-60 hover:border-opacity-100 border-white",
+                    "border-opacity-60 hover:border-opacity-100 border-white"
                   )}
                 >
                   Enter Xchange
@@ -103,5 +103,5 @@ export default function X7D() {
         </div>
       </SiteContentContainer>
     </div>
-  );
+  )
 }

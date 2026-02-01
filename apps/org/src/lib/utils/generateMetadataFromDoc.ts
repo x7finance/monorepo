@@ -1,25 +1,25 @@
-import { env } from "~/env.mjs";
+import { env } from "~/env.mjs"
 
 export interface MetadataDocType {
-  title: string;
-  seoTitle?: string;
-  description: string;
-  section?: string;
-  slug: string;
+  title: string
+  seoTitle?: string
+  description: string
+  section?: string
+  slug: string
 }
 
 export function generateMetadataFromDoc(doc: MetadataDocType) {
-  const url = env.NEXT_PUBLIC_APP_URL;
+  const url = env.NEXT_PUBLIC_APP_URL
 
-  const ogUrl = new URL(`${url}/api/ogi`);
+  const ogUrl = new URL(`${url}/api/ogi`)
 
   ogUrl.searchParams.set(
     "heading",
     // oxlint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    doc.seoTitle ?? doc.title ?? "Trust No One. Trust Code. Long Live DeFi.",
-  );
-  ogUrl.searchParams.set("type", doc.section ?? "default");
-  ogUrl.searchParams.set("mode", "dark");
+    doc.seoTitle ?? doc.title ?? "Trust No One. Trust Code. Long Live DeFi."
+  )
+  ogUrl.searchParams.set("type", doc.section ?? "default")
+  ogUrl.searchParams.set("mode", "dark")
 
   return {
     title: doc.seoTitle ?? doc.title,
@@ -47,9 +47,9 @@ export function generateMetadataFromDoc(doc: MetadataDocType) {
     alternates: {
       canonical: absoluteUrl(`${doc.slug}`),
     },
-  };
+  }
 }
 
 function absoluteUrl(path: string) {
-  return `${env.NEXT_PUBLIC_APP_URL}${path}`;
+  return `${env.NEXT_PUBLIC_APP_URL}${path}`
 }

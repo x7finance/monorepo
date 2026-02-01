@@ -1,19 +1,21 @@
-import type { Metadata } from "next";
+import type { Metadata } from "next"
 
-import { CheckerProviderComponent } from "~/lib/providers/checker";
-import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc";
-import { XChangeSwap } from "../_components/swap/base";
-import { TradeLines } from "./_components/trade-lines";
+import { CheckerProviderComponent } from "~/lib/providers/checker"
+import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
+
+import { XChangeSwap } from "../_components/swap/base"
+
+import { TradeLines } from "./_components/trade-lines"
 
 const metadata = {
   title: "Trust No One. Trust Code. Long Live Defi.",
   description:
     "X7 Finance: Transforming DeFi with smart contracts, AMM DEX, Lending Pool, and DAO-governed Liquidity Loans.",
   slug: "/",
-};
+}
 
 export function generateMetadata(): Metadata {
-  return generateMetadataFromDoc(metadata);
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function XchangeSwapPage() {
@@ -29,5 +31,5 @@ export default function XchangeSwapPage() {
         </main>
       </div>
     </CheckerProviderComponent>
-  );
+  )
 }

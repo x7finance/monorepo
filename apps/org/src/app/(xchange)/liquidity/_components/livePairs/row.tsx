@@ -1,22 +1,22 @@
-"use client";
+"use client"
 
-import { useChainId } from "wagmi";
+import type { ChainId } from "@x7/utils"
 
-import { cn } from "@x7/css";
-import { ArrowUpRightIcon, Glyph, IconWrapper } from "@x7/icons";
-import { buttonVariants } from "@x7/ui/button";
-import { CircleLoading } from "@x7/ui/circle-loading";
-import { ContractCopy } from "@x7/ui/contract-copy";
-import { LinkExternal, LinkInternal } from "@x7/ui/link";
-import { Tag } from "@x7/ui/tag";
-import { generateChainDenomination, generateChainIdentifier } from "@x7/utils";
-import type { ChainId } from "@x7/utils";
+import { useChainId } from "wagmi"
 
-import { useXchangeTokenData } from "~/lib/hooks/tokens/useXchangeTokenData";
-import { ExplorerDataType, getExplorerLink } from "~/lib/utils/getExplorerLink";
+import { cn } from "@x7/css"
+import { ArrowUpRightIcon, Glyph, IconWrapper } from "@x7/icons"
+import { buttonVariants } from "@x7/ui/button"
+import { CircleLoading } from "@x7/ui/circle-loading"
+import { ContractCopy } from "@x7/ui/contract-copy"
+import { LinkExternal, LinkInternal } from "@x7/ui/link"
+import { Tag } from "@x7/ui/tag"
+import { generateChainDenomination, generateChainIdentifier } from "@x7/utils"
+import { useXchangeTokenData } from "~/lib/hooks/tokens/useXchangeTokenData"
+import { ExplorerDataType, getExplorerLink } from "~/lib/utils/getExplorerLink"
 
 interface PairsProps {
-  id: number;
+  id: number
   type:
     | "token"
     | "description"
@@ -24,11 +24,11 @@ interface PairsProps {
     | "reserves"
     | "chart"
     | "scan"
-    | "trade";
+    | "trade"
 }
 
 export function PairRow({ id, type }: PairsProps) {
-  const chainId = useChainId() as ChainId;
+  const chainId = useChainId() as ChainId
   const {
     tokenName,
     tokenSymbol,
@@ -37,7 +37,7 @@ export function PairRow({ id, type }: PairsProps) {
     tokenReserve,
     tokenPrice,
     contractAddress,
-  } = useXchangeTokenData(id);
+  } = useXchangeTokenData(id)
 
   switch (type) {
     case "token":
@@ -51,7 +51,7 @@ export function PairRow({ id, type }: PairsProps) {
                   <span className="text-muted-foreground text-xs">|</span>
                   <LinkExternal
                     href={`https://www.dextools.io/app/en/${generateChainIdentifier(
-                      chainId,
+                      chainId
                     )}/pair-explorer/${contractAddress}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -77,7 +77,7 @@ export function PairRow({ id, type }: PairsProps) {
                   buttonVariants({
                     size: "sm",
                     variant: "secondary",
-                  }),
+                  })
                 )}
               >
                 <span className="whitespace-nowrap">
@@ -93,14 +93,14 @@ export function PairRow({ id, type }: PairsProps) {
             </span>
           </div>
         </>
-      );
+      )
     case "description":
       return (
         <>
           <span>{`${tokenName} / ${pairedTokenSymbol}`}</span>
           <ContractCopy contract={tokenContract} />
         </>
-      );
+      )
     case "price":
       return (
         <div className="flex items-center space-x-2">
@@ -113,7 +113,7 @@ export function PairRow({ id, type }: PairsProps) {
             </Tag>
           </div>
         </div>
-      );
+      )
     case "reserves":
       return (
         <div className="flex items-center space-x-2">
@@ -124,7 +124,7 @@ export function PairRow({ id, type }: PairsProps) {
             </Tag>
           </div>
         </div>
-      );
+      )
     case "chart":
       return (
         <div className="">
@@ -132,7 +132,7 @@ export function PairRow({ id, type }: PairsProps) {
             <div className="flex shrink-0 space-x-1">
               <LinkExternal
                 href={`https://www.dextools.io/app/en/${generateChainIdentifier(
-                  chainId,
+                  chainId
                 )}/pair-explorer/${contractAddress}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -144,7 +144,7 @@ export function PairRow({ id, type }: PairsProps) {
             </div>
           </div>
         </div>
-      );
+      )
     case "scan":
       return (
         <div className="">
@@ -158,7 +158,7 @@ export function PairRow({ id, type }: PairsProps) {
             <span>Scanner</span>
           </LinkExternal>
         </div>
-      );
+      )
     case "trade":
       return (
         <div className="float-right pr-4">
@@ -173,7 +173,7 @@ export function PairRow({ id, type }: PairsProps) {
                 buttonVariants({
                   size: "xs",
                   variant: "secondary",
-                }),
+                })
               )}
             >
               <span className="whitespace-nowrap">
@@ -183,6 +183,6 @@ export function PairRow({ id, type }: PairsProps) {
             </LinkInternal>
           </div>
         </div>
-      );
+      )
   }
 }

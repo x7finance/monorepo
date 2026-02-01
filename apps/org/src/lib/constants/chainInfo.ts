@@ -1,46 +1,47 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
-import type { SupportedL1ChainId, SupportedL2ChainId } from "@x7/utils";
-import { ChainId } from "@x7/utils";
+import type { SupportedL1ChainId, SupportedL2ChainId } from "@x7/utils"
 
-import { BLOCK_EXPLORER_PREFIXES } from "../utils/getExplorerLink";
+import { ChainId } from "@x7/utils"
 
-const TWENTYFIVE_MINUTES_IN_MS = 25 * 60 * 1000; // 25 minutes in milliseconds
-const TEN_MINUTES_IN_MS = 10 * 60 * 1000; // 10 minutes
+import { BLOCK_EXPLORER_PREFIXES } from "../utils/getExplorerLink"
+
+const TWENTYFIVE_MINUTES_IN_MS = 25 * 60 * 1000 // 25 minutes in milliseconds
+const TEN_MINUTES_IN_MS = 10 * 60 * 1000 // 10 minutes
 
 export enum NetworkType {
   L1,
   L2,
 }
 interface BaseChainInfo {
-  readonly networkType: NetworkType;
-  readonly blockWaitMsBeforeWarning?: number;
-  readonly bridge?: string;
-  readonly explorer: string;
-  readonly api?: string;
-  readonly apiKey?: string;
-  readonly label: string;
+  readonly networkType: NetworkType
+  readonly blockWaitMsBeforeWarning?: number
+  readonly bridge?: string
+  readonly explorer: string
+  readonly api?: string
+  readonly apiKey?: string
+  readonly label: string
   readonly nativeCurrency: {
-    name: string; // e.g. 'Goerli ETH',
-    symbol: string; // e.g. 'gorETH',
-    decimals: number; // e.g. 18,
-  };
-  readonly color?: string;
-  readonly backgroundColor?: string;
+    name: string // e.g. 'Goerli ETH',
+    symbol: string // e.g. 'gorETH',
+    decimals: number // e.g. 18,
+  }
+  readonly color?: string
+  readonly backgroundColor?: string
 }
 
 interface L1ChainInfo extends BaseChainInfo {
-  readonly networkType: NetworkType.L1;
+  readonly networkType: NetworkType.L1
 }
 
 export interface L2ChainInfo extends BaseChainInfo {
-  readonly networkType: NetworkType.L2;
+  readonly networkType: NetworkType.L2
 }
 
 type ChainInfoMap = Partial<
   Readonly<Record<number, L1ChainInfo | L2ChainInfo>>
 > &
   Partial<Record<SupportedL2ChainId, L2ChainInfo>> &
-  Partial<Record<SupportedL1ChainId, L1ChainInfo>>;
+  Partial<Record<SupportedL1ChainId, L1ChainInfo>>
 
 const CHAIN_INFO: ChainInfoMap = {
   [ChainId.ETHEREUM]: {
@@ -147,14 +148,14 @@ const CHAIN_INFO: ChainInfoMap = {
     label: "BNB Chain Testnet",
     nativeCurrency: { name: "BNB", symbol: "BNB", decimals: 18 },
   },
-};
+}
 
-export function getChainInfo(chainId: ChainId): L1ChainInfo;
-export function getChainInfo(chainId: ChainId): L2ChainInfo;
-export function getChainInfo(chainId: ChainId): L1ChainInfo | L2ChainInfo;
+export function getChainInfo(chainId: ChainId): L1ChainInfo
+export function getChainInfo(chainId: ChainId): L2ChainInfo
+export function getChainInfo(chainId: ChainId): L1ChainInfo | L2ChainInfo
 export function getChainInfo(
-  chainId: ChainId | undefined,
-): L1ChainInfo | L2ChainInfo | undefined;
+  chainId: ChainId | undefined
+): L1ChainInfo | L2ChainInfo | undefined
 
 /**
  * Overloaded method for returning ChainInfo given a chainID
@@ -165,7 +166,7 @@ export function getChainInfo(
  */
 export function getChainInfo(chainId: ChainId | undefined) {
   if (chainId) {
-    return CHAIN_INFO[chainId] ?? undefined;
+    return CHAIN_INFO[chainId] ?? undefined
   }
-  return undefined;
+  return undefined
 }

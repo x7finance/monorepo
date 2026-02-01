@@ -1,14 +1,15 @@
+import type { BigintIsh } from "../core/constants"
+import type { FeeOptions } from "../v3"
+import type { Token } from "@x7/utils"
+
 /* oxlint-disable @typescript-eslint/no-empty-function */
-import { encodeFunctionData } from "viem";
+import { encodeFunctionData } from "viem"
 
-import { peripheryPaymentsWithFeeExtendedABI } from "@x7/contracts";
-import { encodeFeeBips } from "@x7/utils";
-import type { Token } from "@x7/utils";
+import { peripheryPaymentsWithFeeExtendedABI } from "@x7/contracts"
+import { encodeFeeBips } from "@x7/utils"
 
-import type { BigintIsh } from "../core/constants";
-import { validateAndParseAddress } from "../core/validateAndParseAddress";
-import type { FeeOptions } from "../v3";
-import { Payments } from "../v3";
+import { validateAndParseAddress } from "../core/validateAndParseAddress"
+import { Payments } from "../v3"
 
 export abstract class PaymentsExtended {
   /**
@@ -19,28 +20,28 @@ export abstract class PaymentsExtended {
   public static encodeUnwrapWETH9(
     amountMinimum: bigint,
     recipient?: string,
-    feeOptions?: FeeOptions,
+    feeOptions?: FeeOptions
   ): string {
     // if there's a recipient, just pass it along
     if (typeof recipient === "string") {
-      return Payments.encodeUnwrapWETH9(amountMinimum, recipient, feeOptions);
+      return Payments.encodeUnwrapWETH9(amountMinimum, recipient, feeOptions)
     }
 
     if (feeOptions) {
-      const feeBips = encodeFeeBips(feeOptions.fee);
-      const feeRecipient = validateAndParseAddress(feeOptions.recipient);
+      const feeBips = encodeFeeBips(feeOptions.fee)
+      const feeRecipient = validateAndParseAddress(feeOptions.recipient)
 
       return encodeFunctionData({
         abi: peripheryPaymentsWithFeeExtendedABI,
         functionName: "unwrapWETH9WithFee",
         args: [BigInt(amountMinimum), BigInt(feeBips), feeRecipient],
-      });
+      })
     } else {
       return encodeFunctionData({
         abi: peripheryPaymentsWithFeeExtendedABI,
         functionName: "unwrapWETH9",
         args: [BigInt(amountMinimum)],
-      });
+      })
     }
   }
 
@@ -48,7 +49,7 @@ export abstract class PaymentsExtended {
     token: Token,
     amountMinimum: bigint,
     recipient?: string,
-    feeOptions?: FeeOptions,
+    feeOptions?: FeeOptions
   ): string {
     // if there's a recipient, just pass it along
     if (typeof recipient === "string") {
@@ -56,13 +57,13 @@ export abstract class PaymentsExtended {
         token,
         amountMinimum,
         recipient,
-        feeOptions,
-      );
+        feeOptions
+      )
     }
 
     if (feeOptions) {
-      const feeBips = encodeFeeBips(feeOptions.fee);
-      const feeRecipient = validateAndParseAddress(feeOptions.recipient);
+      const feeBips = encodeFeeBips(feeOptions.fee)
+      const feeRecipient = validateAndParseAddress(feeOptions.recipient)
 
       return encodeFunctionData({
         abi: peripheryPaymentsWithFeeExtendedABI,
@@ -73,13 +74,13 @@ export abstract class PaymentsExtended {
           BigInt(feeBips),
           feeRecipient,
         ],
-      });
+      })
     } else {
       return encodeFunctionData({
         abi: peripheryPaymentsWithFeeExtendedABI,
         functionName: "sweepToken",
         args: [token.address, BigInt(amountMinimum)],
-      });
+      })
     }
   }
 
@@ -88,7 +89,7 @@ export abstract class PaymentsExtended {
       abi: peripheryPaymentsWithFeeExtendedABI,
       functionName: "pull",
       args: [token.address, BigInt(amount)],
-    });
+    })
   }
 
   public static encodeWrapETH(amount: BigintIsh): string {
@@ -96,6 +97,6 @@ export abstract class PaymentsExtended {
       abi: peripheryPaymentsWithFeeExtendedABI,
       functionName: "wrapETH",
       args: [BigInt(amount)],
-    });
+    })
   }
 }

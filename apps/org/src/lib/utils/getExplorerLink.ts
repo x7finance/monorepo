@@ -1,4 +1,4 @@
-import { ChainId } from "@x7/utils";
+import { ChainId } from "@x7/utils"
 
 export const BLOCK_EXPLORER_PREFIXES: Record<number, string> = {
   [ChainId.ETHEREUM]: "https://etherscan.io",
@@ -13,7 +13,7 @@ export const BLOCK_EXPLORER_PREFIXES: Record<number, string> = {
   [ChainId.ARBITRUM_TESTNET]: "https://sepolia.arbiscan.io/",
   [ChainId.BSC]: "https://bscscan.com",
   [ChainId.BSC_TESTNET]: "https://testnet.bscscan.com",
-};
+}
 
 export enum ExplorerDataType {
   TRANSACTION = "transaction",
@@ -31,26 +31,26 @@ export enum ExplorerDataType {
 export function getExplorerLink(
   chainId: ChainId,
   data: string,
-  type: ExplorerDataType,
+  type: ExplorerDataType
 ): string {
-  const prefix = BLOCK_EXPLORER_PREFIXES[chainId] ?? "https://etherscan.io";
+  const prefix = BLOCK_EXPLORER_PREFIXES[chainId] ?? "https://etherscan.io"
 
   switch (type) {
     case ExplorerDataType.TRANSACTION:
-      return `${prefix}/tx/${data}`;
+      return `${prefix}/tx/${data}`
 
     case ExplorerDataType.TOKEN:
-      return `${prefix}/token/${data}`;
+      return `${prefix}/token/${data}`
 
     case ExplorerDataType.BLOCK:
       if (chainId === ChainId.OPTIMISM) {
-        return `${prefix}/tx/${data}`;
+        return `${prefix}/tx/${data}`
       }
-      return `${prefix}/block/${data}`;
+      return `${prefix}/block/${data}`
 
     case ExplorerDataType.ADDRESS:
-      return `${prefix}/address/${data}`;
+      return `${prefix}/address/${data}`
     default:
-      return `${prefix}`;
+      return `${prefix}`
   }
 }

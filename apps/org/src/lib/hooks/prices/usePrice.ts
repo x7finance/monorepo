@@ -1,10 +1,11 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 
-import { useQuery } from "@tanstack/react-query";
+import type { ChainId, Currency } from "@x7/utils"
 
-import { USDC } from "@x7/sdk";
-import { SwapType } from "@x7/smart-order-router";
-import type { ChainId, Currency } from "@x7/utils";
+import { useQuery } from "@tanstack/react-query"
+
+import { USDC } from "@x7/sdk"
+import { SwapType } from "@x7/smart-order-router"
 import {
   CurrencyAmount,
   DEAD_ADDRESS,
@@ -12,22 +13,21 @@ import {
   Native,
   Percent,
   TradeType,
-} from "@x7/utils";
-
-import { useAlphaRouter } from "~/lib/providers/router";
-import { CACHE_TIERS } from "~/lib/query";
-import { fromReadableAmount } from "~/lib/utils/conversion";
-import { log } from "~/lib/utils/log";
+} from "@x7/utils"
+import { useAlphaRouter } from "~/lib/providers/router"
+import { CACHE_TIERS } from "~/lib/query"
+import { fromReadableAmount } from "~/lib/utils/conversion"
+import { log } from "~/lib/utils/log"
 
 interface UsePrice {
-  chainId: ChainId;
-  currency: Currency | undefined;
+  chainId: ChainId
+  currency: Currency | undefined
 }
 
 export const usePrice = ({ chainId, currency }: UsePrice) => {
   const {
     state: { router, isChainIdSettled, debouncedChainId },
-  } = useAlphaRouter();
+  } = useAlphaRouter()
 
   return useQuery({
     queryKey: [
@@ -42,38 +42,38 @@ export const usePrice = ({ chainId, currency }: UsePrice) => {
         type: SwapType.SWAP_ROUTER_02,
         saveRoutes: false,
         ignoreAborts: true,
-      };
+      }
 
       try {
         const route = await router?.route(
           CurrencyAmount.fromRawAmount(
             currency!,
-            fromReadableAmount(0.1, currency!.decimals),
+            fromReadableAmount(0.1, currency!.decimals)
           ),
           currency?.isNative
             ? USDC[chainId as keyof typeof USDC]
             : Native.onChain(chainId),
           TradeType.EXACT_INPUT,
-          options,
-        );
+          options
+        )
 
         if (route) {
-          return route.quote.multiply(10n).add(route.quote);
+          return route.quote.multiply(10n).add(route.quote)
         } else {
-          throw new Error("Route not found");
+          throw new Error("Route not found")
         }
       } catch (error) {
-        log.error(LogCodes.FAIL, `Failed to fetch price`, { error });
+        log.error(LogCodes.FAIL, `Failed to fetch price`, { error })
 
         return CurrencyAmount.fromRawAmount(
           currency!,
-          fromReadableAmount(1, currency!.decimals),
-        );
+          fromReadableAmount(1, currency!.decimals)
+        )
       }
     },
     enabled: Boolean(
-      debouncedChainId && currency && router && isChainIdSettled,
+      debouncedChainId && currency && router && isChainIdSettled
     ),
     ...CACHE_TIERS.SEMI_STATIC,
-  });
-};
+  })
+}

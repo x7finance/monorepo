@@ -1,34 +1,34 @@
+import type { ChainId } from "@x7/utils"
+
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
-import { useChainId } from "wagmi";
+import { useChainId } from "wagmi"
 
-import { Card, CardContent } from "@x7/ui/card";
-import { LinkExternal } from "@x7/ui/link";
-import type { ChainId } from "@x7/utils";
-
-import { getChainInfo } from "~/lib/constants/chainInfo";
+import { Card, CardContent } from "@x7/ui/card"
+import { LinkExternal } from "@x7/ui/link"
+import { getChainInfo } from "~/lib/constants/chainInfo"
 
 interface ActivityTransactionProps {
-  hash: string;
-  timeStamp: string;
-  functionName: string;
-  value: string;
-  blockNumber: string;
-  gasPrice: string;
+  hash: string
+  timeStamp: string
+  functionName: string
+  value: string
+  blockNumber: string
+  gasPrice: string
 }
 
 export function ActivityScannerTransaction({
   transaction,
 }: {
-  transaction: ActivityTransactionProps;
+  transaction: ActivityTransactionProps
 }) {
   const { hash, timeStamp, functionName, value, blockNumber, gasPrice } =
-    transaction;
-  const chainId = useChainId() as ChainId;
-  const chainInfo = getChainInfo(chainId);
+    transaction
+  const chainId = useChainId() as ChainId
+  const chainInfo = getChainInfo(chainId)
 
   const weiToEther = (wei: number) => {
-    return (wei / 10 ** (chainInfo.nativeCurrency.decimals ?? 0)).toFixed(6);
-  };
+    return (wei / 10 ** (chainInfo.nativeCurrency.decimals ?? 0)).toFixed(6)
+  }
 
   return (
     <Card
@@ -60,5 +60,5 @@ export function ActivityScannerTransaction({
         </p>
       </CardContent>
     </Card>
-  );
+  )
 }

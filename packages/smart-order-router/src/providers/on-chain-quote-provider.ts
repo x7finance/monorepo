@@ -1,3 +1,8 @@
+import type { MixedRoute, V3Route } from "../routers/router"
+import type { CurrencyAmount, ViemProviderType } from "../utils"
+import type { Result } from "./multicall-provider"
+import type { CustomMulticallProvider } from "./multicall-uniswap-provider"
+import type { ProviderConfig } from "./provider"
 /* oxlint-disable @typescript-eslint/no-base-to-string */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/no-explicit-any */
@@ -5,72 +10,68 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 /* oxlint-disable @typescript-eslint/no-unsafe-call */
 /* oxlint-disable @typescript-eslint/restrict-template-expressions */
-import type { Options as RetryOptions } from "async-retry";
-import retry from "async-retry";
-import _ from "lodash";
-import stats from "stats-lite";
-import type { PublicClient } from "viem";
+import type { Options as RetryOptions } from "async-retry"
+import type { PublicClient } from "viem"
 
-import MixedRouteQuoterV1 from "@x7/contracts/artifacts/contracts/swap-router-contracts/lens/MixedRouteQuoterV1.sol/MixedRouteQuoterV1.json";
-import QuoterV2 from "@x7/contracts/artifacts/contracts/swap-router-contracts/lens/QuoterV2.sol/QuoterV2.json";
+import retry from "async-retry"
+import _ from "lodash"
+import stats from "stats-lite"
+
+import MixedRouteQuoterV1 from "@x7/contracts/artifacts/contracts/swap-router-contracts/lens/MixedRouteQuoterV1.sol/MixedRouteQuoterV1.json"
+import QuoterV2 from "@x7/contracts/artifacts/contracts/swap-router-contracts/lens/QuoterV2.sol/QuoterV2.json"
 import {
   encodeMixedRouteToPath,
   encodeRouteToPath,
   MIXED_ROUTE_QUOTER_V1_ADDRESSES,
   MixedRouteSDK,
   QUOTER_V2_ADDRESSES,
-} from "@x7/sdk";
-import { ChainId, LogCodes, Protocol } from "@x7/utils";
+} from "@x7/sdk"
+import { ChainId, LogCodes, Protocol } from "@x7/utils"
 
-import type { MixedRoute, V3Route } from "../routers/router";
-import { V2Route } from "../routers/router";
-import type { CurrencyAmount, ViemProviderType } from "../utils";
-import { metric, MetricLoggerUnit } from "../utils";
-import { log } from "../utils/log";
-import { routeToString } from "../utils/routes";
-import type { Result } from "./multicall-provider";
-import type { CustomMulticallProvider } from "./multicall-uniswap-provider";
-import type { ProviderConfig } from "./provider";
+import { V2Route } from "../routers/router"
+import { metric, MetricLoggerUnit } from "../utils"
+import { log } from "../utils/log"
+import { routeToString } from "../utils/routes"
 
 /**
  * An on chain quote for a swap.
  */
 export interface AmountQuote {
-  amount: CurrencyAmount;
+  amount: CurrencyAmount
   /**
    * Quotes can be null (e.g. pool did not have enough liquidity).
    */
-  quote: bigint | null;
+  quote: bigint | null
   /**
    * For each pool in the route, the sqrtPriceX96 after the swap.
    */
-  sqrtPriceX96AfterList: bigint[] | null;
+  sqrtPriceX96AfterList: bigint[] | null
   /**
    * For each pool in the route, the number of ticks crossed.
    */
-  initializedTicksCrossedList: number[] | null;
+  initializedTicksCrossedList: number[] | null
   /**
    * An estimate of the gas used by the swap. This is returned by the multicall
    * and is not necessarily accurate due to EIP-2929 causing gas costs to vary
    * depending on if the slot has already been loaded in the call.
    */
-  gasEstimate: bigint | null;
+  gasEstimate: bigint | null
 }
 
 export class BlockConflictError extends Error {
-  public name = "BlockConflictError";
+  public name = "BlockConflictError"
 }
 
 export class SuccessRateError extends Error {
-  public name = "SuccessRateError";
+  public name = "SuccessRateError"
 }
 
 export class ProviderBlockHeaderError extends Error {
-  public name = "ProviderBlockHeaderError";
+  public name = "ProviderBlockHeaderError"
 }
 
 export class ProviderTimeoutError extends Error {
-  public name = "ProviderTimeoutError";
+  public name = "ProviderTimeoutError"
 }
 
 /**
@@ -84,10 +85,10 @@ export class ProviderTimeoutError extends Error {
  * @class ProviderGasError
  */
 export class ProviderGasError extends Error {
-  public name = "ProviderGasError";
+  public name = "ProviderGasError"
 }
 
-export type QuoteRetryOptions = RetryOptions;
+export type QuoteRetryOptions = RetryOptions
 
 /**
  * The V3 route and a list of quotes for that route.
@@ -95,35 +96,35 @@ export type QuoteRetryOptions = RetryOptions;
 export type RouteWithQuotes<TRoute extends V3Route | V2Route | MixedRoute> = [
   TRoute,
   AmountQuote[],
-];
+]
 
 interface QuoteBatchSuccess {
-  status: "success";
-  inputs: [string, string][];
+  status: "success"
+  inputs: [string, string][]
   results: {
-    blockNumber: bigint;
-    results: Result<[bigint, bigint[], number[], bigint]>[];
-    approxGasUsedPerSuccessCall: number;
-  };
+    blockNumber: bigint
+    results: Result<[bigint, bigint[], number[], bigint]>[]
+    approxGasUsedPerSuccessCall: number
+  }
 }
 
 interface QuoteBatchFailed {
-  status: "failed";
-  inputs: [string, string][];
-  reason: Error;
+  status: "failed"
+  inputs: [string, string][]
+  reason: Error
   results?: {
-    blockNumber: bigint;
-    results: Result<[bigint, bigint[], number[], bigint]>[];
-    approxGasUsedPerSuccessCall: number;
-  };
+    blockNumber: bigint
+    results: Result<[bigint, bigint[], number[], bigint]>[]
+    approxGasUsedPerSuccessCall: number
+  }
 }
 
 interface QuoteBatchPending {
-  status: "pending";
-  inputs: [string, string][];
+  status: "pending"
+  inputs: [string, string][]
 }
 
-type QuoteBatchState = QuoteBatchSuccess | QuoteBatchFailed | QuoteBatchPending;
+type QuoteBatchState = QuoteBatchSuccess | QuoteBatchFailed | QuoteBatchPending
 
 /**
  * Provider for getting on chain quotes using routes containing V3 pools or V2 pools.
@@ -145,11 +146,11 @@ export interface IOnChainQuoteProvider {
   getQuotesManyExactIn<TRoute extends V3Route | V2Route | MixedRoute>(
     amountIns: CurrencyAmount[],
     routes: TRoute[],
-    providerConfig?: ProviderConfig,
+    providerConfig?: ProviderConfig
   ): Promise<{
-    routesWithQuotes: RouteWithQuotes<TRoute>[];
-    blockNumber: bigint;
-  }>;
+    routesWithQuotes: RouteWithQuotes<TRoute>[]
+    blockNumber: bigint
+  }>
 
   /**
    * For every route, gets ane exactOut quote for every amount provided.
@@ -164,11 +165,11 @@ export interface IOnChainQuoteProvider {
   getQuotesManyExactOut<TRoute extends V3Route>(
     amountOuts: CurrencyAmount[],
     routes: TRoute[],
-    providerConfig?: ProviderConfig,
+    providerConfig?: ProviderConfig
   ): Promise<{
-    routesWithQuotes: RouteWithQuotes<TRoute>[];
-    blockNumber: bigint;
-  }>;
+    routesWithQuotes: RouteWithQuotes<TRoute>[]
+    blockNumber: bigint
+  }>
 }
 
 /**
@@ -183,18 +184,18 @@ export interface BatchParams {
   /**
    * The number of quotes to fetch in each multicall.
    */
-  multicallChunk: number;
+  multicallChunk: number
   /**
    * The maximum call to consume for each quote in the multicall.
    */
-  gasLimitPerCall: number;
+  gasLimitPerCall: number
   /**
    * The minimum success rate for all quotes across all multicalls.
    * If we set our gasLimitPerCall too low it could result in a large number of
    * quotes failing due to out of gas. This parameters will fail the overall request
    * in this case.
    */
-  quoteMinSuccessRate: number;
+  quoteMinSuccessRate: number
 }
 
 /**
@@ -203,23 +204,23 @@ export interface BatchParams {
  */
 
 export interface FailureOverrides {
-  multicallChunk: number;
-  gasLimitOverride: number;
+  multicallChunk: number
+  gasLimitOverride: number
 }
 
 export interface BlockHeaderFailureOverridesDisabled {
-  enabled: false;
+  enabled: false
 }
 export interface BlockHeaderFailureOverridesEnabled {
-  enabled: true;
+  enabled: true
   // Offset to apply in the case of a block header failure. e.g. -10 means rollback by 10 blocks.
-  rollbackBlockOffset: number;
+  rollbackBlockOffset: number
   // Number of batch failures due to block header before trying a rollback.
-  attemptsBeforeRollback: number;
+  attemptsBeforeRollback: number
 }
 export type BlockHeaderFailureOverrides =
   | BlockHeaderFailureOverridesDisabled
-  | BlockHeaderFailureOverridesEnabled;
+  | BlockHeaderFailureOverridesEnabled
 
 /**
  * Config around what block number to query and how to handle failures due to block header errors.
@@ -227,12 +228,12 @@ export type BlockHeaderFailureOverrides =
 export interface BlockNumberConfig {
   // Applies an offset to the block number specified when fetching quotes. e.g. -10 means rollback by 10 blocks.
   // Useful for networks where the latest block may not be available on all nodes, causing frequent 'header not found' errors.
-  baseBlockOffset: number;
+  baseBlockOffset: number
   // Config for handling header not found errors.
-  rollback: BlockHeaderFailureOverrides;
+  rollback: BlockHeaderFailureOverrides
 }
 
-const DEFAULT_BATCH_RETRIES = 2;
+const DEFAULT_BATCH_RETRIES = 2
 
 /**
  * Computes on chain quotes for swaps. For pure V3 routes, quotes are computed on-chain using
@@ -299,23 +300,23 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
       baseBlockOffset: 0,
       rollback: { enabled: false },
     },
-    protected quoterAddressOverride?: string,
+    protected quoterAddressOverride?: string
   ) {}
 
   private getQuoterAddress(useMixedRouteQuoter: boolean): string {
     if (this.quoterAddressOverride) {
-      return this.quoterAddressOverride;
+      return this.quoterAddressOverride
     }
     const quoterAddress = useMixedRouteQuoter
       ? MIXED_ROUTE_QUOTER_V1_ADDRESSES[this.chainId]
-      : QUOTER_V2_ADDRESSES[this.chainId];
+      : QUOTER_V2_ADDRESSES[this.chainId]
 
     if (!quoterAddress) {
       throw new Error(
-        `No address for the quoter contract on chain id: ${this.chainId}`,
-      );
+        `No address for the quoter contract on chain id: ${this.chainId}`
+      )
     }
-    return quoterAddress;
+    return quoterAddress
   }
 
   public async getQuotesManyExactIn<
@@ -323,33 +324,33 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
   >(
     amountIns: CurrencyAmount[],
     routes: TRoute[],
-    providerConfig?: ProviderConfig,
+    providerConfig?: ProviderConfig
   ): Promise<{
-    routesWithQuotes: RouteWithQuotes<TRoute>[];
-    blockNumber: bigint;
+    routesWithQuotes: RouteWithQuotes<TRoute>[]
+    blockNumber: bigint
   }> {
     return this.getQuotesManyData(
       amountIns,
       routes,
       "quoteExactInput",
-      providerConfig,
-    );
+      providerConfig
+    )
   }
 
   public async getQuotesManyExactOut<TRoute extends V3Route>(
     amountOuts: CurrencyAmount[],
     routes: TRoute[],
-    providerConfig?: ProviderConfig,
+    providerConfig?: ProviderConfig
   ): Promise<{
-    routesWithQuotes: RouteWithQuotes<TRoute>[];
-    blockNumber: bigint;
+    routesWithQuotes: RouteWithQuotes<TRoute>[]
+    blockNumber: bigint
   }> {
     return this.getQuotesManyData(
       amountOuts,
       routes,
       "quoteExactOutput",
-      providerConfig,
-    );
+      providerConfig
+    )
   }
 
   private async getQuotesManyData<
@@ -358,31 +359,31 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
     amounts: CurrencyAmount[],
     routes: TRoute[],
     functionName: "quoteExactInput" | "quoteExactOutput",
-    _providerConfig?: ProviderConfig,
+    _providerConfig?: ProviderConfig
   ): Promise<{
-    routesWithQuotes: RouteWithQuotes<TRoute>[];
-    blockNumber: bigint;
+    routesWithQuotes: RouteWithQuotes<TRoute>[]
+    blockNumber: bigint
   }> {
     const useMixedRouteQuoter =
       routes.some((route) => route.protocol === Protocol.V2) ||
-      routes.some((route) => route.protocol === Protocol.MIXED);
+      routes.some((route) => route.protocol === Protocol.MIXED)
 
     /// Validate that there are no incorrect routes / function combinations
-    this.validateRoutes(routes, functionName, useMixedRouteQuoter);
+    this.validateRoutes(routes, functionName, useMixedRouteQuoter)
 
-    let multicallChunk = this.batchParams.multicallChunk;
-    let gasLimitOverride = this.batchParams.gasLimitPerCall;
-    const { baseBlockOffset, rollback } = this.blockNumberConfig;
+    let multicallChunk = this.batchParams.multicallChunk
+    let gasLimitOverride = this.batchParams.gasLimitPerCall
+    const { baseBlockOffset, rollback } = this.blockNumberConfig
 
     // Apply the base block offset if provided
     const originalBlockNumber = Number(
-      await (this.provider as PublicClient).getBlockNumber(),
-    );
+      await (this.provider as PublicClient).getBlockNumber()
+    )
     const providerConfig: ProviderConfig = {
       ..._providerConfig,
       blockNumber:
         _providerConfig?.blockNumber ?? originalBlockNumber + baseBlockOffset,
-    };
+    }
 
     const inputs: [string, string][] = _(routes)
       .flatMap((route) => {
@@ -390,31 +391,31 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
           route.protocol === Protocol.V3
             ? encodeRouteToPath(
                 route,
-                functionName === "quoteExactOutput", // For exactOut must be true to ensure the routes are reversed.
+                functionName === "quoteExactOutput" // For exactOut must be true to ensure the routes are reversed.
               )
             : encodeMixedRouteToPath(
                 route instanceof V2Route
                   ? new MixedRouteSDK(route.pairs, route.input, route.output)
-                  : route,
-              );
+                  : route
+              )
         const routeInputs: [string, string][] = amounts.map((amount) => [
           encodedRoute,
           `0x${amount.quotient.toString(16)}`,
-        ]);
-        return routeInputs;
+        ])
+        return routeInputs
       })
-      .value();
+      .value()
 
     const normalizedChunk = Math.ceil(
-      inputs.length / Math.ceil(inputs.length / multicallChunk),
-    );
-    const inputsChunked = _.chunk(inputs, normalizedChunk);
+      inputs.length / Math.ceil(inputs.length / multicallChunk)
+    )
+    const inputsChunked = _.chunk(inputs, normalizedChunk)
     let quoteStates: QuoteBatchState[] = _.map(inputsChunked, (inputChunk) => {
       return {
         status: "pending" as const,
         inputs: inputChunk,
-      };
-    });
+      }
+    })
 
     log.info(
       LogCodes.FETCHING_QUOTES,
@@ -422,33 +423,33 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
         inputs.length
       } quotes in chunks of ${normalizedChunk} [${_.map(
         inputsChunked,
-        (i) => i.length,
+        (i) => i.length
       ).join(",")}] ${
         gasLimitOverride
           ? `with a gas limit override of ${gasLimitOverride}`
           : ""
-      } and block number: ${await providerConfig.blockNumber} [Original before offset: ${originalBlockNumber}].`,
-    );
+      } and block number: ${await providerConfig.blockNumber} [Original before offset: ${originalBlockNumber}].`
+    )
 
-    metric.putMetric("QuoteBatchSize", inputs.length, MetricLoggerUnit.Count);
+    metric.putMetric("QuoteBatchSize", inputs.length, MetricLoggerUnit.Count)
     metric.putMetric(
       `QuoteBatchSize_ChainId${this.chainId}`,
       inputs.length,
-      MetricLoggerUnit.Count,
-    );
+      MetricLoggerUnit.Count
+    )
 
-    let haveRetriedForSuccessRate = false;
-    let haveRetriedForBlockHeader = false;
-    let blockHeaderRetryAttemptNumber = 0;
-    let haveIncrementedBlockHeaderFailureCounter = false;
-    let blockHeaderRolledBack = false;
-    let haveRetriedForBlockConflictError = false;
-    let haveRetriedForOutOfGas = false;
-    let haveRetriedForTimeout = false;
-    let haveRetriedForUnknownReason = false;
-    let finalAttemptNumber = 1;
-    const expectedCallsMade = quoteStates.length;
-    let totalCallsMade = 0;
+    let haveRetriedForSuccessRate = false
+    let haveRetriedForBlockHeader = false
+    let blockHeaderRetryAttemptNumber = 0
+    let haveIncrementedBlockHeaderFailureCounter = false
+    let blockHeaderRolledBack = false
+    let haveRetriedForBlockConflictError = false
+    let haveRetriedForOutOfGas = false
+    let haveRetriedForTimeout = false
+    let haveRetriedForUnknownReason = false
+    let finalAttemptNumber = 1
+    const expectedCallsMade = quoteStates.length
+    let totalCallsMade = 0
 
     const {
       results: quoteResults,
@@ -456,31 +457,31 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
       approxGasUsedPerSuccessCall,
     } = await retry(
       async (_bail, attemptNumber) => {
-        haveIncrementedBlockHeaderFailureCounter = false;
-        finalAttemptNumber = attemptNumber;
+        haveIncrementedBlockHeaderFailureCounter = false
+        finalAttemptNumber = attemptNumber
 
-        const [success, failed, pending] = this.partitionQuotes(quoteStates);
+        const [success, failed, pending] = this.partitionQuotes(quoteStates)
 
         log.info(
           LogCodes.FETCHING_QUOTES,
           `Starting attempt: ${attemptNumber}.
           Currently ${success.length} success, ${failed.length} failed, ${pending.length} pending.
-          Gas limit override: ${gasLimitOverride} Block number override: ${providerConfig.blockNumber}.`,
-        );
+          Gas limit override: ${gasLimitOverride} Block number override: ${providerConfig.blockNumber}.`
+        )
 
         quoteStates = await Promise.all(
           _.map(
             quoteStates,
             async (quoteState: QuoteBatchState, idx: number) => {
               if (quoteState.status === "success") {
-                return quoteState;
+                return quoteState
               }
 
               // QuoteChunk is pending or failed, so we try again
-              const { inputs } = quoteState;
+              const { inputs } = quoteState
 
               try {
-                totalCallsMade = totalCallsMade + 1;
+                totalCallsMade = totalCallsMade + 1
 
                 const results =
                   await this.multicall2Provider.callSameFunctionOnContractWithMultipleParams<
@@ -497,12 +498,12 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                     additionalConfig: {
                       gasLimitPerCallOverride: gasLimitOverride,
                     },
-                  });
+                  })
 
                 const successRateError = this.validateSuccessRate(
                   results.results,
-                  haveRetriedForSuccessRate,
-                );
+                  haveRetriedForSuccessRate
+                )
 
                 if (successRateError) {
                   return {
@@ -510,14 +511,14 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                     inputs,
                     reason: successRateError,
                     results,
-                  } as QuoteBatchFailed;
+                  } as QuoteBatchFailed
                 }
 
                 return {
                   status: "success",
                   inputs,
                   results,
-                } as QuoteBatchSuccess;
+                } as QuoteBatchSuccess
               } catch (err: any) {
                 // Error from providers have huge messages that include all the calldata and fill the logs.
                 // Catch them and rethrow with shorter message.
@@ -526,9 +527,9 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                     status: "failed",
                     inputs,
                     reason: new ProviderBlockHeaderError(
-                      err.message.slice(0, 500),
+                      err.message.slice(0, 500)
                     ),
-                  } as QuoteBatchFailed;
+                  } as QuoteBatchFailed
                 }
 
                 if (err.message.includes("timeout")) {
@@ -538,9 +539,9 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                     reason: new ProviderTimeoutError(
                       `Req ${idx}/${quoteStates.length}. Request had ${
                         inputs.length
-                      } inputs. ${err.message.slice(0, 500)}`,
+                      } inputs. ${err.message.slice(0, 500)}`
                     ),
-                  } as QuoteBatchFailed;
+                  } as QuoteBatchFailed
                 }
 
                 if (err.message.includes("out of gas")) {
@@ -548,93 +549,92 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                     status: "failed",
                     inputs,
                     reason: new ProviderGasError(err.message.slice(0, 500)),
-                  } as QuoteBatchFailed;
+                  } as QuoteBatchFailed
                 }
 
                 return {
                   status: "failed",
                   inputs,
                   reason: new Error(
-                    `Unknown error from provider: ${err.message.slice(0, 500)}`,
+                    `Unknown error from provider: ${err.message.slice(0, 500)}`
                   ),
-                } as QuoteBatchFailed;
+                } as QuoteBatchFailed
               }
-            },
-          ),
-        );
+            }
+          )
+        )
 
         const [successfulQuoteStates, failedQuoteStates, pendingQuoteStates] =
-          this.partitionQuotes(quoteStates);
+          this.partitionQuotes(quoteStates)
 
         if (pendingQuoteStates.length > 0) {
-          throw new Error("Pending quote after waiting for all promises.");
+          throw new Error("Pending quote after waiting for all promises.")
         }
 
-        let retryAll = false;
+        let retryAll = false
 
         const blockNumberError = this.validateBlockNumbers(
           successfulQuoteStates,
           inputsChunked.length,
-          gasLimitOverride,
-        );
+          gasLimitOverride
+        )
 
         // If there is a block number conflict we retry all the quotes.
         if (blockNumberError) {
-          retryAll = true;
+          retryAll = true
         }
 
         const reasonForFailureStr = _.map(
           failedQuoteStates,
-          (failedQuoteState) => failedQuoteState.reason.name,
-        ).join(", ");
+          (failedQuoteState) => failedQuoteState.reason.name
+        ).join(", ")
 
         if (failedQuoteStates.length > 0) {
           log.error(
             LogCodes.FAIL,
-            `On attempt ${attemptNumber}: ${failedQuoteStates.length}/${quoteStates.length} quotes failed. Reasons: ${reasonForFailureStr}`,
-          );
+            `On attempt ${attemptNumber}: ${failedQuoteStates.length}/${quoteStates.length} quotes failed. Reasons: ${reasonForFailureStr}`
+          )
 
           for (const failedQuoteState of failedQuoteStates) {
-            const { reason: error } = failedQuoteState;
+            const { reason: error } = failedQuoteState
 
             log.error(
               LogCodes.FAIL,
               `[QuoteFetchError] Attempt ${attemptNumber}. ${error.message}`,
-              { error },
-            );
+              { error }
+            )
 
             if (error instanceof BlockConflictError) {
               if (!haveRetriedForBlockConflictError) {
                 metric.putMetric(
                   "QuoteBlockConflictErrorRetry",
                   1,
-                  MetricLoggerUnit.Count,
-                );
-                haveRetriedForBlockConflictError = true;
+                  MetricLoggerUnit.Count
+                )
+                haveRetriedForBlockConflictError = true
               }
 
-              retryAll = true;
+              retryAll = true
             } else if (error instanceof ProviderBlockHeaderError) {
               if (!haveRetriedForBlockHeader) {
                 metric.putMetric(
                   "QuoteBlockHeaderNotFoundRetry",
                   1,
-                  MetricLoggerUnit.Count,
-                );
-                haveRetriedForBlockHeader = true;
+                  MetricLoggerUnit.Count
+                )
+                haveRetriedForBlockHeader = true
               }
 
               // Ensure that if multiple calls fail due to block header in the current pending batch,
               // we only count once.
               if (!haveIncrementedBlockHeaderFailureCounter) {
                 blockHeaderRetryAttemptNumber =
-                  blockHeaderRetryAttemptNumber + 1;
-                haveIncrementedBlockHeaderFailureCounter = true;
+                  blockHeaderRetryAttemptNumber + 1
+                haveIncrementedBlockHeaderFailureCounter = true
               }
 
               if (rollback.enabled) {
-                const { rollbackBlockOffset, attemptsBeforeRollback } =
-                  rollback;
+                const { rollbackBlockOffset, attemptsBeforeRollback } = rollback
 
                 if (
                   blockHeaderRetryAttemptNumber >= attemptsBeforeRollback &&
@@ -644,63 +644,58 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                     LogCodes.ROLLBACK,
                     `Attempt ${attemptNumber}. Have failed due to block header ${
                       blockHeaderRetryAttemptNumber - 1
-                    } times. Rolling back block number by ${rollbackBlockOffset} for next retry`,
-                  );
+                    } times. Rolling back block number by ${rollbackBlockOffset} for next retry`
+                  )
                   providerConfig.blockNumber = providerConfig.blockNumber
                     ? (await providerConfig.blockNumber) + rollbackBlockOffset
                     : Number(
-                        await (this.provider as PublicClient).getBlockNumber(),
-                      ) + rollbackBlockOffset;
+                        await (this.provider as PublicClient).getBlockNumber()
+                      ) + rollbackBlockOffset
 
-                  retryAll = true;
-                  blockHeaderRolledBack = true;
+                  retryAll = true
+                  blockHeaderRolledBack = true
                 }
               }
             } else if (error instanceof ProviderTimeoutError) {
               if (!haveRetriedForTimeout) {
-                metric.putMetric(
-                  "QuoteTimeoutRetry",
-                  1,
-                  MetricLoggerUnit.Count,
-                );
-                haveRetriedForTimeout = true;
+                metric.putMetric("QuoteTimeoutRetry", 1, MetricLoggerUnit.Count)
+                haveRetriedForTimeout = true
               }
             } else if (error instanceof ProviderGasError) {
               if (!haveRetriedForOutOfGas) {
                 metric.putMetric(
                   "QuoteOutOfGasExceptionRetry",
                   1,
-                  MetricLoggerUnit.Count,
-                );
-                haveRetriedForOutOfGas = true;
+                  MetricLoggerUnit.Count
+                )
+                haveRetriedForOutOfGas = true
               }
-              gasLimitOverride = this.gasErrorFailureOverride.gasLimitOverride;
-              multicallChunk = this.gasErrorFailureOverride.multicallChunk;
-              retryAll = true;
+              gasLimitOverride = this.gasErrorFailureOverride.gasLimitOverride
+              multicallChunk = this.gasErrorFailureOverride.multicallChunk
+              retryAll = true
             } else if (error instanceof SuccessRateError) {
               if (!haveRetriedForSuccessRate) {
                 metric.putMetric(
                   "QuoteSuccessRateRetry",
                   1,
-                  MetricLoggerUnit.Count,
-                );
-                haveRetriedForSuccessRate = true;
+                  MetricLoggerUnit.Count
+                )
+                haveRetriedForSuccessRate = true
 
                 // Low success rate can indicate too little gas given to each call.
                 gasLimitOverride =
-                  this.successRateFailureOverrides.gasLimitOverride;
-                multicallChunk =
-                  this.successRateFailureOverrides.multicallChunk;
-                retryAll = true;
+                  this.successRateFailureOverrides.gasLimitOverride
+                multicallChunk = this.successRateFailureOverrides.multicallChunk
+                retryAll = true
               }
             } else {
               if (!haveRetriedForUnknownReason) {
                 metric.putMetric(
                   "QuoteUnknownReasonRetry",
                   1,
-                  MetricLoggerUnit.Count,
-                );
-                haveRetriedForUnknownReason = true;
+                  MetricLoggerUnit.Count
+                )
+                haveRetriedForUnknownReason = true
               }
             }
           }
@@ -709,20 +704,20 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
         if (retryAll) {
           log.info(
             LogCodes.RETRY,
-            `Attempt ${attemptNumber}. Resetting all requests to pending for next attempt.`,
-          );
+            `Attempt ${attemptNumber}. Resetting all requests to pending for next attempt.`
+          )
 
           const normalizedChunk = Math.ceil(
-            inputs.length / Math.ceil(inputs.length / multicallChunk),
-          );
+            inputs.length / Math.ceil(inputs.length / multicallChunk)
+          )
 
-          const inputsChunked = _.chunk(inputs, normalizedChunk);
+          const inputsChunked = _.chunk(inputs, normalizedChunk)
           quoteStates = _.map(inputsChunked, (inputChunk) => {
             return {
               status: "pending" as const,
               inputs: inputChunk,
-            };
-          });
+            }
+          })
         }
 
         if (failedQuoteStates.length > 0) {
@@ -741,85 +736,81 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
             _.every(
               failedQuoteStates,
               (failedQuoteState) =>
-                failedQuoteState.reason instanceof ProviderGasError,
+                failedQuoteState.reason instanceof ProviderGasError
             ) &&
             attemptNumber === this.retryOptions.retries
           ) {
             log.error(
               LogCodes.FAIL,
-              `Failed to get quotes on Arbitrum due to provider gas error issue. Overriding error to return 0 quotes.`,
-            );
+              `Failed to get quotes on Arbitrum due to provider gas error issue. Overriding error to return 0 quotes.`
+            )
             return {
               results: [],
               blockNumber: BigInt(0),
               approxGasUsedPerSuccessCall: 0,
-            };
+            }
           }
           throw new Error(
-            `Failed to get ${failedQuoteStates.length} quotes. Reasons: ${reasonForFailureStr}`,
-          );
+            `Failed to get ${failedQuoteStates.length} quotes. Reasons: ${reasonForFailureStr}`
+          )
         }
 
         const callResults = _.map(
           successfulQuoteStates,
-          (quoteState) => quoteState.results,
-        );
+          (quoteState) => quoteState.results
+        )
 
         return {
           results: _.flatMap(callResults, (result) => result.results),
           blockNumber: BigInt(callResults[0]!.blockNumber),
           approxGasUsedPerSuccessCall: stats.percentile(
             _.map(callResults, (result) => result.approxGasUsedPerSuccessCall),
-            100,
+            100
           ),
-        };
+        }
       },
       {
         retries: DEFAULT_BATCH_RETRIES,
         ...this.retryOptions,
-      },
-    );
+      }
+    )
 
-    const routesQuotes = this.processQuoteResults(
-      quoteResults,
-      routes,
-      amounts,
-    );
+    const routesQuotes = this.processQuoteResults(quoteResults, routes, amounts)
 
     metric.putMetric(
       "QuoteApproxGasUsedPerSuccessfulCall",
       approxGasUsedPerSuccessCall,
-      MetricLoggerUnit.Count,
-    );
+      MetricLoggerUnit.Count
+    )
 
     metric.putMetric(
       "QuoteNumRetryLoops",
       finalAttemptNumber - 1,
-      MetricLoggerUnit.Count,
-    );
+      MetricLoggerUnit.Count
+    )
 
     metric.putMetric(
       "QuoteTotalCallsToProvider",
       totalCallsMade,
-      MetricLoggerUnit.Count,
-    );
+      MetricLoggerUnit.Count
+    )
 
     metric.putMetric(
       "QuoteExpectedCallsToProvider",
       expectedCallsMade,
-      MetricLoggerUnit.Count,
-    );
+      MetricLoggerUnit.Count
+    )
 
     metric.putMetric(
       "QuoteNumRetriedCalls",
       totalCallsMade - expectedCallsMade,
-      MetricLoggerUnit.Count,
-    );
+      MetricLoggerUnit.Count
+    )
 
     const [successfulQuotes, failedQuotes] = _(routesQuotes)
       .flatMap((routeWithQuotes: RouteWithQuotes<TRoute>) => routeWithQuotes[1])
       .partition((quote) => quote.quote !== null)
-      .value();
+      .value()
 
     log.info(
       LogCodes.FETCHING_QUOTES,
@@ -827,14 +818,14 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
         failedQuotes.length
       } failed quotes. Took ${
         finalAttemptNumber - 1
-      } attempt loops. Total calls made to provider: ${totalCallsMade}. Have retried for timeout: ${haveRetriedForTimeout}`,
-    );
+      } attempt loops. Total calls made to provider: ${totalCallsMade}. Have retried for timeout: ${haveRetriedForTimeout}`
+    )
 
-    return { routesWithQuotes: routesQuotes, blockNumber };
+    return { routesWithQuotes: routesQuotes, blockNumber }
   }
 
   private partitionQuotes(
-    quoteStates: QuoteBatchState[],
+    quoteStates: QuoteBatchState[]
   ): [QuoteBatchSuccess[], QuoteBatchFailed[], QuoteBatchPending[]] {
     const successfulQuoteStates: QuoteBatchSuccess[] = _.filter<
       QuoteBatchState,
@@ -842,8 +833,8 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
     >(
       quoteStates,
       (quoteState): quoteState is QuoteBatchSuccess =>
-        quoteState.status === "success",
-    );
+        quoteState.status === "success"
+    )
 
     const failedQuoteStates: QuoteBatchFailed[] = _.filter<
       QuoteBatchState,
@@ -851,8 +842,8 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
     >(
       quoteStates,
       (quoteState): quoteState is QuoteBatchFailed =>
-        quoteState.status === "failed",
-    );
+        quoteState.status === "failed"
+    )
 
     const pendingQuoteStates: QuoteBatchPending[] = _.filter<
       QuoteBatchState,
@@ -860,51 +851,51 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
     >(
       quoteStates,
       (quoteState): quoteState is QuoteBatchPending =>
-        quoteState.status === "pending",
-    );
+        quoteState.status === "pending"
+    )
 
-    return [successfulQuoteStates, failedQuoteStates, pendingQuoteStates];
+    return [successfulQuoteStates, failedQuoteStates, pendingQuoteStates]
   }
 
   private processQuoteResults<TRoute extends V3Route | V2Route | MixedRoute>(
     quoteResults: Result<[bigint, bigint[], number[], bigint]>[],
     routes: TRoute[],
-    amounts: CurrencyAmount[],
+    amounts: CurrencyAmount[]
   ): RouteWithQuotes<TRoute>[] {
-    const routesQuotes: RouteWithQuotes<TRoute>[] = [];
+    const routesQuotes: RouteWithQuotes<TRoute>[] = []
 
-    const quotesResultsByRoute = _.chunk(quoteResults, amounts.length);
+    const quotesResultsByRoute = _.chunk(quoteResults, amounts.length)
 
     const debugFailedQuotes: {
-      amount: string;
-      percent: number;
-      route: string;
-    }[] = [];
+      amount: string
+      percent: number
+      route: string
+    }[] = []
 
     for (let i = 0; i < quotesResultsByRoute.length; i++) {
-      const route = routes[i]!;
-      const quoteResults = quotesResultsByRoute[i];
+      const route = routes[i]!
+      const quoteResults = quotesResultsByRoute[i]
       const quotes: AmountQuote[] = _.map(
         quoteResults,
         (
           quoteResult: Result<[bigint, bigint[], number[], bigint]>,
-          index: number,
+          index: number
         ) => {
-          const amount = amounts[index];
+          const amount = amounts[index]
           if (amount === undefined || amount === null) {
-            throw new Error("No amount found for quote");
+            throw new Error("No amount found for quote")
           }
 
           if (!quoteResult.success) {
-            const percent = (100 / amounts.length) * (index + 1);
+            const percent = (100 / amounts.length) * (index + 1)
 
-            const amountStr = amount.toExact();
-            const routeStr = routeToString(route);
+            const amountStr = amount.toExact()
+            const routeStr = routeToString(route)
             debugFailedQuotes.push({
               route: routeStr,
               percent,
               amount: amountStr,
-            });
+            })
 
             return {
               amount,
@@ -912,7 +903,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
               sqrtPriceX96AfterList: null,
               gasEstimate: null,
               initializedTicksCrossedList: null,
-            };
+            }
           }
 
           return {
@@ -921,64 +912,64 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
             sqrtPriceX96AfterList: quoteResult.result[1],
             initializedTicksCrossedList: quoteResult.result[2],
             gasEstimate: quoteResult.result[3],
-          };
-        },
-      );
+          }
+        }
+      )
 
-      routesQuotes.push([route, quotes]);
+      routesQuotes.push([route, quotes])
     }
 
     // For routes and amounts that we failed to get a quote for, group them by route
     // and batch them together before logging to minimize number of logs.
-    const debugChunk = 80;
+    const debugChunk = 80
     _.forEach(_.chunk(debugFailedQuotes, debugChunk), (quotes, idx) => {
-      const failedQuotesByRoute = _.groupBy(quotes, (q) => q.route);
+      const failedQuotesByRoute = _.groupBy(quotes, (q) => q.route)
       const failedFlat = _.mapValues(failedQuotesByRoute, (f) =>
         _(f)
           .map((f) => `${f.percent}%[${f.amount}]`)
-          .join(","),
-      );
+          .join(",")
+      )
 
       log.error(
         LogCodes.FAILED_QUOTES,
         {
           failedQuotes: _.map(
             failedFlat,
-            (amounts, routeStr) => `${routeStr} : ${amounts}`,
+            (amounts, routeStr) => `${routeStr} : ${amounts}`
           ),
         },
         `Failed on chain quotes for routes Part ${idx}/${Math.ceil(
-          debugFailedQuotes.length / debugChunk,
-        )}`,
-      );
-    });
+          debugFailedQuotes.length / debugChunk
+        )}`
+      )
+    })
 
-    return routesQuotes;
+    return routesQuotes
   }
 
   private validateBlockNumbers(
     successfulQuoteStates: QuoteBatchSuccess[],
     totalCalls: number,
-    gasLimitOverride?: number,
+    gasLimitOverride?: number
   ): BlockConflictError | null {
     if (successfulQuoteStates.length <= 1) {
-      return null;
+      return null
     }
 
     const results = _.map(
       successfulQuoteStates,
-      (quoteState) => quoteState.results,
-    );
+      (quoteState) => quoteState.results
+    )
 
-    const blockNumbers = _.map(results, (result) => result.blockNumber);
+    const blockNumbers = _.map(results, (result) => result.blockNumber)
 
     const uniqBlocks = _(blockNumbers)
       .map((blockNumber) => blockNumber)
       .uniq()
-      .value();
+      .value()
 
     if (uniqBlocks.length === 1) {
-      return null;
+      return null
     }
 
     /* if (
@@ -989,34 +980,34 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
     } */
 
     return new BlockConflictError(
-      `Quotes returned from different blocks. ${uniqBlocks}. ${totalCalls} calls were made with gas limit ${gasLimitOverride}`,
-    );
+      `Quotes returned from different blocks. ${uniqBlocks}. ${totalCalls} calls were made with gas limit ${gasLimitOverride}`
+    )
   }
 
   protected validateSuccessRate(
     allResults: Result<[bigint, bigint[], number[], bigint]>[],
-    haveRetriedForSuccessRate: boolean,
+    haveRetriedForSuccessRate: boolean
   ): void | SuccessRateError {
-    const numResults = allResults.length;
+    const numResults = allResults.length
     const numSuccessResults = allResults.filter(
-      (result) => result.success,
-    ).length;
+      (result) => result.success
+    ).length
 
-    const successRate = (1.0 * numSuccessResults) / numResults;
+    const successRate = (1.0 * numSuccessResults) / numResults
 
-    const { quoteMinSuccessRate } = this.batchParams;
+    const { quoteMinSuccessRate } = this.batchParams
     if (successRate < quoteMinSuccessRate) {
       if (haveRetriedForSuccessRate) {
         log.info(
           LogCodes.FETCHING_QUOTES,
-          `Quote success rate still below threshold despite retry. Continuing. ${quoteMinSuccessRate}: ${successRate}`,
-        );
-        return;
+          `Quote success rate still below threshold despite retry. Continuing. ${quoteMinSuccessRate}: ${successRate}`
+        )
+        return
       }
 
       return new SuccessRateError(
-        `Quote success rate below threshold of ${quoteMinSuccessRate}: ${successRate}`,
-      );
+        `Quote success rate below threshold of ${quoteMinSuccessRate}: ${successRate}`
+      )
     }
   }
 
@@ -1029,19 +1020,19 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
   protected validateRoutes(
     routes: (V3Route | V2Route | MixedRoute)[],
     functionName: string,
-    useMixedRouteQuoter: boolean,
+    useMixedRouteQuoter: boolean
   ) {
     /// We do not send any V3Routes to new qutoer becuase it is not deployed on chains besides mainnet
     if (
       routes.some((route) => route.protocol === Protocol.V3) &&
       useMixedRouteQuoter
     ) {
-      throw new Error(`Cannot use mixed route quoter with V3 routes`);
+      throw new Error(`Cannot use mixed route quoter with V3 routes`)
     }
 
     /// We cannot call quoteExactOutput with V2 or Mixed routes
     if (functionName === "quoteExactOutput" && useMixedRouteQuoter) {
-      throw new Error("Cannot call quoteExactOutput with V2 or Mixed routes");
+      throw new Error("Cannot call quoteExactOutput with V2 or Mixed routes")
     }
   }
 }

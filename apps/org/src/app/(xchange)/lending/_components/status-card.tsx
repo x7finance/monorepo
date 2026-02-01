@@ -1,37 +1,38 @@
-import Link from "next/link";
+import type { ChainId } from "@x7/utils"
 
-import { InfoIcon } from "@x7/icons";
+import Link from "next/link"
+
+import { InfoIcon } from "@x7/icons"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@x7/ui/card";
+} from "@x7/ui/card"
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@x7/ui/hover-card";
-import { Table, TableBody, TableCell, TableRow } from "@x7/ui/table";
-import type { ChainId } from "@x7/utils";
-import { generateChainDenomination } from "@x7/utils";
+} from "@x7/ui/hover-card"
+import { Table, TableBody, TableCell, TableRow } from "@x7/ui/table"
+import { generateChainDenomination } from "@x7/utils"
 
 interface StatusCardProps {
-  title: string;
+  title: string
   items: {
-    label: React.ReactNode;
-    value: string | number;
-    useChainDenomination?: boolean;
+    label: React.ReactNode
+    value: string | number
+    useChainDenomination?: boolean
     hovercard?: {
-      title: string;
-      description: string;
-      linkText: string;
-      href: string;
-    };
-  }[];
-  chainId: ChainId;
-  layout?: "vertical" | "horizontal";
+      title: string
+      description: string
+      linkText: string
+      href: string
+    }
+  }[]
+  chainId: ChainId
+  layout?: "vertical" | "horizontal"
 }
 
 export function StatusCard({
@@ -88,7 +89,7 @@ export function StatusCard({
           ))}
         </div>
       </div>
-    );
+    )
   }
 
   return (
@@ -120,5 +121,5 @@ export function StatusCard({
         </Table>
       </CardContent>
     </Card>
-  );
+  )
 }

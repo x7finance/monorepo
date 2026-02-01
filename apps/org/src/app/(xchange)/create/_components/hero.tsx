@@ -1,15 +1,15 @@
-import type { FC } from "react";
+import type { FC } from "react"
 
-import { cn } from "@x7/css";
-import { buttonVariants } from "@x7/ui/button";
+import { cn } from "@x7/css"
+import { buttonVariants } from "@x7/ui/button"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@x7/ui/card";
-import { LinkExternal } from "@x7/ui/link";
+} from "@x7/ui/card"
+import { LinkExternal } from "@x7/ui/link"
 
 export const Hero: FC = () => {
   return (
@@ -35,7 +35,7 @@ export const Hero: FC = () => {
                 buttonVariants({
                   variant: "outline",
                 }),
-                "w-full flex-1 cursor-pointer sm:w-[unset] sm:flex-0",
+                "w-full flex-1 cursor-pointer sm:w-[unset] sm:flex-0"
               )}
             >
               Launch via Telegram
@@ -44,5 +44,5 @@ export const Hero: FC = () => {
         </div>
       </CardContent>
     </Card>
-  );
-};
+  )
+}

@@ -1,10 +1,10 @@
 export interface GasPrice {
-  gasPriceWei: bigint;
+  gasPriceWei: bigint
 }
 
 /**
  * Provider for getting gas prices.
  */
 export abstract class IGasPriceProvider {
-  public abstract getGasPrice(): Promise<GasPrice>;
+  public abstract getGasPrice(): Promise<GasPrice>
 }

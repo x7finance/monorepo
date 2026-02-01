@@ -1,24 +1,22 @@
-"use client";
+"use client"
 
-import React, { memo } from "react";
+import React, { memo } from "react"
 
-import { Card, CardContent, CardHeader, CardTitle } from "@x7/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@x7/ui/card"
+import { SettingsModule, SettingsOverlay } from "~/lib/components/core/settings"
 
-import {
-  SettingsModule,
-  SettingsOverlay,
-} from "~/lib/components/core/settings";
-import { X7SwapForm } from "../swap/swap-form";
-import { DrpcPartner } from "./drpc-partner";
+import { X7SwapForm } from "../swap/swap-form"
+
+import { DrpcPartner } from "./drpc-partner"
 
 // import { MarketingBlurb } from "./marketing-blurb";
 
-const MemoizedX7SwapForm = memo(X7SwapForm);
+const MemoizedX7SwapForm = memo(X7SwapForm)
 
 export function XChangeSwap({
   compactView = false,
 }: {
-  compactView?: boolean;
+  compactView?: boolean
 }) {
   return (
     <Card className="w-full flex-col border-0 bg-transparent shadow-none sm:max-w-md">
@@ -46,5 +44,5 @@ export function XChangeSwap({
         {/* <MarketingBlurb compactView={compactView} /> */}
       </CardContent>
     </Card>
-  );
+  )
 }

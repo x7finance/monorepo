@@ -1,20 +1,20 @@
-import React from "react";
+import React from "react"
 
-import { cn } from "@x7/css";
-import { TextIcon, X7LongLogo, XIcon } from "@x7/icons";
-import { buttonVariants } from "@x7/ui/button";
-import { LinkInternal } from "@x7/ui/link";
+import { cn } from "@x7/css"
+import { TextIcon, X7LongLogo, XIcon } from "@x7/icons"
+import { buttonVariants } from "@x7/ui/button"
+import { LinkInternal } from "@x7/ui/link"
 import {
   Sheet,
   SheetClose,
   SheetContent,
   SheetHeader,
   SheetTrigger,
-} from "@x7/ui/sheet";
+} from "@x7/ui/sheet"
+import { MOBILE_NAV_LINKS } from "~/lib/config/site"
+import { DocsLinks } from "~/types/links"
 
-import { MOBILE_NAV_LINKS } from "~/lib/config/site";
-import { DocsLinks } from "~/types/links";
-import { ThemeToggle } from "../utils/theme-toggle";
+import { ThemeToggle } from "../utils/theme-toggle"
 
 export function MobileNavigation({ className }: { className?: string }) {
   return (
@@ -23,7 +23,7 @@ export function MobileNavigation({ className }: { className?: string }) {
         <button
           className={cn(
             "relative z-40 -m-2 inline-flex items-center rounded-lg border border-zinc-600 stroke-zinc-900 p-1 text-black hover:bg-zinc-200/50 hover:stroke-zinc-600 focus-visible:outline-emerald-500 active:stroke-zinc-900 sm:p-2 dark:stroke-zinc-100 dark:text-white dark:hover:bg-zinc-800/50 dark:hover:stroke-zinc-500 dark:active:stroke-zinc-100",
-            className,
+            className
           )}
         >
           <TextIcon data-slot="icon" className="h-6 w-6 rotate-180" />
@@ -67,7 +67,7 @@ export function MobileNavigation({ className }: { className?: string }) {
                   buttonVariants({
                     variant: "outline",
                   }),
-                  "text-black dark:text-white",
+                  "text-black dark:text-white"
                 )}
               >
                 Read Docs
@@ -80,7 +80,7 @@ export function MobileNavigation({ className }: { className?: string }) {
                 className={cn(
                   buttonVariants({
                     variant: "default",
-                  }),
+                  })
                 )}
               >
                 Go To Xchange &rarr;
@@ -90,5 +90,5 @@ export function MobileNavigation({ className }: { className?: string }) {
         </div>
       </SheetContent>
     </Sheet>
-  );
+  )
 }

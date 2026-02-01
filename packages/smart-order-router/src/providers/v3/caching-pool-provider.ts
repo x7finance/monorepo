@@ -1,18 +1,19 @@
-import _ from "lodash";
-
-import type { FeeAmount, Pool } from "@x7/sdk";
-import { LogCodes } from "@x7/utils";
-import type { ChainId, Token } from "@x7/utils";
-
-import { metric, MetricLoggerUnit } from "../../utils/metric";
-import { log } from "../../utils/log";
-import type { ICache } from "../cache";
-import type { ProviderConfig } from "../provider";
+import type { ICache } from "../cache"
+import type { ProviderConfig } from "../provider"
 import type {
   IV3PoolProvider,
   V3ImplementationPair,
   V3PoolAccessor,
-} from "./pool-provider";
+} from "./pool-provider"
+import type { FeeAmount, Pool } from "@x7/sdk"
+import type { ChainId, Token } from "@x7/utils"
+
+import _ from "lodash"
+
+import { LogCodes } from "@x7/utils"
+
+import { log } from "../../utils/log"
+import { metric, MetricLoggerUnit } from "../../utils/metric"
 
 /**
  * Provider for getting V3 pools, with functionality for caching the results.
@@ -24,7 +25,7 @@ import type {
  */
 export class CachingV3PoolProvider implements IV3PoolProvider {
   private POOL_KEY = (chainId: ChainId, address: string) =>
-    `pool-${chainId}-${address}`;
+    `pool-${chainId}-${address}`
 
   /**
    * Creates an instance of CachingV3PoolProvider.
@@ -35,72 +36,72 @@ export class CachingV3PoolProvider implements IV3PoolProvider {
   constructor(
     protected chainId: ChainId,
     protected poolProvider: IV3PoolProvider,
-    private cache: ICache<Pool>,
+    private cache: ICache<Pool>
   ) {}
 
   public async getPools(
     tokenPairs: [Token, Token, FeeAmount][],
-    providerConfig?: ProviderConfig,
+    providerConfig?: ProviderConfig
   ): Promise<V3PoolAccessor> {
-    const poolAddressSet: Set<string> = new Set<string>();
-    const poolsToGetTokenPairs: [Token, Token, FeeAmount][] = [];
-    const poolsToGetAddresses: string[] = [];
-    const poolAddressToPool: Record<string, Pool> = {};
+    const poolAddressSet: Set<string> = new Set<string>()
+    const poolsToGetTokenPairs: [Token, Token, FeeAmount][] = []
+    const poolsToGetAddresses: string[] = []
+    const poolAddressToPool: Record<string, Pool> = {}
 
     for (const [tokenA, tokenB, feeAmount] of tokenPairs) {
       const { poolAddresses, token0, token1 } = this.getPoolAddresses(
         tokenA,
         tokenB,
         feeAmount,
-        providerConfig?.forceAllImplementations ?? false,
-      );
+        providerConfig?.forceAllImplementations ?? false
+      )
 
       if (
         poolAddresses.filter((impPair) => poolAddressSet.has(impPair.address))
           .length > 0
       ) {
-        continue;
+        continue
       }
 
       poolAddresses.forEach(
         (impPair) => poolAddressSet.add(impPair.address),
-        poolAddressSet,
-      );
+        poolAddressSet
+      )
 
       const cachedPools = await Promise.all(
         poolAddresses.map(async (impPair) => ({
           address: impPair.address,
           fee: impPair.fee,
           cache: await this.cache.get(
-            this.POOL_KEY(this.chainId, impPair.address),
+            this.POOL_KEY(this.chainId, impPair.address)
           ),
-        })),
-      );
+        }))
+      )
 
       if (cachedPools.filter((c) => !!c.cache).length > 0) {
         metric.putMetric(
           "V3_INMEMORY_CACHING_POOL_HIT_IN_MEMORY",
           1,
-          MetricLoggerUnit.None,
-        );
+          MetricLoggerUnit.None
+        )
         cachedPools
           .filter((pool) => !!pool.cache)
           .forEach((cachedPool) => {
             // oxlint-disable-next-line @typescript-eslint/no-non-null-assertion
-            poolAddressToPool[cachedPool.address] = cachedPool.cache!;
-          });
-        continue;
+            poolAddressToPool[cachedPool.address] = cachedPool.cache!
+          })
+        continue
       }
 
       metric.putMetric(
         "V3_INMEMORY_CACHING_POOL_MISS_NOT_IN_MEMORY",
         1,
-        MetricLoggerUnit.None,
-      );
-      poolsToGetTokenPairs.push([token0, token1, feeAmount]);
+        MetricLoggerUnit.None
+      )
+      poolsToGetTokenPairs.push([token0, token1, feeAmount])
       poolAddresses.forEach((impPair) =>
-        poolsToGetAddresses.push(impPair.address),
-      );
+        poolsToGetAddresses.push(impPair.address)
+      )
     }
 
     log.info(
@@ -112,25 +113,25 @@ export class CachingV3PoolProvider implements IV3PoolProvider {
       } pools.`,
       {
         poolsFound: _.map(Object.values(poolAddressToPool), (p) => {
-          return `${p.token0.symbol} ${p.token1.symbol} ${p.fee}`;
+          return `${p.token0.symbol} ${p.token1.symbol} ${p.fee}`
         }),
         poolsToGetTokenPairs: _.map(poolsToGetTokenPairs, (t) => {
-          return `${t[0].symbol} ${t[1].symbol} ${t[2]}`;
+          return `${t[0].symbol} ${t[1].symbol} ${t[2]}`
         }),
-      },
-    );
+      }
+    )
 
     if (poolsToGetAddresses.length > 0) {
       const poolAccessor = await this.poolProvider.getPools(
         poolsToGetTokenPairs,
-        providerConfig,
-      );
+        providerConfig
+      )
       for (const address of poolsToGetAddresses) {
-        const pool = poolAccessor.getPoolByAddress(address);
+        const pool = poolAccessor.getPoolByAddress(address)
         if (pool) {
-          poolAddressToPool[address] = pool;
+          poolAddressToPool[address] = pool
           // We don't want to wait for this caching to complete before returning the pools.
-          void this.cache.set(this.POOL_KEY(this.chainId, address), pool);
+          void this.cache.set(this.POOL_KEY(this.chainId, address), pool)
         }
       }
     }
@@ -139,43 +140,43 @@ export class CachingV3PoolProvider implements IV3PoolProvider {
       getPool: (
         tokenA: Token,
         tokenB: Token,
-        feeAmount: FeeAmount,
+        feeAmount: FeeAmount
       ): (Pool | undefined)[] => {
         const { poolAddresses } = this.getPoolAddresses(
           tokenA,
           tokenB,
           feeAmount,
-          providerConfig?.forceAllImplementations ?? false,
-        );
+          providerConfig?.forceAllImplementations ?? false
+        )
         return poolAddresses.map(
-          (impPair) => poolAddressToPool[impPair.address] ?? undefined,
-        );
+          (impPair) => poolAddressToPool[impPair.address] ?? undefined
+        )
       },
       getPoolByAddress: (address: string): Pool | undefined =>
         poolAddressToPool[address],
       getAllPools: (): Pool[] => Object.values(poolAddressToPool),
-    };
+    }
   }
 
   public getPoolAddress(
     tokenA: Token,
     tokenB: Token,
-    feeAmount: FeeAmount,
+    feeAmount: FeeAmount
   ): { poolAddress: V3ImplementationPair; token0: Token; token1: Token } {
-    return this.poolProvider.getPoolAddress(tokenA, tokenB, feeAmount);
+    return this.poolProvider.getPoolAddress(tokenA, tokenB, feeAmount)
   }
 
   public getPoolAddresses(
     tokenA: Token,
     tokenB: Token,
     feeAmount: FeeAmount,
-    forceAllImplementations = false,
+    forceAllImplementations = false
   ): { poolAddresses: V3ImplementationPair[]; token0: Token; token1: Token } {
     return this.poolProvider.getPoolAddresses(
       tokenA,
       tokenB,
       feeAmount,
-      forceAllImplementations,
-    );
+      forceAllImplementations
+    )
   }
 }

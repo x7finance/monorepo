@@ -1,10 +1,10 @@
-export const ETH_ADDRESS = "0x0000000000000000000000000000000000000000";
-export const ETH_ADDRESS_01 = "0x0000000000000000000000000000000000000001";
-export const ETH_ADDRESS_02 = "0x0000000000000000000000000000000000000002";
-export const PERMIT2_ADDRESS = "0x000000000022D473030F116dDEE9F6B43aC78BA3";
+export const ETH_ADDRESS = "0x0000000000000000000000000000000000000000"
+export const ETH_ADDRESS_01 = "0x0000000000000000000000000000000000000001"
+export const ETH_ADDRESS_02 = "0x0000000000000000000000000000000000000002"
+export const PERMIT2_ADDRESS = "0x000000000022D473030F116dDEE9F6B43aC78BA3"
 
-export const ONE_BILLION = 1000000000;
-export const ONE_MILLION = 1000000;
+export const ONE_BILLION = 1000000000
+export const ONE_MILLION = 1000000
 
 export const LOAN_NAME_MAPPING: Record<string, string> = {
   "X7 Initial Liquidity Loan Term (001)": "Centaurus",
@@ -12,9 +12,9 @@ export const LOAN_NAME_MAPPING: Record<string, string> = {
   "X7 Initial Liquidity Loan Term (003)": "Messier",
   "X7 Initial Liquidity Loan Term (004)": "Cygnus",
   "X7 Initial Liquidity Loan Term (005)": "Sagittarius",
-};
+}
 
-export const DEFAULT_LOCALE = "en-US";
+export const DEFAULT_LOCALE = "en-US"
 export const SUPPORTED_LOCALES = [
   // order as they appear in the language dropdown
   "en-US",
@@ -49,4 +49,4 @@ export const SUPPORTED_LOCALES = [
   "vi-VN",
   "zh-CN",
   "zh-TW",
-];
+]

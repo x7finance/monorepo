@@ -14,11 +14,17 @@
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist", "src", "artifacts"],
+  "files": [
+    "dist",
+    "src",
+    "artifacts"
+  ],
   "scripts": {
     "build": "hardhat compile && tsgo",
     "clean": "git clean -xdf .turbo artifacts node_modules cache dist",
     "dev": "tsgo --watch",
+    "format": "oxfmt --config ../../tooling/oxfmt/.oxfmtrc.json src/index.ts",
+    "format:fix": "oxfmt --write --config ../../tooling/oxfmt/.oxfmtrc.json src/index.ts",
     "lint": "oxlint src/",
     "typecheck": "tsgo --noEmit"
   },

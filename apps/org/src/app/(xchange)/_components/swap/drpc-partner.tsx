@@ -1,6 +1,6 @@
-import type { SVGProps } from "react";
+import type { SVGProps } from "react"
 
-import { LinkExternal } from "@x7/ui/link";
+import { LinkExternal } from "@x7/ui/link"
 
 export function DrpcPartner() {
   return (
@@ -13,7 +13,7 @@ export function DrpcPartner() {
         <PoweredByDrpc className="h-10 w-32 opacity-40 transition-opacity duration-300 group-hover:opacity-100 sm:w-40" />
       </LinkExternal>
     </div>
-  );
+  )
 }
 
 function PoweredByDrpc(props: SVGProps<SVGSVGElement>) {
@@ -64,5 +64,5 @@ function PoweredByDrpc(props: SVGProps<SVGSVGElement>) {
         fill="currentColor"
       />
     </svg>
-  );
+  )
 }

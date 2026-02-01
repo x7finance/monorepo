@@ -1,13 +1,12 @@
-import { create } from "zustand";
-
+import type { SwapQuoteActions, SwapQuoteState } from "./types"
 import type {
   BestSwapRoute,
   RouteWithValidQuote,
   SwapRoute,
-} from "@x7/smart-order-router";
-import type { Implementation } from "@x7/utils";
+} from "@x7/smart-order-router"
+import type { Implementation } from "@x7/utils"
 
-import type { SwapQuoteActions, SwapQuoteState } from "./types";
+import { create } from "zustand"
 
 interface SwapQuoteStore extends SwapQuoteState, SwapQuoteActions {}
 
@@ -49,4 +48,4 @@ export const useSwapQuoteStore = create<SwapQuoteStore>((set) => ({
 
   setSwapError: (error: { message: string } | undefined) =>
     set({ swapError: error }),
-}));
+}))

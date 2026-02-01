@@ -1,29 +1,30 @@
 /* oxlint-disable react-hooks/exhaustive-deps */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
-"use client";
+"use client"
 
-import { useCallback, useMemo, useState } from "react";
-import type { BaseError } from "@wagmi/core";
-import { toast } from "sonner";
-import { UserRejectedRequestError } from "viem";
-import type { Address } from "viem";
-import { useAccount, useSimulateContract, useWriteContract } from "wagmi";
+import type { BaseError } from "@wagmi/core"
+import type { Address } from "viem"
 import type {
   WriteContractErrorType,
   WriteContractReturnType,
-} from "wagmi/actions";
-import { waitForTransactionReceipt } from "wagmi/actions";
+} from "wagmi/actions"
 
-import { XchangeFactory } from "@x7/contracts";
+import { useCallback, useMemo, useState } from "react"
+import { toast } from "sonner"
+import { UserRejectedRequestError } from "viem"
+import { useAccount, useSimulateContract, useWriteContract } from "wagmi"
+import { waitForTransactionReceipt } from "wagmi/actions"
 
-import { useTransactionStore } from "~/lib/providers/tx";
-import { useWeb3Config } from "../../providers/web3";
+import { XchangeFactory } from "@x7/contracts"
+import { useTransactionStore } from "~/lib/providers/tx"
+
+import { useWeb3Config } from "../../providers/web3"
 
 interface UseCreatePairParams {
-  tokenA: Address;
-  tokenB: Address;
-  factoryAddress: Address;
-  enabled?: boolean;
+  tokenA: Address
+  tokenB: Address
+  factoryAddress: Address
+  enabled?: boolean
 }
 
 export const useCreatePair = ({
@@ -31,12 +32,12 @@ export const useCreatePair = ({
   tokenB,
   factoryAddress,
 }: UseCreatePairParams) => {
-  const { address } = useAccount();
-  const [isPending, setIsPending] = useState(false);
+  const { address } = useAccount()
+  const [isPending, setIsPending] = useState(false)
   const {
     mutate: { trackTransaction },
-  } = useTransactionStore();
-  const { wagmiConfig: config } = useWeb3Config();
+  } = useTransactionStore()
+  const { wagmiConfig: config } = useWeb3Config()
 
   const { data } = useSimulateContract({
     config,
@@ -44,18 +45,18 @@ export const useCreatePair = ({
     abi: XchangeFactory,
     functionName: "createPair",
     args: [tokenA, tokenB],
-  });
+  })
 
   const onSettled = useCallback(
     (hash: `0x${string}` | undefined, e: WriteContractErrorType | null) => {
       if (e instanceof Error) {
         if (!(e instanceof UserRejectedRequestError)) {
-          toast.error((e as BaseError).shortMessage || e.message);
+          toast.error((e as BaseError).shortMessage || e.message)
         }
       }
 
       if (hash && tokenA && tokenB) {
-        setIsPending(true);
+        setIsPending(true)
 
         trackTransaction({
           txHash: hash,
@@ -65,11 +66,11 @@ export const useCreatePair = ({
             completed: `Successfully created a pair for ${tokenA} and ${tokenB}`,
             failed: `Something went wrong creating a pair for ${tokenA} and ${tokenB}`,
           },
-        });
+        })
       }
     },
-    [address, tokenA, tokenB],
-  );
+    [address, tokenA, tokenB]
+  )
 
   const write = useWriteContract({
     mutation: {
@@ -81,18 +82,18 @@ export const useCreatePair = ({
           retryDelay: 2_500,
         })
           .then(() => {
-            setIsPending(false);
+            setIsPending(false)
           })
-          .catch(() => setIsPending(false));
+          .catch(() => setIsPending(false))
       },
     },
-  });
+  })
 
   return useMemo(() => {
     return {
       ...write,
       isPending,
       data,
-    };
-  }, [isPending, write]);
-};
+    }
+  }, [isPending, write])
+}

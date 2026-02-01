@@ -1,22 +1,22 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/unbound-method */
 
-import * as React from "react";
-import { cva } from "class-variance-authority";
-import type { VariantProps } from "class-variance-authority";
+import type { IconComponent } from "./types"
+import type { VariantProps } from "class-variance-authority"
 
-import { cn } from "@x7/css";
+import { cva } from "class-variance-authority"
+import * as React from "react"
 
-import type { IconComponent } from "./types";
+import { cn } from "@x7/css"
 
-const inputRegex = /^\d*(?:\\[.])?\d*$/; // match escaped "." characters via in a non-capturing group
+const inputRegex = /^\d*(?:\\[.])?\d*$/ // match escaped "." characters via in a non-capturing group
 const escapeRegExp = (string: string) =>
-  string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
+  string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") // $& means the whole matched string
 
 const numericInputProps: Partial<React.InputHTMLAttributes<HTMLInputElement>> =
   {
     placeholder: "0.0",
-  };
+  }
 
 const percentInputProps: Partial<React.InputHTMLAttributes<HTMLInputElement>> =
   {
@@ -24,7 +24,7 @@ const percentInputProps: Partial<React.InputHTMLAttributes<HTMLInputElement>> =
     pattern: "^[0-9]*$",
     inputMode: "decimal",
     maxLength: 3,
-  };
+  }
 
 const textFieldVariants = cva(
   "truncate appearance-none dark:text-zinc-50 text-zinc-900 w-full ring-0! outline-hidden! sm:text-sm sm:leading-6",
@@ -61,34 +61,34 @@ const textFieldVariants = cva(
       size: "default",
       isError: "no",
     },
-  },
-);
+  }
+)
 
-type InputType = "text" | "number" | "percent";
+type InputType = "text" | "number" | "percent"
 
 interface TextFieldBaseProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">,
+  extends
+    Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">,
     Omit<VariantProps<typeof textFieldVariants>, "isError"> {
-  isError?: boolean;
-  id?: string;
-  icon?: IconComponent;
-  iconProps?: Omit<React.ComponentProps<"svg">, "width" | "height">;
-  unit?: string;
+  isError?: boolean
+  id?: string
+  icon?: IconComponent
+  iconProps?: Omit<React.ComponentProps<"svg">, "width" | "height">
+  unit?: string
 }
 
 interface TextFieldDynamicProps<T extends InputType> {
-  type: T;
-  maxDecimals?: T extends "number" ? number : never;
-  onValueChange?(val: string): void;
+  type: T
+  maxDecimals?: T extends "number" ? number : never
+  onValueChange?(val: string): void
 }
 
 export type TextFieldProps<T extends InputType> = TextFieldBaseProps &
-  TextFieldDynamicProps<T>;
+  TextFieldDynamicProps<T>
 
-const isTypeText = (type: InputType): type is "text" => type === "text";
-const isTypeNumber = (type: InputType): type is "number" => type === "number";
-const isTypePercent = (type: InputType): type is "percent" =>
-  type === "percent";
+const isTypeText = (type: InputType): type is "text" => type === "text"
+const isTypeNumber = (type: InputType): type is "number" => type === "number"
+const isTypePercent = (type: InputType): type is "percent" => type === "percent"
 
 const Component = <T extends InputType>(
   {
@@ -105,46 +105,46 @@ const Component = <T extends InputType>(
     isError,
     ...props
   }: TextFieldProps<T>,
-  ref: React.ForwardedRef<HTMLInputElement>,
+  ref: React.ForwardedRef<HTMLInputElement>
 ) => {
   const _onChange: React.InputHTMLAttributes<HTMLInputElement>["onChange"] = (
-    e,
+    e
   ) => {
-    const nextUserInput = e.target.value;
+    const nextUserInput = e.target.value
     if (typeof nextUserInput === "undefined") {
-      return;
+      return
     }
 
     if (isTypeNumber(type)) {
-      const val = `${nextUserInput}`.replace(/,/g, ".");
-      if (onValueChange && val === "") onValueChange("");
+      const val = `${nextUserInput}`.replace(/,/g, ".")
+      if (onValueChange && val === "") onValueChange("")
 
       if (inputRegex.test(escapeRegExp(val))) {
         if (maxDecimals && val.includes(".")) {
-          const [, decimals] = val.split(".");
+          const [, decimals] = val.split(".")
           if (onValueChange && decimals!.length <= maxDecimals) {
-            onValueChange(val);
+            onValueChange(val)
           }
         } else {
-          if (onValueChange) onValueChange(val);
+          if (onValueChange) onValueChange(val)
         }
       }
     } else if (isTypeText(type) && onValueChange) {
-      onValueChange(nextUserInput);
+      onValueChange(nextUserInput)
     } else if (isTypePercent(type)) {
-      const _nextUserInput = nextUserInput.replace(/,/g, ".").replace(/%/g, "");
+      const _nextUserInput = nextUserInput.replace(/,/g, ".").replace(/%/g, "")
       if (
         _nextUserInput === "" ||
         inputRegex.test(escapeRegExp(_nextUserInput))
       ) {
-        if (onValueChange) onValueChange(_nextUserInput);
+        if (onValueChange) onValueChange(_nextUserInput)
       }
     }
 
     if (onChange) {
-      onChange(e);
+      onChange(e)
     }
-  };
+  }
 
   return (
     <div className="group relative flex w-full items-center justify-between">
@@ -190,11 +190,11 @@ const Component = <T extends InputType>(
         </div>
       ) : null}
     </div>
-  );
-};
+  )
+}
 
-const TextField = React.forwardRef(Component);
-TextField.displayName = "TextField";
+const TextField = React.forwardRef(Component)
+TextField.displayName = "TextField"
 
 const TextFieldDescription = React.forwardRef<
   HTMLParagraphElement,
@@ -206,13 +206,13 @@ const TextFieldDescription = React.forwardRef<
       className={cn("text-muted-foreground text-sm", className)}
       {...props}
     />
-  );
-});
-TextFieldDescription.displayName = "TextFieldDescription";
+  )
+})
+TextFieldDescription.displayName = "TextFieldDescription"
 
 export {
   TextField,
   type TextFieldBaseProps,
   TextFieldDescription,
   textFieldVariants,
-};
+}

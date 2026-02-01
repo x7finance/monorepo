@@ -1,10 +1,11 @@
-"use client";
+"use client"
 
-import type { HTMLAttributes, ReactNode } from "react";
-import { cva } from "class-variance-authority";
-import type { VariantProps } from "class-variance-authority";
+import type { VariantProps } from "class-variance-authority"
+import type { HTMLAttributes, ReactNode } from "react"
 
-import { cn } from "@x7/css";
+import { cva } from "class-variance-authority"
+
+import { cn } from "@x7/css"
 
 const iconContainerVariants = cva(
   "mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full",
@@ -18,8 +19,8 @@ const iconContainerVariants = cva(
     defaultVariants: {
       variant: "error",
     },
-  },
-);
+  }
+)
 
 const iconVariants = cva("h-8 w-8", {
   variants: {
@@ -31,12 +32,12 @@ const iconVariants = cva("h-8 w-8", {
   defaultVariants: {
     variant: "error",
   },
-});
+})
 
-type ErrorDisplayVariant = VariantProps<typeof iconContainerVariants>;
+type ErrorDisplayVariant = VariantProps<typeof iconContainerVariants>
 
 interface ErrorDisplayProps extends HTMLAttributes<HTMLDivElement> {
-  variant?: ErrorDisplayVariant["variant"];
+  variant?: ErrorDisplayVariant["variant"]
 }
 
 export function ErrorDisplay({
@@ -48,17 +49,17 @@ export function ErrorDisplay({
     <div
       className={cn(
         "flex min-h-[50vh] flex-col items-center justify-center px-4",
-        className,
+        className
       )}
       {...props}
     >
       <div className="mx-auto max-w-md text-center">{children}</div>
     </div>
-  );
+  )
 }
 
 interface ErrorDisplayIconProps extends ErrorDisplayVariant {
-  icon: React.ComponentType<{ className?: string }>;
+  icon: React.ComponentType<{ className?: string }>
 }
 
 ErrorDisplay.Icon = function ErrorDisplayIcon({
@@ -69,10 +70,10 @@ ErrorDisplay.Icon = function ErrorDisplayIcon({
     <div className={iconContainerVariants({ variant })}>
       <Icon className={iconVariants({ variant })} />
     </div>
-  );
-};
+  )
+}
 
-type ErrorDisplayTitleProps = HTMLAttributes<HTMLHeadingElement>;
+type ErrorDisplayTitleProps = HTMLAttributes<HTMLHeadingElement>
 
 ErrorDisplay.Title = function ErrorDisplayTitle({
   className,
@@ -82,16 +83,16 @@ ErrorDisplay.Title = function ErrorDisplayTitle({
     <h2
       className={cn(
         "mb-2 text-2xl font-bold text-zinc-900 dark:text-zinc-100",
-        className,
+        className
       )}
       {...props}
     />
-  );
-};
+  )
+}
 
 interface ErrorDisplayMessageProps extends HTMLAttributes<HTMLParagraphElement> {
-  error?: Error;
-  fallback?: string;
+  error?: Error
+  fallback?: string
 }
 
 ErrorDisplay.Message = function ErrorDisplayMessage({
@@ -103,19 +104,16 @@ ErrorDisplay.Message = function ErrorDisplayMessage({
 }: ErrorDisplayMessageProps) {
   return (
     <p
-      className={cn(
-        "mb-6 text-sm text-zinc-600 dark:text-zinc-400",
-        className,
-      )}
+      className={cn("mb-6 text-sm text-zinc-600 dark:text-zinc-400", className)}
       {...props}
     >
       {children ?? error?.message ?? fallback}
     </p>
-  );
-};
+  )
+}
 
 interface ErrorDisplayDigestProps extends HTMLAttributes<HTMLParagraphElement> {
-  digest?: string;
+  digest?: string
 }
 
 ErrorDisplay.Digest = function ErrorDisplayDigest({
@@ -123,7 +121,7 @@ ErrorDisplay.Digest = function ErrorDisplayDigest({
   digest,
   ...props
 }: ErrorDisplayDigestProps) {
-  if (!digest) return null;
+  if (!digest) return null
 
   return (
     <p
@@ -132,11 +130,11 @@ ErrorDisplay.Digest = function ErrorDisplayDigest({
     >
       Error ID: {digest}
     </p>
-  );
-};
+  )
+}
 
 interface ErrorDisplayActionsProps extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode;
+  children: ReactNode
 }
 
 ErrorDisplay.Actions = function ErrorDisplayActions({
@@ -148,11 +146,11 @@ ErrorDisplay.Actions = function ErrorDisplayActions({
     <div
       className={cn(
         "flex flex-col gap-3 sm:flex-row sm:justify-center",
-        className,
+        className
       )}
       {...props}
     >
       {children}
     </div>
-  );
-};
+  )
+}

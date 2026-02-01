@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
+import type { Metadata } from "next"
 
-import { getRandomPioneerNumber } from "@x7/utils";
+import { getRandomPioneerNumber } from "@x7/utils"
+import { SiteContentContainer } from "~/lib/components/core/site-content-container"
+import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
+import { GradientTypes } from "~/lib/utils/gradients"
+import { DashboardLinksEnum, NftsLinkEnum } from "~/types/links"
 
-import { SiteContentContainer } from "~/lib/components/core/site-content-container";
-import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc";
-import { GradientTypes } from "~/lib/utils/gradients";
-import { DashboardLinksEnum, NftsLinkEnum } from "~/types/links";
-import { Heading } from "../../_components/heading";
-import { SectionStep } from "../../_components/section-step";
+import { Heading } from "../../_components/heading"
+import { SectionStep } from "../../_components/section-step"
 
 const metadata = {
   title: "Magister NFT",
@@ -15,10 +15,10 @@ const metadata = {
     "Uncover X7 Finance's Magister NFT: A unique digital asset that offers holders exclusive benefits in our DAO governance. Learn how the Magister NFT can enhance your governance experience, provide preferential rates, and unlock new opportunities in the DeFi market. Understand the mechanics, benefits, and potential returns of our Magister NFT and optimize your decentralized finance journey.",
   slug: NftsLinkEnum.Magister,
   section: "default",
-};
+}
 
 export function generateMetadata(): Metadata {
-  return generateMetadataFromDoc(metadata);
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function MagisterNftPage() {
@@ -52,5 +52,5 @@ export default function MagisterNftPage() {
         </div>
       </SiteContentContainer>
     </div>
-  );
+  )
 }

@@ -1,17 +1,18 @@
-import type { Metadata } from "next";
-import Image from "next/image";
+import type { Metadata } from "next"
 
-import { cn } from "@x7/css";
-import { LinkInternal } from "@x7/ui/link";
-import { getRandomPioneerNumber } from "@x7/utils";
+import Image from "next/image"
 
-import { SiteContentContainer } from "~/lib/components/core/site-content-container";
-import { Assistance } from "~/lib/components/utils/assistance";
-import { PioneerDrop } from "~/lib/components/utils/pioneer-drop";
-import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc";
-import { GradientTypes } from "~/lib/utils/gradients";
-import { DocsLinks, MarketingLinks } from "~/types/links";
-import { Heading } from "../_components/heading";
+import { cn } from "@x7/css"
+import { LinkInternal } from "@x7/ui/link"
+import { getRandomPioneerNumber } from "@x7/utils"
+import { SiteContentContainer } from "~/lib/components/core/site-content-container"
+import { Assistance } from "~/lib/components/utils/assistance"
+import { PioneerDrop } from "~/lib/components/utils/pioneer-drop"
+import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
+import { GradientTypes } from "~/lib/utils/gradients"
+import { DocsLinks, MarketingLinks } from "~/types/links"
+
+import { Heading } from "../_components/heading"
 
 const metadata = {
   title: "Get Started",
@@ -19,10 +20,10 @@ const metadata = {
     "Embark on Your DeFi Journey with X7 Finance: A comprehensive platform tailored for investors and project launchers. Delve into our innovative DeFi solutions, including our Automated Market Making (AMM) Decentralized Exchange (DEX), Lending Pool, and Liquidity Loans. Explore our democratic DAO governance model and learn how to participate. Whether you're an investor seeking opportunities or a project launcher aiming for success, X7 Finance is your portal to the future of decentralized finance.",
   slug: MarketingLinks.GetStarted,
   section: "default",
-};
+}
 
 export function generateMetadata(): Metadata {
-  return generateMetadataFromDoc(metadata);
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function GettingStartedPage() {
@@ -42,7 +43,7 @@ export default function GettingStartedPage() {
                   >
                     <div
                       className={cn(
-                        `mx-auto mt-16 flex max-w-2xl flex-col rounded-3xl ring-1 ring-zinc-600 duration-300 group-hover:ring-zinc-900 sm:mt-20 lg:mx-0 lg:max-w-none dark:ring-zinc-800 dark:group-hover:ring-zinc-600`,
+                        `mx-auto mt-16 flex max-w-2xl flex-col rounded-3xl ring-1 ring-zinc-600 duration-300 group-hover:ring-zinc-900 sm:mt-20 lg:mx-0 lg:max-w-none dark:ring-zinc-800 dark:group-hover:ring-zinc-600`
                       )}
                     >
                       <div className="-mt-2 p-2 lg:mt-0">
@@ -58,7 +59,7 @@ export default function GettingStartedPage() {
                         <h4
                           className={cn(
                             role.gradient,
-                            `font-display flex-none transform bg-linear-to-r bg-clip-text text-sm leading-6 font-semibold text-transparent duration-300 group-hover:opacity-90 sm:text-2xl sm:group-hover:text-[25px]`,
+                            `font-display flex-none transform bg-linear-to-r bg-clip-text text-sm leading-6 font-semibold text-transparent duration-300 group-hover:opacity-90 sm:text-2xl sm:group-hover:text-[25px]`
                           )}
                         >
                           {role.name}
@@ -108,14 +109,14 @@ export default function GettingStartedPage() {
                   >
                     <div
                       className={cn(
-                        `mx-auto mt-16 flex max-w-2xl flex-col rounded-3xl ring-1 ring-zinc-600 duration-300 group-hover:ring-zinc-900 sm:mt-20 lg:mx-0 lg:max-w-none dark:ring-zinc-800 dark:group-hover:ring-zinc-600`,
+                        `mx-auto mt-16 flex max-w-2xl flex-col rounded-3xl ring-1 ring-zinc-600 duration-300 group-hover:ring-zinc-900 sm:mt-20 lg:mx-0 lg:max-w-none dark:ring-zinc-800 dark:group-hover:ring-zinc-600`
                       )}
                     >
                       <div className="my-4 px-4">
                         <h4
                           className={cn(
                             role.gradient,
-                            `font-display flex-none transform bg-linear-to-r bg-clip-text text-sm leading-6 font-semibold text-transparent duration-300 group-hover:opacity-90 sm:text-2xl sm:group-hover:text-[25px]`,
+                            `font-display flex-none transform bg-linear-to-r bg-clip-text text-sm leading-6 font-semibold text-transparent duration-300 group-hover:opacity-90 sm:text-2xl sm:group-hover:text-[25px]`
                           )}
                         >
                           <Image
@@ -144,7 +145,7 @@ export default function GettingStartedPage() {
         </div>
       </SiteContentContainer>
     </div>
-  );
+  )
 }
 
 const roles = [
@@ -164,7 +165,7 @@ const roles = [
     description:
       "I want to understand the benefits of launching my token on Xchange and how to do so.",
   },
-];
+]
 
 const secondaryRoles = [
   {
@@ -183,4 +184,4 @@ const secondaryRoles = [
     description:
       "I am here to learn how to contribute capital to the lending pool and understanding it's benefits.",
   },
-];
+]

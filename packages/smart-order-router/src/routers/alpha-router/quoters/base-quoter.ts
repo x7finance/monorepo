@@ -1,27 +1,28 @@
-import _ from "lodash";
-
-import type { Pair, Pool } from "@x7/sdk";
-import { LogCodes } from "@x7/utils";
-import type { ChainId, Currency, Protocol, Token, TradeType } from "@x7/utils";
-
 import type {
   ITokenListProvider,
   ITokenProvider,
   ITokenValidatorProvider,
   TokenValidationResult,
-} from "../../../providers";
-import type { CurrencyAmount, ViemProviderType } from "../../../utils";
-import { log, metric, MetricLoggerUnit, poolToString } from "../../../utils";
-import type { MixedRoute, V2Route, V3Route } from "../../router";
-import type { AlphaRouterConfig } from "../types";
-import type { RouteWithValidQuote } from "../entities/route-with-valid-quote";
+} from "../../../providers"
+import type { CurrencyAmount, ViemProviderType } from "../../../utils"
+import type { MixedRoute, V2Route, V3Route } from "../../router"
+import type { RouteWithValidQuote } from "../entities/route-with-valid-quote"
 import type {
   CandidatePoolsBySelectionCriteria,
   V2CandidatePools,
   V3CandidatePools,
-} from "../functions/get-candidate-pools";
-import type { IGasModel } from "../gas-models";
-import type { GetQuotesResult, GetRoutesResult } from "./model/results";
+} from "../functions/get-candidate-pools"
+import type { IGasModel } from "../gas-models"
+import type { AlphaRouterConfig } from "../types"
+import type { GetQuotesResult, GetRoutesResult } from "./model/results"
+import type { Pair, Pool } from "@x7/sdk"
+import type { ChainId, Currency, Protocol, Token, TradeType } from "@x7/utils"
+
+import _ from "lodash"
+
+import { LogCodes } from "@x7/utils"
+
+import { log, metric, MetricLoggerUnit, poolToString } from "../../../utils"
 
 /**
  * Interface for a Quoter.
@@ -38,24 +39,24 @@ export abstract class BaseQuoter<
     | [V3CandidatePools, V2CandidatePools],
   Route extends V2Route | V3Route | MixedRoute,
 > {
-  protected tokenProvider: ITokenProvider;
-  protected chainId: ChainId;
-  protected protocol: Protocol;
-  protected blockedTokenListProvider?: ITokenListProvider;
-  protected tokenValidatorProvider?: ITokenValidatorProvider;
+  protected tokenProvider: ITokenProvider
+  protected chainId: ChainId
+  protected protocol: Protocol
+  protected blockedTokenListProvider?: ITokenListProvider
+  protected tokenValidatorProvider?: ITokenValidatorProvider
 
   constructor(
     tokenProvider: ITokenProvider,
     chainId: ChainId,
     protocol: Protocol,
     blockedTokenListProvider?: ITokenListProvider,
-    tokenValidatorProvider?: ITokenValidatorProvider,
+    tokenValidatorProvider?: ITokenValidatorProvider
   ) {
-    this.tokenProvider = tokenProvider;
-    this.chainId = chainId;
-    this.protocol = protocol;
-    this.blockedTokenListProvider = blockedTokenListProvider;
-    this.tokenValidatorProvider = tokenValidatorProvider;
+    this.tokenProvider = tokenProvider
+    this.chainId = chainId
+    this.protocol = protocol
+    this.blockedTokenListProvider = blockedTokenListProvider
+    this.tokenValidatorProvider = tokenValidatorProvider
   }
 
   /**
@@ -76,8 +77,8 @@ export abstract class BaseQuoter<
     candidatePools: CandidatePools,
     tradeType: TradeType,
     routingConfig: AlphaRouterConfig,
-    provider?: ViemProviderType,
-  ): Promise<GetRoutesResult<Route>>;
+    provider?: ViemProviderType
+  ): Promise<GetRoutesResult<Route>>
 
   /**
    * Public method that will fetch quotes for the combination of every route and every amount.
@@ -102,8 +103,8 @@ export abstract class BaseQuoter<
     routingConfig: AlphaRouterConfig,
     candidatePools?: CandidatePoolsBySelectionCriteria,
     gasModel?: IGasModel<RouteWithValidQuote>,
-    gasPriceWei?: bigint,
-  ): Promise<GetQuotesResult>;
+    gasPriceWei?: bigint
+  ): Promise<GetQuotesResult>
 
   /**
    * Public method which would first get the routes and then get the quotes.
@@ -130,37 +131,37 @@ export abstract class BaseQuoter<
     tradeType: TradeType,
     routingConfig: AlphaRouterConfig,
     gasModel?: IGasModel<RouteWithValidQuote>,
-    gasPriceWei?: bigint,
+    gasPriceWei?: bigint
   ): Promise<GetQuotesResult> {
     return this.getRoutes(
       tokenIn,
       tokenOut,
       candidatePools,
       tradeType,
-      routingConfig,
+      routingConfig
     ).then((routesResult) => {
       if (routesResult.routes.length === 1) {
         metric.putMetric(
           `${this.protocol}QuoterSingleRoute`,
           1,
-          MetricLoggerUnit.Count,
-        );
-        percents = [100];
-        amounts = [amount];
+          MetricLoggerUnit.Count
+        )
+        percents = [100]
+        amounts = [amount]
       }
 
       if (routesResult.routes.length > 0) {
         metric.putMetric(
           `${this.protocol}QuoterRoutesFound`,
           routesResult.routes.length,
-          MetricLoggerUnit.Count,
-        );
+          MetricLoggerUnit.Count
+        )
       } else {
         metric.putMetric(
           `${this.protocol}QuoterNoRoutesFound`,
           routesResult.routes.length,
-          MetricLoggerUnit.Count,
-        );
+          MetricLoggerUnit.Count
+        )
       }
 
       return this.getQuotes(
@@ -172,54 +173,54 @@ export abstract class BaseQuoter<
         routingConfig,
         routesResult.candidatePools,
         gasModel,
-        gasPriceWei,
-      );
-    });
+        gasPriceWei
+      )
+    })
   }
 
   protected async applyTokenValidatorToPools<T extends Pool | Pair>(
     pools: T[],
     isInvalidFn: (
       token: Currency,
-      tokenValidation: TokenValidationResult | undefined,
-    ) => boolean,
+      tokenValidation: TokenValidationResult | undefined
+    ) => boolean
   ): Promise<T[]> {
     if (!this.tokenValidatorProvider) {
-      return pools;
+      return pools
     }
 
     log.info(
       LogCodes.TOKEN_VALIDATOR,
-      `Running token validator on ${pools.length} pools`,
-    );
+      `Running token validator on ${pools.length} pools`
+    )
 
-    const tokens = _.flatMap(pools, (pool) => [pool.token0, pool.token1]);
+    const tokens = _.flatMap(pools, (pool) => [pool.token0, pool.token1])
 
     const tokenValidationResults =
-      await this.tokenValidatorProvider.validateTokens(tokens);
+      await this.tokenValidatorProvider.validateTokens(tokens)
 
     const poolsFiltered = _.filter(pools, (pool: T) => {
       const token0Validation = tokenValidationResults.getValidationByToken(
-        pool.token0,
-      );
+        pool.token0
+      )
       const token1Validation = tokenValidationResults.getValidationByToken(
-        pool.token1,
-      );
+        pool.token1
+      )
 
-      const token0Invalid = isInvalidFn(pool.token0, token0Validation);
-      const token1Invalid = isInvalidFn(pool.token1, token1Validation);
+      const token0Invalid = isInvalidFn(pool.token0, token0Validation)
+      const token1Invalid = isInvalidFn(pool.token1, token1Validation)
 
       if (token0Invalid || token1Invalid) {
         console.info(
           `Dropping pool ${poolToString(pool)} because token is invalid. ${
             pool.token0.symbol
-          }: ${token0Validation}, ${pool.token1.symbol}: ${token1Validation}`,
-        );
+          }: ${token0Validation}, ${pool.token1.symbol}: ${token1Validation}`
+        )
       }
 
-      return !token0Invalid && !token1Invalid;
-    });
+      return !token0Invalid && !token1Invalid
+    })
 
-    return poolsFiltered;
+    return poolsFiltered
   }
 }

@@ -1,13 +1,13 @@
-import React from "react";
+import type { SwapRoute } from "@x7/smart-order-router"
 
-import type { SwapRoute } from "@x7/smart-order-router";
+import React from "react"
 
 export function SwapTaxes({ route }: { route: SwapRoute }) {
   const hasTaxes = route.route.some((r) =>
-    r.tokenPath.some((token) => token.buyFeeBps ?? token.sellFeeBps),
-  );
+    r.tokenPath.some((token) => token.buyFeeBps ?? token.sellFeeBps)
+  )
 
-  if (!hasTaxes) return null;
+  if (!hasTaxes) return null
 
   return (
     <div className="flex items-center justify-between">
@@ -23,7 +23,7 @@ export function SwapTaxes({ route }: { route: SwapRoute }) {
                 ? (Number(token.sellFeeBps) / 10000) * 100
                 : undefined,
               token: token.symbol,
-            })),
+            }))
           )
           .map(({ b, s, token }, index) => (
             <span
@@ -35,5 +35,5 @@ export function SwapTaxes({ route }: { route: SwapRoute }) {
           ))}
       </div>
     </div>
-  );
+  )
 }

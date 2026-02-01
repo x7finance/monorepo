@@ -5,9 +5,9 @@ export interface MethodParameters {
   /**
    * The hex encoded calldata to perform the given operation
    */
-  calldata: string;
+  calldata: string
   /**
    * The amount of ether (wei) to send in hex.
    */
-  value: string;
+  value: string
 }

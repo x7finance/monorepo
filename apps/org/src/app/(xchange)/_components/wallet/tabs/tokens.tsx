@@ -1,30 +1,30 @@
-"use client";
+"use client"
 
-import React, { useCallback, useMemo } from "react";
-import { useAccount } from "wagmi";
+import type { ChainId } from "@x7/utils"
 
-import { Card, CardContent } from "@x7/ui/card";
-import { TabsContent } from "@x7/ui/tabs";
-import type { ChainId } from "@x7/utils";
+import React, { useCallback, useMemo } from "react"
+import { useAccount } from "wagmi"
 
-import { DefaultTokenAdditionForm } from "~/app/(xchange)/_components/swap/(drawers)/default-token-addition-form";
-import { TokenListContent } from "~/lib/components/utils/token-list-content";
+import { Card, CardContent } from "@x7/ui/card"
+import { TabsContent } from "@x7/ui/tabs"
+import { DefaultTokenAdditionForm } from "~/app/(xchange)/_components/swap/(drawers)/default-token-addition-form"
+import { TokenListContent } from "~/lib/components/utils/token-list-content"
 
 // Wrap TokenListContent with React.memo to prevent unnecessary re-renders
-const MemoizedTokenListContent = React.memo(TokenListContent);
+const MemoizedTokenListContent = React.memo(TokenListContent)
 
 // Memoize DefaultTokenAdditionForm to prevent unnecessary re-renders
-const MemoizedDefaultTokenAdditionForm = React.memo(DefaultTokenAdditionForm);
+const MemoizedDefaultTokenAdditionForm = React.memo(DefaultTokenAdditionForm)
 
 export function TokensTab() {
-  const { chain } = useAccount();
-  const chainId = chain?.id;
+  const { chain } = useAccount()
+  const chainId = chain?.id
 
   // Memoize the onSelect function to prevent it from being recreated on every render
-  const handleSelect = useCallback(() => null, []);
+  const handleSelect = useCallback(() => null, [])
 
   // Memoize the chainId to prevent unnecessary re-renders
-  const memoizedChainId = useMemo(() => chainId as ChainId, [chainId]);
+  const memoizedChainId = useMemo(() => chainId as ChainId, [chainId])
 
   return (
     <TabsContent value="tokens">
@@ -47,5 +47,5 @@ export function TokensTab() {
         </CardContent>
       </Card>
     </TabsContent>
-  );
+  )
 }

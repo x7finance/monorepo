@@ -1,11 +1,10 @@
-import type { HTMLAttributes } from "react";
+import type { HTMLAttributes } from "react"
 
-import { X7LongLogo } from "@x7/icons";
-import { LinkExternal, LinkInternal } from "@x7/ui/link";
-
-import { ThemeToggle } from "~/lib/components/utils/theme-toggle";
-import { FOOTER_NAVIGATION } from "~/lib/config/site";
-import { CommunityLinks, TokenLinksEnum, XchangeLinks } from "~/types/links";
+import { X7LongLogo } from "@x7/icons"
+import { LinkExternal, LinkInternal } from "@x7/ui/link"
+import { ThemeToggle } from "~/lib/components/utils/theme-toggle"
+import { FOOTER_NAVIGATION } from "~/lib/config/site"
+import { CommunityLinks, TokenLinksEnum, XchangeLinks } from "~/types/links"
 
 export function SiteFooter({ className }: HTMLAttributes<HTMLElement>) {
   return (
@@ -173,5 +172,5 @@ export function SiteFooter({ className }: HTMLAttributes<HTMLElement>) {
         </div>
       </div>
     </footer>
-  );
+  )
 }

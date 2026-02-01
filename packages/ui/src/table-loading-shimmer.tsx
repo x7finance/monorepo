@@ -15,5 +15,5 @@ export function TableLoadingShimmer() {
       <div className="h-[80px] w-full animate-pulse bg-zinc-100 dark:bg-zinc-900"></div>
       <div className="h-[80px] w-full animate-pulse bg-zinc-200/60 dark:bg-zinc-800/60"></div>
     </div>
-  );
+  )
 }

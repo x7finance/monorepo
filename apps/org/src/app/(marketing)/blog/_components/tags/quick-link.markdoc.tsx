@@ -3,9 +3,9 @@ export function QuickLink({
   description,
   href,
 }: {
-  title: string;
-  description: string;
-  href: string;
+  title: string
+  description: string
+  href: string
 }) {
   return (
     <div className="group relative rounded-xl border border-zinc-200 dark:border-zinc-800">
@@ -20,5 +20,5 @@ export function QuickLink({
         <p className="mt-1 text-sm text-secondary-foreground">{description}</p>
       </div>
     </div>
-  );
+  )
 }

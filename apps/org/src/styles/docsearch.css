@@ -36,8 +36,7 @@
   --docsearch-emphasis-color: var(--color-white);
   --docsearch-logo-color: var(--color-zinc-500);
   --docsearch-modal-background: #111111;
-  --docsearch-modal-shadow: 0 0 0 1px var(--color-zinc-700),
-    var(--shadow-xl);
+  --docsearch-modal-shadow: 0 0 0 1px var(--color-zinc-700), var(--shadow-xl);
   --docsearch-hit-color: var(--color-zinc-300);
   --docsearch-hit-active-color: var(--color-sky-400);
   --docsearch-hit-active-background: rgb(51 65 85 / 0.3);

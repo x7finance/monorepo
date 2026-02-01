@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as React from "react"
 
-import { cn } from "@x7/css";
+import { cn } from "@x7/css"
 
 function Card({ className, ...props }: React.ComponentProps<"div">) {
   return (
@@ -8,11 +8,11 @@ function Card({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="card"
       className={cn(
         "bg-card text-card-foreground border-border rounded-xl border shadow-sm",
-        className,
+        className
       )}
       {...props}
     />
-  );
+  )
 }
 
 function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
@@ -22,15 +22,15 @@ function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
       className={cn("flex flex-col gap-1.5 p-6", className)}
       {...props}
     />
-  );
+  )
 }
 
 interface CardTitleProps extends React.ComponentProps<"div"> {
-  tag?: "h1" | "h2" | "h3";
+  tag?: "h1" | "h2" | "h3"
 }
 
 function CardTitle({ tag = "h3", className, ...props }: CardTitleProps) {
-  const HeadingTag = tag;
+  const HeadingTag = tag
 
   const headingClass = cn(
     {
@@ -39,14 +39,14 @@ function CardTitle({ tag = "h3", className, ...props }: CardTitleProps) {
       "text-lg font-semibold": tag === "h3",
       "leading-none font-heading": true,
     },
-    className,
-  );
+    className
+  )
 
   return React.createElement(HeadingTag, {
     "data-slot": "card-title",
     className: headingClass,
     ...props,
-  });
+  })
 }
 
 function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
@@ -56,7 +56,7 @@ function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
       className={cn("text-muted-foreground text-sm", className)}
       {...props}
     />
-  );
+  )
 }
 
 function CardContent({ className, ...props }: React.ComponentProps<"div">) {
@@ -66,7 +66,7 @@ function CardContent({ className, ...props }: React.ComponentProps<"div">) {
       className={cn("p-6 pt-0", className)}
       {...props}
     />
-  );
+  )
 }
 
 function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
@@ -76,14 +76,7 @@ function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
       className={cn("flex items-center p-6 pt-0", className)}
       {...props}
     />
-  );
+  )
 }
 
-export {
-  Card,
-  CardHeader,
-  CardFooter,
-  CardTitle,
-  CardDescription,
-  CardContent,
-};
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }

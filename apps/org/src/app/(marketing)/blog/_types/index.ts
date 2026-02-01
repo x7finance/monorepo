@@ -1,5 +1,5 @@
 export const BlogsTypes = {
   posts: "posts",
-} as const;
+} as const
 
-export type BlogType = (typeof BlogsTypes)[keyof typeof BlogsTypes];
+export type BlogType = (typeof BlogsTypes)[keyof typeof BlogsTypes]

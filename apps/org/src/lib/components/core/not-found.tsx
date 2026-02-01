@@ -1,12 +1,11 @@
-"use client";
+"use client"
 
-import Image from "next/image";
+import Image from "next/image"
 
-import { ChevronRightIcon, X7Logo } from "@x7/icons";
-import { LinkInternal } from "@x7/ui/link";
-import { getRandomPioneerNumber } from "@x7/utils";
-
-import { NOT_FOUND_LINKS } from "~/lib/config/site";
+import { ChevronRightIcon, X7Logo } from "@x7/icons"
+import { LinkInternal } from "@x7/ui/link"
+import { getRandomPioneerNumber } from "@x7/utils"
+import { NOT_FOUND_LINKS } from "~/lib/config/site"
 
 export function NotFoundContent() {
   return (
@@ -72,5 +71,5 @@ export function NotFoundContent() {
         </div>
       </div>
     </main>
-  );
+  )
 }

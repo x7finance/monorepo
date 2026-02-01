@@ -1,16 +1,15 @@
-import type { FC } from "react";
+import type { FC } from "react"
 
-import { Button } from "@x7/ui/button";
+import { Button } from "@x7/ui/button"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@x7/ui/card";
-import { LinkInternal } from "@x7/ui/link";
-
-import { XchangeLinks } from "~/types/links";
+} from "@x7/ui/card"
+import { LinkInternal } from "@x7/ui/link"
+import { XchangeLinks } from "~/types/links"
 
 export const Hero: FC = () => {
   return (
@@ -37,5 +36,5 @@ export const Hero: FC = () => {
         </div>
       </CardContent>
     </Card>
-  );
-};
+  )
+}

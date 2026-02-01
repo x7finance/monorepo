@@ -1,4 +1,4 @@
-import type { SVGProps } from "react";
+import type { SVGProps } from "react"
 
 export function PancakeSwap(props: SVGProps<SVGSVGElement>) {
   return (
@@ -27,5 +27,5 @@ export function PancakeSwap(props: SVGProps<SVGSVGElement>) {
         fill="#633001"
       ></path>
     </svg>
-  );
+  )
 }

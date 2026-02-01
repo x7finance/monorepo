@@ -1,27 +1,28 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { config } from "@react-spring/web";
+import type { ActiveChainId, Native, Token } from "@x7/utils"
+import type { UserPositionsResponse } from "~/lib/hooks/tokens/useGetAllUserTokens"
 
-import { cn } from "@x7/css";
-import { CheckCircleIcon, PlusCircleIcon } from "@x7/icons";
-import { X7ContractsEnum } from "@x7/sdk";
-import { Button } from "@x7/ui/button";
-import { Slider } from "@x7/ui/slider";
-import type { ActiveChainId, Native, Token } from "@x7/utils";
-import { CurrencyAmount } from "@x7/utils";
+import { config } from "@react-spring/web"
+import React, { useCallback, useEffect, useMemo, useState } from "react"
 
-import { CurrencyInput } from "~/lib/components/utils/currency-input";
-import { APPROVE_TAG_REMOVE } from "~/lib/constants/misc";
-import type { UserPositionsResponse } from "~/lib/hooks/tokens/useGetAllUserTokens";
-import { Checker } from "~/lib/systems/Checker";
-import { CheckerProvider } from "~/lib/systems/Checker/Provider";
-import { pDebounce } from "@x7/utils";
-import TextTransition from "../../loans/TextTransition";
-import { ConfirmLiquidityRemoval } from "../confirm-liquidity-removal";
-import { LockedAmountsPoolInfoCard } from "../locked-amounts-pool-info-card";
-import { RemoveSectionPoolInfoCard } from "../remove-section-pool-info-card";
+import { cn } from "@x7/css"
+import { CheckCircleIcon, PlusCircleIcon } from "@x7/icons"
+import { X7ContractsEnum } from "@x7/sdk"
+import { Button } from "@x7/ui/button"
+import { Slider } from "@x7/ui/slider"
+import { CurrencyAmount } from "@x7/utils"
+import { pDebounce } from "@x7/utils"
+import { CurrencyInput } from "~/lib/components/utils/currency-input"
+import { APPROVE_TAG_REMOVE } from "~/lib/constants/misc"
+import { Checker } from "~/lib/systems/Checker"
+import { CheckerProvider } from "~/lib/systems/Checker/Provider"
 
-const MAX_PERCENTAGE = 10000n;
-const FULL_REMOVAL_PERCENTAGE = 99.999999999;
+import TextTransition from "../../loans/TextTransition"
+import { ConfirmLiquidityRemoval } from "../confirm-liquidity-removal"
+import { LockedAmountsPoolInfoCard } from "../locked-amounts-pool-info-card"
+import { RemoveSectionPoolInfoCard } from "../remove-section-pool-info-card"
+
+const MAX_PERCENTAGE = 10000n
+const FULL_REMOVAL_PERCENTAGE = 99.999999999
 
 export const RemoveLiquidityTab = ({
   token0,
@@ -30,61 +31,61 @@ export const RemoveLiquidityTab = ({
   position,
   chainId,
 }: {
-  token0: Token | Native;
-  token1: Token | Native;
-  liquidityToken: Token;
-  position: UserPositionsResponse;
-  chainId: ActiveChainId;
+  token0: Token | Native
+  token1: Token | Native
+  liquidityToken: Token
+  position: UserPositionsResponse
+  chainId: ActiveChainId
 }) => {
   const maxRemovablePercentage = useMemo(() => {
-    const token0Total = position.token0.balance ?? 0n;
-    const token1Total = position.token1.balance ?? 0n;
-    const token0Locked = position.token0.minimumBalance;
-    const token1Locked = position.token1.minimumBalance;
+    const token0Total = position.token0.balance ?? 0n
+    const token1Total = position.token1.balance ?? 0n
+    const token0Locked = position.token0.minimumBalance
+    const token1Locked = position.token1.minimumBalance
 
-    if (token0Total === 0n || token1Total === 0n) return 0;
+    if (token0Total === 0n || token1Total === 0n) return 0
 
     const token0Unlocked =
-      token0Total > token0Locked ? token0Total - token0Locked : 0n;
+      token0Total > token0Locked ? token0Total - token0Locked : 0n
     const token1Unlocked =
-      token1Total > token1Locked ? token1Total - token1Locked : 0n;
+      token1Total > token1Locked ? token1Total - token1Locked : 0n
 
-    const token0Percentage = Number((token0Unlocked * 10000n) / token0Total);
-    const token1Percentage = Number((token1Unlocked * 10000n) / token1Total);
+    const token0Percentage = Number((token0Unlocked * 10000n) / token0Total)
+    const token1Percentage = Number((token1Unlocked * 10000n) / token1Total)
 
-    const maxPercentage = Math.min(token0Percentage, token1Percentage) / 100;
-    return maxPercentage >= 99.99 ? FULL_REMOVAL_PERCENTAGE : maxPercentage;
-  }, [position]);
+    const maxPercentage = Math.min(token0Percentage, token1Percentage) / 100
+    return maxPercentage >= 99.99 ? FULL_REMOVAL_PERCENTAGE : maxPercentage
+  }, [position])
 
   const [liquidityPercentage, setLiquidityPercentage] = useState<number>(() =>
-    Math.min(50, maxRemovablePercentage / 2),
-  );
-  const [remainingLiquidity, setRemainingLiquidity] = useState<number>(0);
-  const [removingAmm, setRemovingAmm] = useState<CurrencyAmount<Token>>();
-  const [token0Amt, setToken0Amt] = useState<CurrencyAmount<Token | Native>>();
-  const [token1Amt, setToken1Amt] = useState<CurrencyAmount<Token | Native>>();
-  const [refetchCount, setRefetchCount] = useState<number>(0);
+    Math.min(50, maxRemovablePercentage / 2)
+  )
+  const [remainingLiquidity, setRemainingLiquidity] = useState<number>(0)
+  const [removingAmm, setRemovingAmm] = useState<CurrencyAmount<Token>>()
+  const [token0Amt, setToken0Amt] = useState<CurrencyAmount<Token | Native>>()
+  const [token1Amt, setToken1Amt] = useState<CurrencyAmount<Token | Native>>()
+  const [refetchCount, setRefetchCount] = useState<number>(0)
   const [typedAmounts, setTypedAmounts] = useState<{
-    input0: string;
-    input1: string;
-  }>({ input0: "", input1: "" });
+    input0: string
+    input1: string
+  }>({ input0: "", input1: "" })
 
   const handleSliderChange = useCallback(
     (newValues: number[]) => {
       const debouncedUpdate = pDebounce((values: number[]) => {
-        const newValue = values[0];
+        const newValue = values[0]
         if (typeof newValue === "number" && !isNaN(newValue)) {
           const roundedValue = Math.min(
             Number(newValue.toFixed(9)),
-            maxRemovablePercentage,
-          );
-          setLiquidityPercentage(roundedValue);
+            maxRemovablePercentage
+          )
+          setLiquidityPercentage(roundedValue)
         }
-      }, 100);
-      debouncedUpdate(newValues).catch(() => {});
+      }, 100)
+      debouncedUpdate(newValues).catch(() => {})
     },
-    [maxRemovablePercentage],
-  );
+    [maxRemovablePercentage]
+  )
 
   const calculateWithdrawableAmounts = useMemo(() => {
     if (!position.tokenBalance) {
@@ -92,49 +93,52 @@ export const RemoveLiquidityTab = ({
         token0Withdrawable: 0n,
         token1Withdrawable: 0n,
         amountOfLiquidity: 0n,
-      };
+      }
     }
 
-    const percentageBigInt = BigInt(Math.floor(liquidityPercentage * 100));
-    return calculateLockedWithdrawal(percentageBigInt, position);
-  }, [liquidityPercentage, position]);
+    const percentageBigInt = BigInt(Math.floor(liquidityPercentage * 100))
+    return calculateLockedWithdrawal(percentageBigInt, position)
+  }, [liquidityPercentage, position])
 
   useEffect(() => {
     const { token0Withdrawable, token1Withdrawable, amountOfLiquidity } =
-      calculateWithdrawableAmounts;
+      calculateWithdrawableAmounts
 
-    const _t0Amt = CurrencyAmount.fromRawAmount(token0, token0Withdrawable);
-    const _t1Amt = CurrencyAmount.fromRawAmount(token1, token1Withdrawable);
+    const _t0Amt = CurrencyAmount.fromRawAmount(token0, token0Withdrawable)
+    const _t1Amt = CurrencyAmount.fromRawAmount(token1, token1Withdrawable)
 
-    setToken0Amt(_t0Amt);
-    setToken1Amt(_t1Amt);
+    setToken0Amt(_t0Amt)
+    setToken1Amt(_t1Amt)
     setRemovingAmm(
-      CurrencyAmount.fromRawAmount(liquidityToken, amountOfLiquidity),
-    );
+      CurrencyAmount.fromRawAmount(liquidityToken, amountOfLiquidity)
+    )
     setRemainingLiquidity(
-      Number(position.tokenBalance?.toString()) - Number(amountOfLiquidity),
-    );
+      Number(position.tokenBalance?.toString()) - Number(amountOfLiquidity)
+    )
     setTypedAmounts({
       input0: `${_t0Amt.toFixed(6)}`,
       input1: `${_t1Amt.toFixed(6)}`,
-    });
+    })
   }, [
     calculateWithdrawableAmounts,
     token0,
     token1,
     liquidityToken,
     position.tokenBalance,
-  ]);
+  ])
 
-  const lockedAmount0 = position.token0.minimumBalance;
-  const lockedAmount1 = position.token1.minimumBalance;
+  const lockedAmount0 = position.token0.minimumBalance
+  const lockedAmount1 = position.token1.minimumBalance
 
-  const isRemovalDisabled = maxRemovablePercentage === 0;
+  const isRemovalDisabled = maxRemovablePercentage === 0
   const isFullRemovalPossible =
-    maxRemovablePercentage === FULL_REMOVAL_PERCENTAGE;
+    maxRemovablePercentage === FULL_REMOVAL_PERCENTAGE
 
-  const ticks = Array.from({ length: 11 }, (_, i) => (i * maxRemovablePercentage) / 10);
-  const skipInterval = 2;
+  const ticks = Array.from(
+    { length: 11 },
+    (_, i) => (i * maxRemovablePercentage) / 10
+  )
+  const skipInterval = 2
 
   return (
     <div className="flex flex-col">
@@ -172,7 +176,7 @@ export const RemoveLiquidityTab = ({
             disabled={isRemovalDisabled}
             className={cn(
               isRemovalDisabled ? "cursor-not-allowed opacity-50" : "",
-              "mb-6",
+              "mb-6"
             )}
           />
           <span
@@ -187,7 +191,7 @@ export const RemoveLiquidityTab = ({
                 <span
                   className={cn(
                     "h-1 w-px bg-emerald-500",
-                    i % skipInterval !== 0 && "h-0.5",
+                    i % skipInterval !== 0 && "h-0.5"
                   )}
                 />
                 <span className={cn(i % skipInterval !== 0 && "opacity-0")}>
@@ -308,8 +312,8 @@ export const RemoveLiquidityTab = ({
                   }}
                   liquidityRemoving={removingAmm}
                   onSuccess={() => {
-                    setTypedAmounts({ input0: "", input1: "" });
-                    setRefetchCount(refetchCount + 1);
+                    setTypedAmounts({ input0: "", input1: "" })
+                    setRefetchCount(refetchCount + 1)
                   }}
                 />
               </Checker.Success>
@@ -318,22 +322,24 @@ export const RemoveLiquidityTab = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 function calculateLockedWithdrawal(
   percentageBigInt: bigint,
-  position: UserPositionsResponse,
+  position: UserPositionsResponse
 ) {
-  const token0Total = position.token0.balance ?? 0n;
-  const token1Total = position.token1.balance ?? 0n;
-  const token0Locked = position.token0.minimumBalance / 10n ** BigInt(position.token0.decimals);
-  const token1Locked = position.token1.minimumBalance / 10n ** BigInt(position.token1.decimals);
+  const token0Total = position.token0.balance ?? 0n
+  const token1Total = position.token1.balance ?? 0n
+  const token0Locked =
+    position.token0.minimumBalance / 10n ** BigInt(position.token0.decimals)
+  const token1Locked =
+    position.token1.minimumBalance / 10n ** BigInt(position.token1.decimals)
 
   const token0Unlocked =
-    token0Total > token0Locked ? token0Total - token0Locked : 0n;
+    token0Total > token0Locked ? token0Total - token0Locked : 0n
   const token1Unlocked =
-    token1Total > token1Locked ? token1Total - token1Locked : 0n;
+    token1Total > token1Locked ? token1Total - token1Locked : 0n
 
   if (
     token0Unlocked === 0n ||
@@ -344,18 +350,16 @@ function calculateLockedWithdrawal(
       token0Withdrawable: 0n,
       token1Withdrawable: 0n,
       amountOfLiquidity: 0n,
-    };
+    }
   }
 
-  const effectiveLiquidityBalance =
-    position.tokenBalance / MAX_PERCENTAGE;
-  const amountOfLiquidity =
-    effectiveLiquidityBalance * percentageBigInt;
+  const effectiveLiquidityBalance = position.tokenBalance / MAX_PERCENTAGE
+  const amountOfLiquidity = effectiveLiquidityBalance * percentageBigInt
 
   const token0Withdrawable =
-    (amountOfLiquidity * token0Unlocked) / position.tokenBalance;
+    (amountOfLiquidity * token0Unlocked) / position.tokenBalance
   const token1Withdrawable =
-    (amountOfLiquidity * token1Unlocked) / position.tokenBalance;
+    (amountOfLiquidity * token1Unlocked) / position.tokenBalance
 
-  return { token0Withdrawable, token1Withdrawable, amountOfLiquidity };
+  return { token0Withdrawable, token1Withdrawable, amountOfLiquidity }
 }

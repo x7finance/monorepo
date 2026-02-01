@@ -1,4 +1,7 @@
-import { useAccount, usePublicClient } from "wagmi";
+import type { ActiveChainId, ChainId } from "@x7/utils"
+import type { UserPositionsResponse } from "~/lib/hooks/tokens/useGetAllUserTokens"
+
+import { useAccount, usePublicClient } from "wagmi"
 
 import {
   Table,
@@ -6,39 +9,37 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@x7/ui/table";
-import type { ActiveChainId, ChainId } from "@x7/utils";
+} from "@x7/ui/table"
+import { EmptyPioneer } from "~/lib/components/core/empty-pioneer"
+import { LoadingPioneer } from "~/lib/components/core/loading-pioneer"
+import { useAllLiquidityPositions } from "~/lib/hooks/tokens/useGetAllUserTokens"
+import { useWeb3Config } from "~/lib/providers/web3"
 
-import { EmptyPioneer } from "~/lib/components/core/empty-pioneer";
-import { LoadingPioneer } from "~/lib/components/core/loading-pioneer";
-import type { UserPositionsResponse } from "~/lib/hooks/tokens/useGetAllUserTokens";
-import { useAllLiquidityPositions } from "~/lib/hooks/tokens/useGetAllUserTokens";
-import { useWeb3Config } from "~/lib/providers/web3";
-import { LiquidityPositionRow } from "../../_components/liquidity/liquidity-position-table-row";
+import { LiquidityPositionRow } from "../../_components/liquidity/liquidity-position-table-row"
 
 function useLiquidityPositions(isOpen: boolean) {
-  const { address, chainId } = useAccount();
-  const { wagmiConfig } = useWeb3Config();
+  const { address, chainId } = useAccount()
+  const { wagmiConfig } = useWeb3Config()
   const publicClient = usePublicClient({
     chainId: chainId,
     config: wagmiConfig,
-  });
+  })
 
   const { pairs: xChangePositions, isLoading } = useAllLiquidityPositions(
     address,
     chainId as ChainId,
     // @ts-expect-error: todo fix
-    publicClient,
-  );
+    publicClient
+  )
 
   return {
     pairs: xChangePositions.filter((position: UserPositionsResponse) => {
       const hasBalance =
-        position.tokenBalance !== undefined && position.tokenBalance !== 0n;
-      return isOpen ? hasBalance : !hasBalance;
+        position.tokenBalance !== undefined && position.tokenBalance !== 0n
+      return isOpen ? hasBalance : !hasBalance
     }),
     isLoading,
-  };
+  }
 }
 
 function LiquidityPositions({
@@ -47,17 +48,17 @@ function LiquidityPositions({
   isLoading,
   view,
 }: {
-  view?: "small" | "default";
-  positions: UserPositionsResponse[];
-  chainId: ActiveChainId;
-  isLoading: boolean;
+  view?: "small" | "default"
+  positions: UserPositionsResponse[]
+  chainId: ActiveChainId
+  isLoading: boolean
 }) {
   if (isLoading) {
-    return <LoadingPioneer />;
+    return <LoadingPioneer />
   }
 
   if (positions.length === 0) {
-    return <EmptyPioneer message="No positions found" />;
+    return <EmptyPioneer message="No positions found" />
   }
 
   return (
@@ -89,16 +90,16 @@ function LiquidityPositions({
         </Table>
       </div>
     </div>
-  );
+  )
 }
 
 export function MyOpenLiquidityPositions({
   view = "default",
 }: {
-  view?: "small" | "default";
+  view?: "small" | "default"
 }) {
-  const { chainId } = useAccount();
-  const { pairs: openPositions, isLoading } = useLiquidityPositions(true);
+  const { chainId } = useAccount()
+  const { pairs: openPositions, isLoading } = useLiquidityPositions(true)
 
   return (
     <LiquidityPositions
@@ -107,16 +108,16 @@ export function MyOpenLiquidityPositions({
       positions={openPositions}
       chainId={chainId as ActiveChainId}
     />
-  );
+  )
 }
 
 export function MyClosedLiquidityPositions({
   view = "default",
 }: {
-  view?: "small" | "default";
+  view?: "small" | "default"
 }) {
-  const { chainId } = useAccount();
-  const { pairs: closedPositions, isLoading } = useLiquidityPositions(false);
+  const { chainId } = useAccount()
+  const { pairs: closedPositions, isLoading } = useLiquidityPositions(false)
 
   return (
     <LiquidityPositions
@@ -125,5 +126,5 @@ export function MyClosedLiquidityPositions({
       positions={closedPositions}
       chainId={chainId as ActiveChainId}
     />
-  );
+  )
 }

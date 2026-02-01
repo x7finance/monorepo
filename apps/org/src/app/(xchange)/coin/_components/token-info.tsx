@@ -1,18 +1,19 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
-"use client";
+"use client"
 
-import Image from "next/image";
+import type { TokenData } from "~/lib/hooks/tokens/useTokenData"
 
-import type { TokenData } from "~/lib/hooks/tokens/useTokenData";
-import { TokenInfoSkeleton } from "./skeletons";
+import Image from "next/image"
+
+import { TokenInfoSkeleton } from "./skeletons"
 
 interface TokenInfoProps {
-  token: TokenData;
+  token: TokenData
 }
 
 export function TokenInfo({ token }: TokenInfoProps) {
   if (!token) {
-    return <TokenInfoSkeleton />;
+    return <TokenInfoSkeleton />
   }
 
   return (
@@ -60,7 +61,7 @@ export function TokenInfo({ token }: TokenInfoProps) {
         />
       </div>
     </div>
-  );
+  )
 }
 
 function InfoCard({ title, value }: { title: string; value: string }) {
@@ -69,5 +70,5 @@ function InfoCard({ title, value }: { title: string; value: string }) {
       <p className="text-xs text-zinc-600 md:text-sm">{title}</p>
       <p className="mt-0.5 text-sm font-bold md:mt-1 md:text-lg">{value}</p>
     </div>
-  );
+  )
 }

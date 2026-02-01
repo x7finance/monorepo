@@ -1,17 +1,17 @@
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 
-import { Tag } from "@x7/ui/tag";
+import { Tag } from "@x7/ui/tag"
 
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 interface ILLCardLiquidationActiveProps {
-  principalPaymentSchedule: number[][];
+  principalPaymentSchedule: number[][]
 }
 
 export function ILLCardActiveStatus({
   principalPaymentSchedule,
 }: ILLCardLiquidationActiveProps) {
-  const loanActive = getLoanActive(principalPaymentSchedule);
+  const loanActive = getLoanActive(principalPaymentSchedule)
 
   return (
     <div className="flex w-full border-t border-muted py-2">
@@ -28,12 +28,12 @@ export function ILLCardActiveStatus({
         )}
       </div>
     </div>
-  );
+  )
 }
 
 function getLoanActive(principalPaymentSchedule: any): boolean {
   const lastPaymentTs =
-    principalPaymentSchedule?.[0][principalPaymentSchedule?.[0].length - 1];
-  const currentTimeUnix = Math.floor(new Date().getTime() / 1000);
-  return lastPaymentTs > currentTimeUnix;
+    principalPaymentSchedule?.[0][principalPaymentSchedule?.[0].length - 1]
+  const currentTimeUnix = Math.floor(new Date().getTime() / 1000)
+  return lastPaymentTs > currentTimeUnix
 }

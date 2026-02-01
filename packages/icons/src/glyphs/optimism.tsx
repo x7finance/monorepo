@@ -1,5 +1,6 @@
-import type { SVGProps } from "react";
-import { memo } from "react";
+import type { SVGProps } from "react"
+
+import { memo } from "react"
 
 function Optimism(props: SVGProps<SVGSVGElement>) {
   return (
@@ -17,7 +18,7 @@ function Optimism(props: SVGProps<SVGSVGElement>) {
         fill="white"
       />
     </svg>
-  );
+  )
 }
 
-export default memo(Optimism);
+export default memo(Optimism)

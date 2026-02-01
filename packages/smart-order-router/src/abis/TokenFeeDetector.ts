@@ -80,4 +80,4 @@ export const tokenFeeDetectorABI = [
     stateMutability: "nonpayable",
     type: "function",
   },
-] as const;
+] as const

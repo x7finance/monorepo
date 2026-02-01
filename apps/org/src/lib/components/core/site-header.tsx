@@ -1,12 +1,12 @@
-import type { HTMLAttributes } from "react";
+import type { HTMLAttributes } from "react"
 
-import { cn } from "@x7/css";
-import { X7LongLogo, Xchange } from "@x7/icons";
-import { buttonVariants } from "@x7/ui/button";
-import { LinkInternal } from "@x7/ui/link";
+import { cn } from "@x7/css"
+import { X7LongLogo, Xchange } from "@x7/icons"
+import { buttonVariants } from "@x7/ui/button"
+import { LinkInternal } from "@x7/ui/link"
+import { DESKTOP_NAV_LINKS } from "~/lib/config/site"
 
-import { DESKTOP_NAV_LINKS } from "~/lib/config/site";
-import { MobileNavigation } from "./mobile-navigation";
+import { MobileNavigation } from "./mobile-navigation"
 
 export function SiteHeader({ className }: HTMLAttributes<HTMLElement>) {
   return (
@@ -63,7 +63,7 @@ export function SiteHeader({ className }: HTMLAttributes<HTMLElement>) {
                 buttonVariants({
                   variant: "default",
                 }),
-                "hidden py-1.5 lg:block",
+                "hidden py-1.5 lg:block"
               )}
             >
               <Xchange className="w-24" />
@@ -74,5 +74,5 @@ export function SiteHeader({ className }: HTMLAttributes<HTMLElement>) {
         </div>
       </div>
     </header>
-  );
+  )
 }

@@ -1,8 +1,8 @@
 {
   "name": "@x7/css",
   "version": "0.0.1",
-  "description": "Shared CSS utilities and Tailwind helpers for X7 Finance",
   "private": true,
+  "description": "Shared CSS utilities and Tailwind helpers for X7 Finance",
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -14,11 +14,16 @@
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist", "src"],
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "build": "tsgo",
     "clean": "git clean -xdf .turbo node_modules dist",
     "dev": "tsgo --watch",
+    "format": "oxfmt --config ../../tooling/oxfmt/.oxfmtrc.json src/",
+    "format:fix": "oxfmt --write --config ../../tooling/oxfmt/.oxfmtrc.json src/",
     "lint": "oxlint src/",
     "typecheck": "tsgo --noEmit"
   },

@@ -5,21 +5,25 @@
 export function formatCurrency(
   value: number,
   options?: {
-    minimumFractionDigits?: number;
-    maximumFractionDigits?: number;
-    placeholder?: string;
-  },
+    minimumFractionDigits?: number
+    maximumFractionDigits?: number
+    placeholder?: string
+  }
 ): string {
-  const { minimumFractionDigits = 2, maximumFractionDigits = 2, placeholder = "--" } = options ?? {};
+  const {
+    minimumFractionDigits = 2,
+    maximumFractionDigits = 2,
+    placeholder = "--",
+  } = options ?? {}
 
-  if (!value || Number.isNaN(value) || value === 0) return placeholder;
+  if (!value || Number.isNaN(value) || value === 0) return placeholder
 
   return value.toLocaleString("en-US", {
     style: "currency",
     currency: "USD",
     minimumFractionDigits,
     maximumFractionDigits,
-  });
+  })
 }
 
 /**
@@ -29,19 +33,23 @@ export function formatCurrency(
 export function formatNumber(
   value: number,
   options?: {
-    minimumFractionDigits?: number;
-    maximumFractionDigits?: number;
-    placeholder?: string;
-  },
+    minimumFractionDigits?: number
+    maximumFractionDigits?: number
+    placeholder?: string
+  }
 ): string {
-  const { minimumFractionDigits = 2, maximumFractionDigits = 2, placeholder = "--" } = options ?? {};
+  const {
+    minimumFractionDigits = 2,
+    maximumFractionDigits = 2,
+    placeholder = "--",
+  } = options ?? {}
 
-  if (!value || Number.isNaN(value) || value === 0) return placeholder;
+  if (!value || Number.isNaN(value) || value === 0) return placeholder
 
   return value.toLocaleString("en-US", {
     minimumFractionDigits,
     maximumFractionDigits,
-  });
+  })
 }
 
 /**
@@ -51,14 +59,14 @@ export function formatNumber(
 export function formatPercentage(
   value: string | number,
   options?: {
-    fractionDigits?: number;
-    placeholder?: string;
-  },
+    fractionDigits?: number
+    placeholder?: string
+  }
 ): string {
-  const { fractionDigits = 2, placeholder = "--" } = options ?? {};
+  const { fractionDigits = 2, placeholder = "--" } = options ?? {}
 
-  const numValue = typeof value === "string" ? parseFloat(value) : value;
-  if (!numValue || Number.isNaN(numValue)) return placeholder;
+  const numValue = typeof value === "string" ? parseFloat(value) : value
+  if (!numValue || Number.isNaN(numValue)) return placeholder
 
-  return `${numValue.toFixed(fractionDigits)}%`;
+  return `${numValue.toFixed(fractionDigits)}%`
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 import {
   useArbitrumScanApi,
@@ -6,8 +6,8 @@ import {
   useEtherscanApi,
   useOptimismScanApi,
   usePolygonScanApi,
-} from "@x7/ui";
-import { TextField } from "@x7/ui/text-field";
+} from "@x7/ui"
+import { TextField } from "@x7/ui/text-field"
 
 // Adjust the import paths as needed
 
@@ -32,27 +32,27 @@ const apiProviders = [
     useApiHook: useOptimismScanApi,
     placeholder: "Optimistic Etherscan API key",
   },
-];
+]
 
 function ApiProvider(index: number): {
-  api: string;
-  placeholder: string;
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  api: string
+  placeholder: string
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 } {
-  const apiProvider = apiProviders[index];
+  const apiProvider = apiProviders[index]
 
   if (!apiProvider) {
-    throw new Error("Invalid API provider index: " + index);
+    throw new Error("Invalid API provider index: " + index)
   }
 
-  const [api, setApi] = apiProvider.useApiHook();
-  const placeholder = apiProvider.placeholder;
+  const [api, setApi] = apiProvider.useApiHook()
+  const placeholder = apiProvider.placeholder
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setApi(e.target.value);
-  };
+    setApi(e.target.value)
+  }
 
-  return { api, placeholder, handleInputChange };
+  return { api, placeholder, handleInputChange }
 }
 
 export function SettingsScanView() {
@@ -66,7 +66,7 @@ export function SettingsScanView() {
         </div>
         <>
           {apiProviders.map((provider, index) => {
-            const { api, placeholder, handleInputChange } = ApiProvider(index);
+            const { api, placeholder, handleInputChange } = ApiProvider(index)
 
             return (
               <TextField
@@ -76,10 +76,10 @@ export function SettingsScanView() {
                 value={api}
                 onChange={handleInputChange}
               />
-            );
+            )
           })}
         </>
       </div>
     </div>
-  );
+  )
 }

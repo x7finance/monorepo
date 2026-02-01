@@ -1,7 +1,9 @@
-/* oxlint-disable @typescript-eslint/no-explicit-any */
-import invariant from "tiny-invariant";
+import type { IRoute } from "./route"
+import type { Currency } from "@x7/utils"
 
-import type { Currency } from "@x7/utils";
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+import invariant from "tiny-invariant"
+
 import {
   CurrencyAmount,
   Fraction,
@@ -10,35 +12,35 @@ import {
   Price,
   TradeType,
   ZERO,
-} from "@x7/utils";
+} from "@x7/utils"
 
-import { MAX_PRICE_IMPACT_PERCENT } from "../../core/constants";
-import { Pair, RouteV2 as V2RouteSDK, TradeV2 as V2TradeSDK } from "../../v2";
-import { Pool, RouteV3 as V3RouteSDK, TradeV3 as V3TradeSDK } from "../../v3";
-import { MixedRouteSDK } from "./mixedRoute/route";
-import { MixedRouteTrade as MixedRouteTradeSDK } from "./mixedRoute/trade";
-import type { IRoute } from "./route";
-import { MixedRoute, RouteV2Wrapper, RouteV3Wrapper } from "./route";
+import { MAX_PRICE_IMPACT_PERCENT } from "../../core/constants"
+import { Pair, RouteV2 as V2RouteSDK, TradeV2 as V2TradeSDK } from "../../v2"
+import { Pool, RouteV3 as V3RouteSDK, TradeV3 as V3TradeSDK } from "../../v3"
+
+import { MixedRouteSDK } from "./mixedRoute/route"
+import { MixedRouteTrade as MixedRouteTradeSDK } from "./mixedRoute/trade"
+import { MixedRoute, RouteV2Wrapper, RouteV3Wrapper } from "./route"
 
 export class Trade<
   TInput extends Currency,
   TOutput extends Currency,
   TTradeType extends TradeType,
 > {
-  public readonly routes: IRoute<TInput, TOutput, Pair | Pool>[];
-  public readonly tradeType: TTradeType;
-  private _outputAmount: CurrencyAmount<TOutput> | undefined;
-  private _inputAmount: CurrencyAmount<TInput> | undefined;
+  public readonly routes: IRoute<TInput, TOutput, Pair | Pool>[]
+  public readonly tradeType: TTradeType
+  private _outputAmount: CurrencyAmount<TOutput> | undefined
+  private _inputAmount: CurrencyAmount<TInput> | undefined
 
   /**
    * The swaps of the trade, i.e. which routes and how much is swapped in each that
    * make up the trade. May consist of swaps in v2 or v3.
    */
   public readonly swaps: {
-    route: IRoute<TInput, TOutput, Pair | Pool>;
-    inputAmount: CurrencyAmount<TInput>;
-    outputAmount: CurrencyAmount<TOutput>;
-  }[];
+    route: IRoute<TInput, TOutput, Pair | Pool>
+    inputAmount: CurrencyAmount<TInput>
+    outputAmount: CurrencyAmount<TOutput>
+  }[]
 
   //  construct a trade across v2 and v3 routes from pre-computed amounts
   public constructor({
@@ -48,135 +50,135 @@ export class Trade<
     mixedRoutes,
   }: {
     v2Routes: {
-      routev2: V2RouteSDK<TInput, TOutput>;
-      inputAmount: CurrencyAmount<TInput>;
-      outputAmount: CurrencyAmount<TOutput>;
-    }[];
+      routev2: V2RouteSDK<TInput, TOutput>
+      inputAmount: CurrencyAmount<TInput>
+      outputAmount: CurrencyAmount<TOutput>
+    }[]
     v3Routes: {
-      routev3: V3RouteSDK<TInput, TOutput>;
-      inputAmount: CurrencyAmount<TInput>;
-      outputAmount: CurrencyAmount<TOutput>;
-    }[];
-    tradeType: TTradeType;
+      routev3: V3RouteSDK<TInput, TOutput>
+      inputAmount: CurrencyAmount<TInput>
+      outputAmount: CurrencyAmount<TOutput>
+    }[]
+    tradeType: TTradeType
     mixedRoutes?: {
-      mixedRoute: MixedRouteSDK<TInput, TOutput>;
-      inputAmount: CurrencyAmount<TInput>;
-      outputAmount: CurrencyAmount<TOutput>;
-    }[];
+      mixedRoute: MixedRouteSDK<TInput, TOutput>
+      inputAmount: CurrencyAmount<TInput>
+      outputAmount: CurrencyAmount<TOutput>
+    }[]
   }) {
-    this.swaps = [];
-    this.routes = [];
+    this.swaps = []
+    this.routes = []
     // wrap v2 routes
     for (const { routev2, inputAmount, outputAmount } of v2Routes) {
-      const route = new RouteV2Wrapper(routev2);
-      this.routes.push(route);
+      const route = new RouteV2Wrapper(routev2)
+      this.routes.push(route)
       this.swaps.push({
         route,
         inputAmount,
         outputAmount,
-      });
+      })
     }
     // wrap v3 routes
     for (const { routev3, inputAmount, outputAmount } of v3Routes) {
-      const route = new RouteV3Wrapper(routev3);
-      this.routes.push(route);
+      const route = new RouteV3Wrapper(routev3)
+      this.routes.push(route)
       this.swaps.push({
         route,
         inputAmount,
         outputAmount,
-      });
+      })
     }
     // wrap mixedRoutes
     if (mixedRoutes) {
       for (const { mixedRoute, inputAmount, outputAmount } of mixedRoutes) {
-        const route = new MixedRoute(mixedRoute);
-        this.routes.push(route);
+        const route = new MixedRoute(mixedRoute)
+        this.routes.push(route)
         this.swaps.push({
           route,
           inputAmount,
           outputAmount,
-        });
+        })
       }
     }
-    this.tradeType = tradeType;
+    this.tradeType = tradeType
 
     // each route must have the same input and output currency
-    const inputCurrency = this.swaps[0]?.inputAmount.currency;
-    const outputCurrency = this.swaps[0]?.outputAmount.currency;
+    const inputCurrency = this.swaps[0]?.inputAmount.currency
+    const outputCurrency = this.swaps[0]?.outputAmount.currency
     invariant(
       this.swaps.every(({ route }) =>
-        inputCurrency?.wrapped.equals(route.input.wrapped),
+        inputCurrency?.wrapped.equals(route.input.wrapped)
       ),
-      "INPUT_CURRENCY_MATCH",
-    );
+      "INPUT_CURRENCY_MATCH"
+    )
     invariant(
       this.swaps.every(({ route }) =>
-        outputCurrency?.wrapped.equals(route.output.wrapped),
+        outputCurrency?.wrapped.equals(route.output.wrapped)
       ),
-      "OUTPUT_CURRENCY_MATCH",
-    );
+      "OUTPUT_CURRENCY_MATCH"
+    )
 
     // pools must be unique inter protocols
     const numPools = this.swaps
       .map(({ route }) => route.pools.length)
-      .reduce((total, cur) => total + cur, 0);
-    const poolAddressSet = new Set<string>();
+      .reduce((total, cur) => total + cur, 0)
+    const poolAddressSet = new Set<string>()
     for (const { route } of this.swaps) {
       for (const pool of route.pools) {
         if (pool instanceof Pool) {
           poolAddressSet.add(
-            Pool.getAddress(pool.token0, pool.token1, pool.fee),
-          );
+            Pool.getAddress(pool.token0, pool.token1, pool.fee)
+          )
         } else if (pool instanceof Pair) {
-          const pair = pool;
+          const pair = pool
           poolAddressSet.add(
-            Pair.getAddress(pair.token0, pair.token1, pair.pairType),
-          );
+            Pair.getAddress(pair.token0, pair.token1, pair.pairType)
+          )
         } else {
           throw new Error(
-            "Unexpected pool type in route when constructing trade object",
-          );
+            "Unexpected pool type in route when constructing trade object"
+          )
         }
       }
     }
-    invariant(numPools === poolAddressSet.size, "POOLS_DUPLICATED");
+    invariant(numPools === poolAddressSet.size, "POOLS_DUPLICATED")
   }
 
   public get inputAmount(): CurrencyAmount<TInput> {
     if (this._inputAmount) {
-      return this._inputAmount;
+      return this._inputAmount
     }
 
-    const inputCurrency: any = this.swaps[0]?.inputAmount.currency;
+    const inputCurrency: any = this.swaps[0]?.inputAmount.currency
     const totalInputFromRoutes = this.swaps
       .map(({ inputAmount }) => inputAmount)
       .reduce(
         (total, cur) => total.add(cur),
-        CurrencyAmount.fromRawAmount(inputCurrency, 0),
-      );
+        CurrencyAmount.fromRawAmount(inputCurrency, 0)
+      )
 
-    this._inputAmount = totalInputFromRoutes;
-    return this._inputAmount;
+    this._inputAmount = totalInputFromRoutes
+    return this._inputAmount
   }
 
   public get outputAmount(): CurrencyAmount<TOutput> {
     if (this._outputAmount) {
-      return this._outputAmount;
+      return this._outputAmount
     }
 
-    const outputCurrency: any = this.swaps[0]?.outputAmount.currency;
+    const outputCurrency: any = this.swaps[0]?.outputAmount.currency
     const totalOutputFromRoutes = this.swaps
       .map(({ outputAmount }) => outputAmount)
       .reduce(
         (total, cur) => total.add(cur),
-        CurrencyAmount.fromRawAmount(outputCurrency, 0),
-      );
+        CurrencyAmount.fromRawAmount(outputCurrency, 0)
+      )
 
-    this._outputAmount = totalOutputFromRoutes;
-    return this._outputAmount;
+    this._outputAmount = totalOutputFromRoutes
+    return this._outputAmount
   }
 
-  private _executionPrice: Price<TInput, TOutput> | undefined;
+  private _executionPrice: Price<TInput, TOutput> | undefined
 
   /**
    * The price expressed in terms of output amount/input amount.
@@ -188,42 +190,42 @@ export class Trade<
         this.inputAmount.currency,
         this.outputAmount.currency,
         this.inputAmount.quotient,
-        this.outputAmount.quotient,
+        this.outputAmount.quotient
       ))
-    );
+    )
   }
 
   /**
    * The cached result of the price impact computation
    * @private
    */
-  private _priceImpact: Percent | undefined;
+  private _priceImpact: Percent | undefined
   /**
    * Returns the percent difference between the route's mid price and the price impact
    */
   public get priceImpact(): Percent {
     if (this._priceImpact) {
-      return this._priceImpact;
+      return this._priceImpact
     }
 
     let spotOutputAmount = CurrencyAmount.fromRawAmount(
       this.outputAmount.currency,
-      0,
-    );
+      0
+    )
     for (const { route, inputAmount } of this.swaps) {
-      const midPrice = route.midPrice;
-      spotOutputAmount = spotOutputAmount.add(midPrice.quote(inputAmount));
+      const midPrice = route.midPrice
+      spotOutputAmount = spotOutputAmount.add(midPrice.quote(inputAmount))
     }
 
     const priceImpact = spotOutputAmount
       .subtract(this.outputAmount)
-      .divide(spotOutputAmount);
+      .divide(spotOutputAmount)
     this._priceImpact = new Percent(
       priceImpact.numerator,
-      priceImpact.denominator,
-    );
+      priceImpact.denominator
+    )
 
-    return this._priceImpact;
+    return this._priceImpact
   }
 
   /**
@@ -233,20 +235,20 @@ export class Trade<
    */
   public minimumAmountOut(
     slippageTolerance: Percent,
-    amountOut = this.outputAmount,
+    amountOut = this.outputAmount
   ): CurrencyAmount<TOutput> {
-    invariant(!slippageTolerance.lessThan(ZERO), "SLIPPAGE_TOLERANCE");
+    invariant(!slippageTolerance.lessThan(ZERO), "SLIPPAGE_TOLERANCE")
     if (this.tradeType === TradeType.EXACT_OUTPUT) {
-      return amountOut;
+      return amountOut
     } else {
       const slippageAdjustedAmountOut = new Fraction(ONE)
         .add(slippageTolerance)
         .invert()
-        .multiply(amountOut.quotient).quotient;
+        .multiply(amountOut.quotient).quotient
       return CurrencyAmount.fromRawAmount(
         amountOut.currency,
-        slippageAdjustedAmountOut,
-      );
+        slippageAdjustedAmountOut
+      )
     }
   }
 
@@ -257,19 +259,19 @@ export class Trade<
    */
   public maximumAmountIn(
     slippageTolerance: Percent,
-    amountIn = this.inputAmount,
+    amountIn = this.inputAmount
   ): CurrencyAmount<TInput> {
-    invariant(!slippageTolerance.lessThan(ZERO), "SLIPPAGE_TOLERANCE");
+    invariant(!slippageTolerance.lessThan(ZERO), "SLIPPAGE_TOLERANCE")
     if (this.tradeType === TradeType.EXACT_INPUT) {
-      return amountIn;
+      return amountIn
     } else {
       const slippageAdjustedAmountIn = new Fraction(ONE)
         .add(slippageTolerance)
-        .multiply(amountIn.quotient).quotient;
+        .multiply(amountIn.quotient).quotient
       return CurrencyAmount.fromRawAmount(
         amountIn.currency,
-        slippageAdjustedAmountIn,
-      );
+        slippageAdjustedAmountIn
+      )
     }
   }
 
@@ -279,14 +281,14 @@ export class Trade<
    * @returns The execution price
    */
   public worstExecutionPrice(
-    slippageTolerance: Percent,
+    slippageTolerance: Percent
   ): Price<TInput, TOutput> {
     return new Price(
       this.inputAmount.currency,
       this.outputAmount.currency,
       this.maximumAmountIn(slippageTolerance).quotient,
-      this.minimumAmountOut(slippageTolerance).quotient,
-    );
+      this.minimumAmountOut(slippageTolerance).quotient
+    )
   }
 
   public static async fromRoutes<
@@ -295,54 +297,54 @@ export class Trade<
     TTradeType extends TradeType,
   >(
     v2Routes: {
-      routev2: V2RouteSDK<TInput, TOutput>;
+      routev2: V2RouteSDK<TInput, TOutput>
       amount: TTradeType extends TradeType.EXACT_INPUT
         ? CurrencyAmount<TInput>
-        : CurrencyAmount<TOutput>;
+        : CurrencyAmount<TOutput>
     }[],
     v3Routes: {
-      routev3: V3RouteSDK<TInput, TOutput>;
+      routev3: V3RouteSDK<TInput, TOutput>
       amount: TTradeType extends TradeType.EXACT_INPUT
         ? CurrencyAmount<TInput>
-        : CurrencyAmount<TOutput>;
+        : CurrencyAmount<TOutput>
     }[],
     tradeType: TTradeType,
     mixedRoutes?: {
-      mixedRoute: MixedRouteSDK<TInput, TOutput>;
+      mixedRoute: MixedRouteSDK<TInput, TOutput>
       amount: TTradeType extends TradeType.EXACT_INPUT
         ? CurrencyAmount<TInput>
-        : CurrencyAmount<TOutput>;
-    }[],
+        : CurrencyAmount<TOutput>
+    }[]
   ): Promise<Trade<TInput, TOutput, TTradeType>> {
     const populatedV2Routes: {
-      routev2: V2RouteSDK<TInput, TOutput>;
-      inputAmount: CurrencyAmount<TInput>;
-      outputAmount: CurrencyAmount<TOutput>;
-    }[] = [];
+      routev2: V2RouteSDK<TInput, TOutput>
+      inputAmount: CurrencyAmount<TInput>
+      outputAmount: CurrencyAmount<TOutput>
+    }[] = []
 
     const populatedV3Routes: {
-      routev3: V3RouteSDK<TInput, TOutput>;
-      inputAmount: CurrencyAmount<TInput>;
-      outputAmount: CurrencyAmount<TOutput>;
-    }[] = [];
+      routev3: V3RouteSDK<TInput, TOutput>
+      inputAmount: CurrencyAmount<TInput>
+      outputAmount: CurrencyAmount<TOutput>
+    }[] = []
 
     const populatedMixedRoutes: {
-      mixedRoute: MixedRouteSDK<TInput, TOutput>;
-      inputAmount: CurrencyAmount<TInput>;
-      outputAmount: CurrencyAmount<TOutput>;
-    }[] = [];
+      mixedRoute: MixedRouteSDK<TInput, TOutput>
+      inputAmount: CurrencyAmount<TInput>
+      outputAmount: CurrencyAmount<TOutput>
+    }[] = []
     for (const { routev2, amount } of v2Routes) {
-      const v2Trade = new V2TradeSDK(routev2, amount, tradeType);
+      const v2Trade = new V2TradeSDK(routev2, amount, tradeType)
       if (v2Trade.priceImpact.lessThan(MAX_PRICE_IMPACT_PERCENT)) {
-        const { inputAmount, outputAmount } = v2Trade;
-        populatedV2Routes.push({ routev2, inputAmount, outputAmount });
+        const { inputAmount, outputAmount } = v2Trade
+        populatedV2Routes.push({ routev2, inputAmount, outputAmount })
       }
     }
     for (const { routev3, amount } of v3Routes) {
-      const v3Trade = await V3TradeSDK.fromRoute(routev3, amount, tradeType);
+      const v3Trade = await V3TradeSDK.fromRoute(routev3, amount, tradeType)
       if (v3Trade.priceImpact.lessThan(MAX_PRICE_IMPACT_PERCENT)) {
-        const { inputAmount, outputAmount } = v3Trade;
-        populatedV3Routes.push({ routev3, inputAmount, outputAmount });
+        const { inputAmount, outputAmount } = v3Trade
+        populatedV3Routes.push({ routev3, inputAmount, outputAmount })
       }
     }
 
@@ -351,11 +353,11 @@ export class Trade<
         const mixedRouteTrade = await MixedRouteTradeSDK.fromRoute(
           mixedRoute,
           amount,
-          tradeType,
-        );
+          tradeType
+        )
         if (mixedRouteTrade.priceImpact.lessThan(MAX_PRICE_IMPACT_PERCENT)) {
-          const { inputAmount, outputAmount } = mixedRouteTrade;
-          populatedMixedRoutes.push({ mixedRoute, inputAmount, outputAmount });
+          const { inputAmount, outputAmount } = mixedRouteTrade
+          populatedMixedRoutes.push({ mixedRoute, inputAmount, outputAmount })
         }
       }
     }
@@ -365,7 +367,7 @@ export class Trade<
       v3Routes: populatedV3Routes,
       mixedRoutes: populatedMixedRoutes,
       tradeType,
-    });
+    })
   }
 
   public static async fromRoute<
@@ -380,50 +382,50 @@ export class Trade<
     amount: TTradeType extends TradeType.EXACT_INPUT
       ? CurrencyAmount<TInput>
       : CurrencyAmount<TOutput>,
-    tradeType: TTradeType,
+    tradeType: TTradeType
   ): Promise<Trade<TInput, TOutput, TTradeType>> {
     let v2Routes: {
-      routev2: V2RouteSDK<TInput, TOutput>;
-      inputAmount: CurrencyAmount<TInput>;
-      outputAmount: CurrencyAmount<TOutput>;
-    }[] = [];
+      routev2: V2RouteSDK<TInput, TOutput>
+      inputAmount: CurrencyAmount<TInput>
+      outputAmount: CurrencyAmount<TOutput>
+    }[] = []
 
     let v3Routes: {
-      routev3: V3RouteSDK<TInput, TOutput>;
-      inputAmount: CurrencyAmount<TInput>;
-      outputAmount: CurrencyAmount<TOutput>;
-    }[] = [];
+      routev3: V3RouteSDK<TInput, TOutput>
+      inputAmount: CurrencyAmount<TInput>
+      outputAmount: CurrencyAmount<TOutput>
+    }[] = []
 
     let mixedRoutes: {
-      mixedRoute: MixedRouteSDK<TInput, TOutput>;
-      inputAmount: CurrencyAmount<TInput>;
-      outputAmount: CurrencyAmount<TOutput>;
-    }[] = [];
+      mixedRoute: MixedRouteSDK<TInput, TOutput>
+      inputAmount: CurrencyAmount<TInput>
+      outputAmount: CurrencyAmount<TOutput>
+    }[] = []
 
     if (route instanceof V2RouteSDK) {
-      const v2Trade = new V2TradeSDK(route, amount, tradeType);
+      const v2Trade = new V2TradeSDK(route, amount, tradeType)
       if (v2Trade.priceImpact.lessThan(MAX_PRICE_IMPACT_PERCENT)) {
-        const { inputAmount, outputAmount } = v2Trade;
-        v2Routes = [{ routev2: route, inputAmount, outputAmount }];
+        const { inputAmount, outputAmount } = v2Trade
+        v2Routes = [{ routev2: route, inputAmount, outputAmount }]
       }
     } else if (route instanceof V3RouteSDK) {
-      const v3Trade = await V3TradeSDK.fromRoute(route, amount, tradeType);
+      const v3Trade = await V3TradeSDK.fromRoute(route, amount, tradeType)
       if (v3Trade.priceImpact.lessThan(MAX_PRICE_IMPACT_PERCENT)) {
-        const { inputAmount, outputAmount } = v3Trade;
-        v3Routes = [{ routev3: route, inputAmount, outputAmount }];
+        const { inputAmount, outputAmount } = v3Trade
+        v3Routes = [{ routev3: route, inputAmount, outputAmount }]
       }
     } else if (route instanceof MixedRouteSDK) {
       const mixedRouteTrade = await MixedRouteTradeSDK.fromRoute(
         route,
         amount,
-        tradeType,
-      );
+        tradeType
+      )
       if (mixedRouteTrade.priceImpact.lessThan(MAX_PRICE_IMPACT_PERCENT)) {
-        const { inputAmount, outputAmount } = mixedRouteTrade;
-        mixedRoutes = [{ mixedRoute: route, inputAmount, outputAmount }];
+        const { inputAmount, outputAmount } = mixedRouteTrade
+        mixedRoutes = [{ mixedRoute: route, inputAmount, outputAmount }]
       }
     } else {
-      throw new Error("Invalid route type");
+      throw new Error("Invalid route type")
     }
 
     if (v2Routes.length > 0 || v3Routes.length > 0 || mixedRoutes.length > 0) {
@@ -432,9 +434,9 @@ export class Trade<
         v3Routes,
         mixedRoutes,
         tradeType,
-      });
+      })
     } else {
-      throw new Error("No valid routes with acceptable price impact");
+      throw new Error("No valid routes with acceptable price impact")
     }
   }
 }

@@ -1,4 +1,4 @@
-import pino from "pino";
+import pino from "pino"
 
 /**
  * Determines the log level based on environment
@@ -8,13 +8,16 @@ import pino from "pino";
  */
 function getLogLevel(): pino.Level {
   // Allow explicit override via environment variable
-  const envLevel = process.env.LOG_LEVEL;
-  if (envLevel && ["fatal", "error", "warn", "info", "debug", "trace"].includes(envLevel)) {
-    return envLevel as pino.Level;
+  const envLevel = process.env.LOG_LEVEL
+  if (
+    envLevel &&
+    ["fatal", "error", "warn", "info", "debug", "trace"].includes(envLevel)
+  ) {
+    return envLevel as pino.Level
   }
 
   // Default based on NODE_ENV
-  return process.env.NODE_ENV === "production" ? "info" : "debug";
+  return process.env.NODE_ENV === "production" ? "info" : "debug"
 }
 
 export const loggerConfig: pino.LoggerOptions = {
@@ -24,11 +27,11 @@ export const loggerConfig: pino.LoggerOptions = {
     serialize: true,
     formatters: {
       level(label) {
-        return { level: label };
+        return { level: label }
       },
       log(object) {
         // Extract the fields you want to prioritize
-        const { service, logCode, message, level, time, ...rest } = object;
+        const { service, logCode, message, level, time, ...rest } = object
 
         // Reconstruct the log object with properties in the desired order
         const logObject = {
@@ -38,9 +41,9 @@ export const loggerConfig: pino.LoggerOptions = {
           level,
           time,
           ...rest,
-        };
+        }
 
-        return logObject;
+        return logObject
       },
     },
   },
@@ -49,4 +52,4 @@ export const loggerConfig: pino.LoggerOptions = {
   serializers: {
     err: pino.stdSerializers.err,
   },
-};
+}

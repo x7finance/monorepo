@@ -1,13 +1,13 @@
-import { AlertCircleIcon } from "@x7/icons";
-import { Alert, AlertDescription, AlertTitle } from "@x7/ui/alert";
+import { AlertCircleIcon } from "@x7/icons"
+import { Alert, AlertDescription, AlertTitle } from "@x7/ui/alert"
 
 export function SwapErrorMessage({
   error,
 }: {
-  error: { message: string } | null;
+  error: { message: string } | null
 }) {
   if (!error) {
-    return null;
+    return null
   }
 
   return (
@@ -21,5 +21,5 @@ export function SwapErrorMessage({
         {error.message || "Unknown error occurred in swap, try again"}
       </AlertDescription>
     </Alert>
-  );
+  )
 }

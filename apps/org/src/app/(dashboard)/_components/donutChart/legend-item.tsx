@@ -1,29 +1,30 @@
+import type { ItemWithRenderProps } from "./types"
+
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-import React, { useContext } from "react";
+import React, { useContext } from "react"
 
-import { LinkExternal } from "@x7/ui/link";
+import { LinkExternal } from "@x7/ui/link"
+import { ExplorerDataType, getExplorerLink } from "~/lib/utils/getExplorerLink"
 
-import { ExplorerDataType, getExplorerLink } from "~/lib/utils/getExplorerLink";
-import type { ItemWithRenderProps } from "./types";
-import { DonutChartContext } from "./types";
+import { DonutChartContext } from "./types"
 
 export interface Props {
-  item: ItemWithRenderProps;
+  item: ItemWithRenderProps
 }
 
 export const LegendItem: React.FC<Props> = ({ item }) => {
-  const { graphWidth, width } = useContext(DonutChartContext);
-  const { clickHandlers, label, chain, value, ...restItemRenderProps } = item;
+  const { graphWidth, width } = useContext(DonutChartContext)
+  const { clickHandlers, label, chain, value, ...restItemRenderProps } = item
 
-  const legendWidth = width - graphWidth;
-  const sqUnit = legendWidth / 5;
+  const legendWidth = width - graphWidth
+  const sqUnit = legendWidth / 5
 
   const contractAddress = getExplorerLink(
     chain,
     item.address?.result!,
-    ExplorerDataType.ADDRESS,
-  );
+    ExplorerDataType.ADDRESS
+  )
 
   return (
     <tr {...clickHandlers}>
@@ -53,5 +54,5 @@ export const LegendItem: React.FC<Props> = ({ item }) => {
         {value}%
       </td>
     </tr>
-  );
-};
+  )
+}

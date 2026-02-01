@@ -1,5 +1,6 @@
-import type { SVGProps } from "react";
-import { memo } from "react";
+import type { SVGProps } from "react"
+
+import { memo } from "react"
 
 function Arbitrum(props: SVGProps<SVGSVGElement>) {
   return (
@@ -29,7 +30,7 @@ function Arbitrum(props: SVGProps<SVGSVGElement>) {
         fill="#96BEDC"
       />
     </svg>
-  );
+  )
 }
 
-export default memo(Arbitrum);
+export default memo(Arbitrum)

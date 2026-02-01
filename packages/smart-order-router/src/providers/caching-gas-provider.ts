@@ -1,7 +1,6 @@
-import type { ChainId } from "@x7/utils";
-
-import type { ICache } from "./cache";
-import type { GasPrice, IGasPriceProvider } from "./gas-price-provider";
+import type { ICache } from "./cache"
+import type { GasPrice, IGasPriceProvider } from "./gas-price-provider"
+import type { ChainId } from "@x7/utils"
 
 /**
  * Provider for getting gas price, with functionality for caching the results.
@@ -10,7 +9,7 @@ import type { GasPrice, IGasPriceProvider } from "./gas-price-provider";
  * @class CachingV3SubgraphProvider
  */
 export class CachingGasStationProvider implements IGasPriceProvider {
-  private GAS_KEY = (chainId: ChainId) => `gasPrice-${chainId}`;
+  private GAS_KEY = (chainId: ChainId) => `gasPrice-${chainId}`
 
   /**
    * Creates an instance of CachingGasStationProvider.
@@ -21,19 +20,19 @@ export class CachingGasStationProvider implements IGasPriceProvider {
   constructor(
     protected chainId: ChainId,
     private gasPriceProvider: IGasPriceProvider,
-    private cache: ICache<GasPrice>,
+    private cache: ICache<GasPrice>
   ) {}
 
   public async getGasPrice(): Promise<GasPrice> {
-    const cachedGasPrice = await this.cache.get(this.GAS_KEY(this.chainId));
+    const cachedGasPrice = await this.cache.get(this.GAS_KEY(this.chainId))
 
     if (cachedGasPrice) {
-      return cachedGasPrice;
+      return cachedGasPrice
     }
 
-    const gasPrice = await this.gasPriceProvider.getGasPrice();
-    await this.cache.set(this.GAS_KEY(this.chainId), gasPrice);
+    const gasPrice = await this.gasPriceProvider.getGasPrice()
+    await this.cache.set(this.GAS_KEY(this.chainId), gasPrice)
 
-    return gasPrice;
+    return gasPrice
   }
 }

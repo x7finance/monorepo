@@ -1,31 +1,32 @@
+import type { X7ContractsEnum } from "@x7/sdk"
+import type { ChainId, LoanType } from "@x7/utils"
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 /* oxlint-disable @typescript-eslint/no-base-to-string */
-import type { Address } from "viem";
-import { useReadContracts } from "wagmi";
+import type { Address } from "viem"
+
+import { useReadContracts } from "wagmi"
 
 import {
   ERC20,
   X7InitialLiquidityLoanTerm001,
   X7InitialLiquidityLoanTerm003,
-} from "@x7/contracts";
-import type { X7ContractsEnum } from "@x7/sdk";
-import type { ChainId, LoanType } from "@x7/utils";
+} from "@x7/contracts"
+import { ExplorerDataType, getExplorerLink } from "~/lib/utils/getExplorerLink"
 
-import { ExplorerDataType, getExplorerLink } from "~/lib/utils/getExplorerLink";
-import { generateX7InitialLiquidityLoanTermContract } from "../../utils/lending";
+import { generateX7InitialLiquidityLoanTermContract } from "../../utils/lending"
 
 export function useGetPremiumsDue(
   tokenByIndex: number,
   chainId: ChainId,
   loanType: LoanType,
-  premiumsLastDate: number,
+  premiumsLastDate: number
 ) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialGetPremiumsDue } = useReadContracts({
     contracts: [
@@ -37,7 +38,7 @@ export function useGetPremiumsDue(
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialGetPremiumsDue,
@@ -45,23 +46,23 @@ export function useGetPremiumsDue(
     getPremiumsDue: data?.[0]?.result
       ? parseInt(data[0].result.toString() ?? "0", 10) / 10 ** 18
       : 0,
-  };
+  }
 }
 
 interface PremiumPaymentSchedule {
-  isLoading: boolean;
-  getPremiumPaymentSchedule: any;
+  isLoading: boolean
+  getPremiumPaymentSchedule: any
 }
 
 export function useGetPremiumPaymentSchedule(
   tokenByIndex: number,
   chainId: ChainId,
-  loanType: LoanType,
+  loanType: LoanType
 ): PremiumPaymentSchedule {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialGetPremiumPaymentSchedule } =
     useReadContracts({
@@ -74,24 +75,24 @@ export function useGetPremiumPaymentSchedule(
           chainId,
         },
       ],
-    });
+    })
 
   return {
     isLoading: isInitialGetPremiumPaymentSchedule,
     getPremiumPaymentSchedule: data?.[0]?.result,
-  };
+  }
 }
 
 export function useGetPrincipalDue(
   tokenByIndex: number,
   chainId: ChainId,
   loanType: LoanType,
-  prinicipalLastDate: number,
+  prinicipalLastDate: number
 ) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialGetPrincipalDue } = useReadContracts({
     contracts: [
@@ -103,7 +104,7 @@ export function useGetPrincipalDue(
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialGetPrincipalDue,
@@ -111,23 +112,23 @@ export function useGetPrincipalDue(
     getPrincipalDue: data?.[0]?.result
       ? parseInt(data[0].result.toString() ?? "0", 10) / 10 ** 18
       : 0,
-  };
+  }
 }
 
 interface PrincipalPaymentScheduleType {
-  isLoading: boolean;
-  getPrincipalPaymentSchedule: any;
+  isLoading: boolean
+  getPrincipalPaymentSchedule: any
 }
 
 export function useGetPrincipalPaymentSchedule(
   tokenByIndex: number,
   chainId: ChainId,
-  loanType: LoanType,
+  loanType: LoanType
 ): PrincipalPaymentScheduleType {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialGetPrincipalPaymentSchedule } =
     useReadContracts({
@@ -140,23 +141,23 @@ export function useGetPrincipalPaymentSchedule(
           chainId,
         },
       ],
-    });
+    })
 
   return {
     isLoading: isInitialGetPrincipalPaymentSchedule,
     getPrincipalPaymentSchedule: data?.[0]?.result,
-  };
+  }
 }
 
 export function useGetRemainingLiability(
   tokenByIndex: number,
   chainId: ChainId,
-  loanType: LoanType,
+  loanType: LoanType
 ) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialGetRemainingLiability } = useReadContracts({
     contracts: [
@@ -168,14 +169,14 @@ export function useGetRemainingLiability(
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialGetRemainingLiability,
     getRemainingLiability: data?.[0]?.result
       ? parseInt(data[0].result.toString() ?? "0", 10) / 10 ** 18
       : 0,
-  };
+  }
 }
 
 export function useGetTotalDue(
@@ -183,12 +184,12 @@ export function useGetTotalDue(
   chainId: ChainId,
   loanType: LoanType,
   premiumsLastDate: number,
-  principalLastDate: number,
+  principalLastDate: number
 ) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialGetTotalDue } = useReadContracts({
     contracts: [
@@ -205,7 +206,7 @@ export function useGetTotalDue(
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialGetTotalDue,
@@ -213,18 +214,18 @@ export function useGetTotalDue(
     getTotalDue: data?.[0]?.result
       ? parseInt(data[0].result.toString() ?? "0", 10) / 10 ** 18
       : 0,
-  };
+  }
 }
 
 export function useIsComplete(
   tokenByIndex: number,
   chainId: ChainId,
-  loanType: LoanType,
+  loanType: LoanType
 ) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialIsComplete } = useReadContracts({
     contracts: [
@@ -236,23 +237,23 @@ export function useIsComplete(
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialIsComplete,
     isComplete: data?.[0]?.result,
-  };
+  }
 }
 
 export function useLiquidationAmount(
   tokenByIndex: number,
   chainId: ChainId,
-  loanType: LoanType,
+  loanType: LoanType
 ) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialLiquidationAmount } = useReadContracts({
     contracts: [
@@ -264,25 +265,25 @@ export function useLiquidationAmount(
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialLiquidationAmount,
     liquidationAmount: data?.[0]?.result
       ? parseInt(data[0].result.toString() ?? "0", 10) / 10 ** 18
       : 0,
-  };
+  }
 }
 
 export function useLoanAmount(
   tokenByIndex: number,
   chainId: ChainId,
-  loanType: LoanType,
+  loanType: LoanType
 ) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialLoanAmount } = useReadContracts({
     contracts: [
@@ -294,25 +295,25 @@ export function useLoanAmount(
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialLoanAmount,
     loanAmount: data?.[0]?.result
       ? parseInt(data[0].result.toString() ?? "0", 10) / 10 ** 18
       : 0,
-  };
+  }
 }
 
 export function useLoanState(
   tokenByIndex: number,
   chainId: ChainId,
-  loanType: LoanType,
+  loanType: LoanType
 ) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialLoanState } = useReadContracts({
     contracts: [
@@ -324,23 +325,23 @@ export function useLoanState(
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialLoanState,
     loanState: parseInt(data?.[0]?.result?.toString() ?? "0", 10) || 0,
-  };
+  }
 }
 
 export function useLoanStartTime(
   tokenByIndex: number,
   chainId: ChainId,
-  loanType: LoanType,
+  loanType: LoanType
 ) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialLoanStartTime } = useReadContracts({
     contracts: [
@@ -352,27 +353,27 @@ export function useLoanStartTime(
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialLoanStartTime,
     loanStartTime: data?.[0]?.result
       ? new Date(
-          parseInt(data[0].result.toString() ?? "0", 10) * 1000,
+          parseInt(data[0].result.toString() ?? "0", 10) * 1000
         ).toLocaleDateString("en-US", {
           month: "long",
           day: "numeric",
           year: "numeric",
         })
       : "",
-  };
+  }
 }
 
 export function useMaximumLoanAmount(chainId: ChainId, loanType: LoanType) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialMaximumLoanAmount } = useReadContracts({
     contracts: [
@@ -383,7 +384,7 @@ export function useMaximumLoanAmount(chainId: ChainId, loanType: LoanType) {
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialMaximumLoanAmount,
@@ -391,17 +392,17 @@ export function useMaximumLoanAmount(chainId: ChainId, loanType: LoanType) {
       ? parseInt(data[0].result.toString() ?? "0", 10) / 10 ** 18
       : 0,
     maximumLoanAmountEther: data?.[0]?.result,
-  };
+  }
 }
 
 export function useMaximumLoanLengthSeconds(
   chainId: ChainId,
-  loanType: LoanType,
+  loanType: LoanType
 ) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialMaximumLoanLengthSeconds } =
     useReadContracts({
@@ -413,21 +414,21 @@ export function useMaximumLoanLengthSeconds(
           chainId,
         },
       ],
-    });
+    })
 
   return {
     isLoading: isInitialMaximumLoanLengthSeconds,
     maximumLoanLengthSeconds: data?.[0]?.result
       ? parseInt(data[0].result.toString() ?? "0", 10)
       : 0,
-  };
+  }
 }
 
 export function useMinimumLoanAmount(chainId: ChainId, loanType: LoanType) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialMinimumLoanAmount } = useReadContracts({
     contracts: [
@@ -438,7 +439,7 @@ export function useMinimumLoanAmount(chainId: ChainId, loanType: LoanType) {
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialMinimumLoanAmount,
@@ -446,17 +447,17 @@ export function useMinimumLoanAmount(chainId: ChainId, loanType: LoanType) {
       ? parseInt(data[0].result.toString() ?? "0", 10) / 10 ** 18
       : 0,
     minimumLoanAmountEther: data?.[0]?.result,
-  };
+  }
 }
 
 export function useMinimumLoanLengthSeconds(
   chainId: ChainId,
-  loanType: LoanType,
+  loanType: LoanType
 ) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialMinimumLoanLengthSeconds } =
     useReadContracts({
@@ -468,24 +469,24 @@ export function useMinimumLoanLengthSeconds(
           chainId,
         },
       ],
-    });
+    })
 
   return {
     isLoading: isInitialMinimumLoanLengthSeconds,
     minimumLoanLengthSeconds: data?.[0]?.result
       ? parseInt(data[0].result.toString() ?? "0", 10)
       : 0,
-  };
+  }
 }
 
 export function useNumberOfPremiumPeriods(
   chainId: ChainId,
-  loanType: LoanType,
+  loanType: LoanType
 ) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialNumberOfPremiumPeriods } = useReadContracts(
     {
@@ -497,25 +498,25 @@ export function useNumberOfPremiumPeriods(
           chainId,
         },
       ],
-    },
-  );
+    }
+  )
 
   return {
     isLoading: isInitialNumberOfPremiumPeriods,
     numberOfPremiumPeriods: data?.[0]?.result
       ? parseInt(data[0].result.toString() ?? "0", 10)
       : 0,
-  };
+  }
 }
 
 export function useNumberOfRepaymentPeriods(
   chainId: ChainId,
-  loanType: LoanType,
+  loanType: LoanType
 ) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialNumberOfRepaymentPeriods } =
     useReadContracts({
@@ -527,25 +528,25 @@ export function useNumberOfRepaymentPeriods(
           chainId,
         },
       ],
-    });
+    })
 
   return {
     isLoading: isInitialNumberOfRepaymentPeriods,
     numberOfRepaymentPeriods: data?.[0]?.result
       ? parseInt(data[0].result.toString() ?? "0", 10)
       : 0,
-  };
+  }
 }
 
 export function useOriginationFeeCollected(
   tokenByIndex: number,
   chainId: ChainId,
-  loanType: LoanType,
+  loanType: LoanType
 ) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialOriginationFeeCollected } =
     useReadContracts({
@@ -558,25 +559,25 @@ export function useOriginationFeeCollected(
           chainId,
         },
       ],
-    });
+    })
 
   return {
     isLoading: isInitialOriginationFeeCollected,
     originationFeeCollected: data?.[0]?.result
       ? parseInt(data[0].result.toString() ?? "0", 10) / 10 ** 18
       : 0,
-  };
+  }
 }
 
 export function useOwnerOf(
   tokenByIndex: number,
   chainId: ChainId,
-  loanType: LoanType,
+  loanType: LoanType
 ) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialOwnerOf } = useReadContracts({
     contracts: [
@@ -588,23 +589,23 @@ export function useOwnerOf(
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialOwnerOf,
     ownerOf: data?.[0]?.result?.toString() ?? "",
-  };
+  }
 }
 
 export function usePremiumAmount(
   tokenByIndex: number,
   chainId: ChainId,
-  loanType: LoanType,
+  loanType: LoanType
 ) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialPremiumAmount } = useReadContracts({
     contracts: [
@@ -616,25 +617,25 @@ export function usePremiumAmount(
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialPremiumAmount,
     premiumAmount: data?.[0]?.result
       ? parseInt(data[0].result.toString() ?? "0", 10) / 10 ** 18
       : 0,
-  };
+  }
 }
 
 export function usePremiumAmountPaid(
   tokenByIndex: number,
   chainId: ChainId,
-  loanType: LoanType,
+  loanType: LoanType
 ) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialPremiumAmountPaid } = useReadContracts({
     contracts: [
@@ -646,25 +647,25 @@ export function usePremiumAmountPaid(
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialPremiumAmountPaid,
     premiumAmountPaid: data?.[0]?.result
       ? parseInt(data[0].result.toString() ?? "0", 10) / 10 ** 18
       : 0,
-  };
+  }
 }
 
 export function usePremiumFractions(
   index: number,
   chainId: ChainId,
-  loanType: LoanType,
+  loanType: LoanType
 ) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialPremiumFractions } = useReadContracts({
     contracts: [
@@ -676,23 +677,23 @@ export function usePremiumFractions(
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialPremiumFractions,
     premiumFractions: parseInt(data?.[0]?.result?.toString() ?? "0", 10) || 0,
-  };
+  }
 }
 
 export function usePremiumPeriodIndices(
   index: number,
   chainId: ChainId,
-  loanType: LoanType,
+  loanType: LoanType
 ) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialPremiumPeriodIndices } = useReadContracts({
     contracts: [
@@ -704,23 +705,23 @@ export function usePremiumPeriodIndices(
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialPremiumPeriodIndices,
     premiumPeriodIndices:
       parseInt(data?.[0]?.result?.toString() ?? "0", 10) || 0,
-  };
+  }
 }
 
 export function usePrincipleFractionDenominator(
   chainId: ChainId,
-  loanType: LoanType,
+  loanType: LoanType
 ) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialPrincipleFractionDenominator } =
     useReadContracts({
@@ -732,24 +733,24 @@ export function usePrincipleFractionDenominator(
           chainId,
         },
       ],
-    });
+    })
 
   return {
     isLoading: isInitialPrincipleFractionDenominator,
     principleFractionDenominator:
       parseInt(data?.[0]?.result?.toString() ?? "0", 10) || 0,
-  };
+  }
 }
 
 export function useRepaymentFractions(
   index: number,
   chainId: ChainId,
-  loanType: LoanType,
+  loanType: LoanType
 ) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialRepaymentFractions } = useReadContracts({
     contracts: [
@@ -761,23 +762,23 @@ export function useRepaymentFractions(
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialRepaymentFractions,
     repaymentFractions: parseInt(data?.[0]?.result?.toString() ?? "0", 10) || 0,
-  };
+  }
 }
 
 export function useRepaymentPeriodIndices(
   index: number,
   chainId: ChainId,
-  loanType: LoanType,
+  loanType: LoanType
 ) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialRepaymentPeriodIndices } = useReadContracts(
     {
@@ -790,21 +791,21 @@ export function useRepaymentPeriodIndices(
           chainId,
         },
       ],
-    },
-  );
+    }
+  )
 
   return {
     isLoading: isInitialRepaymentPeriodIndices,
     repaymentPeriodIndices:
       parseInt(data?.[0]?.result?.toString() ?? "0", 10) || 0,
-  };
+  }
 }
 
 export function useSymbol(id: number, chainId: ChainId, loanType: LoanType) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialSymbol } = useReadContracts({
     contracts: [
@@ -815,23 +816,23 @@ export function useSymbol(id: number, chainId: ChainId, loanType: LoanType) {
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialSymbol,
     symbol: data?.[0]?.result?.toString() ?? "",
-  };
+  }
 }
 
 export function useTokenByIndex(
   id: number,
   chainId: ChainId,
-  loanType: LoanType,
+  loanType: LoanType
 ): { isLoading: boolean; tokenByIndex: number } {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialTokenIndex } = useReadContracts({
     contracts: [
@@ -843,13 +844,13 @@ export function useTokenByIndex(
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialTokenIndex,
 
     tokenByIndex: parseInt(data?.[0]?.result?.toString() ?? "0", 10) || 0,
-  };
+  }
 }
 
 export function useTokenSymbol(tokenAddress: string, chainId: ChainId) {
@@ -862,12 +863,12 @@ export function useTokenSymbol(tokenAddress: string, chainId: ChainId) {
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialGetToKenSymbol,
     tokenSymbol: data?.[0]?.result?.toString() ?? "",
-  };
+  }
 }
 
 export function useTokenName(tokenAddress: string, chainId: ChainId) {
@@ -880,19 +881,19 @@ export function useTokenName(tokenAddress: string, chainId: ChainId) {
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialGetToKenName,
     tokenName: data?.[0]?.result?.toString() ?? "",
-  };
+  }
 }
 
 export function useTotalLoanSupply(chainId: ChainId, loanType: LoanType) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   const { data, isLoading: isInitialGetTotalSupply } = useReadContracts({
     contracts: [
@@ -903,36 +904,36 @@ export function useTotalLoanSupply(chainId: ChainId, loanType: LoanType) {
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialGetTotalSupply,
     totalSupply: parseInt(data?.[0]?.result?.toString() ?? "0", 10),
-  };
+  }
 }
 
 export function useFullLoanAddress(chainId: ChainId, loanType: LoanType) {
   const loanAddress = generateX7InitialLiquidityLoanTermContract(
     loanType,
-    chainId,
-  );
+    chainId
+  )
 
   return {
     fullLoanAddress: getExplorerLink(
       chainId,
       loanAddress,
-      ExplorerDataType.ADDRESS,
+      ExplorerDataType.ADDRESS
     ),
-  };
+  }
 }
 
 function selectAbi(loanType: keyof typeof X7ContractsEnum): any {
   switch (loanType) {
     case "X7InitialLiquidityLoanTerm001":
-      return X7InitialLiquidityLoanTerm001;
+      return X7InitialLiquidityLoanTerm001
     case "X7InitialLiquidityLoanTerm003":
-      return X7InitialLiquidityLoanTerm003;
+      return X7InitialLiquidityLoanTerm003
     default:
-      return X7InitialLiquidityLoanTerm001;
+      return X7InitialLiquidityLoanTerm001
   }
 }

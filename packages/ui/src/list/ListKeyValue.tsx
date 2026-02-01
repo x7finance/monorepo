@@ -1,26 +1,26 @@
-import type { FC, ReactNode } from "react";
+import type { FC, ReactNode } from "react"
 
-import { cn } from "@x7/css";
+import { cn } from "@x7/css"
 
-import { SkeletonText } from "../skeleton";
+import { SkeletonText } from "../skeleton"
 
 export type ListKeyValueProps =
   | {
-      title: ReactNode;
-      subtitle?: string;
-      children: ReactNode;
-      skeleton?: never;
-      flex?: boolean;
-      className?: string;
+      title: ReactNode
+      subtitle?: string
+      children: ReactNode
+      skeleton?: never
+      flex?: boolean
+      className?: string
     }
   | {
-      title?: never;
-      subtitle?: boolean;
-      children?: never;
-      skeleton?: boolean;
-      flex?: boolean;
-      className?: string;
-    };
+      title?: never
+      subtitle?: boolean
+      children?: never
+      skeleton?: boolean
+      flex?: boolean
+      className?: string
+    }
 
 export const ListKeyValue: FC<ListKeyValueProps> = ({
   title,
@@ -41,7 +41,7 @@ export const ListKeyValue: FC<ListKeyValueProps> = ({
           <SkeletonText fontSize="sm" />
         </div>
       </div>
-    );
+    )
   }
 
   return (
@@ -49,7 +49,7 @@ export const ListKeyValue: FC<ListKeyValueProps> = ({
       className={cn(
         className,
         flex ? "flex items-center justify-between" : "grid grid-cols-2",
-        "gap-2 px-4 py-3",
+        "gap-2 px-4 py-3"
       )}
     >
       <div className="flex flex-col gap-0.5">
@@ -66,5 +66,5 @@ export const ListKeyValue: FC<ListKeyValueProps> = ({
         </span>
       </div>
     </div>
-  );
-};
+  )
+}

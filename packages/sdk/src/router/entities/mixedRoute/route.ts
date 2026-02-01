@@ -1,14 +1,14 @@
+import type { Pair } from "../../../v2"
+import type { Pool } from "../../../v3"
+import type { Currency, Token } from "@x7/utils"
+
 /* oxlint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
-import invariant from "tiny-invariant";
+import invariant from "tiny-invariant"
 
-import { Price } from "@x7/utils";
-import type { Currency, Token } from "@x7/utils";
+import { Price } from "@x7/utils"
 
-import type { Pair } from "../../../v2";
-import type { Pool } from "../../../v3";
-
-type TPool = Pair | Pool;
+type TPool = Pair | Pool
 
 /**
  * Represents a list of pools or pairs through which a swap can occur
@@ -16,12 +16,12 @@ type TPool = Pair | Pool;
  * @template TOutput The output token
  */
 export class MixedRouteSDK<TInput extends Currency, TOutput extends Currency> {
-  public readonly pools: TPool[];
-  public readonly path: Token[];
-  public readonly input: TInput;
-  public readonly output: TOutput;
+  public readonly pools: TPool[]
+  public readonly path: Token[]
+  public readonly input: TInput
+  public readonly output: TOutput
 
-  private _midPrice: Price<TInput, TOutput> | null = null;
+  private _midPrice: Price<TInput, TOutput> | null = null
 
   /**
    * Creates an instance of route.
@@ -30,23 +30,23 @@ export class MixedRouteSDK<TInput extends Currency, TOutput extends Currency> {
    * @param output The output token
    */
   public constructor(pools: TPool[], input: TInput, output: TOutput) {
-    invariant(pools.length > 0, "POOLS");
+    invariant(pools.length > 0, "POOLS")
 
-    const chainId = pools[0]?.chainId;
-    const allOnSameChain = pools.every((pool) => pool.chainId === chainId);
-    invariant(allOnSameChain, "CHAIN_IDS");
+    const chainId = pools[0]?.chainId
+    const allOnSameChain = pools.every((pool) => pool.chainId === chainId)
+    invariant(allOnSameChain, "CHAIN_IDS")
 
-    const wrappedInput = input.wrapped;
-    invariant(pools[0]?.involvesToken(wrappedInput), "INPUT");
+    const wrappedInput = input.wrapped
+    invariant(pools[0]?.involvesToken(wrappedInput), "INPUT")
 
-    invariant(pools[pools.length - 1]?.involvesToken(output.wrapped), "OUTPUT");
+    invariant(pools[pools.length - 1]?.involvesToken(output.wrapped), "OUTPUT")
 
     /**
      * Normalizes token0-token1 order and selects the next token/fee step to add to the path
      * */
-    const tokenPath: Token[] = [wrappedInput];
+    const tokenPath: Token[] = [wrappedInput]
     for (const [i, pool] of pools.entries()) {
-      const currentInputToken = tokenPath[i];
+      const currentInputToken = tokenPath[i]
       // invariant(
       //   currentInputToken.equals(pool.token0) ||
       //     currentInputToken.equals(pool.token1),
@@ -55,27 +55,27 @@ export class MixedRouteSDK<TInput extends Currency, TOutput extends Currency> {
 
       const nextToken = currentInputToken?.equals(pool.token0)
         ? pool.token1
-        : pool.token0;
+        : pool.token0
 
-      tokenPath.push(nextToken);
+      tokenPath.push(nextToken)
     }
 
-    this.pools = pools;
-    this.path = tokenPath;
-    this.input = input;
+    this.pools = pools
+    this.path = tokenPath
+    this.input = input
     // oxlint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    this.output = output ?? tokenPath[tokenPath.length - 1];
+    this.output = output ?? tokenPath[tokenPath.length - 1]
   }
 
   public get chainId(): number {
-    return this.pools[0]?.chainId!;
+    return this.pools[0]?.chainId!
   }
 
   /**
    * Returns the mid price of the route
    */
   public get midPrice(): Price<TInput, TOutput> {
-    if (this._midPrice !== null) return this._midPrice;
+    if (this._midPrice !== null) return this._midPrice
 
     const price = this.pools.slice(1).reduce(
       ({ nextInput, price }, pool) => {
@@ -87,7 +87,7 @@ export class MixedRouteSDK<TInput extends Currency, TOutput extends Currency> {
           : {
               nextInput: pool.token0,
               price: price?.multiply(pool.token1Price),
-            };
+            }
       },
       this.pools[0]?.token0.equals(this.input.wrapped)
         ? {
@@ -97,8 +97,8 @@ export class MixedRouteSDK<TInput extends Currency, TOutput extends Currency> {
         : {
             nextInput: this.pools[0]?.token0,
             price: this.pools[0]?.token1Price,
-          },
-    ).price;
+          }
+    ).price
 
     return (this._midPrice = new Price(
       this.input,
@@ -106,7 +106,7 @@ export class MixedRouteSDK<TInput extends Currency, TOutput extends Currency> {
       // @ts-expect-error: todo fix
       price.denominator,
       // @ts-expect-error: todo fix
-      price.numerator,
-    ));
+      price.numerator
+    ))
   }
 }

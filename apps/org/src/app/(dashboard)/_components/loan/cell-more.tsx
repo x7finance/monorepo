@@ -1,14 +1,15 @@
-import { cn } from "@x7/css";
-import { ChevronRightIcon } from "@x7/icons";
-import { buttonVariants } from "@x7/ui/button";
-import { LinkInternal } from "@x7/ui/link";
-import type { ChainId, LoanType } from "@x7/utils";
-import { generateChainShortName } from "@x7/utils";
+import type { ChainId, LoanType } from "@x7/utils"
+
+import { cn } from "@x7/css"
+import { ChevronRightIcon } from "@x7/icons"
+import { buttonVariants } from "@x7/ui/button"
+import { LinkInternal } from "@x7/ui/link"
+import { generateChainShortName } from "@x7/utils"
 
 interface LoansCellProps {
-  id: number;
-  chainId: ChainId;
-  loanType: LoanType;
+  id: number
+  chainId: ChainId
+  loanType: LoanType
 }
 
 export function LoanCellMore({ id, chainId, loanType }: LoansCellProps) {
@@ -19,14 +20,14 @@ export function LoanCellMore({ id, chainId, loanType }: LoansCellProps) {
           <LinkInternal
             prefetch={true}
             href={`/lending/${generateChainShortName(
-              chainId,
+              chainId
             )}/${loanType}/${id}`}
             className={cn(
               buttonVariants({
                 variant: "outline",
                 size: "sm",
               }),
-              "inline-flex",
+              "inline-flex"
             )}
           >
             <span className="flex items-center whitespace-nowrap">
@@ -39,5 +40,5 @@ export function LoanCellMore({ id, chainId, loanType }: LoansCellProps) {
         ) : null}
       </div>
     </div>
-  );
+  )
 }

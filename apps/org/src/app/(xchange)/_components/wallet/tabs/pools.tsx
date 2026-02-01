@@ -1,10 +1,9 @@
-import { cn } from "@x7/css";
-import { buttonVariants } from "@x7/ui/button";
-import { Card, CardContent } from "@x7/ui/card";
-import { LinkInternal } from "@x7/ui/link";
-import { TabsContent } from "@x7/ui/tabs";
-
-import { MyOpenLiquidityPositions } from "~/app/(xchange)/liquidity/_components/my-positions";
+import { cn } from "@x7/css"
+import { buttonVariants } from "@x7/ui/button"
+import { Card, CardContent } from "@x7/ui/card"
+import { LinkInternal } from "@x7/ui/link"
+import { TabsContent } from "@x7/ui/tabs"
+import { MyOpenLiquidityPositions } from "~/app/(xchange)/liquidity/_components/my-positions"
 
 export function PoolsTab() {
   return (
@@ -20,7 +19,7 @@ export function PoolsTab() {
                   variant: "default",
                   size: "sm",
                 }),
-                "w-full",
+                "w-full"
               )}
             >
               Manage Positions
@@ -33,5 +32,5 @@ export function PoolsTab() {
         </CardContent>
       </Card>
     </TabsContent>
-  );
+  )
 }

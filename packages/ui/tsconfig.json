@@ -1,6 +1,7 @@
 {
   "extends": "@x7/tsconfig/next-build.json",
   "compilerOptions": {
+    "rootDir": "src",
     "outDir": "dist",
     "tsBuildInfoFile": ".turbo/.tsbuildinfo"
   },

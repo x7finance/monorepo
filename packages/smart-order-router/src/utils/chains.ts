@@ -1,27 +1,27 @@
-import { ChainId, Token, WRAPPED_CONTRACTS } from "@x7/utils";
+import { ChainId, Token, WRAPPED_CONTRACTS } from "@x7/utils"
 
 export const chainIdToSubgraphChainName = (id: ChainId): string => {
   switch (id) {
     case ChainId.ETHEREUM:
-      return "mainnet";
+      return "mainnet"
     case ChainId.ETHEREUM_TESTNET:
-      return "sepolia";
+      return "sepolia"
     case ChainId.BSC:
-      return "bnb-mainnet";
+      return "bnb-mainnet"
     case ChainId.OPTIMISM:
-      return "optimism-mainnet";
+      return "optimism-mainnet"
     case ChainId.ARBITRUM:
-      return "arbitrum-mainnet";
+      return "arbitrum-mainnet"
     case ChainId.POLYGON:
-      return "polygon-mainnet";
+      return "polygon-mainnet"
     case ChainId.BASE:
-      return "base-mainnet";
+      return "base-mainnet"
     case ChainId.BASE_TESTNET:
-      return "base-sepolia";
+      return "base-sepolia"
     default:
-      throw new Error(`Unknown chain id: ${id}`);
+      throw new Error(`Unknown chain id: ${id}`)
   }
-};
+}
 
 export const WRAPPED_NATIVE_CURRENCY: Record<ChainId, Token> = {
   [ChainId.ETHEREUM]: new Token({
@@ -108,4 +108,4 @@ export const WRAPPED_NATIVE_CURRENCY: Record<ChainId, Token> = {
     symbol: "WETH",
     name: "Wrapped Ether",
   }),
-};
+}

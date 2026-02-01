@@ -1,17 +1,18 @@
-"use client";
+"use client"
 
-import type { FC } from "react";
-import React from "react";
+import type { FC } from "react"
 
-import { cn } from "@x7/css";
+import React from "react"
+
+import { cn } from "@x7/css"
 
 interface LoaderProps extends React.ComponentProps<"svg"> {
-  ref?: React.Ref<SVGSVGElement>;
-  size?: number;
-  stroke?: string;
-  strokeWidth?: number;
-  className?: string;
-  circleClassName?: string;
+  ref?: React.Ref<SVGSVGElement>
+  size?: number
+  stroke?: string
+  strokeWidth?: number
+  className?: string
+  circleClassName?: string
 }
 
 /**
@@ -49,5 +50,5 @@ export const Loader: FC<LoaderProps> = ({
         className={cn(className, "text-zinc-700 dark:text-white")}
       />
     </svg>
-  );
-};
+  )
+}

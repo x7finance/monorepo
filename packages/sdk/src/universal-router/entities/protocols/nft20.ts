@@ -1,26 +1,27 @@
-import { encodeFunctionData } from "viem";
+import type { RoutePlanner } from "../../utils/routerCommands"
+import type { TradeConfig } from "../Command"
+import type { BuyItem } from "../NFTTrade"
 
-import { nft20ABI } from "@x7/contracts";
+import { encodeFunctionData } from "viem"
 
-import type { RoutePlanner } from "../../utils/routerCommands";
-import { CommandType } from "../../utils/routerCommands";
-import type { TradeConfig } from "../Command";
-import type { BuyItem } from "../NFTTrade";
-import { Market, NFTTrade, TokenType } from "../NFTTrade";
+import { nft20ABI } from "@x7/contracts"
+
+import { CommandType } from "../../utils/routerCommands"
+import { Market, NFTTrade, TokenType } from "../NFTTrade"
 
 export interface NFT20Data {
-  tokenAddress: string;
-  tokenIds: bigint[];
-  tokenAmounts: bigint[];
-  recipient: string;
-  fee: bigint;
-  isV3: boolean;
-  value: bigint;
+  tokenAddress: string
+  tokenIds: bigint[]
+  tokenAmounts: bigint[]
+  recipient: string
+  fee: bigint
+  isV3: boolean
+  value: bigint
 }
 
 export class NFT20Trade extends NFTTrade<NFT20Data> {
   constructor(orders: NFT20Data[]) {
-    super(Market.NFT20, orders);
+    super(Market.NFT20, orders)
   }
 
   encode(planner: RoutePlanner, config: TradeConfig): void {
@@ -36,35 +37,35 @@ export class NFT20Trade extends NFTTrade<NFT20Data> {
           Number(order.fee),
           order.isV3,
         ],
-      });
+      })
       planner.addCommand(
         CommandType.NFT20,
         [order.value, calldata],
-        config.allowRevert,
-      );
+        config.allowRevert
+      )
     }
   }
 
   getBuyItems(): BuyItem[] {
-    const buyItems: BuyItem[] = [];
+    const buyItems: BuyItem[] = []
     for (const pool of this.orders) {
       for (const tokenId of pool.tokenIds) {
         buyItems.push({
           tokenAddress: pool.tokenAddress,
           tokenId: tokenId,
           tokenType: TokenType.ERC721,
-        });
+        })
       }
     }
 
-    return buyItems;
+    return buyItems
   }
 
   getTotalPrice(): bigint {
-    let total = BigInt(0);
+    let total = BigInt(0)
     for (const item of this.orders) {
-      total = total + BigInt(item.value);
+      total = total + BigInt(item.value)
     }
-    return total;
+    return total
   }
 }

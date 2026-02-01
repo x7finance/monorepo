@@ -2,14 +2,14 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 
-import type { Address } from "viem";
-import { useReadContracts } from "wagmi";
+import type { ChainId } from "@x7/utils"
+import type { Address } from "viem"
 
-import { X7LendingPoolV2 } from "@x7/contracts";
-import { X7ContractsEnum } from "@x7/sdk";
-import type { ChainId } from "@x7/utils";
+import { useReadContracts } from "wagmi"
 
-import { getChainInfo } from "~/lib/constants/chainInfo";
+import { X7LendingPoolV2 } from "@x7/contracts"
+import { X7ContractsEnum } from "@x7/sdk"
+import { getChainInfo } from "~/lib/constants/chainInfo"
 
 export function useActiveLoanTerms(id: bigint, chainId: ChainId) {
   const { data, isLoading: isInitialActiveLoanTerms } = useReadContracts({
@@ -22,12 +22,12 @@ export function useActiveLoanTerms(id: bigint, chainId: ChainId) {
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialActiveLoanTerms,
     activeLoanTerms: data?.[0]?.result!,
-  };
+  }
 }
 
 export function useActiveLoansByBorrower(address: Address, chainId: ChainId) {
@@ -41,14 +41,14 @@ export function useActiveLoansByBorrower(address: Address, chainId: ChainId) {
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialActiveLoansByBorrower,
     activeLoansByBorrower: data?.[0]?.result
       ? parseInt(data[0].result.toString() ?? "0", 10)
       : 0,
-  };
+  }
 }
 
 export function useCanLiquidate(tokenByIndex: number, chainId: ChainId) {
@@ -62,14 +62,14 @@ export function useCanLiquidate(tokenByIndex: number, chainId: ChainId) {
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialCanLiquidate,
     canLiquidate: data?.[0]?.result
       ? parseInt(data[0].result.toString() ?? "0", 10)
       : 0,
-  };
+  }
 }
 
 export function useCountOfActiveLoans(chainId: ChainId) {
@@ -82,14 +82,14 @@ export function useCountOfActiveLoans(chainId: ChainId) {
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isCountOfActiveLoans,
     countOfActiveLoans: data?.[0]?.result
       ? parseInt(data[0].result.toString() ?? "0", 10)
       : 0,
-  };
+  }
 }
 
 export function useLiquidationReward(chainId: ChainId) {
@@ -102,7 +102,7 @@ export function useLiquidationReward(chainId: ChainId) {
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialLiquidationReward,
@@ -111,7 +111,7 @@ export function useLiquidationReward(chainId: ChainId) {
       ? parseInt(data[0].result.toString() ?? "0", 10) /
         10 ** getChainInfo(chainId).nativeCurrency.decimals
       : 0,
-  };
+  }
 }
 
 export function useLoanBorrower(tokenByIndex: number, chainId: ChainId) {
@@ -125,18 +125,18 @@ export function useLoanBorrower(tokenByIndex: number, chainId: ChainId) {
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialLoanBorrower,
     loanBorrower: data?.[0]?.result?.toString() ?? "",
-  };
+  }
 }
 
 export function useLoanLookupByBorrower(
   address: Address,
   activeCount: bigint,
-  chainId: ChainId,
+  chainId: ChainId
 ) {
   const { data, isLoading: isInitialLoanLookupByBorrower } = useReadContracts({
     contracts: [
@@ -148,12 +148,12 @@ export function useLoanLookupByBorrower(
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialLoanLookupByBorrower,
     loanLookupByBorrower: parseInt(data?.[0]?.result?.toString() ?? "0", 10),
-  };
+  }
 }
 
 export function useLoanPair(tokenByIndex: number, chainId: ChainId) {
@@ -167,12 +167,12 @@ export function useLoanPair(tokenByIndex: number, chainId: ChainId) {
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialLoanPair,
     loanPair: data?.[0]?.result?.toString() ?? "",
-  };
+  }
 }
 
 export function useLoanTermLookUp(tokenByIndex: number, chainId: ChainId) {
@@ -186,12 +186,12 @@ export function useLoanTermLookUp(tokenByIndex: number, chainId: ChainId) {
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialLoanTermLookUp,
     loanTermLookUp: data?.[0]?.result?.toString() ?? "",
-  };
+  }
 }
 
 export function useLoanToken(tokenByIndex: number, chainId: ChainId) {
@@ -205,12 +205,12 @@ export function useLoanToken(tokenByIndex: number, chainId: ChainId) {
         chainId,
       },
     ],
-  });
+  })
 
   return {
     isLoading: isInitialLoanToken,
     loanToken: data?.[0]?.result?.toString() ?? "",
-  };
+  }
 }
 
 export function useNextLoanID(chainId: ChainId) {
@@ -223,9 +223,9 @@ export function useNextLoanID(chainId: ChainId) {
         chainId,
       },
     ],
-  });
+  })
   return {
     isLoading: isInitialNextLoanID,
     nextLoanID: parseInt(data?.[0]?.result?.toString() ?? "0", 10),
-  };
+  }
 }

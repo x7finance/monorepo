@@ -1,15 +1,16 @@
-"use client";
+"use client"
 
-import { Fragment } from "react";
-import type { Language, Token } from "prism-react-renderer";
-import { Highlight, themes } from "prism-react-renderer";
+import type { Language, Token } from "prism-react-renderer"
 
-import { cn } from "@x7/css";
-import { CopyButton } from "@x7/ui/copy-button";
+import { Highlight, themes } from "prism-react-renderer"
+import { Fragment } from "react"
+
+import { cn } from "@x7/css"
+import { CopyButton } from "@x7/ui/copy-button"
 
 interface FenceProps {
-  children: string;
-  language: Language;
+  children: string
+  language: Language
 }
 
 export function Fence({ children, language }: FenceProps) {
@@ -23,7 +24,7 @@ export function Fence({ children, language }: FenceProps) {
         <pre
           className={cn(
             className,
-            "not-prose relative w-full overflow-auto rounded-lg bg-zinc-800 p-4",
+            "not-prose relative w-full overflow-auto rounded-lg bg-zinc-800 p-4"
           )}
           style={style}
         >
@@ -41,7 +42,10 @@ export function Fence({ children, language }: FenceProps) {
                 {line
                   .filter((token) => !token.empty)
                   .map((token: Token, tokenIndex: number) => (
-                    <span key={`token-${lineIndex}-${tokenIndex}`} {...getTokenProps({ token })} />
+                    <span
+                      key={`token-${lineIndex}-${tokenIndex}`}
+                      {...getTokenProps({ token })}
+                    />
                   ))}
                 {"\n"}
               </Fragment>
@@ -50,5 +54,5 @@ export function Fence({ children, language }: FenceProps) {
         </pre>
       )}
     </Highlight>
-  );
+  )
 }

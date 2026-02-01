@@ -1,21 +1,21 @@
-import { Container } from "@x7/ui/container";
+import { Container } from "@x7/ui/container"
+import { AnimatedTabs } from "~/lib/components/core/animate-tabs"
+import { LiquidityTabs } from "~/lib/types"
+import { XchangeLinks } from "~/types/links"
 
-import { AnimatedTabs } from "~/lib/components/core/animate-tabs";
-import { LiquidityTabs } from "~/lib/types";
-import { XchangeLinks } from "~/types/links";
-import { Hero } from "./_components/hero";
+import { Hero } from "./_components/hero"
 
 const liquidityTabs = [
   { id: LiquidityTabs.AllPools, label: "All Pools" },
   { id: LiquidityTabs.MyOpenPositions, label: "My Open Positions" },
   { id: LiquidityTabs.MyClosedPositions, label: "My Closed Positions" },
   { id: LiquidityTabs.Add, label: "Create Position" },
-];
+]
 
 export default function LiquidityLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <>
@@ -37,5 +37,5 @@ export default function LiquidityLayout({
         </Container>
       </div>
     </>
-  );
+  )
 }

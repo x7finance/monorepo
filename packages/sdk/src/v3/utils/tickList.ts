@@ -2,13 +2,14 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/no-empty-function */
 
-import invariant from "tiny-invariant";
+import type { Tick } from "../entities/tick"
 
-import type { Tick } from "../entities/tick";
-import { isSorted } from "./isSorted";
+import invariant from "tiny-invariant"
+
+import { isSorted } from "./isSorted"
 
 function tickComparator(a: Tick, b: Tick) {
-  return a.index - b.index;
+  return a.index - b.index
 }
 
 /**
@@ -21,42 +22,42 @@ export abstract class TickList {
   private constructor() {}
 
   public static validateList(ticks: Tick[], tickSpacing: number) {
-    invariant(tickSpacing > 0, "TICK_SPACING_NONZERO");
+    invariant(tickSpacing > 0, "TICK_SPACING_NONZERO")
     // ensure ticks are spaced appropriately
     invariant(
       ticks.every(({ index }) => index % tickSpacing === 0),
-      "TICK_SPACING",
-    );
+      "TICK_SPACING"
+    )
 
     // ensure tick liquidity deltas sum to 0
     invariant(
       ticks.reduce(
         (accumulator, { liquidityNet }) => accumulator + BigInt(liquidityNet),
-        BigInt(0),
+        BigInt(0)
       ) === BigInt(0),
-      "ZERO_NET",
-    );
+      "ZERO_NET"
+    )
 
-    invariant(isSorted(ticks, tickComparator), "SORTED");
+    invariant(isSorted(ticks, tickComparator), "SORTED")
   }
 
   public static isBelowSmallest(ticks: readonly Tick[], tick: number): boolean {
-    invariant(ticks.length > 0, "LENGTH");
-    return tick < ticks[0]?.index!;
+    invariant(ticks.length > 0, "LENGTH")
+    return tick < ticks[0]?.index!
   }
 
   public static isAtOrAboveLargest(
     ticks: readonly Tick[],
-    tick: number,
+    tick: number
   ): boolean {
-    invariant(ticks.length > 0, "LENGTH");
-    return tick >= ticks[ticks.length - 1]!.index;
+    invariant(ticks.length > 0, "LENGTH")
+    return tick >= ticks[ticks.length - 1]!.index
   }
 
   public static getTick(ticks: readonly Tick[], index: number): Tick {
-    const tick = ticks[this.binarySearch(ticks, index)];
-    invariant(tick?.index === index, "NOT_CONTAINED");
-    return tick;
+    const tick = ticks[this.binarySearch(ticks, index)]
+    invariant(tick?.index === index, "NOT_CONTAINED")
+    return tick
   }
 
   /**
@@ -66,25 +67,25 @@ export abstract class TickList {
    * @private
    */
   private static binarySearch(ticks: readonly Tick[], tick: number): number {
-    invariant(!this.isBelowSmallest(ticks, tick), "BELOW_SMALLEST");
+    invariant(!this.isBelowSmallest(ticks, tick), "BELOW_SMALLEST")
 
-    let l = 0;
-    let r = ticks.length - 1;
-    let i;
+    let l = 0
+    let r = ticks.length - 1
+    let i
     while (true) {
-      i = Math.floor((l + r) / 2);
+      i = Math.floor((l + r) / 2)
 
       if (
         ticks[i]!.index <= tick &&
         (i === ticks.length - 1 || ticks[i + 1]!.index > tick)
       ) {
-        return i;
+        return i
       }
 
       if (ticks[i]!.index < tick) {
-        l = i + 1;
+        l = i + 1
       } else {
-        r = i - 1;
+        r = i - 1
       }
     }
   }
@@ -92,22 +93,22 @@ export abstract class TickList {
   public static nextInitializedTick(
     ticks: readonly Tick[],
     tick: number,
-    lte: boolean,
+    lte: boolean
   ): Tick {
     if (lte) {
-      invariant(!TickList.isBelowSmallest(ticks, tick), "BELOW_SMALLEST");
+      invariant(!TickList.isBelowSmallest(ticks, tick), "BELOW_SMALLEST")
       if (TickList.isAtOrAboveLargest(ticks, tick)) {
-        return ticks[ticks.length - 1]!;
+        return ticks[ticks.length - 1]!
       }
-      const index = this.binarySearch(ticks, tick);
-      return ticks[index]!;
+      const index = this.binarySearch(ticks, tick)
+      return ticks[index]!
     } else {
-      invariant(!this.isAtOrAboveLargest(ticks, tick), "AT_OR_ABOVE_LARGEST");
+      invariant(!this.isAtOrAboveLargest(ticks, tick), "AT_OR_ABOVE_LARGEST")
       if (this.isBelowSmallest(ticks, tick)) {
-        return ticks[0]!;
+        return ticks[0]!
       }
-      const index = this.binarySearch(ticks, tick);
-      return ticks[index + 1]!;
+      const index = this.binarySearch(ticks, tick)
+      return ticks[index + 1]!
     }
   }
 
@@ -115,32 +116,32 @@ export abstract class TickList {
     ticks: readonly Tick[],
     tick: number,
     lte: boolean,
-    tickSpacing: number,
+    tickSpacing: number
   ): [number, boolean] {
-    const compressed = Math.floor(tick / tickSpacing); // matches rounding in the code
+    const compressed = Math.floor(tick / tickSpacing) // matches rounding in the code
 
     if (lte) {
-      const wordPos = compressed >> 8;
-      const minimum = (wordPos << 8) * tickSpacing;
+      const wordPos = compressed >> 8
+      const minimum = (wordPos << 8) * tickSpacing
 
       if (TickList.isBelowSmallest(ticks, tick)) {
-        return [minimum, false];
+        return [minimum, false]
       }
 
-      const index = TickList.nextInitializedTick(ticks, tick, lte).index;
-      const nextInitializedTick = Math.max(minimum, index);
-      return [nextInitializedTick, nextInitializedTick === index];
+      const index = TickList.nextInitializedTick(ticks, tick, lte).index
+      const nextInitializedTick = Math.max(minimum, index)
+      return [nextInitializedTick, nextInitializedTick === index]
     } else {
-      const wordPos = (compressed + 1) >> 8;
-      const maximum = (((wordPos + 1) << 8) - 1) * tickSpacing;
+      const wordPos = (compressed + 1) >> 8
+      const maximum = (((wordPos + 1) << 8) - 1) * tickSpacing
 
       if (this.isAtOrAboveLargest(ticks, tick)) {
-        return [maximum, false];
+        return [maximum, false]
       }
 
-      const index = this.nextInitializedTick(ticks, tick, lte).index;
-      const nextInitializedTick = Math.min(maximum, index);
-      return [nextInitializedTick, nextInitializedTick === index];
+      const index = this.nextInitializedTick(ticks, tick, lte).index
+      const nextInitializedTick = Math.min(maximum, index)
+      return [nextInitializedTick, nextInitializedTick === index]
     }
   }
 }

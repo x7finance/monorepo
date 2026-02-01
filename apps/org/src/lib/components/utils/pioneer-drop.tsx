@@ -1,13 +1,13 @@
-import Image from "next/image";
+import Image from "next/image"
 
-import { cn } from "@x7/css";
+import { cn } from "@x7/css"
 
 export function PioneerDrop(props: {
-  pioneerId?: string;
-  lineColor: string;
-  height?: number;
+  pioneerId?: string
+  lineColor: string
+  height?: number
 }) {
-  const { pioneerId, lineColor, height = 100 } = props;
+  const { pioneerId, lineColor, height = 100 } = props
 
   return (
     <div className="mb-6">
@@ -15,7 +15,7 @@ export function PioneerDrop(props: {
         style={{ height }}
         className={cn(
           lineColor,
-          `pioneer-line-drop mx-auto block w-[1px] bg-linear-to-b`,
+          `pioneer-line-drop mx-auto block w-[1px] bg-linear-to-b`
         )}
       />
       {pioneerId && (
@@ -28,5 +28,5 @@ export function PioneerDrop(props: {
         />
       )}
     </div>
-  );
+  )
 }

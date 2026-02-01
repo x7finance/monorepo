@@ -1,31 +1,32 @@
-/* oxlint-disable @typescript-eslint/no-empty-function */
-import { encodeFunctionData } from "viem";
+import type { Token } from "@x7/utils"
 
-import { selfPermitABI } from "@x7/contracts";
-import type { Token } from "@x7/utils";
+/* oxlint-disable @typescript-eslint/no-empty-function */
+import { encodeFunctionData } from "viem"
+
+import { selfPermitABI } from "@x7/contracts"
 
 export interface StandardPermitArguments {
-  v: 0 | 1 | 27 | 28;
-  r: string;
-  s: string;
-  amount: bigint;
-  deadline: bigint;
+  v: 0 | 1 | 27 | 28
+  r: string
+  s: string
+  amount: bigint
+  deadline: bigint
 }
 
 export interface AllowedPermitArguments {
-  v: 0 | 1 | 27 | 28;
-  r: string;
-  s: string;
-  nonce: bigint;
-  expiry: bigint;
+  v: 0 | 1 | 27 | 28
+  r: string
+  s: string
+  nonce: bigint
+  expiry: bigint
 }
 
-export type PermitOptions = StandardPermitArguments | AllowedPermitArguments;
+export type PermitOptions = StandardPermitArguments | AllowedPermitArguments
 
 function isAllowedPermit(
-  permitOptions: PermitOptions,
+  permitOptions: PermitOptions
 ): permitOptions is AllowedPermitArguments {
-  return "nonce" in permitOptions;
+  return "nonce" in permitOptions
 }
 
 export abstract class SelfPermit {
@@ -59,6 +60,6 @@ export abstract class SelfPermit {
             options.r as `0x${string}`,
             options.s as `0x${string}`,
           ],
-        });
+        })
   }
 }

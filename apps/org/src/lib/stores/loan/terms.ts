@@ -1,6 +1,11 @@
-import { create } from "zustand";
+import type {
+  LoanTermData,
+  LoanTermDataMap,
+  LoanTermsActions,
+  LoanTermsState,
+} from "./types"
 
-import type { LoanTermData, LoanTermDataMap, LoanTermsActions, LoanTermsState } from "./types";
+import { create } from "zustand"
 
 interface LoanTermsStore extends LoanTermsState, LoanTermsActions {}
 
@@ -14,4 +19,4 @@ export const useLoanTermsStore = create<LoanTermsStore>((set) => ({
   setLoanDuration: (duration: number) => set({ loanDuration: duration }),
 
   setLoan: (loan: LoanTermData | undefined) => set({ selectedLoan: loan }),
-}));
+}))

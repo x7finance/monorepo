@@ -1,19 +1,20 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import { useAccount, useBlockNumber, useChainId, useGasPrice } from "wagmi";
+import type { ChainId } from "@x7/utils"
 
-import { cn } from "@x7/css";
-import { CogIcon } from "@x7/icons";
-import { LinkInternal } from "@x7/ui/link";
-import { ONE_BILLION } from "@x7/utils";
-import type { ChainId } from "@x7/utils";
+import { useEffect, useState } from "react"
+import { useAccount, useBlockNumber, useChainId, useGasPrice } from "wagmi"
 
-import { useNativeCurrency } from "~/lib/hooks/currency/useNativeCurrency";
-import { useChainedNativePrice } from "~/lib/hooks/prices/useChainedNativePrice";
-import { useWeb3Config } from "~/lib/providers/web3";
-import { useSlideOverStore } from "~/lib/stores/slide-over";
-import { ConnectionComponent } from "../utils/web3-connect-button";
+import { cn } from "@x7/css"
+import { CogIcon } from "@x7/icons"
+import { LinkInternal } from "@x7/ui/link"
+import { ONE_BILLION } from "@x7/utils"
+import { useNativeCurrency } from "~/lib/hooks/currency/useNativeCurrency"
+import { useChainedNativePrice } from "~/lib/hooks/prices/useChainedNativePrice"
+import { useWeb3Config } from "~/lib/providers/web3"
+import { useSlideOverStore } from "~/lib/stores/slide-over"
+
+import { ConnectionComponent } from "../utils/web3-connect-button"
 
 const messages = [
   <span key={"footer-news-1"}>
@@ -49,23 +50,23 @@ const messages = [
       Read &rarr;
     </LinkInternal>
   </span>,
-];
+]
 
 export function FooterNews() {
-  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0)
+  const [isAnimating, setIsAnimating] = useState(false)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setIsAnimating(true);
+      setIsAnimating(true)
       setTimeout(() => {
-        setCurrentMessageIndex((prev) => (prev + 1) % messages.length);
-        setIsAnimating(false);
-      }, 500);
-    }, 5000);
+        setCurrentMessageIndex((prev) => (prev + 1) % messages.length)
+        setIsAnimating(false)
+      }, 500)
+    }, 5000)
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <div className="hidden h-full items-center justify-center lg:flex">
@@ -76,7 +77,7 @@ export function FooterNews() {
               isAnimating
                 ? "translate-y-[100%] opacity-0"
                 : "translate-y-0 opacity-100"
-            }`,
+            }`
           )}
         >
           <div className="flex h-6 items-center justify-center text-center text-xs">
@@ -85,18 +86,18 @@ export function FooterNews() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 export function FooterSettingsButton() {
   const setIsSlideOverOpen = useSlideOverStore(
-    (state) => state.setIsSlideOverOpen,
-  );
+    (state) => state.setIsSlideOverOpen
+  )
 
-  const { address, isConnected } = useAccount();
+  const { address, isConnected } = useAccount()
 
   if (!isConnected || !address) {
-    return <ConnectionComponent data-iscog={true} />;
+    return <ConnectionComponent data-iscog={true} />
   }
 
   return (
@@ -106,39 +107,39 @@ export function FooterSettingsButton() {
     >
       <CogIcon className="h-4 w-4" />
     </button>
-  );
+  )
 }
 
 export function FooterGwei() {
-  const { wagmiConfig: config } = useWeb3Config();
+  const { wagmiConfig: config } = useWeb3Config()
   const {
     data: gasData,
     isLoading: gasLoading,
     isFetching: gasFetching,
     isRefetching: gasRefetching,
-  } = useGasPrice({ config });
+  } = useGasPrice({ config })
 
-  const isGasLoading = gasLoading || gasFetching || gasRefetching;
+  const isGasLoading = gasLoading || gasFetching || gasRefetching
 
-  const gwei = (Number(gasData?.toString()) / ONE_BILLION).toFixed(1);
+  const gwei = (Number(gasData?.toString()) / ONE_BILLION).toFixed(1)
 
   return !isGasLoading && !!gwei ? (
     `${gwei}`
   ) : (
     <div className="h-4 animate-pulse rounded-lg bg-zinc-300 dark:bg-zinc-700" />
-  );
+  )
 }
 
 export function FooterBlockNumber() {
-  const { wagmiConfig: config } = useWeb3Config();
+  const { wagmiConfig: config } = useWeb3Config()
   const {
     data: blockData,
     isLoading: blockLoading,
     isFetching: blockFetching,
     isRefetching: blockRefetching,
-  } = useBlockNumber({ config });
+  } = useBlockNumber({ config })
 
-  const isBlockLoading = blockLoading || blockFetching || blockRefetching;
+  const isBlockLoading = blockLoading || blockFetching || blockRefetching
 
   return (
     <div className="w-16 tracking-tight text-black dark:text-white">
@@ -148,26 +149,26 @@ export function FooterBlockNumber() {
         <div className="h-4 animate-pulse rounded-lg bg-zinc-300 dark:bg-zinc-700" />
       )}
     </div>
-  );
+  )
 }
 
 export function FooterNativePrice() {
-  const chainId = useChainId() as ChainId;
+  const chainId = useChainId() as ChainId
 
   const {
     data: priceData,
     isLoading: priceLoading,
     isFetching: priceFetching,
     isRefetching: priceRefetching,
-  } = useChainedNativePrice({ chainId });
+  } = useChainedNativePrice({ chainId })
 
-  const { symbol } = useNativeCurrency({ chainId });
+  const { symbol } = useNativeCurrency({ chainId })
 
-  const isPriceLoading = priceLoading || priceFetching || priceRefetching;
+  const isPriceLoading = priceLoading || priceFetching || priceRefetching
 
   const nativePrice = priceData
     ? (Number(priceData) / 1e18).toFixed(2)
-    : "- - -";
+    : "- - -"
 
   return (
     <li className="mt-0 mb-0 flex items-center text-xs whitespace-nowrap last:mr-0 lg:mr-4">
@@ -189,5 +190,5 @@ export function FooterNativePrice() {
         </div>
       </div>
     </li>
-  );
+  )
 }

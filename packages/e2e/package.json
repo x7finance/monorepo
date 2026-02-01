@@ -3,18 +3,21 @@
   "version": "0.0.01",
   "description": "e2e tests for Xchange",
   "main": "index.js",
+  "scripts": {
+    "e2e": "HEADLESS_MODE=true npx playwright test",
+    "e2e:headed": "npx playwright test",
+    "format": "oxfmt --config ../../tooling/oxfmt/.oxfmtrc.json tests/",
+    "format:fix": "oxfmt --write --config ../../tooling/oxfmt/.oxfmtrc.json tests/",
+    "lint": "oxlint tests/"
+  },
   "devDependencies": {
     "@inquirer/prompts": "^7.4.0",
     "@playwright/test": "^1.51.1",
     "@synthetixio/synpress": "^4.0.10",
-    "axios": "^1.8.4",
     "@types/node": "^22.13.10",
-    "dotenv": "^16.4.7",
     "@x7/tsconfig": "workspace:*",
+    "axios": "^1.8.4",
+    "dotenv": "^16.4.7",
     "oxlint": "^0.16.6"
-  },
-  "scripts": {
-    "e2e": "HEADLESS_MODE=true npx playwright test",
-    "e2e:headed": "npx playwright test"
   }
 }

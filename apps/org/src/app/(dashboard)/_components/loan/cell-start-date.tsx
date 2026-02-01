@@ -1,14 +1,14 @@
-"use client";
+"use client"
 
-import { formatDateTime } from "@x7/utils";
-import type { ChainId, LoanType } from "@x7/utils";
+import type { ChainId, LoanType } from "@x7/utils"
 
-import { useLoanStartTime } from "~/lib/hooks/loans/useXchangeLoanData";
+import { formatDateTime } from "@x7/utils"
+import { useLoanStartTime } from "~/lib/hooks/loans/useXchangeLoanData"
 
 interface LoansCellProps {
-  tokenByIndex: number;
-  chainId: ChainId;
-  loanType: LoanType;
+  tokenByIndex: number
+  chainId: ChainId
+  loanType: LoanType
 }
 
 export function LoanCellStartDate({
@@ -19,11 +19,11 @@ export function LoanCellStartDate({
   const loanStartTime = useLoanStartTime(
     tokenByIndex,
     chainId,
-    loanType,
-  ).loanStartTime;
+    loanType
+  ).loanStartTime
   return (
     <div className="">
       <span>{formatDateTime(loanStartTime)}</span>
     </div>
-  );
+  )
 }

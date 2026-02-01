@@ -250,4 +250,4 @@ export default [
       ],
     },
   },
-] as const;
+] as const

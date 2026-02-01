@@ -1,21 +1,21 @@
 /* oxlint-disable @typescript-eslint/no-empty-function */
 
-import { ZERO } from "../../core/constants";
+import { ZERO } from "../../core/constants"
 
 interface FeeGrowthOutside {
-  feeGrowthOutside0X128: bigint;
-  feeGrowthOutside1X128: bigint;
+  feeGrowthOutside0X128: bigint
+  feeGrowthOutside1X128: bigint
 }
 
-const Q256 = BigInt(2) ** BigInt(256);
+const Q256 = BigInt(2) ** BigInt(256)
 
 export function subIn256(x: bigint, y: bigint): bigint {
-  const difference = x - y;
+  const difference = x - y
 
   if (difference < ZERO) {
-    return Q256 + difference;
+    return Q256 + difference
   } else {
-    return difference;
+    return difference
   }
 }
 
@@ -32,49 +32,49 @@ export abstract class TickLibrary {
     tickUpper: number,
     tickCurrent: number,
     feeGrowthGlobal0X128: bigint,
-    feeGrowthGlobal1X128: bigint,
+    feeGrowthGlobal1X128: bigint
   ) {
-    let feeGrowthBelow0X128: bigint;
-    let feeGrowthBelow1X128: bigint;
+    let feeGrowthBelow0X128: bigint
+    let feeGrowthBelow1X128: bigint
     if (tickCurrent >= tickLower) {
-      feeGrowthBelow0X128 = feeGrowthOutsideLower.feeGrowthOutside0X128;
-      feeGrowthBelow1X128 = feeGrowthOutsideLower.feeGrowthOutside1X128;
+      feeGrowthBelow0X128 = feeGrowthOutsideLower.feeGrowthOutside0X128
+      feeGrowthBelow1X128 = feeGrowthOutsideLower.feeGrowthOutside1X128
     } else {
       feeGrowthBelow0X128 = subIn256(
         feeGrowthGlobal0X128,
-        feeGrowthOutsideLower.feeGrowthOutside0X128,
-      );
+        feeGrowthOutsideLower.feeGrowthOutside0X128
+      )
       feeGrowthBelow1X128 = subIn256(
         feeGrowthGlobal1X128,
-        feeGrowthOutsideLower.feeGrowthOutside1X128,
-      );
+        feeGrowthOutsideLower.feeGrowthOutside1X128
+      )
     }
 
-    let feeGrowthAbove0X128: bigint;
-    let feeGrowthAbove1X128: bigint;
+    let feeGrowthAbove0X128: bigint
+    let feeGrowthAbove1X128: bigint
     if (tickCurrent < tickUpper) {
-      feeGrowthAbove0X128 = feeGrowthOutsideUpper.feeGrowthOutside0X128;
-      feeGrowthAbove1X128 = feeGrowthOutsideUpper.feeGrowthOutside1X128;
+      feeGrowthAbove0X128 = feeGrowthOutsideUpper.feeGrowthOutside0X128
+      feeGrowthAbove1X128 = feeGrowthOutsideUpper.feeGrowthOutside1X128
     } else {
       feeGrowthAbove0X128 = subIn256(
         feeGrowthGlobal0X128,
-        feeGrowthOutsideUpper.feeGrowthOutside0X128,
-      );
+        feeGrowthOutsideUpper.feeGrowthOutside0X128
+      )
       feeGrowthAbove1X128 = subIn256(
         feeGrowthGlobal1X128,
-        feeGrowthOutsideUpper.feeGrowthOutside1X128,
-      );
+        feeGrowthOutsideUpper.feeGrowthOutside1X128
+      )
     }
 
     return [
       subIn256(
         subIn256(feeGrowthGlobal0X128, feeGrowthBelow0X128),
-        feeGrowthAbove0X128,
+        feeGrowthAbove0X128
       ),
       subIn256(
         subIn256(feeGrowthGlobal1X128, feeGrowthBelow1X128),
-        feeGrowthAbove1X128,
+        feeGrowthAbove1X128
       ),
-    ];
+    ]
   }
 }

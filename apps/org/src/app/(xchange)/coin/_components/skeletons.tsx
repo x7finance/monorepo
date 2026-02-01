@@ -1,5 +1,5 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
-import { Card } from "@x7/ui/card";
+import { Card } from "@x7/ui/card"
 
 export function TokenInfoSkeleton() {
   return (
@@ -31,11 +31,11 @@ export function TokenInfoSkeleton() {
         ))}
       </div>
     </div>
-  );
+  )
 }
 
 export function TradingViewSkeleton() {
-  return <div className="h-[400px] animate-pulse rounded-lg bg-gray-200" />;
+  return <div className="h-[400px] animate-pulse rounded-lg bg-gray-200" />
 }
 
 export function TradingHistorySkeleton() {
@@ -44,11 +44,14 @@ export function TradingHistorySkeleton() {
       <div className="h-8 w-48 animate-pulse rounded-sm bg-gray-200" />
       <div className="space-y-2">
         {[...Array(5)].map((_, i) => (
-          <div key={`history-skeleton-${i}`} className="h-12 animate-pulse rounded-sm bg-gray-200" />
+          <div
+            key={`history-skeleton-${i}`}
+            className="h-12 animate-pulse rounded-sm bg-gray-200"
+          />
         ))}
       </div>
     </div>
-  );
+  )
 }
 
 export function ChatSkeleton() {
@@ -61,5 +64,5 @@ export function ChatSkeleton() {
         <div className="h-10 w-20 animate-pulse rounded-sm bg-gray-200" />
       </div>
     </div>
-  );
+  )
 }
