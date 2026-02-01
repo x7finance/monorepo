@@ -12,7 +12,7 @@ import {
   ZERO,
 } from "@x7/utils";
 
-import { MAX_PRICE_IMPACT_PERCENT } from "../../core";
+import { MAX_PRICE_IMPACT_PERCENT } from "../../core/constants";
 import { Pair, RouteV2 as V2RouteSDK, TradeV2 as V2TradeSDK } from "../../v2";
 import { Pool, RouteV3 as V3RouteSDK, TradeV3 as V3TradeSDK } from "../../v3";
 import { MixedRouteSDK } from "./mixedRoute/route";

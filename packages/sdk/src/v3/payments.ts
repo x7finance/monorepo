@@ -4,7 +4,7 @@ import { encodeFunctionData } from "viem";
 import { peripheryPaymentsWithFeeExtendedABI } from "@x7/contracts";
 import type { Percent, Token } from "@x7/utils";
 
-import { validateAndParseAddress } from "../core";
+import { validateAndParseAddress } from "../core/validateAndParseAddress";
 
 export interface FeeOptions {
   /**

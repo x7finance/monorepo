@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 
-import { NEGATIVE_ONE, ZERO } from "../../core";
+import { NEGATIVE_ONE, ZERO } from "../../core/constants";
 import type { FeeAmount } from "../constants";
 import { FullMath } from "./fullMath";
 import { SqrtPriceMath } from "./sqrtPriceMath";

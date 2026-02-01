@@ -1,7 +1,7 @@
 import type { Token } from "@x7/utils";
 import { Price } from "@x7/utils";
 
-import { Q192 } from "../../core";
+import { Q192 } from "../../core/constants";
 import { encodeSqrtRatioX96 } from "./encodeSqrtRatioX96";
 import { TickMath } from "./tickMath";
 

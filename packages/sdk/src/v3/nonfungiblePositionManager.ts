@@ -6,7 +6,8 @@ import { nfPositionManagerABI } from "@x7/contracts";
 import { CurrencyAmount } from "@x7/utils";
 import type { Currency, Native, Percent, Token } from "@x7/utils";
 
-import { ONE, validateAndParseAddress, ZERO } from "../core";
+import { ONE, ZERO } from "../core/constants";
+import { validateAndParseAddress } from "../core/validateAndParseAddress";
 import { ADDRESS_ZERO } from "./constants";
 import type { Pool } from "./entities";
 import { Position } from "./entities/position";

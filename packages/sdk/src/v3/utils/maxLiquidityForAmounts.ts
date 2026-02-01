@@ -1,4 +1,4 @@
-import { Q96 } from "../../core";
+import { Q96 } from "../../core/constants";
 
 /**
  * Returns an imprecise maximum amount of liquidity received for a given amount of token 0.

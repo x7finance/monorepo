@@ -1,4 +1,4 @@
-import { NEGATIVE_ONE, ZERO } from "../../core";
+import { NEGATIVE_ONE, ZERO } from "../../core/constants";
 
 export abstract class LiquidityMath {
   /**

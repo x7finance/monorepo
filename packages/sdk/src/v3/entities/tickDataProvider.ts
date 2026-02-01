@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/require-await */
-import type { BigintIsh } from "../../core";
+import type { BigintIsh } from "../../core/constants";
 
 /**
  * Provides information about ticks

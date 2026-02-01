@@ -1,6 +1,7 @@
-import type { Currency } from "../currency";
-import type { CurrencyAmount, Percent } from "../math";
-import { Fraction } from "../math";
+import type { Currency } from "../currency/Type";
+import type { CurrencyAmount } from "../math/fractions/currencyAmount";
+import type Percent from "../math/Percent";
+import Fraction from "../math/Fraction";
 
 const ONE = new Fraction(1, 1);
 

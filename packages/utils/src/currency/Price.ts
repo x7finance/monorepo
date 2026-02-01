@@ -2,8 +2,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import invariant from "tiny-invariant";
 
-import { CurrencyAmount, Fraction } from "../math";
-import type { Rounding } from "../math";
+import { CurrencyAmount } from "../math/fractions/currencyAmount";
+import Fraction from "../math/Fraction";
+import type Rounding from "../math/Rounding";
 import type { Currency } from "./Type";
 
 export class Price<

@@ -19,14 +19,13 @@ import {
   _997,
   _1000,
   BASIS_POINTS,
-  FACTORY_ADDRESSES,
   FIVE,
   MINIMUM_LIQUIDITY,
   ONE,
-  PAIR_INIT_HASH,
   ZERO,
-} from "../../core";
-import type { BigintIsh } from "../../core";
+} from "../../core/constants";
+import type { BigintIsh } from "../../core/constants";
+import { FACTORY_ADDRESSES, PAIR_INIT_HASH } from "../../core/addresses";
 
 export const computePairAddress = ({
   pairType,

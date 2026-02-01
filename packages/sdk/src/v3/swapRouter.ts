@@ -7,7 +7,7 @@ import { swapRouter03, swapRouter03WDeadline } from "@x7/contracts";
 import type { Currency, Percent } from "@x7/utils";
 import { CurrencyAmount, Implementation, TradeType } from "@x7/utils";
 
-import { validateAndParseAddress } from "../core";
+import { validateAndParseAddress } from "../core/validateAndParseAddress";
 import { ADDRESS_ZERO } from "./constants";
 import type { TradeV3 } from "./entities/trade";
 import { Multicall } from "./multicall";

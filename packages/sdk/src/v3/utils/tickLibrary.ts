@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 
-import { ZERO } from "../../core";
+import { ZERO } from "../../core/constants";
 
 interface FeeGrowthOutside {
   feeGrowthOutside0X128: bigint;

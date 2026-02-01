@@ -3,7 +3,7 @@
 import invariant from "tiny-invariant";
 import { maxUint256 } from "viem";
 
-import { ONE, Q96, ZERO } from "../../core";
+import { ONE, Q96, ZERO } from "../../core/constants";
 import { FullMath } from "./fullMath";
 
 const MaxUint160: bigint = BigInt(2) ** BigInt(160) - ONE;

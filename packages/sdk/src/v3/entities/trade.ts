@@ -17,7 +17,7 @@ import {
   ZERO,
 } from "@x7/utils";
 
-import { MAX_PRICE_IMPACT_PERCENT } from "../../core";
+import { MAX_PRICE_IMPACT_PERCENT } from "../../core/constants";
 import { Pool } from "./pool";
 import { RouteV3 } from "./route";
 

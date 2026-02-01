@@ -29,7 +29,8 @@ import {
 } from "@x7/utils";
 import type { Currency } from "@x7/utils";
 
-import { BASIS_POINTS, ONE, validateAndParseAddress } from "../core";
+import { BASIS_POINTS, ONE } from "../core/constants";
+import { validateAndParseAddress } from "../core/validateAndParseAddress";
 import { WETH_ADDRESS } from "../universal-router/utils/constants";
 import { log } from "../utils/logger";
 import type { TradeV2 } from "../v2";

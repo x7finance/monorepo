@@ -12,7 +12,7 @@ import {
   TradeType,
 } from "@x7/utils";
 
-import { MAX_PRICE_IMPACT_PERCENT, ONE, ZERO } from "../../core";
+import { MAX_PRICE_IMPACT_PERCENT, ONE, ZERO } from "../../core/constants";
 import { computePriceImpact } from "../../core/computePriceImpact";
 import type { Pair } from "./pair";
 import { RouteV2 } from "./route";

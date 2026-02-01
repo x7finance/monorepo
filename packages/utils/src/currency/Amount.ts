@@ -7,7 +7,9 @@
 
 import invariant from "tiny-invariant";
 
-import { Fraction, MAX_UINT256, Rounding, ZERO } from "../math";
+import { MAX_UINT256, ZERO } from "../math/constants/numbers";
+import Fraction from "../math/Fraction";
+import Rounding from "../math/Rounding";
 import Big from "../math/Big";
 import { Native } from "./Native";
 import { Share } from "./Share";

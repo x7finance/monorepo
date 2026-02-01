@@ -3,7 +3,7 @@
 import invariant from "tiny-invariant";
 import { maxUint256 } from "viem";
 
-import { ONE, ZERO } from "../../core";
+import { ONE, ZERO } from "../../core/constants";
 import { mostSignificantBit } from "./mostSignificantBit";
 
 function mulShift(val: bigint, mulBy: string): bigint {

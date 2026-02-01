@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/require-await */
-import type { BigintIsh } from "../../core";
+import type { BigintIsh } from "../../core/constants";
 import { TickList } from "../utils/tickList";
 import type { TickConstructorArgs } from "./tick";
 import { Tick } from "./tick";

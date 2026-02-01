@@ -5,8 +5,8 @@ import { peripheryPaymentsWithFeeExtendedABI } from "@x7/contracts";
 import { encodeFeeBips } from "@x7/utils";
 import type { Token } from "@x7/utils";
 
-import { validateAndParseAddress } from "../core";
-import type { BigintIsh } from "../core";
+import type { BigintIsh } from "../core/constants";
+import { validateAndParseAddress } from "../core/validateAndParseAddress";
 import type { FeeOptions } from "../v3";
 import { Payments } from "../v3";
 

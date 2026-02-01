@@ -1,7 +1,7 @@
 import invariant from "tiny-invariant";
 import { maxUint256 } from "viem";
 
-import { ZERO } from "../../core";
+import { ZERO } from "../../core/constants";
 
 const TWO = BigInt(2);
 const POWERS_OF_2 = [128, 64, 32, 16, 8, 4, 2, 1].map(

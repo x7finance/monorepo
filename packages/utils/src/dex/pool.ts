@@ -1,5 +1,5 @@
-import type { Token } from "../currency";
-import type { CurrencyAmount } from "../math";
+import type { Token } from "../currency/Token";
+import type { CurrencyAmount } from "../math/fractions/currencyAmount";
 import type { Fee } from "./fee";
 
 export abstract class Pool {

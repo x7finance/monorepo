@@ -5,7 +5,7 @@ import invariant from "tiny-invariant";
 import type { Implementation, Token } from "@x7/utils";
 import { CurrencyAmount, Price } from "@x7/utils";
 
-import { NEGATIVE_ONE, ONE, Q192, ZERO } from "../../core";
+import { NEGATIVE_ONE, ONE, Q192, ZERO } from "../../core/constants";
 import type { FeeAmount } from "../constants";
 import { FACTORY_ADDRESS, TICK_SPACINGS } from "../constants";
 import { computePoolAddress } from "../utils/computePoolAddress";

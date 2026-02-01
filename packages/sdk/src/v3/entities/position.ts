@@ -4,7 +4,7 @@ import { maxUint256 } from "viem";
 import type { Price, Token } from "@x7/utils";
 import { CurrencyAmount, Implementation, Percent } from "@x7/utils";
 
-import { ZERO } from "../../core";
+import { ZERO } from "../../core/constants";
 import { encodeSqrtRatioX96 } from "../utils/encodeSqrtRatioX96";
 import { maxLiquidityForAmounts } from "../utils/maxLiquidityForAmounts";
 import { tickToPrice } from "../utils/priceTickConversions";

@@ -4,7 +4,7 @@ import invariant from "tiny-invariant";
 import type { Currency, Percent, Token } from "@x7/utils";
 import { TradeType } from "@x7/utils";
 
-import { validateAndParseAddress } from "../core";
+import { validateAndParseAddress } from "../core/validateAndParseAddress";
 import type { TradeV2 } from "./entities";
 
 /**
