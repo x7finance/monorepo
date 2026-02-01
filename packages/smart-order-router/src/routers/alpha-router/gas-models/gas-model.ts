@@ -37,14 +37,18 @@ import type {
   ArbitrumGasData,
   IL2GasDataProvider,
 } from "../../../providers/v3/gas-data-provider";
-import { WRAPPED_NATIVE_CURRENCY } from "../../../utils";
-import type { CurrencyAmount } from "../../../utils";
+import { WRAPPED_NATIVE_CURRENCY } from "../../../utils/chains";
+import type { CurrencyAmount } from "../../../utils/amounts";
 import type {
   MixedRouteWithValidQuote,
   RouteWithValidQuote,
   V2RouteWithValidQuote,
   V3RouteWithValidQuote,
 } from "../entities/route-with-valid-quote";
+import type { IGasModel, L1ToL2GasCosts } from "./gas-model-types";
+
+// Re-export for backwards compatibility
+export type { IGasModel, L1ToL2GasCosts } from "./gas-model-types";
 
 // When adding new usd gas tokens, ensure the tokens are ordered
 // from tokens with highest decimals to lowest decimals. For example,
@@ -77,13 +81,6 @@ export const usdGasTokensByChain: Partial<Record<ChainId, Token[]>> = {
   [ChainId.BASE]: [USDC_BASE, USDC_NATIVE_BASE],
   [ChainId.BASE_TESTNET]: [USDC_BASE_SEPOLIA],
 };
-
-export interface L1ToL2GasCosts {
-  gasUsedL1: bigint;
-  gasUsedL1OnL2: bigint;
-  gasCostL1USD: CurrencyAmount;
-  gasCostL1QuoteToken: CurrencyAmount;
-}
 
 export type GasModelProviderConfig = ProviderConfig & {
   /*
@@ -125,32 +122,6 @@ export interface GasModelType {
   v2GasModel?: IGasModel<V2RouteWithValidQuote>;
   v3GasModel: IGasModel<V3RouteWithValidQuote>;
   mixedRouteGasModel: IGasModel<MixedRouteWithValidQuote>;
-}
-
-/**
- * Contains functions for generating gas estimates for given routes.
- *
- * We generally compute gas estimates off-chain because
- *  1/ Calling eth_estimateGas for a swaps requires the caller to have
- *     the full balance token being swapped, and approvals.
- *  2/ Tracking gas used using a wrapper contract is not accurate with Multicall
- *     due to EIP-2929
- *  3/ For V2 we simulate all our swaps off-chain so have no way to track gas used.
- *
- * Generally these models should be optimized to return quickly by performing any
- * long running operations (like fetching external data) outside of the functions defined.
- * This is because the functions in the model are called once for every route and every
- * amount that is considered in the algorithm so it is important to minimize the number of
- * long running operations.
- */
-export interface IGasModel<TRouteWithValidQuote extends RouteWithValidQuote> {
-  estimateGasCost(routeWithValidQuote: TRouteWithValidQuote): {
-    gasEstimate: bigint;
-    gasCostInToken: CurrencyAmount;
-    gasCostInUSD: CurrencyAmount;
-    gasCostInGasToken?: CurrencyAmount;
-  };
-  calculateL1GasFees?(routes: TRouteWithValidQuote[]): Promise<L1ToL2GasCosts>;
 }
 
 /**
