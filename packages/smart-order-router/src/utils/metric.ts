@@ -69,7 +69,7 @@ export class MetricLogger extends IMetric {
   public putMetric(key: string, value: number, unit?: MetricLoggerUnit): void {
     this.log.info(
       LogCodes.METRIC,
-      `[Metric]: ${key}: ${value} | ${unit ? unit : ""}`,
+      `[Metric]: ${key}: ${value} | ${unit ?? ""}`,
       { key, value, unit },
     );
   }

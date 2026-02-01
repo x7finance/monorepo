@@ -13,9 +13,8 @@ export function CircleLoading({
   return (
     <div
       className={cn(
-        containerClass
-          ? containerClass
-          : "relative z-50 flex flex-auto items-center justify-center self-stretch",
+        containerClass ||
+          "relative z-50 flex flex-auto items-center justify-center self-stretch",
       )}
     >
       <IconWrapper glyph={Glyph.loading} fill={fill} size={size} />

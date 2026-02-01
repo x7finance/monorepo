@@ -65,7 +65,7 @@ export function IconWrapper(props: IconProps): ReactElement {
   return (
     <span className={cn(`w-${size} h-${size} inline-block`, containerClass)}>
       {createElement(GLYPH_MAPS[glyph], {
-        fill: fill ? fill : "currentColor",
+        fill: fill || "currentColor",
         rotate,
         ...res,
       })}
