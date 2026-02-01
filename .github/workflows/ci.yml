@@ -41,7 +41,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        command: [lint, typecheck, test]
+        command: [lint, typecheck, test, check:cycles]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -65,7 +65,12 @@ jobs:
           cp .env.example apps/org/.env.local
 
       - name: Run ${{ matrix.command }}
-        run: bun turbo ${{ matrix.command }}
+        run: |
+          if [ "${{ matrix.command }}" = "check:cycles" ]; then
+            bun run ${{ matrix.command }}
+          else
+            bun turbo ${{ matrix.command }}
+          fi
 
   build:
     name: Build

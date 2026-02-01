@@ -19,7 +19,8 @@
     "start": "turbo start",
     "test": "turbo test",
     "e2e": "turbo run e2e --filter=@x7/e2e",
-    "typecheck": "turbo typecheck"
+    "typecheck": "turbo typecheck",
+    "check:cycles": "madge --circular --extensions ts,tsx packages/*/src apps/*/src"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
@@ -30,6 +31,7 @@
     "@wayofdev/markdownlint-config": "^4.0.0",
     "husky": "^9.1.7",
     "is-ci": "^4.1.0",
+    "madge": "8.0.0",
     "markdownlint": "^0.37.4",
     "markdownlint-cli": "^0.44.0",
     "oxlint": "^0.16.6",

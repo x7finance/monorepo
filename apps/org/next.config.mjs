@@ -106,10 +106,17 @@ const nextConfig = {
   experimental: {
     // Build optimizations
     optimizePackageImports: [
+      "@x7/contracts",
+      "@x7/css",
+      "@x7/dexie",
       "@x7/icons",
+      "@x7/router",
+      "@x7/sdk",
+      "@x7/smart-order-router",
+      "@x7/tines",
+      "@x7/token-lists",
       "@x7/ui",
       "@x7/utils",
-      "@x7/sdk",
       "@tanstack/react-query",
       "recharts",
       "zod",
