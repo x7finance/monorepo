@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-unsafe-call */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable react-hooks/exhaustive-deps */
 
 "use client";
 

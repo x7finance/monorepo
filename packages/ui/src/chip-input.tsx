@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/unbound-method */
+/* oxlint-disable @typescript-eslint/unbound-method */
 "use client";
 
 import * as React from "react";

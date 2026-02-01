@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import { useMemo } from "react";
 
 import type { ChainId } from "@x7/utils";

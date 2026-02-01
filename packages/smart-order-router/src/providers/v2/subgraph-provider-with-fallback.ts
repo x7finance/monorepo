@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* oxlint-disable @typescript-eslint/no-unused-vars */
 import { LogCodes } from "@x7/utils";
 import type { Token } from "@x7/utils";
 

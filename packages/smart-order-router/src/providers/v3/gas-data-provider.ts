@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
+/* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
 import { getContract } from "viem";
 
 import type { ChainId } from "@x7/utils";

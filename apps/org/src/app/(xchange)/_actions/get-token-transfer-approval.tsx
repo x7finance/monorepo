@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/restrict-template-expressions */
+/* oxlint-disable @typescript-eslint/no-unsafe-argument */
+/* oxlint-disable @typescript-eslint/no-unsafe-call */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 import type { Config } from "@wagmi/core";
 import { getPublicClient, getWalletClient } from "@wagmi/core";
 import { erc20Abi, getContract } from "viem";

@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 "use client";
 
 import { useEffect, useState } from "react";

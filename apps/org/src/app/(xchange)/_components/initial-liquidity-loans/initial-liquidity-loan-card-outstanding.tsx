@@ -20,7 +20,7 @@ export function ILLCardOutstandingAmount({
   principalPaymentSchedule,
 }: ILLCardOutstandingAmountProps) {
   const lastPremiumPayment =
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    // oxlint-disable-next-line @typescript-eslint/no-unnecessary-condition
     premiumPaymentSchedule && premiumPaymentSchedule.length > 0
       ? premiumPaymentSchedule[0] && premiumPaymentSchedule[0].length > 0
         ? premiumPaymentSchedule[0][premiumPaymentSchedule[0].length - 1]
@@ -28,7 +28,7 @@ export function ILLCardOutstandingAmount({
       : 0;
 
   const lastPrincipalPayment =
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    // oxlint-disable-next-line @typescript-eslint/no-unnecessary-condition
     principalPaymentSchedule && principalPaymentSchedule.length > 0
       ? principalPaymentSchedule[0] && principalPaymentSchedule[0].length > 0
         ? principalPaymentSchedule[0][principalPaymentSchedule[0].length - 1]

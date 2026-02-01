@@ -71,5 +71,5 @@ export type Context = Pick<
   total: number;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+// oxlint-disable-next-line @typescript-eslint/no-non-null-assertion
 export const DonutChartContext = createContext<Context>(undefined!);

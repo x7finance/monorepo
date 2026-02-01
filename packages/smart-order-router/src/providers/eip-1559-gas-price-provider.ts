@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
 import _ from "lodash";
 import type { Client } from "viem";
 

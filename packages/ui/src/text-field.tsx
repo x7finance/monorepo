@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/unbound-method */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/unbound-method */
 
 import * as React from "react";
 import { cva } from "class-variance-authority";

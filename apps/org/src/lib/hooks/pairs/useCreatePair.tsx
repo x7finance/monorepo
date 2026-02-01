@@ -1,5 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 "use client";
 
 import { useCallback, useMemo, useState } from "react";

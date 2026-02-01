@@ -1,4 +1,11 @@
 /**
+ * TanStack Query configuration presets
+ *
+ * These presets provide consistent caching behavior across the application.
+ * Import into your app and use with QueryClient configuration.
+ */
+
+/**
  * Time constants in milliseconds for cache configuration
  */
 export const TIME = {

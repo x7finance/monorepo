@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unsafe-argument */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
 import { encodeAbiParameters } from "viem";
 
 /**

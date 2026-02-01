@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/restrict-template-expressions */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 // import { useWeb3Config } from "~/lib/hooks/useWeb3Config";
 import { useAccount } from "wagmi";
 

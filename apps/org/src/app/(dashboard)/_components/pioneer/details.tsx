@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 "use client";
 
 import React, { useEffect, useState } from "react";

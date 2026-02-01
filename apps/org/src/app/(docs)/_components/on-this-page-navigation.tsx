@@ -83,7 +83,7 @@ function isActive(section: Section): boolean {
     return true;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  // oxlint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!section.children) {
     return false;
   }
@@ -95,7 +95,7 @@ function StyledHeader({ currentSlug, section }: StyledHeaderProps) {
   const [headerStyling, setHeaderStyling] = useState(inactiveHeader);
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    // oxlint-disable-next-line @typescript-eslint/no-unused-expressions
     isActive(section)
       ? setHeaderStyling(activeHeader)
       : setHeaderStyling(inactiveHeader);
@@ -114,7 +114,7 @@ function StyledLineItem({ currentSlug, subSection }: StyledLineItemProps) {
   const [headerStyling, setHeaderStyling] = useState(inactiveHeader);
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    // oxlint-disable-next-line @typescript-eslint/no-unused-expressions
     isActive(subSection)
       ? setHeaderStyling(activeSubHeader)
       : setHeaderStyling(inactiveSubHeader);

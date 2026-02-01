@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 

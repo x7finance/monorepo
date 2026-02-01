@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import type { Hex } from "viem";
 
 import type { MultiRoute, RouteLeg, RToken } from "@x7/tines";

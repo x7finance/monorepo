@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/unbound-method */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/unbound-method */
 import type { FC, ReactElement, ReactNode } from "react";
 import {
   Children,

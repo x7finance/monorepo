@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/require-await */
+/* oxlint-disable @typescript-eslint/require-await */
 import type NodeCache from "node-cache";
 
 import type { ICache } from "./cache";

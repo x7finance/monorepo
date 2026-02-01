@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
+/* oxlint-disable @typescript-eslint/no-unnecessary-type-assertion */
 
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
 
 import type { Pool } from "@x7/sdk";
 import { CurrencyAmount, LogCodes, Price } from "@x7/utils";

@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-unsafe-return */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 "use client";
 
 import { memo, Suspense, useEffect, useMemo, useState } from "react";
@@ -27,7 +27,7 @@ import { AlphaRouterProvider } from "./router";
 
 interface ProvidersProps {
   children: React.ReactNode;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // oxlint-disable-next-line @typescript-eslint/no-explicit-any
   initialState?: any;
 }
 

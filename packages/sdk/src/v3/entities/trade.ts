@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
 import invariant from "tiny-invariant";
 
 import type { Currency, Token } from "@x7/utils";

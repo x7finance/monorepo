@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-enum-comparison */
+/* oxlint-disable @typescript-eslint/no-unsafe-enum-comparison */
 
 import invariant from "tiny-invariant";
 
@@ -216,7 +216,7 @@ export class Pool {
     sqrtPriceLimitX96?: bigint,
   ): Promise<[CurrencyAmount<Token>, Pool]> {
     invariant(
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      // oxlint-disable-next-line @typescript-eslint/no-unnecessary-condition
       outputAmount.currency.isToken &&
         this.involvesToken(outputAmount.currency),
       "TOKEN",

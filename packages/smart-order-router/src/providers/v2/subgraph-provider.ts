@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
+/* oxlint-disable @typescript-eslint/restrict-template-expressions */
 
-/* eslint-disable @typescript-eslint/no-base-to-string */
+/* oxlint-disable @typescript-eslint/no-base-to-string */
 import retry from "async-retry";
 import Timeout from "await-timeout";
 import { gql, GraphQLClient } from "graphql-request";
@@ -95,7 +95,7 @@ export class V2SubgraphProvider implements IV2SubgraphProvider {
         DAI_ADDRESS[this.chainId as keyof typeof DAI_ADDRESS],
         USDT_ADDRESS[this.chainId as keyof typeof USDT_ADDRESS],
       ]
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        // oxlint-disable-next-line @typescript-eslint/no-unnecessary-condition
         .filter((a) => a && a.length > 0)
         .map((address) => {
           return address.toLowerCase();
@@ -249,7 +249,7 @@ export class V2SubgraphProvider implements IV2SubgraphProvider {
           });
           pools = await Promise.race([getPoolsPromise, timerPromise]);
           return;
-          // eslint-disable-next-line no-useless-catch
+          // oxlint-disable-next-line no-useless-catch
         } catch (error) {
           throw error;
         } finally {

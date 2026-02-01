@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/unbound-method */
+/* oxlint-disable @typescript-eslint/unbound-method */
 import type { ReactNode } from "react";
 import React from "react";
 

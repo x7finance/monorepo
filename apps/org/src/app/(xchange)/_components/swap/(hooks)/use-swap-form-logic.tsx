@@ -1,12 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/unbound-method */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/unbound-method */
 
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-unused-vars */
+/* oxlint-disable @typescript-eslint/no-unsafe-call */
+/* oxlint-disable react-hooks/exhaustive-deps */
 import { useCallback, useEffect, useState } from "react";
 import { getWalletClient } from "@wagmi/core";
 import type { BaseError } from "@wagmi/core";

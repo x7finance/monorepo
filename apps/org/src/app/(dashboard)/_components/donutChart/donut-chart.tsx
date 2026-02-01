@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-unsafe-argument */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-unsafe-call */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 "use client";
 
 import React, { useEffect, useState } from "react";

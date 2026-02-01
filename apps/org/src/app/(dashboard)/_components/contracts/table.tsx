@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 
 import { cn } from "@x7/css";
 import { X7ContractsEnum } from "@x7/sdk";

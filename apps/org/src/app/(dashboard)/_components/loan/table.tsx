@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Suspense, useEffect, useState } from "react";

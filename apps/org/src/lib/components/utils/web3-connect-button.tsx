@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
-/* eslint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
+/* oxlint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import type { HTMLAttributes } from "react";

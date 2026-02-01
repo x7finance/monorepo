@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unsafe-argument */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import React from "react";
 import { notFound } from "next/navigation";
 import Markdoc from "@markdoc/markdoc";

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import flatMap from "lodash.flatmap";
 
 import type { ChainId, Currency, Token } from "@x7/utils";

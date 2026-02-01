@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import { parseEther } from "viem";
 
 // import { ChainLinkAbi } from "@x7/contracts";

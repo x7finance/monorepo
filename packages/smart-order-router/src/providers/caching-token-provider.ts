@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import _ from "lodash";
 
 import type { Token } from "@x7/utils";

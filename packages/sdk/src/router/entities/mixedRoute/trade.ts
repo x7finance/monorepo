@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable prefer-const */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable prefer-const */
 import invariant from "tiny-invariant";
 
 import type { Currency, Token } from "@x7/utils";
@@ -261,7 +261,7 @@ export class MixedRouteTrade<
       : CurrencyAmount<TOutput>,
     tradeType: TTradeType,
   ): Promise<MixedRouteTrade<TInput, TOutput, TTradeType>> {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    // oxlint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const amounts: CurrencyAmount<Token>[] = new Array(route.path.length);
     let inputAmount: CurrencyAmount<TInput>;
     let outputAmount: CurrencyAmount<TOutput>;

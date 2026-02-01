@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 "use client";
 
 import { useEffect } from "react";
@@ -38,7 +38,7 @@ export function useInterval(
         if (promise) await promise;
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+      // oxlint-disable-next-line @typescript-eslint/no-misused-promises
       timeout = setTimeout(() => tick(delay), delay);
     }
   }, [callback, delay, leading]);

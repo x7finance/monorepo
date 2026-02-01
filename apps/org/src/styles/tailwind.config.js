@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/unbound-method */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/unbound-method */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   theme: {

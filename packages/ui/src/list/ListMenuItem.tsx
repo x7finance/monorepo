@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* oxlint-disable @typescript-eslint/no-unsafe-argument */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-unused-vars */
 
 "use client";
 
@@ -22,7 +22,7 @@ interface Props {
   title: ReactNode;
   subtitle?: ReactNode;
   hoverIcon?: IconComponent;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // oxlint-disable-next-line @typescript-eslint/no-explicit-any
   hoverIconProps?: any;
 }
 

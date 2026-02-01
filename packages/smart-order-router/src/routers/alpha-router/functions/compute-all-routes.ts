@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
+/* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
 import { Pair, Pool } from "@x7/sdk";
 import { LogCodes } from "@x7/utils";
 import type { Token } from "@x7/utils";

@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable @typescript-eslint/no-unsafe-call */
+/* oxlint-disable @typescript-eslint/no-unsafe-return */
+/* oxlint-disable @typescript-eslint/no-unsafe-argument */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable react-hooks/exhaustive-deps */
 
 import { useCallback, useEffect, useMemo } from "react";
 import { getAddress as _getAddress, isAddress } from "viem";

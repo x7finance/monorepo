@@ -86,8 +86,6 @@ logs/
 # ==============================
 # Cache files
 # ==============================
-.eslintcache
-**/.eslintcache
 .stylelintcache
 .cache/*
 .cache/

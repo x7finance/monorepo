@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
+/* oxlint-disable @typescript-eslint/no-empty-function */
 import { subIn256 } from "./tickLibrary";
 
 const Q128 = BigInt(2) ** BigInt(128);

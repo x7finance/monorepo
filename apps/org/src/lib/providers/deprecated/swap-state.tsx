@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/unbound-method */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/unbound-method */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
 
-/* eslint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable react-hooks/exhaustive-deps */
 
 "use client";
 

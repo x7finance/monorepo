@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
+/* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
 
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 
 import { useEffect, useState } from "react";
 import { useReadContracts } from "wagmi";

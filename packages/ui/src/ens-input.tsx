@@ -29,7 +29,7 @@ function Component(
     if (typeof data === "string" && props.onValueChange) {
       props.onValueChange(data);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, [data, props.onValueChange]);
 
   return <TextField {...props} type="text" ref={ref} />;

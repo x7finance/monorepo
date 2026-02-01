@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import _ from "lodash";
 
 import type { Token } from "@x7/utils";
@@ -178,7 +178,7 @@ export class StaticV3SubgraphProvider implements IV3SubgraphProvider {
         const liquidityNumber = Number(liquidity);
 
         return {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          // oxlint-disable-next-line @typescript-eslint/no-non-null-assertion
           id: poolAddress!.address,
           factory: poolType,
           feeTier: unparseFeeAmount(fee),

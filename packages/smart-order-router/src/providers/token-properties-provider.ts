@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* oxlint-disable @typescript-eslint/restrict-template-expressions */
 import { LogCodes } from "@x7/utils";
 import type { ChainId, Token } from "@x7/utils";
 

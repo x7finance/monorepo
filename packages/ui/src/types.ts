@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
 import type { ComponentType, RefAttributes } from "react";
 import type React from "react";
 import { animated } from "@react-spring/web";

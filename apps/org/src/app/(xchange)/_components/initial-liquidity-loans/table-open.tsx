@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import { useAccount } from "wagmi";
 
 import type { ChainId } from "@x7/utils";

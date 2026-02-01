@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-unsafe-argument */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 import type { FC } from "react";
 
 import { cn } from "@x7/css";

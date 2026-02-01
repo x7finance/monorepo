@@ -202,7 +202,7 @@ Before submitting a new issue, please:
 
 ### Coding Standards
 
-Our code formatting rules are defined in [.eslintrc](https://github.com/x7finance/monorepo/blob/main/tooling/eslint/base.js). We use ESLint and Prettier to enforce these standards.
+Our code formatting rules are defined in [.oxlintrc.json](https://github.com/x7finance/monorepo/blob/main/.oxlintrc.json). We use Oxlint and Prettier to enforce these standards.
 
 To check your code against these standards, run:
 

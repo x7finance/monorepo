@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-base-to-string */
-/* eslint-disable @typescript-eslint/require-await */
+/* oxlint-disable @typescript-eslint/no-unsafe-return */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/restrict-template-expressions */
+/* oxlint-disable @typescript-eslint/no-base-to-string */
+/* oxlint-disable @typescript-eslint/require-await */
 import axios from "axios";
 
 import type { TokenInfo, TokenList } from "@x7/token-lists";

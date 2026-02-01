@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
+/* oxlint-disable @typescript-eslint/no-empty-function */
 import { encodeFunctionData } from "viem";
 
 import { multicallABI } from "@x7/contracts";
@@ -6,7 +6,7 @@ import { multicallABI } from "@x7/contracts";
 import { Multicall } from "../v3";
 
 function validateAndParseBytes32(bytes32: string): string {
-  // eslint-disable-next-line @typescript-eslint/prefer-regexp-exec
+  // oxlint-disable-next-line @typescript-eslint/prefer-regexp-exec
   if (!bytes32.match(/^0x[0-9a-fA-F]{64}$/)) {
     throw new Error(`${bytes32} is not valid bytes32.`);
   }

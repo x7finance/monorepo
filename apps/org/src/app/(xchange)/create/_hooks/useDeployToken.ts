@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/restrict-template-expressions */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
 
 import { useCallback, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";

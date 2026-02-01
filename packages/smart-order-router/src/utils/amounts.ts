@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* oxlint-disable @typescript-eslint/restrict-template-expressions */
 import { parseUnits } from "viem";
 
 import { FeeAmount } from "@x7/sdk";

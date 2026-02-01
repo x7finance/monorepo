@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unsafe-argument */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
 import invariant from "tiny-invariant";
 
 import { CurrencyAmount } from "../math/fractions/currencyAmount";

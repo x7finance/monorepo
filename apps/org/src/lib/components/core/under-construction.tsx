@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
+/* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
 import Image from "next/image";
 
 import { cn } from "@x7/css";

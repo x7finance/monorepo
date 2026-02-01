@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/only-throw-error */
+/* oxlint-disable @typescript-eslint/only-throw-error */
 import invariant from "tiny-invariant";
 import type { Address } from "viem";
 import { getAddress } from "viem";

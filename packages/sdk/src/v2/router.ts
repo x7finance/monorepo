@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
+/* oxlint-disable @typescript-eslint/no-empty-function */
 import invariant from "tiny-invariant";
 
 import type { Currency, Percent, Token } from "@x7/utils";

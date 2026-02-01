@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/restrict-template-expressions */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import _ from "lodash";
 
 import type { RouteV2Wrapper, RouteV3Wrapper } from "@x7/sdk";

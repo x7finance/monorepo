@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/require-await */
+/* oxlint-disable @typescript-eslint/restrict-template-expressions */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/require-await */
 
 import {
   InsufficientInputAmountError,
@@ -45,10 +45,10 @@ export interface IV2QuoteProvider {
  * @class V2QuoteProvider
  */
 export class V2QuoteProvider implements IV2QuoteProvider {
-  /* eslint-disable @typescript-eslint/no-empty-function */
+  /* oxlint-disable @typescript-eslint/no-empty-function */
   
 
-  /* eslint-enable @typescript-eslint/no-empty-function */
+  /* oxlint-enable @typescript-eslint/no-empty-function */
 
   public async getQuotesManyExactIn(
     amountIns: CurrencyAmount[],

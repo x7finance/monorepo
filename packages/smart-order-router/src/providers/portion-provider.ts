@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* oxlint-disable @typescript-eslint/restrict-template-expressions */
 import { Fraction, TradeType, ZERO } from "@x7/utils";
 
 import type { RouteWithValidQuote } from "../routers/alpha-router/entities/route-with-valid-quote";

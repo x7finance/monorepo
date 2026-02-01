@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unsafe-return */
 import type { TokenInfo } from "./types";
 
 export type TokenInfoChangeKey = Exclude<
@@ -68,7 +68,7 @@ export function diffTokenLists(
     (memo: any, tokenInfo) => {
       const baseToken = indexedBase[tokenInfo.chainId]?.[tokenInfo.address];
       if (!baseToken) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        // oxlint-disable-next-line @typescript-eslint/no-unsafe-call
         memo.added.push(tokenInfo);
       } else {
         const changes: TokenInfoChanges = Object.keys(tokenInfo)

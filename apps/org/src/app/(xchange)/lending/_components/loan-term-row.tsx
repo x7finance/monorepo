@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 
 import { ArrowUpRightSquareIcon, CircleAlertIcon, X7Logo } from "@x7/icons";
 import { LinkExternal } from "@x7/ui/link";

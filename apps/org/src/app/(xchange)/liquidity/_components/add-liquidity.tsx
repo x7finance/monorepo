@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react-hooks/rules-of-hooks */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable react-hooks/rules-of-hooks */
 "use client";
 
 import type { Dispatch, FC, SetStateAction } from "react";

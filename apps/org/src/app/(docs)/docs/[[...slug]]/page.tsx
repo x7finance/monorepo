@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unsafe-argument */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { notFound } from "next/navigation";
 import Markdoc from "@markdoc/markdoc";
@@ -18,7 +18,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: any }) {
   const doc = await getMarkdownContent(params);
 
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  // oxlint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!doc) {
     return {};
   }

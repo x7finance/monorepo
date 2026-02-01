@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* oxlint-disable @typescript-eslint/no-unused-vars */
 import { getAddress } from "viem";
 
 // shorten the checksummed version of the input address to have 0x + 4 characters at start and end

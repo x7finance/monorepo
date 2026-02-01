@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
 
 import { Card, CardContent, CardHeader, CardTitle } from "@x7/ui/card";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@x7/ui/tooltip";

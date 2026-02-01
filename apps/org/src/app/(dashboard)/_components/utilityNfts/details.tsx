@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/restrict-template-expressions */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import { useCallback, useState } from "react";
 import Image from "next/image";
 import { toast } from "sonner";
@@ -89,7 +89,7 @@ export function UtilityNftDetails({ nft }: { nft: UtilityNftType }) {
         log.error(LogCodes.FAIL, `${error}`);
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
     [data, price, writeContract],
   );
 

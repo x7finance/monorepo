@@ -1,7 +1,7 @@
-/* eslint-disable no-restricted-properties */
-/* eslint-disable turbo/no-undeclared-env-vars */
-/* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable no-restricted-properties */
+/* oxlint-disable turbo/no-undeclared-env-vars */
+/* oxlint-disable @typescript-eslint/no-empty-function */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
@@ -66,7 +66,7 @@ export const useWeb3Config = () => {
 
 interface Web3ProvidersProps {
   children: React.ReactNode;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // oxlint-disable-next-line @typescript-eslint/no-explicit-any
   initialState?: any;
 }
 
@@ -171,7 +171,7 @@ export function Web3Provider(props: Web3ProvidersProps) {
           ...web3Config,
           transports: Object.fromEntries(
             Object.entries(transports).map(([chainId, urls]) => {
-              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+              // oxlint-disable-next-line @typescript-eslint/no-unnecessary-condition
               return [chainId, fallback((urls || []).map((url) => http(url)))];
             }),
           ),

@@ -75,7 +75,7 @@ export const useX7DRedeem = ({
         });
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
     [address, redeemInput],
   );
 
@@ -104,6 +104,6 @@ export const useX7DRedeem = ({
       isPending,
       data,
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, [isPending, write]);
 };

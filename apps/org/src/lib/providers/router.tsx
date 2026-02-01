@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 
-/* eslint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable react-hooks/exhaustive-deps */
 
 "use client";
 

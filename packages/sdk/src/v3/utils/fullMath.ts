@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
+/* oxlint-disable @typescript-eslint/no-empty-function */
 import { ONE, ZERO } from "@x7/utils";
 
 export abstract class FullMath {

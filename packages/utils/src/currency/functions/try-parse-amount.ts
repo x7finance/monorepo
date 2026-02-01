@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* oxlint-disable @typescript-eslint/no-unused-vars */
 import { parseUnits } from "viem";
 
 import { CurrencyAmount } from "../../math/fractions/currencyAmount";

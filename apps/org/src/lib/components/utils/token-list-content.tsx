@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
-/* eslint-disable @typescript-eslint/unbound-method */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
+/* oxlint-disable @typescript-eslint/unbound-method */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 "use client";
 
 import type { FC } from "react";
@@ -137,7 +137,7 @@ export const TokenListContent: FC<TokenViewProps> = ({
         setOpen(false);
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
     [onSelect],
   );
   const _onPin = useCallback(

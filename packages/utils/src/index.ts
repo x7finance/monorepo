@@ -15,6 +15,7 @@ export * from "./misc/chainFormatters";
 export * from "./misc/pioneers";
 export * from "./misc/formatAddress";
 
+export * from "./query";
 export * from "./sort";
 export * from "./types";
 

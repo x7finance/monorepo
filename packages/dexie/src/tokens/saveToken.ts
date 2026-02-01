@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* oxlint-disable @typescript-eslint/restrict-template-expressions */
 import { db } from "../db";
 import type { SavedToken } from "./types";
 

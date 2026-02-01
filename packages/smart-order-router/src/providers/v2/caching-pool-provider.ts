@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import _ from "lodash";
 
 import type { Pair } from "@x7/sdk";

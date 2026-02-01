@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
+/* oxlint-disable @typescript-eslint/no-unused-vars */
 
 "use client";
 

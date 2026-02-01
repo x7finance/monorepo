@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import { useChainId } from "wagmi";
 
 import { Card, CardContent } from "@x7/ui/card";

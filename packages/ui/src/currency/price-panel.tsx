@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
 import type { FC } from "react";
 import { useMemo } from "react";
 

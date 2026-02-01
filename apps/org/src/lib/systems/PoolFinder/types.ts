@@ -33,7 +33,7 @@ export enum XchangeV2PoolState {
   INVALID = "Invalid",
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// oxlint-disable-next-line @typescript-eslint/no-explicit-any
 export type PoolStateUnion = [XchangeV2PoolState, any];
 
 export enum PoolFinderType {

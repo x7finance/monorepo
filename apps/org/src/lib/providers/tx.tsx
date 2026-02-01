@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import type { FC } from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import { waitForTransactionReceipt } from "@wagmi/core";
@@ -117,7 +117,7 @@ export const TransactionStoreProvider: FC<TransactionStoreProviderProps> = ({
           }
         },
       );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, [notifications]);
 
   const builtState = {

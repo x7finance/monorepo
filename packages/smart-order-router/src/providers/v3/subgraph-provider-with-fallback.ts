@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-unused-vars */
 import { LogCodes } from "@x7/utils";
 import type { Token } from "@x7/utils";
 

@@ -1,6 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import type { BaseError } from "viem";

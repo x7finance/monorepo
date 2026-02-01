@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* oxlint-disable @typescript-eslint/no-unused-vars */
 import type { Currency } from "@x7/utils";
 import { ChainId } from "@x7/utils";
 

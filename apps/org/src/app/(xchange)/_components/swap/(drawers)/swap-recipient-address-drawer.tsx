@@ -80,7 +80,7 @@ function ProfileForm({ className }: { className: string }) {
 
   useEffect(() => {
     setInputValue(recipientAddress);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, [useRecipientAddress]);
 
   const handlePaste = (pastedContent: string) => {

@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/require-await */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/require-await */
 import _ from "lodash";
 
 import { Pair } from "@x7/sdk";

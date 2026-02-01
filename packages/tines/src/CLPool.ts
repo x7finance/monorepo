@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import type { Address } from "viem";
 
 import type { RToken } from "./PrimaryPools";

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-base-to-string */
+/* oxlint-disable @typescript-eslint/no-base-to-string */
 import type { Address } from "viem";
 import { useReadContracts } from "wagmi";
 
@@ -46,7 +46,7 @@ export function useFee(chainId: ChainId) {
     isLoading: isInitialFee,
     fee: BigInt(data?.[0]?.result?.toString() ?? "0"),
     feeDecimal: data?.[0]?.result
-      ? // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      ? // oxlint-disable-next-line @typescript-eslint/no-unnecessary-condition
         parseInt(data[0].result.toString() ?? "0", 10) /
         10 ** getChainInfo(chainId).nativeCurrency.decimals
       : 0,

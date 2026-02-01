@@ -16,7 +16,7 @@
   "types": "dist/index.d.ts",
   "files": ["dist", "src"],
   "scripts": {
-    "build": "tsgo && cp src/tokenlist.schema.json dist/",
+    "build": "tsgo && mkdir -p dist && cp src/tokenlist.schema.json dist/",
     "clean": "git clean -xdf .turbo node_modules dist",
     "dev": "tsgo --watch",
     "lint": "oxlint src/",

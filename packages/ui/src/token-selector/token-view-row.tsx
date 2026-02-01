@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/unbound-method */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/unbound-method */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 
 import type { CSSProperties, FC, ReactElement } from "react";
 import React, { memo, useCallback } from "react";

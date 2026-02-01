@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/unbound-method */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/unbound-method */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 "use client";
 
 import { getPublicClient, getWalletClient } from "@wagmi/core";

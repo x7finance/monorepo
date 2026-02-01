@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/prefer-for-of */
+/* oxlint-disable @typescript-eslint/prefer-for-of */
 import type { Pair, Pool } from "@x7/sdk";
 import { ChainId } from "@x7/utils";
 import type { CurrencyAmount as CurrencyAmountRaw, Token } from "@x7/utils";
@@ -175,10 +175,10 @@ export abstract class IOnChainGasModelFactory<
   ) {
     let ticksCrossed = 0;
     for (let i = 0; i < initializedTicksCrossedList.length; i++) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      // oxlint-disable-next-line @typescript-eslint/no-non-null-assertion
       if (initializedTicksCrossedList[i]! > 0) {
         // Quoter returns Array<number of calls to crossTick + 1>, so we need to subtract 1 here.
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        // oxlint-disable-next-line @typescript-eslint/no-non-null-assertion
         ticksCrossed += initializedTicksCrossedList[i]! - 1;
       }
     }

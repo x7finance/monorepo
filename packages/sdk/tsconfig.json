@@ -1,9 +1,10 @@
 {
   "extends": "@x7/tsconfig/build.json",
   "compilerOptions": {
+    "rootDir": "src",
     "outDir": "dist",
     "tsBuildInfoFile": ".turbo/.tsbuildinfo"
   },
-  "include": ["*.ts", "src"],
+  "include": ["src"],
   "exclude": ["node_modules", "dist", ".turbo"]
 }

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
+/* oxlint-disable @typescript-eslint/no-empty-function */
 
 import { NEGATIVE_ONE, ZERO } from "../../core/constants";
 import type { FeeAmount } from "../constants";

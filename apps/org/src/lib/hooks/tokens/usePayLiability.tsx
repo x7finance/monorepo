@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { useCallback, useMemo, useState } from "react";

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
+/* oxlint-disable @typescript-eslint/no-duplicate-enum-values */
 
 export const ChainId = {
   ETHEREUM: 1,

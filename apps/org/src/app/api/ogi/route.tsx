@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @next/next/no-img-element */
+/* oxlint-disable @typescript-eslint/ban-ts-comment */
+/* oxlint-disable @typescript-eslint/no-unused-vars */
+/* oxlint-disable @next/next/no-img-element */
 // @ts-nocheck
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";

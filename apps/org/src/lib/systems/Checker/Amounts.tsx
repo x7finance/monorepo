@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import type { FC } from "react";

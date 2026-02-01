@@ -318,7 +318,7 @@ export function useLoanState(): LoanState {
   // Auto-fetch quotes when relevant state changes
   useEffect(() => {
     fetchQuotes();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, [loanAmount, effectiveLoanToken, collateralAmount, collateralToken, loanDuration]);
 
   // Update selected quote when quotes or selected loan changes

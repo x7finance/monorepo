@@ -54,6 +54,6 @@ export type NotificationData = PromiseNotification | ResolvedNotification;
 export const isPromise = (
   data: PromiseNotification | ResolvedNotification,
 ): data is PromiseNotification => {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  // oxlint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return (data as PromiseNotification).summary.pending !== undefined;
 };

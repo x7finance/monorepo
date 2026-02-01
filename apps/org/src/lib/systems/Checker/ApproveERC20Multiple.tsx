@@ -27,7 +27,7 @@ const ApproveERC20Multiple: FC<ApproveERC20MultipleProps> = ({
   children,
   ...props
 }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  // oxlint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (amounts === undefined) {
     return <>{children}</>;
   }

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
+/* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
 "use client";
 
 import type { FC, ReactNode } from "react";

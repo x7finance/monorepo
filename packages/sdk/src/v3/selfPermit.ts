@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
+/* oxlint-disable @typescript-eslint/no-empty-function */
 import { encodeFunctionData } from "viem";
 
 import { selfPermitABI } from "@x7/contracts";

@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/require-await */
-/* eslint-disable @typescript-eslint/prefer-for-of */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/require-await */
+/* oxlint-disable @typescript-eslint/prefer-for-of */
 import _ from "lodash";
 
 import type {

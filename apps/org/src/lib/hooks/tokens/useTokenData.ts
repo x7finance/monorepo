@@ -1,18 +1,23 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-// import { useMemo } from "react";
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-unsafe-argument */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 import { useQuery } from "@tanstack/react-query";
 import { erc20Abi, formatEther, formatUnits } from "viem";
-// import { getBlockNumber, getLogs } from "viem/actions";
 import { useChainId, useReadContract } from "wagmi";
 
 import { XchangeMetadataAbi } from "@x7/contracts";
 import { computePairAddress, X7ContractsEnum } from "@x7/sdk";
 import { chainIdToSubgraphChainName } from "@x7/smart-order-router";
 import type { ChainId } from "@x7/utils";
-import { Implementation, Token, WETH9 } from "@x7/utils";
+import {
+  formatCurrency,
+  formatNumber,
+  formatPercentage,
+  Implementation,
+  Token,
+  WETH9,
+} from "@x7/utils";
 
 import { useChainedNativePrice } from "~/lib/hooks/prices/useChainedNativePrice";
 import { CACHE_TIERS, TIME } from "~/lib/query";
@@ -65,30 +70,6 @@ function normalizeDecimals(decimals: bigint | number | undefined): number {
   if (!decimals) return 18;
   if (decimals > 100) return 18;
   return Number(decimals);
-}
-
-function formatCurrency(value: number): string {
-  if (!value || Number.isNaN(value) || value === 0) return "--";
-  return value.toLocaleString("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
-}
-
-function formatNumber(value: number): string {
-  if (!value || Number.isNaN(value) || value === 0) return "--";
-  return value.toLocaleString("en-US", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
-}
-
-function formatPercentage(value: string | number): string {
-  const numValue = typeof value === "string" ? parseFloat(value) : value;
-  if (!numValue || Number.isNaN(numValue)) return "--";
-  return `${numValue.toFixed(2)}%`;
 }
 
 export interface TokenData {

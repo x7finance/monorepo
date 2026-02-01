@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
@@ -114,7 +114,7 @@ export const useGetInitialLiquidityLoan = ({
         });
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
     [address, payableAmount],
   );
 
@@ -141,6 +141,6 @@ export const useGetInitialLiquidityLoan = ({
       isPending,
       data,
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, [isPending, write]);
 };

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 import retry from "async-retry";
 import Timeout from "await-timeout";
 import axios from "axios";
@@ -51,7 +51,7 @@ export class URISubgraphProvider<
 
         try {
           response = await Promise.race([axios.get(this.uri), timerPromise]);
-          // eslint-disable-next-line no-useless-catch
+          // oxlint-disable-next-line no-useless-catch
         } catch (error) {
           throw error;
         } finally {

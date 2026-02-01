@@ -4,7 +4,7 @@ export abstract class LiquidityMath {
   /**
    * Cannot be constructed.
    */
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  // oxlint-disable-next-line @typescript-eslint/no-empty-function
   private constructor() {}
 
   public static addDelta(x: bigint, y: bigint): bigint {

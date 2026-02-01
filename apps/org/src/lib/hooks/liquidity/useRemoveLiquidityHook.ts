@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
+/* oxlint-disable @typescript-eslint/restrict-template-expressions */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
 import { useCallback, useMemo } from "react";
 import type { SendTransactionReturnType } from "@wagmi/core";
 import type { Address } from "viem";

@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/unbound-method */
-/* eslint-disable @typescript-eslint/no-extraneous-class */
+/* oxlint-disable @typescript-eslint/unbound-method */
+/* oxlint-disable @typescript-eslint/no-extraneous-class */
 import type { Address, Hex } from "viem";
 
 import type { MultiRoute, NetworkInfo, RPool, RToken } from "@x7/tines";

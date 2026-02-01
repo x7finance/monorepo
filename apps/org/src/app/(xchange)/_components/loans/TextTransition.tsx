@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { useEffect, useRef, useState } from "react";
 import type { CSSProperties, PropsWithChildren } from "react";
 import type { SpringConfig } from "@react-spring/web";

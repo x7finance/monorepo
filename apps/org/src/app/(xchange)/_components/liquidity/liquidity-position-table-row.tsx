@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-unused-vars */
+/* oxlint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useEffect, useState } from "react";
 import { useReadContract } from "wagmi";
 

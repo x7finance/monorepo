@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-extraneous-class */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-extraneous-class */
 import type { ChainId } from "../chain";
 
 export class AddressMapper {

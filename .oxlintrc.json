@@ -16,6 +16,7 @@
     "es2024": true
   },
   "rules": {
+    "no-await-in-loop": "off",
     "no-unused-vars": "warn",
     "no-console": "off",
     "no-debugger": "error",

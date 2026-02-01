@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-unsafe-argument */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 
 import retry from "async-retry";
 
@@ -81,7 +81,7 @@ export class OnChainTokenFeeFetcher implements ITokenFeeFetcher {
 
     if (factoryAddresses && pairInitHashes) {
       Object.entries(factoryAddresses).forEach(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        // oxlint-disable-next-line @typescript-eslint/no-explicit-any
         ([implementation, protocols]: any) => {
           if (
             protocols[Protocol.V2] &&
@@ -147,7 +147,7 @@ export class OnChainTokenFeeFetcher implements ITokenFeeFetcher {
             1,
             MetricLoggerUnit.Count,
           );
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+          // oxlint-disable-next-line @typescript-eslint/no-unsafe-return
           return [{ address, ...result.result }];
         } else {
           log.error(

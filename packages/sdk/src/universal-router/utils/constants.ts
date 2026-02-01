@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import { ChainId, WRAPPED_CONTRACTS } from "@x7/utils";
 
 interface ChainConfig {

@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/restrict-template-expressions */
 import type { Address } from "viem";
 import { formatUnits } from "viem";
 import { useChainId, useReadContracts } from "wagmi";
@@ -137,7 +137,7 @@ function generatePairReserve(
   reserves: [bigint, bigint],
   chainId?: ChainId,
 ): string {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  // oxlint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (reserves?.length) {
     const [_reserve0, _reserve1] = reserves;
 
@@ -164,7 +164,7 @@ function generatePairUSDPrice(
   tokenDecimals: number,
   chainId?: ChainId,
 ): string | number {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  // oxlint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (reserves?.length) {
     const [_reserve0, _reserve1] = reserves;
 

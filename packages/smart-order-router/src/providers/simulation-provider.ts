@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/restrict-template-expressions */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import { getContract } from "viem";
 
 import { generateRouterAddress } from "@x7/sdk";

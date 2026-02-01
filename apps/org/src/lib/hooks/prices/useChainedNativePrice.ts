@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import { useQuery } from "@tanstack/react-query";
 import { createPublicClient, http } from "viem";
 import { arbitrum, base, bsc, mainnet, optimism, polygon } from "viem/chains";

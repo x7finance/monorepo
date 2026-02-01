@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
+/* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
 import { secp256k1 } from "@noble/curves/secp256k1";
 import invariant from "tiny-invariant";
 import { hexToNumber, toBytes } from "viem";

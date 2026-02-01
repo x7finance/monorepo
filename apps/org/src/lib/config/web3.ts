@@ -1,5 +1,5 @@
-/* eslint-disable no-restricted-properties */
-/* eslint-disable turbo/no-undeclared-env-vars */
+/* oxlint-disable no-restricted-properties */
+/* oxlint-disable turbo/no-undeclared-env-vars */
 import type { CreateConfigParameters } from "@wagmi/core";
 import { createConfig, fallback, http } from "@wagmi/core";
 import {

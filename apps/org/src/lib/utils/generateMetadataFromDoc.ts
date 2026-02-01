@@ -15,7 +15,7 @@ export function generateMetadataFromDoc(doc: MetadataDocType) {
 
   ogUrl.searchParams.set(
     "heading",
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    // oxlint-disable-next-line @typescript-eslint/no-unnecessary-condition
     doc.seoTitle ?? doc.title ?? "Trust No One. Trust Code. Long Live DeFi.",
   );
   ogUrl.searchParams.set("type", doc.section ?? "default");

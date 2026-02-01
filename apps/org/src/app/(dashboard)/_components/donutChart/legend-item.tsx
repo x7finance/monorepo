@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import React, { useContext } from "react";
 
 import { LinkExternal } from "@x7/ui/link";

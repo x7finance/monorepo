@@ -2,9 +2,9 @@ interface DebounceOptions {
   before?: boolean;
 }
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
 type AnyFunction = (...args: any[]) => any;
-/* eslint-enable @typescript-eslint/no-explicit-any */
+/* oxlint-enable @typescript-eslint/no-explicit-any */
 
 /**
  * Promise-based debounce utility.

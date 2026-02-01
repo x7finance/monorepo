@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 
 import type { Address } from "viem";
 import { useReadContracts } from "wagmi";

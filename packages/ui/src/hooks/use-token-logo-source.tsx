@@ -1,6 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable @typescript-eslint/no-unused-vars */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import { useCallback, useEffect, useState } from "react";
 import { isAddress } from "viem";
 

@@ -498,7 +498,7 @@ export function useSwapState(): SwapState {
       setIsQuoteLoading(true);
       void throttleRouteGenRef.current(builtState);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, [chainId, router, address, _token0, _token1, swapAmountString]);
 
   return builtState;

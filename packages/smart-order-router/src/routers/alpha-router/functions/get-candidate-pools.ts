@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* oxlint-disable @typescript-eslint/no-unused-vars */
 import _ from "lodash";
 
 import { ChainId, FeeAmount, LogCodes, Protocol, TradeType } from "@x7/utils";

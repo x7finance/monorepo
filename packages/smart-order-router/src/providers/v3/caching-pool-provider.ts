@@ -86,7 +86,7 @@ export class CachingV3PoolProvider implements IV3PoolProvider {
         cachedPools
           .filter((pool) => !!pool.cache)
           .forEach((cachedPool) => {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            // oxlint-disable-next-line @typescript-eslint/no-non-null-assertion
             poolAddressToPool[cachedPool.address] = cachedPool.cache!;
           });
         continue;

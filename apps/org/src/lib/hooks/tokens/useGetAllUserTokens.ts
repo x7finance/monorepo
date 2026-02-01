@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/restrict-template-expressions */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -229,12 +229,12 @@ export const useAllLiquidityPositions = (
                         baseToken: WETH_ADDRESS(chainId),
                         amountToBorrow: BigInt(100000),
                         factory:
-                          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+                          // oxlint-disable-next-line @typescript-eslint/no-unsafe-member-access
                           FACTORY_ADDRESSES[chainId][Implementation.XCHANGE][
                             Protocol.V2
                           ],
                         initCodeHash:
-                          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+                          // oxlint-disable-next-line @typescript-eslint/no-unsafe-member-access
                           PAIR_INIT_HASH[chainId][Implementation.XCHANGE][
                             Protocol.V2
                           ],
@@ -264,13 +264,13 @@ export const useAllLiquidityPositions = (
                         baseToken: WETH_ADDRESS(chainId),
                         amountToBorrow: BigInt(100000),
                         factory:
-                          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+                          // oxlint-disable-next-line @typescript-eslint/no-unsafe-member-access
                           FACTORY_ADDRESSES[chainId][Implementation.XCHANGE][
                             Protocol.V2
                           ],
 
                         initCodeHash:
-                          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+                          // oxlint-disable-next-line @typescript-eslint/no-unsafe-member-access
                           PAIR_INIT_HASH[chainId][Implementation.XCHANGE][
                             Protocol.V2
                           ],

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 import { Card } from "@x7/ui/card";
 
 export function TokenInfoSkeleton() {

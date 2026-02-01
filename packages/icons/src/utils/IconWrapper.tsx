@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
+/* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
 import type { FC, MouseEventHandler, ReactElement, SVGAttributes } from "react";
 import { createElement } from "react";
 

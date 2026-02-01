@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-enum-comparison */
+/* oxlint-disable @typescript-eslint/no-unsafe-enum-comparison */
 
 "use client";
 

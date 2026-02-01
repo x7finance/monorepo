@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/require-await */
-/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/require-await */
+/* oxlint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import { add, getUnixTime } from "date-fns";
 import type { Address, Hex, PublicClient } from "viem";
 import { encodePacked, getContractAddress, keccak256 } from "viem";

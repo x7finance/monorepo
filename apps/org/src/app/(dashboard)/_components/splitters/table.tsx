@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-unsafe-return */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable @typescript-eslint/restrict-template-expressions */
 "use client";
 
 import { useEffect, useState } from "react";

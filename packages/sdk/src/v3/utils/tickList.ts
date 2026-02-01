@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-empty-function */
+/* oxlint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-empty-function */
 
 import invariant from "tiny-invariant";
 

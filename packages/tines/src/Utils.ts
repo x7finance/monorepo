@@ -1,5 +1,5 @@
 export function ASSERT(f: () => boolean, t?: string) {
-  // eslint-disable-next-line turbo/no-undeclared-env-vars
+  // oxlint-disable-next-line turbo/no-undeclared-env-vars
   if (process.env.NODE_ENV !== "production") {
     if (!f() && t) console.error(t);
   }
@@ -60,7 +60,7 @@ export function revertPositive(
       else min = x0;
     }
     return (min + max) / 2;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // oxlint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (_e) {
     return 0;
   }

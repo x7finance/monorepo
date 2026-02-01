@@ -16,7 +16,7 @@ export function TokenTicker() {
 
   const { data } = useReadContract({
     address: X7ContractsEnum.XchangeFactory,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
+    // oxlint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
     abi: AllPairsLength as any,
     functionName: "allPairsLength",
   });

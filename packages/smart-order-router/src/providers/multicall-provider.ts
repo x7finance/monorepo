@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
 import type { Abi } from "viem";
 
 import type { ProviderConfig } from "./provider";

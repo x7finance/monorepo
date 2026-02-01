@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/require-await */
+/* oxlint-disable @typescript-eslint/require-await */
 "use server";
 
 import { PinataSDK } from "pinata-web3";

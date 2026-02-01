@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-base-to-string */
+/* oxlint-disable @typescript-eslint/restrict-template-expressions */
+/* oxlint-disable @typescript-eslint/no-base-to-string */
 import retry from "async-retry";
 import Timeout from "await-timeout";
 import { gql, GraphQLClient } from "graphql-request";
@@ -101,7 +101,7 @@ export class V3SubgraphProvider implements IV3SubgraphProvider {
         DAI_ADDRESS[this.chainId as keyof typeof DAI_ADDRESS],
         USDT_ADDRESS[this.chainId as keyof typeof USDT_ADDRESS],
       ]
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        // oxlint-disable-next-line @typescript-eslint/no-unnecessary-condition
         .filter((a) => a && a.length > 0)
         .map((address) => {
           return address.toLowerCase();
@@ -179,7 +179,7 @@ export class V3SubgraphProvider implements IV3SubgraphProvider {
           let poolsPage: RawV3SubgraphPool[] = [];
           const isCommonToken =
             (_tokenIn &&
-              // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+              // oxlint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
               this.commonTokens.has(_tokenIn.address.toLowerCase())) ||
             (_tokenOut &&
               this.commonTokens.has(_tokenOut.address.toLowerCase()));
@@ -224,7 +224,7 @@ export class V3SubgraphProvider implements IV3SubgraphProvider {
           });
           pools = await Promise.race([getPoolsPromise, timerPromise]);
           return;
-          // eslint-disable-next-line no-useless-catch
+          // oxlint-disable-next-line no-useless-catch
         } catch (error) {
           throw error;
         } finally {

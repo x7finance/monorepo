@@ -77,7 +77,7 @@ export const useX7DMinting = ({
         });
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
     [address, valueInput],
   );
 
@@ -106,6 +106,6 @@ export const useX7DMinting = ({
       isPending,
       data,
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, [isPending, write]);
 };

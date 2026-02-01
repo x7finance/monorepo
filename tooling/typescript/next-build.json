@@ -6,6 +6,7 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "noEmit": false,
     "outDir": "dist",
     "declaration": true,
     "declarationMap": true,

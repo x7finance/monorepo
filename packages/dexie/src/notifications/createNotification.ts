@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 import { db } from "../db";
 import { isPromise } from "./types";
 import type { PromiseNotification, ResolvedNotification } from "./types";
@@ -44,7 +44,7 @@ export const createNotification = async (
         }),
       );
   } else {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    // oxlint-disable-next-line @typescript-eslint/no-floating-promises
     db.notifications.add({
       account: payload.account,
       chainId: payload.chainId,

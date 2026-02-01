@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable react-hooks/exhaustive-deps */
 
 import type { FC, MouseEvent } from "react";
 import { useCallback, useEffect, useMemo, useState } from "react";

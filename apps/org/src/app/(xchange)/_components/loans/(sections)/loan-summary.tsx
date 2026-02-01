@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-// /* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+// /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 
 import React from "react";
 import { formatEther } from "viem";

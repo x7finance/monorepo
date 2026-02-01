@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import invariant from "tiny-invariant";
 
 import { Price } from "@x7/utils";
@@ -63,7 +63,7 @@ export class MixedRouteSDK<TInput extends Currency, TOutput extends Currency> {
     this.pools = pools;
     this.path = tokenPath;
     this.input = input;
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    // oxlint-disable-next-line @typescript-eslint/no-unnecessary-condition
     this.output = output ?? tokenPath[tokenPath.length - 1];
   }
 

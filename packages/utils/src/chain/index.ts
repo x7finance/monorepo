@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-declaration-merging */
+/* oxlint-disable @typescript-eslint/no-unsafe-declaration-merging */
 import { ChainId } from "./constants";
 import raw from "./generated";
 
@@ -159,7 +159,7 @@ export const chains = Object.fromEntries(
 // Chain Id => Chain mapping
 export const chainsL2 = Object.fromEntries(
   RAW.filter(
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    // oxlint-disable-next-line @typescript-eslint/no-unnecessary-condition
     (data) => "parent" in data && data.parent.type === ChainType.L2,
   ).map((data): [ChainId, Chain] => [data.chainId, new Chain(data)]),
 );

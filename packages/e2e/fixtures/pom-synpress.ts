@@ -19,7 +19,7 @@ interface Page {
 
 export const test = base.extend<Page>({
   // biome-ignore lint/correctness/noEmptyPattern: playwright fixture requires empty destructuring pattern
-  // eslint-disable-next-line no-empty-pattern
+  // oxlint-disable-next-line no-empty-pattern
   context: async ({}, use) => {
     // required for synpress as it shares same expect instance as playwright
     await setExpectInstance(expect);

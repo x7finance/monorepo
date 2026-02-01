@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { Config } from "@wagmi/core";

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import type { Config } from "@wagmi/core";
 import { getWalletClient } from "@wagmi/core";
 import { isAddress, isHex } from "viem";

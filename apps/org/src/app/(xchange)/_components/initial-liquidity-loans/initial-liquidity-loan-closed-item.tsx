@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import { useAccount } from "wagmi";
 

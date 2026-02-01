@@ -1,6 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { maxUint256, UserRejectedRequestError } from "viem";
