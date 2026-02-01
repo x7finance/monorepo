@@ -14,22 +14,22 @@
   "scripts": {
     "build": "hardhat compile && tsc",
     "clean": "git clean -xdf .turbo artifacts node_modules cache dist",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
-    "lint": "eslint",
-    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+    "lint": "oxlint src/",
+    "typecheck": "tsgo --noEmit --emitDeclarationOnly false"
   },
-  "prettier": "@x7/prettier-config",
   "devDependencies": {
+    "@nomicfoundation/hardhat-ignition": "^0.15.16",
     "@nomicfoundation/hardhat-toolbox-viem": "^3.0.0",
-    "@x7/eslint-config": "workspace:*",
-    "@x7/prettier-config": "workspace:*",
+    "@nomicfoundation/hardhat-viem": "^2.1.0",
+    "@nomicfoundation/ignition-core": "^0.15.15",
     "@x7/tsconfig": "workspace:*",
     "base64-sol": "1.0.1",
     "decimal.js": "^10.5.0",
     "dotenv": "^16.4.7",
-    "eslint": "catalog:",
     "hardhat": "^2.22.19",
     "hardhat-viem": "^1.0.0",
-    "typescript": "catalog:"
+    "oxlint": "^0.16.6",
+    "typescript": "^5.8.2",
+    "viem": "^2.23.13"
   }
 }

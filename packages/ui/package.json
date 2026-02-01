@@ -12,11 +12,9 @@
   },
   "scripts": {
     "clean": "git clean -xdf .turbo node_modules dist",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
-    "lint": "eslint",
-    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+    "lint": "oxlint src/",
+    "typecheck": "tsgo --noEmit --emitDeclarationOnly false"
   },
-  "prettier": "@x7/prettier-config",
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.3",
     "@radix-ui/react-alert-dialog": "^1.1.6",
@@ -66,21 +64,19 @@
     "vaul": "^1.1.2",
     "viem": "^2.23.13",
     "wagmi": "^2.14.15",
-    "zod": "catalog:",
+    "zod": "^3.24.1",
     "zustand": "5.0.2"
   },
   "devDependencies": {
-    "@types/react": "catalog:react19",
-    "@types/react-dom": "catalog:react19",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
     "@types/react-virtualized-auto-sizer": "^1.0.4",
     "@types/react-window": "^1.8.8",
     "@x7/dexie": "workspace:*",
-    "@x7/eslint-config": "workspace:*",
-    "@x7/prettier-config": "workspace:*",
     "@x7/tsconfig": "workspace:*",
-    "eslint": "catalog:",
-    "tailwindcss": "catalog:",
+    "oxlint": "^0.16.6",
+    "tailwindcss": "^4.0.9",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "catalog:"
+    "typescript": "^5.8.2"
   }
 }

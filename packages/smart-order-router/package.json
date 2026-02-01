@@ -14,11 +14,9 @@
     "build": "tsc",
     "clean": "git clean -xdf .turbo node_modules build dist",
     "dev": "tsc --watch",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
-    "lint": "eslint",
-    "typecheck": "tsc --noEmit"
+    "lint": "oxlint src/",
+    "typecheck": "tsgo --noEmit"
   },
-  "prettier": "@x7/prettier-config",
   "dependencies": {
     "@x7/contracts": "workspace:*",
     "@x7/default-token-list": "workspace:*",
@@ -41,12 +39,10 @@
     "@types/await-timeout": "^0.3.4",
     "@types/lodash": "^4.17.16",
     "@types/stats-lite": "^2.2.2",
-    "@x7/eslint-config": "workspace:*",
-    "@x7/prettier-config": "workspace:*",
     "@x7/tsconfig": "workspace:*",
     "dotenv": "^16.4.7",
-    "eslint": "catalog:",
     "hardhat": "^2.22.19",
-    "typescript": "catalog:"
+    "oxlint": "^0.16.6",
+    "typescript": "^5.8.2"
   }
 }

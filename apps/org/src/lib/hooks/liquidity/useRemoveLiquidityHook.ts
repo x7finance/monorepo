@@ -190,7 +190,6 @@ export function useRemoveLiquidity({
   }, [token0, token1, prepareNative, prepareNonNative]);
 
   const { data: simulation } = useSimulateContract(
-    // @ts-expect-error: @wagmi/core does not support args like this
     prepare
       ? {
           ...prepare,

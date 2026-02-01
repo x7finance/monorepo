@@ -14,18 +14,14 @@
   "scripts": {
     "build": "tsc",
     "clean": "git clean -xdf .turbo node_modules dist",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
-    "lint": "eslint",
+    "lint": "oxlint src/",
     "postbuild:temp": "node copy-schema.cjs",
-    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+    "typecheck": "tsgo --noEmit --emitDeclarationOnly false"
   },
-  "prettier": "@x7/prettier-config",
   "devDependencies": {
-    "@x7/eslint-config": "workspace:*",
-    "@x7/prettier-config": "workspace:*",
     "@x7/tsconfig": "workspace:*",
-    "eslint": "catalog:",
     "husky": "^9.1.7",
-    "typescript": "catalog:"
+    "oxlint": "^0.16.6",
+    "typescript": "^5.8.2"
   }
 }

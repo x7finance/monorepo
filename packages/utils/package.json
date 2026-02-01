@@ -12,11 +12,9 @@
   },
   "scripts": {
     "clean": "git clean -xdf .turbo node_modules dist",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
-    "lint": "eslint",
-    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+    "lint": "oxlint src/",
+    "typecheck": "tsgo --noEmit --emitDeclarationOnly false"
   },
-  "prettier": "@x7/prettier-config",
   "dependencies": {
     "big.js": "^6.2.2",
     "decimal.js-light": "^2.5.1",
@@ -28,13 +26,11 @@
   "devDependencies": {
     "@types/big.js": "^6.2.2",
     "@types/numeral": "^2.0.5",
-    "@types/react": "catalog:react19",
-    "@types/react-dom": "catalog:react19",
-    "@x7/eslint-config": "workspace:*",
-    "@x7/prettier-config": "workspace:*",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
     "@x7/tsconfig": "workspace:*",
-    "eslint": "catalog:",
-    "typescript": "catalog:",
-    "zod": "catalog:"
+    "oxlint": "^0.16.6",
+    "typescript": "^5.8.2",
+    "zod": "^3.24.1"
   }
 }

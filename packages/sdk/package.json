@@ -13,11 +13,9 @@
     "build": "tsc",
     "clean": "git clean -xdf .turbo node_modules dist",
     "dev": "tsc --watch",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
-    "lint": "eslint",
-    "typecheck": "tsc --noEmit"
+    "lint": "oxlint src/",
+    "typecheck": "tsgo --noEmit"
   },
-  "prettier": "@x7/prettier-config",
   "dependencies": {
     "@noble/curves": "^1.6.0",
     "@x7/contracts": "workspace:*",
@@ -27,11 +25,9 @@
   },
   "devDependencies": {
     "@types/node": "^22.13.10",
-    "@x7/eslint-config": "workspace:*",
-    "@x7/prettier-config": "workspace:*",
     "@x7/tsconfig": "workspace:*",
     "dotenv": "^16.4.7",
-    "eslint": "catalog:",
-    "typescript": "catalog:"
+    "oxlint": "^0.16.6",
+    "typescript": "^5.8.2"
   }
 }

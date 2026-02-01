@@ -79,8 +79,8 @@ To start developing on the X7 Finance platform, follow these steps:
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) version 22.x
-- [PNPM](https://pnpm.io/) version 10.x
+- [Node.js](https://nodejs.org/) version 22+
+- [Bun](https://bun.sh/) version 1.x
 
 ### Installation
 
@@ -94,19 +94,19 @@ To start developing on the X7 Finance platform, follow these steps:
 2. Install dependencies:
 
    ```bash
-   pnpm install
+   bun install
    ```
 
 3. Build required packages:
 
    ```bash
-   pnpm run build:setup
+   bun run build:setup
    ```
 
 4. Start the development server:
 
    ```bash
-   pnpm dev
+   bun run dev
    ```
 
 ### Environment Setup
@@ -130,15 +130,14 @@ Key environment variables include:
 
 ## Development Commands
 
-- `pnpm dev` - Start the development server
-- `pnpm build` - Build all packages and applications
-- `pnpm lint` - Run linting on the codebase
-- `pnpm lint:fix` - Fix linting issues automatically
-- `pnpm format` - Check formatting
-- `pnpm format:fix` - Fix formatting issues
-- `pnpm test` - Run tests
-- `pnpm e2e` - Run end-to-end tests
-- `pnpm clean:all` - Clean all build artifacts and dependencies
+- `bun run dev` - Start the development server
+- `bun run build` - Build all packages and applications
+- `bun run lint` - Run linting with oxlint
+- `bun run lint:fix` - Fix linting issues automatically
+- `bun run test` - Run tests
+- `bun run e2e` - Run end-to-end tests
+- `bun run typecheck` - Type check with TypeScript native
+- `bun run clean:all` - Clean all build artifacts and dependencies
 
 ## Contributing
 

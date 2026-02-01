@@ -1,4 +1,4 @@
+#!/bin/sh
 
-pnpm lint-staged --verbose --concurrent false
-pnpm turbo lint
-pnpm turbo typecheck
+bun run lint
+bun run typecheck

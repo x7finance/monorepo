@@ -12,11 +12,9 @@
   },
   "scripts": {
     "clean": "git clean -xdf .turbo node_modules",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
-    "lint": "eslint",
-    "typecheck": "tsc --noEmit"
+    "lint": "oxlint src/",
+    "typecheck": "tsgo --noEmit"
   },
-  "prettier": "@x7/prettier-config",
   "dependencies": {
     "@x7/utils": "workspace:*",
     "seedrandom": "^3.0.5",
@@ -25,9 +23,8 @@
   "devDependencies": {
     "@types/node": "^22.13.10",
     "@types/seedrandom": "^3.0.8",
-    "@x7/eslint-config": "workspace:*",
-    "@x7/prettier-config": "workspace:*",
     "@x7/tsconfig": "workspace:*",
-    "typescript": "catalog:"
+    "oxlint": "^0.16.6",
+    "typescript": "^5.8.2"
   }
 }

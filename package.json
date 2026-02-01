@@ -1,72 +1,50 @@
 {
   "name": "x7finance",
   "private": true,
+  "packageManager": "bun@1.3.8",
+  "workspaces": ["apps/*", "packages/*", "tooling/*"],
   "scripts": {
     "build": "turbo build",
     "build:setup": "turbo build --filter='./packages/*'",
-    "clean:all": "turbo clean && pnpm run clean:root",
-    "clean:root": "git clean -xdf .pnpm-store .turbo node_modules",
+    "clean:all": "turbo clean && bun run clean:root",
+    "clean:root": "git clean -xdf .turbo node_modules bun.lockb",
     "dev": "turbo watch dev --continue",
-    "format": "turbo run format --continue -- --cache --cache-location .cache/.prettiercache",
-    "format:fix": "turbo run format --continue -- --write --cache --cache-location .cache/.prettiercache",
-    "preinstall": "npx -y only-allow pnpm",
-    "lint": "run-p lint:turbo lint:md lint:package-json",
-    "lint:fix": "turbo run lint --continue -- --fix --cache --cache-location .cache/.eslintcache && pnpm lint:package-json",
+    "format": "oxlint --fix .",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint --fix .",
     "lint:md": "markdownlint --fix **/*.md --ignore '**/node_modules/**' --ignore '**/CHANGELOG.md'",
     "lint:package-json": "sort-package-json package.json {apps,packages,tooling}/*/package.json",
-    "lint:staged": "lint-staged --allow-empty",
-    "lint:turbo": "turbo run lint --continue -- --cache --cache-location .cache/.eslintcache",
     "manypkg": "manypkg check",
     "prepare": "husky",
-    "prettier-write": "prettier --write .",
     "start": "turbo start",
     "test": "turbo test",
     "e2e": "turbo run e2e --filter=@x7/e2e",
     "typecheck": "turbo typecheck"
   },
-  "prettier": "@x7/prettier-config",
-  "dependencies": {
+  "devDependencies": {
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
     "@commitlint/types": "^19.8.0",
-    "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
     "@manypkg/cli": "^0.23.0",
-    "@wayofdev/eslint-config-bases": "^4.0.0",
-    "@wayofdev/lint-staged-config": "^2.2.0",
+    "@typescript/native-preview": "^7.0.0-dev.20250131",
     "@wayofdev/markdownlint-config": "^4.0.0",
-    "@x7/prettier-config": "workspace:*",
-    "eslint": "catalog:",
     "husky": "^9.1.7",
     "is-ci": "^4.1.0",
-    "lint-staged": "^15.5.0",
     "markdownlint": "^0.37.4",
     "markdownlint-cli": "^0.44.0",
-    "npm-run-all": "^4.1.5",
-    "prettier": "catalog:",
-    "prettier-plugin-tailwindcss": "^0.6.11",
+    "oxlint": "^0.16.6",
     "rimraf": "^6.0.1",
     "sort-package-json": "^3.0.0",
-    "typescript": "catalog:",
+    "turbo": "^2.8.0",
+    "typescript": "^5.8.2",
     "vercel": "^41.4.1"
   },
-  "packageManager": "pnpm@10.6.2",
   "engines": {
-    "node": "22.x"
+    "node": ">=22"
   },
-  "resolutions": {
+  "overrides": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2"
-  },
-  "pnpm": {
-    "overrides": {
-      "react": "^19.0.0",
-      "react-dom": "^19.0.0",
-      "react-hook-form": "^7.54.2"
-    }
-  },
-  "devDependencies": {
-    "eslint-plugin-turbo": "^2.4.4",
-    "turbo": "^2.8.0"
   }
 }

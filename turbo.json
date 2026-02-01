@@ -57,13 +57,8 @@
       "cache": false,
       "persistent": false
     },
-    "format": {
-      "outputs": [".cache/.prettiercache"],
-      "outputLogs": "new-only"
-    },
     "lint": {
-      "inputs": ["src/**/*.ts", "src/**/*.tsx"],
-      "outputs": [".cache/.eslintcache"]
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"]
     },
     "typecheck": {
       "dependsOn": ["^build"],
@@ -86,6 +81,10 @@
       "cache": false
     },
     "//#clean": {
+      "cache": false
+    },
+    "//#lint": {},
+    "//#lint:fix": {
       "cache": false
     }
   }

@@ -12,21 +12,17 @@
   },
   "scripts": {
     "clean": "git clean -xdf .turbo node_modules dist",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
-    "lint": "eslint",
-    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+    "lint": "oxlint src/",
+    "typecheck": "tsgo --noEmit --emitDeclarationOnly false"
   },
-  "prettier": "@x7/prettier-config",
   "devDependencies": {
-    "@types/react": "catalog:react19",
-    "@types/react-dom": "catalog:react19",
-    "@x7/eslint-config": "workspace:*",
-    "@x7/prettier-config": "workspace:*",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
     "@x7/tsconfig": "workspace:*",
     "clsx": "^2.1.1",
-    "eslint": "catalog:",
+    "oxlint": "^0.16.6",
     "tailwind-merge": "^3.0.2",
-    "tailwindcss": "catalog:",
-    "typescript": "catalog:"
+    "tailwindcss": "^4.0.9",
+    "typescript": "^5.8.2"
   }
 }
