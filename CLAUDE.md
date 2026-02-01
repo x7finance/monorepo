@@ -26,7 +26,7 @@ bun run typecheck     # TypeScript check
 
 ## Monorepo Structure
 
-```
+```text
 x7finance/
 ├── apps/org/              # Main website (Next.js)
 ├── packages/
@@ -42,6 +42,7 @@ x7finance/
 ## Package Standards
 
 All packages must:
+
 1. Export from `dist/` (built with `tsgo`)
 2. Have `build`, `dev`, `typecheck` scripts
 3. Use `workspace:*` for internal deps

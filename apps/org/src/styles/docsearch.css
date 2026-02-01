@@ -440,10 +440,7 @@ svg.DocSearch-Hit-Select-Icon {
   padding: 0 1rem;
 }
 
-.DocSearch-Footer .cls-1 {
-  fill: var(--docsearch-logo-color);
-}
-
+.DocSearch-Footer .cls-1,
 .DocSearch-Footer .cls-2 {
   fill: var(--docsearch-logo-color);
 }

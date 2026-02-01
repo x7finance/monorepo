@@ -22,7 +22,10 @@ import { TickBasedHeuristicGasModelFactory } from "../tick-based-heuristic-gas-m
  * @class V3HeuristicGasModelFactory
  */
 export class V3HeuristicGasModelFactory extends TickBasedHeuristicGasModelFactory<V3RouteWithValidQuote> {
-  
+  // oxlint-disable-next-line no-useless-constructor -- Required to change visibility from protected to public
+  public constructor() {
+    super()
+  }
 
   public override async buildGasModel({
     chainId,

@@ -3,6 +3,13 @@
   "version": "0.0.1",
   "description": "The Xchange default token list",
   "license": "MIT",
+  "exports": {
+    ".": {
+      "import": "./build/xchange-default.tokenlist.json",
+      "require": "./build/xchange-default.tokenlist.json",
+      "default": "./build/xchange-default.tokenlist.json"
+    }
+  },
   "main": "build/xchange-default.tokenlist.json",
   "files": [
     "build/xchange-default.tokenlist.json"

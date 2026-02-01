@@ -10,12 +10,12 @@ import type { RenderableTreeNode } from "@markdoc/markdoc"
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 import fs from "fs"
 import path from "path"
-import { cache } from "react"
 import type { SectionType } from "~/types"
 
 import Markdoc from "@markdoc/markdoc"
 import { slugifyWithCounter } from "@sindresorhus/slugify"
 import matter from "gray-matter"
+import { cache } from "react"
 
 import { LogCodes } from "@x7/utils"
 import { log } from "~/lib/utils/log"
@@ -163,7 +163,7 @@ export const getMarkdownContent = cache(async function getMarkdownContent(
       tableOfContents: null,
     }
   }
-}
+})
 
 interface Node {
   children?: (string | Node)[]

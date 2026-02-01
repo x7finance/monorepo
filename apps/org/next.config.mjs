@@ -70,8 +70,9 @@ const nextConfig = {
   },
   // React Compiler (moved from experimental in Next.js 16)
   reactCompiler: true,
-  // Cache Components (moved from experimental in Next.js 16)
-  cacheComponents: true,
+  // Cache Components disabled - requires unstable_cache for all async metadata
+  // TODO: Enable after migrating getMarkdownContent to use unstable_cache
+  cacheComponents: false,
   // Cache profiles for streaming components (moved from experimental in Next.js 16)
   cacheLife: {
     default: {

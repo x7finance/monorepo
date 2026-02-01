@@ -1,7 +1,12 @@
 {
   "$schema": "https://raw.githubusercontent.com/oxc-project/oxc/main/npm/oxlint/configuration_schema.json",
-  "extends": ["./base.json"],
-  "plugins": ["typescript", "react"],
+  "extends": [
+    "./base.json"
+  ],
+  "plugins": [
+    "typescript",
+    "react"
+  ],
   "rules": {
     "react/jsx-no-duplicate-props": "error",
     "react/jsx-key": "warn",
