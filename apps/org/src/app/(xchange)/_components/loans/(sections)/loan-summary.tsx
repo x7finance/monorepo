@@ -15,7 +15,7 @@ import type { ChainId } from "@x7/utils";
 import { Native } from "@x7/utils";
 
 import { useLiquidationReward } from "~/lib/hooks/loans/useXchangeLendingPoolData";
-import type { QuoteResponse, RawQuoteResponse } from "~/lib/providers/loan";
+import type { QuoteResponse, RawQuoteResponse } from "~/lib/stores/loan";
 import { LoanTypeRepaymentSummary } from "./loan-type-repayment-summary";
 
 interface LoanSummaryProps {

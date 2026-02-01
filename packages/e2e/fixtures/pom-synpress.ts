@@ -18,12 +18,14 @@ interface Page {
 }
 
 export const test = base.extend<Page>({
+  // biome-ignore lint/correctness/noEmptyPattern: playwright fixture requires empty destructuring pattern
+  // eslint-disable-next-line no-empty-pattern
   context: async ({}, use) => {
     // required for synpress as it shares same expect instance as playwright
     await setExpectInstance(expect);
     // download metamask
     const metamaskPath: string = await prepareMetamask(
-      process.env.METAMASK_VERSION != null || "11.16.14",
+      process.env.METAMASK_VERSION !== null || "11.16.14",
     );
     // prepare browser args
     const browserArgs = [
@@ -31,7 +33,7 @@ export const test = base.extend<Page>({
       `--load-extension=${metamaskPath}`,
       "--remote-debugging-port=9222",
     ];
-    if (process.env.CI != null) {
+    if (process.env.CI !== null) {
       browserArgs.push("--disable-gpu");
     }
     if (process.env.HEADLESS_MODE === "true") {

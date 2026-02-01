@@ -6,10 +6,11 @@ import type { PublicClient } from "viem";
 import { Implementation, LogCodes } from "@x7/utils";
 import type { ChainId } from "@x7/utils";
 
-import type { SwapOptions, SwapRoute, V2Route } from "../routers";
-import { SwapType } from "../routers";
-import type { ViemProviderType } from "../utils";
-import { log } from "../utils";
+import type { SwapOptions, SwapRoute } from "../routers/router";
+import { SwapType } from "../routers/router";
+import type { V2Route } from "../routers/route-types";
+import type { ViemProviderType } from "../utils/viemHelpers";
+import { log } from "../utils/log";
 import {
   calculateGasUsed,
   initSwapRouteFromExisting,

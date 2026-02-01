@@ -13,7 +13,7 @@ import type {
 import type { CurrencyAmount, ViemProviderType } from "../../../utils";
 import { log, metric, MetricLoggerUnit, poolToString } from "../../../utils";
 import type { MixedRoute, V2Route, V3Route } from "../../router";
-import type { AlphaRouterConfig } from "../alpha-router";
+import type { AlphaRouterConfig } from "../types";
 import type { RouteWithValidQuote } from "../entities/route-with-valid-quote";
 import type {
   CandidatePoolsBySelectionCriteria,

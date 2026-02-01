@@ -73,4 +73,38 @@ export enum LogCodes {
   LOAN_INFO = "Loan Info",
   ABORTED = "Aborted",
   PRICE_IMPACT = "Price Impact",
+
+  // UI Operations
+  UI_FORM_VALIDATION = "UI Form Validation",
+  UI_STATE_UPDATE = "UI State Update",
+
+  // Query Operations
+  QUERY_ERROR = "Query Error",
+  QUERY_SUCCESS = "Query Success",
+
+  // Transaction Operations
+  TX_SIMULATION = "Transaction Simulation",
+  TX_SIMULATION_FAIL = "Transaction Simulation Failed",
+  TX_SUBMIT = "Transaction Submit",
+  TX_CONFIRM = "Transaction Confirmed",
+  TX_FAIL = "Transaction Failed",
+
+  // Wallet Operations
+  WALLET_CONNECT = "Wallet Connect",
+  WALLET_DISCONNECT = "Wallet Disconnect",
+  WALLET_ERROR = "Wallet Error",
+
+  // IPFS Operations
+  IPFS_UPLOAD = "IPFS Upload",
+  IPFS_UPLOAD_FAIL = "IPFS Upload Failed",
+
+  // XMTP Operations
+  XMTP_INIT = "XMTP Init",
+  XMTP_CONNECT = "XMTP Connect",
+  XMTP_MESSAGE = "XMTP Message",
+  XMTP_ERROR = "XMTP Error",
+
+  // Liquidity Operations
+  LIQUIDITY_REMOVE = "Liquidity Remove",
+  LIQUIDITY_SYNC = "Liquidity Sync",
 }

@@ -105,6 +105,7 @@ const nextConfig = {
   },
   experimental: {
     // Caching features
+    cacheComponents: true,
     dynamicOnHover: true,
     useCache: true,
     turbopackFileSystemCacheForDev: true,

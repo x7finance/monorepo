@@ -56,9 +56,7 @@ export const COST_PER_EXTRA_HOP = BigInt(50000);
  * @class V2HeuristicGasModelFactory
  */
 export class V2HeuristicGasModelFactory extends IV2GasModelFactory {
-  constructor() {
-    super();
-  }
+  
 
   public async buildGasModel({
     chainId,

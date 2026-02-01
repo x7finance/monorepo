@@ -65,12 +65,12 @@ export function SettingsScanView() {
           </h4>
         </div>
         <>
-          {apiProviders.map((_, index) => {
+          {apiProviders.map((provider, index) => {
             const { api, placeholder, handleInputChange } = ApiProvider(index);
 
             return (
               <TextField
-                key={index}
+                key={provider.placeholder}
                 type="text"
                 placeholder={placeholder}
                 value={api}

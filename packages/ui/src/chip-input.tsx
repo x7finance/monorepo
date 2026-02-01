@@ -119,8 +119,8 @@ const ChipInput: FC<ChipInputProps> = ({
     >
       {Icon ? <Icon {...iconProps} /> : null}
       {tags.length > 0
-        ? tags.map((value, i) => (
-            <Tooltip key={i}>
+        ? tags.map((value) => (
+            <Tooltip key={value}>
               <TooltipTrigger asChild>
                 <Chip onClose={() => removeTag(i)} variant="secondary">
                   {mutateValue ? mutateValue(value) : value}

@@ -50,7 +50,7 @@ import { unparseFeeAmount, WRAPPED_NATIVE_CURRENCY } from "../../../utils";
 import { parseFeeAmount } from "../../../utils/amounts";
 import { log } from "../../../utils/log";
 import { metric, MetricLoggerUnit } from "../../../utils/metric";
-import type { AlphaRouterConfig } from "../alpha-router";
+import type { AlphaRouterConfig } from "../types";
 
 export interface PoolId {
   id: string;

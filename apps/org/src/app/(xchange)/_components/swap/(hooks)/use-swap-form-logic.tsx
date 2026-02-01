@@ -20,7 +20,7 @@ import type { ChainId, Token } from "@x7/utils";
 import { executeRoute } from "~/app/(xchange)/_actions/execute-route";
 import { getErrorMessage } from "~/app/(xchange)/_actions/get-error-message";
 import { ApprovalState } from "~/lib/hooks/approvals/useTokenApproval";
-import { useSwapState } from "~/lib/providers/swap-state";
+import { useSwapState } from "~/lib/stores/swap";
 import { useTransactionStore } from "~/lib/providers/tx";
 import { useWeb3Config } from "~/lib/providers/web3";
 import { log } from "~/lib/utils/log";

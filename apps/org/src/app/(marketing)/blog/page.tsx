@@ -86,7 +86,7 @@ function AuthorImages({ authors }: { authors: Author[] }) {
     <div className="isolate flex -space-x-2 overflow-hidden pr-2">
       {authors.map((author, index) => (
         <Image
-          key={index}
+          key={author.name}
           src={`${env.NEXT_PUBLIC_ASSETS_URL}/${author.image}`}
           alt={`${author.name} avatar image`}
           width={100}

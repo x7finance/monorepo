@@ -10,6 +10,7 @@ import type { ActiveChainId, Currency, Token } from "@x7/utils";
 import { CurrencyAmount, Native } from "@x7/utils";
 
 import { useWeb3Config } from "~/lib/providers/web3";
+import { CACHE_TIERS, TIME } from "~/lib/query";
 
 interface UseBalanceParams {
   chainId: ActiveChainId | undefined;
@@ -101,7 +102,8 @@ export const useBalancesWeb3 = ({
     queryKey: ["useBalancesWeb3", { chainId, currencies, account }],
     queryFn: () =>
       queryFnUseBalances({ chainId, currencies, account, config: wagmiConfig }),
-    refetchInterval: 60000,
+    refetchInterval: TIME.MINUTE,
     enabled: Boolean(chainId && account && enabled && currencies),
+    ...CACHE_TIERS.DYNAMIC,
   });
 };

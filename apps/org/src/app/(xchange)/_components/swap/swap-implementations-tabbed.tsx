@@ -8,7 +8,7 @@ import { SkeletonBox } from "@x7/ui/skeleton";
 import type { Currency } from "@x7/utils";
 import { Implementation, Protocol } from "@x7/utils";
 
-import { useSwapState } from "~/lib/providers/swap-state";
+import { useSwapState } from "~/lib/stores/swap";
 import { implementationComponents } from "./swap-dexs";
 import { MixedImplementationDisplay } from "./swap-mixed-implementation";
 

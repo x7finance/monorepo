@@ -56,7 +56,7 @@ export class ArbitrumGasDataProvider
     protected provider: ViemProviderType,
     gasDataAddress?: string,
   ) {
-    this.gasFeesAddress = gasDataAddress ? gasDataAddress : ARB_GASINFO_ADDRESS;
+    this.gasFeesAddress = gasDataAddress || ARB_GASINFO_ADDRESS;
   }
 
   public async getGasData() {

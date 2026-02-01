@@ -6,6 +6,8 @@ import { memo, Suspense, useEffect, useMemo, useState } from "react";
 import { darkTheme, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import {
   QueryClientProvider as _QueryClientProvider,
+  MutationCache,
+  QueryCache,
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
@@ -14,10 +16,13 @@ import { Toaster } from "@x7/ui/sonner";
 import { SplashController } from "@x7/ui/splash";
 import { TooltipProvider } from "@x7/ui/tooltip";
 
-import { X7LoanStateProvider } from "~/lib/providers/loan";
-import { X7SwapStateProvider } from "~/lib/providers/swap-state";
 import { TransactionStoreProvider } from "~/lib/providers/tx";
 import { Web3Provider } from "~/lib/providers/web3";
+import {
+  createMutationCacheConfig,
+  createQueryCacheConfig,
+  DEFAULT_QUERY_OPTIONS,
+} from "~/lib/query";
 import { AlphaRouterProvider } from "./router";
 
 interface ProvidersProps {
@@ -30,8 +35,6 @@ const appInfo = {
   appName: "Xchange",
 };
 
-const MemoizedX7SwapStateProvider = memo(X7SwapStateProvider);
-const MemoizedX7LoanStateProvider = memo(X7LoanStateProvider);
 const MemoizedTooltipProvider = memo(TooltipProvider);
 const MemoizedSplashController = memo(SplashController);
 
@@ -42,11 +45,9 @@ export function AppProviders(props: ProvidersProps) {
   const queryClient = useMemo(
     () =>
       new QueryClient({
-        defaultOptions: {
-          queries: {
-            gcTime: 1000 * 60 * 60 * 24, // 24 hours
-          },
-        },
+        queryCache: new QueryCache(createQueryCacheConfig()),
+        mutationCache: new MutationCache(createMutationCacheConfig()),
+        defaultOptions: DEFAULT_QUERY_OPTIONS,
       }),
     [],
   );
@@ -90,16 +91,12 @@ export function AppProviders(props: ProvidersProps) {
               >
                 <TransactionStoreProvider>
                   <AlphaRouterProvider>
-                    <MemoizedX7SwapStateProvider>
-                      <MemoizedX7LoanStateProvider>
-                        <MemoizedTooltipProvider>
-                          <MemoizedSplashController>
-                            {mounted && props.children}
-                            <div id="dialog-root" />
-                          </MemoizedSplashController>
-                        </MemoizedTooltipProvider>
-                      </MemoizedX7LoanStateProvider>
-                    </MemoizedX7SwapStateProvider>
+                    <MemoizedTooltipProvider>
+                      <MemoizedSplashController>
+                        {mounted && props.children}
+                        <div id="dialog-root" />
+                      </MemoizedSplashController>
+                    </MemoizedTooltipProvider>
                   </AlphaRouterProvider>
                 </TransactionStoreProvider>
               </RainbowKitProvider>

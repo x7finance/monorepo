@@ -23,8 +23,9 @@ import type {
 import { useEnabledImplentations } from "@x7/ui";
 import type { ChainId, Implementation } from "@x7/utils";
 
+import { useDebounce } from "@x7/ui";
+
 import { useWeb3Config } from "~/lib/providers/web3";
-import useDebounce from "../hooks/utils/useDebounce";
 
 export interface AlphaRouterState {
   state: {

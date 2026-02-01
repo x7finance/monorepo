@@ -146,8 +146,6 @@ export const CurrencyInput: FC<CurrencyInputProps> = ({
       return null;
     }
 
-    console.log("currency", currency);
-
     return (
       <TokenSelectorDialog
         id={`${id}-token-selector`}

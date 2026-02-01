@@ -25,7 +25,7 @@ import { Tag } from "@x7/ui/tag";
 import { formatUSD } from "@x7/utils";
 import type { Currency, CurrencyAmount } from "@x7/utils";
 
-import { useLoanState } from "~/lib/providers/loan";
+import { useLoanState } from "~/lib/stores/loan";
 
 interface LoanLaunchPriceProps {
   // collateralToken: Currency;

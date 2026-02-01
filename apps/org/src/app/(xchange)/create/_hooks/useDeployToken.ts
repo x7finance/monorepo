@@ -30,6 +30,8 @@ import type { ChainId } from "@x7/utils";
 
 import { useTransactionStore } from "~/lib/providers/tx";
 import { useWeb3Config } from "~/lib/providers/web3";
+import { log } from "~/lib/utils/log";
+import { LogCodes } from "@x7/utils";
 
 interface TokenDeploymentParams {
   name: string;
@@ -126,7 +128,9 @@ export function useDeployToken(params: TokenDeploymentParams) {
   });
 
   if (simulationError) {
-    console.log("simulation error: ", simulationError);
+    log.warn(LogCodes.TX_SIMULATION_FAIL, "Token deployment simulation failed", {
+      error: simulationError.message,
+    });
   }
 
   const onSettled = useCallback(
@@ -159,7 +163,9 @@ export function useDeployToken(params: TokenDeploymentParams) {
     mutation: {
       onSettled,
       onError: (error) => {
-        console.error("Write contract error:", error);
+        log.error(LogCodes.TX_FAIL, "Token deployment transaction failed", {
+          error: error.message,
+        });
         setIsPending(false);
       },
       onSuccess: (hash: WriteContractReturnType) => {
@@ -195,7 +201,9 @@ export function useDeployToken(params: TokenDeploymentParams) {
             }
           })
           .catch((error) => {
-            console.error("Transaction receipt error:", error);
+            log.error(LogCodes.TX_FAIL, "Failed to get transaction receipt", {
+              error: error instanceof Error ? error.message : String(error),
+            });
             setIsPending(false);
           });
       },

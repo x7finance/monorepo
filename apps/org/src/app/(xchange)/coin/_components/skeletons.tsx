@@ -24,7 +24,7 @@ export function TokenInfoSkeleton() {
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {[...Array(3)].map((_, i) => (
-          <Card key={i} className="p-4">
+          <Card key={`card-skeleton-${i}`} className="p-4">
             <div className="h-4 w-24 animate-pulse rounded-sm bg-gray-200" />
             <div className="mt-2 h-6 animate-pulse rounded-sm bg-gray-200" />
           </Card>
@@ -44,7 +44,7 @@ export function TradingHistorySkeleton() {
       <div className="h-8 w-48 animate-pulse rounded-sm bg-gray-200" />
       <div className="space-y-2">
         {[...Array(5)].map((_, i) => (
-          <div key={i} className="h-12 animate-pulse rounded-sm bg-gray-200" />
+          <div key={`history-skeleton-${i}`} className="h-12 animate-pulse rounded-sm bg-gray-200" />
         ))}
       </div>
     </div>

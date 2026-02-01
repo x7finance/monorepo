@@ -11,7 +11,7 @@ import type { Token } from "@x7/utils";
 
 import { CurrencyInput } from "~/lib/components/utils/currency-input";
 import { ApprovalState } from "~/lib/hooks/approvals/useTokenApproval";
-import { useSwapState } from "~/lib/providers/swap-state";
+import { useSwapState } from "~/lib/stores/swap";
 import { Checker } from "~/lib/systems/Checker";
 import { ApproveERC20 } from "~/lib/systems/Checker/ApproveERC20";
 // import { SwapRecipientAddressDrawer } from "./(drawers)/swap-recipient-address-drawer";

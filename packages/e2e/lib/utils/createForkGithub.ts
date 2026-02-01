@@ -29,15 +29,17 @@ let walletAddress: string = WALLET_ADDRESS;
     walletAddress: walletAddress,
   });
 
-  for (const token of tokens) {
-    await tenderly.setTokenBalance({
-      forkId,
-      network,
-      token,
-      balance: tenderly.tokenBalances[token],
-      walletAddress: walletAddress,
-    });
-  }
+  await Promise.all(
+    tokens.map((token) =>
+      tenderly.setTokenBalance({
+        forkId,
+        network,
+        token,
+        balance: tenderly.tokenBalances[token],
+        walletAddress: walletAddress,
+      }),
+    ),
+  );
 
   console.log(`Selected network: ${NETWORK}`);
   console.log(`Wallet address: ${WALLET_ADDRESS}`);

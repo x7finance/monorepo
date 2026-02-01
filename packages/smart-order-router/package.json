@@ -2,18 +2,22 @@
   "name": "@x7/smart-order-router",
   "version": "0.0.1",
   "description": "Xchange Smart Order Router",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "default": "./src/index.ts"
+      "default": "./dist/index.js"
     }
   },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist", "src"],
   "scripts": {
-    "build": "tsc",
-    "clean": "git clean -xdf .turbo node_modules build dist",
-    "dev": "tsc --watch",
+    "build": "tsgo",
+    "clean": "git clean -xdf .turbo node_modules dist",
+    "dev": "tsgo --watch",
     "lint": "oxlint src/",
     "typecheck": "tsgo --noEmit"
   },

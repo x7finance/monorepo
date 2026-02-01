@@ -101,7 +101,7 @@ export function DataTable<TData, TValue>({
     autoResetPageIndex: false,
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
-    onSortingChange: onSortingChange ? onSortingChange : setSorting,
+    onSortingChange: onSortingChange || setSorting,
     onPaginationChange: onPaginationChange,
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
@@ -147,7 +147,7 @@ export function DataTable<TData, TValue>({
             Array.from({ length: 3 })
               .fill(null)
               .map((_, i) => (
-                <TableRow key={i}>
+                <TableRow key={`skeleton-row-${i}`}>
                   {table.getVisibleFlatColumns().map((column, _i) => {
                     return (
                       <TableCell
@@ -161,10 +161,10 @@ export function DataTable<TData, TValue>({
                 </TableRow>
               ))
           ) : table.getRowModel().rows.length ? (
-            table.getRowModel().rows.map((row, r) => {
+            table.getRowModel().rows.map((row) => {
               const _row = (
                 <TableRow
-                  key={r}
+                  key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell, i) =>

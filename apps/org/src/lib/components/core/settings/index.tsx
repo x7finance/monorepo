@@ -19,7 +19,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@x7/ui/tooltip";
 import { Implementation } from "@x7/utils";
 
 import { ImplementationIcon } from "~/app/(xchange)/_components/swap/swap-implementation-logos";
-import { useSwapState } from "~/lib/providers/swap-state";
+import { useSwapState } from "~/lib/stores/swap";
 import { EnabledImplementations } from "./enabled-implementation";
 import { SlippageTolerance } from "./slippage-tolerance";
 
@@ -82,9 +82,7 @@ export const SettingsOverlay: FC<SettingsOverlayProps> = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        {children ? (
-          children
-        ) : (
+        {children || (
           <div
             onClick={() => setOpen(true)}
             className="ml-auto flex cursor-pointer items-center rounded-lg border border-border bg-muted/50 px-2 py-1 text-2xs"

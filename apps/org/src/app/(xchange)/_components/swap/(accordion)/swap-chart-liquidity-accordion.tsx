@@ -40,9 +40,12 @@ export function SwapChartLiquidityAccordion({
                 {pools.map((pair, index) => {
                   const pairData = pair as Pair;
                   const poolData = pair as Pool;
+                  const poolAddress = protocol === Protocol.V2
+                    ? pairData.liquidityToken.address
+                    : poolData.address;
 
                   return (
-                    <div key={index}>
+                    <div key={poolAddress}>
                       <p className="break-all text-left text-xs">
                         Hop{index + 1}:
                       </p>

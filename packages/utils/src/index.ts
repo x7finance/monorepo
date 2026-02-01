@@ -1,5 +1,6 @@
 export * from "./calculate";
 export * from "./chain";
+export * from "./debounce";
 
 export * from "./currency";
 export * from "./currency/functions/address-map-to-token-map";

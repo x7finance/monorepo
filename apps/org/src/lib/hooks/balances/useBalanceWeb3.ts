@@ -5,6 +5,7 @@ import type { Address } from "viem";
 import type { ActiveChainId, Currency } from "@x7/utils";
 
 import { useWeb3Config } from "~/lib/providers/web3";
+import { CACHE_TIERS, TIME } from "~/lib/query";
 import { queryFnUseBalances } from "./useBalancesWeb3";
 
 interface UseBalanceParams {
@@ -37,7 +38,8 @@ export const useBalanceWeb3 = ({
         null
       );
     },
-    refetchInterval: 60000,
+    refetchInterval: TIME.MINUTE,
     enabled: Boolean(chainId && account && enabled),
+    ...CACHE_TIERS.DYNAMIC,
   });
 };

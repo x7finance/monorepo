@@ -19,10 +19,13 @@ import type { Currency } from "@x7/utils";
 
 import { erc20ABI } from "../abis/erc20";
 import { permit2ABI } from "../abis/Permit2";
-import type { SwapOptions, SwapRoute, V2Route } from "../routers";
-import { metric, MetricLoggerUnit, SwapType } from "../routers";
-import type { ViemProviderType } from "../utils";
-import { log, MAX_UINT160 } from "../utils";
+import type { SwapOptions, SwapRoute } from "../routers/router";
+import { SwapType } from "../routers/router";
+import type { V2Route } from "../routers/route-types";
+import { metric, MetricLoggerUnit } from "../utils/metric";
+import type { ViemProviderType } from "../utils/viemHelpers";
+import { log } from "../utils/log";
+import { MAX_UINT160 } from "../utils/amounts";
 import { APPROVE_TOKEN_FOR_TRANSFER } from "../utils/callData";
 import {
   calculateGasUsed,

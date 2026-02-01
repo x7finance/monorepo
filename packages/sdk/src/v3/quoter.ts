@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-extraneous-class */
 import invariant from "tiny-invariant";
 import { encodeFunctionData, toHex } from "viem";
 import type { Abi } from "viem";

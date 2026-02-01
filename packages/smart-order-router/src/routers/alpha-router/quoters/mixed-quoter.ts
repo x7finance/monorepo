@@ -16,7 +16,7 @@ import { TokenValidationResult } from "../../../providers";
 import type { CurrencyAmount } from "../../../utils";
 import { log, metric, MetricLoggerUnit, routeToString } from "../../../utils";
 import type { MixedRoute } from "../../router";
-import type { AlphaRouterConfig } from "../alpha-router";
+import type { AlphaRouterConfig } from "../types";
 import { MixedRouteWithValidQuote } from "../entities";
 import { computeAllMixedRoutes } from "../functions/compute-all-routes";
 import type {

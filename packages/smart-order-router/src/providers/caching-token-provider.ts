@@ -114,12 +114,14 @@ export class CachingTokenProviderWithFallback implements ITokenProvider {
     const seedTokens = CACHE_SEED_TOKENS[this.chainId];
 
     if (seedTokens) {
-      for (const token of Object.values(seedTokens)) {
-        await this.tokenCache.set(
-          this.CACHE_KEY(this.chainId, token.address.toLowerCase()),
-          token,
-        );
-      }
+      await Promise.all(
+        Object.values(seedTokens).map((token) =>
+          this.tokenCache.set(
+            this.CACHE_KEY(this.chainId, token.address.toLowerCase()),
+            token,
+          ),
+        ),
+      );
     }
 
     const addressToToken: Record<string, Token> = {};

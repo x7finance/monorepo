@@ -37,9 +37,7 @@ export function computePoolAddress({
     ? [tokenA, tokenB]
     : [tokenB, tokenA]; // does safety checks
 
-  const initHash = initCodeHashManualOverride
-    ? initCodeHashManualOverride
-    : POOL_INIT_CODE_HASH;
+  const initHash = initCodeHashManualOverride || POOL_INIT_CODE_HASH;
 
   return getContractAddress({
     bytecodeHash: initHash as `0x${string}`,

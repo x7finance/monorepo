@@ -15,6 +15,7 @@ import {
 } from "@x7/utils";
 
 import { useAlphaRouter } from "~/lib/providers/router";
+import { CACHE_TIERS } from "~/lib/query";
 import { fromReadableAmount } from "~/lib/utils/conversion";
 import { log } from "~/lib/utils/log";
 
@@ -73,8 +74,6 @@ export const usePrice = ({ chainId, currency }: UsePrice) => {
     enabled: Boolean(
       debouncedChainId && currency && router && isChainIdSettled,
     ),
-    staleTime: 900000, // 15 mins
-    gcTime: 3600000, // 1hr
-    refetchOnWindowFocus: true,
+    ...CACHE_TIERS.SEMI_STATIC,
   });
 };

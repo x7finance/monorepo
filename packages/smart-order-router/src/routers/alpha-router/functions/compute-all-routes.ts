@@ -104,7 +104,7 @@ export function computeAllRoutes<
       }
 
       const curPool = pools[i];
-      const previousTokenOut = _previousTokenOut ? _previousTokenOut : tokenIn;
+      const previousTokenOut = _previousTokenOut || tokenIn;
 
       if (!curPool?.involvesToken(previousTokenOut)) {
         continue;

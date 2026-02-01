@@ -18,7 +18,7 @@ export function PriceChartEmbed({
         src={`https://www.geckoterminal.com/${chain}/pools/${contractAddress}?embed=1&info=0&swaps=1&grayscale=0&light_chart=0`}
         allow="clipboard-write"
         allowFullScreen
-        sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+        sandbox="allow-scripts allow-popups allow-forms"
       />
     </div>
   );

@@ -17,15 +17,15 @@ import {
 import { Protocol, TradeType } from "@x7/utils";
 import type { ChainId, Currency } from "@x7/utils";
 
+import type { MethodParameters, SwapOptions } from "../routers/router";
+import { SwapType } from "../routers/router";
 import type {
-  MethodParameters,
   MixedRouteWithValidQuote,
   RouteWithValidQuote,
-  SwapOptions,
   V2RouteWithValidQuote,
   V3RouteWithValidQuote,
-} from "..";
-import { CurrencyAmount, SwapType } from "..";
+} from "../routers/alpha-router/entities/route-with-valid-quote";
+import { CurrencyAmount } from "./amounts";
 
 export function buildTrade<TTradeType extends TradeType>(
   tokenInCurrency: Currency,

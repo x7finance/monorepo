@@ -32,10 +32,10 @@ import { useWeb3Config } from "~/lib/providers/web3";
 import type {
   LoanTermData,
   TokenApprovals,
-} from "../../app/(xchange)/_components/loans/types";
-import { useLoanTerms } from "../../app/(xchange)/_components/loans/types";
-import { SECONDS_IN_A_DAY } from "../constants/misc";
-import { log } from "../utils/log";
+} from "../../../app/(xchange)/_components/loans/types";
+import { useLoanTerms } from "../../../app/(xchange)/_components/loans/types";
+import { SECONDS_IN_A_DAY } from "../../constants/misc";
+import { log } from "../../utils/log";
 
 const MINIMUM_LOAN_AMOUNT = 0.5;
 const MAXIMUM_LOAN_AMOUNT = 5.0;
@@ -315,7 +315,9 @@ export const X7LoanStateProvider: FC<X7LoanStateProviderProps> = ({
         // @ts-expect-error: todo fix
         setSelectedQuote(matchingQuote.value);
       } else {
-        console.warn("No matching quote found for selected loan");
+        log.warn(LogCodes.LOAN_INFO, "No matching quote found for selected loan", {
+          selectedLoanAddress: selectedLoan.address,
+        });
       }
     }
   }, [quotes, selectedLoan, loadingQuotes]);

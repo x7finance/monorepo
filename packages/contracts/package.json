@@ -2,20 +2,25 @@
   "name": "@x7/contracts",
   "version": "0.0.1",
   "description": "Contracts for building applications on top of Xchange",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "default": "./src/index.ts"
+      "default": "./dist/index.js"
     },
     "./artifacts/*": "./artifacts/*"
   },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist", "src", "artifacts"],
   "scripts": {
-    "build": "hardhat compile && tsc",
+    "build": "hardhat compile && tsgo",
     "clean": "git clean -xdf .turbo artifacts node_modules cache dist",
+    "dev": "tsgo --watch",
     "lint": "oxlint src/",
-    "typecheck": "tsgo --noEmit --emitDeclarationOnly false"
+    "typecheck": "tsgo --noEmit"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-ignition": "^0.15.16",

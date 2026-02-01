@@ -125,8 +125,8 @@ export function LiveLaunchList() {
       <div>
         <h2 className="mb-8 text-3xl font-bold">Live Launch List</h2>
         <ul className="space-y-6 pl-2">
-          {checklistItems.map((item, index) => (
-            <li key={index} className="flex items-center">
+          {checklistItems.map((item) => (
+            <li key={item.text} className="flex items-center">
               {item.status === ChecklistItemStatus.Completed ? (
                 <>
                   <CheckCircleIcon className="mr-2 h-6 w-6 text-emerald-500" />

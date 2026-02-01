@@ -992,9 +992,9 @@ export class AlphaRouter
     };
 
     const {
-      v2GasModel: v2GasModel,
-      v3GasModel: v3GasModel,
-      mixedRouteGasModel: mixedRouteGasModel,
+      v2GasModel,
+      v3GasModel,
+      mixedRouteGasModel,
     } = await this.getGasModels(
       gasPriceWei,
       amount.currency.wrapped,

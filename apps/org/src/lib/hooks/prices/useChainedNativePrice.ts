@@ -6,6 +6,7 @@ import { arbitrum, base, bsc, mainnet, optimism, polygon } from "viem/chains";
 import type { ChainId } from "@x7/utils";
 import { LogCodes } from "@x7/utils";
 
+import { CACHE_TIERS } from "~/lib/query";
 import { log } from "~/lib/utils/log";
 
 interface UseChainedNativePrice {
@@ -80,8 +81,6 @@ export const useChainedNativePrice = ({ chainId }: UseChainedNativePrice) => {
         return 0n;
       }
     },
-    staleTime: 300000, // 5 mins
-    gcTime: 3600000, // 1hr
-    refetchOnWindowFocus: true,
+    ...CACHE_TIERS.SEMI_STATIC,
   });
 };

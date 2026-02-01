@@ -232,7 +232,7 @@ export const changeAccountOwner = async ({
       { from: owner, to: guard, input: encoded },
     ]);
     return true;
-  } catch (error) {
+  } catch {
     return false;
   }
 };

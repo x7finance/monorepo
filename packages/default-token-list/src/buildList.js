@@ -113,7 +113,7 @@ const fetchTokenWithTimeout = async (
     ]);
 
     return result;
-  } catch (error) {
+  } catch {
     console.error(
       `Error or timeout fetching token ${address} on chain ${chainId}`,
     );
@@ -178,7 +178,7 @@ module.exports = async function buildList() {
             };
           }
         });
-    } catch (error) {
+    } catch {
       console.log(
         `Skipping: ${chainId}:${REGISTRY_MAP[Number(chainId)].contract}`,
       );

@@ -13,7 +13,7 @@ import {
   usePrincipleFractionDenominator,
   useRepaymentPeriodIndices,
 } from "~/lib/hooks/loans/useXchangeLoanData";
-import type { QuoteResponse } from "~/lib/providers/loan";
+import type { QuoteResponse } from "~/lib/stores/loan";
 import { generateX7InitialLiquidityLoanTermNumber } from "~/lib/utils/lending";
 import { LoanTypeRepaymentFraction } from "./loan-type-repayment-fraction";
 

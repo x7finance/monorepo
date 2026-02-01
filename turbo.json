@@ -47,7 +47,7 @@
       "outputs": [
         ".next/**",
         "!.next/cache/**",
-        "node_modules/.cache/tsbuildinfo.json",
+        ".turbo/.tsbuildinfo",
         "dist/**",
         "artifacts/**",
         "contracts/**"
@@ -63,7 +63,7 @@
     "typecheck": {
       "dependsOn": ["^build"],
       "inputs": ["src/**/*.ts", "src/**/*.tsx", "tsconfig.json"],
-      "outputs": ["node_modules/.cache/tsbuildinfo.json"]
+      "outputs": [".turbo/.tsbuildinfo"]
     },
     "test": {
       "dependsOn": ["^build"],

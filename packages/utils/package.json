@@ -2,18 +2,24 @@
   "name": "@x7/utils",
   "version": "0.0.1",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "default": "./src/index.ts"
+      "default": "./dist/index.js"
     }
   },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist", "src"],
   "scripts": {
+    "build": "tsgo",
     "clean": "git clean -xdf .turbo node_modules dist",
+    "dev": "tsgo --watch",
     "lint": "oxlint src/",
-    "typecheck": "tsgo --noEmit --emitDeclarationOnly false"
+    "typecheck": "tsgo --noEmit"
   },
   "dependencies": {
     "big.js": "^6.2.2",

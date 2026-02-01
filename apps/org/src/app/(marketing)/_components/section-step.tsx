@@ -72,8 +72,8 @@ export function SectionStep(props: SectionStepProps) {
             <div className="h-px flex-auto bg-zinc-100 dark:bg-zinc-900" />
           </div>
           <ul className="text-muted-foreground mt-8 grid grid-cols-1 gap-4 text-sm leading-6 sm:grid-cols-2 sm:gap-6">
-            {highlights.map((highlight, key) => (
-              <li key={key} className="flex gap-x-3">
+            {highlights.map((highlight) => (
+              <li key={highlight} className="flex gap-x-3">
                 <svg
                   className={cn(checkColor, `h-6 w-5 flex-none`)}
                   viewBox="0 0 20 20"

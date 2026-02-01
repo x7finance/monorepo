@@ -24,15 +24,15 @@ export function DocsList({ section }: { section: string }) {
 
     return (
       <div className="not-prose my-12">
-        {sortedMonths.map((month, index) => (
-          <div key={index}>
+        {sortedMonths.map((month) => (
+          <div key={month}>
             <h2>
               <strong>{month} &#8594;</strong>
             </h2>
             {(filesByMonth[month]?.length ?? 0) > 0 && (
               <ul>
-                {filesByMonth[month]?.map((fileName, fileIndex) => (
-                  <li key={fileIndex}>
+                {filesByMonth[month]?.map((fileName) => (
+                  <li key={fileName}>
                     <a href={`/docs/onchains/${fileName}`}>
                       {getFormattedFileName(fileName)}
                     </a>
@@ -49,10 +49,10 @@ export function DocsList({ section }: { section: string }) {
     return (
       <div className="not-prose my-12">
         <ul>
-          {files.map((file, index) => {
+          {files.map((file) => {
             const fileNameWithoutExtension = file.fileName.replace(/\.md$/, "");
             return (
-              <li key={index}>
+              <li key={file.fileName}>
                 <a href={`/docs/${section}/${fileNameWithoutExtension}`}>
                   {fileNameWithoutExtension}
                 </a>

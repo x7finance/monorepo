@@ -1,8 +1,10 @@
 {
   "name": "@x7/subgraph",
+  "version": "0.0.1",
+  "description": "The Graph subgraph definitions for Xchange DEX indexing",
   "license": "UNLICENSED",
   "scripts": {
-    "build:temp": "graph build",
+    "build": "cp ./subgraph-mainnet.yaml ./subgraph.yaml && graph codegen && graph build && rm ./subgraph.yaml",
     "codegen": "graph codegen",
     "create-local": "graph create --node http://127.0.0.1:8020/ xchange",
     "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ xchange",

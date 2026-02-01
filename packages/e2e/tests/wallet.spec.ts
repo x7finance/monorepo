@@ -1,6 +1,7 @@
 import * as metamask from "@synthetixio/synpress/commands/metamask";
 import { expectedValues } from "data/test-data";
 import { expect, test } from "fixtures/pom-synpress";
+import type HomePage from "pages/home.page";
 
 import { mainnetChainIds, USDC } from "@x7/sdk";
 import { ChainId } from "@x7/utils";
@@ -69,7 +70,7 @@ test.describe("Xchange e2e wallet tests", () => {
 });
 
 const performTest = async (
-  page: any,
+  page: HomePage,
   chainId: number,
   token1: string,
   tokenType: string,

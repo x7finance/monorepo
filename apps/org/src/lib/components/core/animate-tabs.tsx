@@ -102,7 +102,7 @@ export function AnimatedTabs({
         }
       : {};
 
-  const bgTransition = useTransition(hoveredTabIndex != null, {
+  const bgTransition = useTransition(hoveredTabIndex !== null, {
     from: () => ({
       ...stylesChangingOnUpdate,
       opacity: 0,

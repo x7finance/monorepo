@@ -108,7 +108,7 @@ export function XChangeBoard() {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
             {isLoading
               ? Array.from({ length: 9 }).map((_, i) => (
-                  <Card key={i} className="flex h-full w-full flex-col">
+                  <Card key={`skeleton-${i}`} className="flex h-full w-full flex-col">
                     <CardHeader className="relative p-0">
                       <div className="relative mb-2 h-24 w-full">
                         <SkeletonBox className="h-full w-full rounded-t-lg" />

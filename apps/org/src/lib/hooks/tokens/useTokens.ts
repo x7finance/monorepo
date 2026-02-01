@@ -12,6 +12,7 @@ import type { ChainId } from "@x7/utils";
 import { LogCodes, Token } from "@x7/utils";
 
 import { useWeb3Config } from "~/lib/providers/web3";
+import { CACHE_TIERS } from "~/lib/query";
 import { log } from "~/lib/utils/log";
 
 interface UseTokensParams {
@@ -117,7 +118,6 @@ export const useTokens = ({ chainId }: UseTokensParams) => {
     queryFn: () => fetchTokensQueryFn(chainId, wagmiConfig),
     select: (data) => data[chainId],
     placeholderData: keepPreviousData,
-    staleTime: 900000, // 15 mins
-    gcTime: 86400000, // 24hs
+    ...CACHE_TIERS.STATIC,
   });
 };

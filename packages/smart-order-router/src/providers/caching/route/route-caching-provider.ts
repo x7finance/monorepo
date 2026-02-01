@@ -83,7 +83,7 @@ export abstract class IRouteCachingProvider {
     amount: CurrencyAmount<Currency>,
   ): Promise<boolean> => {
     if (
-      (await this.getCacheModeFromCachedRoutes(cachedRoutes, amount)) ==
+      (await this.getCacheModeFromCachedRoutes(cachedRoutes, amount)) ===
       CacheMode.Darkmode
     ) {
       return false;

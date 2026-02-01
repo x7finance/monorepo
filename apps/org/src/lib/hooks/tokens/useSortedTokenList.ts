@@ -9,9 +9,8 @@ import type {
   Fraction,
   Token,
 } from "@x7/utils";
+import { useDebounce } from "@x7/ui";
 import { Native } from "@x7/utils";
-
-import useDebounce from "../utils/useDebounce";
 import {
   filterTokens,
   getSortedTokensByQuery,

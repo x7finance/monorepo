@@ -2,17 +2,22 @@
   "name": "@x7/sdk",
   "version": "0.0.1",
   "description": "SDK's for building applications on top of Xchange",
+  "license": "MIT",
   "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "default": "./src/index.ts"
+      "default": "./dist/index.js"
     }
   },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist", "src"],
   "scripts": {
-    "build": "tsc",
+    "build": "tsgo",
     "clean": "git clean -xdf .turbo node_modules dist",
-    "dev": "tsc --watch",
+    "dev": "tsgo --watch",
     "lint": "oxlint src/",
     "typecheck": "tsgo --noEmit"
   },

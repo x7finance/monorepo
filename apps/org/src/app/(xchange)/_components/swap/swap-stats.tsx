@@ -11,7 +11,7 @@ import { SkeletonBox } from "@x7/ui/skeleton";
 import type { Currency } from "@x7/utils";
 import { Implementation, LogCodes, Protocol } from "@x7/utils";
 
-import { useSwapState } from "~/lib/providers/swap-state";
+import { useSwapState } from "~/lib/stores/swap";
 import { log } from "~/lib/utils/log";
 import {
   warningSeverity,

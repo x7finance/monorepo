@@ -120,9 +120,9 @@ export function LoanTermsView({ chainId }: StatusTableProps) {
           <TableBody>
             {filteredLoans
               .filter((loan) => loan.loanName)
-              .map((loan, index) => (
+              .map((loan) => (
                 <LoanTermRow
-                  key={index}
+                  key={loan.loanName}
                   loan={loan}
                   chainId={chainId}
                   isPopular={loan.loanName === mostPopular}

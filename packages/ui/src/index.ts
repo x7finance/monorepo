@@ -1,3 +1,4 @@
+export * from "./error-display";
 export * from "./hooks";
 export * from "./list";
 export * from "./data-table";

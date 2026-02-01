@@ -50,7 +50,7 @@ export const StaticTable: FC<StaticTableProps> = ({ data, columns }) => {
           <tr className="border-none" key={`${index}-static-table`}>
             {columns.map((column, colIndex) => (
               <td
-                key={colIndex}
+                key={column.accessor}
                 {...(column.width && index === 0
                   ? { width: column.width }
                   : {})}

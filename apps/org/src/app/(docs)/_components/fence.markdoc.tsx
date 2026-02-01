@@ -37,11 +37,11 @@ export function Fence({ children, language }: FenceProps) {
           </div>
           <code>
             {tokens.map((line: Token[], lineIndex: number) => (
-              <Fragment key={lineIndex}>
+              <Fragment key={`line-${lineIndex}`}>
                 {line
                   .filter((token) => !token.empty)
                   .map((token: Token, tokenIndex: number) => (
-                    <span key={tokenIndex} {...getTokenProps({ token })} />
+                    <span key={`token-${lineIndex}-${tokenIndex}`} {...getTokenProps({ token })} />
                   ))}
                 {"\n"}
               </Fragment>

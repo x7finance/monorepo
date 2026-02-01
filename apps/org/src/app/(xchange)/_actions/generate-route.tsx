@@ -9,7 +9,7 @@ import type { AlphaRouter, SwapRoute } from "@x7/smart-order-router";
 import { SwapType, WRAPPED_NATIVE_CURRENCY } from "@x7/smart-order-router";
 import { LogCodes, Percent, TradeType } from "@x7/utils";
 
-import type { SwapState } from "~/lib/providers/swap-state";
+import type { SwapState } from "~/lib/stores/swap";
 import { log } from "~/lib/utils/log";
 
 export const generateRoute = async (

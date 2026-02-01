@@ -35,6 +35,8 @@ import { Textarea } from "@x7/ui/textarea";
 import type { ChainId } from "@x7/utils";
 
 import { uploadMetadataToIPFS } from "~/lib/utils/ifps";
+import { log } from "~/lib/utils/log";
+import { LogCodes } from "@x7/utils";
 import { useDeployToken } from "../_hooks/useDeployToken";
 
 const formSchema = z
@@ -207,7 +209,9 @@ export function CreateCoinForm() {
 
       writeContract(data.request);
     } catch (error) {
-      console.error("Failed to deploy token:", error);
+      log.error(LogCodes.TX_FAIL, "Failed to deploy token", {
+        error: error instanceof Error ? error.message : String(error),
+      });
       toast.error(
         error instanceof Error ? error.message : "Failed to deploy token",
       );
@@ -232,7 +236,9 @@ export function CreateCoinForm() {
         form.setValue("tokenURI", cleanedTokenURI);
       } catch (error) {
         toast.error("Failed to process image file");
-        console.error(error);
+        log.error(LogCodes.IPFS_UPLOAD_FAIL, "Failed to process image file for IPFS upload", {
+          error: error instanceof Error ? error.message : String(error),
+        });
       }
     }
   };
@@ -240,7 +246,9 @@ export function CreateCoinForm() {
   useEffect(() => {
     const formErrors = form.formState.errors;
     if (Object.keys(formErrors).length > 0) {
-      console.log("Form validation errors:", formErrors);
+      log.debug(LogCodes.UI_FORM_VALIDATION, "Form validation errors", {
+        errors: Object.keys(formErrors),
+      });
       Object.entries(formErrors).forEach(([field, error]) => {
         if (error.message) {
           toast.error(`${field}: ${error.message}`);

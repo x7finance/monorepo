@@ -2,18 +2,28 @@
   "name": "@x7/ui",
   "version": "0.0.1",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "exports": {
-    ".": "./src/index.ts",
-    "./*": [
-      "./src/*.tsx",
-      "./src/*.ts"
-    ]
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
+    }
   },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist", "src"],
   "scripts": {
+    "build": "tsgo",
     "clean": "git clean -xdf .turbo node_modules dist",
+    "dev": "tsgo --watch",
     "lint": "oxlint src/",
-    "typecheck": "tsgo --noEmit --emitDeclarationOnly false"
+    "typecheck": "tsgo --noEmit"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.3",

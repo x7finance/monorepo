@@ -41,7 +41,7 @@ import { useGetInitialLiquidityLoan } from "~/lib/hooks/loans/useGetInitialLiqui
 import { useLiquidationReward } from "~/lib/hooks/loans/useXchangeLendingPoolData";
 import { usePrice } from "~/lib/hooks/prices/usePrice";
 import { useTransactionDeadline } from "~/lib/hooks/utils/useTransactionDeadline";
-import { useLoanState } from "~/lib/providers/loan";
+import { useLoanState } from "~/lib/stores/loan";
 import { ApproveERC20Multiple } from "~/lib/systems/Checker/ApproveERC20Multiple";
 import { log } from "~/lib/utils/log";
 import { XchangeLinks } from "~/types/links";

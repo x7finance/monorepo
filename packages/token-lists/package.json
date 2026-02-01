@@ -2,21 +2,25 @@
   "name": "@x7/token-lists",
   "version": "0.0.1",
   "description": "The Token Lists specification",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "default": "./src/index.ts"
+      "default": "./dist/index.js"
     },
-    "./src/tokenlist.schema.json": "./src/tokenlist.schema.json"
+    "./schema": "./dist/tokenlist.schema.json"
   },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist", "src"],
   "scripts": {
-    "build": "tsc",
+    "build": "tsgo && cp src/tokenlist.schema.json dist/",
     "clean": "git clean -xdf .turbo node_modules dist",
+    "dev": "tsgo --watch",
     "lint": "oxlint src/",
-    "postbuild:temp": "node copy-schema.cjs",
-    "typecheck": "tsgo --noEmit --emitDeclarationOnly false"
+    "typecheck": "tsgo --noEmit"
   },
   "devDependencies": {
     "@x7/tsconfig": "workspace:*",

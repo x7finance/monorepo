@@ -6,8 +6,8 @@ import { Pair, partitionMixedRouteByProtocol, Pool } from "@x7/sdk";
 import { LogCodes } from "@x7/utils";
 import type { ChainId } from "@x7/utils";
 
-import { WRAPPED_NATIVE_CURRENCY } from "../../../..";
-import { log } from "../../../../utils";
+import { WRAPPED_NATIVE_CURRENCY } from "../../../../utils/chains";
+import { log } from "../../../../utils/log";
 import { CurrencyAmount } from "../../../../utils/amounts";
 import { getV2NativePool } from "../../../../utils/gas-factory-helpers";
 import type { MixedRouteWithValidQuote } from "../../entities/route-with-valid-quote";
@@ -47,9 +47,7 @@ import {
  * @class MixedRouteHeuristicGasModelFactory
  */
 export class MixedRouteHeuristicGasModelFactory extends IOnChainGasModelFactory<MixedRouteWithValidQuote> {
-  constructor() {
-    super();
-  }
+  
 
   public async buildGasModel({
     chainId,

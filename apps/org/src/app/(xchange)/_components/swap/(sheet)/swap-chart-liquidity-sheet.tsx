@@ -57,7 +57,7 @@ export function SwapChartPanelLiquiditySheet({
             <div className="my-1">
               <Tag color="emerald" variant="large">
                 {path.map((token: any, index: number) => (
-                  <React.Fragment key={index}>
+                  <React.Fragment key={`${token.address ?? token.symbol}-${index}`}>
                     {token.symbol}
                     {index < path.length - 1 && "-"}
                   </React.Fragment>
@@ -68,15 +68,15 @@ export function SwapChartPanelLiquiditySheet({
         </SheetHeader>
         {isRouteFound ? (
           <div className="space-y-8">
-            {pools.map((pool, index: number) => {
+            {pools.map((pool, poolIndex) => {
               const pair = pool as Pair;
               return (
                 <div
-                  key={index}
+                  key={`${pool.token0.address}-${pool.token1.address}`}
                   className="flex flex-col items-center justify-center"
                 >
                   <h3 className="mb-2 font-heading text-lg font-semibold">
-                    Hop {index + 1} Pool: {pool.token0.symbol}/
+                    Hop {poolIndex + 1} Pool: {pool.token0.symbol}/
                     {pool.token1.symbol}
                   </h3>
                   {protocol === Protocol.V2 ? (

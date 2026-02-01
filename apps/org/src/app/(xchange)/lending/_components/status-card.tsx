@@ -44,8 +44,8 @@ export function StatusCard({
     return (
       <div className="my-4">
         <div className="border-muted bg-secondary grid grid-cols-3 gap-px overflow-hidden rounded-lg border">
-          {items.map((item, index) => (
-            <div key={index} className="bg-zinc-900 px-4 py-3">
+          {items.map((item) => (
+            <div key={item.label} className="bg-zinc-900 px-4 py-3">
               <div className="text-2xs flex items-center gap-1 leading-6 text-zinc-400 sm:text-xs">
                 <span className="font-heading">{item.label}</span>
                 {item.hovercard && (
@@ -99,8 +99,8 @@ export function StatusCard({
       <CardContent className="p-0">
         <Table>
           <TableBody>
-            {items.map((item, index) => (
-              <TableRow key={index}>
+            {items.map((item) => (
+              <TableRow key={item.label}>
                 <TableCell className="text-muted-foreground text-sm">
                   {item.label}
                 </TableCell>

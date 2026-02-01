@@ -15,6 +15,7 @@ import type { ChainId } from "@x7/utils";
 import { Implementation, Token, WETH9 } from "@x7/utils";
 
 import { useChainedNativePrice } from "~/lib/hooks/prices/useChainedNativePrice";
+import { CACHE_TIERS, TIME } from "~/lib/query";
 import { usePrice } from "../prices/usePrice";
 
 const ownerAbi = [
@@ -250,9 +251,8 @@ export function useTokenData(
       return Number(totalSupply) * ethValue * nativePriceNumber;
     },
     enabled: !!reserves && !!totalSupply && !!nativePrice,
-    staleTime: 30_000,
-    gcTime: 5 * 60 * 1000,
-    refetchInterval: 30_000,
+    refetchInterval: 30 * TIME.SECOND,
+    ...CACHE_TIERS.DYNAMIC,
   });
 
   const { data: historicalData } = useQuery({
@@ -271,9 +271,8 @@ export function useTokenData(
       };
     },
     enabled: !!pairAddress && !options.skipHistoricalData,
-    staleTime: 30_000,
-    gcTime: 5 * 60 * 1000,
-    refetchInterval: 30_000,
+    refetchInterval: 30 * TIME.SECOND,
+    ...CACHE_TIERS.DYNAMIC,
   });
 
   const { data: metadata, isLoading: isMetadataLoading } = useReadContract({

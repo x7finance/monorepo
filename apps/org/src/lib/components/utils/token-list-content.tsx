@@ -89,7 +89,7 @@ export const TokenListContent: FC<TokenViewProps> = ({
   const { data: sortedTokenList } = useSortedTokenList({
     query,
     customTokenMap: currencies ? {} : customTokenMap,
-    tokenMap: currencies ? currencies : tokenMap,
+    tokenMap: currencies || tokenMap,
     pricesMap,
     balancesMap: {},
     chainId,
@@ -177,7 +177,7 @@ export const TokenListContent: FC<TokenViewProps> = ({
     <div className="flex w-full flex-col gap-2">
       {Array.from({ length: 5 }).map((_, i) => (
         <div
-          key={i}
+          key={`skeleton-${i}`}
           className="flex h-[64px] w-full items-center rounded-lg px-3"
         >
           <div className="flex grow items-center justify-between gap-2 rounded-sm">

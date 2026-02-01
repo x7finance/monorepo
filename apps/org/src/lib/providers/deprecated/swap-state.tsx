@@ -47,11 +47,12 @@ import {
 import { useTokenApproval } from "~/lib/hooks/approvals/useTokenApproval";
 import { useTokenWithCache } from "~/lib/hooks/tokens/useTokenWithCache";
 import { useWeb3Config } from "~/lib/providers/web3";
-import pDebounce from "~/lib/utils/debounce";
-import { generateRoute } from "../../app/(xchange)/_actions/generate-route";
-import type { TokenApprovals } from "../../app/(xchange)/_components/loans/types";
-import { log } from "../utils/log";
-import { useAlphaRouter } from "./router";
+import { pDebounce } from "@x7/utils";
+import { generateRoute } from "../../../app/(xchange)/_actions/generate-route";
+import type { TokenApprovals } from "../../../app/(xchange)/_components/loans/types";
+import { log } from "../../utils/log";
+import { useAlphaRouter } from "../router";
+import type { SwapState as NewSwapState } from "~/lib/stores/swap/types";
 
 export interface SwapState {
   state: {
@@ -150,7 +151,7 @@ export const X7SwapStateProvider: FC<X7SwapProviderProps> = ({ children }) => {
     if (!params.has("chainId")) {
       params.set(
         "chainId",
-        (initialChainId ? initialChainId : ChainId.BASE).toString(),
+        (initialChainId || ChainId.BASE).toString(),
       );
     }
 
@@ -339,7 +340,7 @@ export const X7SwapStateProvider: FC<X7SwapProviderProps> = ({ children }) => {
       !!token0 &&
       !!swapAmountString &&
       parseFloat(swapAmountString) > 0 &&
-      intendedRouterAddress != "0x",
+      intendedRouterAddress !== "0x",
   });
 
   const token0Approval: TokenApprovals = {
@@ -380,7 +381,7 @@ export const X7SwapStateProvider: FC<X7SwapProviderProps> = ({ children }) => {
   };
 
   // TODO: Monitor if this is ideal
-  const throttleRouteGen = pDebounce(async (param: SwapState) => {
+  const throttleRouteGen = pDebounce(async (param: NewSwapState) => {
     if (!param.state.token0 || !param.state.token1 || !router) {
       return;
     }
@@ -477,7 +478,7 @@ export const X7SwapStateProvider: FC<X7SwapProviderProps> = ({ children }) => {
 
     if (_token0 && _token1 && parseFloat(`${swapAmountString}`) > 0) {
       setIsQuoteLoading(true);
-      void throttleRouteGen(builtState);
+      void throttleRouteGen(builtState as unknown as NewSwapState);
     }
   }, [chainId, router, address, _token0, _token1, swapAmountString]);
 

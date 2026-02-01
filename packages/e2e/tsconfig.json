@@ -10,6 +10,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./lib/*"]
-    }
+    },
+    "incremental": true,
+    "tsBuildInfoFile": ".turbo/.tsbuildinfo"
   }
 }

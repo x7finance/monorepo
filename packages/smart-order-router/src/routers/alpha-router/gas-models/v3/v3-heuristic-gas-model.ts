@@ -21,9 +21,7 @@ import { TickBasedHeuristicGasModelFactory } from "../tick-based-heuristic-gas-m
  * @class V3HeuristicGasModelFactory
  */
 export class V3HeuristicGasModelFactory extends TickBasedHeuristicGasModelFactory<V3RouteWithValidQuote> {
-  constructor() {
-    super();
-  }
+  
 
   public override async buildGasModel({
     chainId,

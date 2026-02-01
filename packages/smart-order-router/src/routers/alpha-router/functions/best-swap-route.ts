@@ -13,12 +13,12 @@ import { HAS_L1_FEE, LogCodes, Protocol, TradeType } from "@x7/utils";
 import type { ChainId } from "@x7/utils";
 
 import type { IPortionProvider } from "../../../providers/portion-provider";
-import { CurrencyAmount } from "../../../utils";
+import { CurrencyAmount } from "../../../utils/amounts";
 import { log } from "../../../utils/log";
 import { metric, MetricLoggerUnit } from "../../../utils/metric";
 import { routeToString } from "../../../utils/routes";
 import type { SwapOptions } from "../../router";
-import type { AlphaRouterConfig } from "../alpha-router";
+import type { AlphaRouterConfig } from "../types";
 import type {
   BestSwapRoute,
   RouteWithValidQuote,

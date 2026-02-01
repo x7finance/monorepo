@@ -16,7 +16,7 @@ import type { ProviderConfig } from "../../../providers/provider";
 import type { CurrencyAmount } from "../../../utils";
 import { log, metric, MetricLoggerUnit, routeToString } from "../../../utils";
 import type { V2Route } from "../../router";
-import type { AlphaRouterConfig } from "../alpha-router";
+import type { AlphaRouterConfig } from "../types";
 import { V2RouteWithValidQuote } from "../entities";
 import { computeAllV2Routes } from "../functions/compute-all-routes";
 import type {

@@ -7,7 +7,7 @@ import { cn } from "@x7/css";
 import type { RouteWithValidQuote } from "@x7/smart-order-router";
 import { Implementation, LogCodes, Protocol } from "@x7/utils";
 
-import { useSwapState } from "~/lib/providers/swap-state";
+import { useSwapState } from "~/lib/stores/swap";
 import { log } from "~/lib/utils/log";
 import { implementationComponents } from "./swap-dexs";
 import { ImplementationGroupTabbed } from "./swap-implementations-tabbed";

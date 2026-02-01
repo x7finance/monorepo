@@ -155,8 +155,8 @@ export const SyncLiquidityTab = ({
             className="w-full rounded-lg bg-white p-3 py-2 dark:bg-zinc-800"
             chainId={chainId}
             value={input0}
-            onChange={console.log}
-            onSelect={console.log}
+            onChange={() => {}}
+            onSelect={() => {}}
             currency={token0}
             disabled={true}
             loading={false}
@@ -181,8 +181,8 @@ export const SyncLiquidityTab = ({
             className="w-full rounded-lg bg-white p-3 py-2 dark:bg-zinc-800"
             chainId={chainId}
             value={input1}
-            onChange={console.log}
-            onSelect={console.log}
+            onChange={() => {}}
+            onSelect={() => {}}
             currency={token1}
             disabled={true}
             loading={false}

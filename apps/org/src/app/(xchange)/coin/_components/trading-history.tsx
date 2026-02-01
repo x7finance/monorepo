@@ -145,8 +145,8 @@ export function TradingHistory({ contractAddress }: TradingHistoryProps) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {trades.map((trade, i) => (
-            <TableRow key={i}>
+          {trades.map((trade) => (
+            <TableRow key={`${trade.timestamp}-${trade.address}-${trade.amount}`}>
               <TableCell>
                 {new Date(trade.timestamp).toLocaleTimeString()}
               </TableCell>

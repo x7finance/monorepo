@@ -959,8 +959,8 @@ const allOtherChecksConfigured = checkResults
       </CollapsibleTrigger>
       <CollapsibleContent>
         <div className="mt-2 space-y-2 text-xs text-zinc-700 dark:text-zinc-300">
-          {checkResults.map((check, index) => (
-            <div key={index} className="flex justify-between">
+          {checkResults.map((check) => (
+            <div key={`${check.name}-${check.functionName}`} className="flex justify-between">
               <div className="flex flex-col">
                 <span>{check.name}</span>
                 <span className="text-sm text-zinc-500">

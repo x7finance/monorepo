@@ -281,7 +281,7 @@ export function PioneerDetails() {
                         <tbody>
                           {pioneerIds.map((id, index) => (
                             <tr
-                              key={index}
+                              key={id}
                               className={cn(
                                 "mb-8 border-zinc-200 dark:border-zinc-800",
                                 {

@@ -1,17 +1,24 @@
 {
   "name": "@x7/tines",
   "version": "0.0.1",
+  "description": "AMM pool math and liquidity calculations for X7 Finance",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "default": "./src/index.ts"
+      "default": "./dist/index.js"
     }
   },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist", "src"],
   "scripts": {
-    "clean": "git clean -xdf .turbo node_modules",
+    "build": "tsgo",
+    "clean": "git clean -xdf .turbo node_modules dist",
+    "dev": "tsgo --watch",
     "lint": "oxlint src/",
     "typecheck": "tsgo --noEmit"
   },

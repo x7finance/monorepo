@@ -14,7 +14,7 @@ import { APPROVE_TAG_REMOVE } from "~/lib/constants/misc";
 import type { UserPositionsResponse } from "~/lib/hooks/tokens/useGetAllUserTokens";
 import { Checker } from "~/lib/systems/Checker";
 import { CheckerProvider } from "~/lib/systems/Checker/Provider";
-import pDebounce from "~/lib/utils/debounce";
+import { pDebounce } from "@x7/utils";
 import TextTransition from "../../loans/TextTransition";
 import { ConfirmLiquidityRemoval } from "../confirm-liquidity-removal";
 import { LockedAmountsPoolInfoCard } from "../locked-amounts-pool-info-card";
@@ -81,7 +81,7 @@ export const RemoveLiquidityTab = ({
           setLiquidityPercentage(roundedValue);
         }
       }, 100);
-      debouncedUpdate(newValues).catch(console.error);
+      debouncedUpdate(newValues).catch(() => {});
     },
     [maxRemovablePercentage],
   );
@@ -181,7 +181,7 @@ export const RemoveLiquidityTab = ({
           >
             {ticks.map((tick, i) => (
               <span
-                key={i}
+                key={`tick-${i}`}
                 className="flex w-0 flex-col items-center justify-center gap-2"
               >
                 <span
@@ -213,8 +213,8 @@ export const RemoveLiquidityTab = ({
             className="w-full rounded-lg bg-white p-3 py-2 dark:bg-zinc-800"
             chainId={chainId}
             value={typedAmounts.input0}
-            onChange={console.log}
-            onSelect={console.log}
+            onChange={() => {}}
+            onSelect={() => {}}
             currency={token0}
             disabled={true}
             loading={false}
@@ -239,8 +239,8 @@ export const RemoveLiquidityTab = ({
             className="w-full rounded-lg bg-white p-3 py-2 dark:bg-zinc-800"
             chainId={chainId}
             value={typedAmounts.input1}
-            onChange={console.log}
-            onSelect={console.log}
+            onChange={() => {}}
+            onSelect={() => {}}
             currency={token1}
             disabled={true}
             loading={false}

@@ -15,8 +15,9 @@ export function setupSerial<T>(
     await page.close();
   });
 
-  function get() {
-    return p!;
+  function get(): T {
+    // p is guaranteed to be set after beforeAll runs
+    return p as T;
   }
   return get;
 }

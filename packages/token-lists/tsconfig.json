@@ -1,9 +1,9 @@
 {
-  "extends": "@x7/tsconfig/internal-package.json",
+  "extends": "@x7/tsconfig/build.json",
   "compilerOptions": {
     "outDir": "dist",
-    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json"
+    "tsBuildInfoFile": ".turbo/.tsbuildinfo"
   },
   "include": ["src"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist", ".turbo"]
 }

@@ -16,7 +16,7 @@ import { TokenValidationResult } from "../../../providers";
 import type { CurrencyAmount } from "../../../utils";
 import { log, metric, MetricLoggerUnit, routeToString } from "../../../utils";
 import type { V3Route } from "../../router";
-import type { AlphaRouterConfig } from "../alpha-router";
+import type { AlphaRouterConfig } from "../types";
 import { V3RouteWithValidQuote } from "../entities";
 import { computeAllV3Routes } from "../functions/compute-all-routes";
 import type {

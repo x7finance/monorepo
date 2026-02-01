@@ -198,7 +198,7 @@ export function X7Staking() {
                           disabled={
                             !isConnected || parseFloat(valueInput) === 0
                           }
-                          onClick={console.log}
+                          onClick={() => {}}
                           className="w-full"
                         >
                           Stake
@@ -229,7 +229,7 @@ export function X7Staking() {
                           disabled={
                             !isConnected || parseFloat(redeemInput) === 0
                           }
-                          onClick={console.log}
+                          onClick={() => {}}
                           className="w-full"
                         >
                           Unstake

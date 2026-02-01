@@ -2,7 +2,11 @@
 
 import { PinataSDK } from "pinata-web3";
 
+import { LogCodes, getLogger, ServiceNames } from "@x7/utils";
+
 import { env } from "~/env.mjs";
+
+const log = getLogger({ serviceName: ServiceNames.XCHANGE });
 
 const pinata = new PinataSDK({
   pinataJwt: env.PINATA_JWT,
@@ -39,7 +43,9 @@ export const uploadMetadataToIPFS = async (
 
     return metadataUrl;
   } catch (error) {
-    console.error("IPFS Upload Error:", error);
+    log.error(LogCodes.IPFS_UPLOAD_FAIL, "IPFS upload failed", {
+      error: error instanceof Error ? error.message : String(error),
+    });
     return null;
   }
 };
