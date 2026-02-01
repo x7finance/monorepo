@@ -4,7 +4,7 @@ import { getContract } from "viem";
 import type { ChainId } from "@x7/utils";
 
 import { gasDataArbABI } from "../../abis/gasDataArbitrum";
-import type { ViemProviderType } from "../../utils";
+import type { ViemProviderType } from "../../utils/viemHelpers";
 import type { ProviderConfig } from "../provider";
 
 const ARB_GASINFO_ADDRESS = "0x000000000000000000000000000000000000006C";

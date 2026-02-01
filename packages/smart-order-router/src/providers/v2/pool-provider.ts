@@ -19,7 +19,7 @@ import {
 } from "@x7/utils";
 import type { ChainId } from "@x7/utils";
 
-import { log } from "../../utils";
+import { log } from "../../utils/log";
 import type { IMulticallProvider, Result } from "../multicall-provider";
 import type { ProviderConfig } from "../provider";
 import type {

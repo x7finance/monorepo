@@ -15,7 +15,7 @@ import {
 import type { ChainId, Implementation, Token } from "@x7/utils";
 import { LogCodes } from "@x7/utils";
 
-import { log } from "../../utils";
+import { log } from "../../utils/log";
 import type { ProviderConfig } from "../provider";
 import type { V2SubgraphPool } from "../v2/subgraph-provider";
 

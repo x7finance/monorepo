@@ -1,7 +1,7 @@
 import { LogCodes } from "@x7/utils";
 import type { ChainId, Token } from "@x7/utils";
 
-import { log } from "../../utils";
+import { log } from "../../utils/log";
 import type { ICache } from "../cache";
 import type { ProviderConfig } from "../provider";
 import type { IV3SubgraphProvider, V3SubgraphPool } from "./subgraph-provider";

@@ -4,7 +4,7 @@ import type { FeeAmount, Pool } from "@x7/sdk";
 import { LogCodes } from "@x7/utils";
 import type { ChainId, Token } from "@x7/utils";
 
-import { metric, MetricLoggerUnit } from "../../utils";
+import { metric, MetricLoggerUnit } from "../../utils/metric";
 import { log } from "../../utils/log";
 import type { ICache } from "../cache";
 import type { ProviderConfig } from "../provider";

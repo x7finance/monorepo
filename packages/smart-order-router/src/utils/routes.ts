@@ -5,16 +5,23 @@ import { Percent, Protocol } from "@x7/utils";
 
 import { CurrencyAmount } from "./amounts";
 import { routeToString } from "./route-string";
-import type { RouteWithValidQuote } from "../routers/alpha-router/entities/route-with-valid-quote";
+import type { MixedRoute, V2Route, V3Route } from "../routers/route-types";
 
 export { routeToString, poolToString } from "./route-string";
 
+// Minimal interface to avoid cyclic imports from alpha-router
+interface RouteWithValidQuoteMinimal {
+  amount: CurrencyAmount;
+  protocol: Protocol;
+  route: V3Route | V2Route | MixedRoute;
+}
+
 export const routeAmountsToString = (
-  routeAmounts: RouteWithValidQuote[],
+  routeAmounts: RouteWithValidQuoteMinimal[],
 ): string => {
   const total = _.reduce(
     routeAmounts,
-    (total: CurrencyAmount, cur: RouteWithValidQuote) => {
+    (total: CurrencyAmount, cur: RouteWithValidQuoteMinimal) => {
       return total.add(cur.amount);
     },
     CurrencyAmount.fromRawAmount(routeAmounts[0]!.amount.currency, 0),
@@ -33,7 +40,7 @@ export const routeAmountsToString = (
 };
 
 export const routeAmountToString = (
-  routeAmount: RouteWithValidQuote,
+  routeAmount: RouteWithValidQuoteMinimal,
 ): string => {
   const { route, amount } = routeAmount;
   return `${amount.toExact()} = ${routeToString(route)}`;

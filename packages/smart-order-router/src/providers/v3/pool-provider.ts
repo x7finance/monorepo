@@ -21,8 +21,8 @@ import {
 import { getLogger, LogCodes, Protocol, ServiceNames } from "@x7/utils";
 import type { ChainId, Implementation, Token } from "@x7/utils";
 
-import { log } from "../../utils";
-import { poolToString } from "../../utils/routes";
+import { log } from "../../utils/log";
+import { poolToString } from "../../utils/route-string";
 import type { IMulticallProvider, Result } from "../multicall-provider";
 import type { ProviderConfig } from "../provider";
 
