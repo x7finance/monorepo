@@ -1,6 +1,6 @@
 import type { MultiRoute, RouteLeg, RPool } from "@x7/tines";
 
-import type { LiquidityProviders } from "../liquidity-providers/LiquidityProvider";
+import type { LiquidityProviders } from "../liquidity-providers/types";
 
 // RPool extention for RP coding
 export abstract class PoolCode {

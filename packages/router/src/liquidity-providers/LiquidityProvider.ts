@@ -4,29 +4,9 @@ import type { ChainId, Token } from "@x7/utils";
 import { chainShortName } from "@x7/utils";
 
 import type { PoolCode } from "../pools/PoolCode";
+import { LiquidityProviders } from "./types";
 
-export enum LiquidityProviders {
-  SushiSwapV2 = "SushiSwapV2",
-  SushiSwapV3 = "SushiSwapV3",
-  UniswapV2 = "UniswapV2",
-  XchangeV2 = "XchangeV2",
-  UniswapV3 = "UniswapV3",
-  Trident = "Trident",
-  QuickSwap = "QuickSwap",
-  ApeSwap = "ApeSwap",
-  PancakeSwap = "PancakeSwap",
-  Dfyn = "Dfyn",
-  Elk = "Elk",
-  JetSwap = "JetSwap",
-  NetSwap = "NetSwap",
-  NativeWrap = "NativeWrap",
-  UbeSwap = "UbeSwap",
-  Biswap = "Biswap",
-  CurveSwap = "CurveSwap",
-  DovishV3 = "DovishV3",
-  Wagmi = "Wagmi",
-  BaseSwap = "BaseSwap",
-}
+export { LiquidityProviders } from "./types";
 
 export abstract class LiquidityProvider {
   chainId: ChainId;
