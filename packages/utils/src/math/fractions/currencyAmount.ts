@@ -7,8 +7,12 @@
 import invariant from "tiny-invariant";
 
 import { Fraction, MAX_UINT256, Rounding, ZERO } from "..";
-import { amountSchema, Native, Share, Token } from "../../currency";
-import type { Currency, SerializedAmount } from "../../currency";
+import { Native } from "../../currency/Native";
+import { Share } from "../../currency/Share";
+import { Token } from "../../currency/Token";
+import type { Currency } from "../../currency/Type";
+import { amountSchema } from "../../currency/zod";
+import type { SerializedAmount } from "../../currency/zod";
 import Big from "../Big";
 
 export class CurrencyAmount<T extends Currency> extends Fraction {

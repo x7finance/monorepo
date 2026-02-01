@@ -6,7 +6,7 @@ import { getAddress } from "viem";
 import type { ChainId } from "../chain";
 import { Currency } from "./Currency";
 import type { Currency as Type } from "./Type";
-import { WETH9 } from "./wrapped";
+import { WETH9_ADDRESS } from "./weth-addresses";
 import { tokenSchema } from "./zod";
 import type { SerializedToken } from "./zod";
 
@@ -95,10 +95,9 @@ export class Token extends Currency {
     invariant(this.chainId === other.chainId, "CHAIN_IDS");
 
     // This will hit for only wrapping/unwrapping cases
-    if (
-      this.address === other.address &&
-      this.address === WETH9[this.chainId].address
-    ) {
+    const weth9Address =
+      WETH9_ADDRESS[this.chainId as keyof typeof WETH9_ADDRESS];
+    if (this.address === other.address && this.address === weth9Address) {
       return true;
     }
 
