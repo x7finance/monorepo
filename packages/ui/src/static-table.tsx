@@ -28,8 +28,8 @@ export const StaticTable: FC<StaticTableProps> = ({ data, columns }) => {
         <tr>
           {columns.map((column, index) => (
             <th
+              key={`${column.header}-${index}`}
               {...(column.width && index === 0 ? { width: column.width } : {})}
-              key={`${column.header}-${index}}`}
               className={cn(
                 column.responsive ? "hidden lg:table-cell" : "",
                 "border-b border-t border-zinc-200 px-3 py-3 text-left text-xs font-semibold uppercase text-zinc-500 last:pr-8 last:text-right dark:border-zinc-800 sm:first:pl-6",
@@ -50,6 +50,7 @@ export const StaticTable: FC<StaticTableProps> = ({ data, columns }) => {
           <tr className="border-none" key={`${index}-static-table`}>
             {columns.map((column, colIndex) => (
               <td
+                key={colIndex}
                 {...(column.width && index === 0
                   ? { width: column.width }
                   : {})}
@@ -59,7 +60,6 @@ export const StaticTable: FC<StaticTableProps> = ({ data, columns }) => {
                   column.responsive ? "hidden lg:table-cell" : "",
                   "relative px-3 py-3.5 text-sm",
                 )}
-                key={colIndex}
               >
                 {column.cellRenderer
                   ? column.cellRenderer(row)

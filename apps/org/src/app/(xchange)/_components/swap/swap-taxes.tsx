@@ -25,8 +25,11 @@ export function SwapTaxes({ route }: { route: SwapRoute }) {
               token: token.symbol,
             })),
           )
-          .map(({ b, s, token }) => (
-            <span className="text-right text-xs font-semibold text-secondary-foreground">
+          .map(({ b, s, token }, index) => (
+            <span
+              key={`${token}-${index}`}
+              className="text-right text-xs font-semibold text-secondary-foreground"
+            >
               {b || s ? `${token}: ${b ?? s}%` : null}
             </span>
           ))}
