@@ -104,6 +104,9 @@ const nextConfig = {
     },
   },
   experimental: {
+    // Caching features
+    dynamicOnHover: true,
+    turbopackFileSystemCacheForDev: true,
     // Build optimizations
     optimizePackageImports: [
       "@x7/contracts",
