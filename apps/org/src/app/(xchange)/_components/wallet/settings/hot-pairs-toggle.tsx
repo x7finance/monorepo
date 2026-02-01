@@ -29,9 +29,7 @@ export function HotPairsToggle() {
         <div className="ml-auto">
           <Switch
             checked={showTradeChartPanelNewest === true}
-            onCheckedChange={(checked: boolean) =>
-              setShowTradeChartPanelNewest(checked ? true : false)
-            }
+            onCheckedChange={setShowTradeChartPanelNewest}
           />
         </div>
       </div>

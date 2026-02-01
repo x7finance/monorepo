@@ -64,7 +64,7 @@ export async function getV2NativePool(
     );
   });
 
-  if (pools.length == 0) {
+  if (pools.length === 0) {
     log.error(
       LogCodes.FAIL,
       `[Gas Factory Helpers] Could not find a valid WETH pool with ${token.symbol} for computing gas costs.`,
@@ -128,7 +128,7 @@ export async function getHighestLiquidityV3NativePool(
     .value()
     .flat(1);
 
-  if (pools.length == 0) {
+  if (pools.length === 0) {
     log.error(
       LogCodes.FAIL,
       { pools },
@@ -217,7 +217,7 @@ export async function getHighestLiquidityV3USDPool(
     { pools },
   );
 
-  if (pools.length == 0) {
+  if (pools.length === 0) {
     const message = `Could not find a USD/${wrappedCurrency.symbol} pool for computing gas costs.`;
     log.error(LogCodes.FAIL, message, { pools });
     throw new Error(message);
@@ -239,7 +239,7 @@ export function getGasCostInUSD(
   const costs = [];
   for (const pool of usdPools) {
     const nativeTokenPrice =
-      pool?.token0.address == nativeCurrency.address
+      pool?.token0.address === nativeCurrency.address
         ? pool.token0Price
         : pool?.token1Price;
 
@@ -270,7 +270,7 @@ export async function getGasCostInQuoteToken(
   costNativeCurrency: CurrencyAmount<Token>,
 ): Promise<any> {
   const nativeTokenPrice =
-    nativePool.token0.address == quoteToken.address
+    nativePool.token0.address === quoteToken.address
       ? nativePool.token1Price
       : nativePool.token0Price;
   const gasCostQuoteToken = nativeTokenPrice.quote(costNativeCurrency);
@@ -476,7 +476,7 @@ export async function calculateGasUsed(
 
   // Adjust quote for gas fees
   let quoteGasAdjusted;
-  if (route.trade.tradeType == TradeType.EXACT_OUTPUT) {
+  if (route.trade.tradeType === TradeType.EXACT_OUTPUT) {
     // Exact output - need more of tokenIn to get the desired amount of tokenOut
     quoteGasAdjusted = route.quote.add(gasCostQuoteToken);
   } else {
@@ -660,8 +660,8 @@ export const calculateL1GasFeesHelper = async (
       chainId,
     );
   } else if (
-    chainId == ChainId.ARBITRUM ||
-    chainId == ChainId.ARBITRUM_TESTNET
+    chainId === ChainId.ARBITRUM ||
+    chainId === ChainId.ARBITRUM_TESTNET
   ) {
     [mainnetGasUsed, mainnetFeeInWei, gasUsedL1OnL2] =
       calculateArbitrumToL1SecurityFee(route, swapOptions, l2GasData!, chainId);
@@ -692,7 +692,7 @@ export const calculateL1GasFeesHelper = async (
       gasCostL1QuoteToken = CurrencyAmount.fromRawAmount(quoteToken, 0);
     } else {
       const nativeTokenPrice =
-        nativePool.token0.address == nativeCurrency.address
+        nativePool.token0.address === nativeCurrency.address
           ? nativePool.token0Price
           : nativePool.token1Price;
       gasCostL1QuoteToken = nativeTokenPrice.quote(costNativeCurrency);
@@ -718,11 +718,11 @@ export const calculateL1GasFeesHelper = async (
   ): Promise<[bigint, bigint]> {
     const route: RouteWithValidQuote = routes[0]!;
     const amountToken =
-      route.tradeType == TradeType.EXACT_INPUT
+      route.tradeType === TradeType.EXACT_INPUT
         ? route.amount.currency
         : route.quote.currency;
     const outputToken =
-      route.tradeType == TradeType.EXACT_INPUT
+      route.tradeType === TradeType.EXACT_INPUT
         ? route.quote.currency
         : route.amount.currency;
 
@@ -750,11 +750,11 @@ export const calculateL1GasFeesHelper = async (
     const route: RouteWithValidQuote = routes[0]!;
 
     const amountToken =
-      route.tradeType == TradeType.EXACT_INPUT
+      route.tradeType === TradeType.EXACT_INPUT
         ? route.amount.currency
         : route.quote.currency;
     const outputToken =
-      route.tradeType == TradeType.EXACT_INPUT
+      route.tradeType === TradeType.EXACT_INPUT
         ? route.quote.currency
         : route.amount.currency;
 

@@ -120,11 +120,7 @@ export const CurrencyInput: FC<CurrencyInputProps> = ({
   const isLoading =
     loading ?? currencyLoading ?? isBalanceLoading ?? isNativePriceLoading;
 
-  const _error = error
-    ? error
-    : insufficientBalance
-      ? "Exceeds Balance"
-      : undefined;
+  const _error = error ?? (insufficientBalance ? "Exceeds Balance" : undefined);
 
   const _onChange = useCallback(
     (value: string) => {

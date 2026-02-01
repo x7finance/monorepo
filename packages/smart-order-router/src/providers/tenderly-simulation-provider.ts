@@ -235,7 +235,7 @@ export class TenderlySimulator extends Simulator {
     const estimateMultiplier =
       this.overrideEstimateMultiplier[chainId] ?? DEFAULT_ESTIMATE_MULTIPLIER;
 
-    if (swapOptions.type == SwapType.UNIVERSAL_ROUTER) {
+    if (swapOptions.type === SwapType.UNIVERSAL_ROUTER) {
       // Do initial onboarding approval of Permit2.
 
       const approvePermit2Calldata = encodeFunctionData({
@@ -288,7 +288,7 @@ export class TenderlySimulator extends Simulator {
         from: fromAddress,
         // TODO: This is a Temporary fix given by Tenderly team, remove once resolved on their end.
         block_number:
-          chainId == ChainId.ARBITRUM && blockNumber
+          chainId === ChainId.ARBITRUM && blockNumber
             ? Number(blockNumber) - 5
             : undefined,
         simulation_type: TenderlySimulationType.QUICK,
@@ -372,7 +372,7 @@ export class TenderlySimulator extends Simulator {
         },
         "Successful Tenderly Swap Simulation for Universal Router",
       );
-    } else if (swapOptions.type == SwapType.SWAP_ROUTER_02) {
+    } else if (swapOptions.type === SwapType.SWAP_ROUTER_02) {
       const approve: TenderlySimulationRequest = {
         network_id: chainId,
         input: APPROVE_TOKEN_FOR_TRANSFER,
@@ -399,7 +399,7 @@ export class TenderlySimulator extends Simulator {
         from: fromAddress,
         // TODO: This is a Temporary fix given by Tenderly team, remove once resolved on their end.
         block_number:
-          chainId == ChainId.ARBITRUM && blockNumber
+          chainId === ChainId.ARBITRUM && blockNumber
             ? Number(blockNumber) - 5
             : undefined,
         simulation_type: TenderlySimulationType.QUICK,

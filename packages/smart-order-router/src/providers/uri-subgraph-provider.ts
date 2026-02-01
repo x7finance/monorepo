@@ -60,7 +60,7 @@ export class URISubgraphProvider<
 
         const { data: poolsBuffer, status } = response;
 
-        if (status != 200) {
+        if (status !== 200) {
           log.error(LogCodes.FAIL, `Unabled to get pools from ${this.uri}.`, {
             response,
           });

@@ -390,7 +390,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
           route.protocol === Protocol.V3
             ? encodeRouteToPath(
                 route,
-                functionName == "quoteExactOutput", // For exactOut must be true to ensure the routes are reversed.
+                functionName === "quoteExactOutput", // For exactOut must be true to ensure the routes are reversed.
               )
             : encodeMixedRouteToPath(
                 route instanceof V2Route
@@ -472,7 +472,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
           _.map(
             quoteStates,
             async (quoteState: QuoteBatchState, idx: number) => {
-              if (quoteState.status == "success") {
+              if (quoteState.status === "success") {
                 return quoteState;
               }
 
@@ -736,14 +736,14 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
           // To work around this and avoid throwing errors when really we just couldn't get a quote, we catch this
           // case and return 0 quotes found.
           if (
-            (this.chainId == ChainId.ARBITRUM ||
-              this.chainId == ChainId.ARBITRUM_TESTNET) &&
+            (this.chainId === ChainId.ARBITRUM ||
+              this.chainId === ChainId.ARBITRUM_TESTNET) &&
             _.every(
               failedQuoteStates,
               (failedQuoteState) =>
                 failedQuoteState.reason instanceof ProviderGasError,
             ) &&
-            attemptNumber == this.retryOptions.retries
+            attemptNumber === this.retryOptions.retries
           ) {
             log.error(
               LogCodes.FAIL,
@@ -818,7 +818,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
 
     const [successfulQuotes, failedQuotes] = _(routesQuotes)
       .flatMap((routeWithQuotes: RouteWithQuotes<TRoute>) => routeWithQuotes[1])
-      .partition((quote) => quote.quote != null)
+      .partition((quote) => quote.quote !== null)
       .value();
 
     log.info(
@@ -842,7 +842,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
     >(
       quoteStates,
       (quoteState): quoteState is QuoteBatchSuccess =>
-        quoteState.status == "success",
+        quoteState.status === "success",
     );
 
     const failedQuoteStates: QuoteBatchFailed[] = _.filter<
@@ -851,7 +851,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
     >(
       quoteStates,
       (quoteState): quoteState is QuoteBatchFailed =>
-        quoteState.status == "failed",
+        quoteState.status === "failed",
     );
 
     const pendingQuoteStates: QuoteBatchPending[] = _.filter<
@@ -860,7 +860,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
     >(
       quoteStates,
       (quoteState): quoteState is QuoteBatchPending =>
-        quoteState.status == "pending",
+        quoteState.status === "pending",
     );
 
     return [successfulQuoteStates, failedQuoteStates, pendingQuoteStates];
@@ -891,7 +891,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
           index: number,
         ) => {
           const amount = amounts[index];
-          if (amount == null) {
+          if (amount === undefined || amount === null) {
             throw new Error("No amount found for quote");
           }
 
@@ -977,12 +977,12 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
       .uniq()
       .value();
 
-    if (uniqBlocks.length == 1) {
+    if (uniqBlocks.length === 1) {
       return null;
     }
 
     /* if (
-      uniqBlocks.length == 2 &&
+      uniqBlocks.length === 2 &&
       Math.abs(uniqBlocks[0]! - uniqBlocks[1]!) <= 1
     ) {
       return null;

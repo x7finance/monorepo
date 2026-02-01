@@ -75,7 +75,7 @@ export abstract class SwapQuoter {
 
       const v2QuoteParams = {
         ...baseQuoteParams,
-        ...(tradeType == TradeType.EXACT_INPUT
+        ...(tradeType === TradeType.EXACT_INPUT
           ? { amountIn: quoteAmount }
           : { amount: quoteAmount }),
       };

@@ -669,7 +669,7 @@ export abstract class SwapRouter {
                     recipient: isLastSectionInRoute(i)
                       ? recipient
                       : ADDRESS_THIS,
-                    amountIn: BigInt(i == 0 ? amountIn : 0),
+                    amountIn: BigInt(i === 0 ? amountIn : 0),
                     amountOutMinimum: BigInt(
                       !isLastSectionInRoute(i) ? 0 : amountOut,
                     ),
@@ -683,7 +683,7 @@ export abstract class SwapRouter {
                 abi: swapRouter02ABI,
                 functionName: "swapExactTokensForTokens",
                 args: [
-                  BigInt(i == 0 ? amountIn : 0), // amountIn
+                  BigInt(i === 0 ? amountIn : 0), // amountIn
                   BigInt(!isLastSectionInRoute(i) ? 0 : amountOut), // amountOutMin
                   newRoute.path.map((token) => token.address), // path
                   isLastSectionInRoute(i) ? recipient : ADDRESS_THIS, // to
@@ -720,9 +720,9 @@ export abstract class SwapRouter {
       invariant(
         trades.swaps.every(
           (swap) =>
-            swap.route.protocol == Protocol.V3 ||
-            swap.route.protocol == Protocol.V2 ||
-            swap.route.protocol == Protocol.MIXED,
+            swap.route.protocol === Protocol.V3 ||
+            swap.route.protocol === Protocol.V2 ||
+            swap.route.protocol === Protocol.MIXED,
         ),
         "UNSUPPORTED_PROTOCOL",
       );
@@ -734,17 +734,17 @@ export abstract class SwapRouter {
       )[] = [];
 
       for (const { route, inputAmount, outputAmount } of trades.swaps) {
-        if (route.protocol == Protocol.V2) {
+        if (route.protocol === Protocol.V2) {
           individualTrades.push(
             new V2Trade(
               route as RouteV2Wrapper<Currency, Currency>,
-              trades.tradeType == TradeType.EXACT_INPUT
+              trades.tradeType === TradeType.EXACT_INPUT
                 ? inputAmount
                 : outputAmount,
               trades.tradeType,
             ),
           );
-        } else if (route.protocol == Protocol.V3) {
+        } else if (route.protocol === Protocol.V3) {
           individualTrades.push(
             V3Trade.createUncheckedTrade({
               route: route as RouteV3Wrapper<Currency, Currency>,
@@ -753,7 +753,7 @@ export abstract class SwapRouter {
               tradeType: trades.tradeType,
             }),
           );
-        } else if (route.protocol == Protocol.MIXED) {
+        } else if (route.protocol === Protocol.MIXED) {
           individualTrades.push(
             /// we can change the naming of this function on MixedRouteTrade if needed
             MixedRouteTrade.createUncheckedTrade({
@@ -938,9 +938,9 @@ export abstract class SwapRouter {
 
     if (
       implementation &&
-      implementation == Implementation.UNISWAP &&
-      chainId == ChainId.BASE &&
-      protocol == Protocol.V2
+      implementation === Implementation.UNISWAP &&
+      chainId === ChainId.BASE &&
+      protocol === Protocol.V2
     ) {
       return false;
     }

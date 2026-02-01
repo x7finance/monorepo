@@ -37,9 +37,7 @@ export const TradePercentageToggle: FC<{
         <div className="ml-auto">
           <Switch
             checked={tradePercentage === true}
-            onCheckedChange={(checked: boolean) =>
-              setTradePercentage(checked ? true : false)
-            }
+            onCheckedChange={setTradePercentage}
             className={cn(
               tradePercentage === true ? "bg-emerald-500!" : "bg-zinc-300",
               "focus-visible:ring-emerald-500",

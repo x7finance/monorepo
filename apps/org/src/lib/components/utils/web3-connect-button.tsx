@@ -71,8 +71,8 @@ export function ConnectionComponent(
                   }
                   return (
                     <Button
-                      size={size ? size : "default"}
-                      variant={variant ? variant : "default"}
+                      size={size ?? "default"}
+                      variant={variant ?? "default"}
                       id="connectButton"
                       className={cn(
                         "flex items-center",

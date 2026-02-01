@@ -175,7 +175,7 @@ export abstract class TickBasedHeuristicGasModelFactory<
         );
 
         const inputIsToken0 =
-          nativeAmountPool.token0.address == nativeCurrency.address;
+          nativeAmountPool.token0.address === nativeCurrency.address;
         // ratio of input / native
         const nativeAndAmountTokenPrice = inputIsToken0
           ? nativeAmountPool.token0Price

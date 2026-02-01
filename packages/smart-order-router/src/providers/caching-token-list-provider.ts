@@ -118,7 +118,7 @@ export class CachingTokenListProvider
 
     const { data: tokenList, status } = response;
 
-    if (status != 200) {
+    if (status !== 200) {
       log.error(
         LogCodes.FAIL,
         { response },
@@ -208,7 +208,7 @@ export class CachingTokenListProvider
 
     // We consider ETH as a regular ERC20 Token throughout this package. We don't use the NativeCurrency object from the sdk.
     // When we build the calldata for swapping we insert wrapping/unwrapping as needed.
-    if (_symbol == "ETH") {
+    if (_symbol === "ETH") {
       symbol = "WETH";
     }
 

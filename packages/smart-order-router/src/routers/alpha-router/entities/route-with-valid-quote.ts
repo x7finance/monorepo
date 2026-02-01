@@ -134,7 +134,7 @@ export class V2RouteWithValidQuote implements IV2RouteWithValidQuote {
     this.gasEstimate = gasEstimate;
 
     // If its exact out, we need to request *more* of the input token to account for the gas.
-    if (this.tradeType == TradeType.EXACT_INPUT) {
+    if (this.tradeType === TradeType.EXACT_INPUT) {
       const quoteGasAdjusted = this.quote.subtract(gasCostInToken);
       this.quoteAdjustedForGas = quoteGasAdjusted;
     } else {
@@ -235,7 +235,7 @@ export class V3RouteWithValidQuote implements IV3RouteWithValidQuote {
     this.gasEstimate = gasEstimate;
 
     // If its exact out, we need to request *more* of the input token to account for the gas.
-    if (this.tradeType == TradeType.EXACT_INPUT) {
+    if (this.tradeType === TradeType.EXACT_INPUT) {
       const quoteGasAdjusted = this.quote.subtract(gasCostInToken);
       this.quoteAdjustedForGas = quoteGasAdjusted;
     } else {
@@ -344,7 +344,7 @@ export class MixedRouteWithValidQuote implements IMixedRouteWithValidQuote {
     this.gasEstimate = gasEstimate;
 
     // If its exact out, we need to request *more* of the input token to account for the gas.
-    if (this.tradeType == TradeType.EXACT_INPUT) {
+    if (this.tradeType === TradeType.EXACT_INPUT) {
       const quoteGasAdjusted = this.quote.subtract(gasCostInToken);
       this.quoteAdjustedForGas = quoteGasAdjusted;
     } else {

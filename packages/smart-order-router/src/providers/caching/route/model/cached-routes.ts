@@ -97,7 +97,7 @@ export class CachedRoutes {
     tradeType: TradeType,
     originalAmount: string,
   ): CachedRoutes | undefined {
-    if (routes.length == 0) return undefined;
+    if (routes.length === 0) return undefined;
 
     const cachedRoutes = _.map(
       routes,

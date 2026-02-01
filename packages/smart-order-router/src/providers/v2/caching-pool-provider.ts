@@ -94,7 +94,7 @@ export class CachingV2PoolProvider implements IV2PoolProvider {
           (blockNumber &&
             cachedPools.filter(
               (cachedPool) =>
-                cachedPool.cache && cachedPool.cache.block == blockNumber,
+                cachedPool.cache && cachedPool.cache.block === blockNumber,
             ).length > 0)
         ) {
           cachedPools
@@ -103,7 +103,7 @@ export class CachingV2PoolProvider implements IV2PoolProvider {
                 !blockNumber ||
                 (!!blockNumber &&
                   cachedPool?.cache &&
-                  cachedPool?.cache?.block == blockNumber),
+                  cachedPool?.cache?.block === blockNumber),
             )
             .filter((cachedPool) => !!cachedPool?.cache)
             .forEach((cachedPool) => {

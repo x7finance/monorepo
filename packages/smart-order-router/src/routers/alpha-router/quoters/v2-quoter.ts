@@ -86,13 +86,13 @@ export class V2Quoter extends BaseQuoter<V2CandidatePools, V2Route> {
         // not be transferrable, but allows users to still swap those tokens if they
         // specify.
         if (
-          tokenValidation == TokenValidationResult.STF &&
+          tokenValidation === TokenValidationResult.STF &&
           (token.equals(tokenIn) || token.equals(tokenOut))
         ) {
           return false;
         }
 
-        return tokenValidation == TokenValidationResult.STF;
+        return tokenValidation === TokenValidationResult.STF;
       },
     );
 
@@ -135,7 +135,7 @@ export class V2Quoter extends BaseQuoter<V2CandidatePools, V2Route> {
     }
     // throw if we have no amounts or if there are different tokens in the amounts
     if (
-      amounts.length == 0 ||
+      amounts.length === 0 ||
       !amounts.every((amount) => amount.currency.equals(amounts[0]!.currency))
     ) {
       throw new Error(
@@ -145,13 +145,13 @@ export class V2Quoter extends BaseQuoter<V2CandidatePools, V2Route> {
     // safe to force unwrap here because we throw if there are no amounts
     const amountToken = amounts[0]!.currency;
 
-    if (routes.length == 0) {
+    if (routes.length === 0) {
       return { routesWithValidQuotes: [], candidatePools };
     }
 
     // For all our routes, and all the fractional amounts, fetch quotes on-chain.
     const quoteFn =
-      tradeType == TradeType.EXACT_INPUT
+      tradeType === TradeType.EXACT_INPUT
         ? this.v2QuoteProvider.getQuotesManyExactIn.bind(this.v2QuoteProvider)
         : this.v2QuoteProvider.getQuotesManyExactOut.bind(this.v2QuoteProvider);
 

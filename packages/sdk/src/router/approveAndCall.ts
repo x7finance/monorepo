@@ -72,7 +72,7 @@ export abstract class ApproveAndCall {
   public static encodeCallPositionManager(calldatas: string[]): string {
     invariant(calldatas.length > 0, "NULL_CALLDATA");
 
-    if (calldatas.length == 1) {
+    if (calldatas.length === 1) {
       return encodeFunctionData({
         abi: approveAndCallABI,
         functionName: "callPositionManager",

@@ -67,7 +67,7 @@ export class MixedQuoter extends BaseQuoter<
   ): Promise<GetRoutesResult<MixedRoute>> {
     const beforeGetRoutes = Date.now();
 
-    if (tradeType != TradeType.EXACT_INPUT) {
+    if (tradeType !== TradeType.EXACT_INPUT) {
       throw new Error("Mixed route quotes are not supported for EXACT_OUTPUT");
     }
 
@@ -112,15 +112,15 @@ export class MixedQuoter extends BaseQuoter<
         // specify.
         //
         if (
-          tokenValidation == TokenValidationResult.STF &&
+          tokenValidation === TokenValidationResult.STF &&
           (token.equals(tokenIn) || token.equals(tokenOut))
         ) {
           return false;
         }
 
         return (
-          tokenValidation == TokenValidationResult.FOT ||
-          tokenValidation == TokenValidationResult.STF
+          tokenValidation === TokenValidationResult.FOT ||
+          tokenValidation === TokenValidationResult.STF
         );
       },
     );
@@ -163,7 +163,7 @@ export class MixedQuoter extends BaseQuoter<
         "GasModel for MixedRouteWithValidQuote is required to getQuotes",
       );
     }
-    if (routes.length == 0) {
+    if (routes.length === 0) {
       return { routesWithValidQuotes: [], candidatePools };
     }
 

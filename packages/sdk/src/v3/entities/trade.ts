@@ -118,7 +118,7 @@ export class TradeV3<
    * i.e. which pools the trade goes through.
    */
   public get route(): RouteV3<TInput, TOutput> {
-    invariant(this.swaps.length == 1, "MULTIPLE_ROUTES");
+    invariant(this.swaps.length === 1, "MULTIPLE_ROUTES");
     return this.swaps[0]!.route;
   }
 
@@ -559,7 +559,7 @@ export class TradeV3<
       }
     }
 
-    invariant(numPools == poolAddressSet.size, "POOLS_DUPLICATED");
+    invariant(numPools === poolAddressSet.size, "POOLS_DUPLICATED");
 
     this.swaps = routes;
     this.tradeType = tradeType;

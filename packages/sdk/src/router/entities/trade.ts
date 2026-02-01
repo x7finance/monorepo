@@ -139,7 +139,7 @@ export class Trade<
         }
       }
     }
-    invariant(numPools == poolAddressSet.size, "POOLS_DUPLICATED");
+    invariant(numPools === poolAddressSet.size, "POOLS_DUPLICATED");
   }
 
   public get inputAmount(): CurrencyAmount<TInput> {

@@ -116,7 +116,7 @@ export abstract class Simulator {
     quote: CurrencyAmount,
   ): Promise<boolean> {
     try {
-      const neededBalance = tradeType == TradeType.EXACT_INPUT ? amount : quote;
+      const neededBalance = tradeType === TradeType.EXACT_INPUT ? amount : quote;
       let balance;
       if (neededBalance.currency.isNative) {
         balance = BigInt(
@@ -174,7 +174,7 @@ export abstract class Simulator {
       },
     });
 
-    if (swapOptions.type == SwapType.UNIVERSAL_ROUTER) {
+    if (swapOptions.type === SwapType.UNIVERSAL_ROUTER) {
       const result: bigint = await tokenContract.read.allowance([
         fromAddress as `0x${string}`,
         PERMIT2_ADDRESS,
@@ -233,7 +233,7 @@ export abstract class Simulator {
         `Simulating on UR, Permit2 approved: ${permit2Approved}, UR approved: ${universalRouterApproved}, Expiraton valid: ${expirationValid}.`,
       );
       return permit2Approved && universalRouterApproved && expirationValid;
-    } else if (swapOptions.type == SwapType.SWAP_ROUTER_02) {
+    } else if (swapOptions.type === SwapType.SWAP_ROUTER_02) {
       if (swapOptions.inputTokenPermit) {
         log.info(
           LogCodes.SIMULATE,

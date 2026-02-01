@@ -485,7 +485,7 @@ export class MixedRouteTrade<
       }
     }
 
-    invariant(numPools == poolAddressSet.size, "POOLS_DUPLICATED");
+    invariant(numPools === poolAddressSet.size, "POOLS_DUPLICATED");
 
     invariant(tradeType === TradeType.EXACT_INPUT, "TRADE_TYPE");
 

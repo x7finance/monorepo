@@ -1203,7 +1203,7 @@ export const generateRouterAddress = (
       return UNISWAP_ADDRESS_MAP[ChainId.BSC].swapRouter02Address!;
     }
 
-    if (chainId == ChainId.BASE_TESTNET) {
+    if (chainId === ChainId.BASE_TESTNET) {
       return UNISWAP_ADDRESS_MAP[ChainId.BASE_TESTNET].swapRouter02Address!;
     }
 

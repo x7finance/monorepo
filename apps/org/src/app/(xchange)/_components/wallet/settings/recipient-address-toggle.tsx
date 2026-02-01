@@ -36,9 +36,7 @@ export const RecipientAddressToggle: FC<{
         <div className="ml-auto">
           <Switch
             checked={recipientAddressState === true}
-            onCheckedChange={(checked: boolean) =>
-              setRecipientAddressState(checked ? true : false)
-            }
+            onCheckedChange={setRecipientAddressState}
             className={cn(
               recipientAddressState === true
                 ? "bg-emerald-500!"

@@ -50,7 +50,7 @@ export abstract class IRouteCachingProvider {
         quoteToken,
         tradeType,
         protocols,
-      )) == CacheMode.Darkmode
+      )) === CacheMode.Darkmode
     ) {
       return undefined;
     }
@@ -108,7 +108,7 @@ export abstract class IRouteCachingProvider {
     amount: CurrencyAmount<Currency>,
   ): Promise<CacheMode> {
     const quoteToken =
-      cachedRoutes.tradeType == TradeType.EXACT_INPUT
+      cachedRoutes.tradeType === TradeType.EXACT_INPUT
         ? cachedRoutes.tokenOut
         : cachedRoutes.tokenIn;
 

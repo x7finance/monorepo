@@ -298,7 +298,7 @@ export class Pool {
     // start swap while loop
     while (
       state.amountSpecifiedRemaining !== ZERO &&
-      state.sqrtPriceX96 != sqrtPriceLimitX96
+      state.sqrtPriceX96 !== sqrtPriceLimitX96
     ) {
       const step: Partial<StepComputations> = {};
       step.sqrtPriceStartX96 = state.sqrtPriceX96;

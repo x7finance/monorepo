@@ -45,7 +45,7 @@ export class CachedRoute<Route extends V3Route | V2Route | MixedRoute> {
   }
 
   public get routePath(): string {
-    if (this.protocol == Protocol.V3) {
+    if (this.protocol === Protocol.V3) {
       const route = this.route as V3Route;
       return route.pools
         .map(
@@ -53,7 +53,7 @@ export class CachedRoute<Route extends V3Route | V2Route | MixedRoute> {
             `[V3]${pool.token0.address}/${pool.token1.address}/${pool.fee}`,
         )
         .join("->");
-    } else if (this.protocol == Protocol.V2) {
+    } else if (this.protocol === Protocol.V2) {
       const route = this.route as V2Route;
       return route.pairs
         .map((pair) => `[V2]${pair.token0.address}/${pair.token1.address}`)

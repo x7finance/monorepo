@@ -86,15 +86,15 @@ export class V3Quoter extends BaseQuoter<V3CandidatePools, V3Route> {
         // specify.
         //
         if (
-          tokenValidation == TokenValidationResult.STF &&
+          tokenValidation === TokenValidationResult.STF &&
           (token.equals(tokenIn) || token.equals(tokenOut))
         ) {
           return false;
         }
 
         return (
-          tokenValidation == TokenValidationResult.FOT ||
-          tokenValidation == TokenValidationResult.STF
+          tokenValidation === TokenValidationResult.FOT ||
+          tokenValidation === TokenValidationResult.STF
         );
       },
     );
@@ -140,13 +140,13 @@ export class V3Quoter extends BaseQuoter<V3CandidatePools, V3Route> {
       );
     }
 
-    if (routes.length == 0) {
+    if (routes.length === 0) {
       return { routesWithValidQuotes: [], candidatePools };
     }
 
     // For all our routes, and all the fractional amounts, fetch quotes on-chain.
     const quoteFn =
-      tradeType == TradeType.EXACT_INPUT
+      tradeType === TradeType.EXACT_INPUT
         ? this.onChainQuoteProvider.getQuotesManyExactIn.bind(
             this.onChainQuoteProvider,
           )

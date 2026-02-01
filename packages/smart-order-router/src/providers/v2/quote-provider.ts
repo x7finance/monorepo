@@ -91,7 +91,7 @@ export class V2QuoteProvider implements IV2QuoteProvider {
       let insufficientReservesErrorCount = 0;
       for (const amount of amounts) {
         try {
-          if (tradeType == TradeType.EXACT_INPUT) {
+          if (tradeType === TradeType.EXACT_INPUT) {
             let outputAmount = amount.wrapped;
 
             for (const pair of route.pairs) {

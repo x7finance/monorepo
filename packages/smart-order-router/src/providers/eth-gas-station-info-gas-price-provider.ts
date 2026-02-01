@@ -39,7 +39,7 @@ export class ETHGasStationInfoProvider extends IGasPriceProvider {
 
     const { data: gasPriceResponse, status } = response;
 
-    if (status != 200) {
+    if (status !== 200) {
       log.error(LogCodes.FAIL, `Unabled to get gas price from ${this.url}.`, {
         response,
       });

@@ -156,7 +156,7 @@ export async function getBestSwapRouteBy(
     percentToQuotes,
     (routeQuotes: RouteWithValidQuote[]) => {
       return routeQuotes.sort((routeQuoteA, routeQuoteB) => {
-        if (routeType == TradeType.EXACT_INPUT) {
+        if (routeType === TradeType.EXACT_INPUT) {
           return by(routeQuoteA).greaterThan(by(routeQuoteB)) ? -1 : 1;
         } else {
           return by(routeQuoteA).lessThan(by(routeQuoteB)) ? -1 : 1;
@@ -166,7 +166,7 @@ export async function getBestSwapRouteBy(
   );
 
   const quoteCompFn =
-    routeType == TradeType.EXACT_INPUT
+    routeType === TradeType.EXACT_INPUT
       ? (a: CurrencyAmount, b: CurrencyAmount) => a.greaterThan(b)
       : (a: CurrencyAmount, b: CurrencyAmount) => a.lessThan(b);
 
@@ -335,7 +335,7 @@ export async function getBestSwapRouteBy(
         const curRoutesNew = [...curRoutes, routeWithQuoteA];
 
         // If we've found a route combination that uses all 100%, and it has at least minSplits, update our best route.
-        if (remainingPercentNew == 0 && splits >= minSplits) {
+        if (remainingPercentNew === 0 && splits >= minSplits) {
           const quotesNew = _.map(curRoutesNew, (r) => by(r));
           const quoteNew = sumFn(quotesNew);
 
@@ -346,9 +346,9 @@ export async function getBestSwapRouteBy(
 
           if (HAS_L1_FEE.includes(chainId)) {
             // const onlyV3Routes = curRoutesNew.every(
-            //   (route) => route.protocol == Protocol.V3,
+            //   (route) => route.protocol === Protocol.V3,
             // );
-            if (gasModel == undefined) {
+            if (gasModel === undefined) {
               throw new Error("Can't compute L1 gas fees.");
             } else {
               const gasCostL1 = await gasModel.calculateL1GasFees!(
@@ -359,7 +359,7 @@ export async function getBestSwapRouteBy(
           }
 
           const quoteAfterL1Adjust =
-            routeType == TradeType.EXACT_INPUT
+            routeType === TradeType.EXACT_INPUT
               ? quoteNew.subtract(gasCostL1QuoteToken)
               : quoteNew.add(gasCostL1QuoteToken);
 
@@ -441,9 +441,9 @@ export async function getBestSwapRouteBy(
   // If swapping on an L2 that includes a L1 security fee, calculate the fee and include it in the gas adjusted quotes
   if (HAS_L1_FEE.includes(chainId)) {
     // const onlyV3Routes = bestSwap.every(
-    //   (route) => route.protocol == Protocol.V3,
+    //   (route) => route.protocol === Protocol.V3,
     // );
-    if (gasModel == undefined) {
+    if (gasModel === undefined) {
       throw new Error("Can't compute L1 gas fees.");
     } else {
       gasCostsL1ToL2 = await gasModel.calculateL1GasFees!(
@@ -461,7 +461,7 @@ export async function getBestSwapRouteBy(
       const decimalsDiff =
         usdTokenDecimals - routeWithValidQuote.gasCostInUSD.currency.decimals;
 
-      if (decimalsDiff == 0) {
+      if (decimalsDiff === 0) {
         return CurrencyAmount.fromRawAmount(
           usdToken,
           routeWithValidQuote.gasCostInUSD.quotient,
@@ -479,7 +479,7 @@ export async function getBestSwapRouteBy(
   let estimatedGasUsedUSD = sumFn(estimatedGasUsedUSDs);
 
   // if they are different usd pools, convert to the usdToken
-  if (estimatedGasUsedUSD.currency != gasCostL1USD.currency) {
+  if (estimatedGasUsedUSD.currency !== gasCostL1USD.currency) {
     const decimalsDiff = usdTokenDecimals - gasCostL1USD.currency.decimals;
     estimatedGasUsedUSD = estimatedGasUsedUSD.add(
       CurrencyAmount.fromRawAmount(
@@ -514,7 +514,7 @@ export async function getBestSwapRouteBy(
   );
 
   // Adjust the quoteGasAdjusted for the l1 fee
-  if (routeType == TradeType.EXACT_INPUT) {
+  if (routeType === TradeType.EXACT_INPUT) {
     const quoteGasAdjustedForL1 =
       quoteGasAdjusted.subtract(gasCostL1QuoteToken);
     quoteGasAdjusted = quoteGasAdjustedForL1;
@@ -581,7 +581,7 @@ const findFirstRouteNotUsingUsedPools = (
 
     // This code is just for debugging. Allows us to force a cross-protocol split route by skipping
     // consideration of routes that come from the same protocol as a used route.
-    const needToForce = forceCrossProtocol && protocolsSet.size == 1;
+    const needToForce = forceCrossProtocol && protocolsSet.size === 1;
     if (needToForce && protocolsSet.has(protocol)) {
       continue;
     }

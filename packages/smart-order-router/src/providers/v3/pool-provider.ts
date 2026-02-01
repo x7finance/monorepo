@@ -204,8 +204,8 @@ export class V3PoolProvider implements IV3PoolProvider {
       if (
         !slot0Result?.success ||
         !liquidityResult?.success ||
-        BigInt(slot0Result.result[0]) == BigInt(0) ||
-        BigInt(liquidityResult.result) == BigInt(0)
+        BigInt(slot0Result.result[0]) === BigInt(0) ||
+        BigInt(liquidityResult.result) === BigInt(0)
       ) {
         const [token0, token1, fee] = sortedTokenPairs.get(poolAddress)!;
         invalidPools.push([token0, token1, fee]);

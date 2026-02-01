@@ -84,7 +84,7 @@ export class LegacyRouter {
     swapConfig?: SwapOptionsSwapRouter02,
     partialRoutingConfig?: Partial<LegacyRoutingConfig>,
   ): Promise<SwapRoute | null> {
-    if (swapType == TradeType.EXACT_INPUT) {
+    if (swapType === TradeType.EXACT_INPUT) {
       return this.routeExactIn(
         amount.currency,
         quoteCurrency,
@@ -319,12 +319,12 @@ export class LegacyRouter {
       routeQuotesRaw.push({ route, quote, amount });
     }
 
-    if (routeQuotesRaw.length == 0) {
+    if (routeQuotesRaw.length === 0) {
       return null;
     }
 
     routeQuotesRaw.sort((routeQuoteA, routeQuoteB) => {
-      if (routeType == TradeType.EXACT_INPUT) {
+      if (routeType === TradeType.EXACT_INPUT) {
         return routeQuoteA.quote > BigInt(routeQuoteB.quote) ? -1 : 1;
       } else {
         return routeQuoteA.quote < BigInt(routeQuoteB.quote) ? -1 : 1;
@@ -512,7 +512,7 @@ export class LegacyRouter {
     // The route, amount and quote are all in terms of wrapped tokens.
     // When constructing the Trade object the inputAmount/outputAmount must
     // use native currencies if necessary. This is so that the Trade knows to wrap/unwrap.
-    if (tradeType == TradeType.EXACT_INPUT) {
+    if (tradeType === TradeType.EXACT_INPUT) {
       const amountCurrency = CurrencyAmount.fromFractionalAmount(
         tokenInCurrency,
         amount.numerator,

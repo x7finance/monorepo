@@ -74,7 +74,7 @@ export const TOKEN_OVERHEAD = (id: ChainId, route: V3Route): bigint => {
   const tokens: Token[] = route.tokenPath;
   let overhead = BigInt(0);
 
-  if (id == ChainId.ETHEREUM) {
+  if (id === ChainId.ETHEREUM) {
     // AAVE's transfer contains expensive governance snapshotting logic. We estimate
     // it at around 150k.
     if (tokens.some((t: Token) => t.equals(AAVE_MAINNET))) {

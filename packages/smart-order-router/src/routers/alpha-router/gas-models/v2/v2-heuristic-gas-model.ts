@@ -107,7 +107,7 @@ export class V2HeuristicGasModelFactory extends IV2GasModelFactory {
     }
 
     const usdToken =
-      usdPool.token0.address == WRAPPED_NATIVE_CURRENCY[chainId]!.address
+      usdPool.token0.address === WRAPPED_NATIVE_CURRENCY[chainId]!.address
         ? usdPool.token1
         : usdPool.token0;
 
@@ -249,7 +249,7 @@ export class V2HeuristicGasModelFactory extends IV2GasModelFactory {
       );
     });
 
-    if (pools.length == 0) {
+    if (pools.length === 0) {
       log.error(
         LogCodes.FAIL,
         `[v2 Heurstic Gas Model] Could not find a valid WETH pool with ${token.symbol} for computing gas costs.`,
@@ -312,7 +312,7 @@ export class V2HeuristicGasModelFactory extends IV2GasModelFactory {
           pool.token1.equals(WRAPPED_NATIVE_CURRENCY[chainId]!)),
     );
 
-    if (pools.length == 0) {
+    if (pools.length === 0) {
       log.error(
         LogCodes.NOT_FOUND,
         { pools },

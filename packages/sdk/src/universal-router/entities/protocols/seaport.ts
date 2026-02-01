@@ -95,7 +95,7 @@ export class SeaportTrade extends NFTTrade<SeaportData> {
       }
 
       let calldata: string;
-      if (advancedOrders.length == 1) {
+      if (advancedOrders.length === 1) {
         calldata = encodeFunctionData({
           abi: seaportABI,
           functionName: "fulfillAdvancedOrder",
@@ -272,7 +272,7 @@ export class SeaportTrade extends NFTTrade<SeaportData> {
   ): bigint {
     return considerations.reduce(
       (amt: bigint, consideration: ConsiderationItem) =>
-        consideration.token.toLowerCase() == token.toLowerCase()
+        consideration.token.toLowerCase() === token.toLowerCase()
           ? amt + BigInt(consideration.startAmount)
           : amt,
       BigInt(0),

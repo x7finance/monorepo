@@ -139,7 +139,7 @@ export abstract class BaseQuoter<
       tradeType,
       routingConfig,
     ).then((routesResult) => {
-      if (routesResult.routes.length == 1) {
+      if (routesResult.routes.length === 1) {
         metric.putMetric(
           `${this.protocol}QuoterSingleRoute`,
           1,

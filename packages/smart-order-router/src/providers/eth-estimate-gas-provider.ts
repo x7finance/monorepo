@@ -52,7 +52,7 @@ export class EthEstimateGasSimulator extends Simulator {
   ): Promise<SwapRoute> {
     const currencyIn = route.trade.inputAmount.currency;
     let estimatedGasUsed: bigint;
-    if (swapOptions.type == SwapType.UNIVERSAL_ROUTER) {
+    if (swapOptions.type === SwapType.UNIVERSAL_ROUTER) {
       try {
         estimatedGasUsed = await (this.provider as PublicClient).estimateGas({
           data: route.methodParameters!.calldata as `0x${string}`,
@@ -69,7 +69,7 @@ export class EthEstimateGasSimulator extends Simulator {
           simulationStatus: SimulationStatus.Failed,
         };
       }
-    } else if (swapOptions.type == SwapType.SWAP_ROUTER_02) {
+    } else if (swapOptions.type === SwapType.SWAP_ROUTER_02) {
       try {
         estimatedGasUsed = await (this.provider as PublicClient).estimateGas({
           data: route.methodParameters!.calldata as `0x${string}`,

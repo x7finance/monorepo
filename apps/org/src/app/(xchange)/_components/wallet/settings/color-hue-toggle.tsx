@@ -35,9 +35,7 @@ export const ColorHueToggle: FC<{
         <div className="ml-auto">
           <Switch
             checked={colorHue === true}
-            onCheckedChange={(checked: boolean) =>
-              setColorHue(checked ? true : false)
-            }
+            onCheckedChange={setColorHue}
             className={cn(
               colorHue === true ? "bg-emerald-500!" : "bg-zinc-300",
               "focus-visible:ring-emerald-500",

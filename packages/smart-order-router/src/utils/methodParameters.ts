@@ -60,7 +60,7 @@ export function buildTrade<TTradeType extends TradeType>(
     // The route, amount and quote are all in terms of wrapped tokens.
     // When constructing the Trade object the inputAmount/outputAmount must
     // use native currencies if specified by the user. This is so that the Trade knows to wrap/unwrap.
-    if (tradeType == TradeType.EXACT_INPUT) {
+    if (tradeType === TradeType.EXACT_INPUT) {
       const amountCurrency = CurrencyAmount.fromFractionalAmount(
         tokenInCurrency,
         amount.numerator,
@@ -123,7 +123,7 @@ export function buildTrade<TTradeType extends TradeType>(
     // The route, amount and quote are all in terms of wrapped tokens.
     // When constructing the Trade object the inputAmount/outputAmount must
     // use native currencies if specified by the user. This is so that the Trade knows to wrap/unwrap.
-    if (tradeType == TradeType.EXACT_INPUT) {
+    if (tradeType === TradeType.EXACT_INPUT) {
       const amountCurrency = CurrencyAmount.fromFractionalAmount(
         tokenInCurrency,
         amount.numerator,
@@ -183,7 +183,7 @@ export function buildTrade<TTradeType extends TradeType>(
   >(mixedRouteAmounts, (routeAmount: MixedRouteWithValidQuote) => {
     const { route, amount, quote } = routeAmount;
 
-    if (tradeType != TradeType.EXACT_INPUT) {
+    if (tradeType !== TradeType.EXACT_INPUT) {
       throw new Error("Mixed routes are only supported for exact input trades");
     }
 
@@ -225,12 +225,12 @@ export function buildSwapMethodParameters(
   swapConfig: SwapOptions,
   chainId: ChainId,
 ): MethodParameters {
-  if (swapConfig.type == SwapType.UNIVERSAL_ROUTER) {
+  if (swapConfig.type === SwapType.UNIVERSAL_ROUTER) {
     return {
       ...UniveralRouter.swapCallParameters(trade, swapConfig),
       to: UNIVERSAL_ROUTER_ADDRESS(chainId),
     };
-  } else if (swapConfig.type == SwapType.SWAP_ROUTER_02) {
+  } else if (swapConfig.type === SwapType.SWAP_ROUTER_02) {
     const { recipient, slippageTolerance, deadline, inputTokenPermit } =
       swapConfig;
 

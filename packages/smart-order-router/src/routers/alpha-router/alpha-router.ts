@@ -1748,7 +1748,7 @@ export class AlphaRouter
     if (cachedRoutes.routes.length > 1) {
       // If we have more than 1 route, we will quote the different percents for it, following the regular process
       [percents, amounts] = this.getAmountDistribution(amount, routingConfig);
-    } else if (cachedRoutes.routes.length == 1) {
+    } else if (cachedRoutes.routes.length === 1) {
       [percents, amounts] = [[100], [amount]];
     } else {
       // In this case this means that there's no route, so we return null
@@ -2410,7 +2410,7 @@ export class AlphaRouter
     swapAndAddParameters: SwapAndAddParameters,
   ): Promise<MethodParameters> {
     const imp =
-      trade.routes[0]?.protocol == Protocol.V2
+      trade.routes[0]?.protocol === Protocol.V2
         ? (trade.routes[0] as RouteV2Wrapper<Currency, Currency>).pairs[0]!
             .pairType
         : (trade.routes[0] as RouteV3Wrapper<Currency, Currency>).pools[0]!

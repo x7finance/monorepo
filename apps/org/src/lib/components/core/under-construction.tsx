@@ -49,9 +49,8 @@ export function UnderConstruction(props: ConstructionProps) {
           <div className="px-2 pt-4 pb-8 sm:px-6">
             <div>
               <p className="mt-2 mb-4 text-center text-sm text-zinc-500 dark:text-zinc-400">
-                {description
-                  ? description
-                  : `Pioneers are hard at work to provide the best
+                {description ??
+                  `Pioneers are hard at work to provide the best
             information and experience for users looking to
             utilize the most powerful and decentralized DEX on
             the market today.`}

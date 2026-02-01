@@ -82,7 +82,7 @@ export class MixedRouteHeuristicGasModelFactory extends IOnChainGasModelFactory<
           providerConfig,
         );
 
-        const token0 = usdPool.token0.address == nativeCurrency.address;
+        const token0 = usdPool.token0.address === nativeCurrency.address;
 
         const nativeTokenPrice = token0
           ? usdPool.token0Price
@@ -118,7 +118,7 @@ export class MixedRouteHeuristicGasModelFactory extends IOnChainGasModelFactory<
     }
 
     const usdToken =
-      usdPool.token0.address == nativeCurrency.address
+      usdPool.token0.address === nativeCurrency.address
         ? usdPool.token1
         : usdPool.token0;
 
@@ -157,7 +157,7 @@ export class MixedRouteHeuristicGasModelFactory extends IOnChainGasModelFactory<
           ? nativeV2Pool
           : nativeV3Pool;
 
-      const token0 = nativePool?.token0.address == nativeCurrency.address;
+      const token0 = nativePool?.token0.address === nativeCurrency.address;
 
       // returns mid price in terms of the native currency (the ratio of quoteToken/nativeToken)
       const nativeTokenPrice = token0
@@ -180,7 +180,7 @@ export class MixedRouteHeuristicGasModelFactory extends IOnChainGasModelFactory<
       }
 
       // true if token0 is the native currency
-      const token0USDPool = usdPool.token0.address == nativeCurrency.address;
+      const token0USDPool = usdPool.token0.address === nativeCurrency.address;
 
       // gets the mid price of the pool in terms of the native token
       const nativeTokenPriceUSDPool = token0USDPool

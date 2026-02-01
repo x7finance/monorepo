@@ -221,11 +221,11 @@ function addV2Swap<TInput extends Currency, TOutput extends Currency>(
 ): void {
   const trade = new TradeV2(
     route as RouteV2Wrapper<TInput, TOutput>,
-    tradeType == TradeType.EXACT_INPUT ? inputAmount : outputAmount,
+    tradeType === TradeType.EXACT_INPUT ? inputAmount : outputAmount,
     tradeType,
   );
 
-  if (tradeType == TradeType.EXACT_INPUT) {
+  if (tradeType === TradeType.EXACT_INPUT) {
     planner.addCommand(CommandType.V2_SWAP_EXACT_IN, [
       // if native, we have to unwrap so keep in the router for now
       routerMustCustody ? ROUTER_AS_RECIPIENT : options.recipient,
@@ -234,7 +234,7 @@ function addV2Swap<TInput extends Currency, TOutput extends Currency>(
       route.path.map((pool) => pool.address),
       payerIsUser,
     ]);
-  } else if (tradeType == TradeType.EXACT_OUTPUT) {
+  } else if (tradeType === TradeType.EXACT_OUTPUT) {
     planner.addCommand(CommandType.V2_SWAP_EXACT_OUT, [
       routerMustCustody ? ROUTER_AS_RECIPIENT : options.recipient,
       trade.minimumAmountOut(options.slippageTolerance).quotient.toString(),
@@ -265,7 +265,7 @@ function addV3Swap<TInput extends Currency, TOutput extends Currency>(
     route as RouteV3Wrapper<TInput, TOutput>,
     trade.tradeType === TradeType.EXACT_OUTPUT,
   );
-  if (tradeType == TradeType.EXACT_INPUT) {
+  if (tradeType === TradeType.EXACT_INPUT) {
     planner.addCommand(CommandType.V3_SWAP_EXACT_IN, [
       routerMustCustody ? ROUTER_AS_RECIPIENT : options.recipient,
       trade.maximumAmountIn(options.slippageTolerance).quotient.toString(),
@@ -273,7 +273,7 @@ function addV3Swap<TInput extends Currency, TOutput extends Currency>(
       path,
       payerIsUser,
     ]);
-  } else if (tradeType == TradeType.EXACT_OUTPUT) {
+  } else if (tradeType === TradeType.EXACT_OUTPUT) {
     planner.addCommand(CommandType.V3_SWAP_EXACT_OUT, [
       routerMustCustody ? ROUTER_AS_RECIPIENT : options.recipient,
       trade.minimumAmountOut(options.slippageTolerance).quotient.toString(),
@@ -383,7 +383,7 @@ function addMixedSwap<TInput extends Currency, TOutput extends Currency>(
         isLastSectionInRoute(i)
           ? tradeRecipient
           : (sections[i + 1]![0] as Pair).liquidityToken.address,
-        i == 0 ? amountIn : CONTRACT_BALANCE, // amountIn
+        i === 0 ? amountIn : CONTRACT_BALANCE, // amountIn
         !isLastSectionInRoute(i) ? 0 : amountOut, // amountOut
         path, // path
         payerIsUser && i === 0, // payerIsUser
