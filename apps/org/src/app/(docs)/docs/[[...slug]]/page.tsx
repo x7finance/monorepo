@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
+import React, { Suspense } from "react";
 import { notFound } from "next/navigation";
 import Markdoc from "@markdoc/markdoc";
+
+import { Splash } from "@x7/ui/splash";
 
 import { generateDocsSlugs } from "~/lib/utils/generateDocsSlugs";
 import type { MetadataDocType } from "~/lib/utils/generateMetadataFromDoc";
@@ -26,7 +28,7 @@ export async function generateMetadata({ params }: { params: any }) {
   return generateMetadataFromDoc(doc as MetadataDocType);
 }
 
-export default async function DocsPage({ params }: { params: any }) {
+async function DocsContent({ params }: { params: any }) {
   const { content, title, tags, tableOfContents, date, slug, section } =
     await getMarkdownContent(params);
 
@@ -45,5 +47,13 @@ export default async function DocsPage({ params }: { params: any }) {
     >
       {Markdoc.renderers.react(content, React, { components })}
     </DocsBase>
+  );
+}
+
+export default function DocsPage({ params }: { params: any }) {
+  return (
+    <Suspense fallback={<Splash />}>
+      <DocsContent params={params} />
+    </Suspense>
   );
 }

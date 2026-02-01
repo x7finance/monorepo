@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 
 import { ChevronRightIcon, X7Logo } from "@x7/icons";

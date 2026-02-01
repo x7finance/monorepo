@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
-import React from "react";
+import React, { Suspense } from "react";
 import { notFound } from "next/navigation";
 import Markdoc from "@markdoc/markdoc";
+
+import { Splash } from "@x7/ui/splash";
 
 import { BlogBase } from "~/app/(marketing)/blog/_components/base";
 import { components } from "~/app/(marketing)/blog/_utils/config.markdoc";
@@ -26,7 +28,7 @@ export async function generateMetadata({ params }: { params: any }) {
   return generateMetadataFromDoc(post as MetadataDocType);
 }
 
-export default async function BlogPage({ params }: { params: any }) {
+async function BlogPostContent({ params }: { params: any }) {
   const {
     content,
     title,
@@ -56,5 +58,13 @@ export default async function BlogPage({ params }: { params: any }) {
     >
       {Markdoc.renderers.react(content, React, { components })}
     </BlogBase>
+  );
+}
+
+export default function BlogPage({ params }: { params: any }) {
+  return (
+    <Suspense fallback={<Splash />}>
+      <BlogPostContent params={params} />
+    </Suspense>
   );
 }
