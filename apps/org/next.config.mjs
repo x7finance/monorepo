@@ -122,7 +122,6 @@ const nextConfig = {
   },
   serverExternalPackages: ["pino", "pino-pretty"],
   productionBrowserSourceMaps: false,
-  typescript: { ignoreBuildErrors: true },
 };
 
 export default nextConfig;
