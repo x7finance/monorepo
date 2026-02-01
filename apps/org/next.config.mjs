@@ -1,18 +1,14 @@
-// import withBundleAnalyzerCreator from "@next/bundle-analyzer";
-
-// const withBundleAnalyzer = withBundleAnalyzerCreator({
-//   enabled: process.env.ANALYZE === "true",
-// });
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Turbopack config (Next.js 16 default bundler)
+  turbopack: {},
+  // Legacy webpack config for fallback
   webpack: (config) => {
     config.resolve.fallback = { fs: false, net: false, tls: false };
     config.externals.push("pino-pretty", "encoding");
     return config;
   },
-  // serverExternalPackages: ["pino", "pino-pretty"],
   /** Enables hot reloading for local packages without a build step */
   transpilePackages: [
     "@x7/dexie",
@@ -72,7 +68,43 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
   },
+  // React Compiler (moved from experimental in Next.js 16)
+  reactCompiler: true,
+  // Cache profiles for streaming components (moved from experimental in Next.js 16)
+  cacheLife: {
+    default: {
+      stale: 300, // 5 minutes
+      revalidate: 900, // 15 minutes
+      expire: 3600, // 1 hour
+    },
+    seconds: {
+      stale: 1,
+      revalidate: 5,
+      expire: 10,
+    },
+    minutes: {
+      stale: 60,
+      revalidate: 300,
+      expire: 600,
+    },
+    hours: {
+      stale: 3600,
+      revalidate: 10800,
+      expire: 86400,
+    },
+    days: {
+      stale: 86400,
+      revalidate: 604800,
+      expire: 2592000, // 30 days
+    },
+    blockchain: {
+      stale: 12, // ~1 block
+      revalidate: 60,
+      expire: 300,
+    },
+  },
   experimental: {
+    // Build optimizations
     optimizePackageImports: [
       "@x7/icons",
       "@x7/ui",
@@ -84,23 +116,13 @@ const nextConfig = {
       "viem",
       "wagmi",
     ],
-    turbo: {
-      resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".mjs", ".json"],
-      resolveAlias: {
-        "react-native": "react-native-web",
-      },
-    },
     webpackBuildWorker: true,
     parallelServerCompiles: true,
     parallelServerBuildTraces: true,
-    reactCompiler: true,
   },
   serverExternalPackages: ["pino", "pino-pretty"],
   productionBrowserSourceMaps: false,
-  eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
 };
 
 export default nextConfig;
-
-// export default withBundleAnalyzer(nextConfig);
