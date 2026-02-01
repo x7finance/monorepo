@@ -43,6 +43,11 @@ export const generateRoute = async (
   }
 
   const [address] = (await walletClient?.requestAddresses()) ?? []
+  const recipientAddress = recipient ?? address
+
+  if (!recipientAddress) {
+    throw new Error("No recipient address available!")
+  }
 
   clearPossibleRoutes()
   //router.abortCurrentRoute();
@@ -57,12 +62,12 @@ export const generateRoute = async (
 
   if (isWrap || isUnwrap) {
     return router.wrapUnwrap(swapAmount, TradeType.EXACT_INPUT, {
-      recipient: recipient ?? address,
+      recipient: recipientAddress,
       slippageTolerance: swapState.state.slippage ?? new Percent(50, 10_000),
       deadline: Math.floor(+new Date() / 1000 + 60 * 20),
       type: SwapType.SWAP_ROUTER_02,
       simulate: {
-        fromAddress: recipient ?? address,
+        fromAddress: recipientAddress,
       },
     })
   }
@@ -72,12 +77,12 @@ export const generateRoute = async (
     token1,
     TradeType.EXACT_INPUT,
     {
-      recipient: recipient ?? address,
+      recipient: recipientAddress,
       slippageTolerance: swapState.state.slippage ?? new Percent(50, 10_000),
       deadline: Math.floor(+new Date() / 1000 + 60 * 20),
       type: SwapType.SWAP_ROUTER_02,
       simulate: {
-        fromAddress: recipient ?? address,
+        fromAddress: recipientAddress,
       },
       saveRoutes: true,
     },

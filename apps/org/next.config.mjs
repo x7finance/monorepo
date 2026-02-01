@@ -70,6 +70,8 @@ const nextConfig = {
   },
   // React Compiler (moved from experimental in Next.js 16)
   reactCompiler: true,
+  // Cache Components (moved from experimental in Next.js 16)
+  cacheComponents: true,
   // Cache profiles for streaming components (moved from experimental in Next.js 16)
   cacheLife: {
     default: {
@@ -105,7 +107,6 @@ const nextConfig = {
   },
   experimental: {
     // Caching features
-    cacheComponents: true,
     dynamicOnHover: true,
     useCache: true,
     turbopackFileSystemCacheForDev: true,

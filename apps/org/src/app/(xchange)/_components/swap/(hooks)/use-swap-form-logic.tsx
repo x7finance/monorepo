@@ -1,5 +1,6 @@
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable @typescript-eslint/unbound-method */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
 
 import type { BaseError } from "@wagmi/core"
 import type { ChainId, Token } from "@x7/utils"
@@ -136,7 +137,7 @@ export function useSwapFormLogic(
   )
 
   const onExecute = useCallback(async () => {
-    if (!token0) {
+    if (!token0 || !swapAmount) {
       return
     }
 
@@ -154,7 +155,7 @@ export function useSwapFormLogic(
           // Wrap ETH to WETH
           tx = await walletClient.sendTransaction({
             to: token1?.wrapped.address,
-            value: BigInt(swapAmount.quotient),
+            value: BigInt(swapAmount!.quotient),
             data: "0xd0e30db0", // deposit() function selector
           })
         } else {
@@ -172,7 +173,7 @@ export function useSwapFormLogic(
                 },
               ],
               functionName: "withdraw",
-              args: [BigInt(swapAmount.quotient)],
+              args: [BigInt(swapAmount!.quotient)],
             }),
           })
         }
@@ -180,7 +181,7 @@ export function useSwapFormLogic(
         // Regular swap using route
         tx = await executeRoute({
           token0,
-          swapAmount,
+          swapAmount: swapAmount!,
           route,
           config,
         })

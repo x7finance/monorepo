@@ -21,6 +21,7 @@ import { generateChainDenomination } from "@x7/utils"
 interface StatusCardProps {
   title: string
   items: {
+    id: string
     label: React.ReactNode
     value: string | number
     useChainDenomination?: boolean
@@ -46,7 +47,7 @@ export function StatusCard({
       <div className="my-4">
         <div className="border-muted bg-secondary grid grid-cols-3 gap-px overflow-hidden rounded-lg border">
           {items.map((item) => (
-            <div key={item.label} className="bg-zinc-900 px-4 py-3">
+            <div key={item.id} className="bg-zinc-900 px-4 py-3">
               <div className="text-2xs flex items-center gap-1 leading-6 text-zinc-400 sm:text-xs">
                 <span className="font-heading">{item.label}</span>
                 {item.hovercard && (
@@ -101,7 +102,7 @@ export function StatusCard({
         <Table>
           <TableBody>
             {items.map((item) => (
-              <TableRow key={item.label}>
+              <TableRow key={item.id}>
                 <TableCell className="text-muted-foreground text-sm">
                   {item.label}
                 </TableCell>

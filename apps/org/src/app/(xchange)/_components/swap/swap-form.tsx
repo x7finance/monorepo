@@ -210,7 +210,7 @@ export function X7SwapForm(props: X7SwapFormProps) {
       </div>
       {renderApprovalButton()}
       <SimpleSwapTradeStats />
-      <SwapErrorMessage error={swapError} />
+      <SwapErrorMessage error={swapError ?? null} />
       {renderSwapButton()}
       <Suspense fallback={<div></div>}>
         <LazySwapChartPanelLiquiditySheet

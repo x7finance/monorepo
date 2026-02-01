@@ -10,6 +10,7 @@ import type { RenderableTreeNode } from "@markdoc/markdoc"
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 import fs from "fs"
 import path from "path"
+import { cache } from "react"
 import type { SectionType } from "~/types"
 
 import Markdoc from "@markdoc/markdoc"
@@ -107,8 +108,8 @@ interface MarkdownContent {
   headerImage: string | null
 }
 
-// Main function to get the markdown content
-export async function getMarkdownContent(
+// Main function to get the markdown content - wrapped with cache for deduplication
+export const getMarkdownContent = cache(async function getMarkdownContent(
   params: ParamsProps
 ): Promise<Partial<MarkdownContent>> {
   const { slug, omitProperties = [] } = params

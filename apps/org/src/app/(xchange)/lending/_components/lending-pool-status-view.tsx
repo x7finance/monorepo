@@ -35,9 +35,17 @@ export function LendingPoolStatusView({ chainId }: StatusTableProps) {
         <StatusCard
           title="Current Lending Pool Overview"
           items={[
-            { label: "Lending Pool", value: statusData.poolBalance },
-            { label: "Lending Pool Reserve", value: statusData.reserveBalance },
-            { label: "Total", value: statusData.totalBalance },
+            {
+              id: "pool",
+              label: "Lending Pool",
+              value: statusData.poolBalance,
+            },
+            {
+              id: "reserve",
+              label: "Lending Pool Reserve",
+              value: statusData.reserveBalance,
+            },
+            { id: "total", label: "Total", value: statusData.totalBalance },
           ]}
           chainId={chainId}
         />
@@ -45,8 +53,13 @@ export function LendingPoolStatusView({ chainId }: StatusTableProps) {
         <StatusCard
           title="Loan Statistics"
           items={[
-            { label: "Available", value: statusData.available },
             {
+              id: "available",
+              label: "Available",
+              value: statusData.available,
+            },
+            {
+              id: "loans-initiated",
               label: "Loans Initiated",
               value:
                 chainId !== ChainId.ETHEREUM
@@ -55,6 +68,7 @@ export function LendingPoolStatusView({ chainId }: StatusTableProps) {
               useChainDenomination: false,
             },
             {
+              id: "live-loans",
               label: "Live Loans",
               value: statusData.liveLoans,
               useChainDenomination: false,
@@ -67,6 +81,7 @@ export function LendingPoolStatusView({ chainId }: StatusTableProps) {
           title="Liquidation Details"
           items={[
             {
+              id: "escrow",
               label: (
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -82,6 +97,7 @@ export function LendingPoolStatusView({ chainId }: StatusTableProps) {
               value: statusData.escrow,
             },
             {
+              id: "reward",
               label: (
                 <Tooltip>
                   <TooltipTrigger asChild>

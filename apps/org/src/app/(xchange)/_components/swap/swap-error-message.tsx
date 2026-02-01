@@ -4,7 +4,7 @@ import { Alert, AlertDescription, AlertTitle } from "@x7/ui/alert"
 export function SwapErrorMessage({
   error,
 }: {
-  error: { message: string } | null
+  error: { message: string } | null | undefined
 }) {
   if (!error) {
     return null

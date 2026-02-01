@@ -213,6 +213,7 @@ export function ILLBaseForm() {
             title="Current Lending Pool Overview"
             items={[
               {
+                id: "available",
                 label: "Available",
                 value: statusData.poolBalance,
                 hovercard: {
@@ -224,6 +225,7 @@ export function ILLBaseForm() {
                 },
               },
               {
+                id: "in-reserve",
                 label: "In Reserve",
                 value: statusData.reserveBalance,
                 hovercard: {
@@ -235,6 +237,7 @@ export function ILLBaseForm() {
                 },
               },
               {
+                id: "lending-total",
                 label: "Lending Total",
                 value: statusData.totalBalance,
               },
