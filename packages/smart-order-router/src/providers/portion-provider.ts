@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { Fraction, TradeType, ZERO } from "@x7/utils";
 
-import type { RouteWithValidQuote, SwapOptions } from "../routers";
-import { SwapType } from "../routers";
-import { CurrencyAmount } from "../utils";
+import type { RouteWithValidQuote } from "../routers/alpha-router/entities/route-with-valid-quote";
+import type { SwapOptions } from "../routers/router";
+import { SwapType } from "../routers/router";
+import { CurrencyAmount } from "../utils/amounts";
 
 export interface IPortionProvider {
   /**

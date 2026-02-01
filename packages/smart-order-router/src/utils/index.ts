@@ -3,5 +3,6 @@ export * from "./chains";
 export * from "./log";
 export * from "./metric";
 export * from "./protocols";
+export * from "./route-string";
 export * from "./routes";
 export * from "./viemHelpers";
