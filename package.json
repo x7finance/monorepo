@@ -22,8 +22,14 @@
     "typecheck": "turbo typecheck",
     "check:cycles": "madge --circular --extensions ts,tsx packages/*/src apps/*/src"
   },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "oxlint --fix"
+    ]
+  },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
+    "lint-staged": "^15.4.3",
     "@commitlint/config-conventional": "^19.8.0",
     "@commitlint/types": "^19.8.0",
     "@manypkg/cli": "^0.23.0",

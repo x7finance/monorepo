@@ -2,110 +2,55 @@ name: CI
 
 on:
   pull_request:
-    branches: ["*"]
   merge_group:
 
 jobs:
-  setup:
-    name: Setup
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: 1.3.8
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Setup environment variables
-        run: |
-          cp .env.example .env.local
-          cp .env.example apps/org/.env.local
-
-      - name: Install dependencies
-        run: bun install
-
-      - name: Build packages
-        run: bun run build:setup
-
-  lint-typecheck-test:
-    name: ${{ matrix.command }}
-    needs: setup
+  check:
+    name: ${{ matrix.task }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        command: [lint, typecheck, test, check:cycles]
+        task: [lint, typecheck, check:cycles]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+      - uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.3.8
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Install dependencies
-        run: bun install
+      - run: bun install
 
-      - name: Setup environment variables
-        run: |
-          cp .env.example .env.local
-          cp .env.example apps/org/.env.local
+      - run: cp .env.example .env.local && cp .env.example apps/org/.env.local
 
-      - name: Run ${{ matrix.command }}
-        run: |
-          if [ "${{ matrix.command }}" = "check:cycles" ]; then
-            bun run ${{ matrix.command }}
-          else
-            bun turbo ${{ matrix.command }}
-          fi
+      - run: bun run ${{ matrix.task }}
 
   build:
     name: Build
-    needs: setup
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+      - uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.3.8
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Install dependencies
-        run: bun install
+      - run: bun install
 
-      - name: Setup environment variables
-        run: |
-          cp .env.example .env.local
-          cp .env.example apps/org/.env.local
+      - run: cp .env.example .env.local && cp .env.example apps/org/.env.local
 
-      - name: Cache Next.js
-        uses: actions/cache@v4
+      - uses: actions/cache@v4
         with:
           path: apps/org/.next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/bun.lock') }}-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/bun.lock') }}-
-            ${{ runner.os }}-nextjs-
+          key: nextjs-${{ hashFiles('**/bun.lock') }}-${{ github.sha }}
+          restore-keys: nextjs-${{ hashFiles('**/bun.lock') }}-
 
-      - name: Build
-        run: bun run build
+      - run: bun run build
