@@ -106,6 +106,7 @@ const nextConfig = {
   experimental: {
     // Caching features
     dynamicOnHover: true,
+    useCache: true,
     turbopackFileSystemCacheForDev: true,
     // Build optimizations
     optimizePackageImports: [

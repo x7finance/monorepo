@@ -2,10 +2,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @next/next/no-img-element */
 // @ts-nocheck
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import type { NextRequest } from "next/server";
-import { ImageResponse } from "@vercel/og";
-
-export const runtime = "edge";
+import { ImageResponse } from "next/og";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -17,10 +17,6 @@ function getRandomPioneerNumber(): string {
   const number: number = Math.floor(Math.random() * (max - min + 1)) + min;
   return number.toString().padStart(4, "0");
 }
-
-const interBold = fetch(
-  new URL("../../../assets/fonts/CalSans-SemiBold.ttf", import.meta.url),
-).then((res) => res.arrayBuffer());
 
 const pioneers: number[] = [1, 2, 3, 4];
 
@@ -34,7 +30,12 @@ const MANTRA = "Trust No One. Trust Code. Long Live DeFi.";
 
 export async function GET(req: NextRequest): Promise<ImageResponse> {
   try {
-    const fontBold = await interBold;
+    // Load font from filesystem (Node.js compatible)
+    const fontPath = join(
+      process.cwd(),
+      "src/assets/fonts/CalSans-SemiBold.ttf",
+    );
+    const fontBold = await readFile(fontPath);
 
     // Ensure req.url is a string before passing it to URL constructor
     if (typeof req.url !== "string") {
