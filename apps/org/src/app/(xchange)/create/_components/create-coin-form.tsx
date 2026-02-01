@@ -19,6 +19,11 @@ import { Alert, AlertDescription } from "@x7/ui/alert"
 import { Button } from "@x7/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@x7/ui/card"
 import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@x7/ui/collapsible"
+import {
   Form,
   FormControl,
   FormDescription,
@@ -28,11 +33,6 @@ import {
   FormMessage,
 } from "@x7/ui/form"
 import { Input } from "@x7/ui/input"
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@x7/ui/radix-collapsible"
 import { Textarea } from "@x7/ui/textarea"
 import { LogCodes } from "@x7/utils"
 import { uploadMetadataToIPFS } from "~/lib/utils/ifps"

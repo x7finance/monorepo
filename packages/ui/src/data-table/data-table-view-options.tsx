@@ -2,8 +2,6 @@
 
 import type { Table } from "@tanstack/react-table"
 
-import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
-
 import { SlidersHorizontalIcon } from "@x7/icons"
 
 import { Button } from "../button"
@@ -13,6 +11,7 @@ import {
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "../dropdown-menu"
 
 interface DataTableViewOptionsProps<TData> {

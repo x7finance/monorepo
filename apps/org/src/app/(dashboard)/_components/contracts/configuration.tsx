@@ -1,9 +1,11 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import type { Abi } from "viem";
-import { formatEther } from "viem";
-import { useReadContracts } from "wagmi";
+import type { ChainId } from "@x7/utils"
+import type { Abi } from "viem"
+
+import { useState } from "react"
+import { formatEther } from "viem"
+import { useReadContracts } from "wagmi"
 
 import {
   X7D,
@@ -26,50 +28,49 @@ import {
   XchangeDiscountAuthority,
   XchangeFactory,
   XchangeRouterAbi,
-} from "@x7/contracts";
-import { cn } from "@x7/css";
+} from "@x7/contracts"
+import { cn } from "@x7/css"
 import {
   CheckCircleIcon,
   ChevronDownIcon,
   ChevronUpIcon,
   CircleAlertIcon,
-} from "@x7/icons";
-import { X7ContractsEnum } from "@x7/sdk";
-import { Button } from "@x7/ui/button";
+} from "@x7/icons"
+import { X7ContractsEnum } from "@x7/sdk"
+import { Button } from "@x7/ui/button"
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@x7/ui/radix-collapsible";
-import { generateChainDenomination } from "@x7/utils";
-import type { ChainId } from "@x7/utils";
+} from "@x7/ui/collapsible"
+import { generateChainDenomination } from "@x7/utils"
 
-type ContractFunctionResult = boolean | string | number;
+type ContractFunctionResult = boolean | string | number
 
 interface ConfigurationProps {
-  contract: `0x${string}`;
-  chainId: ChainId;
+  contract: `0x${string}`
+  chainId: ChainId
 }
 
 interface ConfigCheck {
-  name: string;
-  functionName: string;
-  abi: Abi;
-  args?: (string | number)[];
-  format?: string;
-  expectedValue?: ContractFunctionResult;
+  name: string
+  functionName: string
+  abi: Abi
+  args?: (string | number)[]
+  format?: string
+  expectedValue?: ContractFunctionResult
 }
 
 const createConfigChecks = (
   abi: Abi,
   checks: {
-    name: string;
-    functionName: string;
-    args?: (string | number)[];
-    format?: string;
-    expectedValue?: string | number | boolean;
+    name: string
+    functionName: string
+    args?: (string | number)[]
+    format?: string
+    expectedValue?: string | number | boolean
   }[],
-  chainId: ChainId,
+  chainId: ChainId
 ): ConfigCheck[] => {
   return [
     {
@@ -83,8 +84,8 @@ const createConfigChecks = (
       ...check,
       abi,
     })),
-  ];
-};
+  ]
+}
 
 const getConfigChecks = (contract: string, chainId: ChainId): ConfigCheck[] => {
   switch (contract) {
@@ -116,8 +117,8 @@ const getConfigChecks = (contract: string, chainId: ChainId): ConfigCheck[] => {
           },
           { name: "Off Ramp Pair Set", functionName: "offRampPair" },
         ],
-        chainId,
-      );
+        chainId
+      )
 
     case X7ContractsEnum.X7R_LiquidityHub(chainId):
       return createConfigChecks(
@@ -168,14 +169,14 @@ const getConfigChecks = (contract: string, chainId: ChainId): ConfigCheck[] => {
             functionName: "minLiquidityRatioTarget",
             format: "percent10",
           },
-          { 
+          {
             name: "Off Ramp Pair Set",
             functionName: "offRampPair",
             expectedValue: X7ContractsEnum.X7RXchangePair(chainId),
           },
-          { 
+          {
             name: "Router Set",
-            functionName: "router" ,
+            functionName: "router",
             expectedValue: X7ContractsEnum.XchangeRouter(chainId),
           },
           {
@@ -183,19 +184,19 @@ const getConfigChecks = (contract: string, chainId: ChainId): ConfigCheck[] => {
             functionName: "treasuryShare",
             format: "percent10",
           },
-          { 
+          {
             name: "Treasury Target Set",
             functionName: "treasuryTarget",
             expectedValue: X7ContractsEnum.TreasurySplitter(chainId),
           },
-          { 
+          {
             name: "Token Set",
             functionName: "x7r",
             expectedValue: X7ContractsEnum.X7R(chainId),
           },
         ],
-        chainId,
-      );
+        chainId
+      )
 
     case X7ContractsEnum.X7DAO_LiquidityHub(chainId):
       return createConfigChecks(
@@ -206,7 +207,7 @@ const getConfigChecks = (contract: string, chainId: ChainId): ConfigCheck[] => {
             functionName: "auxiliaryShare",
             format: "percent10",
           },
-          { 
+          {
             name: "Auxiliary Target Set",
             functionName: "auxiliaryTarget",
             expectedValue: X7ContractsEnum.TokenBurner(chainId),
@@ -256,12 +257,12 @@ const getConfigChecks = (contract: string, chainId: ChainId): ConfigCheck[] => {
             functionName: "minLiquidityRatioTarget",
             format: "percent10",
           },
-          { 
+          {
             name: "Off Ramp Pair Set",
             functionName: "offRampPair",
             expectedValue: X7ContractsEnum.X7DAOXchangePair(chainId),
           },
-          { 
+          {
             name: "Router Set",
             functionName: "router",
             expectedValue: X7ContractsEnum.XchangeRouter(chainId),
@@ -271,19 +272,19 @@ const getConfigChecks = (contract: string, chainId: ChainId): ConfigCheck[] => {
             functionName: "treasuryShare",
             format: "percent10",
           },
-          { 
+          {
             name: "Treasury Target Set",
             functionName: "treasuryTarget",
             expectedValue: X7ContractsEnum.TreasurySplitter(chainId),
           },
-          { 
+          {
             name: "Token Set",
             functionName: "x7dao",
             expectedValue: X7ContractsEnum.X7DAO(chainId),
           },
         ],
-        chainId,
-      );
+        chainId
+      )
 
     case X7ContractsEnum.X7100_LiquidityHub(chainId):
       return createConfigChecks(
@@ -299,7 +300,7 @@ const getConfigChecks = (contract: string, chainId: ChainId): ConfigCheck[] => {
             functionName: "distributeShare",
             format: "percent10",
           },
-          { 
+          {
             name: "Distribution Target Set",
             functionName: "distributeTarget",
             expectedValue: X7ContractsEnum.EcosystemSplitter(chainId),
@@ -349,7 +350,7 @@ const getConfigChecks = (contract: string, chainId: ChainId): ConfigCheck[] => {
             functionName: "treasuryShare",
             format: "percent10",
           },
-          { 
+          {
             name: "Treasury Target Set",
             functionName: "treasuryTarget",
             expectedValue: X7ContractsEnum.TreasurySplitter(chainId),
@@ -365,8 +366,8 @@ const getConfigChecks = (contract: string, chainId: ChainId): ConfigCheck[] => {
             expectedValue: X7ContractsEnum.LendingPoolReserve(chainId),
           },
         ],
-        chainId,
-      );
+        chainId
+      )
 
     case X7ContractsEnum.EcosystemSplitter(chainId):
       return createConfigChecks(
@@ -389,15 +390,15 @@ const getConfigChecks = (contract: string, chainId: ChainId): ConfigCheck[] => {
           },
           { name: "WETH Set", functionName: "weth" },
         ],
-        chainId,
-      );
+        chainId
+      )
 
     case X7ContractsEnum.TreasurySplitter(chainId):
       return createConfigChecks(
         X7TreasurySplitterV3 as Abi,
         [{ name: "WETH Set", functionName: "WETH" }],
-        chainId,
-      );
+        chainId
+      )
 
     case X7ContractsEnum.XchangeFactory:
       return createConfigChecks(
@@ -425,22 +426,22 @@ const getConfigChecks = (contract: string, chainId: ChainId): ConfigCheck[] => {
             args: [X7ContractsEnum.X7_LendingPool(chainId)],
           },
         ],
-        chainId,
-      );
+        chainId
+      )
 
     case X7ContractsEnum.XchangeRouter(chainId):
       return createConfigChecks(
         XchangeRouterAbi as Abi,
         [
-          { 
+          {
             name: "Factory Address Set",
             functionName: "factory",
             expectedValue: X7ContractsEnum.XchangeFactory,
           },
           { name: "WETH Address Set", functionName: "WETH" },
         ],
-        chainId,
-      );
+        chainId
+      )
 
     case X7ContractsEnum.X7_LendingPool(chainId):
       return createConfigChecks(
@@ -460,7 +461,7 @@ const getConfigChecks = (contract: string, chainId: ChainId): ConfigCheck[] => {
             name: "X7100 Reserve Recipient Set",
             functionName: "X7100ReserveRecipient",
           },
-          { 
+          {
             name: "X7D Set",
             functionName: "X7D",
             expectedValue: X7ContractsEnum.X7D(chainId),
@@ -494,7 +495,8 @@ const getConfigChecks = (contract: string, chainId: ChainId): ConfigCheck[] => {
             functionName: "ecosystemRecipient",
             expectedValue: X7ContractsEnum.TokenTimeLock(chainId),
           },
-          { name: "Ecosystem Splitter Set",
+          {
+            name: "Ecosystem Splitter Set",
             functionName: "ecosystemSplitter",
             expectedValue: X7ContractsEnum.EcosystemSplitter(chainId),
           },
@@ -534,8 +536,8 @@ const getConfigChecks = (contract: string, chainId: ChainId): ConfigCheck[] => {
           },
           { name: "WETH Set", functionName: "weth" },
         ],
-        chainId,
-      );
+        chainId
+      )
 
     case X7ContractsEnum.LendingPoolReserve(chainId):
       return createConfigChecks(
@@ -551,19 +553,19 @@ const getConfigChecks = (contract: string, chainId: ChainId): ConfigCheck[] => {
             functionName: "isEcosystemPayer",
             args: [X7ContractsEnum.EcosystemSplitter(chainId)],
           },
-          { 
+          {
             name: "X7D Set",
             functionName: "X7D",
             expectedValue: X7ContractsEnum.X7D(chainId),
           },
-          { 
+          {
             name: "Lending Pool Set",
             functionName: "lendingPool",
             expectedValue: X7ContractsEnum.X7_LendingPool(chainId),
           },
         ],
-        chainId,
-      );
+        chainId
+      )
 
     case X7ContractsEnum.TokenTimeLock(chainId):
       return createConfigChecks(
@@ -594,8 +596,8 @@ const getConfigChecks = (contract: string, chainId: ChainId): ConfigCheck[] => {
             format: "timestamp",
           },
         ],
-        chainId,
-      );
+        chainId
+      )
 
     case X7ContractsEnum.BorrowingMaxi(chainId):
     case X7ContractsEnum.DexMaxi(chainId):
@@ -616,8 +618,8 @@ const getConfigChecks = (contract: string, chainId: ChainId): ConfigCheck[] => {
           },
           { name: "Minting Open Set", functionName: "mintingOpen" },
         ],
-        chainId,
-      );
+        chainId
+      )
 
     case X7ContractsEnum.X7D(chainId):
       return createConfigChecks(
@@ -647,25 +649,26 @@ const getConfigChecks = (contract: string, chainId: ChainId): ConfigCheck[] => {
             functionName: "recoveredTokenRecipient",
           },
         ],
-        chainId,
-      );
+        chainId
+      )
 
     case X7ContractsEnum.TokenBurner(chainId):
       return createConfigChecks(
         X7TokenBurner as Abi,
         [
-          { 
+          {
             name: "Router Set",
             functionName: "router",
             expectedValue: X7ContractsEnum.XchangeRouter(chainId),
           },
-          { name: "Target Token Set",
+          {
+            name: "Target Token Set",
             functionName: "targetToken",
             expectedValue: X7ContractsEnum.X7R(chainId),
           },
         ],
-        chainId,
-      );
+        chainId
+      )
 
     case X7ContractsEnum.X7R_DiscountAuthority(chainId):
       return createConfigChecks(
@@ -676,70 +679,72 @@ const getConfigChecks = (contract: string, chainId: ChainId): ConfigCheck[] => {
             functionName: "magisterNFT",
             expectedValue: X7ContractsEnum.Magister(chainId),
           },
-          { 
+          {
             name: "Liquidity Maxi NFT Set",
             functionName: "liqMaxiNFT",
             expectedValue: X7ContractsEnum.LiquidityMaxi(chainId),
           },
-          { 
+          {
             name: "Ecosystem Maxi NFT Set",
-            functionName:"ecoMaxiNFT",
+            functionName: "ecoMaxiNFT",
             expectedValue: X7ContractsEnum.EcosystemMaxi(chainId),
           },
         ],
-        chainId,
-      );
+        chainId
+      )
 
     case X7ContractsEnum.X7DAO_DiscountAuthority(chainId):
       return createConfigChecks(
         X7DAODiscountAuthority as Abi,
         [
-          { 
+          {
             name: "Liquidity Maxi NFT Set",
             functionName: "liqMaxiNFT",
             expectedValue: X7ContractsEnum.LiquidityMaxi(chainId),
           },
-          { 
+          {
             name: "Ecosystem Maxi NFT Set",
             functionName: "ecoMaxiNFT",
             expectedValue: X7ContractsEnum.EcosystemMaxi(chainId),
           },
         ],
-        chainId,
-      );
+        chainId
+      )
 
     case X7ContractsEnum.X7100_DiscountAuthority(chainId):
       return createConfigChecks(
         X7100DiscountAuthority as Abi,
         [
-          { 
+          {
             name: "X7DAO Set",
             functionName: "x7dao",
             expectedValue: X7ContractsEnum.X7DAO(chainId),
           },
-          { 
+          {
             name: "Magister NFT Set",
             functionName: "magisterNFT",
             expectedValue: X7ContractsEnum.Magister(chainId),
           },
-          { name: "Liquidity Maxi NFT Set",
+          {
+            name: "Liquidity Maxi NFT Set",
             functionName: "liqMaxiNFT",
             expectedValue: X7ContractsEnum.LiquidityMaxi(chainId),
           },
-          { name: "Ecosystem Maxi NFT Set",
+          {
+            name: "Ecosystem Maxi NFT Set",
             functionName: "ecoMaxiNFT",
             expectedValue: X7ContractsEnum.EcosystemMaxi(chainId),
           },
         ],
-        chainId,
-      );
+        chainId
+      )
 
     case X7ContractsEnum.XchangeDiscountAuthority(chainId):
       return createConfigChecks(
         XchangeDiscountAuthority as Abi,
         [{ name: "DEX Maxi NFT Set", functionName: "dexMaxiNFT" }],
-        chainId,
-      );
+        chainId
+      )
 
     case X7ContractsEnum.LendingDiscountAuthority(chainId):
       return createConfigChecks(
@@ -764,7 +769,8 @@ const getConfigChecks = (contract: string, chainId: ChainId): ConfigCheck[] => {
             functionName: "consumableDiscountNFTPremiumFeeDiscount",
             format: "percent100",
           },
-          { name: "Borrowing Maxi NFT Set",
+          {
+            name: "Borrowing Maxi NFT Set",
             functionName: "discountNFT",
             expectedValue: X7ContractsEnum.BorrowingMaxi(chainId),
           },
@@ -779,8 +785,8 @@ const getConfigChecks = (contract: string, chainId: ChainId): ConfigCheck[] => {
             format: "percent100",
           },
         ],
-        chainId,
-      );
+        chainId
+      )
 
     case X7ContractsEnum.X7LiquidityTreasury(chainId):
       return createConfigChecks(
@@ -800,17 +806,17 @@ const getConfigChecks = (contract: string, chainId: ChainId): ConfigCheck[] => {
             expectedValue: X7ContractsEnum.XchangeRouter(chainId),
           },
         ],
-        chainId,
-      );
+        chainId
+      )
     default:
-      return [];
+      return []
   }
-};
+}
 
 const formatResult = (
   result: ContractFunctionResult | undefined,
   format?: string,
-  chainId?: ChainId,
+  chainId?: ChainId
 ): boolean | string | number | bigint => {
   if (
     result === undefined ||
@@ -819,62 +825,62 @@ const formatResult = (
     result === "0" ||
     result === 0
   ) {
-    return false;
+    return false
   }
 
   if (typeof result === "number" || typeof result === "bigint") {
-    const numericResult = typeof result === "bigint" ? Number(result) : result;
+    const numericResult = typeof result === "bigint" ? Number(result) : result
 
     if (format === "timestamp") {
       if (numericResult !== 0) {
-        const date = new Date(numericResult * 1000);
-        const now = Math.floor(Date.now() / 1000);
+        const date = new Date(numericResult * 1000)
+        const now = Math.floor(Date.now() / 1000)
 
         if (numericResult < now) {
-          return false;
+          return false
         }
 
-        return `${result} (${date.toISOString()})`;
+        return `${result} (${date.toISOString()})`
       } else {
-        return false;
+        return false
       }
     }
 
     if (format === "percent10") {
-      return `${result} (${(numericResult / 10).toFixed(2)}%)`;
+      return `${result} (${(numericResult / 10).toFixed(2)}%)`
     }
 
     if (format === "percent100") {
-      return `${result} (${(numericResult / 100).toFixed(2)}%)`;
+      return `${result} (${(numericResult / 100).toFixed(2)}%)`
     }
 
     if (format === "supply") {
-      return `${result} (${(numericResult / 10 ** 18).toLocaleString()})`;
+      return `${result} (${(numericResult / 10 ** 18).toLocaleString()})`
     }
 
     if (format === "ether") {
       return `${result} (${formatEther(BigInt(result))}${
         chainId ? ` ${generateChainDenomination(chainId)}` : ""
-      })`;
+      })`
     }
   }
 
-  return String(result);
-};
+  return String(result)
+}
 
 const isConfigured = (
   result: ContractFunctionResult | undefined,
-  format?: string,
+  format?: string
 ): boolean => {
-  const formattedResult = formatResult(result, format);
+  const formattedResult = formatResult(result, format)
 
-  return Boolean(formattedResult);
-};
+  return Boolean(formattedResult)
+}
 
 export function Configuration({ contract, chainId }: ConfigurationProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
 
-  const configChecks = getConfigChecks(contract, chainId);
+  const configChecks = getConfigChecks(contract, chainId)
 
   const { data, isFetched } = useReadContracts({
     contracts: configChecks.map(({ functionName, abi, args }) => ({
@@ -884,45 +890,45 @@ export function Configuration({ contract, chainId }: ConfigurationProps) {
       chainId,
       args,
     })),
-  });
+  })
 
   const checkResults = configChecks.map((check, index) => {
     const result =
       isFetched && data
         ? (data[index]?.result as ContractFunctionResult | undefined)
-        : undefined;
+        : undefined
 
     if (check.functionName === "owner") {
-      const isOwnerCorrect = result === X7ContractsEnum.DAOMultiSig(chainId);
+      const isOwnerCorrect = result === X7ContractsEnum.DAOMultiSig(chainId)
       return {
         ...check,
         result: isOwnerCorrect ? `true` : `false`,
         isConfigured: isOwnerCorrect,
         affectOverallStatus: false,
-      };
+      }
     }
-    const formattedResult = formatResult(result, check.format, chainId);
+    const formattedResult = formatResult(result, check.format, chainId)
 
-  // Validate against expectedValue if provided
-  const matchesExpectedValue =
-    check.expectedValue !== undefined ? result === check.expectedValue : true;
+    // Validate against expectedValue if provided
+    const matchesExpectedValue =
+      check.expectedValue !== undefined ? result === check.expectedValue : true
 
-  // Determine if the check is configured correctly
-  const isConfiguredCorrectly =
-    matchesExpectedValue && isConfigured(result, check.format);
+    // Determine if the check is configured correctly
+    const isConfiguredCorrectly =
+      matchesExpectedValue && isConfigured(result, check.format)
 
-  return {
-    ...check,
-    result: formattedResult,
-    isConfigured: isConfiguredCorrectly,
-    affectOverallStatus: true,
-  };
-});
+    return {
+      ...check,
+      result: formattedResult,
+      isConfigured: isConfiguredCorrectly,
+      affectOverallStatus: true,
+    }
+  })
 
-// Determine if all relevant checks are configured
-const allOtherChecksConfigured = checkResults
-  .filter((check) => check.affectOverallStatus)
-  .every((check) => check.isConfigured);
+  // Determine if all relevant checks are configured
+  const allOtherChecksConfigured = checkResults
+    .filter((check) => check.affectOverallStatus)
+    .every((check) => check.isConfigured)
 
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
@@ -934,7 +940,7 @@ const allOtherChecksConfigured = checkResults
             "w-full justify-between hover:bg-transparent",
             allOtherChecksConfigured
               ? "bg-emerald-800/10 text-emerald-500 hover:text-emerald-600"
-              : "bg-orange-700/10 text-orange-500 hover:text-orange-600",
+              : "bg-orange-700/10 text-orange-500 hover:text-orange-600"
           )}
         >
           <span>
@@ -960,7 +966,10 @@ const allOtherChecksConfigured = checkResults
       <CollapsibleContent>
         <div className="mt-2 space-y-2 text-xs text-zinc-700 dark:text-zinc-300">
           {checkResults.map((check) => (
-            <div key={`${check.name}-${check.functionName}`} className="flex justify-between">
+            <div
+              key={`${check.name}-${check.functionName}`}
+              className="flex justify-between"
+            >
               <div className="flex flex-col">
                 <span>{check.name}</span>
                 <span className="text-sm text-zinc-500">
@@ -983,5 +992,5 @@ const allOtherChecksConfigured = checkResults
         </div>
       </CollapsibleContent>
     </Collapsible>
-  );
+  )
 }

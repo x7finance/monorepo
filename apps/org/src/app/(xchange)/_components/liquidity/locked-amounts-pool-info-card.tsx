@@ -5,7 +5,7 @@ import { formatUnits } from "viem"
 
 import { cn } from "@x7/css"
 import { Card, CardContent } from "@x7/ui/card"
-import { Collapsible } from "@x7/ui/radix-collapsible"
+import { Collapsible } from "@x7/ui/collapsible"
 import { StatLabel, StatValue } from "@x7/ui/stat"
 
 interface LockedAmountsPoolInfoCardProps {

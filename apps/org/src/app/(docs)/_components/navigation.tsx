@@ -7,12 +7,12 @@ import { useEffect, useRef, useState } from "react"
 
 import { cn } from "@x7/css"
 import { ChevronDownIcon } from "@x7/icons"
-import { LinkInternal } from "@x7/ui/link"
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@x7/ui/radix-collapsible"
+} from "@x7/ui/collapsible"
+import { LinkInternal } from "@x7/ui/link"
 
 import { SectionNavigation } from "./section-navigation"
 

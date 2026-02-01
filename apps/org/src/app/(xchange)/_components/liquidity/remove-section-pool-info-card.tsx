@@ -7,7 +7,7 @@ import type { UserPositionsResponse } from "~/lib/hooks/tokens/useGetAllUserToke
 import { useMemo } from "react"
 
 import { Card, CardContent } from "@x7/ui/card"
-import { Collapsible } from "@x7/ui/radix-collapsible"
+import { Collapsible } from "@x7/ui/collapsible"
 import { StatLabel, StatValue } from "@x7/ui/stat"
 import { CurrencyAmount } from "@x7/utils"
 

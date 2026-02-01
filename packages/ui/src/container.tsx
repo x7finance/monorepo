@@ -1,11 +1,12 @@
 import type { VariantProps } from "class-variance-authority"
 import type { ButtonHTMLAttributes } from "react"
 
-import { Slot } from "@radix-ui/react-slot"
 import { cva } from "class-variance-authority"
 import { forwardRef } from "react"
 
 import { cn } from "@x7/css"
+
+import { Slot } from "./lib/slot"
 
 const containerVariants = cva("w-full mx-auto", {
   variants: {

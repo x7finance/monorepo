@@ -11,7 +11,7 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@x7/ui/radix-collapsible"
+} from "@x7/ui/collapsible"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@x7/ui/tabs"
 import { CurrencyInput } from "~/lib/components/utils/currency-input"
 import { ConnectionComponent } from "~/lib/components/utils/web3-connect-button"

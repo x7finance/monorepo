@@ -1,12 +1,13 @@
 import type { IconComponent, IconProps } from "./types"
 import type { VariantProps } from "class-variance-authority"
 
-import { Slot } from "@radix-ui/react-slot"
 import { cva } from "class-variance-authority"
 import * as React from "react"
 
 import { cn } from "@x7/css"
 import { Loader2 } from "@x7/icons"
+
+import { Slot } from "./lib/slot"
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium cursor-pointer transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background focus-visible:ring-emerald-600",
@@ -108,6 +109,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp = asChild ? Slot : "button"
     return (
       <Comp
+        data-slot="button"
         disabled={loading ? true : disabled}
         className={cn(
           buttonVariants({
