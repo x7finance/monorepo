@@ -2,7 +2,7 @@ import { Pool } from "@x7/sdk";
 import { Protocol } from "@x7/utils";
 import type { Token } from "@x7/utils";
 
-import type { MixedRoute, V2Route, V3Route } from "../../../../routers";
+import type { MixedRoute, V2Route, V3Route } from "../../../../routers/route-types";
 
 interface CachedRouteParams<Route extends V3Route | V2Route | MixedRoute> {
   route: Route;

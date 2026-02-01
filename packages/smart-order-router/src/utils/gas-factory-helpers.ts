@@ -18,28 +18,31 @@ import {
 } from "@x7/utils";
 import type { Currency } from "@x7/utils";
 
-import { log, WRAPPED_NATIVE_CURRENCY } from ".";
-import type { IV2PoolProvider } from "../providers";
+import { log } from "./log";
+import { WRAPPED_NATIVE_CURRENCY } from "./chains";
+import type { IV2PoolProvider } from "../providers/v2/pool-provider";
 import type { IPortionProvider } from "../providers/portion-provider";
 import type { ProviderConfig } from "../providers/provider";
 import type { ArbitrumGasData } from "../providers/v3/gas-data-provider";
 import type { IV3PoolProvider } from "../providers/v3/pool-provider";
 import type {
-  GasModelProviderConfig,
   MethodParameters,
-  RouteWithValidQuote,
   SwapOptions,
   SwapOptionsUniversalRouter,
   SwapRoute,
-} from "../routers";
+} from "../routers/router";
+import { SwapType } from "../routers/router";
 import {
-  getQuoteThroughNativePool,
   MixedRouteWithValidQuote,
-  SwapType,
-  usdGasTokensByChain,
   V2RouteWithValidQuote,
   V3RouteWithValidQuote,
-} from "../routers";
+} from "../routers/alpha-router/entities/route-with-valid-quote";
+import type { RouteWithValidQuote } from "../routers/alpha-router/entities/route-with-valid-quote";
+import {
+  getQuoteThroughNativePool,
+  usdGasTokensByChain,
+} from "../routers/alpha-router/gas-models/gas-model";
+import type { GasModelProviderConfig } from "../routers/alpha-router/gas-models/gas-model";
 import { opStackChains } from "./l2-fee-chains";
 import { buildSwapMethodParameters, buildTrade } from "./methodParameters";
 

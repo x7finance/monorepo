@@ -8,10 +8,11 @@ import type { ChainId, Implementation } from "@x7/utils";
 
 import { erc20ABI } from "../abis/erc20";
 import { permit2ABI } from "../abis/Permit2";
-import type { SwapOptions, SwapRoute } from "../routers";
-import { SwapType } from "../routers";
-import type { CurrencyAmount, ViemProviderType } from "../utils";
-import { log } from "../utils";
+import type { SwapOptions, SwapRoute } from "../routers/router";
+import { SwapType } from "../routers/router";
+import type { CurrencyAmount } from "../utils/amounts";
+import type { ViemProviderType } from "../utils/viemHelpers";
+import { log } from "../utils/log";
 import type { IPortionProvider } from "./portion-provider";
 import type { ProviderConfig } from "./provider";
 import type { ArbitrumGasData, OptimismGasData } from "./v3/gas-data-provider";
@@ -26,13 +27,9 @@ export interface SimulationResult {
   simulation: { state_overrides: Record<string, unknown> };
 }
 
-export enum SimulationStatus {
-  NotSupported = 0,
-  Failed = 1,
-  Succeeded = 2,
-  InsufficientBalance = 3,
-  NotApproved = 4,
-}
+// Import and re-export from simulation-types for backwards compatibility
+import { SimulationStatus } from "./simulation-types";
+export { SimulationStatus };
 
 /**
  * Provider for dry running transactions.
