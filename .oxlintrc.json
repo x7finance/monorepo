@@ -4,7 +4,7 @@
     "correctness": "warn",
     "suspicious": "warn",
     "pedantic": "off",
-    "perf": "off",
+    "perf": "warn",
     "style": "off",
     "restriction": "off",
     "nursery": "off"
@@ -16,12 +16,12 @@
     "es2024": true
   },
   "rules": {
-    "no-unused-vars": "off",
+    "no-unused-vars": "warn",
     "no-console": "off",
     "no-debugger": "error",
-    "eqeqeq": "off",
-    "typescript/no-explicit-any": "off",
-    "typescript/no-non-null-assertion": "off",
+    "eqeqeq": "warn",
+    "typescript/no-explicit-any": "warn",
+    "typescript/no-non-null-assertion": "warn",
     "react/jsx-no-duplicate-props": "error",
     "react/jsx-key": "warn",
     "react/no-children-prop": "error",
