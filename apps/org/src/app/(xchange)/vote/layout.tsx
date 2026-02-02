@@ -23,7 +23,6 @@ export default function TabsLayout({
         <div className="mb-4 flex flex-wrap items-center gap-2">
           <LinkInternal
             prefetch={true}
-            shallow={true}
             scroll={false}
             href="#"
             // href={`/vote?${searchParams.toString()}`}
@@ -40,7 +39,6 @@ export default function TabsLayout({
             </PathnameButton>
           </LinkInternal>
           <LinkInternal
-            shallow={true}
             scroll={false}
             href="#"
             // href={`/vote/new?${searchParams.toString()}`}
@@ -58,7 +56,6 @@ export default function TabsLayout({
             </PathnameButton>
           </LinkInternal>
           <LinkInternal
-            shallow={true}
             scroll={false}
             href="#"
             // href={`vote/closed?${searchParams.toString()}`}
@@ -76,7 +73,6 @@ export default function TabsLayout({
             </PathnameButton>
           </LinkInternal>
           <LinkInternal
-            shallow={true}
             scroll={false}
             href="#"
             // href={`/vote/excecuted?${searchParams.toString()}`}

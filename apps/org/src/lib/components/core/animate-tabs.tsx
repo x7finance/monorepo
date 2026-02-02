@@ -145,7 +145,6 @@ export function AnimatedTabs({
         <LinkInternal
           prefetch={true}
           key={item.id}
-          shallow={true}
           scroll={false}
           href={`${baseLink}?tab=${item.id}`}
         >

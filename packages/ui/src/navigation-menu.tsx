@@ -133,21 +133,23 @@ function NavigationMenuContent({
   const { viewport } = React.useContext(NavigationMenuContext)
 
   return (
-    <BaseMenu.Positioner>
-      <BaseMenu.Popup
-        data-slot="navigation-menu-content"
-        className={cn(
-          "top-0 left-0 w-full p-2 pr-2.5 md:absolute md:w-auto",
-          "data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
-          "transition-opacity duration-200",
-          !viewport &&
-            "bg-popover text-popover-foreground mt-1.5 overflow-hidden rounded-md border shadow",
-          "**:data-[slot=navigation-menu-link]:focus:ring-0 **:data-[slot=navigation-menu-link]:focus:outline-none",
-          className
-        )}
-        {...props}
-      />
-    </BaseMenu.Positioner>
+    <BaseMenu.Portal>
+      <BaseMenu.Positioner>
+        <BaseMenu.Popup
+          data-slot="navigation-menu-content"
+          className={cn(
+            "top-0 left-0 w-full p-2 pr-2.5 md:absolute md:w-auto",
+            "data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
+            "transition-opacity duration-200",
+            !viewport &&
+              "bg-popover text-popover-foreground mt-1.5 overflow-hidden rounded-md border shadow",
+            "**:data-[slot=navigation-menu-link]:focus:ring-0 **:data-[slot=navigation-menu-link]:focus:outline-none",
+            className
+          )}
+          {...props}
+        />
+      </BaseMenu.Positioner>
+    </BaseMenu.Portal>
   )
 }
 

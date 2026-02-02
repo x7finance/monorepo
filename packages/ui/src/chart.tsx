@@ -13,6 +13,16 @@ import { cn } from "@x7/css"
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const
 
+// CSS color validation regex - allows hex, rgb/rgba, hsl/hsla, and named colors
+const CSS_COLOR_REGEX = /^(?:#[0-9A-Fa-f]{3,8}|(?:rgb|hsl)a?\([^)]+\)|[a-z]+)$/i
+
+function sanitizeColor(color: string | undefined): string | null {
+  if (!color) return null
+  // Remove any potentially dangerous characters
+  const sanitized = color.replace(/[<>"'`;{}]/g, "")
+  return CSS_COLOR_REGEX.test(sanitized) ? sanitized : null
+}
+
 export type ChartConfig = Record<
   string,
   {
@@ -82,20 +92,27 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
     return null
   }
 
+  // Sanitize the chart ID to prevent CSS injection
+  const safeId = id.replace(/[^a-zA-Z0-9-_]/g, "")
+
   return (
     <style
       dangerouslySetInnerHTML={{
         __html: Object.entries(THEMES)
           .map(
             ([theme, prefix]) => `
-${prefix} [data-chart=${id}] {
+${prefix} [data-chart=${safeId}] {
 ${colorConfig
   .map(([key, itemConfig]) => {
-    const color =
+    const rawColor =
       itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
       itemConfig.color
-    return color ? `  --color-${key}: ${color};` : null
+    const color = sanitizeColor(rawColor)
+    // Also sanitize the key to prevent CSS injection
+    const safeKey = key.replace(/[^a-zA-Z0-9-_]/g, "")
+    return color ? `  --color-${safeKey}: ${color};` : null
   })
+  .filter(Boolean)
   .join("\n")}
 }
 `
@@ -194,7 +211,8 @@ const ChartTooltipContent = React.forwardRef<
           {payload.map((item, index) => {
             const key = `${nameKey || item.name || item.dataKey || "value"}`
             const itemConfig = getPayloadConfigFromPayload(config, item, key)
-            const indicatorColor = color || item.payload.fill || item.color
+            const rawIndicatorColor = color || item.payload.fill || item.color
+            const indicatorColor = sanitizeColor(rawIndicatorColor) ?? undefined
 
             return (
               <div
@@ -308,7 +326,7 @@ const ChartLegendContent = React.forwardRef<
                 <div
                   className="h-2 w-2 shrink-0 rounded-[2px]"
                   style={{
-                    backgroundColor: item.color,
+                    backgroundColor: sanitizeColor(item.color) ?? undefined,
                   }}
                 />
               )}

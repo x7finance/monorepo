@@ -29,12 +29,13 @@ export const useTokenAllowance = ({
     abi: erc20Abi,
     functionName: "allowance",
     args: [owner!, spender!],
-    // enabled: Boolean(token && owner && spender && enabled && chainId),
-    // @ts-expect-error: todo move to new react-query
-    select: (data: number) => {
-      if (token) {
-        return CurrencyAmount.fromRawAmount(token, data)
-      }
+    query: {
+      enabled: Boolean(token && owner && spender && chainId),
+      select: (data: bigint) => {
+        if (token) {
+          return CurrencyAmount.fromRawAmount(token, data)
+        }
+      },
     },
   })
 }

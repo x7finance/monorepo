@@ -7,17 +7,20 @@
 ## TypeScript Rules
 
 **Types:**
+
 - `interface` for objects, `type` for unions/intersections
 - No `any` types (use `unknown` with type guards)
 - Explicit return types on exported functions
 
 **Nullish Coalescing:**
+
 ```typescript
 const count = userCount ?? 10  // ✅ Preserves 0, false, ""
 const count = userCount || 10  // ❌ 0 becomes 10
 ```
 
 **Optional Chaining:**
+
 ```typescript
 const id = data?.user?.id  // ✅ Safe
 const id = data?.user.id   // ❌ Errors if user undefined
@@ -26,6 +29,7 @@ const id = data?.user.id   // ❌ Errors if user undefined
 ## Monorepo Package Standards
 
 **Package Structure:**
+
 ```json
 {
   "name": "@x7/package-name",
@@ -46,6 +50,7 @@ const id = data?.user.id   // ❌ Errors if user undefined
 ```
 
 **Required in every package:**
+
 - `build` script using `tsgo`
 - `exports` pointing to `dist/`
 - `files`: `["dist", "src"]`

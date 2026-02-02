@@ -157,7 +157,7 @@ export const useTokenApproval = ({
     }
 
     if (allowance !== undefined && amount?.numerator !== undefined) {
-      return allowance >= amount.numerator
+      return allowance.numerator >= amount.numerator
         ? ApprovalState.APPROVED
         : ApprovalState.NOT_APPROVED
     }

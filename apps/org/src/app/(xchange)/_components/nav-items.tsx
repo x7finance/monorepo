@@ -14,6 +14,7 @@ import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
+  NavigationMenuItemWithMenu,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
@@ -57,23 +58,20 @@ export function NavItems() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <LinkInternal
-            prefetch={true}
-            href={XchangeLinks.Swap}
-            legacyBehavior
-            passHref
-          >
-            <NavigationMenuLink
+          <NavigationMenuLink asChild>
+            <LinkInternal
+              prefetch={true}
+              href={XchangeLinks.Swap}
               className={cn(
                 navigationMenuTriggerStyle(),
                 isActive(XchangeLinks.Swap) && "text-foreground"
               )}
             >
               Swap
-            </NavigationMenuLink>
-          </LinkInternal>
+            </LinkInternal>
+          </NavigationMenuLink>
         </NavigationMenuItem>
-        <NavigationMenuItem>
+        <NavigationMenuItemWithMenu>
           <NavigationMenuTrigger
             className={cn(
               isActive(XchangeLinks.Liquidity) && "text-foreground"
@@ -129,8 +127,8 @@ export function NavItems() {
               </ListItem>
             </ul>
           </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
+        </NavigationMenuItemWithMenu>
+        <NavigationMenuItemWithMenu>
           <NavigationMenuTrigger
             className={cn(isActive(XchangeLinks.Lending) && "text-foreground")}
           >
@@ -185,8 +183,8 @@ export function NavItems() {
               </ListItem>
             </ul>
           </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
+        </NavigationMenuItemWithMenu>
+        <NavigationMenuItemWithMenu>
           <NavigationMenuTrigger>About</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
@@ -210,7 +208,7 @@ export function NavItems() {
               </ListItem>
             </ul>
           </NavigationMenuContent>
-        </NavigationMenuItem>
+        </NavigationMenuItemWithMenu>
       </NavigationMenuList>
     </NavigationMenu>
   )

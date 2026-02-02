@@ -1,9 +1,0 @@
----
-description: Best practices for using Shadcn UI components
-globs: **/*.{ts,tsx}
----
-- Follow Shadcn UI's component guidelines for consistent styling and behavior.
-- Customize components using the provided utility classes rather than modifying the source.
-- Ensure accessibility by using Shadcn UI's built-in accessibility features.
-- Keep your UI components organized and reusable across your application.
-- Utilize Shadcn UI's dark mode support for a seamless user experience.

@@ -16,7 +16,7 @@ Hello, Smart Contract Engineers! Are you ready to take your project to the next 
 
 ### Step 1: Navigate to the Initial Liquidity Loans (ILL) deploy page
 
-Click the link here to [Initiate a Liquidity Loan](http://x7finance.org/lending?tab=initiate-loan)
+Click the link here to [Initiate a Liquidity Loan](https://www.x7finance.org/lending?tab=initiate-loan)
 
 ### Step 2: Connect your wallet and select the relevant chain
 

@@ -2,21 +2,19 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 "use client"
 
-import { darkTheme, RainbowKitProvider } from "@rainbow-me/rainbowkit"
 import {
-  QueryClientProvider as _QueryClientProvider,
   MutationCache,
   QueryCache,
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query"
-import { memo, Suspense, useEffect, useMemo, useState } from "react"
+import dynamic from "next/dynamic"
+import { memo, Suspense, useMemo } from "react"
 
 import { Toaster } from "@x7/ui/sonner"
 import { SplashController } from "@x7/ui/splash"
 import { TooltipProvider } from "@x7/ui/tooltip"
 import { TransactionStoreProvider } from "~/lib/providers/tx"
-import { Web3Provider } from "~/lib/providers/web3"
 import {
   createMutationCacheConfig,
   createQueryCacheConfig,
@@ -25,23 +23,21 @@ import {
 
 import { AlphaRouterProvider } from "./router"
 
+const Web3Provider = dynamic(
+  () => import("~/lib/providers/web3").then((mod) => mod.Web3Provider),
+  { ssr: false }
+)
+
 interface ProvidersProps {
   children: React.ReactNode
   // oxlint-disable-next-line @typescript-eslint/no-explicit-any
   initialState?: any
 }
 
-const appInfo = {
-  appName: "Xchange",
-}
-
 const MemoizedTooltipProvider = memo(TooltipProvider)
 const MemoizedSplashController = memo(SplashController)
 
 export function AppProviders(props: ProvidersProps) {
-  const [mounted, setMounted] = useState(false)
-  useEffect(() => setMounted(true), [])
-
   const queryClient = useMemo(
     () =>
       new QueryClient({
@@ -52,21 +48,9 @@ export function AppProviders(props: ProvidersProps) {
     []
   )
 
-  // Memoize the initial state to prevent unnecessary re-renders
   const initialStateMemo = useMemo(
     () => props.initialState,
     [props.initialState]
-  )
-
-  const theme = useMemo(
-    () =>
-      darkTheme({
-        ...darkTheme.accentColors.purple,
-        accentColor: "#17803d",
-        borderRadius: "medium",
-        fontStack: "system",
-      }),
-    []
   )
 
   const toastOptions = useMemo(
@@ -79,33 +63,27 @@ export function AppProviders(props: ProvidersProps) {
   )
 
   return (
-    <Suspense>
-      <Web3Provider initialState={initialStateMemo}>
-        <div className="xl:max-w-none">
-          <div className="relative z-0">
-            <QueryClientProvider client={queryClient}>
-              <RainbowKitProvider
-                theme={theme}
-                modalSize="compact"
-                appInfo={appInfo}
-              >
-                <TransactionStoreProvider>
-                  <AlphaRouterProvider>
-                    <MemoizedTooltipProvider>
-                      <MemoizedSplashController>
-                        {mounted && props.children}
-                        <div id="dialog-root" />
-                      </MemoizedSplashController>
-                    </MemoizedTooltipProvider>
-                  </AlphaRouterProvider>
-                </TransactionStoreProvider>
-              </RainbowKitProvider>
-            </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      <Suspense>
+        <Web3Provider initialState={initialStateMemo}>
+          <div className="xl:max-w-none">
+            <div className="relative z-0">
+              <TransactionStoreProvider>
+                <AlphaRouterProvider>
+                  <MemoizedTooltipProvider>
+                    <MemoizedSplashController>
+                      {props.children}
+                      <div id="dialog-root" />
+                    </MemoizedSplashController>
+                  </MemoizedTooltipProvider>
+                </AlphaRouterProvider>
+              </TransactionStoreProvider>
+            </div>
           </div>
-        </div>
 
-        <Toaster richColors closeButton toastOptions={toastOptions} />
-      </Web3Provider>
-    </Suspense>
+          <Toaster richColors closeButton toastOptions={toastOptions} />
+        </Web3Provider>
+      </Suspense>
+    </QueryClientProvider>
   )
 }

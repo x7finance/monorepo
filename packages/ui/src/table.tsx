@@ -112,7 +112,6 @@ const TableCellAsLink = React.forwardRef<HTMLTableCellElement, TableCellAsLink>(
       <Link
         prefetch={true}
         scroll={false}
-        shallow={true}
         href={href}
         target={external ? "_blank" : "_self"}
         className={cn(

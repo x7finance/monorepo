@@ -2,7 +2,7 @@
 # See https://ai.intellectronica.net/ruler for documentation.
 
 # Default agents active when --agents is not used
-default_agents = ["claude", "cursor", "cline", "copilot"]
+default_agents = ["claude", "cursor", "cline", "copilot", "codex"]
 
 # --- Agent Specific Configurations ---
 [agents.copilot]
@@ -27,3 +27,8 @@ output_path = ".clinerules"
 
 [agents.gemini-cli]
 enabled = true
+
+# --- MCP Server Configuration ---
+# [mcp]
+# enabled = true
+# merge_strategy = "merge"

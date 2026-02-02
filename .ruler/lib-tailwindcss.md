@@ -27,6 +27,7 @@ const className = cn(
 ## Component Patterns
 
 **Base + Variants with cva:**
+
 ```typescript
 import { cva, type VariantProps } from "class-variance-authority"
 
@@ -50,6 +51,7 @@ const buttonVariants = cva(
 ## Design Tokens
 
 Use CSS variables defined in `@x7/css`:
+
 - `--color-primary`
 - `--color-secondary`
 - `--radius-lg`

@@ -7,7 +7,11 @@
 import type { ChainId } from "@x7/utils"
 import type { Config } from "wagmi"
 
-import { connectorsForWallets } from "@rainbow-me/rainbowkit"
+import {
+  connectorsForWallets,
+  darkTheme,
+  RainbowKitProvider,
+} from "@rainbow-me/rainbowkit"
 import {
   argentWallet,
   coinbaseWallet,
@@ -33,7 +37,7 @@ import {
   polygonAmoy,
   sepolia,
 } from "@wagmi/core/chains"
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useContext, useEffect, useMemo, useState } from "react"
 import { fallback, http } from "viem"
 import { createConfig, WagmiProvider } from "wagmi"
 
@@ -42,13 +46,12 @@ import { env } from "~/env.mjs"
 import { web3Config } from "~/lib/config/web3"
 
 interface Web3ContextType {
-  wagmiConfig: Config
+  wagmiConfig: Config | null
   transports: Transports
   updateTransports: (newTransports: Transports) => void
 }
 
 const Web3Context = createContext<Web3ContextType>({
-  // @ts-expect-error: todo fix
   wagmiConfig: null,
   transports: {},
   updateTransports: () => {},
@@ -56,6 +59,10 @@ const Web3Context = createContext<Web3ContextType>({
 
 export const useWeb3Config = () => {
   const { wagmiConfig, updateTransports, transports } = useContext(Web3Context)
+
+  if (!wagmiConfig) {
+    throw new Error("useWeb3Config must be used within a Web3Provider")
+  }
 
   return {
     wagmiConfig,
@@ -71,42 +78,7 @@ interface Web3ProvidersProps {
 }
 
 const projectId = env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID
-
 const appName = "Xchange"
-
-const connectors = connectorsForWallets(
-  [
-    {
-      groupName: "Recommended",
-      wallets: [
-        metaMaskWallet,
-        rabbyWallet,
-        coinbaseWallet,
-        walletConnectWallet,
-      ],
-    },
-    {
-      groupName: "Other",
-      wallets: [
-        trustWallet,
-        argentWallet,
-        ledgerWallet,
-        injectedWallet,
-        rainbowWallet,
-      ],
-    },
-  ],
-  {
-    projectId,
-    appName,
-  }
-)
-
-const config = createConfig({
-  connectors: [...connectors],
-  multiInjectedProviderDiscovery: false,
-  ...web3Config,
-})
 
 type Transports = Partial<Record<ChainId, string[]>>
 
@@ -151,40 +123,96 @@ const DEFAULT_TRANSPORTS = {
   ...(process.env.NODE_ENV === "development" ? TESTNET_TRANSPORTS : {}),
 }
 
+const appInfo = {
+  appName: "Xchange",
+}
+
+// Lazy-initialize connectors to avoid SSR issues with WalletConnect's indexedDB usage
+let connectors: ReturnType<typeof connectorsForWallets> | null = null
+
+function getConnectors() {
+  if (connectors) return connectors
+  connectors = connectorsForWallets(
+    [
+      {
+        groupName: "Recommended",
+        wallets: [
+          metaMaskWallet,
+          rabbyWallet,
+          coinbaseWallet,
+          walletConnectWallet,
+        ],
+      },
+      {
+        groupName: "Other",
+        wallets: [
+          trustWallet,
+          argentWallet,
+          ledgerWallet,
+          injectedWallet,
+          rainbowWallet,
+        ],
+      },
+    ],
+    {
+      projectId,
+      appName,
+    }
+  )
+  return connectors
+}
+
 export function Web3Provider(props: Web3ProvidersProps) {
   const { children, initialState } = props
   const [transports, setTransports] = useLocalStorage<Transports>(
     "custom.xchange.transports",
-
     DEFAULT_TRANSPORTS
   )
 
   const [wagmiConfig, setWagmiConfig] = useState<Config | null>(null)
 
   useEffect(() => {
+    const currentConnectors = getConnectors()
+
     if (Object.keys(transports).length > 0) {
       setWagmiConfig(
         // @ts-expect-error: todo fix
         createConfig({
-          connectors: [...connectors],
+          connectors: [...currentConnectors],
           multiInjectedProviderDiscovery: false,
           ...web3Config,
           transports: Object.fromEntries(
             Object.entries(transports).map(([chainId, urls]) => {
-              // oxlint-disable-next-line @typescript-eslint/no-unnecessary-condition
-              return [chainId, fallback((urls || []).map((url) => http(url)))]
+              return [chainId, fallback((urls ?? []).map((url) => http(url)))]
             })
           ),
         })
       )
     } else {
-      setWagmiConfig(config)
+      setWagmiConfig(
+        createConfig({
+          connectors: [...currentConnectors],
+          multiInjectedProviderDiscovery: false,
+          ...web3Config,
+        })
+      )
     }
   }, [transports])
 
   const updateTransports = (newTransports: Transports) => {
     setTransports(newTransports)
   }
+
+  const theme = useMemo(
+    () =>
+      darkTheme({
+        ...darkTheme.accentColors.purple,
+        accentColor: "#17803d",
+        borderRadius: "medium",
+        fontStack: "system",
+      }),
+    []
+  )
 
   if (!wagmiConfig) {
     return null
@@ -199,7 +227,9 @@ export function Web3Provider(props: Web3ProvidersProps) {
       }}
     >
       <WagmiProvider initialState={initialState} config={wagmiConfig}>
-        {children}
+        <RainbowKitProvider theme={theme} modalSize="compact" appInfo={appInfo}>
+          {children}
+        </RainbowKitProvider>
       </WagmiProvider>
     </Web3Context.Provider>
   )

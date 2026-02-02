@@ -1,12 +1,10 @@
 import type { NextRequest } from "next/server"
-/* oxlint-disable @typescript-eslint/ban-ts-comment */
-/* oxlint-disable @typescript-eslint/no-unused-vars */
 /* oxlint-disable @next/next/no-img-element */
-// @ts-nocheck
 import { readFile } from "node:fs/promises"
 import { join } from "node:path"
 
 import { ImageResponse } from "next/og"
+import { z } from "zod"
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ")
@@ -29,7 +27,22 @@ const sectionThemes: Record<string, string> = {
 
 const MANTRA = "Trust No One. Trust Code. Long Live DeFi."
 
-export async function GET(req: NextRequest): Promise<ImageResponse> {
+const validTypes = ["default", "docs", "dashboard"] as const
+const validModes = ["dark", "light"] as const
+
+const ogiParamsSchema = z.object({
+  heading: z
+    .string()
+    .max(500)
+    .optional()
+    .transform((val) =>
+      val && val.length > 140 ? `${val.substring(0, 140)}...` : val
+    ),
+  mode: z.enum(validModes).optional().default("dark"),
+  type: z.enum(validTypes).optional().default("default"),
+})
+
+export async function GET(req: NextRequest): Promise<Response> {
   try {
     // Load font from filesystem (Node.js compatible)
     const fontPath = join(
@@ -43,18 +56,26 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
       throw new Error("req.url must be a string")
     }
     const url = new URL(req.url)
-    const values = Object.fromEntries(url.searchParams) as {
-      heading?: string
-      mode?: string
-      type: string
+    const rawParams = Object.fromEntries(url.searchParams)
+
+    const parseResult = ogiParamsSchema.safeParse(rawParams)
+
+    if (!parseResult.success) {
+      return new Response(
+        JSON.stringify({
+          error: "Invalid parameters",
+          details: parseResult.error.flatten(),
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      )
     }
 
-    const heading =
-      values.heading && values.heading.length > 140
-        ? `${values.heading.substring(0, 140)}...`
-        : (values.heading ?? MANTRA)
+    const { heading: parsedHeading, mode, type } = parseResult.data
+    const heading = parsedHeading ?? MANTRA
 
-    const mode: string = values.mode ?? "dark"
     const paint = mode === "dark" ? "#fff" : "#000"
 
     const isMain = heading === MANTRA
@@ -109,7 +130,7 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
               style={{
                 width: "150px",
                 height: "10px",
-                background: sectionThemes[values.type] ?? sectionThemes.default,
+                background: sectionThemes[type],
               }}
             />
           )}
@@ -224,7 +245,7 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
         ],
       }
     )
-  } catch (error) {
+  } catch (_error) {
     return new Response(`Failed to generate image`, {
       status: 500,
     })

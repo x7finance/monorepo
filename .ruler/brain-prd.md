@@ -6,7 +6,7 @@ PRDs live in `prds/` at repository root.
 
 ## Naming
 
-```
+```text
 prds/
 ├── 2026-01-15-feature-name.md
 ├── 2026-01-20-another-feature.md

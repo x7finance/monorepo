@@ -18,17 +18,17 @@ X7 Finance is an ecosystem of innovative smart contracts that democratizes acces
 - [Documentation](#documentation)
 - [Community](#community)
 
-## 🤝 Code of Conduct
+## Code of Conduct
 
 Our community strives to be open, inclusive, and respectful. We expect all contributors to adhere to these principles and treat each other with respect. Harassment, discrimination, or disrespectful behavior of any kind will not be tolerated.
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Repository Structure
 
 The X7 Finance codebase is organized as a monorepo using Turborepo:
 
-```
+```text
 x7finance/
 ├── apps/                  # Applications
 │   ├── org/               # Main X7 Finance website
@@ -94,7 +94,7 @@ x7finance/
    pnpm dev
    ```
 
-## 🔄 Development Workflow
+## Development Workflow
 
 ### Branch Strategy
 
@@ -130,11 +130,11 @@ We follow the [Conventional Commits](https://www.conventionalcommits.org/) speci
 
 Example:
 
-```
+```bash
 feat(ui): add new button component
 ```
 
-## 📝 Contribution Guidelines
+## Contribution Guidelines
 
 ### Types of Contributions
 
@@ -168,7 +168,7 @@ Before submitting a new issue, please:
 3. Include detailed steps to reproduce the issue
 4. Specify your environment (browser, OS, Node version, etc.)
 
-## 🔄 Pull Request Process
+## Pull Request Process
 
 1. **Create a focused PR**
 
@@ -198,7 +198,7 @@ Before submitting a new issue, please:
    - Once approved, a maintainer will merge your PR
    - In some cases, we may ask you to rebase if there are conflicts
 
-## 🛠️ Development Standards
+## Development Standards
 
 ### Coding Standards
 
@@ -232,7 +232,7 @@ pnpm turbo typecheck
 - Add comments for complex logic
 - Follow the established patterns in the codebase
 
-## 🧪 Testing
+## Testing
 
 We value well-tested code. When adding new features or fixing bugs, please include appropriate tests.
 
@@ -248,7 +248,7 @@ For end-to-end tests:
 pnpm e2e
 ```
 
-## 📚 Documentation
+## Documentation
 
 Good documentation is crucial for the usability of our project. When adding or modifying features, please:
 
@@ -256,7 +256,7 @@ Good documentation is crucial for the usability of our project. When adding or m
 2. Include JSDoc comments for APIs and functions
 3. Provide usage examples for new components or utilities
 
-## 👥 Community
+## Community
 
 Join our community channels to get help and discuss the project:
 

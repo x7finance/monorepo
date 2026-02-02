@@ -1,15 +1,56 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import type { NextConfig } from "next"
+
+const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // Security headers (migrated from middleware.ts)
+  headers: async () => [
+    {
+      source: "/((?!_next/static|_next/image|favicon.ico).*)",
+      headers: [
+        {
+          key: "Strict-Transport-Security",
+          value: "max-age=63072000; includeSubDomains; preload",
+        },
+        {
+          key: "X-Frame-Options",
+          value: "SAMEORIGIN",
+        },
+        {
+          key: "X-Content-Type-Options",
+          value: "nosniff",
+        },
+        {
+          key: "Referrer-Policy",
+          value: "strict-origin-when-cross-origin",
+        },
+        {
+          key: "Permissions-Policy",
+          value: "camera=(), microphone=(), geolocation=()",
+        },
+        {
+          key: "Content-Security-Policy",
+          value: [
+            "default-src 'self'",
+            "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+            "style-src 'self' 'unsafe-inline'",
+            "img-src 'self' data: https:",
+            "connect-src 'self' https://*.alchemyapi.io https://*.infura.io wss://*.walletconnect.com https://*.walletconnect.com https://*.walletconnect.org wss://*.walletconnect.org",
+            "frame-ancestors 'none'",
+            "font-src 'self' data:",
+          ].join("; "),
+        },
+      ],
+    },
+  ],
   // Turbopack config (Next.js 16 default bundler)
   turbopack: {},
   // Legacy webpack config for fallback
   webpack: (config) => {
-    config.resolve.fallback = { fs: false, net: false, tls: false };
-    config.externals.push("pino-pretty", "encoding");
-    return config;
+    config.resolve.fallback = { fs: false, net: false, tls: false }
+    config.externals.push("pino-pretty", "encoding")
+    return config
   },
-  /** Enables hot reloading for local packages without a build step */
+  // Enables hot reloading for local packages without a build step
   transpilePackages: [
     "@x7/dexie",
     "@x7/icons",
@@ -136,6 +177,6 @@ const nextConfig = {
   },
   serverExternalPackages: ["pino", "pino-pretty"],
   productionBrowserSourceMaps: false,
-};
+}
 
-export default nextConfig;
+export default nextConfig

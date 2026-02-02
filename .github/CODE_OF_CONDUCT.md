@@ -1,7 +1,5 @@
 # X7 Finance Community Guidelines
 
-The following community guidelines are based on [Ruby org code of conduct](https://www.ruby-lang.org/en/conduct/).
-
 This document provides community guidelines for a respectful, productive, and collaborative place for any person who is willing to contribute to the X7 Finance project. It applies to all “collaborative space”, which is defined as community communications channels (such as telegram chats, submitted patches, commit comments, etc.).
 
 - Participants will be tolerant of opposing views.

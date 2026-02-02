@@ -52,6 +52,12 @@ interface PoolFilter {
   has: (arg: string) => boolean
 }
 
+interface PopulatedTick {
+  tick: number
+  liquidityNet: bigint
+  liquidityGross: bigint
+}
+
 export abstract class UniswapV3BaseProvider extends LiquidityProvider {
   poolsByTrade = new Map<string, string[]>()
   pools = new Map<string, PoolCode>()
@@ -243,19 +249,15 @@ export abstract class UniswapV3BaseProvider extends LiquidityProvider {
     )
 
     const wordList = existingPools.flatMap((pool, i) => {
-      const minIndex = minIndexes[i]
-      const maxIndex = maxIndexes[i]
+      const minIndex = minIndexes[i]!
+      const maxIndex = maxIndexes[i]!
 
-      return Array.from(
-        // @ts-expect-error: todo fix
+      return Array.from<unknown, number>(
         { length: maxIndex - minIndex + 1 },
-        // @ts-expect-error: todo fix
-        (_, i) => minIndex + i
-      ).flatMap((j) => ({
+        (_, j) => minIndex + j
+      ).map((j) => ({
         chainId: this.chainId,
-        address: this.tickLens[
-          this.chainId as keyof typeof this.tickLens
-        ] as Address,
+        address: this.tickLens[this.chainId]! as Address,
         args: [pool.address, j] as const,
         abi: tickLensAbi,
         functionName: "getPopulatedTicksInWord" as const,
@@ -277,29 +279,26 @@ export abstract class UniswapV3BaseProvider extends LiquidityProvider {
         ticksContracts,
       ])
 
-    const ticks: NonNullable<(typeof tickResults)[number]["result"]>[] = []
+    const ticks: PopulatedTick[][] = []
     tickResults.forEach((t, i) => {
-      // @ts-expect-error: todo fix
-      const index = wordList[i].index
-      ticks[index] = (ticks[index] ?? []).concat(t.result ?? [])
+      const index = wordList[i]!.index
+      const result = [...(t.result ?? [])] as PopulatedTick[]
+      ticks[index] = (ticks[index] ?? []).concat(result)
     })
 
     const transformedV3Pools: PoolCode[] = []
     existingPools.forEach((pool, i) => {
-      if (
-        !liquidityResults[i] ||
-        // @ts-expect-error: todo fix
-        !token0Balances[i].result ||
-        // @ts-expect-error: todo fix
-        !token1Balances[i].result
-      )
+      const token0Balance = token0Balances[i]
+      const token1Balance = token1Balances[i]
+      const liquidityResult = liquidityResults[i]
+
+      if (!liquidityResult || !token0Balance?.result || !token1Balance?.result)
         return
 
-      const balance0 = token0Balances[i]?.result
+      const balance0 = token0Balance.result
+      const balance1 = token1Balance.result
+      const liquidity = liquidityResult.result
 
-      const balance1 = token1Balances[i]?.result
-
-      const liquidity = liquidityResults[i]?.result
       if (
         balance0 === undefined ||
         balance1 === undefined ||
@@ -307,8 +306,10 @@ export abstract class UniswapV3BaseProvider extends LiquidityProvider {
       )
         return
 
-      // @ts-expect-error: todo fix
-      const poolTicks = ticks[i]
+      const poolTicksRaw = ticks[i]
+      if (!poolTicksRaw) return
+
+      const poolTicks = poolTicksRaw
         .map((tick) => ({
           index: tick.tick,
           DLiquidity: tick.liquidityNet,
@@ -316,11 +317,9 @@ export abstract class UniswapV3BaseProvider extends LiquidityProvider {
         .sort((a, b) => a.index - b.index)
 
       const lowerUnknownTick =
-        // @ts-expect-error: todo fix
-        minIndexes[i] * TICK_SPACINGS[pool.fee] * 256 - TICK_SPACINGS[pool.fee]
+        minIndexes[i]! * TICK_SPACINGS[pool.fee] * 256 - TICK_SPACINGS[pool.fee]
       console.assert(
-        // @ts-expect-error: todo fix
-        poolTicks.length === 0 || lowerUnknownTick < poolTicks[0].index,
+        poolTicks.length === 0 || lowerUnknownTick < poolTicks[0]!.index,
         "Error 236: unexpected min tick index"
       )
       poolTicks.unshift({
@@ -328,11 +327,9 @@ export abstract class UniswapV3BaseProvider extends LiquidityProvider {
         DLiquidity: 0n,
       })
       const upperUnknownTick =
-        // @ts-expect-error: todo fix
-        (maxIndexes[i] + 1) * TICK_SPACINGS[pool.fee] * 256
+        (maxIndexes[i]! + 1) * TICK_SPACINGS[pool.fee] * 256
       console.assert(
-        // @ts-expect-error: todo fix
-        poolTicks[poolTicks.length - 1].index < upperUnknownTick,
+        poolTicks[poolTicks.length - 1]!.index < upperUnknownTick,
         "Error 244: unexpected max tick index"
       )
       poolTicks.push({
@@ -407,13 +404,11 @@ export abstract class UniswapV3BaseProvider extends LiquidityProvider {
     )
     return filtered.map(([currencyA, currencyB, fee]) => ({
       address: computePoolAddress({
-        // @ts-expect-error: TODO FIX
-        factoryAddress: this.factory[this.chainId as keyof typeof this.factory],
+        factoryAddress: this.factory[this.chainId]!,
         tokenA: currencyA.wrapped,
         tokenB: currencyB.wrapped,
         fee,
-        initCodeHashManualOverride:
-          this.initCodeHash[this.chainId as keyof typeof this.initCodeHash],
+        initCodeHashManualOverride: this.initCodeHash[this.chainId]!,
       }),
       token0: currencyA,
       token1: currencyB,
