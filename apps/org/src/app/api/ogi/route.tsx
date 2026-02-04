@@ -245,7 +245,7 @@ export async function GET(req: NextRequest): Promise<Response> {
         ],
       }
     )
-  } catch (_error) {
+  } catch {
     return new Response(`Failed to generate image`, {
       status: 500,
     })

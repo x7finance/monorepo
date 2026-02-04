@@ -67,9 +67,14 @@ export const AlphaRouterProvider: FC<AlphaRouterProviderProps> = ({
   const [_enabledImplementations] = useEnabledImplentations(
     "enabledImplementations"
   )
-  const enabledImplementations = (
-    _enabledImplementations ?? "UNISWAP,XCHANGE"
-  ).split(",") as Implementation[]
+  // Memoize to avoid creating new array reference on every render
+  const enabledImplementations = useMemo(
+    () =>
+      (_enabledImplementations ?? "UNISWAP,XCHANGE").split(
+        ","
+      ) as Implementation[],
+    [_enabledImplementations]
+  )
 
   const addPossibleRoutes = (routes: RouteWithValidQuote[]) => {
     setPossibleRoutes(routes)

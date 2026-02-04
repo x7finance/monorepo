@@ -14,14 +14,17 @@ function Sheet({ ...props }: React.ComponentProps<typeof BaseDialog.Root>) {
 
 function SheetTrigger({
   asChild,
+  nativeButton = true,
   ...props
 }: React.ComponentProps<typeof BaseDialog.Trigger> & {
   asChild?: boolean
+  nativeButton?: boolean
 }) {
   return (
     <BaseDialog.Trigger
       data-slot="sheet-trigger"
       render={asChild ? <Slot /> : undefined}
+      nativeButton={nativeButton}
       {...props}
     />
   )
@@ -29,14 +32,17 @@ function SheetTrigger({
 
 function SheetClose({
   asChild,
+  nativeButton = true,
   ...props
 }: React.ComponentProps<typeof BaseDialog.Close> & {
   asChild?: boolean
+  nativeButton?: boolean
 }) {
   return (
     <BaseDialog.Close
       data-slot="sheet-close"
       render={asChild ? <Slot /> : undefined}
+      nativeButton={nativeButton}
       {...props}
     />
   )

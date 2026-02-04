@@ -14,15 +14,18 @@ function Popover({ ...props }: React.ComponentProps<typeof BasePopover.Root>) {
 function PopoverTrigger({
   className,
   asChild,
+  nativeButton = true,
   ...props
 }: React.ComponentProps<typeof BasePopover.Trigger> & {
   asChild?: boolean
+  nativeButton?: boolean
 }) {
   return (
     <BasePopover.Trigger
       data-slot="popover-trigger"
       className={cn("cursor-pointer", className)}
       render={asChild ? <Slot /> : undefined}
+      nativeButton={nativeButton}
       {...props}
     />
   )

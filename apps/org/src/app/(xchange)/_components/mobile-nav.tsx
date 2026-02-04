@@ -14,7 +14,7 @@ import {
   Warpcast,
   X7Logo,
 } from "@x7/icons"
-import { Collapsible } from "@x7/ui/collapsible"
+import { Collapsible, CollapsibleContent } from "@x7/ui/collapsible"
 import { Drawer, DrawerContent, DrawerTrigger } from "@x7/ui/drawer"
 import { LinkExternal, LinkInternal } from "@x7/ui/link"
 import { SocialsEnum } from "@x7/utils"
@@ -167,21 +167,20 @@ export function MobileNav() {
                 <span className="font-heading">{section.title}</span>
                 <ChevronDownIcon className="h-4 w-4" />
               </button>
-              <Collapsible
-                open={openSection === section.title}
-                className="mt-2 space-y-1"
-              >
-                {section.items.map((item) => (
-                  <LinkInternal
-                    prefetch={true}
-                    key={item.label}
-                    href={item.href}
-                    onClick={closeDrawer}
-                    className="text-muted-foreground ml-2 block"
-                  >
-                    {item.label}
-                  </LinkInternal>
-                ))}
+              <Collapsible open={openSection === section.title}>
+                <CollapsibleContent className="mt-2 space-y-1">
+                  {section.items.map((item) => (
+                    <LinkInternal
+                      prefetch={true}
+                      key={item.label}
+                      href={item.href}
+                      onClick={closeDrawer}
+                      className="text-muted-foreground ml-2 block"
+                    >
+                      {item.label}
+                    </LinkInternal>
+                  ))}
+                </CollapsibleContent>
               </Collapsible>
             </div>
           ))}

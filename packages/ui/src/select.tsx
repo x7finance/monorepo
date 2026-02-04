@@ -51,9 +51,11 @@ function SelectTrigger({
   className,
   children,
   asChild,
+  nativeButton = true,
   ...props
 }: React.ComponentProps<typeof BaseSelect.Trigger> & {
   asChild?: boolean
+  nativeButton?: boolean
 }) {
   return (
     <BaseSelect.Trigger
@@ -63,6 +65,7 @@ function SelectTrigger({
         className
       )}
       render={asChild ? <Slot /> : undefined}
+      nativeButton={nativeButton}
       {...props}
     >
       {children}

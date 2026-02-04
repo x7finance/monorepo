@@ -15,15 +15,18 @@ function Dialog({ ...props }: React.ComponentProps<typeof BaseDialog.Root>) {
 function DialogTrigger({
   className,
   asChild,
+  nativeButton = true,
   ...props
 }: React.ComponentProps<typeof BaseDialog.Trigger> & {
   asChild?: boolean
+  nativeButton?: boolean
 }) {
   return (
     <BaseDialog.Trigger
       data-slot="dialog-trigger"
       className={cn("cursor-pointer", className)}
       render={asChild ? <Slot /> : undefined}
+      nativeButton={nativeButton}
       {...props}
     />
   )
@@ -37,14 +40,17 @@ function DialogPortal({
 
 function DialogClose({
   asChild,
+  nativeButton = true,
   ...props
 }: React.ComponentProps<typeof BaseDialog.Close> & {
   asChild?: boolean
+  nativeButton?: boolean
 }) {
   return (
     <BaseDialog.Close
       data-slot="dialog-close"
       render={asChild ? <Slot /> : undefined}
+      nativeButton={nativeButton}
       {...props}
     />
   )

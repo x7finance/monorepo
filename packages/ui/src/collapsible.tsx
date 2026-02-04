@@ -16,15 +16,18 @@ function Collapsible({
 function CollapsibleTrigger({
   className,
   asChild,
+  nativeButton = true,
   ...props
 }: React.ComponentProps<typeof BaseCollapsible.Trigger> & {
   asChild?: boolean
+  nativeButton?: boolean
 }) {
   return (
     <BaseCollapsible.Trigger
       data-slot="collapsible-trigger"
       className={cn("cursor-pointer", className)}
       render={asChild ? <Slot /> : undefined}
+      nativeButton={nativeButton}
       {...props}
     />
   )

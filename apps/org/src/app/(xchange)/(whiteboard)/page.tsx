@@ -3,6 +3,8 @@ import type { Metadata } from "next"
 import { CheckerProviderComponent } from "~/lib/providers/checker"
 import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
 
+import { SubtleGlowBg } from "../_components/animated-gradient-bg"
+import { ClawLendBanner } from "../_components/clawlend-banner"
 import { XChangeSwap } from "../_components/swap/base"
 
 import { TradeLines } from "./_components/trade-lines"
@@ -23,11 +25,15 @@ export default function XchangeSwapPage() {
     <CheckerProviderComponent>
       <div className="relative mx-auto w-full max-w-7xl px-2 sm:px-6 lg:px-8">
         <main className="w-full flex-1">
-          <div className="my-8 flex justify-center">
-            <XChangeSwap />
+          <div className="my-8 flex flex-col items-center">
+            <SubtleGlowBg className="w-full sm:max-w-md">
+              <XChangeSwap />
+              <div className="mt-4">
+                <ClawLendBanner />
+              </div>
+              <TradeLines />
+            </SubtleGlowBg>
           </div>
-
-          <TradeLines />
         </main>
       </div>
     </CheckerProviderComponent>

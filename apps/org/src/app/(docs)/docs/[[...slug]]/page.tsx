@@ -21,7 +21,6 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: any }) {
   const doc = await getMarkdownContent(params)
 
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!doc) {
     return {}
   }

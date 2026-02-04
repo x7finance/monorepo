@@ -86,13 +86,13 @@ export function useSwapState(): SwapState {
       ? recipientAddress
       : address
 
-  // Get state from stores
-  const {
-    setRoute,
-    setIsQuoteLoading,
-    setSwapError,
-    setEnabledImplementations,
-  } = useSwapQuoteStore()
+  // Get state from stores - use selectors for stable references to avoid infinite loops
+  const setRoute = useSwapQuoteStore((s) => s.setRoute)
+  const setIsQuoteLoading = useSwapQuoteStore((s) => s.setIsQuoteLoading)
+  const setSwapError = useSwapQuoteStore((s) => s.setSwapError)
+  const setEnabledImplementations = useSwapQuoteStore(
+    (s) => s.setEnabledImplementations
+  )
   const route = useSwapQuoteStore((s) => s.route)
   const possibleRoutes = useSwapQuoteStore((s) => s.possibleRoutes)
   const bestRoute = useSwapQuoteStore((s) => s.bestRoute)

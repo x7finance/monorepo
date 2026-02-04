@@ -23,15 +23,18 @@ function DropdownMenuPortal({
 function DropdownMenuTrigger({
   className,
   asChild,
+  nativeButton = true,
   ...props
 }: React.ComponentProps<typeof BaseMenu.Trigger> & {
   asChild?: boolean
+  nativeButton?: boolean
 }) {
   return (
     <BaseMenu.Trigger
       data-slot="dropdown-menu-trigger"
       className={cn("cursor-pointer", className)}
       render={asChild ? <Slot /> : undefined}
+      nativeButton={nativeButton}
       {...props}
     />
   )

@@ -34,7 +34,39 @@ const nextConfig: NextConfig = {
             "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
             "style-src 'self' 'unsafe-inline'",
             "img-src 'self' data: https:",
-            "connect-src 'self' https://*.alchemyapi.io https://*.infura.io wss://*.walletconnect.com https://*.walletconnect.com https://*.walletconnect.org wss://*.walletconnect.org",
+            // connect-src for blockchain RPC providers and web3 services
+            [
+              "connect-src 'self'",
+              // Alchemy (mainnet and testnets)
+              "https://*.alchemy.com",
+              "https://*.alchemyapi.io",
+              "wss://*.alchemy.com",
+              // Infura (mainnet and testnets)
+              "https://*.infura.io",
+              "wss://*.infura.io",
+              // DRPC
+              "https://*.drpc.org",
+              // Base RPC (mainnet and testnets)
+              "https://mainnet.base.org",
+              "https://sepolia.base.org",
+              "https://goerli.base.org",
+              // Ethereum RPC
+              "https://eth.llamarpc.com",
+              "https://cloudflare-eth.com",
+              // WalletConnect
+              "wss://*.walletconnect.com",
+              "https://*.walletconnect.com",
+              "wss://*.walletconnect.org",
+              "https://*.walletconnect.org",
+              // Reown AppKit (formerly Web3Modal)
+              "https://*.web3modal.com",
+              "https://*.web3modal.org",
+              "https://api.web3modal.org",
+              "wss://*.web3modal.com",
+              // Reown
+              "https://*.reown.com",
+              "wss://*.reown.com",
+            ].join(" "),
             "frame-ancestors 'none'",
             "font-src 'self' data:",
           ].join("; "),

@@ -17,58 +17,60 @@ const TRADEABLE_TOKENS = [
   },
   {
     name: "X7101",
-    description: "Constellation token",
+    description: "Liquidity constellation - 1 of 5",
     address: "0x7101a9392EAc53B01e7c07ca3baCa945A56EE105",
   },
   {
     name: "X7102",
-    description: "Constellation token",
+    description: "Liquidity constellation - 2 of 5",
     address: "0x7102DC82EF61bfB0410B1b1bF8EA74575bf0A105",
   },
   {
     name: "X7103",
-    description: "Constellation token",
+    description: "Liquidity constellation - 3 of 5",
     address: "0x7103eBdbF1f89be2d53EFF9B3CF996C9E775c105",
   },
   {
     name: "X7104",
-    description: "Constellation token",
+    description: "Liquidity constellation - 4 of 5",
     address: "0x7104D1f179Cc9cc7fb5c79Be6Da846E3FBC4C105",
   },
   {
     name: "X7105",
-    description: "Constellation token",
+    description: "Liquidity constellation - 5 of 5",
     address: "0x7105FAA4a26eD1c67B8B2b41BEc98F06Ee21D105",
   },
   {
     name: "X7D",
-    description: "Deposit token",
+    description: "Lending pool yield token",
     address: "0x7D000a1B9439740692F8942A296E1810955F5000",
   },
 ]
 
 export function TradeLines() {
   return (
-    <div className="mt-8 w-full divide-y divide-zinc-800">
+    <div className="mt-8 w-full divide-y divide-border pb-12">
       {TRADEABLE_TOKENS.map((token) => (
-        <div
+        <LinkInternal
           key={token.name}
-          className="flex items-center justify-between px-4 py-4 transition-colors hover:bg-zinc-900/50"
+          prefetch={true}
+          href={`/swap?token0=NATIVE&token1=${token.address}`}
+          className="flex cursor-pointer items-center justify-between px-4 py-4 transition-colors hover:bg-zinc-900/50"
         >
           <div className="flex flex-col">
-            <span className="font-heading text-lg font-semibold text-white">
+            <span className="font-heading text-lg font-semibold">
               Trade {token.name}
             </span>
-            <span className="text-sm text-zinc-400">{token.description}</span>
+            <span className="text-muted-foreground text-sm">
+              {token.description}
+            </span>
           </div>
-          <LinkInternal
-            prefetch={true}
-            href={`/swap?token0=NATIVE&token1=${token.address}`}
+          <span
             className={cn(buttonVariants({ variant: "default", size: "sm" }))}
           >
             Trade
-          </LinkInternal>
-        </div>
+          </span>
+        </LinkInternal>
       ))}
     </div>
   )

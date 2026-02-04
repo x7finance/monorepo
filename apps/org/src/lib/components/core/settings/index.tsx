@@ -82,7 +82,7 @@ export const SettingsOverlay: FC<SettingsOverlayProps> = ({
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
+      <DialogTrigger asChild nativeButton={false}>
         {children || (
           <div
             onClick={() => setOpen(true)}
