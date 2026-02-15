@@ -30,7 +30,7 @@
   "devDependencies": {
     "@x7/tsconfig": "workspace:*",
     "husky": "^9.1.7",
-    "oxlint": "^0.16.6",
-    "typescript": "^5.8.2"
+    "oxlint": "^0.16.12",
+    "typescript": "^5.9.3"
   }
 }

@@ -7,6 +7,6 @@
     "dev": "serve src/ --listen 3009 --no-request-logging"
   },
   "devDependencies": {
-    "serve": "^14.2.4"
+    "serve": "^14.2.5"
   }
 }
