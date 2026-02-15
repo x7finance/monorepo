@@ -12,6 +12,6 @@
     "clean": "rimraf .turbo node_modules"
   },
   "devDependencies": {
-    "oxlint": "^0.16.12"
+    "oxlint": "^1.47.0"
   }
 }
