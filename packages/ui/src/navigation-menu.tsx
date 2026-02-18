@@ -119,7 +119,7 @@ function NavigationMenuTrigger({
     >
       {children}{" "}
       <ChevronDownIcon
-        className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[popup-open]:rotate-180"
+        className="relative top-[1px] ml-1 size-3 motion-safe:transition-transform motion-safe:duration-[220ms] motion-safe:ease-[cubic-bezier(0.22,1,0.36,1)] group-data-[popup-open]:rotate-180 motion-reduce:transition-none"
         aria-hidden="true"
       />
     </BaseMenu.Trigger>
@@ -139,8 +139,9 @@ function NavigationMenuContent({
           data-slot="navigation-menu-content"
           className={cn(
             "top-0 left-0 w-full p-2 pr-2.5 md:absolute md:w-auto",
-            "data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
-            "transition-opacity duration-200",
+            "data-[starting-style]:opacity-0 data-[starting-style]:translate-y-1",
+            "data-[ending-style]:opacity-0 data-[ending-style]:translate-y-1",
+            "motion-safe:transition-[transform,opacity] motion-safe:duration-[220ms] motion-safe:ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
             !viewport &&
               "bg-popover text-popover-foreground mt-1.5 overflow-hidden rounded-md border shadow",
             "**:data-[slot=navigation-menu-link]:focus:ring-0 **:data-[slot=navigation-menu-link]:focus:outline-none",
@@ -196,6 +197,28 @@ function NavigationMenuLink({
   )
 }
 
+function NavigationMenuArrow({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div
+      data-slot="navigation-menu-arrow"
+      className={cn(
+        "pointer-events-none absolute z-20 size-3 rotate-45 rounded-[2px]",
+        "border border-border bg-popover",
+        "motion-safe:transition-[opacity,left] motion-safe:duration-[220ms] motion-safe:ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
+        "data-[side=top]:bottom-0 data-[side=top]:translate-y-1/2",
+        "data-[side=bottom]:top-0 data-[side=bottom]:-translate-y-1/2",
+        "data-[side=left]:right-0 data-[side=left]:translate-x-1/2",
+        "data-[side=right]:left-0 data-[side=right]:-translate-x-1/2",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
 function NavigationMenuIndicator({
   className,
   ...props
@@ -209,7 +232,7 @@ function NavigationMenuIndicator({
       )}
       {...props}
     >
-      <div className="bg-border relative top-[60%] h-2 w-2 rotate-45 rounded-tl-sm shadow-md" />
+      <NavigationMenuArrow className="relative top-[60%]" />
     </div>
   )
 }
@@ -241,6 +264,7 @@ export {
   NavigationMenuTrigger,
   NavigationMenuLink,
   NavigationMenuIndicator,
+  NavigationMenuArrow,
   NavigationMenuViewport,
   navigationMenuTriggerStyle,
 }

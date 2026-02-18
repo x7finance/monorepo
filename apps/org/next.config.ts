@@ -143,10 +143,9 @@ const nextConfig: NextConfig = {
   },
   // React Compiler (moved from experimental in Next.js 16)
   reactCompiler: true,
-  // Cache Components disabled - requires unstable_cache for all async metadata
-  // TODO: Enable after migrating getMarkdownContent to use unstable_cache
-  cacheComponents: false,
-  // Cache profiles for streaming components (moved from experimental in Next.js 16)
+  // Cache Components enabled - uses React Server Components cache
+  cacheComponents: true,
+  // Cache profiles for streaming components
   cacheLife: {
     default: {
       stale: 300, // 5 minutes
@@ -179,7 +178,9 @@ const nextConfig: NextConfig = {
       expire: 300,
     },
   },
+  // Partial Prerendering (PPR) - static shell with dynamic streaming
   experimental: {
+    ppr: true,
     // Caching features
     dynamicOnHover: true,
     useCache: true,
