@@ -3,24 +3,10 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/require-await */
 
-import type { IPortionProvider } from "../providers/portion-provider"
-import type { ProviderConfig } from "../providers/provider"
-import type { IV2PoolProvider } from "../providers/v2/pool-provider"
-import type { ArbitrumGasData } from "../providers/v3/gas-data-provider"
-import type { IV3PoolProvider } from "../providers/v3/pool-provider"
-import type { RouteWithValidQuote } from "../routers/alpha-router/entities/route-with-valid-quote"
-import type { GasModelProviderConfig } from "../routers/alpha-router/gas-models/gas-model"
-import type {
-  MethodParameters,
-  SwapOptions,
-  SwapOptionsUniversalRouter,
-  SwapRoute,
-} from "../routers/router"
-import type { Pair, Pool } from "@x7/sdk"
-import type { Currency } from "@x7/utils"
-
 import _ from "lodash"
 
+import type { Pair, Pool } from "@x7/sdk"
+import type { Currency } from "@x7/utils"
 import {
   ChainId,
   CurrencyAmount,
@@ -32,15 +18,28 @@ import {
   TradeType,
 } from "@x7/utils"
 
+import type { IPortionProvider } from "../providers/portion-provider"
+import type { ProviderConfig } from "../providers/provider"
+import type { IV2PoolProvider } from "../providers/v2/pool-provider"
+import type { ArbitrumGasData } from "../providers/v3/gas-data-provider"
+import type { IV3PoolProvider } from "../providers/v3/pool-provider"
+import type { RouteWithValidQuote } from "../routers/alpha-router/entities/route-with-valid-quote"
 import {
   MixedRouteWithValidQuote,
   V2RouteWithValidQuote,
   V3RouteWithValidQuote,
 } from "../routers/alpha-router/entities/route-with-valid-quote"
+import type { GasModelProviderConfig } from "../routers/alpha-router/gas-models/gas-model"
 import {
   getQuoteThroughNativePool,
   usdGasTokensByChain,
 } from "../routers/alpha-router/gas-models/gas-model"
+import type {
+  MethodParameters,
+  SwapOptions,
+  SwapOptionsUniversalRouter,
+  SwapRoute,
+} from "../routers/router"
 import { SwapType } from "../routers/router"
 
 import { WRAPPED_NATIVE_CURRENCY } from "./chains"

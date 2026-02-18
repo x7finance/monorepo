@@ -1,13 +1,12 @@
 "use client"
 
-import type { ChainId } from "@x7/utils"
-
 import { useEffect, useState } from "react"
 import { useAccount, useBlockNumber, useChainId, useGasPrice } from "wagmi"
 
 import { cn } from "@x7/css"
 import { CogIcon } from "@x7/icons"
 import { LinkInternal } from "@x7/ui/link"
+import type { ChainId } from "@x7/utils"
 import { ONE_BILLION } from "@x7/utils"
 import { useNativeCurrency } from "~/lib/hooks/currency/useNativeCurrency"
 import { useChainedNativePrice } from "~/lib/hooks/prices/useChainedNativePrice"

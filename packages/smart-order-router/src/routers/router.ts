@@ -1,6 +1,3 @@
-import type { SimulationStatus } from "../providers/simulation-types"
-import type { CurrencyAmount } from "../utils/amounts"
-import type { RouteWithValidQuote } from "./alpha-router/entities/route-with-valid-quote"
 import type {
   CondensedAddLiquidityOptions,
   PermitOptions,
@@ -11,6 +8,11 @@ import type {
   SwapOptions as UniversalRouterSwapOptions,
 } from "@x7/sdk"
 import type { Currency, Fraction, Percent, TradeType } from "@x7/utils"
+
+import type { SimulationStatus } from "../providers/simulation-types"
+import type { CurrencyAmount } from "../utils/amounts"
+
+import type { RouteWithValidQuote } from "./alpha-router/entities/route-with-valid-quote"
 
 // Re-export route types for backwards compatibility
 export { V3Route, V2Route, MixedRoute } from "./route-types"

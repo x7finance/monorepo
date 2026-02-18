@@ -1,14 +1,14 @@
-import type { ChainId } from "../chain"
-import type { Currency as Type } from "./Type"
-import type { SerializedToken } from "./zod"
-import type { Address } from "viem"
-
 /* oxlint-disable @typescript-eslint/only-throw-error */
 import invariant from "tiny-invariant"
+import type { Address } from "viem"
 import { getAddress } from "viem"
 
+import type { ChainId } from "../chain"
+
 import { Currency } from "./Currency"
+import type { Currency as Type } from "./Type"
 import { WETH9_ADDRESS } from "./weth-addresses"
+import type { SerializedToken } from "./zod"
 import { tokenSchema } from "./zod"
 
 /**

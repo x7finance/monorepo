@@ -4,7 +4,6 @@ import { Core } from "nextjs-darkmode"
 
 import { cn } from "@x7/css"
 import { SITE_METADATA } from "~/lib/config/metadata"
-
 import "~/styles/globals.css"
 import "@rainbow-me/rainbowkit/styles.css"
 

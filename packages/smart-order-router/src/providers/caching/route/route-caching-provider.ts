@@ -1,4 +1,3 @@
-import type { CachedRoutes } from "./model/cached-routes"
 /**
  * Provider for getting token data from a Token List.
  *
@@ -12,10 +11,10 @@ import type {
   Protocol,
   Token,
 } from "@x7/utils"
-
 import { TradeType } from "@x7/utils"
 
 import { CacheMode } from "./model"
+import type { CachedRoutes } from "./model/cached-routes"
 
 /**
  * Abstract class for a RouteCachingProvider.

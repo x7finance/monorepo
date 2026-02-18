@@ -4,13 +4,12 @@
 /* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 
-import type { Amount, ChainId, Currency, Native } from "@x7/utils"
-import type { Address, WriteContractReturnType } from "viem"
-
 import { useCallback, useEffect, useMemo } from "react"
+import type { Address, WriteContractReturnType } from "viem"
 import { useSimulateContract, useWriteContract } from "wagmi"
 import { waitForTransactionReceipt } from "wagmi/actions"
 
+import type { Amount, ChainId, Currency, Native } from "@x7/utils"
 import { gasMargin, LogCodes } from "@x7/utils"
 import {
   ApprovalState,
@@ -101,7 +100,7 @@ export function useAddLiquidity({
       return undefined
     }
 
-    const contract = getXchangeRouterContractConfig(chainId)
+    const routerContract = getXchangeRouterContractConfig(chainId)
 
     const isToken0Native = token0?.isNative
     const tokenAddress = isToken0Native
@@ -128,9 +127,9 @@ export function useAddLiquidity({
 
     return {
       account: address,
-      address: contract.address,
+      address: routerContract.address,
       chainId: chainId,
-      abi: contract.abi,
+      abi: routerContract.abi,
       functionName: "addLiquidityETH",
       args,
       value: ethAmount,
@@ -153,7 +152,7 @@ export function useAddLiquidity({
       return undefined
     }
 
-    const contract = getXchangeRouterContractConfig(chainId)
+    const routerContract = getXchangeRouterContractConfig(chainId)
     const args = [
       token0?.wrapped.address,
       token1?.wrapped.address,
@@ -167,9 +166,9 @@ export function useAddLiquidity({
 
     return {
       account: address,
-      address: contract.address,
+      address: routerContract.address,
       chainId: chainId,
-      abi: contract.abi,
+      abi: routerContract.abi,
       functionName: "addLiquidity",
       args,
     } as const

@@ -1,7 +1,6 @@
 "use client"
 
 import type { ChainId, LoanType } from "@x7/utils"
-
 import { useLoanStartTime } from "~/lib/hooks/loans/useXchangeLoanData"
 
 interface LoansCellProps {

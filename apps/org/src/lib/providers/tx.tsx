@@ -1,15 +1,14 @@
-import type { NotificationType, ResolvedNotification } from "@x7/dexie"
-import type { ChainId } from "@x7/utils"
+import { waitForTransactionReceipt } from "@wagmi/core"
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import type { FC } from "react"
-
-import { waitForTransactionReceipt } from "@wagmi/core"
 import { createContext, useContext, useEffect, useState } from "react"
 import { useAccount, useChainId } from "wagmi"
 
+import type { NotificationType, ResolvedNotification } from "@x7/dexie"
 import { useNotifications } from "@x7/dexie"
 import { createToast } from "@x7/ui"
+import type { ChainId } from "@x7/utils"
 
 import { useWeb3Config } from "./web3"
 

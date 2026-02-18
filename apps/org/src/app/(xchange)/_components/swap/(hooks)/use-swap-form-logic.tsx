@@ -3,8 +3,6 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 
 import type { BaseError } from "@wagmi/core"
-import type { ChainId, Token } from "@x7/utils"
-
 import { getWalletClient } from "@wagmi/core"
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
@@ -17,6 +15,7 @@ import { toast } from "sonner"
 import { encodeFunctionData, UserRejectedRequestError } from "viem"
 import { useAccount, useChainId } from "wagmi"
 
+import type { ChainId, Token } from "@x7/utils"
 import { LogCodes, Native } from "@x7/utils"
 import { executeRoute } from "~/app/(xchange)/_actions/execute-route"
 import { getErrorMessage } from "~/app/(xchange)/_actions/get-error-message"

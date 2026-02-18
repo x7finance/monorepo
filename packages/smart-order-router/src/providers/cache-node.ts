@@ -1,6 +1,7 @@
-import type { ICache } from "./cache"
 /* oxlint-disable @typescript-eslint/require-await */
 import type NodeCache from "node-cache"
+
+import type { ICache } from "./cache"
 
 export class NodeJSCache<T> implements ICache<T> {
   constructor(private nodeCache: NodeCache) {}

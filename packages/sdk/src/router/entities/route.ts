@@ -1,10 +1,9 @@
-import type { Pair } from "../../v2"
-import type { Pool } from "../../v3"
 import type { Currency, Price, Token } from "@x7/utils"
-
 import { Protocol } from "@x7/utils"
 
+import type { Pair } from "../../v2"
 import { RouteV2 as V2RouteSDK } from "../../v2"
+import type { Pool } from "../../v3"
 import { RouteV3 as V3RouteSDK } from "../../v3"
 
 import { MixedRouteSDK } from "./mixedRoute/route"

@@ -31,15 +31,15 @@
     "@x7/sdk": "workspace:*",
     "@x7/tines": "workspace:*",
     "@x7/utils": "workspace:*",
-    "date-fns": "^3.6.0",
+    "date-fns": "^4.1.0",
     "lodash.flatmap": "^4.5.0",
-    "viem": "^2.45.1"
+    "viem": "^2.46.2"
   },
   "devDependencies": {
     "@types/lodash.flatmap": "^4.5.9",
-    "@types/node": "^22.19.8",
+    "@types/node": "^22.19.11",
     "@x7/tsconfig": "workspace:*",
-    "oxlint": "^0.16.12",
+    "oxlint": "^1.48.0",
     "typescript": "^5.9.3"
   }
 }

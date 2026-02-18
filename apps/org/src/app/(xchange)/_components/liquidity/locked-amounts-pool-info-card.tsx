@@ -1,12 +1,11 @@
 import type { FC } from "react"
-import type { UserPositionsResponse } from "~/lib/hooks/tokens/useGetAllUserTokens"
-
 import { formatUnits } from "viem"
 
 import { cn } from "@x7/css"
 import { Card, CardContent } from "@x7/ui/card"
 import { Collapsible } from "@x7/ui/collapsible"
 import { StatLabel, StatValue } from "@x7/ui/stat"
+import type { UserPositionsResponse } from "~/lib/hooks/tokens/useGetAllUserTokens"
 
 interface LockedAmountsPoolInfoCardProps {
   position: UserPositionsResponse

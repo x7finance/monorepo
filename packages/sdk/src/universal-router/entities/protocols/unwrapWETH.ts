@@ -1,14 +1,13 @@
-import type { Permit2Permit } from "../../utils/inputTokens"
-import type { RoutePlanner } from "../../utils/routerCommands"
-import type { Command, TradeConfig } from "../Command"
-
 import invariant from "tiny-invariant"
 
 import { ETH_ADDRESS_02 } from "@x7/utils"
 
 import { WETH_ADDRESS } from "../../utils/constants"
+import type { Permit2Permit } from "../../utils/inputTokens"
 import { encodeInputTokenOptions } from "../../utils/inputTokens"
+import type { RoutePlanner } from "../../utils/routerCommands"
 import { CommandType } from "../../utils/routerCommands"
+import type { Command, TradeConfig } from "../Command"
 import { RouterTradeType } from "../Command"
 
 export class UnwrapWETH implements Command {

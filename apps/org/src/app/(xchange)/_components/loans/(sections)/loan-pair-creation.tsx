@@ -1,5 +1,3 @@
-import type { ChainId, Currency } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import { isAddress, zeroAddress } from "viem"
 import { useAccount, useChainId } from "wagmi"
@@ -7,6 +5,7 @@ import { useAccount, useChainId } from "wagmi"
 import { CheckCircleIcon } from "@x7/icons"
 import { generateChainEtherTokenEnum, X7ContractsEnum } from "@x7/sdk"
 import { Button } from "@x7/ui/button"
+import type { ChainId, Currency } from "@x7/utils"
 import { DEAD_ADDRESS } from "@x7/utils"
 import { useCreatePair } from "~/lib/hooks/pairs/useCreatePair"
 import { useGetPair } from "~/lib/hooks/pairs/useGetPair"

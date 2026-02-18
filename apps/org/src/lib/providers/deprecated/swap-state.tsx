@@ -6,19 +6,9 @@
 
 "use client"
 
-import type { TokenApprovals } from "../../../app/(xchange)/_components/loans/types"
-import type {
-  BestSwapRoute,
-  RouteWithValidQuote,
-  SwapRoute,
-} from "@x7/smart-order-router"
-import type { Currency, Implementation, Token } from "@x7/utils"
-import type { FC } from "react"
-import type { Address } from "viem"
-import type { SwapState as NewSwapState } from "~/lib/stores/swap/types"
-
 import { watchAccount } from "@wagmi/core"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import type { FC } from "react"
 import React, {
   createContext,
   useCallback,
@@ -27,16 +17,23 @@ import React, {
   useMemo,
   useState,
 } from "react"
+import type { Address } from "viem"
 import { isAddress, parseUnits } from "viem"
 import { useAccount, useChainId, useConfig } from "wagmi"
 
 import { X7ContractsEnum } from "@x7/sdk"
+import type {
+  BestSwapRoute,
+  RouteWithValidQuote,
+  SwapRoute,
+} from "@x7/smart-order-router"
 import { SwapType } from "@x7/smart-order-router"
 import {
   useRecipientAddress,
   useRecipientAddressState,
   useSlippageTolerance,
 } from "@x7/ui"
+import type { Currency, Implementation, Token } from "@x7/utils"
 import {
   ChainId,
   CurrencyAmount,
@@ -50,8 +47,10 @@ import { pDebounce } from "@x7/utils"
 import { useTokenApproval } from "~/lib/hooks/approvals/useTokenApproval"
 import { useTokenWithCache } from "~/lib/hooks/tokens/useTokenWithCache"
 import { useWeb3Config } from "~/lib/providers/web3"
+import type { SwapState as NewSwapState } from "~/lib/stores/swap/types"
 
 import { generateRoute } from "../../../app/(xchange)/_actions/generate-route"
+import type { TokenApprovals } from "../../../app/(xchange)/_components/loans/types"
 import { log } from "../../utils/log"
 import { useAlphaRouter } from "../router"
 

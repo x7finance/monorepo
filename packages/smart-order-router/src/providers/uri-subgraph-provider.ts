@@ -1,15 +1,15 @@
-import type { V2SubgraphPool } from "./v2/subgraph-provider"
-import type { V3SubgraphPool } from "./v3/subgraph-provider"
-import type { ChainId } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 import retry from "async-retry"
 import Timeout from "await-timeout"
 import axios from "axios"
 
+import type { ChainId } from "@x7/utils"
 import { LogCodes } from "@x7/utils"
 
 import { log } from "../utils/log"
+
+import type { V2SubgraphPool } from "./v2/subgraph-provider"
+import type { V3SubgraphPool } from "./v3/subgraph-provider"
 
 /**
  * Gets subgraph pools from a URI. The URI shoudl contain a JSON

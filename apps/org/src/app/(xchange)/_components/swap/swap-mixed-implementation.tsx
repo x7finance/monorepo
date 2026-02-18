@@ -1,8 +1,7 @@
-import type { Pool } from "@x7/sdk"
 import type { FC } from "react"
-
 import { Fragment } from "react"
 
+import type { Pool } from "@x7/sdk"
 import { Implementation } from "@x7/utils"
 
 import { ImplementationIcon } from "./swap-implementation-logos"

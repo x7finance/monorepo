@@ -1,14 +1,13 @@
-import type { BigintIsh } from "../core/constants"
-import type { FeeOptions } from "../v3"
-import type { Token } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-empty-function */
 import { encodeFunctionData } from "viem"
 
 import { peripheryPaymentsWithFeeExtendedABI } from "@x7/contracts"
+import type { Token } from "@x7/utils"
 import { encodeFeeBips } from "@x7/utils"
 
+import type { BigintIsh } from "../core/constants"
 import { validateAndParseAddress } from "../core/validateAndParseAddress"
+import type { FeeOptions } from "../v3"
 import { Payments } from "../v3"
 
 export abstract class PaymentsExtended {

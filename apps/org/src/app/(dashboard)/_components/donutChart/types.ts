@@ -1,8 +1,8 @@
 "use client"
 
-import type { ChainId } from "@x7/utils"
-
 import { createContext } from "react"
+
+import type { ChainId } from "@x7/utils"
 
 export interface Item {
   className?: string

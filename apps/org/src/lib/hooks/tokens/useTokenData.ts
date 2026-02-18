@@ -1,5 +1,3 @@
-import type { ChainId } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 /* oxlint-disable @typescript-eslint/no-unsafe-argument */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
@@ -11,6 +9,7 @@ import { useChainId, useReadContract } from "wagmi"
 import { XchangeMetadataAbi } from "@x7/contracts"
 import { computePairAddress, X7ContractsEnum } from "@x7/sdk"
 import { chainIdToSubgraphChainName } from "@x7/smart-order-router"
+import type { ChainId } from "@x7/utils"
 import {
   formatCurrency,
   formatNumber,

@@ -1,5 +1,3 @@
-import type { MetadataDocType } from "~/lib/utils/generateMetadataFromDoc"
-
 import Markdoc from "@markdoc/markdoc"
 import { notFound } from "next/navigation"
 /* oxlint-disable @typescript-eslint/no-unsafe-argument */
@@ -12,6 +10,7 @@ import { BlogBase } from "~/app/(marketing)/blog/_components/base"
 import { components } from "~/app/(marketing)/blog/_utils/config.markdoc"
 import { getMarkdownContent } from "~/app/(marketing)/blog/_utils/markdoc-parse"
 import { generateBlogPostSlugs } from "~/lib/utils/generateBlogPostSlugs"
+import type { MetadataDocType } from "~/lib/utils/generateMetadataFromDoc"
 import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
 
 export async function generateStaticParams() {

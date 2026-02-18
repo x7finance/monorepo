@@ -1,7 +1,6 @@
 "use client"
 
 import type { Column } from "@tanstack/react-table"
-
 import { useCallback } from "react"
 
 import { cn } from "@x7/css"

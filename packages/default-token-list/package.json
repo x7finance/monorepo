@@ -22,14 +22,14 @@
     "test": "mocha"
   },
   "dependencies": {
-    "viem": "^2.45.1"
+    "viem": "^2.46.2"
   },
   "devDependencies": {
     "@x7/token-lists": "workspace:*",
-    "ajv": "^6.12.6",
-    "chai": "^4.5.0",
-    "dotenv": "^16.6.1",
-    "mocha": "^8.4.0",
-    "oxlint": "^0.16.12"
+    "ajv": "^8.18.0",
+    "chai": "^6.2.2",
+    "dotenv": "^17.3.1",
+    "mocha": "^11.7.5",
+    "oxlint": "^1.48.0"
   }
 }

@@ -1,9 +1,7 @@
-import type { IRoute } from "./route"
-import type { Currency } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 import invariant from "tiny-invariant"
 
+import type { Currency } from "@x7/utils"
 import {
   CurrencyAmount,
   Fraction,
@@ -20,6 +18,7 @@ import { Pool, RouteV3 as V3RouteSDK, TradeV3 as V3TradeSDK } from "../../v3"
 
 import { MixedRouteSDK } from "./mixedRoute/route"
 import { MixedRouteTrade as MixedRouteTradeSDK } from "./mixedRoute/trade"
+import type { IRoute } from "./route"
 import { MixedRoute, RouteV2Wrapper, RouteV3Wrapper } from "./route"
 
 export class Trade<

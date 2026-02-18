@@ -1,20 +1,20 @@
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+import _ from "lodash"
+
+import type { Pair } from "@x7/sdk"
+import type { ChainId, Implementation, Token } from "@x7/utils"
+import { LogCodes } from "@x7/utils"
+
+import { log } from "../../utils/log"
 import type { ICache } from "../cache"
 import type { ProviderConfig } from "../provider"
+
 import type {
   ImplementationPair,
   IV2PoolProvider,
   V2PoolAccessor,
 } from "./pool-provider"
-import type { Pair } from "@x7/sdk"
-import type { ChainId, Implementation, Token } from "@x7/utils"
-
-/* oxlint-disable @typescript-eslint/no-non-null-assertion */
-/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
-import _ from "lodash"
-
-import { LogCodes } from "@x7/utils"
-
-import { log } from "../../utils/log"
 
 /**
  * Provider for getting V2 pools, with functionality for caching the results per block.

@@ -1,6 +1,5 @@
-import type { ChainId } from "@x7/utils"
-
 import { Tag } from "@x7/ui/tag"
+import type { ChainId } from "@x7/utils"
 import { useCanLiquidate } from "~/lib/hooks/loans/useXchangeLendingPoolData"
 
 interface ILLCardLiquidationStatusProps {

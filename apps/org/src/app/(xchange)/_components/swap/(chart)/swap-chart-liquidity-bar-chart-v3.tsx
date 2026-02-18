@@ -1,8 +1,3 @@
-import type { Pool } from "@x7/sdk"
-import type { ChartConfig } from "@x7/ui/chart"
-import type { ChainId } from "@x7/utils"
-import type { Address } from "viem"
-
 import { scaleSymlog } from "d3-scale"
 import {
   Bar,
@@ -12,9 +7,12 @@ import {
   XAxis,
   YAxis,
 } from "recharts"
+import type { Address } from "viem"
 import { useChainId, useReadContracts } from "wagmi"
 
 import { erc20Abi } from "@x7/contracts"
+import type { Pool } from "@x7/sdk"
+import type { ChartConfig } from "@x7/ui/chart"
 import {
   ChartContainer,
   ChartLegend,
@@ -22,6 +20,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@x7/ui/chart"
+import type { ChainId } from "@x7/utils"
 import { DEAD_ADDRESS, Implementation, Protocol } from "@x7/utils"
 
 interface SwapChartLiquidityBarChartProps {

@@ -31,6 +31,7 @@ function Hit({
 
 export function Search({ isMobile = false }) {
   const [isOpen, setIsOpen] = useState(false)
+  const [isAskAiActive, setIsAskAiActive] = useState(false)
   const [modifierKey, setModifierKey] = useState<string>("")
   const searchButtonRef = useRef(null)
 
@@ -42,7 +43,18 @@ export function Search({ isMobile = false }) {
     setIsOpen(false)
   }, [setIsOpen])
 
-  useDocSearchKeyboardEvents({ isOpen, onOpen, onClose, searchButtonRef })
+  const onAskAiToggle = useCallback(() => {
+    setIsAskAiActive((prev) => !prev)
+  }, [setIsAskAiActive])
+
+  useDocSearchKeyboardEvents({
+    isOpen,
+    onOpen,
+    onClose,
+    searchButtonRef,
+    isAskAiActive,
+    onAskAiToggle,
+  })
 
   useEffect(() => {
     const modifierKey = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)
@@ -88,6 +100,7 @@ export function Search({ isMobile = false }) {
             initialScrollY={window.scrollY}
             onClose={onClose}
             hitComponent={Hit}
+            onAskAiToggle={onAskAiToggle}
           />,
           document.body
         )}

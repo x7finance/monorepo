@@ -1,28 +1,27 @@
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 
+/* oxlint-disable @typescript-eslint/no-unnecessary-type-assertion */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+import _ from "lodash"
+
+import type { Pair } from "@x7/sdk"
+import type { ChainId, Token } from "@x7/utils"
+import { LogCodes } from "@x7/utils"
+
 import type { ProviderConfig } from "../../../../providers/provider"
 import type { IV2PoolProvider } from "../../../../providers/v2/pool-provider"
+import { CurrencyAmount, log, WRAPPED_NATIVE_CURRENCY } from "../../../../utils"
+import {
+  calculateL1GasFeesHelper,
+  getV2NativePool,
+} from "../../../../utils/gas-factory-helpers"
 import type { V2RouteWithValidQuote } from "../../entities/route-with-valid-quote"
 import type {
   BuildV2GasModelFactoryType,
   GasModelProviderConfig,
   IGasModel,
 } from "../gas-model"
-import type { Pair } from "@x7/sdk"
-import type { ChainId, Token } from "@x7/utils"
-
-/* oxlint-disable @typescript-eslint/no-unnecessary-type-assertion */
-/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
-/* oxlint-disable @typescript-eslint/no-non-null-assertion */
-import _ from "lodash"
-
-import { LogCodes } from "@x7/utils"
-
-import { CurrencyAmount, log, WRAPPED_NATIVE_CURRENCY } from "../../../../utils"
-import {
-  calculateL1GasFeesHelper,
-  getV2NativePool,
-} from "../../../../utils/gas-factory-helpers"
 import {
   getQuoteThroughNativePool,
   IV2GasModelFactory,

@@ -1,12 +1,11 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 "use client"
 
-import type { LoanType } from "@x7/utils"
-
 import { Suspense } from "react"
 
 import { useLocalStorage } from "@x7/ui"
 import { TableLoadingShimmer } from "@x7/ui/table-loading-shimmer"
+import type { LoanType } from "@x7/utils"
 import { ChainId, ChainIdentifierEnum } from "@x7/utils"
 import { useIsComponentReady } from "~/lib/hooks/utils/useIsComponentReady"
 

@@ -3,15 +3,9 @@
 "use client"
 
 import type { BaseError } from "@wagmi/core"
-import type { ChainId } from "@x7/utils"
-import type { Address } from "viem"
-import type {
-  WriteContractErrorType,
-  WriteContractReturnType,
-} from "wagmi/actions"
-
 import { useCallback, useMemo, useState } from "react"
 import { toast } from "sonner"
+import type { Address } from "viem"
 import { parseEther, UserRejectedRequestError } from "viem"
 import {
   useAccount,
@@ -19,10 +13,15 @@ import {
   useSimulateContract,
   useWriteContract,
 } from "wagmi"
+import type {
+  WriteContractErrorType,
+  WriteContractReturnType,
+} from "wagmi/actions"
 import { waitForTransactionReceipt } from "wagmi/actions"
 
 import { tokenRegisteryABI } from "@x7/contracts"
 import { generateChainEtherTokenEnum, X7ContractsEnum } from "@x7/sdk"
+import type { ChainId } from "@x7/utils"
 import { useTransactionStore } from "~/lib/providers/tx"
 
 import { useWeb3Config } from "../../providers/web3"

@@ -1,22 +1,22 @@
-import type { SwapOptions, SwapRoute } from "../routers/router"
-import type { CurrencyAmount } from "../utils/amounts"
-import type { ViemProviderType } from "../utils/viemHelpers"
-import type { IPortionProvider } from "./portion-provider"
-import type { ProviderConfig } from "./provider"
-import type { ArbitrumGasData, OptimismGasData } from "./v3/gas-data-provider"
-import type { ChainId, Implementation } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/restrict-template-expressions */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import { getContract } from "viem"
 
 import { generateRouterAddress } from "@x7/sdk"
+import type { ChainId, Implementation } from "@x7/utils"
 import { LogCodes, PERMIT2_ADDRESS, TradeType } from "@x7/utils"
 
 import { erc20ABI } from "../abis/erc20"
 import { permit2ABI } from "../abis/Permit2"
+import type { SwapOptions, SwapRoute } from "../routers/router"
 import { SwapType } from "../routers/router"
+import type { CurrencyAmount } from "../utils/amounts"
 import { log } from "../utils/log"
+import type { ViemProviderType } from "../utils/viemHelpers"
+
+import type { IPortionProvider } from "./portion-provider"
+import type { ProviderConfig } from "./provider"
+import type { ArbitrumGasData, OptimismGasData } from "./v3/gas-data-provider"
 
 export interface SimulationResult {
   transaction: {

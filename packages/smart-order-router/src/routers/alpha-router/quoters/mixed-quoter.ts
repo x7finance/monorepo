@@ -1,3 +1,9 @@
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+import _ from "lodash"
+
+import type { ChainId, Currency, Token } from "@x7/utils"
+import { LogCodes, Protocol, TradeType } from "@x7/utils"
+
 import type {
   IOnChainQuoteProvider,
   ITokenListProvider,
@@ -6,30 +12,23 @@ import type {
   IV2PoolProvider,
   IV3PoolProvider,
 } from "../../../providers"
+import { TokenValidationResult } from "../../../providers"
 import type { CurrencyAmount } from "../../../utils"
+import { log, metric, MetricLoggerUnit, routeToString } from "../../../utils"
 import type { MixedRoute } from "../../router"
+import { MixedRouteWithValidQuote } from "../entities"
+import { computeAllMixedRoutes } from "../functions/compute-all-routes"
 import type {
   CandidatePoolsBySelectionCriteria,
   V2CandidatePools,
   V3CandidatePools,
 } from "../functions/get-candidate-pools"
+import { getMixedRouteCandidatePools } from "../functions/get-candidate-pools"
 import type { IGasModel } from "../gas-models"
 import type { AlphaRouterConfig } from "../types"
-import type { GetQuotesResult, GetRoutesResult } from "./model"
-import type { ChainId, Currency, Token } from "@x7/utils"
-
-/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
-import _ from "lodash"
-
-import { LogCodes, Protocol, TradeType } from "@x7/utils"
-
-import { TokenValidationResult } from "../../../providers"
-import { log, metric, MetricLoggerUnit, routeToString } from "../../../utils"
-import { MixedRouteWithValidQuote } from "../entities"
-import { computeAllMixedRoutes } from "../functions/compute-all-routes"
-import { getMixedRouteCandidatePools } from "../functions/get-candidate-pools"
 
 import { BaseQuoter } from "./base-quoter"
+import type { GetQuotesResult, GetRoutesResult } from "./model"
 
 export class MixedQuoter extends BaseQuoter<
   [V3CandidatePools, V2CandidatePools],

@@ -1,11 +1,11 @@
+import { create } from "zustand"
+
 import type {
   LoanQuotesActions,
   LoanQuotesState,
   QuoteResponse,
   RawQuoteResponse,
 } from "./types"
-
-import { create } from "zustand"
 
 interface LoanQuotesStore extends LoanQuotesState, LoanQuotesActions {}
 

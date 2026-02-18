@@ -1,12 +1,11 @@
 "use client"
 
-import type { ChainId } from "@x7/utils"
-
 import React, { useCallback, useMemo } from "react"
 import { useAccount } from "wagmi"
 
 import { Card, CardContent } from "@x7/ui/card"
 import { TabsContent } from "@x7/ui/tabs"
+import type { ChainId } from "@x7/utils"
 import { DefaultTokenAdditionForm } from "~/app/(xchange)/_components/swap/(drawers)/default-token-addition-form"
 import { TokenListContent } from "~/lib/components/utils/token-list-content"
 

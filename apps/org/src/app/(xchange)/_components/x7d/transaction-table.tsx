@@ -7,12 +7,10 @@
 
 "use client"
 
-import type { ChainId } from "@x7/utils"
-import type { Log } from "viem"
-
 import { getPublicClient } from "@wagmi/core"
 import Image from "next/image"
 import { Suspense, useEffect, useState } from "react"
+import type { Log } from "viem"
 import { formatEther } from "viem"
 import { useChainId, useWalletClient } from "wagmi"
 
@@ -27,6 +25,7 @@ import {
   TableRow,
 } from "@x7/ui/table"
 import { TableLoadingShimmer } from "@x7/ui/table-loading-shimmer"
+import type { ChainId } from "@x7/utils"
 import {
   formatDateTime,
   generateChainDenomination,

@@ -2,10 +2,6 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/require-await */
 
-import type { V2Route } from "../../routers/router"
-import type { CurrencyAmount } from "../../utils/amounts"
-import type { ProviderConfig } from "../provider"
-
 import {
   InsufficientInputAmountError,
   InsufficientReservesError,
@@ -13,8 +9,11 @@ import {
   TradeType,
 } from "@x7/utils"
 
+import type { V2Route } from "../../routers/router"
+import type { CurrencyAmount } from "../../utils/amounts"
 import { log } from "../../utils/log"
 import { routeToString } from "../../utils/routes"
+import type { ProviderConfig } from "../provider"
 
 // Quotes can be null (e.g. pool did not have enough liquidity).
 export interface V2AmountQuote {

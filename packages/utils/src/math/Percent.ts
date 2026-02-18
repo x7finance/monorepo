@@ -1,8 +1,7 @@
-import type Rounding from "./Rounding"
-
 /* oxlint-disable @typescript-eslint/no-unsafe-argument */
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 import Fraction from "./Fraction"
+import type Rounding from "./Rounding"
 
 const ONE_HUNDRED = new Fraction(100n)
 

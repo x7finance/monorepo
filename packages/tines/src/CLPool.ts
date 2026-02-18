@@ -1,7 +1,7 @@
-import type { RToken } from "./PrimaryPools"
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import type { Address } from "viem"
 
+import type { RToken } from "./PrimaryPools"
 import {
   RPool,
   TYPICAL_MINIMAL_LIQUIDITY,

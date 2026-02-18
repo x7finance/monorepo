@@ -1,19 +1,18 @@
 import type { SendTransactionReturnType } from "@wagmi/core"
-import type { Amount, ChainId, Currency } from "@x7/utils"
-import type { Address } from "viem"
-import type { LiquidityFees } from "~/lib/hooks/tokens/useGetAllUserTokens"
-
 /* oxlint-disable @typescript-eslint/restrict-template-expressions */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
 import { useCallback, useMemo } from "react"
+import type { Address } from "viem"
 import { useSimulateContract, useWriteContract } from "wagmi"
 
+import type { Amount, ChainId, Currency } from "@x7/utils"
 import { gasMargin, LogCodes, Native, ZERO } from "@x7/utils"
 import {
   ApprovalState,
   useTokenApproval,
 } from "~/lib/hooks/approvals/useTokenApproval"
+import type { LiquidityFees } from "~/lib/hooks/tokens/useGetAllUserTokens"
 import { log } from "~/lib/utils/log"
 
 import { getXchangeRouterContractConfig } from "../../config/getXchangeRouterContract"
@@ -104,7 +103,7 @@ export function useRemoveLiquidity({
       deadline,
     ] as const
 
-    const contract = getXchangeRouterContractConfig(chainId)
+    const routerContract = getXchangeRouterContractConfig(chainId)
 
     const hasFees =
       fees.token0.buyFeeBps > 0n ||
@@ -114,9 +113,9 @@ export function useRemoveLiquidity({
 
     return {
       account: address,
-      address: contract.address,
+      address: routerContract.address,
       chainId: chainId,
-      abi: contract.abi,
+      abi: routerContract.abi,
       functionName: hasFees
         ? "removeLiquidityETHSupportingFeeOnTransferTokens"
         : "removeLiquidityETH",
@@ -163,13 +162,13 @@ export function useRemoveLiquidity({
       deadline,
     ] as const
 
-    const contract = getXchangeRouterContractConfig(chainId)
+    const routerContract = getXchangeRouterContractConfig(chainId)
 
     return {
       account: address,
-      address: contract.address,
+      address: routerContract.address,
       chainId: chainId,
-      abi: contract.abi,
+      abi: routerContract.abi,
       functionName: "removeLiquidity",
       args,
     } as const
@@ -193,7 +192,7 @@ export function useRemoveLiquidity({
   const { data: simulation } = useSimulateContract(
     prepare
       ? {
-          ...prepare,
+          ...(prepare as any),
           query: {
             enabled: Boolean(prepare),
           },

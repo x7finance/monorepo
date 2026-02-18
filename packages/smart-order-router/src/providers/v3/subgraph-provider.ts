@@ -1,7 +1,3 @@
-import type { ProviderConfig } from "../provider"
-import type { V2SubgraphPool } from "../v2/subgraph-provider"
-import type { ChainId, Implementation, Token } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/restrict-template-expressions */
 /* oxlint-disable @typescript-eslint/no-base-to-string */
 import retry from "async-retry"
@@ -16,9 +12,12 @@ import {
   USDT_ADDRESS,
   WETH_ADDRESS,
 } from "@x7/sdk"
+import type { ChainId, Implementation, Token } from "@x7/utils"
 import { LogCodes } from "@x7/utils"
 
 import { log } from "../../utils/log"
+import type { ProviderConfig } from "../provider"
+import type { V2SubgraphPool } from "../v2/subgraph-provider"
 
 export interface V3SubgraphPool {
   id: string

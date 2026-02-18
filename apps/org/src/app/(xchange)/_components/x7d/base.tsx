@@ -1,8 +1,6 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 "use client"
 
-import type { ActiveChainId } from "@x7/utils"
-
 import { useCallback, useEffect, useState } from "react"
 import { useAccount } from "wagmi"
 
@@ -16,6 +14,7 @@ import {
   CardTitle,
 } from "@x7/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@x7/ui/tabs"
+import type { ActiveChainId } from "@x7/utils"
 import { CurrencyInput } from "~/lib/components/utils/currency-input"
 import { ConnectionComponent } from "~/lib/components/utils/web3-connect-button"
 import { X7D } from "~/lib/constants/tokens"

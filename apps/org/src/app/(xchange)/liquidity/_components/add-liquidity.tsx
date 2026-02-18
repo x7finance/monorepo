@@ -4,13 +4,11 @@
 /* oxlint-disable react-hooks/rules-of-hooks */
 "use client"
 
-import type { Pair } from "@x7/sdk"
-import type { ChainId, Currency } from "@x7/utils"
 import type { Dispatch, FC, SetStateAction } from "react"
-
 import React, { useCallback, useEffect, useMemo, useState } from "react"
 import { useChainId } from "wagmi"
 
+import type { Pair } from "@x7/sdk"
 import {
   Card,
   CardContent,
@@ -19,6 +17,7 @@ import {
   CardTitle,
 } from "@x7/ui/card"
 import { LinkInternal } from "@x7/ui/link"
+import type { ChainId, Currency } from "@x7/utils"
 import { Amount, CurrencyAmount, Native, tryParseAmount, ZERO } from "@x7/utils"
 import { X7R } from "~/lib/constants/tokens"
 import { XchangeV2PoolState } from "~/lib/systems/PoolFinder/types"

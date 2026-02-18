@@ -1,10 +1,9 @@
 "use client"
 
-import type { ChainId, LoanType } from "@x7/utils"
-
 import { ArrowUpRightIcon } from "@x7/icons"
 import { LinkExternal } from "@x7/ui/link"
 import { Tag } from "@x7/ui/tag"
+import type { ChainId, LoanType } from "@x7/utils"
 import { useLoanToken } from "~/lib/hooks/loans/useXchangeLendingPoolData"
 import {
   useFullLoanAddress,

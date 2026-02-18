@@ -1,3 +1,9 @@
+import _ from "lodash"
+
+import type { Pair, Pool } from "@x7/sdk"
+import type { ChainId, Currency, Protocol, Token, TradeType } from "@x7/utils"
+import { LogCodes } from "@x7/utils"
+
 import type {
   ITokenListProvider,
   ITokenProvider,
@@ -5,6 +11,7 @@ import type {
   TokenValidationResult,
 } from "../../../providers"
 import type { CurrencyAmount, ViemProviderType } from "../../../utils"
+import { log, metric, MetricLoggerUnit, poolToString } from "../../../utils"
 import type { MixedRoute, V2Route, V3Route } from "../../router"
 import type { RouteWithValidQuote } from "../entities/route-with-valid-quote"
 import type {
@@ -14,15 +21,8 @@ import type {
 } from "../functions/get-candidate-pools"
 import type { IGasModel } from "../gas-models"
 import type { AlphaRouterConfig } from "../types"
+
 import type { GetQuotesResult, GetRoutesResult } from "./model/results"
-import type { Pair, Pool } from "@x7/sdk"
-import type { ChainId, Currency, Protocol, Token, TradeType } from "@x7/utils"
-
-import _ from "lodash"
-
-import { LogCodes } from "@x7/utils"
-
-import { log, metric, MetricLoggerUnit, poolToString } from "../../../utils"
 
 /**
  * Interface for a Quoter.

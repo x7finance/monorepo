@@ -2,15 +2,13 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 "use client"
 
-import type { ButtonProps } from "@x7/ui/button"
-import type { Currency, CurrencyAmount } from "@x7/utils"
 import type { FC } from "react"
-import type { Address } from "viem"
-
 import { useState } from "react"
+import type { Address } from "viem"
 
 import { cn } from "@x7/css"
 import { InfoIcon } from "@x7/icons"
+import type { ButtonProps } from "@x7/ui/button"
 import { Button } from "@x7/ui/button"
 import { CardDescription, CardHeader, CardTitle } from "@x7/ui/card"
 import {
@@ -20,6 +18,7 @@ import {
 } from "@x7/ui/hover-card"
 import { LinkInternal } from "@x7/ui/link"
 import { Select, SelectContent, SelectItem } from "@x7/ui/select"
+import type { Currency, CurrencyAmount } from "@x7/utils"
 import { Native } from "@x7/utils"
 import { DocsLinks } from "~/types/links"
 

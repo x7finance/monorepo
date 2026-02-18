@@ -6,12 +6,11 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 "use client"
 
-import type { Colors, Item, ItemWithRenderProps, Props } from "./types"
-
 import React, { useEffect, useState } from "react"
 
 import { ArcPath } from "./arc-path"
 import { LegendItem } from "./legend-item"
+import type { Colors, Item, ItemWithRenderProps, Props } from "./types"
 import { DonutChartContext } from "./types"
 
 export type { Colors, Context, Item, ItemWithRenderProps, Props } from "./types"

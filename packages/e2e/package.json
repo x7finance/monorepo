@@ -11,13 +11,13 @@
     "lint": "oxlint tests/"
   },
   "devDependencies": {
-    "@inquirer/prompts": "^7.10.1",
-    "@playwright/test": "^1.58.1",
+    "@inquirer/prompts": "^8.2.1",
+    "@playwright/test": "^1.58.2",
     "@synthetixio/synpress": "^4.1.2",
-    "@types/node": "^22.19.8",
+    "@types/node": "^22.19.11",
     "@x7/tsconfig": "workspace:*",
-    "axios": "^1.13.4",
-    "dotenv": "^16.6.1",
-    "oxlint": "^0.16.12"
+    "axios": "^1.13.5",
+    "dotenv": "^17.3.1",
+    "oxlint": "^1.48.0"
   }
 }

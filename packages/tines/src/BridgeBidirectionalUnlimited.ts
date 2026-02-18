@@ -1,6 +1,6 @@
-import type { RToken } from "./PrimaryPools"
 import type { Address } from "viem"
 
+import type { RToken } from "./PrimaryPools"
 import { RPool } from "./PrimaryPools"
 
 export class BridgeUnlimited extends RPool {

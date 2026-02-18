@@ -2,7 +2,6 @@
 "use client"
 
 import type { FC, ReactNode } from "react"
-
 import { useMemo, useState } from "react"
 
 import { SlidersVerticalIcon, XIcon } from "@x7/icons"

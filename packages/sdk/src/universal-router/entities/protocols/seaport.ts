@@ -3,18 +3,17 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 /* oxlint-disable @typescript-eslint/no-for-in-array */
 
-import type { Permit2Permit } from "../../utils/inputTokens"
-import type { RoutePlanner } from "../../utils/routerCommands"
-import type { TradeConfig } from "../Command"
-import type { BuyItem } from "../NFTTrade"
-
 import { encodeFunctionData } from "viem"
 
 import { seaportABI } from "@x7/contracts"
 import { ETH_ADDRESS } from "@x7/utils"
 
+import type { Permit2Permit } from "../../utils/inputTokens"
 import { encodeInputTokenOptions } from "../../utils/inputTokens"
+import type { RoutePlanner } from "../../utils/routerCommands"
 import { CommandType } from "../../utils/routerCommands"
+import type { TradeConfig } from "../Command"
+import type { BuyItem } from "../NFTTrade"
 import { Market, NFTTrade, TokenType } from "../NFTTrade"
 
 export interface SeaportData {

@@ -1,25 +1,14 @@
-import type { V2Route } from "../routers/route-types"
-import type { SwapOptions, SwapRoute } from "../routers/router"
-import type { ViemProviderType } from "../utils/viemHelpers"
-import type { EthEstimateGasSimulator } from "./eth-estimate-gas-provider"
-import type { IPortionProvider } from "./portion-provider"
-import type { ProviderConfig } from "./provider"
-import type { SimulationResult } from "./simulation-provider"
-import type { IV2PoolProvider } from "./v2/pool-provider"
-import type { ArbitrumGasData, OptimismGasData } from "./v3/gas-data-provider"
-import type { IV3PoolProvider } from "./v3/pool-provider"
-import type { RouteV2Wrapper, RouteV3Wrapper } from "@x7/sdk"
-import type { Currency } from "@x7/utils"
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/restrict-template-expressions */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-base-to-string */
 import type { AxiosRequestConfig } from "axios"
-
 import axios from "axios"
 import { encodeFunctionData } from "viem"
 
+import type { RouteV2Wrapper, RouteV3Wrapper } from "@x7/sdk"
 import { generateRouterAddress, UNIVERSAL_ROUTER_ADDRESS } from "@x7/sdk"
+import type { Currency } from "@x7/utils"
 import {
   ChainId,
   Implementation,
@@ -30,6 +19,8 @@ import {
 
 import { erc20ABI } from "../abis/erc20"
 import { permit2ABI } from "../abis/Permit2"
+import type { V2Route } from "../routers/route-types"
+import type { SwapOptions, SwapRoute } from "../routers/router"
 import { SwapType } from "../routers/router"
 import { MAX_UINT160 } from "../utils/amounts"
 import { APPROVE_TOKEN_FOR_TRANSFER } from "../utils/callData"
@@ -39,8 +30,16 @@ import {
 } from "../utils/gas-factory-helpers"
 import { log } from "../utils/log"
 import { metric, MetricLoggerUnit } from "../utils/metric"
+import type { ViemProviderType } from "../utils/viemHelpers"
 
+import type { EthEstimateGasSimulator } from "./eth-estimate-gas-provider"
+import type { IPortionProvider } from "./portion-provider"
+import type { ProviderConfig } from "./provider"
+import type { SimulationResult } from "./simulation-provider"
 import { SimulationStatus, Simulator } from "./simulation-provider"
+import type { IV2PoolProvider } from "./v2/pool-provider"
+import type { ArbitrumGasData, OptimismGasData } from "./v3/gas-data-provider"
+import type { IV3PoolProvider } from "./v3/pool-provider"
 
 export interface TenderlyResponseUniversalRouter {
   config: {

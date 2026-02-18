@@ -1,9 +1,8 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 
-import type { ActiveChainId, Native, Token } from "@x7/utils"
-
 import React, { useCallback, useEffect, useMemo, useState } from "react"
 
+import type { ActiveChainId, Native, Token } from "@x7/utils"
 import {
   Amount,
   CurrencyAmount,

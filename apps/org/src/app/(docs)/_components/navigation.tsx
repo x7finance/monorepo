@@ -1,8 +1,7 @@
 "use client"
 
-import type { ReactNode } from "react"
-
 import { usePathname } from "next/navigation"
+import type { ReactNode } from "react"
 import { useEffect, useRef, useState } from "react"
 
 import { cn } from "@x7/css"

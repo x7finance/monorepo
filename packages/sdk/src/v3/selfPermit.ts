@@ -1,9 +1,8 @@
-import type { Token } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-empty-function */
 import { encodeFunctionData } from "viem"
 
 import { selfPermitABI } from "@x7/contracts"
+import type { Token } from "@x7/utils"
 
 export interface StandardPermitArguments {
   v: 0 | 1 | 27 | 28

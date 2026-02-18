@@ -5,11 +5,10 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 import type { Config } from "@wagmi/core"
-import type { CurrencyAmount, Native, Token } from "@x7/utils"
-
 import { getPublicClient, getWalletClient } from "@wagmi/core"
 import { erc20Abi, getContract } from "viem"
 
+import type { CurrencyAmount, Native, Token } from "@x7/utils"
 import { LogCodes } from "@x7/utils"
 import { log } from "~/lib/utils/log"
 

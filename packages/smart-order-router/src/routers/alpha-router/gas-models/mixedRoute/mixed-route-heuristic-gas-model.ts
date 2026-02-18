@@ -1,22 +1,21 @@
-import type { MixedRouteWithValidQuote } from "../../entities/route-with-valid-quote"
-import type {
-  BuildOnChainGasModelFactoryType,
-  GasModelProviderConfig,
-  IGasModel,
-} from "../gas-model"
-import type { ChainId } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import _ from "lodash"
 
 import { Pair, partitionMixedRouteByProtocol, Pool } from "@x7/sdk"
+import type { ChainId } from "@x7/utils"
 import { LogCodes } from "@x7/utils"
 
 import { CurrencyAmount } from "../../../../utils/amounts"
 import { WRAPPED_NATIVE_CURRENCY } from "../../../../utils/chains"
 import { getV2NativePool } from "../../../../utils/gas-factory-helpers"
 import { log } from "../../../../utils/log"
+import type { MixedRouteWithValidQuote } from "../../entities/route-with-valid-quote"
+import type {
+  BuildOnChainGasModelFactoryType,
+  GasModelProviderConfig,
+  IGasModel,
+} from "../gas-model"
 import { IOnChainGasModelFactory } from "../gas-model"
 import {
   BASE_SWAP_COST as BASE_SWAP_COST_V2,

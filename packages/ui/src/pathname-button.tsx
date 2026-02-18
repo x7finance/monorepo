@@ -1,10 +1,9 @@
 "use client"
 
-import type { ButtonProps } from "./button"
-
 import { usePathname, useSearchParams } from "next/navigation"
 import { forwardRef } from "react"
 
+import type { ButtonProps } from "./button"
 import { Button } from "./button"
 
 interface PathnameButton extends Omit<ButtonProps, "variant"> {

@@ -1,9 +1,8 @@
-import type { ChainId } from "@x7/utils"
-
 import { useAccount } from "wagmi"
 
 import { cn } from "@x7/css"
 import { Button, buttonVariants } from "@x7/ui/button"
+import type { ChainId } from "@x7/utils"
 import { useLiquidate } from "~/lib/hooks/loans/useLiquidate"
 
 interface LiquidateButtonProps {

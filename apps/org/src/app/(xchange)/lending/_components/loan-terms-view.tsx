@@ -2,8 +2,6 @@
 
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 
-import type { ChainId } from "@x7/utils"
-
 import { useEffect, useState } from "react"
 import { useReadContracts } from "wagmi"
 
@@ -16,6 +14,7 @@ import {
   TableHeader,
   TableRow,
 } from "@x7/ui/table"
+import type { ChainId } from "@x7/utils"
 import { generateChainName, LOAN_NAME_MAPPING } from "@x7/utils"
 
 import { useLoanTermData } from "../_hooks/useLoanTermData"

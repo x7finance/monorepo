@@ -28,12 +28,12 @@
     "typecheck": "tsgo --noEmit"
   },
   "devDependencies": {
-    "@types/react": "^19.2.10",
+    "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@x7/tsconfig": "workspace:*",
     "clsx": "^2.1.1",
-    "oxlint": "^0.16.12",
-    "tailwind-merge": "^3.4.0",
+    "oxlint": "^1.48.0",
+    "tailwind-merge": "^3.4.1",
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3"
   }

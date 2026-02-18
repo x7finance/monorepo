@@ -1,8 +1,7 @@
-import type HomePage from "pages/home.page"
-
 import * as metamask from "@synthetixio/synpress/commands/metamask"
 import { expectedValues } from "data/test-data"
 import { expect, test } from "fixtures/pom-synpress"
+import type HomePage from "pages/home.page"
 
 import { mainnetChainIds, USDC } from "@x7/sdk"
 import { ChainId } from "@x7/utils"

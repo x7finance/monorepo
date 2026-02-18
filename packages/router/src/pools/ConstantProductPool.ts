@@ -1,7 +1,7 @@
-import type { LiquidityProviders } from "../liquidity-providers"
 import type { ConstantProductRPool, MultiRoute, RouteLeg } from "@x7/tines"
 
 import { HEXer } from "../HEXer"
+import type { LiquidityProviders } from "../liquidity-providers"
 
 import { PoolCode } from "./PoolCode"
 

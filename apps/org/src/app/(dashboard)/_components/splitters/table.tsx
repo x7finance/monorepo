@@ -6,13 +6,12 @@
 /* oxlint-disable @typescript-eslint/restrict-template-expressions */
 "use client"
 
-import type { ChainId } from "@x7/utils"
-
 import { useEffect, useState } from "react"
 import { useReadContracts } from "wagmi"
 
 import { X7EcosystemSplitter, X7TreasurySplitterV3 } from "@x7/contracts"
 import { X7ContractsEnum } from "@x7/sdk"
+import type { ChainId } from "@x7/utils"
 import { DEAD_ADDRESS } from "@x7/utils"
 
 import { DashboardSubheader } from "../dashboard-subheader"

@@ -2,13 +2,12 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 
-import type { ChainId } from "@x7/utils"
-
 import { ArrowUpRightSquareIcon, CircleAlertIcon, X7Logo } from "@x7/icons"
 import { LinkExternal } from "@x7/ui/link"
 import { TableCell, TableRow } from "@x7/ui/table"
 import { Tag } from "@x7/ui/tag"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@x7/ui/tooltip"
+import type { ChainId } from "@x7/utils"
 import { generateChainDenomination, LogCodes } from "@x7/utils"
 import { SECONDS_IN_A_DAY } from "~/lib/constants/misc"
 import { ExplorerDataType, getExplorerLink } from "~/lib/utils/getExplorerLink"

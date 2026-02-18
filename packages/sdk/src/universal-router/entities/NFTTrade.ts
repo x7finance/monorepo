@@ -1,8 +1,8 @@
-import type { RoutePlanner } from "../utils/routerCommands"
-import type { Command, TradeConfig } from "./Command"
-
 import invariant from "tiny-invariant"
 
+import type { RoutePlanner } from "../utils/routerCommands"
+
+import type { Command, TradeConfig } from "./Command"
 import { RouterTradeType } from "./Command"
 
 export abstract class NFTTrade<T> implements Command {

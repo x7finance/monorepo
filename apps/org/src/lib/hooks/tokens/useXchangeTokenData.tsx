@@ -1,14 +1,13 @@
-import type { ChainId } from "@x7/utils"
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 /* oxlint-disable @typescript-eslint/restrict-template-expressions */
 import type { Address } from "viem"
-
 import { formatUnits } from "viem"
 import { useChainId, useReadContracts } from "wagmi"
 
 import { AllPairs, ChainLinkAbi, ERC20, PairsAbi } from "@x7/contracts"
 import { generateChainEtherTokenEnum, X7ContractsEnum } from "@x7/sdk"
+import type { ChainId } from "@x7/utils"
 import { generateChainTokenOracleEtherUSDEnum } from "@x7/utils"
 
 export function useXchangeTokenData(id: number) {

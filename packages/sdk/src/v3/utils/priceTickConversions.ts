@@ -1,5 +1,4 @@
 import type { Token } from "@x7/utils"
-
 import { Price } from "@x7/utils"
 
 import { Q192 } from "../../core/constants"

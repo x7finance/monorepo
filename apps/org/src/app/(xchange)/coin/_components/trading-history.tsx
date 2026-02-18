@@ -4,8 +4,6 @@
 /* oxlint-disable @typescript-eslint/no-floating-promises */
 "use client"
 
-import type { ChainId } from "@x7/utils"
-
 import { useEffect, useState } from "react"
 import { formatEther } from "viem"
 import { getBlockNumber, getLogs } from "viem/actions"
@@ -20,6 +18,7 @@ import {
   TableHeader,
   TableRow,
 } from "@x7/ui/table"
+import type { ChainId } from "@x7/utils"
 import { Implementation, Token, WETH9 } from "@x7/utils"
 
 interface Trade {

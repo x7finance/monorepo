@@ -3,11 +3,9 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 "use client"
 
-import type { ViemProviderType } from "@x7/smart-order-router"
-import type { Abi } from "viem"
-
 import { Alchemy, Network, TokenBalanceType } from "alchemy-sdk"
 import { useEffect, useState } from "react"
+import type { Abi } from "viem"
 import { fromHex } from "viem"
 
 import {
@@ -22,6 +20,7 @@ import {
   WETH_ADDRESS,
   X7ContractsEnum,
 } from "@x7/sdk"
+import type { ViemProviderType } from "@x7/smart-order-router"
 import { ChainId, Implementation, LogCodes, Protocol } from "@x7/utils"
 import { env } from "~/env.mjs"
 import { log } from "~/lib/utils/log"

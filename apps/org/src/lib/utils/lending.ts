@@ -1,6 +1,5 @@
-import type { ChainId, LoanType } from "@x7/utils"
-
 import { X7ContractsEnum } from "@x7/sdk"
+import type { ChainId, LoanType } from "@x7/utils"
 
 export function generateX7InitialLiquidityLoanTermNumber(
   loantype: string,

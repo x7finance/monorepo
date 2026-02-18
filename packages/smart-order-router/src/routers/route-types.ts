@@ -1,10 +1,9 @@
-import type { Token } from "@x7/utils"
-
 import {
   MixedRouteSDK,
   RouteV2 as V2RouteRaw,
   RouteV3 as V3RouteRaw,
 } from "@x7/sdk"
+import type { Token } from "@x7/utils"
 import { Protocol } from "@x7/utils"
 
 export class V3Route extends V3RouteRaw<Token, Token> {

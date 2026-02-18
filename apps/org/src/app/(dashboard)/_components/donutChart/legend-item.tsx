@@ -1,5 +1,3 @@
-import type { ItemWithRenderProps } from "./types"
-
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import React, { useContext } from "react"
@@ -7,6 +5,7 @@ import React, { useContext } from "react"
 import { LinkExternal } from "@x7/ui/link"
 import { ExplorerDataType, getExplorerLink } from "~/lib/utils/getExplorerLink"
 
+import type { ItemWithRenderProps } from "./types"
 import { DonutChartContext } from "./types"
 
 export interface Props {

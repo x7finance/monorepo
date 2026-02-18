@@ -1,19 +1,18 @@
 /* oxlint-disable @typescript-eslint/unbound-method */
 "use client"
 
-import type { chipVariants } from "./chip"
-import type { ExtractProps, IconComponent } from "./types"
 import type { VariantProps } from "class-variance-authority"
 import type { FC } from "react"
-
 import * as React from "react"
 import { useEffect, useRef, useState, useTransition } from "react"
 
 import { cn } from "@x7/css"
 
+import type { chipVariants } from "./chip"
 import { Chip } from "./chip"
 import { textFieldVariants } from "./text-field"
 import { Tooltip, TooltipContent, TooltipTrigger } from "./tooltip"
+import type { ExtractProps, IconComponent } from "./types"
 
 export type ChipInputRootProps = React.InputHTMLAttributes<HTMLDivElement>
 

@@ -29,16 +29,16 @@
   },
   "dependencies": {
     "dexie": "^4.3.0",
-    "dexie-react-hooks": "^1.1.7",
+    "dexie-react-hooks": "^4.2.0",
     "lodash.groupby": "^4.6.0"
   },
   "devDependencies": {
     "@types/lodash.groupby": "^4.6.9",
-    "@types/node": "^22.19.8",
-    "@types/react": "^19.2.10",
+    "@types/node": "^22.19.11",
+    "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@x7/tsconfig": "workspace:*",
-    "oxlint": "^0.16.12",
+    "oxlint": "^1.48.0",
     "typescript": "^5.9.3"
   }
 }

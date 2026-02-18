@@ -1,8 +1,7 @@
-import type { ChainId } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import { useAccount } from "wagmi"
 
+import type { ChainId } from "@x7/utils"
 import { EmptyPioneer } from "~/lib/components/core/empty-pioneer"
 import { useActiveLoansByBorrower } from "~/lib/hooks/loans/useXchangeLendingPoolData"
 

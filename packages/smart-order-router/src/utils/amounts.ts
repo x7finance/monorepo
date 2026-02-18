@@ -1,9 +1,8 @@
-import type { Currency } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/restrict-template-expressions */
 import { parseUnits } from "viem"
 
 import { FeeAmount } from "@x7/sdk"
+import type { Currency } from "@x7/utils"
 import { CurrencyAmount as CurrencyAmountRaw } from "@x7/utils"
 
 export class CurrencyAmount extends CurrencyAmountRaw<Currency> {}

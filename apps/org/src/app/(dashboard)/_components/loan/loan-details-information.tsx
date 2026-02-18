@@ -1,7 +1,5 @@
 "use client"
 
-import type { LoanProps } from "~/lib/types"
-
 import { cn } from "@x7/css"
 import { ArrowUpRightIcon } from "@x7/icons"
 import { buttonVariants } from "@x7/ui/button"
@@ -30,6 +28,7 @@ import {
   useSymbol,
   useTokenByIndex,
 } from "~/lib/hooks/loans/useXchangeLoanData"
+import type { LoanProps } from "~/lib/types"
 import { ExplorerDataType, getExplorerLink } from "~/lib/utils/getExplorerLink"
 import { generateX7InitialLiquidityLoanTermContract } from "~/lib/utils/lending"
 

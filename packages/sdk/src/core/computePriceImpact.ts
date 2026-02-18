@@ -1,5 +1,4 @@
 import type { Currency, CurrencyAmount, Price } from "@x7/utils"
-
 import { Percent } from "@x7/utils"
 
 /**

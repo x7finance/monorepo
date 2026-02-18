@@ -1,3 +1,9 @@
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+import _ from "lodash"
+
+import type { ChainId, Currency, Token } from "@x7/utils"
+import { LogCodes, Protocol, TradeType } from "@x7/utils"
+
 import type {
   ITokenListProvider,
   ITokenProvider,
@@ -5,31 +11,24 @@ import type {
   IV2PoolProvider,
   IV2QuoteProvider,
 } from "../../../providers"
+import { TokenValidationResult } from "../../../providers"
 import type { ProviderConfig } from "../../../providers/provider"
 import type { CurrencyAmount } from "../../../utils"
+import { log, metric, MetricLoggerUnit, routeToString } from "../../../utils"
 import type { V2Route } from "../../router"
+import { V2RouteWithValidQuote } from "../entities"
+import { computeAllV2Routes } from "../functions/compute-all-routes"
 import type {
   CandidatePoolsBySelectionCriteria,
   V2CandidatePools,
 } from "../functions/get-candidate-pools"
 import type { IGasModel, IV2GasModelFactory } from "../gas-models"
-import type { AlphaRouterConfig } from "../types"
-import type { GetQuotesResult } from "./model/results/get-quotes-result"
-import type { GetRoutesResult } from "./model/results/get-routes-result"
-import type { ChainId, Currency, Token } from "@x7/utils"
-
-/* oxlint-disable @typescript-eslint/no-non-null-assertion */
-import _ from "lodash"
-
-import { LogCodes, Protocol, TradeType } from "@x7/utils"
-
-import { TokenValidationResult } from "../../../providers"
-import { log, metric, MetricLoggerUnit, routeToString } from "../../../utils"
-import { V2RouteWithValidQuote } from "../entities"
-import { computeAllV2Routes } from "../functions/compute-all-routes"
 import { NATIVE_OVERHEAD } from "../gas-models/v3/gas-costs"
+import type { AlphaRouterConfig } from "../types"
 
 import { BaseQuoter } from "./base-quoter"
+import type { GetQuotesResult } from "./model/results/get-quotes-result"
+import type { GetRoutesResult } from "./model/results/get-routes-result"
 
 export class V2Quoter extends BaseQuoter<V2CandidatePools, V2Route> {
   protected v2PoolProvider: IV2PoolProvider

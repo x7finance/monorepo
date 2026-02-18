@@ -1,6 +1,7 @@
+import type { ChainId } from "@x7/utils"
+
 import type { ICache } from "./cache"
 import type { GasPrice, IGasPriceProvider } from "./gas-price-provider"
-import type { ChainId } from "@x7/utils"
 
 /**
  * Provider for getting gas price, with functionality for caching the results.

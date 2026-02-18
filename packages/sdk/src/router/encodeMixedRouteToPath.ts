@@ -1,10 +1,11 @@
-import type { Pair } from "../v2"
-import type { MixedRouteSDK } from "./entities/mixedRoute/route"
-import type { Currency, Token } from "@x7/utils"
-
 import { encodePacked } from "viem"
 
+import type { Currency, Token } from "@x7/utils"
+
+import type { Pair } from "../v2"
 import { Pool } from "../v3"
+
+import type { MixedRouteSDK } from "./entities/mixedRoute/route"
 
 const V2_FEE_PATH_PLACEHOLDER = 8388608
 

@@ -1,15 +1,14 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 "use client"
 
-import type { Pool, RouteV2Wrapper, RouteV3Wrapper } from "@x7/sdk"
-import type { Currency } from "@x7/utils"
 import type { FC, ReactNode } from "react"
-
 import { useMemo } from "react"
 
 import { cn } from "@x7/css"
+import type { Pool, RouteV2Wrapper, RouteV3Wrapper } from "@x7/sdk"
 import { useTradeChartPanelLiquidity } from "@x7/ui"
 import { SkeletonBox } from "@x7/ui/skeleton"
+import type { Currency } from "@x7/utils"
 import { Implementation, LogCodes, Protocol } from "@x7/utils"
 import { useSwapState } from "~/lib/stores/swap"
 import { log } from "~/lib/utils/log"

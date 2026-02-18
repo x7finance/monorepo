@@ -1,7 +1,6 @@
-import type { ItemWithRenderProps } from "./types"
-
 import React, { useContext } from "react"
 
+import type { ItemWithRenderProps } from "./types"
 import { DonutChartContext } from "./types"
 
 export interface Props {

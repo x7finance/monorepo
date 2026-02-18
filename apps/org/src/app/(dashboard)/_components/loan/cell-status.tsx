@@ -1,7 +1,6 @@
 "use client"
 
 import type { ChainId, LoanType } from "@x7/utils"
-
 import { useCanLiquidate } from "~/lib/hooks/loans/useXchangeLendingPoolData"
 import {
   useLiquidationAmount,

@@ -1,11 +1,10 @@
-import type { Currency, Token } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 import invariant from "tiny-invariant"
 
+import type { Currency, Token } from "@x7/utils"
 import {
   CurrencyAmount,
   Fraction,

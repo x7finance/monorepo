@@ -1,5 +1,3 @@
-import type { ChainId } from "@x7/utils"
-
 /* oxlint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react"
 import { useAccount } from "wagmi"
@@ -12,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@x7/ui/card"
+import type { ChainId } from "@x7/utils"
 import {
   useLoanBorrower,
   useLoanTermLookUp,

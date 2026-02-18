@@ -1,10 +1,8 @@
 /* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
 "use client"
 
-import type { FC, ReactNode } from "react"
-import type { Signature } from "viem"
-
 import { watchAccount } from "@wagmi/core"
+import type { FC, ReactNode } from "react"
 import React, {
   createContext,
   useCallback,
@@ -13,6 +11,7 @@ import React, {
   useMemo,
   useState,
 } from "react"
+import type { Signature } from "viem"
 
 import { useWeb3Config } from "~/lib/providers/web3"
 

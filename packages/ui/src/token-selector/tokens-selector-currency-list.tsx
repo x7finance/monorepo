@@ -1,15 +1,14 @@
+/* oxlint-disable @typescript-eslint/unbound-method */
+import type { FC } from "react"
+import React, { memo, useMemo } from "react"
+import { useAccount } from "wagmi"
+
 import type {
   ChainId,
   CurrencyAmount,
   Currency as CurrencyType,
   Fraction,
 } from "@x7/utils"
-/* oxlint-disable @typescript-eslint/unbound-method */
-import type { FC } from "react"
-
-import React, { memo, useMemo } from "react"
-import { useAccount } from "wagmi"
-
 import { Native } from "@x7/utils"
 
 import { CurrencyList } from "../currency/currency-list"

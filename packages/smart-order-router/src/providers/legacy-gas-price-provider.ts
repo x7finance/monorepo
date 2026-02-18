@@ -1,11 +1,11 @@
-import type { ViemProviderType } from "../utils"
-import type { GasPrice } from "./gas-price-provider"
 import type { PublicClient } from "viem"
 
 import { LogCodes } from "@x7/utils"
 
+import type { ViemProviderType } from "../utils"
 import { log } from "../utils"
 
+import type { GasPrice } from "./gas-price-provider"
 import { IGasPriceProvider } from "./gas-price-provider"
 
 export class LegacyGasPriceProvider extends IGasPriceProvider {

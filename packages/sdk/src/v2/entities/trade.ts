@@ -1,10 +1,8 @@
-import type { Pair } from "./pair"
-import type { Currency, Percent, Token } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 import invariant from "tiny-invariant"
 
+import type { Currency, Percent, Token } from "@x7/utils"
 import {
   CurrencyAmount,
   Fraction,
@@ -17,6 +15,7 @@ import {
 import { computePriceImpact } from "../../core/computePriceImpact"
 import { MAX_PRICE_IMPACT_PERCENT, ONE, ZERO } from "../../core/constants"
 
+import type { Pair } from "./pair"
 import { RouteV2 } from "./route"
 
 // minimal interface so the input output comparator may be shared across types

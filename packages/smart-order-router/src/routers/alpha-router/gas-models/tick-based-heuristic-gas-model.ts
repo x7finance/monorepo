@@ -2,19 +2,13 @@
 
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 
-import type { V3RouteWithValidQuote } from "../entities"
-import type {
-  BuildOnChainGasModelFactoryType,
-  GasModelProviderConfig,
-  IGasModel,
-} from "./gas-model"
 import type { Pool } from "@x7/sdk"
 import type { ChainId, Currency } from "@x7/utils"
-
 import { CurrencyAmount, LogCodes, Price } from "@x7/utils"
 
 import { log, WRAPPED_NATIVE_CURRENCY } from "../../../utils"
 import { calculateL1GasFeesHelper } from "../../../utils/gas-factory-helpers"
+import type { V3RouteWithValidQuote } from "../entities"
 
 import {
   BASE_SWAP_COST,
@@ -24,6 +18,11 @@ import {
   SINGLE_HOP_OVERHEAD,
   TOKEN_OVERHEAD,
 } from "./gas-costs"
+import type {
+  BuildOnChainGasModelFactoryType,
+  GasModelProviderConfig,
+  IGasModel,
+} from "./gas-model"
 import { getQuoteThroughNativePool, IOnChainGasModelFactory } from "./gas-model"
 
 export abstract class TickBasedHeuristicGasModelFactory<

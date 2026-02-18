@@ -1,7 +1,5 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 
-import type { Token } from "@x7/utils"
-
 import {
   AMPL_ADDRESS,
   DAI,
@@ -23,6 +21,7 @@ import {
   USDT,
   WBTC,
 } from "@x7/sdk"
+import type { Token } from "@x7/utils"
 import { ChainId, WETH9, WNATIVE } from "@x7/utils"
 
 export const BASES_TO_CHECK_TRADES_AGAINST: Readonly<Record<number, Token[]>> =

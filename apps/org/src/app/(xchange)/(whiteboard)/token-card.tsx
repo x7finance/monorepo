@@ -4,8 +4,6 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-argument */
 "use client"
 
-import type { ChainId } from "@x7/utils"
-
 import Image from "next/image"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useChainId } from "wagmi"
@@ -22,6 +20,7 @@ import {
 import { LinkExternal, LinkInternal } from "@x7/ui/link"
 import { SkeletonBox } from "@x7/ui/skeleton"
 import { TimeAgo } from "@x7/ui/time-ago"
+import type { ChainId } from "@x7/utils"
 import { formatUSD, shortenAddress } from "@x7/utils"
 import { ChainsArray } from "~/lib/components/utils/contracts-dropdown"
 // import type { TokenWithTimestamp } from "~/lib/hooks/tokens/useCreatedXchangeTokens";

@@ -1,10 +1,9 @@
 "use client"
 
-import type { ChainId, LoanType } from "@x7/utils"
-
 import Link from "next/link"
 
 import { ContractCopy } from "@x7/ui/contract-copy"
+import type { ChainId, LoanType } from "@x7/utils"
 import { useLoanToken } from "~/lib/hooks/loans/useXchangeLendingPoolData"
 import {
   useFullLoanAddress,

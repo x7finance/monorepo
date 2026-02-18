@@ -1,12 +1,12 @@
-import type { Pair } from "../../../v2"
-import type { Pool } from "../../../v3"
-import type { Currency, Token } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import invariant from "tiny-invariant"
 
+import type { Currency, Token } from "@x7/utils"
 import { Price } from "@x7/utils"
+
+import type { Pair } from "../../../v2"
+import type { Pool } from "../../../v3"
 
 type TPool = Pair | Pool
 

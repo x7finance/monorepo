@@ -1,5 +1,10 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 
+import _ from "lodash"
+
+import type { ChainId, Currency, Token } from "@x7/utils"
+import { Implementation, LogCodes, Protocol, TradeType } from "@x7/utils"
+
 import type {
   IOnChainQuoteProvider,
   ITokenListProvider,
@@ -7,28 +12,22 @@ import type {
   ITokenValidatorProvider,
   IV3PoolProvider,
 } from "../../../providers"
+import { TokenValidationResult } from "../../../providers"
 import type { CurrencyAmount } from "../../../utils"
+import { log, metric, MetricLoggerUnit, routeToString } from "../../../utils"
 import type { V3Route } from "../../router"
+import { V3RouteWithValidQuote } from "../entities"
+import { computeAllV3Routes } from "../functions/compute-all-routes"
 import type {
   CandidatePoolsBySelectionCriteria,
   V3CandidatePools,
 } from "../functions/get-candidate-pools"
 import type { IGasModel } from "../gas-models"
 import type { AlphaRouterConfig } from "../types"
-import type { GetQuotesResult } from "./model/results/get-quotes-result"
-import type { GetRoutesResult } from "./model/results/get-routes-result"
-import type { ChainId, Currency, Token } from "@x7/utils"
-
-import _ from "lodash"
-
-import { Implementation, LogCodes, Protocol, TradeType } from "@x7/utils"
-
-import { TokenValidationResult } from "../../../providers"
-import { log, metric, MetricLoggerUnit, routeToString } from "../../../utils"
-import { V3RouteWithValidQuote } from "../entities"
-import { computeAllV3Routes } from "../functions/compute-all-routes"
 
 import { BaseQuoter } from "./base-quoter"
+import type { GetQuotesResult } from "./model/results/get-quotes-result"
+import type { GetRoutesResult } from "./model/results/get-routes-result"
 
 export class V3Quoter extends BaseQuoter<V3CandidatePools, V3Route> {
   protected v3PoolProvider: IV3PoolProvider

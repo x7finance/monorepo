@@ -1,11 +1,9 @@
-import type { IV2SubgraphProvider, V2SubgraphPool } from "./subgraph-provider"
-import type { Token } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/require-await */
 import _ from "lodash"
 
 import { Pair } from "@x7/sdk"
+import type { Token } from "@x7/utils"
 import { ChainId, Implementation } from "@x7/utils"
 
 import { WRAPPED_NATIVE_CURRENCY } from "../../utils/chains"
@@ -15,6 +13,8 @@ import {
   USDT_MAINNET,
   WBTC_MAINNET,
 } from "../token-provider"
+
+import type { IV2SubgraphProvider, V2SubgraphPool } from "./subgraph-provider"
 
 type ChainTokenList = Readonly<Record<ChainId, Token[]>>
 

@@ -2,8 +2,6 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 /* oxlint-disable @typescript-eslint/no-unsafe-call */
 
-import type { ChartConfig } from "@x7/ui/chart"
-
 import { scaleSymlog } from "d3-scale"
 import {
   Bar,
@@ -14,6 +12,7 @@ import {
   YAxis,
 } from "recharts"
 
+import type { ChartConfig } from "@x7/ui/chart"
 import {
   ChartContainer,
   ChartLegend,

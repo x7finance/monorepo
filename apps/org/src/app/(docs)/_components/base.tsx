@@ -2,9 +2,6 @@
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 
-import type { DocType } from "../_types"
-import type { SectionType } from "~/types"
-
 import { LinkInternal } from "@x7/ui/link"
 import {
   BREAKDOWNS_NAVIGATION,
@@ -15,7 +12,9 @@ import {
   ONCHAINS_NAVIGATION,
   WHITEPAPER_NAVIGATION,
 } from "~/app/(docs)/_config/docs"
+import type { SectionType } from "~/types"
 
+import type { DocType } from "../_types"
 import { DocsTypes } from "../_types"
 
 import { Navigation } from "./navigation"

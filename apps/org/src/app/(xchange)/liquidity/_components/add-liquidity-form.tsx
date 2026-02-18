@@ -1,5 +1,3 @@
-import type { ChainId, Currency, CurrencyAmount } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 /* oxlint-disable @typescript-eslint/no-explicit-any */
@@ -8,6 +6,7 @@ import { useChainId } from "wagmi"
 import { CheckCircleIcon, PlusCircleIcon } from "@x7/icons"
 import { X7ContractsEnum } from "@x7/sdk"
 import { Button } from "@x7/ui/button"
+import type { ChainId, Currency, CurrencyAmount } from "@x7/utils"
 import { CurrencyInput } from "~/lib/components/utils/currency-input"
 import { APPROVE_TAG_ADD_LEGACY } from "~/lib/constants/misc"
 import { Checker } from "~/lib/systems/Checker"

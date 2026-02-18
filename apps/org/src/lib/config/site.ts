@@ -1,5 +1,4 @@
 import type { Route } from "next"
-import type { SiteConfig } from "~/types"
 
 import {
   Discord,
@@ -12,6 +11,7 @@ import {
 } from "@x7/icons"
 import { SocialsEnum } from "@x7/utils"
 import { env } from "~/env.mjs"
+import type { SiteConfig } from "~/types"
 import {
   CommunityLinks,
   DashboardLinksEnum,

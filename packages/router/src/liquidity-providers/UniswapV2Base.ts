@@ -1,9 +1,3 @@
-import type { PoolResponse2 } from "../lib/api"
-import type { PoolCode } from "../pools/PoolCode"
-import type { RToken } from "@x7/tines"
-import type { ChainId, Token } from "@x7/utils"
-import type { Address, Hex, PublicClient } from "viem"
-
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
@@ -11,16 +5,21 @@ import type { Address, Hex, PublicClient } from "viem"
 /* oxlint-disable @typescript-eslint/require-await */
 /* oxlint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import { add, getUnixTime } from "date-fns"
+import type { Address, Hex, PublicClient } from "viem"
 import { encodePacked, getContractAddress, keccak256 } from "viem"
 
 import { getReservesAbi } from "@x7/contracts"
+import type { RToken } from "@x7/tines"
 import { ConstantProductRPool } from "@x7/tines"
+import type { ChainId, Token } from "@x7/utils"
 import { LogCodes } from "@x7/utils"
 
 import { getCurrencyCombinations } from "../getCurrencyCombinations"
+import type { PoolResponse2 } from "../lib/api"
 import { filterOnDemandPools, filterTopPools, mapToken } from "../lib/api"
 import { log } from "../lib/logger"
 import { ConstantProductPoolCode } from "../pools/ConstantProductPool"
+import type { PoolCode } from "../pools/PoolCode"
 
 import { LiquidityProvider } from "./LiquidityProvider"
 

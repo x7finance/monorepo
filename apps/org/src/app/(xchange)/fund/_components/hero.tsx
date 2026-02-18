@@ -1,9 +1,7 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 "use client"
 
-import type { ChainId } from "@x7/utils"
 import type { FC } from "react"
-
 import { useAccount } from "wagmi"
 
 import { cn } from "@x7/css"
@@ -16,6 +14,7 @@ import {
   CardTitle,
 } from "@x7/ui/card"
 import { LinkInternal } from "@x7/ui/link"
+import type { ChainId } from "@x7/utils"
 import { useNativeCurrency } from "~/lib/hooks/currency/useNativeCurrency"
 
 export const Hero: FC = () => {

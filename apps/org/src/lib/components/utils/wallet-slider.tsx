@@ -1,6 +1,7 @@
 "use client"
 
 import { useCallback, useEffect, useState } from "react"
+import { formatUnits } from "viem"
 import { useAccount, useBalance, useDisconnect } from "wagmi"
 
 import { cn } from "@x7/css"
@@ -91,7 +92,9 @@ export function WalletSlide() {
   }
 
   const accountName = ensName ? formatENS(ensName) : formatAddress(address)
-  const ethBalance = balanceData?.formatted
+  const ethBalance = balanceData?.value
+    ? formatUnits(balanceData.value, balanceData.decimals)
+    : undefined
   const displayBalance = ethBalance
     ? abbreviateETHBalance(parseFloat(ethBalance))
     : undefined

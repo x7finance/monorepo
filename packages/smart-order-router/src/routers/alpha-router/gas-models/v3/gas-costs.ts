@@ -1,9 +1,8 @@
-import type { V3Route } from "../../../router"
 import type { Currency, Token } from "@x7/utils"
-
 import { ChainId } from "@x7/utils"
 
 import { AAVE_MAINNET, LIDO_MAINNET } from "../../../../providers"
+import type { V3Route } from "../../../router"
 
 // Cost for crossing an uninitialized tick.
 export const COST_PER_UNINIT_TICK = BigInt(0)

@@ -1,12 +1,11 @@
 "use client"
 
-import type { Token } from "@x7/utils"
-
 import { keepPreviousData } from "@tanstack/react-query"
 import { useMemo } from "react"
 import { erc20Abi } from "viem"
 import { useReadContracts } from "wagmi"
 
+import type { Token } from "@x7/utils"
 import { CurrencyAmount } from "@x7/utils"
 
 function bigIntToCurrencyAmount(totalSupply?: bigint, token?: Token) {

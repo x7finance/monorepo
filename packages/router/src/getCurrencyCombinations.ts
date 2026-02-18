@@ -1,7 +1,7 @@
-import type { ChainId, Currency, Token } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import flatMap from "lodash.flatmap"
+
+import type { ChainId, Currency, Token } from "@x7/utils"
 
 import {
   ADDITIONAL_BASES,

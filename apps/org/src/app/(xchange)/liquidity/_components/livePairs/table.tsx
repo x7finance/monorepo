@@ -1,5 +1,3 @@
-import type { ChainId } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 import { useEffect, useState } from "react"
@@ -15,6 +13,7 @@ import {
   PaginationPrevious,
 } from "@x7/ui/pagination"
 import { StaticTable } from "@x7/ui/static-table"
+import type { ChainId } from "@x7/utils"
 
 import { PairRow } from "./row"
 

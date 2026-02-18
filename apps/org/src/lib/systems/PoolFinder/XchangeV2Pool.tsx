@@ -6,18 +6,17 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-unused-vars */
 
-import type { XchangeV2PoolFinderProps } from "./types"
-import type { Currency } from "@x7/utils"
-import type { FC } from "react"
-
 import { getPublicClient } from "@wagmi/core"
+import type { FC } from "react"
 import { useEffect, useState } from "react"
 
 import { PairsAbi } from "@x7/contracts"
 import { computePairAddress, Pair } from "@x7/sdk"
+import type { Currency } from "@x7/utils"
 import { CurrencyAmount, Implementation } from "@x7/utils"
 import { useWeb3Config } from "~/lib/providers/web3"
 
+import type { XchangeV2PoolFinderProps } from "./types"
 import { PoolFinderType, XchangeV2PoolState } from "./types"
 
 export const useXChangePool = (token1: Currency, token0: Currency) => {

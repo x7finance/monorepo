@@ -1,6 +1,6 @@
-import type { Token } from "@x7/utils"
-
 import { encodePacked, getContractAddress, keccak256 } from "viem"
+
+import type { Token } from "@x7/utils"
 
 export class Factory {
   public readonly address: string

@@ -1,72 +1,3 @@
-import type {
-  IOnChainQuoteProvider,
-  IRouteCachingProvider,
-  ISwapRouterProvider,
-  ITokenPropertiesProvider,
-  IV2QuoteProvider,
-  IV2SubgraphProvider,
-  Simulator,
-} from "../../providers"
-import type { ITokenListProvider } from "../../providers/caching-token-list-provider"
-import type {
-  GasPrice,
-  IGasPriceProvider,
-} from "../../providers/gas-price-provider"
-import type { IPortionProvider } from "../../providers/portion-provider"
-import type { ITokenProvider } from "../../providers/token-provider"
-import type { ITokenValidatorProvider } from "../../providers/token-validator-provider"
-import type { IV2PoolProvider } from "../../providers/v2/pool-provider"
-import type {
-  ArbitrumGasData,
-  IL2GasDataProvider,
-  OptimismGasData,
-} from "../../providers/v3/gas-data-provider"
-import type {
-  IV3PoolProvider,
-  V3ImplementationPair,
-} from "../../providers/v3/pool-provider"
-import type { IV3SubgraphProvider } from "../../providers/v3/subgraph-provider"
-import type { ViemProviderType } from "../../utils/viemHelpers"
-import type {
-  IRouter,
-  ISwapToRatio,
-  MethodParameters,
-  MixedRoute,
-  SwapAndAddConfig,
-  SwapAndAddOptions,
-  SwapAndAddParameters,
-  SwapOptions,
-  SwapRoute,
-  SwapToRatioResponse,
-  V2Route,
-  V3Route,
-} from "../router"
-import type {
-  BestSwapRoute,
-  MixedRouteWithValidQuote,
-  RouteWithValidQuote,
-  V3RouteWithValidQuote,
-} from "./entities/route-with-valid-quote"
-import type {
-  CandidatePoolsBySelectionCriteria,
-  PoolId,
-  V2CandidatePools,
-  V3CandidatePools,
-} from "./functions/get-candidate-pools"
-import type {
-  GasModelProviderConfig,
-  GasModelType,
-  IGasModel,
-  IOnChainGasModelFactory,
-  IV2GasModelFactory,
-  LiquidityCalculationPools,
-} from "./gas-models/gas-model"
-import type { GetQuotesResult } from "./quoters"
-import type { RouteV2Wrapper, RouteV3Wrapper, Trade } from "@x7/sdk"
-import type { TokenList } from "@x7/token-lists"
-import type { Currency, Token } from "@x7/utils"
-import type { PublicClient } from "viem"
-
 /* oxlint-disable @typescript-eslint/no-unused-vars */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
@@ -74,10 +5,12 @@ import type { PublicClient } from "viem"
 import retry from "async-retry"
 import _ from "lodash"
 import NodeCache from "node-cache"
+import type { PublicClient } from "viem"
 import { getContract } from "viem"
 
 import { XChangeV2PairAbi } from "@x7/contracts"
 import DEFAULT_TOKEN_LIST from "@x7/default-token-list"
+import type { RouteV2Wrapper, RouteV3Wrapper, Trade } from "@x7/sdk"
 import {
   generateRouterAddress,
   MAX_PRICE_IMPACT_PERCENT,
@@ -88,6 +21,8 @@ import {
   SwapRouter,
   TickMath,
 } from "@x7/sdk"
+import type { TokenList } from "@x7/token-lists"
+import type { Currency, Token } from "@x7/utils"
 import {
   ChainId,
   Fraction,
@@ -101,6 +36,15 @@ import {
 } from "@x7/utils"
 
 import { erc20ABI } from "../../abis/erc20"
+import type {
+  IOnChainQuoteProvider,
+  IRouteCachingProvider,
+  ISwapRouterProvider,
+  ITokenPropertiesProvider,
+  IV2QuoteProvider,
+  IV2SubgraphProvider,
+  Simulator,
+} from "../../providers"
 import {
   CachedRoutes,
   CacheMode,
@@ -127,14 +71,33 @@ import {
   V3SubgraphProvider,
   V3SubgraphProviderWithFallBacks,
 } from "../../providers"
+import type { ITokenListProvider } from "../../providers/caching-token-list-provider"
 import { CachingTokenListProvider } from "../../providers/caching-token-list-provider"
+import type {
+  GasPrice,
+  IGasPriceProvider,
+} from "../../providers/gas-price-provider"
+import type { IPortionProvider } from "../../providers/portion-provider"
 import { PortionProvider } from "../../providers/portion-provider"
 import { OnChainTokenFeeFetcher } from "../../providers/token-fee-fetcher"
+import type { ITokenProvider } from "../../providers/token-provider"
 import { TokenProvider } from "../../providers/token-provider"
+import type { ITokenValidatorProvider } from "../../providers/token-validator-provider"
 import { TokenValidatorProvider } from "../../providers/token-validator-provider"
+import type { IV2PoolProvider } from "../../providers/v2/pool-provider"
 import { V2PoolProvider } from "../../providers/v2/pool-provider"
+import type {
+  ArbitrumGasData,
+  IL2GasDataProvider,
+  OptimismGasData,
+} from "../../providers/v3/gas-data-provider"
 import { ArbitrumGasDataProvider } from "../../providers/v3/gas-data-provider"
+import type {
+  IV3PoolProvider,
+  V3ImplementationPair,
+} from "../../providers/v3/pool-provider"
 import { V3PoolProvider } from "../../providers/v3/pool-provider"
+import type { IV3SubgraphProvider } from "../../providers/v3/subgraph-provider"
 import { CurrencyAmount } from "../../utils/amounts"
 import { WRAPPED_NATIVE_CURRENCY } from "../../utils/chains"
 import {
@@ -148,19 +111,55 @@ import {
 } from "../../utils/methodParameters"
 import { metric, MetricLoggerUnit } from "../../utils/metric"
 import { UNSUPPORTED_TOKENS } from "../../utils/unsupported-tokens"
+import type { ViemProviderType } from "../../utils/viemHelpers"
+import type {
+  IRouter,
+  ISwapToRatio,
+  MethodParameters,
+  MixedRoute,
+  SwapAndAddConfig,
+  SwapAndAddOptions,
+  SwapAndAddParameters,
+  SwapOptions,
+  SwapRoute,
+  SwapToRatioResponse,
+  V2Route,
+  V3Route,
+} from "../router"
 import { SwapToRatioStatus } from "../router"
 
 import { DEFAULT_ROUTING_CONFIG_BY_CHAIN } from "./config"
+import type {
+  BestSwapRoute,
+  MixedRouteWithValidQuote,
+  RouteWithValidQuote,
+  V3RouteWithValidQuote,
+} from "./entities/route-with-valid-quote"
 import { getBestSwapRoute } from "./functions/best-swap-route"
 import { calculateRatioAmountIn } from "./functions/calculate-ratio-amount-in"
+import type {
+  CandidatePoolsBySelectionCriteria,
+  PoolId,
+  V2CandidatePools,
+  V3CandidatePools,
+} from "./functions/get-candidate-pools"
 import {
   getV2CandidatePools,
   getV3CandidatePools,
 } from "./functions/get-candidate-pools"
+import type {
+  GasModelProviderConfig,
+  GasModelType,
+  IGasModel,
+  IOnChainGasModelFactory,
+  IV2GasModelFactory,
+  LiquidityCalculationPools,
+} from "./gas-models/gas-model"
 import { MixedRouteHeuristicGasModelFactory } from "./gas-models/mixedRoute/mixed-route-heuristic-gas-model"
 import { V2HeuristicGasModelFactory } from "./gas-models/v2/v2-heuristic-gas-model"
 import { NATIVE_OVERHEAD } from "./gas-models/v3/gas-costs"
 import { V3HeuristicGasModelFactory } from "./gas-models/v3/v3-heuristic-gas-model"
+import type { GetQuotesResult } from "./quoters"
 import { MixedQuoter, V2Quoter, V3Quoter } from "./quoters"
 
 export interface AlphaRouterParams {

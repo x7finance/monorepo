@@ -1,16 +1,15 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 
-import type { Pair } from "@x7/sdk"
-import type { Amount, Currency, Native } from "@x7/utils"
 import type { FC } from "react"
-import type { UserPositionsResponse } from "~/lib/hooks/tokens/useGetAllUserTokens"
-
 import { useMemo } from "react"
 
+import type { Pair } from "@x7/sdk"
 import { Card, CardContent } from "@x7/ui/card"
 import { Collapsible } from "@x7/ui/collapsible"
 import { Stat, StatLabel, StatValue } from "@x7/ui/stat"
+import type { Amount, Currency, Native } from "@x7/utils"
 import { formatPercent } from "@x7/utils"
+import type { UserPositionsResponse } from "~/lib/hooks/tokens/useGetAllUserTokens"
 import { XchangeV2PoolState } from "~/lib/systems/PoolFinder/types"
 
 interface AddLiquidityStatCard {

@@ -1,5 +1,3 @@
-import type { ChainId } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-unsafe-return */
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
@@ -10,6 +8,7 @@ import { getAddress } from "viem"
 import { useChainId } from "wagmi"
 
 import { generateX7SubgraphByChainId } from "@x7/sdk"
+import type { ChainId } from "@x7/utils"
 import { WETH9 } from "@x7/utils"
 
 const PAIRS_QUERY = `

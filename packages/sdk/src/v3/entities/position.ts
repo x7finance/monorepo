@@ -1,8 +1,7 @@
-import type { Price, Token } from "@x7/utils"
-
 import invariant from "tiny-invariant"
 import { maxUint256 } from "viem"
 
+import type { Price, Token } from "@x7/utils"
 import { CurrencyAmount, Implementation, Percent } from "@x7/utils"
 
 import { ZERO } from "../../core/constants"

@@ -1,10 +1,8 @@
-import type { ChainId } from "@x7/utils"
-import type { Abi } from "viem"
-
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
+import type { Abi } from "viem"
 import { useChainId, useReadContracts } from "wagmi"
 import * as z from "zod"
 
@@ -16,6 +14,7 @@ import { ContractCopy } from "@x7/ui/contract-copy"
 import { Form, FormControl, FormItem, FormMessage } from "@x7/ui/form"
 import { Input } from "@x7/ui/input"
 import { LinkExternal } from "@x7/ui/link"
+import type { ChainId } from "@x7/utils"
 import { generateChainIdentifier } from "@x7/utils"
 import { ChainsArray } from "~/lib/components/utils/contracts-dropdown"
 

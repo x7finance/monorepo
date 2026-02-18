@@ -1,12 +1,11 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 "use client"
 
-import type { ChainId, Token } from "@x7/utils"
 import type { Address } from "viem"
-
 import { erc20Abi } from "viem"
 import { useReadContract } from "wagmi"
 
+import type { ChainId, Token } from "@x7/utils"
 import { CurrencyAmount } from "@x7/utils"
 
 interface UseTokenAllowance {

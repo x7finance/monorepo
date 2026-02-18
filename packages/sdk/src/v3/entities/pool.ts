@@ -1,21 +1,20 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-enum-comparison */
 
-import type { FeeAmount } from "../constants"
-import type { Tick, TickConstructorArgs } from "./tick"
-import type { TickDataProvider } from "./tickDataProvider"
-import type { Implementation, Token } from "@x7/utils"
-
 import invariant from "tiny-invariant"
 
+import type { Implementation, Token } from "@x7/utils"
 import { CurrencyAmount, Price } from "@x7/utils"
 
 import { NEGATIVE_ONE, ONE, Q192, ZERO } from "../../core/constants"
+import type { FeeAmount } from "../constants"
 import { FACTORY_ADDRESS, TICK_SPACINGS } from "../constants"
 import { computePoolAddress } from "../utils/computePoolAddress"
 import { LiquidityMath } from "../utils/liquidityMath"
 import { SwapMath } from "../utils/swapMath"
 import { TickMath } from "../utils/tickMath"
 
+import type { Tick, TickConstructorArgs } from "./tick"
+import type { TickDataProvider } from "./tickDataProvider"
 import { NoTickDataProvider } from "./tickDataProvider"
 import { TickListDataProvider } from "./tickListDataProvider"
 

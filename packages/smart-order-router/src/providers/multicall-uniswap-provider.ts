@@ -1,12 +1,3 @@
-import type { ViemProviderType } from "../utils"
-import type {
-  CallMultipleFunctionsOnSameContractParams,
-  CallSameFunctionOnContractWithMultipleParams,
-  CallSameFunctionOnMultipleContractsParams,
-  Result,
-} from "./multicall-provider"
-import type { ChainId } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-unused-vars */
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
@@ -20,10 +11,18 @@ import { decodeFunctionResult, encodeFunctionData, getContract } from "viem"
 
 import UniswapInterfaceMulticallJson from "@x7/contracts/artifacts/contracts/v3-periphery/lens/UniswapInterfaceMulticall.sol/UniswapInterfaceMulticall.json"
 import { UNISWAP_ADDRESS_MAP } from "@x7/sdk"
+import type { ChainId } from "@x7/utils"
 import { LogCodes } from "@x7/utils"
 
+import type { ViemProviderType } from "../utils"
 import { log } from "../utils"
 
+import type {
+  CallMultipleFunctionsOnSameContractParams,
+  CallSameFunctionOnContractWithMultipleParams,
+  CallSameFunctionOnMultipleContractsParams,
+  Result,
+} from "./multicall-provider"
 import { IMulticallProvider } from "./multicall-provider"
 
 export interface UniswapMulticallConfig {

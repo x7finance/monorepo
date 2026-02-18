@@ -1,18 +1,9 @@
-import type {
-  MixedRouteWithValidQuote,
-  RouteWithValidQuote,
-  V2RouteWithValidQuote,
-  V3RouteWithValidQuote,
-} from "../routers/alpha-router/entities/route-with-valid-quote"
-import type { MethodParameters, SwapOptions } from "../routers/router"
-import type { RouteV2Wrapper, RouteV3Wrapper } from "@x7/sdk"
-import type { ChainId, Currency } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/restrict-template-expressions */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import _ from "lodash"
 
+import type { RouteV2Wrapper, RouteV3Wrapper } from "@x7/sdk"
 import {
   generateRouterAddress,
   MixedRouteSDK,
@@ -23,8 +14,16 @@ import {
   RouteV2 as V2RouteRaw,
   RouteV3 as V3RouteRaw,
 } from "@x7/sdk"
+import type { ChainId, Currency } from "@x7/utils"
 import { Protocol, TradeType } from "@x7/utils"
 
+import type {
+  MixedRouteWithValidQuote,
+  RouteWithValidQuote,
+  V2RouteWithValidQuote,
+  V3RouteWithValidQuote,
+} from "../routers/alpha-router/entities/route-with-valid-quote"
+import type { MethodParameters, SwapOptions } from "../routers/router"
 import { SwapType } from "../routers/router"
 
 import { CurrencyAmount } from "./amounts"

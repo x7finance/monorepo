@@ -1,10 +1,9 @@
-import type { ChainId } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import { useCallback, useMemo } from "react"
 import { getAddress, isAddress } from "viem"
 
 import { useLocalStorage } from "@x7/ui"
+import type { ChainId } from "@x7/utils"
 import { Token } from "@x7/utils"
 
 interface Data {

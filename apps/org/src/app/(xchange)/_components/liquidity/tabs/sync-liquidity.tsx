@@ -1,23 +1,22 @@
-import type { ActiveChainId, Native, Token } from "@x7/utils"
-import type { BaseError } from "viem"
-import type { WriteContractErrorType } from "wagmi/actions"
-import type { UserPositionsResponse } from "~/lib/hooks/tokens/useGetAllUserTokens"
-
 /* oxlint-disable react-hooks/exhaustive-deps */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useCallback, useEffect, useState } from "react"
 import { toast } from "sonner"
+import type { BaseError } from "viem"
 import { UserRejectedRequestError } from "viem"
 import { useAccount, useSimulateContract, useWriteContract } from "wagmi"
+import type { WriteContractErrorType } from "wagmi/actions"
 
 import { uniswapV2PairAbi } from "@x7/contracts"
 import { CheckCircleIcon, PlusCircleIcon } from "@x7/icons"
 import { X7ContractsEnum } from "@x7/sdk"
 import { Button } from "@x7/ui/button"
+import type { ActiveChainId, Native, Token } from "@x7/utils"
 import { CurrencyAmount } from "@x7/utils"
 import { CurrencyInput } from "~/lib/components/utils/currency-input"
 import { APPROVE_TAG_REMOVE } from "~/lib/constants/misc"
+import type { UserPositionsResponse } from "~/lib/hooks/tokens/useGetAllUserTokens"
 import { useTransactionStore } from "~/lib/providers/tx"
 import { useWeb3Config } from "~/lib/providers/web3"
 import { Checker } from "~/lib/systems/Checker"

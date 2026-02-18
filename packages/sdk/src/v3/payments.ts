@@ -1,9 +1,8 @@
-import type { Percent, Token } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-empty-function */
 import { encodeFunctionData } from "viem"
 
 import { peripheryPaymentsWithFeeExtendedABI } from "@x7/contracts"
+import type { Percent, Token } from "@x7/utils"
 
 import { validateAndParseAddress } from "../core/validateAndParseAddress"
 

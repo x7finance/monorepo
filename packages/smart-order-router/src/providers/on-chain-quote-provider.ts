@@ -1,8 +1,3 @@
-import type { MixedRoute, V3Route } from "../routers/router"
-import type { CurrencyAmount, ViemProviderType } from "../utils"
-import type { Result } from "./multicall-provider"
-import type { CustomMulticallProvider } from "./multicall-uniswap-provider"
-import type { ProviderConfig } from "./provider"
 /* oxlint-disable @typescript-eslint/no-base-to-string */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/no-explicit-any */
@@ -11,11 +6,10 @@ import type { ProviderConfig } from "./provider"
 /* oxlint-disable @typescript-eslint/no-unsafe-call */
 /* oxlint-disable @typescript-eslint/restrict-template-expressions */
 import type { Options as RetryOptions } from "async-retry"
-import type { PublicClient } from "viem"
-
 import retry from "async-retry"
 import _ from "lodash"
 import stats from "stats-lite"
+import type { PublicClient } from "viem"
 
 import MixedRouteQuoterV1 from "@x7/contracts/artifacts/contracts/swap-router-contracts/lens/MixedRouteQuoterV1.sol/MixedRouteQuoterV1.json"
 import QuoterV2 from "@x7/contracts/artifacts/contracts/swap-router-contracts/lens/QuoterV2.sol/QuoterV2.json"
@@ -28,10 +22,16 @@ import {
 } from "@x7/sdk"
 import { ChainId, LogCodes, Protocol } from "@x7/utils"
 
+import type { MixedRoute, V3Route } from "../routers/router"
 import { V2Route } from "../routers/router"
+import type { CurrencyAmount, ViemProviderType } from "../utils"
 import { metric, MetricLoggerUnit } from "../utils"
 import { log } from "../utils/log"
 import { routeToString } from "../utils/routes"
+
+import type { Result } from "./multicall-provider"
+import type { CustomMulticallProvider } from "./multicall-uniswap-provider"
+import type { ProviderConfig } from "./provider"
 
 /**
  * An on chain quote for a swap.

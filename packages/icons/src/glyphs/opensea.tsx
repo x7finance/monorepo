@@ -1,5 +1,4 @@
 import type { SVGProps } from "react"
-
 import { memo } from "react"
 
 function Opensea(props: SVGProps<SVGSVGElement>) {

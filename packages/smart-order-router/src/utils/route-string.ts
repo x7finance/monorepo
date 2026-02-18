@@ -1,9 +1,9 @@
-import type { MixedRoute, V2Route, V3Route } from "../routers/route-types"
-
 import _ from "lodash"
 
 import { Pair, Pool, V3_CORE_FACTORY_ADDRESSES } from "@x7/sdk"
 import { Protocol } from "@x7/utils"
+
+import type { MixedRoute, V2Route, V3Route } from "../routers/route-types"
 
 export const routeToString = (
   route: V3Route | V2Route | MixedRoute

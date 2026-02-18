@@ -1,10 +1,9 @@
-import type { EIP1559GasPriceProvider } from "./eip-1559-gas-price-provider"
-import type { GasPrice } from "./gas-price-provider"
-import type { LegacyGasPriceProvider } from "./legacy-gas-price-provider"
-
 import { ChainId } from "@x7/utils"
 
+import type { EIP1559GasPriceProvider } from "./eip-1559-gas-price-provider"
+import type { GasPrice } from "./gas-price-provider"
 import { IGasPriceProvider } from "./gas-price-provider"
+import type { LegacyGasPriceProvider } from "./legacy-gas-price-provider"
 
 const DEFAULT_EIP_1559_SUPPORTED_CHAINS = [
   ChainId.ETHEREUM,

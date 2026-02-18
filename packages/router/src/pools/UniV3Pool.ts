@@ -1,7 +1,7 @@
-import type { LiquidityProviders } from "../liquidity-providers/types"
 import type { MultiRoute, RouteLeg, UniV3Pool } from "@x7/tines"
 
 import { HEXer } from "../HEXer"
+import type { LiquidityProviders } from "../liquidity-providers/types"
 
 import { PoolCode } from "./PoolCode"
 

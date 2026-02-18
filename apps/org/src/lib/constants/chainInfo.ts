@@ -1,6 +1,5 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import type { SupportedL1ChainId, SupportedL2ChainId } from "@x7/utils"
-
 import { ChainId } from "@x7/utils"
 
 import { BLOCK_EXPLORER_PREFIXES } from "../utils/getExplorerLink"

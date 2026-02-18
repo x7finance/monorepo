@@ -1,7 +1,3 @@
-import type { IMulticallProvider, Result } from "./multicall-provider"
-import type { ProviderConfig } from "./provider"
-import type { Abi } from "viem"
-
 /* oxlint-disable @typescript-eslint/no-unsafe-call */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
@@ -10,6 +6,7 @@ import type { Abi } from "viem"
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable @typescript-eslint/restrict-template-expressions */
 import _ from "lodash"
+import type { Abi } from "viem"
 import { hexToString } from "viem"
 
 import {
@@ -24,6 +21,9 @@ import { ChainId, LogCodes, Token, WRAPPED_CONTRACTS } from "@x7/utils"
 
 import { erc20ABI } from "../abis/erc20"
 import { log } from "../utils"
+
+import type { IMulticallProvider, Result } from "./multicall-provider"
+import type { ProviderConfig } from "./provider"
 
 /**
  * Provider for getting token data.
@@ -452,7 +452,7 @@ export class TokenProvider implements ITokenProvider {
         )
 
         throw new Error(
-          "[TokenProvider.getTokenSymbol] Impossible to fetch token symbol."
+          "[TokenProvider.getTokenSymbol] Impossible to fetch token symbol.", { cause: error }
         )
       }
     }

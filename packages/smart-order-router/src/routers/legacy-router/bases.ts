@@ -1,8 +1,7 @@
-import type { ITokenProvider } from "../../providers/token-provider"
 import type { Token } from "@x7/utils"
-
 import { ChainId } from "@x7/utils"
 
+import type { ITokenProvider } from "../../providers/token-provider"
 import {
   BTC_BNB,
   BUSD_BNB,

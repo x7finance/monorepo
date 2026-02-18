@@ -1,7 +1,5 @@
 "use client"
 
-import type { ActiveChainId } from "@x7/utils"
-
 import { useEffect, useState } from "react"
 import { useAccount } from "wagmi"
 
@@ -13,6 +11,7 @@ import {
   CollapsibleTrigger,
 } from "@x7/ui/collapsible"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@x7/ui/tabs"
+import type { ActiveChainId } from "@x7/utils"
 import { CurrencyInput } from "~/lib/components/utils/currency-input"
 import { ConnectionComponent } from "~/lib/components/utils/web3-connect-button"
 import { X7DAO } from "~/lib/constants/tokens"

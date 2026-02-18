@@ -1,7 +1,6 @@
-import type { UtilityNftType } from "~/types"
-
 import { X7ContractsEnum } from "@x7/sdk"
 import { ChainId } from "@x7/utils"
+import type { UtilityNftType } from "~/types"
 
 export const EXCHANGE_IDS = {
   EcosystemMaxi: {

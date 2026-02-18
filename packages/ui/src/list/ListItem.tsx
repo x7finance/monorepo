@@ -1,12 +1,11 @@
-import type { IconProps, PolymorphicComponentProps } from "../types"
 /* oxlint-disable @typescript-eslint/unbound-method */
 import type { ReactNode } from "react"
-
 import React from "react"
 
 import { cn } from "@x7/css"
 
 import { SkeletonCircle, SkeletonText } from "../skeleton"
+import type { IconProps, PolymorphicComponentProps } from "../types"
 
 interface Props {
   title: ReactNode

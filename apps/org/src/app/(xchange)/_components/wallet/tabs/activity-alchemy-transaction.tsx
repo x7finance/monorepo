@@ -1,9 +1,8 @@
-import type { ChainId } from "@x7/utils"
-
 import { useAccount } from "wagmi"
 
 import { Card, CardContent } from "@x7/ui/card"
 import { LinkExternal } from "@x7/ui/link"
+import type { ChainId } from "@x7/utils"
 import { getChainInfo } from "~/lib/constants/chainInfo"
 
 interface ActivityTransactionProps {

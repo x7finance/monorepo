@@ -1,8 +1,7 @@
-import type { ButtonProps } from "@x7/ui/button"
 import type { FC } from "react"
-
 import React from "react"
 
+import type { ButtonProps } from "@x7/ui/button"
 import { Button } from "@x7/ui/button"
 
 interface CustomProps extends ButtonProps {

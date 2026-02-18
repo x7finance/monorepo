@@ -1,5 +1,3 @@
-import type { ChainId } from "@x7/utils"
-
 import Link from "next/link"
 
 import { InfoIcon } from "@x7/icons"
@@ -16,6 +14,7 @@ import {
   HoverCardTrigger,
 } from "@x7/ui/hover-card"
 import { Table, TableBody, TableCell, TableRow } from "@x7/ui/table"
+import type { ChainId } from "@x7/utils"
 import { generateChainDenomination } from "@x7/utils"
 
 interface StatusCardProps {

@@ -1,8 +1,6 @@
-import type { Currency, CurrencyAmount } from "@x7/utils"
-// import { ChainLinkAbi } from "@x7/contracts";
-
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import { parseEther } from "viem"
+// import { ChainLinkAbi } from "@x7/contracts";
 
 import { PinIcon } from "@x7/icons"
 // import { useAccount, useReadContracts } from "wagmi";
@@ -20,6 +18,7 @@ import {
   HoverCardTrigger,
 } from "@x7/ui/hover-card"
 import { Tag } from "@x7/ui/tag"
+import type { Currency, CurrencyAmount } from "@x7/utils"
 // import type { RouteWithValidQuote } from "@x7/smart-order-router";
 // import { SkeletonBox } from "@x7/ui/skeleton";
 // import { generateChainTokenOracleEtherUSDEnum, Native, WETH9 } from "@x7/utils";

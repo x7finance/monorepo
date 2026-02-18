@@ -1,6 +1,3 @@
-import type { ActiveChainId, ChainId } from "@x7/utils"
-import type { UserPositionsResponse } from "~/lib/hooks/tokens/useGetAllUserTokens"
-
 import { useAccount, usePublicClient } from "wagmi"
 
 import {
@@ -10,8 +7,10 @@ import {
   TableHeader,
   TableRow,
 } from "@x7/ui/table"
+import type { ActiveChainId, ChainId } from "@x7/utils"
 import { EmptyPioneer } from "~/lib/components/core/empty-pioneer"
 import { LoadingPioneer } from "~/lib/components/core/loading-pioneer"
+import type { UserPositionsResponse } from "~/lib/hooks/tokens/useGetAllUserTokens"
 import { useAllLiquidityPositions } from "~/lib/hooks/tokens/useGetAllUserTokens"
 import { useWeb3Config } from "~/lib/providers/web3"
 

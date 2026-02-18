@@ -4,7 +4,6 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 
 import type { IChartApi, Time } from "lightweight-charts"
-
 import {
   CandlestickSeries,
   createChart,

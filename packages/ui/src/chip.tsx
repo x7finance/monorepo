@@ -1,11 +1,11 @@
-import type { ExtractProps, IconComponent } from "./types"
 import type { VariantProps } from "class-variance-authority"
-
 import { cva } from "class-variance-authority"
 import * as React from "react"
 
 import { cn } from "@x7/css"
 import { XIcon } from "@x7/icons"
+
+import type { ExtractProps, IconComponent } from "./types"
 
 const chipVariants = cva(
   "whitespace-nowrap inline-flex items-center rounded-lg px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2 ring-offset-background",

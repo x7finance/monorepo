@@ -3,9 +3,8 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-argument */
 "use client"
 
-import type { ChainId, LoanType } from "@x7/utils"
-
 import { Tag } from "@x7/ui/tag"
+import type { ChainId, LoanType } from "@x7/utils"
 import { generateChainDenomination } from "@x7/utils"
 import {
   useGetPremiumPaymentSchedule,

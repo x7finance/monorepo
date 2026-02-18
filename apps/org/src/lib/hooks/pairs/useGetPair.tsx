@@ -1,9 +1,8 @@
-import type { ChainId } from "@x7/utils"
 import type { Address } from "viem"
-
 import { useReadContracts } from "wagmi"
 
 import { XchangeFactory } from "@x7/contracts"
+import type { ChainId } from "@x7/utils"
 
 export function useGetPair(
   chainId: ChainId,

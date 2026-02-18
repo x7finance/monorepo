@@ -1,8 +1,8 @@
+import type { Table } from "dexie"
+import { Dexie } from "dexie"
+
 import type { ResolvedNotification } from "./notifications/types.js"
 import type { SavedToken } from "./tokens/types.js"
-import type { Table } from "dexie"
-
-import { Dexie } from "dexie"
 
 export class X7Dexie extends Dexie {
   notifications!: Table<ResolvedNotification & { account: string }>

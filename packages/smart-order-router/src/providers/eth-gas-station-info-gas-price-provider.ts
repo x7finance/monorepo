@@ -1,5 +1,3 @@
-import type { GasPrice } from "./gas-price-provider"
-
 import retry from "async-retry"
 import axios from "axios"
 
@@ -7,6 +5,7 @@ import { LogCodes } from "@x7/utils"
 
 import { log } from "../utils/log"
 
+import type { GasPrice } from "./gas-price-provider"
 import { IGasPriceProvider } from "./gas-price-provider"
 
 // Gas prices from ethgasstation are in x10 Gwei. Must divide by 10 to use.

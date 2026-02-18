@@ -2,8 +2,6 @@
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
-import type { ChainId, LoanType } from "@x7/utils"
-
 import { Suspense, useEffect, useState } from "react"
 
 import {
@@ -15,6 +13,7 @@ import {
 } from "@x7/ui/pagination"
 import { StaticTable } from "@x7/ui/static-table"
 import { TableLoadingShimmer } from "@x7/ui/table-loading-shimmer"
+import type { ChainId, LoanType } from "@x7/utils"
 import { EmptyPioneer } from "~/lib/components/core/empty-pioneer"
 import { LoadingPioneer } from "~/lib/components/core/loading-pioneer"
 import { useTotalLoanSupply } from "~/lib/hooks/loans/useXchangeLoanData"

@@ -1,8 +1,4 @@
-import type {
-  LoanTermData,
-  TokenApprovals,
-} from "../../../app/(xchange)/_components/loans/types"
-import type { ChainId, Currency } from "@x7/utils"
+import { getPublicClient } from "@wagmi/core"
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 /* oxlint-disable @typescript-eslint/no-unsafe-call */
 /* oxlint-disable @typescript-eslint/no-unsafe-argument */
@@ -11,8 +7,6 @@ import type { ChainId, Currency } from "@x7/utils"
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import type { FC } from "react"
-
-import { getPublicClient } from "@wagmi/core"
 import {
   createContext,
   useCallback,
@@ -26,6 +20,7 @@ import { useAccount, useChainId, useWaitForTransactionReceipt } from "wagmi"
 
 import { X7LendingPoolV2 } from "@x7/contracts"
 import { X7ContractsEnum } from "@x7/sdk"
+import type { ChainId, Currency } from "@x7/utils"
 import { CurrencyAmount, LogCodes, Native } from "@x7/utils"
 import {
   ApprovalState,
@@ -34,6 +29,10 @@ import {
 import { useCountOfActiveLoans } from "~/lib/hooks/loans/useXchangeLendingPoolData"
 import { useWeb3Config } from "~/lib/providers/web3"
 
+import type {
+  LoanTermData,
+  TokenApprovals,
+} from "../../../app/(xchange)/_components/loans/types"
 import { useLoanTerms } from "../../../app/(xchange)/_components/loans/types"
 import { SECONDS_IN_A_DAY } from "../../constants/misc"
 import { log } from "../../utils/log"

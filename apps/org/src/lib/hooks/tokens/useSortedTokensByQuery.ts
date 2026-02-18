@@ -1,10 +1,10 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 "use client"
 
-import type { Currency, CurrencyAmount, Fraction, Token } from "@x7/utils"
-
 import { useMemo } from "react"
 import { isAddress } from "viem"
+
+import type { Currency, CurrencyAmount, Fraction, Token } from "@x7/utils"
 
 const alwaysTrue = () => true
 

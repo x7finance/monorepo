@@ -1,9 +1,9 @@
-import type { MixedRoute, V2Route, V3Route } from "../routers/route-types"
-
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import _ from "lodash"
 
 import { Percent, Protocol } from "@x7/utils"
+
+import type { MixedRoute, V2Route, V3Route } from "../routers/route-types"
 
 import { CurrencyAmount } from "./amounts"
 import { routeToString } from "./route-string"

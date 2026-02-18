@@ -1,6 +1,6 @@
-import type { ChainShortNameType, LoanType } from "@x7/utils"
 import type { Metadata } from "next"
 
+import type { ChainShortNameType, LoanType } from "@x7/utils"
 import { LoanDetails } from "~/app/(dashboard)/_components/loan/details"
 import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
 import { XchangeLinks } from "~/types/links"

@@ -1,10 +1,10 @@
-import type { CLTick } from "./CLPool"
-import type { RToken } from "./PrimaryPools"
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import type { Address } from "viem"
 
+import type { CLTick } from "./CLPool"
 import { CL_MAX_TICK, CL_MIN_TICK } from "./CLPool"
+import type { RToken } from "./PrimaryPools"
 import {
   RPool,
   TYPICAL_MINIMAL_LIQUIDITY,

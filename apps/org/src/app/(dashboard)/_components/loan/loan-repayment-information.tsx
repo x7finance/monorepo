@@ -5,8 +5,6 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 "use client"
 
-import type { LoanProps } from "~/lib/types"
-
 import { useState } from "react"
 import { useChainId } from "wagmi"
 
@@ -30,6 +28,7 @@ import {
   usePremiumAmountPaid,
   useTokenByIndex,
 } from "~/lib/hooks/loans/useXchangeLoanData"
+import type { LoanProps } from "~/lib/types"
 
 import { CountdownTimer } from "./countdown-timer"
 import { PaymentButton } from "./payment-button"

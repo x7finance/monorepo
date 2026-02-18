@@ -1,5 +1,3 @@
-import type { BigintIsh } from "../../core/constants"
-
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
@@ -18,6 +16,7 @@ import {
 } from "@x7/utils"
 
 import { FACTORY_ADDRESSES, PAIR_INIT_HASH } from "../../core/addresses"
+import type { BigintIsh } from "../../core/constants"
 import {
   _997,
   _1000,

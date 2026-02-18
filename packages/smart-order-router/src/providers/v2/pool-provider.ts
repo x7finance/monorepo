@@ -1,10 +1,3 @@
-import type { IMulticallProvider, Result } from "../multicall-provider"
-import type { ProviderConfig } from "../provider"
-import type {
-  ITokenPropertiesProvider,
-  TokenPropertiesMap,
-} from "../token-properties-provider"
-import type { ChainId } from "@x7/utils"
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 /* oxlint-disable @typescript-eslint/no-unsafe-argument */
@@ -12,12 +5,12 @@ import type { ChainId } from "@x7/utils"
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import type { Options as RetryOptions } from "async-retry"
-
 import retry from "async-retry"
 import _ from "lodash"
 
 import IUniswapV2Pair from "@x7/contracts/artifacts/contracts/v2-core/UniswapV2Pair.sol/UniswapV2Pair.json"
 import { FACTORY_ADDRESSES, Pair, PAIR_INIT_HASH } from "@x7/sdk"
+import type { ChainId } from "@x7/utils"
 import {
   CurrencyAmount,
   Implementation,
@@ -27,6 +20,12 @@ import {
 } from "@x7/utils"
 
 import { log } from "../../utils/log"
+import type { IMulticallProvider, Result } from "../multicall-provider"
+import type { ProviderConfig } from "../provider"
+import type {
+  ITokenPropertiesProvider,
+  TokenPropertiesMap,
+} from "../token-properties-provider"
 import { TokenValidationResult } from "../token-validator-provider"
 
 type IReserves = [

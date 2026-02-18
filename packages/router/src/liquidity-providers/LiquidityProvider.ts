@@ -1,8 +1,9 @@
-import type { PoolCode } from "../pools/PoolCode"
-import type { ChainId, Token } from "@x7/utils"
 import type { PublicClient } from "viem"
 
+import type { ChainId, Token } from "@x7/utils"
 import { chainShortName } from "@x7/utils"
+
+import type { PoolCode } from "../pools/PoolCode"
 
 import { LiquidityProviders } from "./types"
 

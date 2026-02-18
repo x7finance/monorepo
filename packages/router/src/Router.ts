@@ -1,16 +1,16 @@
-import type { PoolCode } from "./pools/PoolCode"
-import type { PermitData } from "./TinesToRouteProcessor2"
-import type { MultiRoute, NetworkInfo, RPool, RToken } from "@x7/tines"
-import type { ChainId, Currency } from "@x7/utils"
 /* oxlint-disable @typescript-eslint/unbound-method */
 /* oxlint-disable @typescript-eslint/no-extraneous-class */
 import type { Address, Hex } from "viem"
 
+import type { MultiRoute, NetworkInfo, RPool, RToken } from "@x7/tines"
 import { findMultiRouteExactIn, getBigInt, RouteStatus } from "@x7/tines"
+import type { ChainId, Currency } from "@x7/utils"
 import { Token, WNATIVE } from "@x7/utils"
 
 import { LiquidityProviders } from "./liquidity-providers/LiquidityProvider"
+import type { PoolCode } from "./pools/PoolCode"
 import { getRouteProcessorCode } from "./TinesToRouteProcessor"
+import type { PermitData } from "./TinesToRouteProcessor2"
 import {
   getRouteProcessor2Code,
   RouterLiquiditySource,

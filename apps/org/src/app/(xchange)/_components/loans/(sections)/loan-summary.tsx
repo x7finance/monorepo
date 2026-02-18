@@ -1,9 +1,6 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 // /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 
-import type { ChainId } from "@x7/utils"
-import type { QuoteResponse, RawQuoteResponse } from "~/lib/stores/loan"
-
 import React from "react"
 import { formatEther } from "viem"
 import { useChainId } from "wagmi"
@@ -14,8 +11,10 @@ import { Card, CardContent } from "@x7/ui/card"
 import { CircleLoading } from "@x7/ui/circle-loading"
 import { Tag } from "@x7/ui/tag"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@x7/ui/tooltip"
+import type { ChainId } from "@x7/utils"
 import { Native } from "@x7/utils"
 import { useLiquidationReward } from "~/lib/hooks/loans/useXchangeLendingPoolData"
+import type { QuoteResponse, RawQuoteResponse } from "~/lib/stores/loan"
 
 import { LoanTypeRepaymentSummary } from "./loan-type-repayment-summary"
 

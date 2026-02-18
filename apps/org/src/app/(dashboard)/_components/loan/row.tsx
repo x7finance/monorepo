@@ -1,7 +1,6 @@
 "use client"
 
 import type { ChainId, LoanType } from "@x7/utils"
-
 import { useTokenByIndex } from "~/lib/hooks/loans/useXchangeLoanData"
 
 import { LoanCellAmount } from "./cell-amount"

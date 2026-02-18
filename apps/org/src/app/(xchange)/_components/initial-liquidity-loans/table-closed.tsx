@@ -2,11 +2,10 @@
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
-import type { ChainId } from "@x7/utils"
-
 import React from "react"
 import { useAccount } from "wagmi"
 
+import type { ChainId } from "@x7/utils"
 import { EmptyPioneer } from "~/lib/components/core/empty-pioneer"
 import { useNextLoanID } from "~/lib/hooks/loans/useXchangeLendingPoolData"
 

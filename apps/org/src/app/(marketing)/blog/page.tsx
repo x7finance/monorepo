@@ -1,8 +1,7 @@
-import type { MarkdownContent } from "./_utils/markdoc-parse"
-import type { Metadata } from "next"
 import path from "path"
 
 import { glob } from "glob"
+import type { Metadata } from "next"
 import Image from "next/image"
 import React, { Suspense } from "react"
 
@@ -14,6 +13,7 @@ import { Assistance } from "~/lib/components/utils/assistance"
 import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
 import { MarketingLinks } from "~/types/links"
 
+import type { MarkdownContent } from "./_utils/markdoc-parse"
 import { getMarkdownContent, SOURCE_FILES } from "./_utils/markdoc-parse"
 
 const metadata = {

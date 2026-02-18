@@ -4,12 +4,10 @@
 
 "use client"
 
-import type { Pair, Pool } from "@x7/sdk"
-import type { SwapRoute } from "@x7/smart-order-router"
-import type { Native, Token } from "@x7/utils"
-
 import React from "react"
 
+import type { Pair, Pool } from "@x7/sdk"
+import type { SwapRoute } from "@x7/smart-order-router"
 import { useTradeChartPanelLiquidity } from "@x7/ui"
 import {
   Sheet,
@@ -19,6 +17,7 @@ import {
   SheetTitle,
 } from "@x7/ui/sheet"
 import { Tag } from "@x7/ui/tag"
+import type { Native, Token } from "@x7/utils"
 import { Protocol } from "@x7/utils"
 
 import { SwapChartLiquidityAccordion } from "../(accordion)/swap-chart-liquidity-accordion"

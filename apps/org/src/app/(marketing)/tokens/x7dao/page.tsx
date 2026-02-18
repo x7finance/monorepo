@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-
 import Image from "next/image"
 
 import { cn } from "@x7/css"

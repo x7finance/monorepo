@@ -6,7 +6,6 @@
 "use client"
 
 import type { Signer } from "@xmtp/xmtp-js"
-
 import { Client } from "@xmtp/xmtp-js"
 import { useEffect, useState } from "react"
 import { keccak256 } from "viem"

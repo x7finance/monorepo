@@ -1,8 +1,8 @@
-import type { V2Route, V3Route } from "../../router"
 /* oxlint-disable @typescript-eslint/no-unused-vars */
 import type { Currency } from "@x7/utils"
-
 import { ChainId } from "@x7/utils"
+
+import type { V2Route, V3Route } from "../../router"
 
 // Cost for crossing an uninitialized tick.
 export const COST_PER_UNINIT_TICK = 0n

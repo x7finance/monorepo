@@ -1,12 +1,12 @@
-import type { BlogType } from "../_types"
-import type { SectionType } from "~/types"
-
 import Image from "next/image"
 
 import { Twitter } from "@x7/icons"
 import { LinkExternal, LinkInternal } from "@x7/ui/link"
 import { env } from "~/env.mjs"
+import type { SectionType } from "~/types"
 import { MarketingLinks } from "~/types/links"
+
+import type { BlogType } from "../_types"
 
 import { Prose } from "./tags/prose"
 

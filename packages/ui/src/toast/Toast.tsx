@@ -1,7 +1,6 @@
-import type { PromiseNotification } from "@x7/dexie"
-
 import { toast } from "sonner"
 
+import type { PromiseNotification } from "@x7/dexie"
 import { createNotification } from "@x7/dexie"
 import { Chain } from "@x7/utils"
 

@@ -1,23 +1,9 @@
-import type { ProviderConfig } from "../../../providers/provider"
-import type { IV2PoolProvider } from "../../../providers/v2/pool-provider"
-import type {
-  ArbitrumGasData,
-  IL2GasDataProvider,
-} from "../../../providers/v3/gas-data-provider"
-import type { CurrencyAmount } from "../../../utils/amounts"
-import type {
-  MixedRouteWithValidQuote,
-  RouteWithValidQuote,
-  V2RouteWithValidQuote,
-  V3RouteWithValidQuote,
-} from "../entities/route-with-valid-quote"
-import type { IGasModel, L1ToL2GasCosts } from "./gas-model-types"
 /* oxlint-disable @typescript-eslint/prefer-for-of */
 import type { Pair, Pool } from "@x7/sdk"
 import type { CurrencyAmount as CurrencyAmountRaw, Token } from "@x7/utils"
-
 import { ChainId } from "@x7/utils"
 
+import type { ProviderConfig } from "../../../providers/provider"
 import {
   DAI_ARBITRUM,
   DAI_BNB,
@@ -46,7 +32,21 @@ import {
   USDT_OPTIMISM_SEPOLIA,
   USDT_POLYGON,
 } from "../../../providers/token-provider"
+import type { IV2PoolProvider } from "../../../providers/v2/pool-provider"
+import type {
+  ArbitrumGasData,
+  IL2GasDataProvider,
+} from "../../../providers/v3/gas-data-provider"
+import type { CurrencyAmount } from "../../../utils/amounts"
 import { WRAPPED_NATIVE_CURRENCY } from "../../../utils/chains"
+import type {
+  MixedRouteWithValidQuote,
+  RouteWithValidQuote,
+  V2RouteWithValidQuote,
+  V3RouteWithValidQuote,
+} from "../entities/route-with-valid-quote"
+
+import type { IGasModel, L1ToL2GasCosts } from "./gas-model-types"
 
 // Re-export for backwards compatibility
 export type { IGasModel, L1ToL2GasCosts } from "./gas-model-types"

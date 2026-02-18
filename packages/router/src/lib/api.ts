@@ -1,6 +1,6 @@
-import type { ChainId } from "@x7/utils"
 import type { Address } from "viem"
 
+import type { ChainId } from "@x7/utils"
 import { Token } from "@x7/utils"
 
 export interface PoolResponse2 {

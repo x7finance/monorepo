@@ -1,13 +1,13 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/unbound-method */
 
-import type { IconComponent } from "./types"
 import type { VariantProps } from "class-variance-authority"
-
 import { cva } from "class-variance-authority"
 import * as React from "react"
 
 import { cn } from "@x7/css"
+
+import type { IconComponent } from "./types"
 
 const inputRegex = /^\d*(?:\\[.])?\d*$/ // match escaped "." characters via in a non-capturing group
 const escapeRegExp = (string: string) =>

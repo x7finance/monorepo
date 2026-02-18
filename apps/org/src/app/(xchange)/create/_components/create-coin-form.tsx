@@ -2,8 +2,6 @@
 /* oxlint-disable @typescript-eslint/no-unused-vars */
 "use client"
 
-import type { ChainId } from "@x7/utils"
-
 import { zodResolver } from "@hookform/resolvers/zod"
 import Image from "next/image"
 import { useEffect, useMemo, useState } from "react"
@@ -34,6 +32,7 @@ import {
 } from "@x7/ui/form"
 import { Input } from "@x7/ui/input"
 import { Textarea } from "@x7/ui/textarea"
+import type { ChainId } from "@x7/utils"
 import { LogCodes } from "@x7/utils"
 import { uploadMetadataToIPFS } from "~/lib/utils/ifps"
 import { log } from "~/lib/utils/log"
@@ -54,25 +53,13 @@ const formSchema = z
     websiteLink: z.string().url().optional().or(z.literal("")),
     tokenURI: z.string().optional(),
     supply: z.coerce
-      .number({
-        invalid_type_error: "Total supply must be a valid number",
-      })
+      .number()
       .min(1, "Total supply must be at least 1")
       .default(0),
 
-    buyTax: z.coerce
-      .number({
-        invalid_type_error: "Buy tax must be a valid number",
-      })
-      .max(20, "Buy tax cannot exceed 20%")
-      .default(0),
+    buyTax: z.coerce.number().max(20, "Buy tax cannot exceed 20%").default(0),
 
-    sellTax: z.coerce
-      .number({
-        invalid_type_error: "Sell tax must be a valid number",
-      })
-      .max(20, "Sell tax cannot exceed 20%")
-      .default(0),
+    sellTax: z.coerce.number().max(20, "Sell tax cannot exceed 20%").default(0),
 
     taxWallet: z
       .string()
@@ -88,9 +75,7 @@ const formSchema = z
       ),
 
     teamTokens: z.coerce
-      .number({
-        invalid_type_error: "Team Percentage must be a valid number",
-      })
+      .number()
       .min(0, "Team percent cannot be negative")
       .max(50, "Team percent cannot exceed 50%")
       .default(0),
@@ -117,6 +102,7 @@ export function CreateCoinForm() {
   const [previewUrl, setPreviewUrl] = useState<string>()
 
   const form = useForm<CreateCoinForm>({
+    // @ts-expect-error - zodResolver type incompatibility with RHF
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
@@ -133,6 +119,9 @@ export function CreateCoinForm() {
       teamTokens: 0,
     },
   })
+
+  // Cast control to avoid RHF type incompatibility with zodResolver
+  const control = form.control as any
 
   useEffect(() => {
     if (address) {
@@ -278,7 +267,7 @@ export function CreateCoinForm() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
-              control={form.control}
+              control={control}
               name="name"
               render={({ field }) => (
                 <FormItem>
@@ -292,7 +281,7 @@ export function CreateCoinForm() {
             />
 
             <FormField
-              control={form.control}
+              control={control}
               name="ticker"
               render={({ field }) => (
                 <FormItem>
@@ -309,7 +298,7 @@ export function CreateCoinForm() {
             />
 
             <FormField
-              control={form.control}
+              control={control}
               name="description"
               render={({ field }) => (
                 <FormItem>
@@ -327,7 +316,7 @@ export function CreateCoinForm() {
             />
 
             <FormField
-              control={form.control}
+              control={control}
               name="tokenURI"
               render={({ field: { value, onChange, ...field } }) => (
                 <FormItem>
@@ -386,7 +375,7 @@ export function CreateCoinForm() {
 
               <CollapsibleContent className="space-y-4">
                 <FormField
-                  control={form.control}
+                  control={control}
                   name="supply"
                   render={({ field }) => (
                     <FormItem>
@@ -400,7 +389,7 @@ export function CreateCoinForm() {
                 />
 
                 <FormField
-                  control={form.control}
+                  control={control}
                   name="buyTax"
                   render={({ field }) => (
                     <FormItem>
@@ -414,7 +403,7 @@ export function CreateCoinForm() {
                 />
 
                 <FormField
-                  control={form.control}
+                  control={control}
                   name="sellTax"
                   render={({ field }) => (
                     <FormItem>
@@ -428,7 +417,7 @@ export function CreateCoinForm() {
                 />
 
                 <FormField
-                  control={form.control}
+                  control={control}
                   name="taxWallet"
                   render={({ field }) => (
                     <FormItem>
@@ -442,7 +431,7 @@ export function CreateCoinForm() {
                 />
 
                 <FormField
-                  control={form.control}
+                  control={control}
                   name="teamTokens"
                   render={({ field }) => (
                     <FormItem>
@@ -482,7 +471,7 @@ export function CreateCoinForm() {
 
               <CollapsibleContent className="space-y-4">
                 <FormField
-                  control={form.control}
+                  control={control}
                   name="twitterLink"
                   render={({ field }) => (
                     <FormItem>
@@ -499,7 +488,7 @@ export function CreateCoinForm() {
                 />
 
                 <FormField
-                  control={form.control}
+                  control={form.control as any}
                   name="telegramLink"
                   render={({ field }) => (
                     <FormItem>
@@ -513,7 +502,7 @@ export function CreateCoinForm() {
                 />
 
                 <FormField
-                  control={form.control}
+                  control={form.control as any}
                   name="websiteLink"
                   render={({ field }) => (
                     <FormItem>

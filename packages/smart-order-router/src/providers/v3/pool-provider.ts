@@ -1,7 +1,3 @@
-import type { IMulticallProvider, Result } from "../multicall-provider"
-import type { ProviderConfig } from "../provider"
-import type { FeeAmount } from "@x7/sdk"
-import type { ChainId, Implementation, Token } from "@x7/utils"
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 /* oxlint-disable @typescript-eslint/no-unsafe-call */
@@ -11,21 +7,24 @@ import type { ChainId, Implementation, Token } from "@x7/utils"
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable @typescript-eslint/no-base-to-string */
 import type { Options as RetryOptions } from "async-retry"
-
 import retry from "async-retry"
 import _ from "lodash"
 
 import IUniswapV3Pool from "@x7/contracts/artifacts/contracts/v3-core/interfaces/IUniswapV3Pool.sol/IUniswapV3Pool.json"
+import type { FeeAmount } from "@x7/sdk"
 import {
   computePoolAddress,
   FACTORY_ADDRESSES,
   PAIR_INIT_HASH,
   Pool,
 } from "@x7/sdk"
+import type { ChainId, Implementation, Token } from "@x7/utils"
 import { getLogger, LogCodes, Protocol, ServiceNames } from "@x7/utils"
 
 import { log } from "../../utils/log"
 import { poolToString } from "../../utils/route-string"
+import type { IMulticallProvider, Result } from "../multicall-provider"
+import type { ProviderConfig } from "../provider"
 
 const logger = getLogger({ serviceName: ServiceNames.SMART_ORDER_ROUTER })
 

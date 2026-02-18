@@ -1,11 +1,12 @@
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 
-import type { Logger, LogMethod } from "../types"
-import type { LogCodes } from "./codes"
-import type { LoggerOptions } from "./options"
 import type { Logger as PinoLogger } from "pino"
 
+import type { Logger, LogMethod } from "../types"
+
+import type { LogCodes } from "./codes"
 import { createLogger } from "./create"
+import type { LoggerOptions } from "./options"
 
 export function getLogger(options: LoggerOptions): Logger {
   const pinoLogger: PinoLogger = createLogger(options)

@@ -1,7 +1,5 @@
 "use client"
 
-import type { ChainId } from "@x7/utils"
-
 import { useChainId } from "wagmi"
 
 import { cn } from "@x7/css"
@@ -11,6 +9,7 @@ import { CircleLoading } from "@x7/ui/circle-loading"
 import { ContractCopy } from "@x7/ui/contract-copy"
 import { LinkExternal, LinkInternal } from "@x7/ui/link"
 import { Tag } from "@x7/ui/tag"
+import type { ChainId } from "@x7/utils"
 import { generateChainDenomination, generateChainIdentifier } from "@x7/utils"
 import { useXchangeTokenData } from "~/lib/hooks/tokens/useXchangeTokenData"
 import { ExplorerDataType, getExplorerLink } from "~/lib/utils/getExplorerLink"

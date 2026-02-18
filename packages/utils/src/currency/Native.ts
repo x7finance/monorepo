@@ -1,14 +1,13 @@
-import type { ChainId } from "../chain"
-import type { Token } from "./Token"
-import type { Currency as CurrencyType } from "./Type"
-import type { SerializedNative } from "./zod"
-
 import invariant from "tiny-invariant"
 
+import type { ChainId } from "../chain"
 import { natives } from "../chain"
 
 import { Currency } from "./Currency"
+import type { Token } from "./Token"
+import type { Currency as CurrencyType } from "./Type"
 import { WNATIVE } from "./wrapped"
+import type { SerializedNative } from "./zod"
 import { nativeSchema } from "./zod"
 
 export class Native extends Currency {

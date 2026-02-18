@@ -1,5 +1,3 @@
-import type { MetadataDocType } from "~/lib/utils/generateMetadataFromDoc"
-
 import Markdoc from "@markdoc/markdoc"
 import { notFound } from "next/navigation"
 /* oxlint-disable @typescript-eslint/no-unsafe-argument */
@@ -8,6 +6,7 @@ import React, { Suspense } from "react"
 
 import { Splash } from "@x7/ui/splash"
 import { generateDocsSlugs } from "~/lib/utils/generateDocsSlugs"
+import type { MetadataDocType } from "~/lib/utils/generateMetadataFromDoc"
 import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
 
 import { DocsBase } from "../../_components/base"

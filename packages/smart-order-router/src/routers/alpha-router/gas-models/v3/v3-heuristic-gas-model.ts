@@ -1,6 +1,5 @@
 import type { V3RouteWithValidQuote } from "../../entities/route-with-valid-quote"
 import type { BuildOnChainGasModelFactoryType, IGasModel } from "../gas-model"
-
 import { TickBasedHeuristicGasModelFactory } from "../tick-based-heuristic-gas-model"
 
 /**

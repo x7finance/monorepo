@@ -1,5 +1,3 @@
-import type { RoutePlanner } from "./routerCommands"
-
 /* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
 import { secp256k1 } from "@noble/curves/secp256k1"
 import invariant from "tiny-invariant"
@@ -8,6 +6,7 @@ import { hexToNumber, toBytes } from "viem"
 import { ETH_ADDRESS_02 as ROUTER_AS_RECIPIENT } from "@x7/utils"
 
 import { OPENSEA_CONDUIT_SPENDER_ID, SUDOSWAP_SPENDER_ID } from "./constants"
+import type { RoutePlanner } from "./routerCommands"
 import { CommandType } from "./routerCommands"
 
 export interface PermitDetails {

@@ -30,13 +30,13 @@
   "dependencies": {
     "@x7/utils": "workspace:*",
     "seedrandom": "^3.0.5",
-    "viem": "^2.45.1"
+    "viem": "^2.46.2"
   },
   "devDependencies": {
-    "@types/node": "^22.19.8",
+    "@types/node": "^22.19.11",
     "@types/seedrandom": "^3.0.8",
     "@x7/tsconfig": "workspace:*",
-    "oxlint": "^0.16.12",
+    "oxlint": "^1.48.0",
     "typescript": "^5.9.3"
   }
 }

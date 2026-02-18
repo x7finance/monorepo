@@ -2,16 +2,15 @@
 /* oxlint-disable react-hooks/exhaustive-deps */
 "use client"
 
-import type { ButtonProps } from "@x7/ui/button"
-import type { ActiveChainId, Amount, Currency } from "@x7/utils"
-import type { FC } from "react"
-
 import { ConnectButton } from "@rainbow-me/rainbowkit"
+import type { FC } from "react"
 import { useMemo } from "react"
 import { zeroAddress } from "viem"
 import { useAccount } from "wagmi"
 
+import type { ButtonProps } from "@x7/ui/button"
 import { Button } from "@x7/ui/button"
+import type { ActiveChainId, Amount, Currency } from "@x7/utils"
 import { Native, ZERO } from "@x7/utils"
 
 import { useBalancesWeb3 } from "../../hooks/balances/useBalancesWeb3"

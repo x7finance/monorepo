@@ -15,8 +15,6 @@ import type {
   Table as TableType,
   VisibilityState,
 } from "@tanstack/react-table"
-import type { ReactNode } from "react"
-
 import {
   flexRender,
   getCoreRowModel,
@@ -27,6 +25,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
+import type { ReactNode } from "react"
 import { default as React } from "react"
 
 import { cn } from "@x7/css"

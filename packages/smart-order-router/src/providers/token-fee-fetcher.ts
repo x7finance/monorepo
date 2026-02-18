@@ -3,22 +3,22 @@
 
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 
-import type { ViemProviderType } from "../utils"
-import type { IMulticallProvider } from "./multicall-provider"
-import type { Implementation } from "@x7/utils"
-
 import retry from "async-retry"
 
 import { FACTORY_ADDRESSES, PAIR_INIT_HASH } from "@x7/sdk"
+import type { Implementation } from "@x7/utils"
 import { ChainId, LogCodes, Protocol } from "@x7/utils"
 
 import { tokenFeeDetectorABI } from "../abis/TokenFeeDetector"
+import type { ViemProviderType } from "../utils"
 import {
   log,
   metric,
   MetricLoggerUnit,
   WRAPPED_NATIVE_CURRENCY,
 } from "../utils"
+
+import type { IMulticallProvider } from "./multicall-provider"
 
 const DEFAULT_TOKEN_BUY_FEE_BPS = BigInt(0)
 const DEFAULT_TOKEN_SELL_FEE_BPS = BigInt(0)

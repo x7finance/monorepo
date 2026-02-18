@@ -3,12 +3,11 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 "use client"
 
-import type { ChainId, LoanType } from "@x7/utils"
-
 import { cn } from "@x7/css"
 import { ChevronRightIcon } from "@x7/icons"
 import { buttonVariants } from "@x7/ui/button"
 import { LinkInternal } from "@x7/ui/link"
+import type { ChainId, LoanType } from "@x7/utils"
 import { generateChainShortName } from "@x7/utils"
 import {
   useCanLiquidate,

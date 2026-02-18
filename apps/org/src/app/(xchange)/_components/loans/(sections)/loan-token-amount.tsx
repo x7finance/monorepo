@@ -1,11 +1,9 @@
-import type { ChainId } from "@x7/utils"
-import type { Address } from "viem"
-
 import { config } from "@react-spring/web"
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 import { useState } from "react"
+import type { Address } from "viem"
 import { useChainId } from "wagmi"
 
 import { cn } from "@x7/css"
@@ -20,6 +18,7 @@ import {
 import { Input } from "@x7/ui/input"
 import { Slider } from "@x7/ui/slider"
 import { Tag } from "@x7/ui/tag"
+import type { ChainId } from "@x7/utils"
 import { useNativeCurrency } from "~/lib/hooks/currency/useNativeCurrency"
 import {
   useMaximumLoanAmount,

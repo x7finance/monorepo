@@ -1,8 +1,6 @@
 /* oxlint-disable no-restricted-properties */
 /* oxlint-disable turbo/no-undeclared-env-vars */
 import type { CreateConfigParameters } from "@wagmi/core"
-import type { Chain, Transport } from "viem"
-
 import { createConfig, fallback, http } from "@wagmi/core"
 import {
   arbitrum,
@@ -21,6 +19,7 @@ import {
   polygonAmoy,
   sepolia,
 } from "@wagmi/core/chains"
+import type { Chain, Transport } from "viem"
 
 import { ChainId } from "@x7/utils"
 import { env } from "~/env.mjs"

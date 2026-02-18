@@ -1,6 +1,3 @@
-import type { ChainId } from "@x7/utils"
-import type { UtilityNftType } from "~/types"
-
 import Image from "next/image"
 /* oxlint-disable @typescript-eslint/restrict-template-expressions */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
@@ -19,11 +16,13 @@ import {
   PlusCircleIcon,
 } from "@x7/icons"
 import { Button } from "@x7/ui/button"
+import type { ChainId } from "@x7/utils"
 import { generateChainAbbreviation, LogCodes } from "@x7/utils"
 import { env } from "~/env.mjs"
 import { ExplorerDataType, getExplorerLink } from "~/lib/utils/getExplorerLink"
 import { GradientTypes } from "~/lib/utils/gradients"
 import { log } from "~/lib/utils/log"
+import type { UtilityNftType } from "~/types"
 
 export function UtilityNftDetails({ nft }: { nft: UtilityNftType }) {
   const chainId = useChainId() as ChainId

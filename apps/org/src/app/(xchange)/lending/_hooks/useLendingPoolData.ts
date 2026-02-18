@@ -1,5 +1,3 @@
-import type { ChainId } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 /* oxlint-disable @typescript-eslint/no-unsafe-call */
 /* oxlint-disable @typescript-eslint/no-unsafe-argument */
@@ -8,6 +6,7 @@ import { useEffect, useState } from "react"
 import { formatEther } from "viem"
 
 import { X7ContractsEnum } from "@x7/sdk"
+import type { ChainId } from "@x7/utils"
 
 export function useLendingPoolData(
   chainId: ChainId,

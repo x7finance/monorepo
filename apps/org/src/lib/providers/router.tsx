@@ -4,11 +4,8 @@
 
 "use client"
 
-import type { BestSwapRoute, RouteWithValidQuote } from "@x7/smart-order-router"
-import type { ChainId, Implementation } from "@x7/utils"
-import type { FC } from "react"
-
 import { getPublicClient } from "@wagmi/core"
+import type { FC } from "react"
 import React, {
   createContext,
   useContext,
@@ -18,9 +15,11 @@ import React, {
 } from "react"
 import { useAccount } from "wagmi"
 
+import type { BestSwapRoute, RouteWithValidQuote } from "@x7/smart-order-router"
 import { AlphaRouter } from "@x7/smart-order-router"
 import { useEnabledImplentations } from "@x7/ui"
 import { useDebounce } from "@x7/ui"
+import type { ChainId, Implementation } from "@x7/utils"
 import { useWeb3Config } from "~/lib/providers/web3"
 
 export interface AlphaRouterState {

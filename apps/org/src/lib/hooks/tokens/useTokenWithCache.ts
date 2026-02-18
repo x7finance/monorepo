@@ -1,20 +1,19 @@
-import type { Config } from "@wagmi/core"
-import type { ChainId } from "@x7/utils"
-import type { Address } from "viem"
-
 import {
   keepPreviousData as _keepPreviousData,
   useQuery,
 } from "@tanstack/react-query"
-import { getToken as fetchToken } from "@wagmi/core"
+import type { Config } from "@wagmi/core"
+import { readContract } from "@wagmi/core"
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 import { useCallback } from "react"
-import { isAddress } from "viem"
+import type { Address } from "viem"
+import { erc20Abi, isAddress } from "viem"
 
 import { getToken, saveTokens } from "@x7/dexie"
+import type { ChainId } from "@x7/utils"
 import { Token } from "@x7/utils"
 import { useWeb3Config } from "~/lib/providers/web3"
 
@@ -112,11 +111,28 @@ export const getTokenWithCacheQueryFn = async ({
 
   // Try fetching from wagmi
   if (chainId) {
-    const resp = await fetchToken(config, {
-      address: address as Address,
-      chainId,
-    })
-    const { decimals, address: tokenAddress, symbol, name } = resp
+    const [name, symbol, decimals] = await Promise.all([
+      readContract(config, {
+        abi: erc20Abi,
+        address: address as Address,
+        functionName: "name",
+        chainId,
+      }),
+      readContract(config, {
+        abi: erc20Abi,
+        address: address as Address,
+        functionName: "symbol",
+        chainId,
+      }),
+      readContract(config, {
+        abi: erc20Abi,
+        address: address as Address,
+        functionName: "decimals",
+        chainId,
+      }),
+    ])
+
+    const tokenAddress = address as Address
 
     await saveTokens({
       tokens: [

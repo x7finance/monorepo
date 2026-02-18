@@ -1,16 +1,15 @@
-import type { IV2PoolProvider } from "../../../providers/v2/pool-provider"
-import type { IV3PoolProvider } from "../../../providers/v3/pool-provider"
-import type { MixedRoute, V2Route, V3Route } from "../../route-types"
-import type { IGasModel } from "../gas-models/gas-model-types"
-import type { Token } from "@x7/utils"
-
 import _ from "lodash"
 
 import { Pool } from "@x7/sdk"
+import type { Token } from "@x7/utils"
 import { Protocol, TradeType } from "@x7/utils"
 
+import type { IV2PoolProvider } from "../../../providers/v2/pool-provider"
+import type { IV3PoolProvider } from "../../../providers/v3/pool-provider"
 import { CurrencyAmount } from "../../../utils/amounts"
 import { routeToString } from "../../../utils/route-string"
+import type { MixedRoute, V2Route, V3Route } from "../../route-types"
+import type { IGasModel } from "../gas-models/gas-model-types"
 
 export interface BestSwapRoute {
   quote: CurrencyAmount

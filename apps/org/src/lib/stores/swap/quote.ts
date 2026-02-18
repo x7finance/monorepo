@@ -1,4 +1,5 @@
-import type { SwapQuoteActions, SwapQuoteState } from "./types"
+import { create } from "zustand"
+
 import type {
   BestSwapRoute,
   RouteWithValidQuote,
@@ -6,7 +7,7 @@ import type {
 } from "@x7/smart-order-router"
 import type { Implementation } from "@x7/utils"
 
-import { create } from "zustand"
+import type { SwapQuoteActions, SwapQuoteState } from "./types"
 
 interface SwapQuoteStore extends SwapQuoteState, SwapQuoteActions {}
 

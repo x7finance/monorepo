@@ -1,6 +1,6 @@
-import type { SwapRoute } from "@x7/smart-order-router"
-
 import React from "react"
+
+import type { SwapRoute } from "@x7/smart-order-router"
 
 export function SwapTaxes({ route }: { route: SwapRoute }) {
   const hasTaxes = route.route.some((r) =>

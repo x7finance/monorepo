@@ -1,7 +1,6 @@
-import type { TokenInfo } from "./types"
-
 import { diffTokenLists } from "./diffTokenLists"
 import { VersionUpgrade } from "./getVersionUpgrade"
+import type { TokenInfo } from "./types"
 
 /**
  * Returns the minimum version bump for the given list

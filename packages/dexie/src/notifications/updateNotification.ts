@@ -1,8 +1,7 @@
-import type { PromiseNotification, ResolvedNotification } from "./types"
-
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 import { db } from "../db"
 
+import type { PromiseNotification, ResolvedNotification } from "./types"
 import { isPromise } from "./types"
 
 export const createNotification = async (

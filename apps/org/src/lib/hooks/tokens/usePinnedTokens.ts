@@ -5,13 +5,12 @@
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable react-hooks/exhaustive-deps */
 
-import type { Currency } from "@x7/utils"
-
 import { useCallback, useEffect, useMemo } from "react"
 import { getAddress as _getAddress, isAddress } from "viem"
 
 import { ARB, DAI, USDC, USDT, WBTC } from "@x7/sdk"
 import { useLocalStorage } from "@x7/ui"
+import type { Currency } from "@x7/utils"
 import { ChainId, Native, WETH9, WNATIVE } from "@x7/utils"
 
 // TODO: this should probably be in sdk

@@ -1,12 +1,10 @@
-import type { BestTradeOptionsV3 } from "../../../v3"
-import type { Currency, Token } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 /* oxlint-disable prefer-const */
 import invariant from "tiny-invariant"
 
+import type { Currency, Token } from "@x7/utils"
 import {
   CurrencyAmount,
   Fraction,
@@ -19,6 +17,7 @@ import {
 } from "@x7/utils"
 
 import { Pair } from "../../../v2"
+import type { BestTradeOptionsV3 } from "../../../v3"
 import { Pool } from "../../../v3"
 
 import { MixedRouteSDK } from "./route"

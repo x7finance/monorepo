@@ -1,12 +1,11 @@
 "use client"
 
-import type { ChainId } from "@x7/utils"
-
 import { useChainId } from "wagmi"
 
 import { Button } from "@x7/ui/button"
 import { Tag } from "@x7/ui/tag"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@x7/ui/tooltip"
+import type { ChainId } from "@x7/utils"
 import { useLiquidateLoan } from "~/lib/hooks/loans/useLiquidateLoan"
 
 interface IconAlertsProps {

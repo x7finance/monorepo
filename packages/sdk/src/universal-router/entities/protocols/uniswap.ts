@@ -1,15 +1,4 @@
-import type {
-  IRoute,
-  RouteV2Wrapper,
-  RouteV3Wrapper,
-  SwapOptions,
-  Trade,
-} from "../../../router"
-import type { Permit2Permit } from "../../utils/inputTokens"
-import type { RoutePlanner } from "../../utils/routerCommands"
-import type { Command, TradeConfig } from "../Command"
 import type { Currency, CurrencyAmount } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import {
@@ -21,6 +10,13 @@ import {
   TradeType,
 } from "@x7/utils"
 
+import type {
+  IRoute,
+  RouteV2Wrapper,
+  RouteV3Wrapper,
+  SwapOptions,
+  Trade,
+} from "../../../router"
 import {
   encodeMixedRouteToPath,
   getOutputOfPools,
@@ -32,7 +28,10 @@ import {
 import { Pair, TradeV2 } from "../../../v2"
 import { encodeRouteToPath, Pool, TradeV3 } from "../../../v3"
 import { CONTRACT_BALANCE } from "../../utils/constants"
+import type { Permit2Permit } from "../../utils/inputTokens"
+import type { RoutePlanner } from "../../utils/routerCommands"
 import { CommandType } from "../../utils/routerCommands"
+import type { Command, TradeConfig } from "../Command"
 import { RouterTradeType } from "../Command"
 
 export interface FlatFeeOptions {

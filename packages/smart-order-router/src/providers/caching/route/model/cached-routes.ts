@@ -1,12 +1,13 @@
+import _ from "lodash"
+
+import type { ChainId, Protocol, Token, TradeType } from "@x7/utils"
+
 import type { RouteWithValidQuote } from "../../../../routers/alpha-router/entities/route-with-valid-quote"
 import type {
   MixedRoute,
   V2Route,
   V3Route,
 } from "../../../../routers/route-types"
-import type { ChainId, Protocol, Token, TradeType } from "@x7/utils"
-
-import _ from "lodash"
 
 import { CachedRoute } from "./cached-route"
 

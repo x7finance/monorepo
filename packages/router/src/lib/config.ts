@@ -1,5 +1,4 @@
 import type { PublicClientConfig } from "viem"
-
 import { fallback, http } from "viem"
 import {
   arbitrum,

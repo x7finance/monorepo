@@ -1,7 +1,6 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 
 import type { ChainId, LoanType } from "@x7/utils"
-
 import { useGetPrincipalDue } from "~/lib/hooks/loans/useXchangeLoanData"
 
 import { IILPaymentCard } from "./initial-liquidity-loan-card-payment"

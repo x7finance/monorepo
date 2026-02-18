@@ -1,12 +1,8 @@
-import type { ICache } from "./cache"
-import type { IMulticallProvider } from "./multicall-provider"
-import type { ProviderConfig } from "./provider"
-import type { ChainId, Token } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import _ from "lodash"
 
 import ITokenValidator from "@x7/contracts/artifacts/contracts/swap-router-contracts/lens/TokenValidator.sol/TokenValidator.json"
+import type { ChainId, Token } from "@x7/utils"
 import { LogCodes } from "@x7/utils"
 
 import {
@@ -15,6 +11,10 @@ import {
   MetricLoggerUnit,
   WRAPPED_NATIVE_CURRENCY,
 } from "../utils"
+
+import type { ICache } from "./cache"
+import type { IMulticallProvider } from "./multicall-provider"
+import type { ProviderConfig } from "./provider"
 
 // TODO: refactor this out?
 export const DEFAULT_ALLOWLIST = new Set<string>([

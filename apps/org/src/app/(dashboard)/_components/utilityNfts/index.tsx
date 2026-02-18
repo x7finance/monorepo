@@ -1,10 +1,9 @@
 "use client"
 
-import type { UtilityNftType } from "~/types"
-
 import { Suspense, useEffect, useState } from "react"
 
 import { cn } from "@x7/css"
+import type { UtilityNftType } from "~/types"
 
 import { utilityNftData } from "./data"
 import { UtilityNftDetails } from "./details"

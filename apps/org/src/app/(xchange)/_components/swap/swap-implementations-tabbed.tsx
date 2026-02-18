@@ -1,12 +1,11 @@
-import type { MixedRoute, Pool } from "@x7/sdk"
-import type { RouteWithValidQuote } from "@x7/smart-order-router"
-import type { Currency } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import React, { useState } from "react"
 
 import { cn } from "@x7/css"
+import type { MixedRoute, Pool } from "@x7/sdk"
+import type { RouteWithValidQuote } from "@x7/smart-order-router"
 import { SkeletonBox } from "@x7/ui/skeleton"
+import type { Currency } from "@x7/utils"
 import { Implementation, Protocol } from "@x7/utils"
 import { useSwapState } from "~/lib/stores/swap"
 

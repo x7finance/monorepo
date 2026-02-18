@@ -1,6 +1,3 @@
-import type { PoolCode } from "../pools/PoolCode"
-import type { RToken } from "@x7/tines"
-import type { ChainId, Currency, Token } from "@x7/utils"
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
@@ -11,11 +8,14 @@ import type { Address, PublicClient } from "viem"
 
 import { erc20Abi, tickLensAbi } from "@x7/contracts"
 import { computePoolAddress, FeeAmount, TICK_SPACINGS } from "@x7/sdk"
+import type { RToken } from "@x7/tines"
 import { UniV3Pool } from "@x7/tines"
+import type { ChainId, Currency, Token } from "@x7/utils"
 import { LogCodes } from "@x7/utils"
 
 import { getCurrencyCombinations } from "../getCurrencyCombinations"
 import { log } from "../lib/logger"
+import type { PoolCode } from "../pools/PoolCode"
 import { UniV3PoolCode } from "../pools/UniV3Pool"
 
 import { LiquidityProvider } from "./LiquidityProvider"

@@ -8,8 +8,6 @@
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
-import type { ChainId } from "@x7/utils"
-
 import { useEffect, useState } from "react"
 import { formatEther } from "viem"
 import { useReadContracts } from "wagmi"
@@ -20,6 +18,7 @@ import {
   X7100LiquidityHub,
 } from "@x7/contracts"
 import { X7ContractsEnum } from "@x7/sdk"
+import type { ChainId } from "@x7/utils"
 import { DEAD_ADDRESS, generateChainDenomination } from "@x7/utils"
 
 import { DashboardSubheader } from "../dashboard-subheader"

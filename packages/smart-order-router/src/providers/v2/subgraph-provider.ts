@@ -1,9 +1,6 @@
 /* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* oxlint-disable @typescript-eslint/restrict-template-expressions */
 
-import type { ProviderConfig } from "../provider"
-import type { ChainId, Implementation, Token } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-base-to-string */
 import retry from "async-retry"
 import Timeout from "await-timeout"
@@ -17,9 +14,11 @@ import {
   USDT_ADDRESS,
   WETH_ADDRESS,
 } from "@x7/sdk"
+import type { ChainId, Implementation, Token } from "@x7/utils"
 import { LogCodes } from "@x7/utils"
 
 import { log } from "../../utils/log"
+import type { ProviderConfig } from "../provider"
 
 export interface V2SubgraphPool {
   id: string

@@ -1,29 +1,15 @@
+/* oxlint-disable @typescript-eslint/no-unused-vars */
+import _ from "lodash"
+
+import type { Token } from "@x7/utils"
+import { ChainId, FeeAmount, LogCodes, Protocol, TradeType } from "@x7/utils"
+
 import type {
   ITokenListProvider,
   IV2SubgraphProvider,
   V2SubgraphPool,
 } from "../../../providers"
 import type { ITokenProvider } from "../../../providers/token-provider"
-import type {
-  IV2PoolProvider,
-  V2PoolAccessor,
-} from "../../../providers/v2/pool-provider"
-import type {
-  IV3PoolProvider,
-  V3PoolAccessor,
-} from "../../../providers/v3/pool-provider"
-import type {
-  IV3SubgraphProvider,
-  V3SubgraphPool,
-} from "../../../providers/v3/subgraph-provider"
-import type { AlphaRouterConfig } from "../types"
-import type { Token } from "@x7/utils"
-
-/* oxlint-disable @typescript-eslint/no-unused-vars */
-import _ from "lodash"
-
-import { ChainId, FeeAmount, LogCodes, Protocol, TradeType } from "@x7/utils"
-
 import {
   DAI_ARBITRUM,
   DAI_BNB,
@@ -48,10 +34,23 @@ import {
   WMATIC_POLYGON,
   WMATIC_POLYGON_MUMBAI,
 } from "../../../providers/token-provider"
+import type {
+  IV2PoolProvider,
+  V2PoolAccessor,
+} from "../../../providers/v2/pool-provider"
+import type {
+  IV3PoolProvider,
+  V3PoolAccessor,
+} from "../../../providers/v3/pool-provider"
+import type {
+  IV3SubgraphProvider,
+  V3SubgraphPool,
+} from "../../../providers/v3/subgraph-provider"
 import { unparseFeeAmount, WRAPPED_NATIVE_CURRENCY } from "../../../utils"
 import { parseFeeAmount } from "../../../utils/amounts"
 import { log } from "../../../utils/log"
 import { metric, MetricLoggerUnit } from "../../../utils/metric"
+import type { AlphaRouterConfig } from "../types"
 
 export interface PoolId {
   id: string

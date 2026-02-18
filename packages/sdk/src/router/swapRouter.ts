@@ -1,14 +1,3 @@
-import type { TradeV2 } from "../v2"
-import type {
-  FeeOptions,
-  MethodParameters,
-  PermitOptions,
-  TradeV3,
-} from "../v3"
-import type { CondensedAddLiquidityOptions } from "./approveAndCall"
-import type { RouteV2Wrapper, RouteV3Wrapper } from "./entities/route"
-import type { Currency } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-unused-expressions */
@@ -24,6 +13,7 @@ import {
   swapRouter03,
   swapRouter03WDeadline,
 } from "@x7/contracts"
+import type { Currency } from "@x7/utils"
 import {
   ETH_ADDRESS_02 as ADDRESS_THIS,
   ChainId,
@@ -43,7 +33,14 @@ import { BASIS_POINTS, ONE } from "../core/constants"
 import { validateAndParseAddress } from "../core/validateAndParseAddress"
 import { WETH_ADDRESS } from "../universal-router/utils/constants"
 import { log } from "../utils/logger"
+import type { TradeV2 } from "../v2"
 import { TradeV2 as V2Trade } from "../v2"
+import type {
+  FeeOptions,
+  MethodParameters,
+  PermitOptions,
+  TradeV3,
+} from "../v3"
 import {
   encodeRouteToPath,
   Payments,
@@ -53,10 +50,12 @@ import {
   TradeV3 as V3Trade,
 } from "../v3"
 
+import type { CondensedAddLiquidityOptions } from "./approveAndCall"
 import { ApprovalTypes, ApproveAndCall } from "./approveAndCall"
 import { encodeMixedRouteToPath } from "./encodeMixedRouteToPath"
 import { MixedRouteSDK } from "./entities/mixedRoute/route"
 import { MixedRouteTrade } from "./entities/mixedRoute/trade"
+import type { RouteV2Wrapper, RouteV3Wrapper } from "./entities/route"
 import { MixedRoute } from "./entities/route"
 import { Trade } from "./entities/trade"
 import { MulticallExtended } from "./multicallExtended"

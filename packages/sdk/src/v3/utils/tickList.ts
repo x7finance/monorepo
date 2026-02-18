@@ -2,9 +2,9 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/no-empty-function */
 
-import type { Tick } from "../entities/tick"
-
 import invariant from "tiny-invariant"
+
+import type { Tick } from "../entities/tick"
 
 import { isSorted } from "./isSorted"
 

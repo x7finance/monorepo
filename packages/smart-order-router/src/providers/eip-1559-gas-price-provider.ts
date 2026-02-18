@@ -1,14 +1,13 @@
-import type { GasPrice } from "./gas-price-provider"
-import type { Client } from "viem"
-
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 import _ from "lodash"
+import type { Client } from "viem"
 
 import { LogCodes } from "@x7/utils"
 
 import { log } from "../utils/log"
 
+import type { GasPrice } from "./gas-price-provider"
 import { IGasPriceProvider } from "./gas-price-provider"
 
 export interface RawFeeHistoryResponse {

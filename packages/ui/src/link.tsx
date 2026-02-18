@@ -1,6 +1,5 @@
-import type { AnchorHTMLAttributes, FC } from "react"
-
 import Link from "next/link"
+import type { AnchorHTMLAttributes, FC } from "react"
 
 const LinkInternal = Link
 const LinkExternal: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({

@@ -3,9 +3,7 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 "use client"
 
-import type { ChainId, Currency as CurrencyType, Token } from "@x7/utils"
 import type { FC } from "react"
-
 import React, { useCallback, useMemo, useState } from "react"
 import { isAddress } from "viem"
 
@@ -18,6 +16,7 @@ import { SkeletonCircle, SkeletonText } from "@x7/ui/skeleton"
 import { TextField } from "@x7/ui/text-field"
 import { TokenSelectorImportRow } from "@x7/ui/token-selector/token-selector-import-row"
 import { TokenSelectorCurrencyList } from "@x7/ui/token-selector/tokens-selector-currency-list"
+import type { ChainId, Currency as CurrencyType, Token } from "@x7/utils"
 import { Native } from "@x7/utils"
 import { usePrices } from "~/lib/hooks/prices/usePrices"
 import { useCustomTokens } from "~/lib/hooks/tokens/useCustomTokens"

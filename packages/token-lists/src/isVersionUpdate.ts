@@ -1,5 +1,4 @@
 import type { Version } from "./types"
-
 import { versionComparator } from "./versionComparator"
 
 /**

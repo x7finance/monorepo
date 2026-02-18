@@ -1,10 +1,9 @@
-import type { ResolvedNotification } from "@x7/dexie"
-
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import React from "react"
 import { useAccount } from "wagmi"
 
 import { cn } from "@x7/css"
+import type { ResolvedNotification } from "@x7/dexie"
 import { useNotifications } from "@x7/dexie"
 import { AlertCircleIcon, CheckCircleIcon, ExternalLinkIcon } from "@x7/icons"
 import { Badge } from "@x7/ui/badge"

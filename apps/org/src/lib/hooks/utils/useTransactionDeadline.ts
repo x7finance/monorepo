@@ -1,8 +1,7 @@
-import type { ChainId } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import { useMemo } from "react"
 
+import type { ChainId } from "@x7/utils"
 import { chainsL2 } from "@x7/utils"
 
 import { useCurrentBlockTimestamp } from "../block/useCurrentBlockTimestamp"

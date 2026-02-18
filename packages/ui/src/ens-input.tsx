@@ -1,13 +1,12 @@
 "use client"
 
-import type { TextFieldProps } from "./text-field"
 import type { ForwardedRef } from "react"
-
 import { forwardRef, useEffect } from "react"
 import { useEnsAddress } from "wagmi"
 
 import { ChainId } from "@x7/utils"
 
+import type { TextFieldProps } from "./text-field"
 import { TextField } from "./text-field"
 
 function Component(

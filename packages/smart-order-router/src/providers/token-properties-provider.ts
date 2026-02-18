@@ -1,3 +1,9 @@
+import type { ChainId, Token } from "@x7/utils"
+/* oxlint-disable @typescript-eslint/restrict-template-expressions */
+import { LogCodes } from "@x7/utils"
+
+import { log, metric, MetricLoggerUnit } from "../utils"
+
 import type { ICache } from "./cache"
 import type { ProviderConfig } from "./provider"
 import type {
@@ -5,13 +11,6 @@ import type {
   TokenFeeMap,
   TokenFeeResult,
 } from "./token-fee-fetcher"
-import type { ChainId, Token } from "@x7/utils"
-
-/* oxlint-disable @typescript-eslint/restrict-template-expressions */
-import { LogCodes } from "@x7/utils"
-
-import { log, metric, MetricLoggerUnit } from "../utils"
-
 import {
   DEFAULT_TOKEN_FEE_RESULT,
   FEE_FETCHER_ENABLED_CHAINS,

@@ -1,7 +1,6 @@
 import type { AlphaRouter } from "@x7/smart-order-router"
-import type { Currency } from "@x7/utils"
-
 import { SwapType } from "@x7/smart-order-router"
+import type { Currency } from "@x7/utils"
 import { CurrencyAmount, DEAD_ADDRESS, Percent, TradeType } from "@x7/utils"
 import { fromReadableAmount } from "~/lib/utils/conversion"
 

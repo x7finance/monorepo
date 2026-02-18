@@ -1,6 +1,5 @@
-import type { ChainId, LoanType } from "@x7/utils"
-
 import { Tag } from "@x7/ui/tag"
+import type { ChainId, LoanType } from "@x7/utils"
 import { PaymentButton } from "~/app/(dashboard)/_components/loan/payment-button"
 import { useGetTotalDue } from "~/lib/hooks/loans/useXchangeLoanData"
 

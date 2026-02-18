@@ -1,4 +1,3 @@
-import type { IconComponent } from "@x7/ui"
 import type { Metadata } from "next"
 
 import { cn } from "@x7/css"
@@ -17,6 +16,7 @@ import {
   X7Logo,
   YouTube,
 } from "@x7/icons"
+import type { IconComponent } from "@x7/ui"
 import { LinkExternal } from "@x7/ui/link"
 import { SocialsEnum } from "@x7/utils"
 import { SiteContentContainer } from "~/lib/components/core/site-content-container"

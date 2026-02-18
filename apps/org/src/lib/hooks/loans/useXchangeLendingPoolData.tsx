@@ -2,13 +2,12 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 
-import type { ChainId } from "@x7/utils"
 import type { Address } from "viem"
-
 import { useReadContracts } from "wagmi"
 
 import { X7LendingPoolV2 } from "@x7/contracts"
 import { X7ContractsEnum } from "@x7/sdk"
+import type { ChainId } from "@x7/utils"
 import { getChainInfo } from "~/lib/constants/chainInfo"
 
 export function useActiveLoanTerms(id: bigint, chainId: ChainId) {

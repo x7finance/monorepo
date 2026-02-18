@@ -1,8 +1,3 @@
-import type { ICache } from "./cache"
-import type { ITokenProvider, TokenAccessor } from "./token-provider"
-import type { TokenInfo, TokenList } from "@x7/token-lists"
-import type { ChainId } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-unsafe-return */
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
@@ -11,10 +6,15 @@ import type { ChainId } from "@x7/utils"
 /* oxlint-disable @typescript-eslint/require-await */
 import axios from "axios"
 
+import type { TokenInfo, TokenList } from "@x7/token-lists"
+import type { ChainId } from "@x7/utils"
 import { LogCodes, Token } from "@x7/utils"
 
 import { log } from "../utils/log"
 import { metric, MetricLoggerUnit } from "../utils/metric"
+
+import type { ICache } from "./cache"
+import type { ITokenProvider, TokenAccessor } from "./token-provider"
 
 /**
  * Provider for getting token data from a Token List.

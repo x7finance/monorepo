@@ -1,7 +1,6 @@
 "use client"
 
 import type { Language, Token } from "prism-react-renderer"
-
 import { Highlight, themes } from "prism-react-renderer"
 import { Fragment } from "react"
 

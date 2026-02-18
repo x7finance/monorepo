@@ -1,11 +1,10 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 
-import type { ChainId, Currency } from "@x7/utils"
-
 import { useQuery } from "@tanstack/react-query"
 
 import { USDC } from "@x7/sdk"
 import { SwapType } from "@x7/smart-order-router"
+import type { ChainId, Currency } from "@x7/utils"
 import {
   CurrencyAmount,
   DEAD_ADDRESS,

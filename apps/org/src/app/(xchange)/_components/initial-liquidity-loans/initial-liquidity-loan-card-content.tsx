@@ -1,7 +1,6 @@
 "use client"
 
 import type { ChainId, LoanType } from "@x7/utils"
-
 import { generateChainDenomination } from "@x7/utils"
 import { useLoanAmount } from "~/lib/hooks/loans/useXchangeLoanData"
 

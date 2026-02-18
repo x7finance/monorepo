@@ -5,14 +5,13 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-call */
 /* oxlint-disable @typescript-eslint/no-unsafe-return */
 
-import type { Currency } from "../../currency/Type"
-import type { SerializedAmount } from "../../currency/zod"
-
 import invariant from "tiny-invariant"
 import { maxUint128 } from "viem"
 
 import { Native } from "../../currency/Native"
 import { Token } from "../../currency/Token"
+import type { Currency } from "../../currency/Type"
+import type { SerializedAmount } from "../../currency/zod"
 import { amountSchema } from "../../currency/zod"
 import Big from "../Big"
 import { MAX_UINT256, ZERO } from "../constants/numbers"

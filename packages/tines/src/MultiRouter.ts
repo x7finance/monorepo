@@ -1,7 +1,6 @@
 import type { MultiRoute, NetworkInfo } from "./Graph"
-import type { RPool, RToken } from "./PrimaryPools"
-
 import { Graph, NoWayMultiRoute, RouteStatus } from "./Graph"
+import type { RPool, RToken } from "./PrimaryPools"
 import { setTokenId } from "./PrimaryPools"
 
 // Assumes route is a single path

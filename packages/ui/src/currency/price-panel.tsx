@@ -1,15 +1,15 @@
-import type { CurrencyInputProps } from "./currency-balance-panel"
-import type { CurrencyAmount } from "@x7/utils"
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 import type { FC } from "react"
-
 import { useMemo } from "react"
 
 import { cn } from "@x7/css"
+import type { CurrencyAmount } from "@x7/utils"
 import { tryParseAmount } from "@x7/utils"
 
 import { SkeletonText } from "../skeleton"
+
+import type { CurrencyInputProps } from "./currency-balance-panel"
 
 type PricePanel = Pick<
   CurrencyInputProps,

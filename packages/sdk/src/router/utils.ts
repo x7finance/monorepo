@@ -1,8 +1,9 @@
-import type { MixedRouteSDK } from "./entities/mixedRoute/route"
 import type { Currency, Token } from "@x7/utils"
 
 import { Pair } from "../v2"
 import { Pool } from "../v3"
+
+import type { MixedRouteSDK } from "./entities/mixedRoute/route"
 
 /**
  * Utility function to return each consecutive section of Pools or Pairs in a MixedRoute

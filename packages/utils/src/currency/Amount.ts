@@ -5,9 +5,6 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 /* oxlint-disable @typescript-eslint/no-unsafe-call */
 
-import type { Currency } from "./Type"
-import type { SerializedAmount } from "./zod"
-
 import invariant from "tiny-invariant"
 
 import Big from "../math/Big"
@@ -18,6 +15,8 @@ import Rounding from "../math/Rounding"
 import { Native } from "./Native"
 import { Share } from "./Share"
 import { Token } from "./Token"
+import type { Currency } from "./Type"
+import type { SerializedAmount } from "./zod"
 import { amountSchema } from "./zod"
 
 export class Amount<T extends Currency> extends Fraction {

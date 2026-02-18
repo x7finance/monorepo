@@ -1,3 +1,5 @@
+import type { Address } from "viem"
+
 import type {
   BestSwapRoute,
   RouteWithValidQuote,
@@ -5,7 +7,6 @@ import type {
 } from "@x7/smart-order-router"
 import type { Implementation, Percent, Token } from "@x7/utils"
 import type { ChainId, CurrencyAmount, Native } from "@x7/utils"
-import type { Address } from "viem"
 import type { TokenApprovals } from "~/app/(xchange)/_components/loans/types"
 
 export interface SwapTokenState {

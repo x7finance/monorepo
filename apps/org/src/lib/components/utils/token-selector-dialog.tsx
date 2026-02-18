@@ -1,9 +1,7 @@
 /* oxlint-disable @typescript-eslint/unbound-method */
 "use client"
 
-import type { ChainId, Currency, Token } from "@x7/utils"
 import type { FC, ReactNode } from "react"
-
 import { useMemo, useState } from "react"
 
 import {
@@ -14,6 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@x7/ui/dialog"
+import type { ChainId, Currency, Token } from "@x7/utils"
 import { TokenListContent } from "~/lib/components/utils/token-list-content"
 
 interface TokenSelectorProps {

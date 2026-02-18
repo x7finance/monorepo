@@ -1,10 +1,9 @@
-import type { ActiveChainId, Currency } from "@x7/utils"
-import type { ApprovalState } from "~/lib/hooks/approvals/useTokenApproval"
-
 import { useMemo } from "react"
 import { useChainId } from "wagmi"
 
 import { X7ContractsEnum } from "@x7/sdk"
+import type { ActiveChainId, Currency } from "@x7/utils"
+import type { ApprovalState } from "~/lib/hooks/approvals/useTokenApproval"
 
 export interface LoanTermData {
   readonly address: `0x${string}`

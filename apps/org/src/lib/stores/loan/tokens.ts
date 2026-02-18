@@ -1,7 +1,8 @@
-import type { LoanTokenActions, LoanTokenState } from "./types"
+import { create } from "zustand"
+
 import type { Currency } from "@x7/utils"
 
-import { create } from "zustand"
+import type { LoanTokenActions, LoanTokenState } from "./types"
 
 interface LoanTokenStore extends LoanTokenState, LoanTokenActions {
   _onTokenChange: (() => void) | null

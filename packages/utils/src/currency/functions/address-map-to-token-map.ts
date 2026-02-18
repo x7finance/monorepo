@@ -1,5 +1,4 @@
 import type { ChainId } from "../../chain"
-
 import { Token } from "../Token"
 
 export function addressMapToTokenMap(

@@ -1,5 +1,6 @@
-import type { Currency } from "@x7/utils"
 import type { ReactElement } from "react"
+
+import type { Currency } from "@x7/utils"
 
 export interface ComponentsWrapperProps<T> {
   children:

@@ -1,10 +1,9 @@
-import type { ChainId } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import { useQuery } from "@tanstack/react-query"
 import { createPublicClient, http } from "viem"
 import { arbitrum, base, bsc, mainnet, optimism, polygon } from "viem/chains"
 
+import type { ChainId } from "@x7/utils"
 import { LogCodes } from "@x7/utils"
 import { CACHE_TIERS } from "~/lib/query"
 import { log } from "~/lib/utils/log"

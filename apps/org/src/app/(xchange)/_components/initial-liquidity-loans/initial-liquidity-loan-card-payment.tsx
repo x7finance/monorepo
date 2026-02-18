@@ -1,6 +1,5 @@
-import type { ChainId } from "@x7/utils"
-
 import { X7Logo } from "@x7/icons"
+import type { ChainId } from "@x7/utils"
 import { PaymentButton } from "~/app/(dashboard)/_components/loan/payment-button"
 
 import { Countdown } from "./countdown"

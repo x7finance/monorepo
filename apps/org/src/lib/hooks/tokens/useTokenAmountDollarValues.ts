@@ -1,9 +1,8 @@
 "use client"
 
-import type { Amount, ChainId, Currency } from "@x7/utils"
-
 import { useMemo } from "react"
 
+import type { Amount, ChainId, Currency } from "@x7/utils"
 import { Native } from "@x7/utils"
 
 import { usePrice } from "../prices/usePrice"

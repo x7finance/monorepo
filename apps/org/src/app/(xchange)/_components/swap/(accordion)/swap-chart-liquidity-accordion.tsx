@@ -1,6 +1,5 @@
 import type { Pair, Pool } from "@x7/sdk"
 import type { SwapRoute } from "@x7/smart-order-router"
-
 import {
   Accordion,
   AccordionContent,

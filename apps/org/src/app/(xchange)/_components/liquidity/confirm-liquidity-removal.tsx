@@ -2,16 +2,10 @@
 /* oxlint-disable react-hooks/exhaustive-deps */
 
 import type { SendTransactionReturnType } from "@wagmi/core"
-import type { ChainId, Currency, Native } from "@x7/utils"
 import type { FC, MouseEvent } from "react"
-import type { Address } from "viem"
-import type {
-  LiquidityFees,
-  UserPositionsResponse,
-} from "~/lib/hooks/tokens/useGetAllUserTokens"
-
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { toast } from "sonner"
+import type { Address } from "viem"
 import { UserRejectedRequestError } from "viem"
 import {
   useAccount,
@@ -24,9 +18,14 @@ import { CheckCircleIcon } from "@x7/icons"
 import { useSlippageTolerancePercent } from "@x7/ui"
 import { Button } from "@x7/ui/button"
 import { Dots } from "@x7/ui/dots"
+import type { ChainId, Currency, Native } from "@x7/utils"
 import { Amount, LogCodes, slippageAmount } from "@x7/utils"
 import { APPROVE_TAG_REMOVE } from "~/lib/constants/misc"
 import { useRemoveLiquidity } from "~/lib/hooks/liquidity/useRemoveLiquidityHook"
+import type {
+  LiquidityFees,
+  UserPositionsResponse,
+} from "~/lib/hooks/tokens/useGetAllUserTokens"
 import { useTransactionDeadline } from "~/lib/hooks/utils/useTransactionDeadline"
 import { useTransactionStore } from "~/lib/providers/tx"
 import { useApproved } from "~/lib/systems/Checker/Provider"

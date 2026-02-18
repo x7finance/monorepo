@@ -1,24 +1,23 @@
-import type { TradeV3 } from "./entities/trade"
-import type { FeeOptions } from "./payments"
-import type { PermitOptions } from "./selfPermit"
-import type { MethodParameters } from "./utils/calldata"
-import type { Currency, Percent } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/no-empty-function */
 import invariant from "tiny-invariant"
 import { encodeFunctionData, toHex } from "viem"
 
 import { swapRouter03, swapRouter03WDeadline } from "@x7/contracts"
+import type { Currency, Percent } from "@x7/utils"
 import { CurrencyAmount, Implementation, TradeType } from "@x7/utils"
 
 import { validateAndParseAddress } from "../core/validateAndParseAddress"
 
 import { ADDRESS_ZERO } from "./constants"
+import type { TradeV3 } from "./entities/trade"
 import { Multicall } from "./multicall"
+import type { FeeOptions } from "./payments"
 import { Payments } from "./payments"
+import type { PermitOptions } from "./selfPermit"
 import { SelfPermit } from "./selfPermit"
 import { encodeRouteToPath } from "./utils"
+import type { MethodParameters } from "./utils/calldata"
 
 /**
  * Options for producing the arguments to send calls to the router.

@@ -1,12 +1,11 @@
-import type { RoutePlanner } from "../../utils/routerCommands"
-import type { TradeConfig } from "../Command"
-import type { BuyItem } from "../NFTTrade"
-
 import { encodeFunctionData } from "viem"
 
 import { nft20ABI } from "@x7/contracts"
 
+import type { RoutePlanner } from "../../utils/routerCommands"
 import { CommandType } from "../../utils/routerCommands"
+import type { TradeConfig } from "../Command"
+import type { BuyItem } from "../NFTTrade"
 import { Market, NFTTrade, TokenType } from "../NFTTrade"
 
 export interface NFT20Data {

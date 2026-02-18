@@ -1,8 +1,6 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 
-import type { ChainId } from "@x7/utils"
 import type { FC } from "react"
-
 import { useState } from "react"
 import { useAccount } from "wagmi"
 
@@ -12,6 +10,7 @@ import { Button } from "@x7/ui/button"
 import { CopyButton } from "@x7/ui/copy-button"
 import { LinkInternal } from "@x7/ui/link"
 import { TextField } from "@x7/ui/text-field"
+import type { ChainId } from "@x7/utils"
 import { ThemeToggle } from "~/lib/components/utils/theme-toggle"
 import { useWeb3Config } from "~/lib/providers/web3"
 

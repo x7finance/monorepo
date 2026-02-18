@@ -1,6 +1,3 @@
-import type { FeeAmount } from "../constants"
-import type { Token } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
 import {
   encodeAbiParameters,
@@ -9,6 +6,9 @@ import {
   parseAbiParameters,
 } from "viem"
 
+import type { Token } from "@x7/utils"
+
+import type { FeeAmount } from "../constants"
 import { POOL_INIT_CODE_HASH } from "../constants"
 
 /**

@@ -1,18 +1,17 @@
-import type { FeeAmount } from "./constants"
-import type { RouteV3 } from "./entities"
-import type { MethodParameters } from "./utils"
-import type { Currency, CurrencyAmount } from "@x7/utils"
-import type { Abi } from "viem"
-
 /* oxlint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/no-extraneous-class */
 import invariant from "tiny-invariant"
+import type { Abi } from "viem"
 import { encodeFunctionData, toHex } from "viem"
 
 import { quoterABI, quoterv2ABI } from "@x7/contracts"
+import type { Currency, CurrencyAmount } from "@x7/utils"
 import { TradeType } from "@x7/utils"
 
+import type { FeeAmount } from "./constants"
+import type { RouteV3 } from "./entities"
+import type { MethodParameters } from "./utils"
 import { encodeRouteToPath } from "./utils"
 
 /**

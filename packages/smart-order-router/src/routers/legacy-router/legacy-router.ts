@@ -1,22 +1,15 @@
-import type { IOnChainQuoteProvider, RouteWithQuotes } from "../../providers"
-import type { IMulticallProvider } from "../../providers/multicall-provider"
-import type { ITokenProvider } from "../../providers/token-provider"
-import type { IV3PoolProvider } from "../../providers/v3/pool-provider"
-import type { SwapOptionsSwapRouter02, SwapRoute } from "../router"
-import type {
-  MethodParameters,
-  Pool,
-  RouteV2Wrapper,
-  RouteV3Wrapper,
-} from "@x7/sdk"
-import type { ChainId, Currency, Token } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/require-await */
 /* oxlint-disable @typescript-eslint/prefer-for-of */
 import _ from "lodash"
 
+import type {
+  MethodParameters,
+  Pool,
+  RouteV2Wrapper,
+  RouteV3Wrapper,
+} from "@x7/sdk"
 import {
   FeeAmount,
   generateRouterAddress,
@@ -24,13 +17,19 @@ import {
   SwapRouter,
   Trade,
 } from "@x7/sdk"
+import type { ChainId, Currency, Token } from "@x7/utils"
 import { LogCodes, Protocol, TradeType } from "@x7/utils"
 
+import type { IOnChainQuoteProvider, RouteWithQuotes } from "../../providers"
+import type { IMulticallProvider } from "../../providers/multicall-provider"
+import type { ITokenProvider } from "../../providers/token-provider"
 import { DAI_MAINNET, USDC_MAINNET } from "../../providers/token-provider"
+import type { IV3PoolProvider } from "../../providers/v3/pool-provider"
 import { CurrencyAmount } from "../../utils/amounts"
 import { log } from "../../utils/log"
 import { routeToString } from "../../utils/routes"
 import { V3RouteWithValidQuote } from "../alpha-router"
+import type { SwapOptionsSwapRouter02, SwapRoute } from "../router"
 import { V3Route } from "../router"
 
 import {

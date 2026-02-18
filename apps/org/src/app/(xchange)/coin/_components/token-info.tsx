@@ -1,9 +1,9 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 "use client"
 
-import type { TokenData } from "~/lib/hooks/tokens/useTokenData"
-
 import Image from "next/image"
+
+import type { TokenData } from "~/lib/hooks/tokens/useTokenData"
 
 import { TokenInfoSkeleton } from "./skeletons"
 

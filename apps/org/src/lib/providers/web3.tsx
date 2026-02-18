@@ -4,9 +4,6 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 "use client"
 
-import type { ChainId } from "@x7/utils"
-import type { Config } from "wagmi"
-
 import {
   connectorsForWallets,
   darkTheme,
@@ -39,9 +36,11 @@ import {
 } from "@wagmi/core/chains"
 import { createContext, useContext, useEffect, useMemo, useState } from "react"
 import { fallback, http } from "viem"
+import type { Config } from "wagmi"
 import { createConfig, WagmiProvider } from "wagmi"
 
 import { useLocalStorage } from "@x7/ui"
+import type { ChainId } from "@x7/utils"
 import { env } from "~/env.mjs"
 import { web3Config } from "~/lib/config/web3"
 

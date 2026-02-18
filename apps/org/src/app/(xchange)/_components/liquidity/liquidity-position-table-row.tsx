@@ -1,6 +1,3 @@
-import type { ActiveChainId } from "@x7/utils"
-import type { UserPositionsResponse } from "~/lib/hooks/tokens/useGetAllUserTokens"
-
 /* oxlint-disable @typescript-eslint/no-unused-vars */
 /* oxlint-disable react-hooks/exhaustive-deps */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
@@ -20,6 +17,7 @@ import { Button } from "@x7/ui/button"
 import { Card, CardContent, CardDescription, CardHeader } from "@x7/ui/card"
 import { SkeletonBox } from "@x7/ui/skeleton"
 import { Tag } from "@x7/ui/tag"
+import type { ActiveChainId } from "@x7/utils"
 import {
   formatUSD,
   generateChainTokenOracleEtherUSDEnum,
@@ -27,6 +25,7 @@ import {
   Token,
 } from "@x7/utils"
 import { usePrice } from "~/lib/hooks/prices/usePrice"
+import type { UserPositionsResponse } from "~/lib/hooks/tokens/useGetAllUserTokens"
 
 import { AddLiquidityTab } from "./tabs/add-liquidity"
 import { RemoveLiquidityTab } from "./tabs/remove-liquidity"

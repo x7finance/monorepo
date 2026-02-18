@@ -1,7 +1,6 @@
 "use client"
 
 import type { FC, ReactNode } from "react"
-
 import React, { useEffect } from "react"
 
 import { useApprovedActions } from "./Provider"

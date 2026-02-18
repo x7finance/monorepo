@@ -1,8 +1,3 @@
-import type { Pair } from "@x7/sdk"
-import type { SwapRoute } from "@x7/smart-order-router"
-import type { ChartConfig } from "@x7/ui/chart"
-import type { ChainId, Native, Token } from "@x7/utils"
-
 import { scaleSymlog } from "d3-scale"
 import {
   Bar,
@@ -15,6 +10,9 @@ import {
 import { useChainId, useReadContracts } from "wagmi"
 
 import { XchangePair } from "@x7/contracts"
+import type { Pair } from "@x7/sdk"
+import type { SwapRoute } from "@x7/smart-order-router"
+import type { ChartConfig } from "@x7/ui/chart"
 import {
   ChartContainer,
   ChartLegend,
@@ -22,6 +20,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@x7/ui/chart"
+import type { ChainId, Native, Token } from "@x7/utils"
 import { DEAD_ADDRESS, Implementation, Protocol } from "@x7/utils"
 
 interface SwapChartLiquidityBarChartProps {

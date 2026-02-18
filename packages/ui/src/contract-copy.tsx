@@ -1,7 +1,6 @@
-import type { ChainId } from "@x7/utils"
-
 import React from "react"
 
+import type { ChainId } from "@x7/utils"
 import { formatAddress, generateChainIdentifier } from "@x7/utils"
 
 import { CopyButton } from "./copy-button"

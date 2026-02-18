@@ -1,11 +1,11 @@
-import type { Pool } from "./pool"
-import type { Currency, Token } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import invariant from "tiny-invariant"
 
+import type { Currency, Token } from "@x7/utils"
 import { Price } from "@x7/utils"
+
+import type { Pool } from "./pool"
 
 /**
  * Represents a list of pools through which a swap can occur

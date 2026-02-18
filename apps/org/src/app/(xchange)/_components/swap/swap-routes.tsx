@@ -1,11 +1,10 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 "use client"
 
-import type { RouteWithValidQuote } from "@x7/smart-order-router"
-
 import { useEffect, useState } from "react"
 
 import { cn } from "@x7/css"
+import type { RouteWithValidQuote } from "@x7/smart-order-router"
 import { Implementation, LogCodes, Protocol } from "@x7/utils"
 import { useSwapState } from "~/lib/stores/swap"
 import { log } from "~/lib/utils/log"

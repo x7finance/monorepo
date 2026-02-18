@@ -3,12 +3,11 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 "use client"
 
-import type { Token } from "@x7/utils"
-
 import React, { Suspense, useCallback, useEffect } from "react"
 import { useAccount } from "wagmi"
 
 import { Button } from "@x7/ui/button"
+import type { Token } from "@x7/utils"
 import { CurrencyInput } from "~/lib/components/utils/currency-input"
 import { ApprovalState } from "~/lib/hooks/approvals/useTokenApproval"
 import { useSwapState } from "~/lib/stores/swap"

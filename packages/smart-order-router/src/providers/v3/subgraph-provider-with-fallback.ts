@@ -1,12 +1,12 @@
-import type { ProviderConfig } from "../provider"
-import type { IV3SubgraphProvider, V3SubgraphPool } from "./subgraph-provider"
 import type { Token } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 /* oxlint-disable @typescript-eslint/no-unused-vars */
 import { LogCodes } from "@x7/utils"
 
 import { log } from "../../utils/log"
+import type { ProviderConfig } from "../provider"
+
+import type { IV3SubgraphProvider, V3SubgraphPool } from "./subgraph-provider"
 
 /**
  * Provider for getting V3 subgraph pools that falls back to a different provider

@@ -1,15 +1,15 @@
-import type {
-  IncreaseSpecificOptions,
-  MintSpecificOptions,
-  Position,
-} from "../v3"
-import type { Currency, Percent, Token } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-empty-function */
 import invariant from "tiny-invariant"
 import { encodeFunctionData } from "viem"
 
 import { approveAndCallABI, nfPositionManagerABI } from "@x7/contracts"
+import type { Currency, Percent, Token } from "@x7/utils"
+
+import type {
+  IncreaseSpecificOptions,
+  MintSpecificOptions,
+  Position,
+} from "../v3"
 
 // condensed version of v3-sdk AddLiquidityOptions containing only necessary swap + add attributes
 export type CondensedAddLiquidityOptions =

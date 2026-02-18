@@ -1,9 +1,9 @@
-import type { NextRequest } from "next/server"
 /* oxlint-disable @next/next/no-img-element */
 import { readFile } from "node:fs/promises"
 import { join } from "node:path"
 
 import { ImageResponse } from "next/og"
+import type { NextRequest } from "next/server"
 import { z } from "zod"
 
 function classNames(...classes: string[]) {

@@ -1,9 +1,8 @@
-import type { ActiveChainId, Currency } from "@x7/utils"
-import type { Address } from "viem"
-
 import { useQuery } from "@tanstack/react-query"
+import type { Address } from "viem"
 import { zeroAddress } from "viem"
 
+import type { ActiveChainId, Currency } from "@x7/utils"
 import { useWeb3Config } from "~/lib/providers/web3"
 import { CACHE_TIERS, TIME } from "~/lib/query"
 

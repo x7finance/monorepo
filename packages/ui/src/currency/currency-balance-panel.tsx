@@ -1,16 +1,15 @@
+/* oxlint-disable @typescript-eslint/no-unsafe-argument */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+import type { FC } from "react"
+import { memo, useCallback } from "react"
+
+import { cn } from "@x7/css"
 import type {
   ActiveChainId,
   Currency,
   Currency as CurrencyType,
   Token,
 } from "@x7/utils"
-/* oxlint-disable @typescript-eslint/no-unsafe-argument */
-/* oxlint-disable @typescript-eslint/no-explicit-any */
-import type { FC } from "react"
-
-import { memo, useCallback } from "react"
-
-import { cn } from "@x7/css"
 import { CurrencyAmount, Native } from "@x7/utils"
 
 import { useTradePercentage } from "../hooks"

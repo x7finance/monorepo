@@ -1,23 +1,22 @@
-import type { Pool } from "./entities"
-import type { PermitOptions } from "./selfPermit"
-import type { MethodParameters } from "./utils/calldata"
-import type { Currency, Native, Percent, Token } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-empty-function */
 import invariant from "tiny-invariant"
 import { encodeFunctionData, toHex } from "viem"
 
 import { nfPositionManagerABI } from "@x7/contracts"
+import type { Currency, Native, Percent, Token } from "@x7/utils"
 import { CurrencyAmount } from "@x7/utils"
 
 import { ONE, ZERO } from "../core/constants"
 import { validateAndParseAddress } from "../core/validateAndParseAddress"
 
 import { ADDRESS_ZERO } from "./constants"
+import type { Pool } from "./entities"
 import { Position } from "./entities/position"
 import { Multicall } from "./multicall"
 import { Payments } from "./payments"
+import type { PermitOptions } from "./selfPermit"
 import { SelfPermit } from "./selfPermit"
+import type { MethodParameters } from "./utils/calldata"
 
 const MaxUint128 = BigInt(2) ** BigInt(128) - BigInt(1)
 

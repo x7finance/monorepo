@@ -5,9 +5,8 @@
 
 "use client"
 
-import type { Address } from "viem"
-
 import React, { useCallback, useMemo, useState } from "react"
+import type { Address } from "viem"
 import { isAddress } from "viem"
 import { useAccount } from "wagmi"
 

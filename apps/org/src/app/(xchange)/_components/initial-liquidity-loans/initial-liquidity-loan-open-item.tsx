@@ -1,10 +1,10 @@
-import type { ChainId } from "@x7/utils"
 /* oxlint-disable @typescript-eslint/no-unsafe-argument */
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 import type { Address } from "viem"
 
 import { Card, CardContent, CardHeader, CardTitle } from "@x7/ui/card"
+import type { ChainId } from "@x7/utils"
 import {
   useLoanLookupByBorrower,
   useLoanTermLookUp,

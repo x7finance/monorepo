@@ -1,13 +1,7 @@
 "use client"
 
 import type { BaseError } from "@wagmi/core"
-import type { ChainId } from "@x7/utils"
 import type { Dispatch, SetStateAction } from "react"
-import type {
-  WriteContractErrorType,
-  WriteContractReturnType,
-} from "wagmi/actions"
-
 import { useCallback, useMemo, useState } from "react"
 import { toast } from "sonner"
 import { parseEther, UserRejectedRequestError } from "viem"
@@ -17,10 +11,15 @@ import {
   useSimulateContract,
   useWriteContract,
 } from "wagmi"
+import type {
+  WriteContractErrorType,
+  WriteContractReturnType,
+} from "wagmi/actions"
 import { waitForTransactionReceipt } from "wagmi/actions"
 
 import { X7LendingPoolReserve } from "@x7/contracts"
 import { X7ContractsEnum } from "@x7/sdk"
+import type { ChainId } from "@x7/utils"
 import { useNativeCurrency } from "~/lib/hooks/currency/useNativeCurrency"
 import { useTransactionStore } from "~/lib/providers/tx"
 import { useWeb3Config } from "~/lib/providers/web3"

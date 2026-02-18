@@ -1,12 +1,12 @@
-import type { IMulticallProvider } from "./multicall-provider"
 import type { ApprovalTypes } from "@x7/sdk"
-import type { ChainId, Currency, CurrencyAmount } from "@x7/utils"
-
 import { generateRouterAddress } from "@x7/sdk"
+import type { ChainId, Currency, CurrencyAmount } from "@x7/utils"
 import { Implementation, LogCodes } from "@x7/utils"
 
 import SwapRouter02 from "../abis/swapRouter02.json"
 import { log } from "../utils"
+
+import type { IMulticallProvider } from "./multicall-provider"
 
 interface TokenApprovalTypes {
   approvalTokenIn: ApprovalTypes

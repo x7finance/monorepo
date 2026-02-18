@@ -1,9 +1,8 @@
-import type { Currency } from "@x7/utils"
-
 import invariant from "tiny-invariant"
 
 import { X7ContractsEnum } from "@x7/sdk"
 import { WRAPPED_NATIVE_CURRENCY } from "@x7/smart-order-router"
+import type { Currency } from "@x7/utils"
 import { ChainId, Native, Token } from "@x7/utils"
 
 export const X7R = new Token({

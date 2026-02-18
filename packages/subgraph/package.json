@@ -35,6 +35,6 @@
   },
   "devDependencies": {
     "matchstick-as": "0.5.2",
-    "oxlint": "^0.16.12"
+    "oxlint": "^1.48.0"
   }
 }

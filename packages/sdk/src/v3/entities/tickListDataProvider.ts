@@ -1,11 +1,10 @@
 /* oxlint-disable @typescript-eslint/require-await */
 import type { BigintIsh } from "../../core/constants"
-import type { TickConstructorArgs } from "./tick"
-import type { TickDataProvider } from "./tickDataProvider"
-
 import { TickList } from "../utils/tickList"
 
+import type { TickConstructorArgs } from "./tick"
 import { Tick } from "./tick"
+import type { TickDataProvider } from "./tickDataProvider"
 
 /**
  * A data provider for ticks that is backed by an in-memory array of ticks.

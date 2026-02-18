@@ -1,11 +1,10 @@
 "use client"
 
-import type { ChainId } from "@x7/utils"
-
 import { memo, Suspense, useCallback, useMemo } from "react"
 
 import { useLocalStorage } from "@x7/ui"
 import { TableLoadingShimmer } from "@x7/ui/table-loading-shimmer"
+import type { ChainId } from "@x7/utils"
 import { ChainIdentifierEnum } from "@x7/utils"
 import { useIsComponentReady } from "~/lib/hooks/utils/useIsComponentReady"
 

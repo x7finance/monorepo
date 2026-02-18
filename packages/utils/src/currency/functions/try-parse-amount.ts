@@ -1,9 +1,8 @@
-import type { Currency } from "../Type"
-
 /* oxlint-disable @typescript-eslint/no-unused-vars */
 import { parseUnits } from "viem"
 
 import { CurrencyAmount } from "../../math/fractions/currencyAmount"
+import type { Currency } from "../Type"
 
 // try to parse a user entered amount for a given token
 export function tryParseAmount<T extends Currency>(

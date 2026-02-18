@@ -1,12 +1,12 @@
-import type { TradeV2 } from "./entities"
-import type { Currency, Percent, Token } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-empty-function */
 import invariant from "tiny-invariant"
 
+import type { Currency, Percent, Token } from "@x7/utils"
 import { TradeType } from "@x7/utils"
 
 import { validateAndParseAddress } from "../core/validateAndParseAddress"
+
+import type { TradeV2 } from "./entities"
 
 /**
  * Options for producing the arguments to send call to the router.

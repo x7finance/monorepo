@@ -1,9 +1,8 @@
+import { animated } from "@react-spring/web"
 import type { LucideProps } from "lucide-react"
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 import type { ComponentType, RefAttributes } from "react"
 import type React from "react"
-
-import { animated } from "@react-spring/web"
 
 export type ExtractProps<T> = T extends ComponentType<infer P> ? P : T
 export type AnyTag = keyof React.JSX.IntrinsicElements

@@ -2,16 +2,16 @@
 /* oxlint-disable react-hooks/exhaustive-deps */
 "use client"
 
-import type { ButtonProps } from "@x7/ui/button"
-import type { HTMLAttributes } from "react"
-
 import { ConnectButton } from "@rainbow-me/rainbowkit"
 import Image from "next/image"
+import type { HTMLAttributes } from "react"
 import React, { lazy, Suspense, useMemo } from "react"
+import { formatUnits } from "viem"
 import { useAccount, useBalance } from "wagmi"
 
 import { cn } from "@x7/css"
 import { ChevronDownIcon, CogIcon } from "@x7/icons"
+import type { ButtonProps } from "@x7/ui/button"
 import { Button } from "@x7/ui/button"
 import { CircleLoading } from "@x7/ui/circle-loading"
 import { SliderOver } from "@x7/ui/slide-over"
@@ -142,8 +142,8 @@ export function ConnectionComponent(
                       type="button"
                     >
                       <span className="hidden xs:flex">
-                        {account_?.formatted
-                          ? ` ${Number(account_.formatted).toFixed(3)}`
+                        {account_?.value
+                          ? ` ${Number(formatUnits(account_.value, account_.decimals)).toFixed(3)}`
                           : ""}
                         {account_?.symbol ? ` ${account_.symbol}` : ""}
                       </span>

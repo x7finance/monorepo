@@ -1,5 +1,4 @@
 import type { ReactNode } from "react"
-
 import { useEnsName } from "wagmi"
 
 import { ChainId } from "@x7/utils"

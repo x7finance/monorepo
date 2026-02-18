@@ -2,12 +2,11 @@
 
 "use client"
 
-import type { Currency } from "@x7/utils"
 import type { ImageProps } from "next/image"
-
 import Image from "next/image"
 import { useMemo, useState } from "react"
 
+import type { Currency } from "@x7/utils"
 import { Chain } from "@x7/utils"
 
 import { useAssetLogoSource } from "../hooks/use-token-logo-source"

@@ -1,10 +1,10 @@
-import type { SwapTokenActions, SwapTokenState } from "./types"
-import type { Currency, Native, Token } from "@x7/utils"
 import type { Address } from "viem"
-
 import { create } from "zustand"
 
+import type { Currency, Native, Token } from "@x7/utils"
 import { ChainId } from "@x7/utils"
+
+import type { SwapTokenActions, SwapTokenState } from "./types"
 
 export const getTokenAsString = (token: Currency | string): string =>
   typeof token === "string"

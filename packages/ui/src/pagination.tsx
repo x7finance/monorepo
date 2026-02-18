@@ -1,5 +1,3 @@
-import type { Button } from "./button"
-
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -9,6 +7,7 @@ import * as React from "react"
 
 import { cn } from "@x7/css"
 
+import type { Button } from "./button"
 import { buttonVariants } from "./button"
 
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {

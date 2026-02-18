@@ -1,11 +1,10 @@
-import type { ChainId } from "@x7/utils"
 /* oxlint-disable @typescript-eslint/no-base-to-string */
 import type { Address } from "viem"
-
 import { useReadContracts } from "wagmi"
 
 import { XchangeTokenList } from "@x7/contracts"
 import { X7ContractsEnum } from "@x7/sdk"
+import type { ChainId } from "@x7/utils"
 import { getChainInfo } from "~/lib/constants/chainInfo"
 
 export function useRegisteredTokens(

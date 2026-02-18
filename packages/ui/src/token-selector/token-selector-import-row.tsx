@@ -1,8 +1,8 @@
-import type { Token } from "@x7/utils"
 /* oxlint-disable @typescript-eslint/unbound-method */
 import type { FC } from "react"
-
 import React, { useCallback, useState } from "react"
+
+import type { Token } from "@x7/utils"
 
 import { Button } from "../button"
 import { CurrencyIcon } from "../currency/currency-icon"

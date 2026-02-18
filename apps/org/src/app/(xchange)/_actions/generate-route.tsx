@@ -3,13 +3,12 @@
 "use client"
 
 import type { Config } from "@wagmi/core"
-import type { AlphaRouter, SwapRoute } from "@x7/smart-order-router"
-import type { SwapState } from "~/lib/stores/swap"
-
 import { getPublicClient, getWalletClient } from "@wagmi/core"
 
+import type { AlphaRouter, SwapRoute } from "@x7/smart-order-router"
 import { SwapType, WRAPPED_NATIVE_CURRENCY } from "@x7/smart-order-router"
 import { LogCodes, Percent, TradeType } from "@x7/utils"
+import type { SwapState } from "~/lib/stores/swap"
 import { log } from "~/lib/utils/log"
 
 export const generateRoute = async (

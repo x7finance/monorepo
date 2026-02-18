@@ -1,12 +1,12 @@
-import type Rounding from "../math/Rounding"
-import type { Currency } from "./Type"
-
 /* oxlint-disable @typescript-eslint/no-unsafe-argument */
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 import invariant from "tiny-invariant"
 
 import Fraction from "../math/Fraction"
 import { CurrencyAmount } from "../math/fractions/currencyAmount"
+import type Rounding from "../math/Rounding"
+
+import type { Currency } from "./Type"
 
 export class Price<
   TBase extends Currency,

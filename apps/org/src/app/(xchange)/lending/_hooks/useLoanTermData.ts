@@ -1,12 +1,11 @@
-import type { ChainId } from "@x7/utils"
-import type { Abi } from "viem"
-
 /* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
 import { useEffect, useMemo, useState } from "react"
+import type { Abi } from "viem"
 import { formatEther } from "viem"
 import { useReadContracts } from "wagmi"
 
 import { X7InitialLiquidityLoanTerm001 } from "@x7/contracts"
+import type { ChainId } from "@x7/utils"
 
 interface LoanTermData {
   address: `0x${string}`

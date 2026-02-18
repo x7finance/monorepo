@@ -1,10 +1,9 @@
-import type { ChainId } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import { useChainId } from "wagmi"
 
 import { Card, CardContent } from "@x7/ui/card"
 import { LinkExternal } from "@x7/ui/link"
+import type { ChainId } from "@x7/utils"
 import { getChainInfo } from "~/lib/constants/chainInfo"
 
 interface ActivityTransactionProps {

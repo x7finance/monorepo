@@ -1,10 +1,10 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import type { Config } from "@wagmi/core"
-import type { SwapRoute } from "@x7/smart-order-router"
-import type { CurrencyAmount, Native, Token } from "@x7/utils"
-
 import { getWalletClient } from "@wagmi/core"
 import { isAddress, isHex } from "viem"
+
+import type { SwapRoute } from "@x7/smart-order-router"
+import type { CurrencyAmount, Native, Token } from "@x7/utils"
 
 import { getTokenTransferApproval } from "./get-token-transfer-approval"
 

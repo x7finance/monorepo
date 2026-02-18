@@ -1,7 +1,6 @@
 "use client"
 
 import type { Abi } from "viem"
-
 import { decodeFunctionData } from "viem"
 
 import { X7R } from "@x7/contracts"

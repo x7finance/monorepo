@@ -1,11 +1,9 @@
-import type { ChainId } from "@x7/utils"
-import type { QuoteResponse } from "~/lib/stores/loan"
-
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import { formatEther } from "viem"
 import { useChainId } from "wagmi"
 
 import { Tag } from "@x7/ui/tag"
+import type { ChainId } from "@x7/utils"
 import { Native } from "@x7/utils"
 import {
   useNumberOfPremiumPeriods,
@@ -14,6 +12,7 @@ import {
   usePrincipleFractionDenominator,
   useRepaymentPeriodIndices,
 } from "~/lib/hooks/loans/useXchangeLoanData"
+import type { QuoteResponse } from "~/lib/stores/loan"
 import { generateX7InitialLiquidityLoanTermNumber } from "~/lib/utils/lending"
 
 import { LoanTypeRepaymentFraction } from "./loan-type-repayment-fraction"

@@ -2,12 +2,6 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 
 import type { BaseError } from "@wagmi/core"
-import type { ChainId } from "@x7/utils"
-import type {
-  WriteContractErrorType,
-  WriteContractReturnType,
-} from "wagmi/actions"
-
 import { useRouter } from "next/navigation"
 import { useCallback, useMemo, useState } from "react"
 import { toast } from "sonner"
@@ -24,10 +18,15 @@ import {
   useSimulateContract,
   useWriteContract,
 } from "wagmi"
+import type {
+  WriteContractErrorType,
+  WriteContractReturnType,
+} from "wagmi/actions"
 import { waitForTransactionReceipt } from "wagmi/actions"
 
 import { XchangeCreateAbi } from "@x7/contracts"
 import { X7ContractsEnum } from "@x7/sdk"
+import type { ChainId } from "@x7/utils"
 import { LogCodes } from "@x7/utils"
 import { useTransactionStore } from "~/lib/providers/tx"
 import { useWeb3Config } from "~/lib/providers/web3"

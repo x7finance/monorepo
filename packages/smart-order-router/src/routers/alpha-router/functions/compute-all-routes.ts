@@ -1,7 +1,6 @@
-import type { Token } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
 import { Pair, Pool } from "@x7/sdk"
+import type { Token } from "@x7/utils"
 import { LogCodes } from "@x7/utils"
 
 import { log } from "../../../utils/log"

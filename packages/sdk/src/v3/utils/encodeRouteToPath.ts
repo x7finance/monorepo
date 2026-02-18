@@ -1,8 +1,9 @@
-import type { Pool } from "../entities/pool"
-import type { RouteV3 } from "../entities/route"
+import { encodePacked } from "viem"
+
 import type { Currency, Token } from "@x7/utils"
 
-import { encodePacked } from "viem"
+import type { Pool } from "../entities/pool"
+import type { RouteV3 } from "../entities/route"
 
 /**
  * Converts a route to a hex encoded path

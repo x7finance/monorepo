@@ -1,13 +1,7 @@
 /* oxlint-disable @typescript-eslint/unbound-method */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 
-import type {
-  CurrencyAmount,
-  Currency as CurrencyType,
-  Fraction,
-} from "@x7/utils"
 import type { CSSProperties, FC, ReactElement } from "react"
-
 import React, { memo, useCallback } from "react"
 
 import { cn } from "@x7/css"
@@ -17,6 +11,11 @@ import {
   CheckIcon,
   StarIcon,
 } from "@x7/icons"
+import type {
+  CurrencyAmount,
+  Currency as CurrencyType,
+  Fraction,
+} from "@x7/utils"
 import { Chain, ZERO } from "@x7/utils"
 
 import { Button } from "../button"

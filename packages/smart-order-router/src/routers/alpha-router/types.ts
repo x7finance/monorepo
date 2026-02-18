@@ -1,5 +1,6 @@
-import type { CacheMode } from "../../providers/caching/route/model/cache-mode"
 import type { Protocol } from "@x7/utils"
+
+import type { CacheMode } from "../../providers/caching/route/model/cache-mode"
 
 export class MapWithLowerCaseKey<V> extends Map<string, V> {
   override set(key: string, value: V): this {

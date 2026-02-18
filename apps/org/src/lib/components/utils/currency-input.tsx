@@ -3,15 +3,14 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 "use client"
 
-import type { CurrencyInputProps } from "@x7/ui/currency/currency-balance-panel"
 import type { FC } from "react"
-
 import { useCallback, useEffect, useMemo, useState, useTransition } from "react"
 import { useAccount } from "wagmi"
 
 import { cn } from "@x7/css"
 import { ChevronDownIcon } from "@x7/icons"
 import { Button } from "@x7/ui/button"
+import type { CurrencyInputProps } from "@x7/ui/currency/currency-balance-panel"
 import { CurrencyBalancePanel } from "@x7/ui/currency/currency-balance-panel"
 import { CurrencyIcon } from "@x7/ui/currency/currency-icon"
 import { PricePanel } from "@x7/ui/currency/price-panel"

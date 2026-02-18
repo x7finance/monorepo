@@ -1,10 +1,9 @@
-import type { ChainId } from "@x7/utils"
-
 import { parseEther } from "viem"
 import { useAccount } from "wagmi"
 
 import { cn } from "@x7/css"
 import { Button, buttonVariants } from "@x7/ui/button"
+import type { ChainId } from "@x7/utils"
 import { usePayLiability } from "~/lib/hooks/tokens/usePayLiability"
 
 interface PaymentButtonProps {

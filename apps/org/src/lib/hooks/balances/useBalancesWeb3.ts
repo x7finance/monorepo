@@ -1,13 +1,12 @@
-import type { Config } from "@wagmi/core"
-import type { ActiveChainId, Currency, Token } from "@x7/utils"
-import type { Address } from "viem"
-
 import { useQuery } from "@tanstack/react-query"
+import type { Config } from "@wagmi/core"
 import { getBalance, readContracts } from "@wagmi/core"
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import { useEffect } from "react"
+import type { Address } from "viem"
 import { erc20Abi, isAddress, zeroAddress } from "viem"
 
+import type { ActiveChainId, Currency, Token } from "@x7/utils"
 import { CurrencyAmount, Native } from "@x7/utils"
 import { useWeb3Config } from "~/lib/providers/web3"
 import { CACHE_TIERS, TIME } from "~/lib/query"
@@ -30,7 +29,6 @@ export const queryFnUseBalances = async ({
   const native = await getBalance(config, {
     address: account,
     chainId: chainId,
-    unit: "wei",
   })
 
   const [validatedTokens, validatedTokenAddresses] = currencies.reduce<

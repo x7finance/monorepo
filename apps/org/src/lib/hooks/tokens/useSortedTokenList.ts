@@ -1,5 +1,8 @@
 /* oxlint-disable @typescript-eslint/require-await */
 
+import { keepPreviousData, useQuery } from "@tanstack/react-query"
+
+import { useDebounce } from "@x7/ui"
 import type {
   ChainId,
   Currency,
@@ -7,10 +10,6 @@ import type {
   Fraction,
   Token,
 } from "@x7/utils"
-
-import { keepPreviousData, useQuery } from "@tanstack/react-query"
-
-import { useDebounce } from "@x7/ui"
 import { Native } from "@x7/utils"
 
 import {

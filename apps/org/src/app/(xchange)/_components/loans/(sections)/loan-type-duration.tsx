@@ -1,10 +1,8 @@
-import type { ChainId } from "@x7/utils"
-import type { Address } from "viem"
-
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 import { config } from "@react-spring/web"
+import type { Address } from "viem"
 import { useChainId } from "wagmi"
 
 import { cn } from "@x7/css"
@@ -17,6 +15,7 @@ import {
 } from "@x7/ui/form"
 import { Slider } from "@x7/ui/slider"
 import { Tag } from "@x7/ui/tag"
+import type { ChainId } from "@x7/utils"
 import { SECONDS_IN_A_DAY } from "~/lib/constants/misc"
 import {
   useMaximumLoanLengthSeconds,

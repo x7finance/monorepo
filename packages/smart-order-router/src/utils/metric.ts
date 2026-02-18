@@ -2,7 +2,6 @@
 // metricLogger.ts
 
 import type { Logger } from "@x7/utils"
-
 import { LogCodes } from "@x7/utils"
 
 import { log } from "./log"

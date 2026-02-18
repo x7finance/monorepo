@@ -1,6 +1,7 @@
-import type { ProviderConfig } from "./provider"
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 import type { Abi } from "viem"
+
+import type { ProviderConfig } from "./provider"
 
 export interface CallSameFunctionOnMultipleContractsParams<
   TFunctionParams,

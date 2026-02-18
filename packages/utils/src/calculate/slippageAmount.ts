@@ -1,8 +1,7 @@
 import type { Currency } from "../currency/Type"
+import Fraction from "../math/Fraction"
 import type { CurrencyAmount } from "../math/fractions/currencyAmount"
 import type Percent from "../math/Percent"
-
-import Fraction from "../math/Fraction"
 
 const ONE = new Fraction(1, 1)
 

@@ -1,16 +1,16 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 "use client"
 
-import type { LoanTermData } from "./types"
-import type { ChainId } from "@x7/utils"
-
 import { useAccount } from "wagmi"
 
 import { cn } from "@x7/css"
 import { Card, CardContent } from "@x7/ui/card"
 import { CircleLoading } from "@x7/ui/circle-loading"
 import { Tag } from "@x7/ui/tag"
+import type { ChainId } from "@x7/utils"
 import { useNativeCurrency } from "~/lib/hooks/currency/useNativeCurrency"
+
+import type { LoanTermData } from "./types"
 
 interface LoanOptionProps {
   loanTerms: Record<string, LoanTermData>

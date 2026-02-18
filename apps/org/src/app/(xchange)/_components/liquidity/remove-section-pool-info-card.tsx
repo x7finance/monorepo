@@ -1,7 +1,4 @@
-import type { Amount, Currency, Native } from "@x7/utils"
 import type { FC } from "react"
-import type { UserPositionsResponse } from "~/lib/hooks/tokens/useGetAllUserTokens"
-
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import { useMemo } from "react"
@@ -9,7 +6,9 @@ import { useMemo } from "react"
 import { Card, CardContent } from "@x7/ui/card"
 import { Collapsible } from "@x7/ui/collapsible"
 import { StatLabel, StatValue } from "@x7/ui/stat"
+import type { Amount, Currency, Native } from "@x7/utils"
 import { CurrencyAmount } from "@x7/utils"
+import type { UserPositionsResponse } from "~/lib/hooks/tokens/useGetAllUserTokens"
 
 interface RemoveSectionPoolInfoCard {
   position: UserPositionsResponse // Use for left overs

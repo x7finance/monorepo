@@ -4,8 +4,6 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 "use client"
 
-import type { ActiveChainId, ChainId } from "@x7/utils"
-
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
@@ -34,6 +32,7 @@ import {
   FormMessage,
 } from "@x7/ui/form"
 import { LinkInternal } from "@x7/ui/link"
+import type { ActiveChainId, ChainId } from "@x7/utils"
 import { CurrencyAmount, LogCodes, Native } from "@x7/utils"
 import { CurrencyInput } from "~/lib/components/utils/currency-input"
 import { SECONDS_IN_A_DAY } from "~/lib/constants/misc"

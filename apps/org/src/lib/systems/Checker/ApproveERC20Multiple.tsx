@@ -1,9 +1,10 @@
 "use client"
 
-import type { ButtonProps } from "@x7/ui/button"
-import type { Currency, CurrencyAmount } from "@x7/utils"
 import type { FC } from "react"
 import type { Address } from "viem"
+
+import type { ButtonProps } from "@x7/ui/button"
+import type { Currency, CurrencyAmount } from "@x7/utils"
 
 import { ApproveERC20 } from "./ApproveERC20"
 

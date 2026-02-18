@@ -1,6 +1,3 @@
-import type { Pair } from "./pair"
-import type { Currency, Token } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable @typescript-eslint/no-unsafe-argument */
 /* oxlint-disable @typescript-eslint/no-unsafe-member-access */
@@ -8,7 +5,10 @@ import type { Currency, Token } from "@x7/utils"
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import invariant from "tiny-invariant"
 
+import type { Currency, Token } from "@x7/utils"
 import { Price } from "@x7/utils"
+
+import type { Pair } from "./pair"
 
 export class RouteV2<TInput extends Currency, TOutput extends Currency> {
   public readonly pairs: Pair[]

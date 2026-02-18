@@ -1,11 +1,10 @@
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
-import type { ButtonProps } from "@x7/ui/button"
 import type { FC, ReactElement } from "react"
-
 import { useAccount, useSwitchChain } from "wagmi"
 
+import type { ButtonProps } from "@x7/ui/button"
 import { Button } from "@x7/ui/button"
 import { chainName } from "@x7/utils"
 

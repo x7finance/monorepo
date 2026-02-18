@@ -1,8 +1,7 @@
 /* oxlint-disable @typescript-eslint/no-empty-function */
 
-import type { FeeAmount } from "../constants"
-
 import { NEGATIVE_ONE, ZERO } from "../../core/constants"
+import type { FeeAmount } from "../constants"
 
 import { FullMath } from "./fullMath"
 import { SqrtPriceMath } from "./sqrtPriceMath"

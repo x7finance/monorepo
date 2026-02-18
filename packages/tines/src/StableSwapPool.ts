@@ -1,9 +1,9 @@
-import type { RToken } from "./PrimaryPools"
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import type { Address } from "viem"
 
 import { abs } from "@x7/utils"
 
+import type { RToken } from "./PrimaryPools"
 import { RPool } from "./PrimaryPools"
 import { getBigInt } from "./Utils"
 

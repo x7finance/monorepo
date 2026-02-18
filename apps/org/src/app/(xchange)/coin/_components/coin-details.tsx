@@ -1,8 +1,6 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 "use client"
 
-import type { ChainId } from "@x7/utils"
-
 import { notFound, useParams } from "next/navigation"
 import { Suspense, useEffect, useState } from "react"
 import { useChainId } from "wagmi"
@@ -10,6 +8,7 @@ import { useChainId } from "wagmi"
 import { Button } from "@x7/ui/button"
 import { Card } from "@x7/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@x7/ui/tabs"
+import type { ChainId } from "@x7/utils"
 import { Token } from "@x7/utils"
 import { useTokenData } from "~/lib/hooks/tokens/useTokenData"
 import { CheckerProviderComponent } from "~/lib/providers/checker"

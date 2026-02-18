@@ -1,8 +1,7 @@
-import type { ChainId } from "@x7/utils"
-
 import { useChainId } from "wagmi"
 
 import { LinkExternal } from "@x7/ui/link"
+import type { ChainId } from "@x7/utils"
 import { generateChainIdentifier } from "@x7/utils"
 import { useXchangeTokenData } from "~/lib/hooks/tokens/useXchangeTokenData"
 

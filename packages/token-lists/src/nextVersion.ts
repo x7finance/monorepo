@@ -1,6 +1,5 @@
-import type { Version } from "./types"
-
 import { VersionUpgrade } from "./getVersionUpgrade"
+import type { Version } from "./types"
 
 /**
  * Returns the next version of the list given a base version and the upgrade type

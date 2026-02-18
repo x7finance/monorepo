@@ -1,5 +1,3 @@
-import type { DocType } from "../_types"
-import type { RenderableTreeNode } from "@markdoc/markdoc"
 /* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable @typescript-eslint/restrict-template-expressions */
@@ -10,8 +8,8 @@ import type { RenderableTreeNode } from "@markdoc/markdoc"
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 import fs from "fs"
 import path from "path"
-import type { SectionType } from "~/types"
 
+import type { RenderableTreeNode } from "@markdoc/markdoc"
 import Markdoc from "@markdoc/markdoc"
 import { slugifyWithCounter } from "@sindresorhus/slugify"
 import matter from "gray-matter"
@@ -19,6 +17,9 @@ import { cache } from "react"
 
 import { LogCodes } from "@x7/utils"
 import { log } from "~/lib/utils/log"
+import type { SectionType } from "~/types"
+
+import type { DocType } from "../_types"
 
 import { config } from "./config.markdoc"
 
@@ -72,7 +73,7 @@ async function parseMarkdownFile(filePath: string): Promise<ParsedMarkdown> {
   try {
     await fs.promises.access(absolutePath, fs.constants.F_OK)
   } catch (error) {
-    throw new Error(`File does not exist or is not accessible: ${absolutePath}`)
+    throw new Error(`File does not exist or is not accessible: ${absolutePath}`, { cause: error })
   }
 
   // If the file exists and is accessible, proceed with reading and parsing

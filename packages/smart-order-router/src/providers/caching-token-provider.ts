@@ -1,14 +1,13 @@
-import type { ICache } from "./cache"
-import type { ITokenProvider, TokenAccessor } from "./token-provider"
-import type { Token } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import _ from "lodash"
 
+import type { Token } from "@x7/utils"
 import { ChainId, LogCodes } from "@x7/utils"
 
 import { log, WRAPPED_NATIVE_CURRENCY } from "../utils"
 
+import type { ICache } from "./cache"
+import type { ITokenProvider, TokenAccessor } from "./token-provider"
 import {
   BTC_BNB,
   BUSD_BNB,

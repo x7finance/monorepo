@@ -1,16 +1,13 @@
-import type { ProviderConfig } from "../provider"
-import type { IV3PoolProvider } from "./pool-provider"
-import type { IV3SubgraphProvider, V3SubgraphPool } from "./subgraph-provider"
-import type { Token } from "@x7/utils"
-
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import _ from "lodash"
 
+import type { Token } from "@x7/utils"
 import { ChainId, FeeAmount, LogCodes } from "@x7/utils"
 
 import { unparseFeeAmount } from "../../utils/amounts"
 import { WRAPPED_NATIVE_CURRENCY } from "../../utils/chains"
 import { log } from "../../utils/log"
+import type { ProviderConfig } from "../provider"
 import {
   ARB_ARBITRUM,
   BTC_BNB,
@@ -39,6 +36,9 @@ import {
   WMATIC_POLYGON,
   WMATIC_POLYGON_MUMBAI,
 } from "../token-provider"
+
+import type { IV3PoolProvider } from "./pool-provider"
+import type { IV3SubgraphProvider, V3SubgraphPool } from "./subgraph-provider"
 
 type ChainTokenList = Readonly<Record<ChainId, Token[]>>
 

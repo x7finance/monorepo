@@ -1,19 +1,19 @@
+import _ from "lodash"
+
+import type { FeeAmount, Pool } from "@x7/sdk"
+import type { ChainId, Token } from "@x7/utils"
+import { LogCodes } from "@x7/utils"
+
+import { log } from "../../utils/log"
+import { metric, MetricLoggerUnit } from "../../utils/metric"
 import type { ICache } from "../cache"
 import type { ProviderConfig } from "../provider"
+
 import type {
   IV3PoolProvider,
   V3ImplementationPair,
   V3PoolAccessor,
 } from "./pool-provider"
-import type { FeeAmount, Pool } from "@x7/sdk"
-import type { ChainId, Token } from "@x7/utils"
-
-import _ from "lodash"
-
-import { LogCodes } from "@x7/utils"
-
-import { log } from "../../utils/log"
-import { metric, MetricLoggerUnit } from "../../utils/metric"
 
 /**
  * Provider for getting V3 pools, with functionality for caching the results.

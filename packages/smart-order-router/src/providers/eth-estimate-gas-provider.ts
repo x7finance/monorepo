@@ -1,27 +1,27 @@
-import type { V2Route } from "../routers/route-types"
-import type { SwapOptions, SwapRoute } from "../routers/router"
-import type { ViemProviderType } from "../utils/viemHelpers"
-import type { IPortionProvider } from "./portion-provider"
-import type { ProviderConfig } from "./provider"
-import type { IV2PoolProvider } from "./v2/pool-provider"
-import type { ArbitrumGasData, OptimismGasData } from "./v3/gas-data-provider"
-import type { IV3PoolProvider } from "./v3/pool-provider"
-import type { ChainId } from "@x7/utils"
 /* oxlint-disable @typescript-eslint/restrict-template-expressions */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import type { PublicClient } from "viem"
 
+import type { ChainId } from "@x7/utils"
 import { Implementation, LogCodes } from "@x7/utils"
 
+import type { V2Route } from "../routers/route-types"
+import type { SwapOptions, SwapRoute } from "../routers/router"
 import { SwapType } from "../routers/router"
 import {
   calculateGasUsed,
   initSwapRouteFromExisting,
 } from "../utils/gas-factory-helpers"
 import { log } from "../utils/log"
+import type { ViemProviderType } from "../utils/viemHelpers"
 
+import type { IPortionProvider } from "./portion-provider"
+import type { ProviderConfig } from "./provider"
 import { SimulationStatus, Simulator } from "./simulation-provider"
+import type { IV2PoolProvider } from "./v2/pool-provider"
+import type { ArbitrumGasData, OptimismGasData } from "./v3/gas-data-provider"
+import type { IV3PoolProvider } from "./v3/pool-provider"
 
 // We multiply eth estimate gas by this to add a buffer for gas limits
 const DEFAULT_ESTIMATE_MULTIPLIER = 1

@@ -1,7 +1,6 @@
 import type { SpringConfig } from "@react-spring/web"
-import type { CSSProperties, PropsWithChildren } from "react"
-
 import { config, useSpring, useTransition } from "@react-spring/web"
+import type { CSSProperties, PropsWithChildren } from "react"
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { useEffect, useRef, useState } from "react"
@@ -91,8 +90,9 @@ function TextTransition(props: PropsWithChildren<TextTransitionProps>) {
         <AnimatedDiv
           style={styles as any}
           ref={item === children ? currentRef : undefined}
-          children={item}
-        />
+        >
+          {item}
+        </AnimatedDiv>
       ))}
     </AnimatedDiv>
   )

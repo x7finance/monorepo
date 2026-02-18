@@ -1,7 +1,6 @@
 "use client"
 
 import type { FC, ReactNode } from "react"
-
 import { useState } from "react"
 
 import { ArrowUpRightSquareIcon } from "@x7/icons"

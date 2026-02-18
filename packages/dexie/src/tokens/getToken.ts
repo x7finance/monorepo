@@ -1,7 +1,7 @@
-import type { SavedToken } from "./types"
-
 /* oxlint-disable @typescript-eslint/restrict-template-expressions */
 import { db } from "../db"
+
+import type { SavedToken } from "./types"
 
 export const getToken = async ({
   chainId,

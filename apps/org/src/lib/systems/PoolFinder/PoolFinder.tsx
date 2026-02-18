@@ -1,13 +1,6 @@
-import type {
-  ComponentsWrapperProps,
-  PoolExistenceStateAction,
-  PoolStateUnion,
-  XchangeV2PoolFinderProps,
-} from "./types"
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/unbound-method */
 import type { FC, ReactElement, ReactNode } from "react"
-
 import {
   Children,
   cloneElement,
@@ -17,6 +10,12 @@ import {
 } from "react"
 
 import { ComponentsWrapper } from "./ComponentsWrapper"
+import type {
+  ComponentsWrapperProps,
+  PoolExistenceStateAction,
+  PoolStateUnion,
+  XchangeV2PoolFinderProps,
+} from "./types"
 import { XchangeV2Pool } from "./XchangeV2Pool"
 
 enum XchangeV2PoolState {
