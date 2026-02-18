@@ -89,6 +89,7 @@
       },
       "devDependencies": {
         "@next/bundle-analyzer": "^15.5.12",
+        "@playwright/test": "^1.58.2",
         "@tailwindcss/line-clamp": "^0.4.4",
         "@tailwindcss/postcss": "^4.1.18",
         "@tailwindcss/typography": "^0.5.19",

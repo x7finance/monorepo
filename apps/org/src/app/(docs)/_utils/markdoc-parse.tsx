@@ -73,7 +73,10 @@ async function parseMarkdownFile(filePath: string): Promise<ParsedMarkdown> {
   try {
     await fs.promises.access(absolutePath, fs.constants.F_OK)
   } catch (error) {
-    throw new Error(`File does not exist or is not accessible: ${absolutePath}`, { cause: error })
+    throw new Error(
+      `File does not exist or is not accessible: ${absolutePath}`,
+      { cause: error }
+    )
   }
 
   // If the file exists and is accessible, proceed with reading and parsing

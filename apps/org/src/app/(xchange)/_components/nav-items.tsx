@@ -19,7 +19,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@x7/ui/navigation-menu"
-import { getRandomPioneerNumber } from "@x7/utils"
+import { getSeededPioneerNumber } from "@x7/utils"
 import { XchangeLinks } from "~/types/links"
 
 export const DESKTOP_XCHANGE_NAV = [
@@ -91,7 +91,7 @@ export function NavItems() {
                     <div
                       className="absolute inset-0 bg-cover bg-center"
                       style={{
-                        backgroundImage: `url('https://assets.x7finance.org/pioneers/${getRandomPioneerNumber()}.png')`,
+                        backgroundImage: `url('https://assets.x7finance.org/pioneers/${getSeededPioneerNumber("liquidity-nav")}.png')`,
                       }}
                     ></div>
                     <div className="relative z-20">
@@ -146,7 +146,7 @@ export function NavItems() {
                     <div
                       className="absolute inset-0 bg-cover bg-center"
                       style={{
-                        backgroundImage: `url('https://assets.x7finance.org/pioneers/${getRandomPioneerNumber()}.png')`,
+                        backgroundImage: `url('https://assets.x7finance.org/pioneers/${getSeededPioneerNumber("lending-nav")}.png')`,
                       }}
                     ></div>
                     <div className="relative z-20">

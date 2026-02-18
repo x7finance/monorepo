@@ -452,7 +452,8 @@ export class TokenProvider implements ITokenProvider {
         )
 
         throw new Error(
-          "[TokenProvider.getTokenSymbol] Impossible to fetch token symbol.", { cause: error }
+          "[TokenProvider.getTokenSymbol] Impossible to fetch token symbol.",
+          { cause: error }
         )
       }
     }
