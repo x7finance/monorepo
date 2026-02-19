@@ -2,6 +2,8 @@
 import AllPairs from "./contracts/AllPairs.json"
 import AllPairsLength from "./contracts/AllPairsLength.json"
 import ChainLinkAbi from "./contracts/ChainLinkAbi.json"
+import ClawLendFlashLoan from "./contracts/ClawLendFlashLoan.json"
+import ClawLendPool from "./contracts/ClawLendPool.json"
 import ERC20 from "./contracts/ERC20.json"
 import PairsAbi from "./contracts/PairsAbi.json"
 import X7DAO from "./contracts/X7DAO.json"
@@ -39,6 +41,8 @@ export {
   AllPairs,
   AllPairsLength,
   ChainLinkAbi,
+  ClawLendFlashLoan,
+  ClawLendPool,
   ERC20,
   PairsAbi,
   X7DAO,
