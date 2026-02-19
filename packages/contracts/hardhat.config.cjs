@@ -50,25 +50,47 @@ const VERSION_FIVE_COMPILER_SETTINGS = {
   version: "0.5.16",
 };
 
+const VERSION_EIGHT_COMPILER_SETTINGS = {
+  version: "0.8.20",
+  settings: {
+    evmVersion: "paris",
+    optimizer: {
+      enabled: true,
+      runs: 1_000_000,
+    },
+    metadata: {
+      bytecodeHash: "none",
+    },
+  },
+};
+
 module.exports = {
   networks: {
     hardhat: {
       allowUnlimitedContractSize: false,
     },
     mainnet: {
-      url: `https://mainnet.infura.io/v3/`,
+      url: `https://mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
     },
     arbitrum: {
-      url: `https://arbitrum-mainnet.infura.io/v3/`,
+      url: `https://arbitrum-mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
     },
     optimism: {
-      url: `https://optimism-mainnet.infura.io/v3/`,
+      url: `https://optimism-mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
     },
     polygon: {
-      url: `https://polygon-mainnet.infura.io/v3/`,
+      url: `https://polygon-mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
     },
     bnb: {
       url: `https://bsc-dataseed.binance.org/`,
+    },
+    base: {
+      url: `https://base-mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
+      chainId: 8453,
+    },
+    baseSepolia: {
+      url: `https://base-sepolia.infura.io/v3/${process.env.INFURA_API_KEY}`,
+      chainId: 84532,
     },
   },
   solidity: {
@@ -93,6 +115,13 @@ module.exports = {
       "contracts/v2-core/interfaces/IERC20.sol": VERSION_FIVE_COMPILER_SETTINGS,
       "contracts/v2-core/libraries/UQ112x112.sol":
         VERSION_FIVE_COMPILER_SETTINGS,
+      // ClawLend contracts use Solidity 0.8.20
+      "src/clawlend/ClawLendPool.sol": VERSION_EIGHT_COMPILER_SETTINGS,
+      "src/clawlend/ClawLendFlashLoan.sol": VERSION_EIGHT_COMPILER_SETTINGS,
+      "src/clawlend/ClawLendBorrower.sol": VERSION_EIGHT_COMPILER_SETTINGS,
+      "src/clawlend/mocks/MockLendingPool.sol": VERSION_EIGHT_COMPILER_SETTINGS,
+      "src/clawlend/mocks/MockERC20.sol": VERSION_EIGHT_COMPILER_SETTINGS,
+      "src/clawlend/mocks/MockBorrower.sol": VERSION_EIGHT_COMPILER_SETTINGS,
     },
   },
 };
