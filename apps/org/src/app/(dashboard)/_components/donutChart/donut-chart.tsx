@@ -80,7 +80,7 @@ export const DonutChart: React.FC<Props> = function ({
     (
       {
         angle,
-        dataWithRenderProps,
+        dataWithRenderProps: accItems,
       }: { angle: number; dataWithRenderProps: ItemWithRenderProps[] },
       item: Item,
       index: number
@@ -92,7 +92,7 @@ export const DonutChart: React.FC<Props> = function ({
       return {
         angle: angle + (value / total) * 360,
         dataWithRenderProps: [
-          ...dataWithRenderProps,
+          ...accItems,
           {
             angle,
             index,
