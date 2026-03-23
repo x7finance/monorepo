@@ -2,15 +2,9 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 "use client"
 
-import type { CSSProperties, FC, ReactElement } from "react"
-import React, { useCallback } from "react"
-import { AutoSizer } from "react-virtualized-auto-sizer"
+import type { CSSProperties, FC } from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import { List } from "react-window"
-
-type RowCallback<_TData> = (row: {
-  index: number
-  style: CSSProperties
-}) => ReactElement
 
 export interface ListProps<TData> {
   className?: string
@@ -23,33 +17,60 @@ export type ListComponent = <TData>(
   props: ListProps<TData>
 ) => React.ReactElement | null
 
+interface RowWrapperProps {
+  rowData: readonly unknown[]
+  RowComponent: FC<any>
+}
+
+function RowWrapper(
+  props: RowWrapperProps & {
+    ariaAttributes: Record<string, unknown>
+    index: number
+    style: CSSProperties
+  }
+) {
+  const { rowData, RowComponent, index, style } = props
+  return <RowComponent style={style} {...(rowData[index] as any)} />
+}
+
 export function CurrencyList<TData>({
   className,
   rowHeight,
   rowData,
   rowRenderer: RowComponent,
 }: ListProps<TData>) {
-  const Row: any = useCallback<RowCallback<TData>>(
-    ({ index, style }) => {
-      return <RowComponent style={style} {...rowData[index]!} />
-    },
-    [RowComponent, rowData]
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [height, setHeight] = useState(400)
+
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setHeight(entry.contentRect.height)
+      }
+    })
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  const rowProps = useCallback(
+    () => ({ rowData, RowComponent }) as RowWrapperProps,
+    [rowData, RowComponent]
   )
 
   return (
-    <AutoSizer disableWidth className={className}>
-      {({ height }: { height: number }) => {
-        return (
-          <List
-            style={{ width: "100%", overflow: "overlay" }}
-            defaultHeight={height}
-            rowCount={rowData.length}
-            rowHeight={rowHeight ?? 48}
-            className="scrollbar rounded-lg bg-secondary"
-            rowComponent={Row}
-          />
-        )
-      }}
-    </AutoSizer>
+    <div ref={containerRef} className={className} style={{ flex: 1 }}>
+      <List<RowWrapperProps>
+        defaultHeight={height}
+        rowCount={rowData.length}
+        rowHeight={rowHeight ?? 48}
+        className="scrollbar rounded-lg bg-secondary"
+        style={{ width: "100%", overflow: "overlay" }}
+        rowComponent={RowWrapper}
+        rowProps={rowProps()}
+      />
+    </div>
   )
 }

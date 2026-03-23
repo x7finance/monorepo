@@ -213,15 +213,17 @@ const ChartTooltipContent = React.forwardRef<
           {payload?.map((item, index: number) => {
             const key = `${nameKey || item.name || item.dataKey || "value"}`
             const itemConfig = getPayloadConfigFromPayload(config, item, key)
+            const fill = (item.payload as Record<string, unknown> | undefined)
+              ?.fill
             const rawIndicatorColor =
               color ||
-              (item.payload as Record<string, unknown> | undefined)?.fill ||
+              (typeof fill === "string" ? fill : undefined) ||
               item.color
             const indicatorColor = sanitizeColor(rawIndicatorColor) ?? undefined
 
             return (
               <div
-                key={item.dataKey}
+                key={String(item.dataKey)}
                 className={cn(
                   "flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground",
                   indicator === "dot" && "items-center"
