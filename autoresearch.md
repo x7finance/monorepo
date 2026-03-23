@@ -53,4 +53,27 @@ Get the full X7 Finance monorepo to build, pass all checks (format, lint, typech
 - UI currency-list needs different import style for react-virtualized-auto-sizer
 
 ## What's Been Tried
-(Nothing yet — baseline run)
+
+### ✅ Fix 1: Add DOM lib to build.json (155→33 errors)
+- Added `"DOM", "DOM.Iterable"` to `tooling/typescript/build.json` `lib` array
+- Added `"types": ["node"]` to `packages/tines/tsconfig.json` and `packages/router/tsconfig.json`
+- Fixed all TS2584 (console) and TS2591 (process) errors across dexie, tines, router, sdk
+
+### ✅ Fix 2: Recharts v3 type updates (33→8 errors)
+- `packages/ui/src/chart.tsx`: Use `TooltipContentProps` instead of `ComponentProps<typeof Tooltip>` for tooltip content
+- `packages/ui/src/chart.tsx`: Use `DefaultLegendContentProps` instead of `LegendProps` for legend content (v3 removed payload/verticalAlign from LegendProps)
+- `packages/ui/src/currency/currency-list.tsx`: Use named import `{ AutoSizer }` (v2 doesn't have default export)
+- `packages/ui/src/currency/currency-list.tsx`: Use `List` instead of `FixedSizeList` (react-window v2 API)
+
+### ✅ Fix 3: Remaining type errors (8→0 errors)
+- `chart.tsx`: Narrow `fill` to string before passing to `sanitizeColor`
+- `chart.tsx`: Use `String(item.dataKey)` for React key prop (DataKey includes function type)
+- `currency-list.tsx`: Rewrote for react-window v2 API (flat props instead of data wrapper, required rowProps)
+
+### ✅ Fix 4: Test failures (1→0 test errors)
+- `packages/default-token-list`: Added `ajv-formats` dep and `addFormats(ajv)` call (ajv v8 requires plugin for date-time format)
+- `packages/token-lists/package.json`: Added export path `./src/tokenlist.schema.json` for backward compat
+- `packages/ui`: Downgraded `@vitejs/plugin-react` from v6 to v5 (v6 requires vite 8, but vitest 4 uses vite 7)
+- `packages/ui/vitest.config.ts`: Added `passWithNoTests: true` (no test files exist yet)
+
+### Final result: 155 → 0 total errors (build + checks + tests)
