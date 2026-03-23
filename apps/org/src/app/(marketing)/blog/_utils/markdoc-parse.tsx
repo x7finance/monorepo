@@ -65,8 +65,8 @@ async function parseMarkdownFile(filePath: string): Promise<ParsedMarkdown> {
 
 // Define the types for the parameters
 export interface ParamsProps {
-  slug: SlugType
-  section: BlogType
+  slug?: SlugType
+  section?: BlogType
   omitProperties?: (keyof MarkdownContent)[]
 }
 

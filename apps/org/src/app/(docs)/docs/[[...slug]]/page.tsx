@@ -17,8 +17,9 @@ export async function generateStaticParams() {
   return generateDocsSlugs()
 }
 
-export async function generateMetadata({ params }: { params: any }) {
-  const doc = await getMarkdownContent(params)
+async function getDocMetadata(resolvedParams: { slug?: string[] }) {
+  "use cache"
+  const doc = await getMarkdownContent(resolvedParams)
 
   if (!doc) {
     return {}
@@ -27,9 +28,23 @@ export async function generateMetadata({ params }: { params: any }) {
   return generateMetadataFromDoc(doc as MetadataDocType)
 }
 
-async function DocsContent({ params }: { params: any }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug?: string[] }>
+}) {
+  const resolvedParams = await params
+  return getDocMetadata(resolvedParams)
+}
+
+async function DocsContent({
+  params,
+}: {
+  params: Promise<{ slug?: string[] }>
+}) {
+  const resolvedParams = await params
   const { content, title, tags, tableOfContents, date, slug, section } =
-    await getMarkdownContent(params)
+    await getMarkdownContent(resolvedParams)
 
   if (!content) {
     notFound()
@@ -49,7 +64,11 @@ async function DocsContent({ params }: { params: any }) {
   )
 }
 
-export default function DocsPage({ params }: { params: any }) {
+export default function DocsPage({
+  params,
+}: {
+  params: Promise<{ slug?: string[] }>
+}) {
   return (
     <Suspense fallback={<Splash />}>
       <DocsContent params={params} />

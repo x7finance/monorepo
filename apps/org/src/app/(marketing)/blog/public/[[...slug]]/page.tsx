@@ -17,8 +17,13 @@ export async function generateStaticParams() {
   return await generateBlogPostSlugs()
 }
 
-export async function generateMetadata({ params }: { params: any }) {
-  const post = await getMarkdownContent(params)
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug?: string[] }>
+}) {
+  const resolvedParams = await params
+  const post = await getMarkdownContent(resolvedParams)
 
   if (!post) {
     return {}
@@ -27,7 +32,12 @@ export async function generateMetadata({ params }: { params: any }) {
   return generateMetadataFromDoc(post as MetadataDocType)
 }
 
-async function BlogPostContent({ params }: { params: any }) {
+async function BlogPostContent({
+  params,
+}: {
+  params: Promise<{ slug?: string[] }>
+}) {
+  const resolvedParams = await params
   const {
     content,
     title,
@@ -38,7 +48,7 @@ async function BlogPostContent({ params }: { params: any }) {
     section,
     summary,
     authors,
-  } = await getMarkdownContent(params)
+  } = await getMarkdownContent(resolvedParams)
 
   if (!content) {
     notFound()
@@ -60,7 +70,11 @@ async function BlogPostContent({ params }: { params: any }) {
   )
 }
 
-export default function BlogPage({ params }: { params: any }) {
+export default function BlogPage({
+  params,
+}: {
+  params: Promise<{ slug?: string[] }>
+}) {
   return (
     <Suspense fallback={<Splash />}>
       <BlogPostContent params={params} />

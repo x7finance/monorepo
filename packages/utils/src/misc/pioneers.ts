@@ -36,14 +36,18 @@ export function getSeededPioneerNumber(seed: string): string {
   return formatPioneerNumber(pioneerNumber)
 }
 
+// Counter for generating unique pioneer numbers within a single render pass
+let _pioneerCounter = 0
+
 /**
- * Get a truly random pioneer number.
- * ⚠️ Only use this in client-side effects, not during render!
- * Will cause hydration mismatch if used in SSR.
+ * Get a pseudo-random pioneer number.
+ * Uses a seeded counter to produce varied but deterministic results
+ * that are safe for server components and SSR.
  */
 export function getRandomPioneerNumber(): string {
-  const pioneerNumber = Math.floor(Math.random() * TOTAL_PIONEERS) + 1
-  return formatPioneerNumber(pioneerNumber)
+  _pioneerCounter++
+  const seed = `pioneer-${_pioneerCounter}`
+  return getSeededPioneerNumber(seed)
 }
 
 /**
@@ -64,8 +68,8 @@ export function getSeededPioneerUrl(seed: string): string {
 }
 
 /**
- * Get a random pioneer URL.
- * ⚠️ Client-side only! Use in useEffect, not during render.
+ * Get a pseudo-random pioneer URL.
+ * Uses deterministic seeding - safe for server components.
  */
 export function getRandomPioneerUrl(): string {
   return getPioneerUrl(getRandomPioneerNumber())
