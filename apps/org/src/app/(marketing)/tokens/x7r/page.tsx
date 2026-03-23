@@ -85,9 +85,9 @@ export default function X7R() {
         </div>
         <div className="image-container flex items-center justify-center">
           <div className="columns-4 gap-8 xl:columns-6 2xl:columns-8">
-            {imagesArray.map((_, index) => (
+            {imagesArray.map((imgIdx) => (
               <div
-                key={`pioneer-image-${index}`}
+                key={`pioneer-image-${imgIdx}`}
                 className="after:content after:shadow-highlight group relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg"
               >
                 <Image
