@@ -76,4 +76,19 @@ Get the full X7 Finance monorepo to build, pass all checks (format, lint, typech
 - `packages/ui`: Downgraded `@vitejs/plugin-react` from v6 to v5 (v6 requires vite 8, but vitest 4 uses vite 7)
 - `packages/ui/vitest.config.ts`: Added `passWithNoTests: true` (no test files exist yet)
 
-### Final result: 155 → 0 total errors (build + checks + tests)
+### ✅ Fix 5: Next.js config (experimental.ppr → cacheComponents)
+- Removed `experimental.ppr: true` from `apps/org/next.config.ts` — PPR is now enabled via `cacheComponents: true`
+- This was a Next.js 16 breaking change
+
+### ✅ Fix 6: Next.js prerender errors (docs/blog pages)
+- `apps/org/src/app/(docs)/docs/[[...slug]]/page.tsx`: Await `params` Promise (Next.js 16 change)
+- `apps/org/src/app/(marketing)/blog/public/[[...slug]]/page.tsx`: Same — await `params` Promise
+- `apps/org/src/app/(docs)/_utils/markdoc-parse.tsx`: Make `ParamsProps.section` optional (derived from slug)
+- `apps/org/src/app/(marketing)/blog/_utils/markdoc-parse.tsx`: Same
+- Wrapped metadata function in `"use cache"` directive for PPR compatibility
+
+### ✅ Fix 7: Math.random() in server components
+- `packages/utils/src/misc/pioneers.ts`: Replaced `Math.random()` in `getRandomPioneerNumber()` with deterministic seeded counter — compatible with Next.js 16 server components and PPR
+- 24 files use this function across the org app
+
+### Final result: 155 → 0 total errors (build + checks + tests + next build with 424 pages)
