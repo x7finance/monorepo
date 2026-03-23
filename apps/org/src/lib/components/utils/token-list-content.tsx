@@ -120,7 +120,7 @@ export const TokenListContent: FC<TokenViewProps> = ({
         }
 
         if (address) {
-          return tokenMap[address] ?? customTokenMap[id]
+          return tokenMap[address] ?? customTokenMap[tokenId]
         }
       })
       .filter((token): token is Token => !!token)
