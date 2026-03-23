@@ -112,14 +112,14 @@ export const usePinnedTokens = () => {
       if (chainId === undefined || address === undefined) {
         return
       }
-      setValue((value) => {
-        value[chainId] = Array.from(
+      setValue((prev) => {
+        prev[chainId] = Array.from(
           new Set([
-            ...(value[chainId] ?? []),
+            ...(prev[chainId] ?? []),
             `${chainId}:${getAddress(address)}`,
           ])
         )
-        return value
+        return prev
       })
     },
     [setValue]
@@ -128,18 +128,18 @@ export const usePinnedTokens = () => {
   const removePinnedToken = useCallback(
     (currencyId: string) => {
       const [chainId, address] = currencyId.split(":")
-      setValue((value: any) => {
+      setValue((prev: any) => {
         if (chainId === undefined || address === undefined) {
-          return
+          return prev
         }
-        value[chainId] = Array.from(
+        prev[chainId] = Array.from(
           new Set(
-            value[chainId]?.filter(
+            prev[chainId]?.filter(
               (token: string) => token !== `${chainId}:${getAddress(address)}`
             )
           )
         )
-        return value
+        return prev
       })
     },
     [setValue]
