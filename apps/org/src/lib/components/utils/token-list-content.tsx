@@ -174,9 +174,9 @@ export const TokenListContent: FC<TokenViewProps> = ({
   // Loading skeleton component
   const LoadingSkeletons = () => (
     <div className="flex w-full flex-col gap-2">
-      {Array.from({ length: 5 }).map((_, i) => (
+      {["sk-1", "sk-2", "sk-3", "sk-4", "sk-5"].map((skKey) => (
         <div
-          key={`skeleton-${i}`}
+          key={skKey}
           className="flex h-[64px] w-full items-center rounded-lg px-3"
         >
           <div className="flex grow items-center justify-between gap-2 rounded-sm">
