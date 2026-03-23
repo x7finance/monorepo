@@ -1,6 +1,7 @@
 /* oxlint-disable @typescript-eslint/unbound-method */
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable react/jsx-no-constructed-context-values */
 
 /* oxlint-disable react-hooks/exhaustive-deps */
 

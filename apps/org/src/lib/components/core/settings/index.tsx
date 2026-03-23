@@ -21,7 +21,7 @@ import { ImplementationIcon } from "~/app/(xchange)/_components/swap/swap-implem
 import { useSwapState } from "~/lib/stores/swap"
 
 import { EnabledImplementations } from "./enabled-implementation"
-import { SlippageTolerance } from "./slippage-tolerance"
+import { SlippageTolerance as SlippageTolerancePanel } from "./slippage-tolerance"
 
 export enum SettingsModule {
   SlippageTolerance = "SlippageTolerance",
@@ -145,7 +145,7 @@ export const SettingsOverlay: FC<SettingsOverlayProps> = ({
         </DialogHeader>
         <div className="flex flex-col gap-4">
           {modules.includes(SettingsModule.SlippageTolerance) && (
-            <SlippageTolerance options={options?.slippageTolerance} />
+            <SlippageTolerancePanel options={options?.slippageTolerance} />
           )}
           {modules.includes(SettingsModule.ImplementationChoices) && (
             <EnabledImplementations options={options?.enabledImplementations} />

@@ -96,9 +96,9 @@ export function LoanTypeRepaymentSummary({
       )}
       <div className="grid grid-cols-1 py-2">
         {numberOfPremiumPeriods !== 0 && numberOfRepaymentPeriods > 0 ? (
-          FractionArray.map((period, index) => (
+          FractionArray.map((period) => (
             <LoanTypeRepaymentFraction
-              key={`period-${period}-index-${index}`}
+              key={`period-${period}`}
               period={period}
               loanDuration={loanDuration}
               chainId={chainId}

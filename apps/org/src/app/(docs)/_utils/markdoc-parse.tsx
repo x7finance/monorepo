@@ -30,9 +30,9 @@ export const SOURCE_DIR = path.join(process.cwd(), SOURCE_FILES)
 // Define the type for the slug
 type SlugType = string[] | undefined
 
-async function pathExists(path: string): Promise<boolean> {
+async function pathExists(filePath: string): Promise<boolean> {
   try {
-    await fs.promises.access(path)
+    await fs.promises.access(filePath)
     return true
   } catch {
     return false

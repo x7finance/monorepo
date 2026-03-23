@@ -42,10 +42,13 @@ export function ILLCardRepaymentSchedule({
     <div className="flex w-full items-center justify-center border-t border-muted py-2">
       {fullRepaymentSchedule ? (
         <ul className="divide-y">
-          {fullRepaymentSchedule.map((paymentScheduleDate, i: number) =>
+          {fullRepaymentSchedule.map((paymentScheduleDate) =>
             paymentScheduleDate.paymentDueTimeStamp >
             Math.floor(new Date().getTime() / 1000) ? (
-              <li className="flex py-4" key={`premium-${i}`}>
+              <li
+                className="flex py-4"
+                key={`premium-${paymentScheduleDate.paymentDueTimeStamp}`}
+              >
                 <IILPaymentCard
                   tokenByIndex={tokenByIndex}
                   paymentDueTimeStamp={paymentScheduleDate.paymentDueTimeStamp}
@@ -56,7 +59,7 @@ export function ILLCardRepaymentSchedule({
                 />
               </li>
             ) : (
-              <span key={`empty-${i}`} />
+              <span key={`empty-${paymentScheduleDate.paymentDueTimeStamp}`} />
             )
           )}
         </ul>

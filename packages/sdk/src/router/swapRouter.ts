@@ -561,6 +561,7 @@ export abstract class SwapRouter {
 
     invariant(trade.tradeType === TradeType.EXACT_INPUT, "TRADE_TYPE")
 
+    // oxlint-disable-next-line eslint(no-shadow) -- route destructured from trade.swaps, 60+ refs make rename impractical
     for (const { route, inputAmount, outputAmount } of trade.swaps) {
       const amountIn: string = toHex(
         trade.maximumAmountIn(options.slippageTolerance, inputAmount).quotient

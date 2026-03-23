@@ -175,7 +175,7 @@ export class V3SubgraphProvider implements IV3SubgraphProvider {
 
         const getPools = async (): Promise<RawV3SubgraphPool[]> => {
           let lastId = ""
-          let pools: RawV3SubgraphPool[] = []
+          let fetchedPools: RawV3SubgraphPool[] = []
           let poolsPage: RawV3SubgraphPool[] = []
           const isCommonToken =
             (_tokenIn &&
@@ -199,20 +199,23 @@ export class V3SubgraphProvider implements IV3SubgraphProvider {
 
             poolsPage = poolsResult?.poolCreateds ?? []
 
-            pools = pools.concat(poolsPage)
+            fetchedPools = fetchedPools.concat(poolsPage)
 
-            lastId = pools[pools.length - 1]?.realId ?? ""
+            lastId = fetchedPools[fetchedPools.length - 1]?.realId ?? ""
 
-            if (isCommonToken && pools.length >= this.maxPoolsForCommonTokens) {
+            if (
+              isCommonToken &&
+              fetchedPools.length >= this.maxPoolsForCommonTokens
+            ) {
               log.info(
                 LogCodes.FETCHING_SUBGRAPH_POOLS,
-                `Found ${pools.length} common token pools. Breaking early.`
+                `Found ${fetchedPools.length} common token pools. Breaking early.`
               )
               break
             }
           } while (poolsPage.length > 0)
 
-          return pools
+          return fetchedPools
         }
 
         try {

@@ -478,7 +478,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
               }
 
               // QuoteChunk is pending or failed, so we try again
-              const { inputs } = quoteState
+              const { inputs: chunkInputs } = quoteState
 
               try {
                 totalCallsMade = totalCallsMade + 1
@@ -493,7 +493,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                       ? MixedRouteQuoterV1.abi
                       : QuoterV2.abi,
                     functionName,
-                    functionParams: inputs,
+                    functionParams: chunkInputs,
                     providerConfig,
                     additionalConfig: {
                       gasLimitPerCallOverride: gasLimitOverride,
@@ -508,7 +508,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                 if (successRateError) {
                   return {
                     status: "failed",
-                    inputs,
+                    inputs: chunkInputs,
                     reason: successRateError,
                     results,
                   } as QuoteBatchFailed
@@ -516,7 +516,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
 
                 return {
                   status: "success",
-                  inputs,
+                  inputs: chunkInputs,
                   results,
                 } as QuoteBatchSuccess
               } catch (err: any) {
@@ -525,7 +525,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                 if (err.message.includes("header not found")) {
                   return {
                     status: "failed",
-                    inputs,
+                    inputs: chunkInputs,
                     reason: new ProviderBlockHeaderError(
                       err.message.slice(0, 500)
                     ),
@@ -535,10 +535,10 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                 if (err.message.includes("timeout")) {
                   return {
                     status: "failed",
-                    inputs,
+                    inputs: chunkInputs,
                     reason: new ProviderTimeoutError(
                       `Req ${idx}/${quoteStates.length}. Request had ${
-                        inputs.length
+                        chunkInputs.length
                       } inputs. ${err.message.slice(0, 500)}`
                     ),
                   } as QuoteBatchFailed
@@ -547,14 +547,14 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                 if (err.message.includes("out of gas")) {
                   return {
                     status: "failed",
-                    inputs,
+                    inputs: chunkInputs,
                     reason: new ProviderGasError(err.message.slice(0, 500)),
                   } as QuoteBatchFailed
                 }
 
                 return {
                   status: "failed",
-                  inputs,
+                  inputs: chunkInputs,
                   reason: new Error(
                     `Unknown error from provider: ${err.message.slice(0, 500)}`
                   ),
@@ -707,12 +707,12 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
             `Attempt ${attemptNumber}. Resetting all requests to pending for next attempt.`
           )
 
-          const normalizedChunk = Math.ceil(
+          const retryNormalizedChunk = Math.ceil(
             inputs.length / Math.ceil(inputs.length / multicallChunk)
           )
 
-          const inputsChunked = _.chunk(inputs, normalizedChunk)
-          quoteStates = _.map(inputsChunked, (inputChunk) => {
+          const retryInputsChunked = _.chunk(inputs, retryNormalizedChunk)
+          quoteStates = _.map(retryInputsChunked, (inputChunk) => {
             return {
               status: "pending" as const,
               inputs: inputChunk,
@@ -860,11 +860,11 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
   private processQuoteResults<TRoute extends V3Route | V2Route | MixedRoute>(
     quoteResults: Result<[bigint, bigint[], number[], bigint]>[],
     routes: TRoute[],
-    amounts: CurrencyAmount[]
+    quoteAmounts: CurrencyAmount[]
   ): RouteWithQuotes<TRoute>[] {
     const routesQuotes: RouteWithQuotes<TRoute>[] = []
 
-    const quotesResultsByRoute = _.chunk(quoteResults, amounts.length)
+    const quotesResultsByRoute = _.chunk(quoteResults, quoteAmounts.length)
 
     const debugFailedQuotes: {
       amount: string
@@ -881,13 +881,13 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
           quoteResult: Result<[bigint, bigint[], number[], bigint]>,
           index: number
         ) => {
-          const amount = amounts[index]
+          const amount = quoteAmounts[index]
           if (amount === undefined || amount === null) {
             throw new Error("No amount found for quote")
           }
 
           if (!quoteResult.success) {
-            const percent = (100 / amounts.length) * (index + 1)
+            const percent = (100 / quoteAmounts.length) * (index + 1)
 
             const amountStr = amount.toExact()
             const routeStr = routeToString(route)
@@ -926,7 +926,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
       const failedQuotesByRoute = _.groupBy(quotes, (q) => q.route)
       const failedFlat = _.mapValues(failedQuotesByRoute, (f) =>
         _(f)
-          .map((f) => `${f.percent}%[${f.amount}]`)
+          .map((q) => `${q.percent}%[${q.amount}]`)
           .join(",")
       )
 
@@ -935,7 +935,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
         {
           failedQuotes: _.map(
             failedFlat,
-            (amounts, routeStr) => `${routeStr} : ${amounts}`
+            (amountsStr, routeStr) => `${routeStr} : ${amountsStr}`
           ),
         },
         `Failed on chain quotes for routes Part ${idx}/${Math.ceil(

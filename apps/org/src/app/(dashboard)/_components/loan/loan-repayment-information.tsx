@@ -208,7 +208,7 @@ export function LoanRepaymentInformation(props: LoanProps) {
                           .filter(() => outerIndex === 0)
                           .map((element: number, innerIndex: number) => (
                             <div
-                              key={`${outerIndex}-${innerIndex}`}
+                              key={`${outerIndex}-${element}`}
                               className="flex justify-between text-muted-foreground"
                             >
                               <Tag variant="large" color="zinc">

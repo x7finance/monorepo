@@ -37,10 +37,12 @@ export function Fence({ children, language }: FenceProps) {
           </div>
           <code>
             {tokens.map((line: Token[], lineIndex: number) => (
+              // oxlint-disable-next-line eslint-plugin-react(no-array-index-key) -- Syntax tokens have no stable identity
               <Fragment key={`line-${lineIndex}`}>
                 {line
                   .filter((token) => !token.empty)
                   .map((token: Token, tokenIndex: number) => (
+                    // oxlint-disable-next-line eslint-plugin-react(no-array-index-key) -- Syntax tokens have no stable identity
                     <span
                       key={`token-${lineIndex}-${tokenIndex}`}
                       {...getTokenProps({ token })}

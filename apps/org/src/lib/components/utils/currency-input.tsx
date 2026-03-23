@@ -116,10 +116,10 @@ export const CurrencyInput: FC<CurrencyInputProps> = ({
   const _error = error ?? (insufficientBalance ? "Exceeds Balance" : undefined)
 
   const _onChange = useCallback(
-    (value: string) => {
-      setLocalValue(value)
+    (newValue: string) => {
+      setLocalValue(newValue)
       startTransition(() => {
-        onChange?.(value)
+        onChange?.(newValue)
       })
     },
     [onChange]

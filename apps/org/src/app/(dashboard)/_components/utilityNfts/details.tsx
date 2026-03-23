@@ -133,8 +133,8 @@ export function UtilityNftDetails({ nft }: { nft: UtilityNftType }) {
             "-my-2 h-40 divide-y divide-zinc-200 text-sm text-zinc-700 dark:divide-zinc-800 dark:text-zinc-300 sm:h-48 md:h-48 lg:h-56"
           )}
         >
-          {nft.benefits.map((b: string, idx: number) => (
-            <li key={`${nft.slug}-${idx}-benefit`} className="flex w-full py-2">
+          {nft.benefits.map((b: string) => (
+            <li key={`${nft.slug}-${b}`} className="flex w-full py-2">
               <CheckCircleIcon
                 className={cn("h-6 w-6 flex-none text-emerald-500")}
               />

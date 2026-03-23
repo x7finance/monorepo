@@ -184,7 +184,7 @@ export const RemoveLiquidityTab = ({
           >
             {ticks.map((tick, i) => (
               <span
-                key={`tick-${i}`}
+                key={`tick-${tick}`}
                 className="flex w-0 flex-col items-center justify-center gap-2"
               >
                 <span

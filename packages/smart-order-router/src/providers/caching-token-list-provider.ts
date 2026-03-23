@@ -74,8 +74,8 @@ export class CachingTokenListProvider
     this.chainAddressToTokenInfo = new Map()
 
     for (const tokenInfo of this.tokenList.tokens) {
-      const chainId = tokenInfo.chainId
-      const chainIdString = chainId.toString()
+      const tokenChainId = tokenInfo.chainId
+      const chainIdString = tokenChainId.toString()
       const symbol = tokenInfo.symbol
       const address = tokenInfo.address.toLowerCase()
 
@@ -85,11 +85,11 @@ export class CachingTokenListProvider
       this.chainToTokenInfos.get(chainIdString)!.push(tokenInfo)
 
       this.chainSymbolToTokenInfo.set(
-        this.CHAIN_SYMBOL_KEY(chainId as ChainId, symbol),
+        this.CHAIN_SYMBOL_KEY(tokenChainId as ChainId, symbol),
         tokenInfo
       )
       this.chainAddressToTokenInfo.set(
-        this.CHAIN_ADDRESS_KEY(chainId as ChainId, address),
+        this.CHAIN_ADDRESS_KEY(tokenChainId as ChainId, address),
         tokenInfo
       )
     }

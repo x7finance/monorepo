@@ -28,6 +28,7 @@ export const MixedImplementationDisplay: FC<
   return (
     <div className="flex items-center space-x-1">
       {pools.map((pool, poolIdx) => (
+        // oxlint-disable-next-line eslint-plugin-react(no-array-index-key) -- Pool route steps may repeat same pair; index disambiguates
         <Fragment
           key={`${pool.token0.address}-${pool.token1.address}-${poolIdx}`}
         >

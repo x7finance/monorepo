@@ -121,6 +121,7 @@ export function CreateCoinForm() {
   })
 
   // Cast control to avoid RHF type incompatibility with zodResolver
+  // oxlint-disable-next-line typescript-eslint(no-explicit-any) -- RHF control type incompatible with zodResolver inference
   const control = form.control as any
 
   useEffect(() => {
@@ -486,7 +487,7 @@ export function CreateCoinForm() {
                 />
 
                 <FormField
-                  control={form.control as any}
+                  control={control}
                   name="telegramLink"
                   render={({ field }) => (
                     <FormItem>
@@ -500,7 +501,7 @@ export function CreateCoinForm() {
                 />
 
                 <FormField
-                  control={form.control as any}
+                  control={control}
                   name="websiteLink"
                   render={({ field }) => (
                     <FormItem>

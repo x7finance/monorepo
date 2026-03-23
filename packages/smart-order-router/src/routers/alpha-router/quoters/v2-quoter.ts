@@ -264,7 +264,7 @@ export class V2Quoter extends BaseQuoter<V2CandidatePools, V2Route> {
     return this.v2PoolProvider
       .getPools(tokenPairs, routingConfig as ProviderConfig)
       .then((poolAccesor) => {
-        const routes = computeAllV2Routes(
+        const refreshedRoutes = computeAllV2Routes(
           tokenIn,
           tokenOut,
           poolAccesor.getAllPools(),
@@ -272,7 +272,7 @@ export class V2Quoter extends BaseQuoter<V2CandidatePools, V2Route> {
         )
 
         return this.getQuotes(
-          routes,
+          refreshedRoutes,
           amounts,
           percents,
           quoteToken,

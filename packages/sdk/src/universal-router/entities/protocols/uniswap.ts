@@ -290,6 +290,7 @@ function addMixedSwap<TInput extends Currency, TOutput extends Currency>(
   payerIsUser: boolean,
   routerMustCustody: boolean
 ): void {
+  // oxlint-disable-next-line eslint(no-shadow) -- route destructured from swap, deeply used below
   const { route, inputAmount, outputAmount } = swap
   const tradeRecipient = routerMustCustody
     ? ROUTER_AS_RECIPIENT

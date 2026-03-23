@@ -717,7 +717,7 @@ export const calculateL1GasFeesHelper = async (
   async function calculateOptimismToL1SecurityFee(
     routes: RouteWithValidQuote[],
     swapConfig: SwapOptionsUniversalRouter,
-    chainId: ChainId
+    opChainId: ChainId
   ): Promise<[bigint, bigint]> {
     const firstRoute: RouteWithValidQuote = routes[0]!
     const amountToken =
@@ -744,7 +744,7 @@ export const calculateL1GasFeesHelper = async (
 
     const [l1GasUsed, l1GasCost] = await calculateOptimismToL1FeeFromCalldata(
       data,
-      chainId
+      opChainId
     )
     return [l1GasUsed, l1GasCost]
   }
@@ -753,7 +753,7 @@ export const calculateL1GasFeesHelper = async (
     routes: RouteWithValidQuote[],
     swapConfig: SwapOptionsUniversalRouter,
     gasData: ArbitrumGasData,
-    chainId: ChainId
+    arbChainId: ChainId
   ): [bigint, bigint, bigint] {
     const firstRoute: RouteWithValidQuote = routes[0]!
 
@@ -779,6 +779,6 @@ export const calculateL1GasFeesHelper = async (
       ChainId.ARBITRUM
     ).calldata
 
-    return calculateArbitrumToL1FeeFromCalldata(data, gasData, chainId)
+    return calculateArbitrumToL1FeeFromCalldata(data, gasData, arbChainId)
   }
 }

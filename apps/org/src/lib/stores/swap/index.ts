@@ -207,19 +207,31 @@ export function useSwapState(): SwapState {
       intendedRouterAddress !== "0x",
   })
 
-  const token0Approval: TokenApprovals = {
-    approval: token0ApprovalStatus,
-    token: _token0 ?? Native.onChain(chainId),
-    address: intendedRouterAddress,
-    amount: swapAmountString
-      ? parseUnits(swapAmountString, _token0?.decimals ?? 18)
-      : 0n,
-  }
+  const token0Approval: TokenApprovals = useMemo(
+    () => ({
+      approval: token0ApprovalStatus,
+      token: _token0 ?? Native.onChain(chainId),
+      address: intendedRouterAddress,
+      amount: swapAmountString
+        ? parseUnits(swapAmountString, _token0?.decimals ?? 18)
+        : 0n,
+    }),
+    [
+      token0ApprovalStatus,
+      _token0,
+      chainId,
+      intendedRouterAddress,
+      swapAmountString,
+    ]
+  )
 
-  const slippage =
-    parseFloat(slippageTolerance) > 0
-      ? new Percent(parseFloat(slippageTolerance) * 100, 10_000)
-      : new Percent(50, 10_000)
+  const slippage = useMemo(
+    () =>
+      parseFloat(slippageTolerance) > 0
+        ? new Percent(parseFloat(slippageTolerance) * 100, 10_000)
+        : new Percent(50, 10_000),
+    [slippageTolerance]
+  )
 
   // URL sync actions
   const switchTokens = useCallback(() => {
