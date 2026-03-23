@@ -14,7 +14,7 @@
     "checks": "TURBO_LOG_ORDER=stream turbo format lint typecheck --continue --output-logs=full",
     "clean": "turbo run clean && bun run --elide-lines=0 scripts/infra/clean.mjs node_modules bun.lock",
     "clean:workspace": "turbo run clean && bun run --elide-lines=0 scripts/infra/clean.mjs .turbo dist .next .cache",
-    "dev": "turbo watch dev --continue",
+    "dev": "turbo build --filter='./packages/*' && turbo watch dev --continue --filter=@x7/org",
     "e2e": "turbo run e2e --filter=@x7/e2e",
     "format": "turbo run format --continue",
     "format:fix": "turbo run format:fix --continue",

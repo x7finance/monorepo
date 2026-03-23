@@ -4,7 +4,7 @@
   "private": true,
   "description": "shared assets for x7 finance",
   "scripts": {
-    "dev": "serve src/ --listen 3009 --no-request-logging"
+    "dev": "portless x7-assets serve src/ --no-request-logging"
   },
   "devDependencies": {
     "serve": "^14.2.6"

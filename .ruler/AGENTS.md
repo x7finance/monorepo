@@ -29,8 +29,26 @@ prds/              → Product requirement docs
 ```bash
 bun run checks      # format + lint + typecheck (REQUIRED)
 bun run build       # Build all
-bun run dev         # Start dev
+bun run dev         # Start dev (builds packages, then starts apps/org via portless)
 ```
+
+## Local HTTPS (Portless)
+
+Dev uses [portless](https://github.com/nicolo-ribaudo/portless) for HTTPS with stable `.localhost` URLs:
+
+| App | URL |
+|-----|-----|
+| org | `https://x7-org.localhost:1355` |
+| assets | `https://x7-assets.localhost:1355` |
+
+Setup (one-time):
+1. `bun add -g portless`
+2. `brew install mkcert && mkcert -install`
+3. Regenerate cert: `mkcert -cert-file ~/.portless/server.pem -key-file ~/.portless/server-key.pem "localhost" "*.localhost" "x7-org.localhost" "x7-assets.localhost"`
+4. `cp "$(mkcert -CAROOT)/rootCA.pem" ~/.portless/ca.pem`
+5. `portless proxy start --https`
+
+Then `bun run dev` starts the app behind portless automatically.
 
 ## Stack
 

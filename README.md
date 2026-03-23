@@ -98,6 +98,8 @@ x7finance/
 - [Node.js](https://nodejs.org/) 22+ (see `.nvmrc`)
 - [Bun](https://bun.sh/) 1.3+
 - [Git](https://git-scm.com/)
+- [mkcert](https://github.com/FiloSottile/mkcert) — trusted local HTTPS certificates
+- [portless](https://github.com/nicolo-ribaudo/portless) — stable `.localhost` HTTPS dev URLs
 
 ### 1. Clone & Install
 
@@ -120,11 +122,25 @@ cd apps/org && cp .env.example .env.local && cd ../..
 # - Optional: DocSearch credentials
 ```
 
-### 3. Build Packages
+### 3. HTTPS Setup (One-Time)
+
+Dev uses [portless](https://github.com/nicolo-ribaudo/portless) to eliminate port conflicts and provide stable HTTPS `.localhost` URLs.
 
 ```bash
-# Build required packages for the app
-bun run build:setup
+# Install tools
+bun add -g portless
+brew install mkcert
+mkcert -install
+
+# Generate trusted certificates
+mkdir -p ~/.portless
+mkcert -cert-file ~/.portless/server.pem -key-file ~/.portless/server-key.pem \
+  "localhost" "*.localhost" \
+  "x7-org.localhost" "x7-assets.localhost"
+cp "$(mkcert -CAROOT)/rootCA.pem" ~/.portless/ca.pem
+
+# Start the HTTPS proxy (runs in background)
+portless proxy start --https
 ```
 
 ### 4. Start Development
@@ -133,7 +149,14 @@ bun run build:setup
 bun run dev
 ```
 
-Visit [http://localhost:3000](http://localhost:3000) 🚀
+Visit [https://x7-org.localhost:1355](https://x7-org.localhost:1355)
+
+| App | URL |
+|-----|-----|
+| **org** | `https://x7-org.localhost:1355` |
+| **assets** | `https://x7-assets.localhost:1355` |
+
+> **Note:** `bun run dev` builds all packages first, then starts the org app behind portless. Portless assigns a random port and routes traffic through the HTTPS proxy on port 1355.
 
 ## Development Workflow
 
