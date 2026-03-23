@@ -2,7 +2,14 @@ import { waitForTransactionReceipt } from "@wagmi/core"
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import type { FC } from "react"
-import { createContext, useContext, useEffect, useMemo, useState } from "react"
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react"
 import { useAccount, useChainId } from "wagmi"
 
 import type { NotificationType, ResolvedNotification } from "@x7/dexie"
@@ -61,43 +68,46 @@ export const TransactionStoreProvider: FC<TransactionStoreProviderProps> = ({
 
   const notifications = useNotifications({ account: address })
 
-  const trackTransaction = (newTransactionRequest: TransactionRequest) => {
-    const ts = new Date().getTime()
+  const trackTransaction = useCallback(
+    (newTransactionRequest: TransactionRequest) => {
+      const ts = new Date().getTime()
 
-    const promiseSub = waitForTransactionReceipt(wagmiConfig, {
-      hash: newTransactionRequest.txHash,
-      pollingInterval: 2_500,
-      retryDelay: 2_500,
-    })
-
-    void createToast({
-      account: address,
-      type: newTransactionRequest.type,
-      chainId,
-      txHash: newTransactionRequest.txHash,
-      promise: promiseSub,
-      summary: newTransactionRequest.summary,
-      groupTimestamp: ts,
-      timestamp: ts,
-      id: newTransactionRequest.id ?? undefined,
-    })
-
-    setShownNotifications((prevState) => {
-      return prevState.add(newTransactionRequest.txHash)
-    })
-
-    void promiseSub
-      .then(({ transactionHash }) => {
-        if (newTransactionRequest.onSuccess) {
-          newTransactionRequest.onSuccess(transactionHash)
-        }
+      const promiseSub = waitForTransactionReceipt(wagmiConfig, {
+        hash: newTransactionRequest.txHash,
+        pollingInterval: 2_500,
+        retryDelay: 2_500,
       })
-      .catch((err: Error) => {
-        if (newTransactionRequest.onFail) {
-          newTransactionRequest.onFail(err)
-        }
+
+      void createToast({
+        account: address,
+        type: newTransactionRequest.type,
+        chainId,
+        txHash: newTransactionRequest.txHash,
+        promise: promiseSub,
+        summary: newTransactionRequest.summary,
+        groupTimestamp: ts,
+        timestamp: ts,
+        id: newTransactionRequest.id ?? undefined,
       })
-  }
+
+      setShownNotifications((prevState) => {
+        return prevState.add(newTransactionRequest.txHash)
+      })
+
+      void promiseSub
+        .then(({ transactionHash }) => {
+          if (newTransactionRequest.onSuccess) {
+            newTransactionRequest.onSuccess(transactionHash)
+          }
+        })
+        .catch((err: Error) => {
+          if (newTransactionRequest.onFail) {
+            newTransactionRequest.onFail(err)
+          }
+        })
+    },
+    [wagmiConfig, address, chainId, setShownNotifications]
+  )
 
   useEffect(() => {
     if (notifications)

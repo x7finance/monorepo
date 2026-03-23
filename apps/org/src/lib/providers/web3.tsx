@@ -34,7 +34,14 @@ import {
   polygonAmoy,
   sepolia,
 } from "@wagmi/core/chains"
-import { createContext, useContext, useEffect, useMemo, useState } from "react"
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react"
 import { fallback, http } from "viem"
 import type { Config } from "wagmi"
 import { createConfig, WagmiProvider } from "wagmi"
@@ -198,9 +205,12 @@ export function Web3Provider(props: Web3ProvidersProps) {
     }
   }, [transports])
 
-  const updateTransports = (newTransports: Transports) => {
-    setTransports(newTransports)
-  }
+  const updateTransports = useCallback(
+    (newTransports: Transports) => {
+      setTransports(newTransports)
+    },
+    [setTransports]
+  )
 
   const theme = useMemo(
     () =>
