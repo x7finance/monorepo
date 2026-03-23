@@ -1,47 +1,60 @@
 #!/bin/bash
 set -euo pipefail
 
-# Step 1: Build all packages and the Next.js app
+# Step 1: Build (must pass — no regressions allowed)
 BUILD_OUTPUT=$(turbo build --continue --output-logs=errors-only 2>&1 || true)
-BUILD_TS_ERRORS=$(echo "$BUILD_OUTPUT" | grep -c "error TS" || true)
-# Count build task failures (next build errors, etc.)
 BUILD_FAILED_LINE=$(echo "$BUILD_OUTPUT" | grep "^Failed:" || true)
-BUILD_TASK_FAILURES=0
 if [ -n "$BUILD_FAILED_LINE" ]; then
-  BUILD_TASK_FAILURES=$(echo "$BUILD_FAILED_LINE" | tr ',' '\n' | wc -l | tr -d ' ')
+  echo "BUILD FAILED — aborting"
+  echo "$BUILD_OUTPUT" | grep -E "error|Error|^Failed:" | head -20
+  echo "METRIC total_warnings=9999"
+  echo "METRIC build_ok=0"
+  exit 0
 fi
-BUILD_ERRORS=$((BUILD_TS_ERRORS + BUILD_TASK_FAILURES))
 
-# Step 2: Checks (format + lint + typecheck)
+# Step 2: Checks must pass (no regressions)
 CHECK_OUTPUT=$(TURBO_LOG_ORDER=stream turbo format lint typecheck --continue --output-logs=errors-only 2>&1 || true)
-CHECK_TS_ERRORS=$(echo "$CHECK_OUTPUT" | grep "error TS" | grep -v "build:" | grep -c "error TS" || true)
 CHECK_FAILED_LINE=$(echo "$CHECK_OUTPUT" | grep "^Failed:" || true)
-CHECK_TASK_FAILURES=0
 if [ -n "$CHECK_FAILED_LINE" ]; then
-  CHECK_TASK_FAILURES=$(echo "$CHECK_FAILED_LINE" | tr ',' '\n' | wc -l | tr -d ' ')
+  echo "CHECKS FAILED — aborting"
+  echo "$CHECK_OUTPUT" | grep -E "error TS|^Failed:" | head -20
+  echo "METRIC total_warnings=9999"
+  echo "METRIC build_ok=0"
+  exit 0
 fi
-CHECK_ERRORS=$((CHECK_TS_ERRORS + CHECK_TASK_FAILURES))
 
-# Step 3: Tests
+# Step 3: Tests must pass
 TEST_OUTPUT=$(turbo test --continue --output-logs=errors-only 2>&1 || true)
 TEST_FAILED_LINE=$(echo "$TEST_OUTPUT" | grep "^Failed:" || true)
-TEST_ERRORS=0
 if [ -n "$TEST_FAILED_LINE" ]; then
-  TEST_ERRORS=$(echo "$TEST_FAILED_LINE" | tr ',' '\n' | wc -l | tr -d ' ')
+  echo "TESTS FAILED — aborting"
+  echo "$TEST_OUTPUT" | grep "^Failed:" | head -5
+  echo "METRIC total_warnings=9999"
+  echo "METRIC build_ok=0"
+  exit 0
 fi
 
-TOTAL=$((BUILD_ERRORS + CHECK_ERRORS + TEST_ERRORS))
+# Step 4: Count lint warnings (strip ANSI codes)
+LINT_OUTPUT=$(TURBO_LOG_ORDER=stream turbo lint --continue --output-logs=full 2>&1 | sed 's/\x1b\[[0-9;]*m//g')
+TOTAL_WARNINGS=$(echo "$LINT_OUTPUT" | grep "Found " | awk '{sum += $3} END {print sum+0}')
 
-echo "=== Build (TS errors: $BUILD_TS_ERRORS, task failures: $BUILD_TASK_FAILURES) ==="
-echo "$BUILD_OUTPUT" | grep -E "error TS|Error |Build error|^Failed:" | head -20 || true
+# Per-package
+extract_warnings() {
+  echo "$LINT_OUTPUT" | grep "$1:lint: Found" | awk '{print $3+0}'
+}
+ORG_W=$(extract_warnings "@x7/org")
+SOR_W=$(extract_warnings "@x7/smart-order-router")
+UI_W=$(extract_warnings "@x7/ui")
+SDK_W=$(extract_warnings "@x7/sdk")
+OTHER_W=$(( TOTAL_WARNINGS - ${ORG_W:-0} - ${SOR_W:-0} - ${UI_W:-0} - ${SDK_W:-0} ))
+
+echo "=== Lint warnings by package ==="
+echo "$LINT_OUTPUT" | grep "Found " | grep -v "0 warnings"
 echo ""
-echo "=== Checks (TS errors: $CHECK_TS_ERRORS, task failures: $CHECK_TASK_FAILURES) ==="
-echo "$CHECK_OUTPUT" | grep -E "error TS|^Failed:" | grep -v "build:" | head -20 || true
-echo ""
-echo "=== Tests (task failures: $TEST_ERRORS) ==="
-echo "$TEST_OUTPUT" | grep -E "^Failed:|FAIL" | head -10 || true
-echo ""
-echo "METRIC total_errors=$TOTAL"
-echo "METRIC build_errors=$BUILD_ERRORS"
-echo "METRIC check_errors=$CHECK_ERRORS"
-echo "METRIC test_errors=$TEST_ERRORS"
+echo "METRIC total_warnings=$TOTAL_WARNINGS"
+echo "METRIC org_warnings=${ORG_W:-0}"
+echo "METRIC sor_warnings=${SOR_W:-0}"
+echo "METRIC ui_warnings=${UI_W:-0}"
+echo "METRIC sdk_warnings=${SDK_W:-0}"
+echo "METRIC other_warnings=$OTHER_W"
+echo "METRIC build_ok=1"
