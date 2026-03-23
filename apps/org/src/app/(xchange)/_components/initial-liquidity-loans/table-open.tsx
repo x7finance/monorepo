@@ -28,8 +28,8 @@ export function ILLTableOpen() {
               <ul className="mb-5 mt-5 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
                 {Array.from({ length: activeLoansByBorrower }).map(
                   (_, index) => (
-                    // oxlint-disable-next-line eslint-plugin-react(no-array-index-key) -- Index IS the loan counter; no other unique identifier
                     <ILLOpenListItem
+                      // oxlint-disable-next-line react/no-array-index-key -- Index IS the loan counter; no other unique identifier
                       key={`${index}-ill-card`}
                       address={address!}
                       userloanCountIndex={index}

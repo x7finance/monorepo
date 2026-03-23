@@ -192,7 +192,7 @@ export function useRemoveLiquidity({
   const { data: simulation } = useSimulateContract(
     prepare
       ? {
-          // oxlint-disable-next-line typescript-eslint(no-explicit-any) -- wagmi useSimulateContract type inference requires cast for dynamic contract config
+          // oxlint-disable-next-line @typescript-eslint/no-explicit-any -- wagmi useSimulateContract type inference requires cast for dynamic contract config
           ...(prepare as any),
           query: {
             enabled: Boolean(prepare),

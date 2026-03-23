@@ -561,7 +561,6 @@ export abstract class SwapRouter {
 
     invariant(trade.tradeType === TradeType.EXACT_INPUT, "TRADE_TYPE")
 
-    // oxlint-disable-next-line eslint(no-shadow) -- route destructured from trade.swaps, 60+ refs make rename impractical
     for (const { route, inputAmount, outputAmount } of trade.swaps) {
       const amountIn: string = toHex(
         trade.maximumAmountIn(options.slippageTolerance, inputAmount).quotient
@@ -579,8 +578,10 @@ export abstract class SwapRouter {
           ? MSG_SENDER
           : validateAndParseAddress(options.recipient)
 
-      const mixedRouteIsAllV3 = (route: MixedRouteSDK<Currency, Currency>) => {
-        return route.pools.every((pool) => pool instanceof Pool)
+      const mixedRouteIsAllV3 = (
+        mixedRoute: MixedRouteSDK<Currency, Currency>
+      ) => {
+        return mixedRoute.pools.every((pool) => pool instanceof Pool)
       }
 
       if (singleHop) {

@@ -49,7 +49,7 @@ SDK_W=$(extract_warnings "@x7/sdk")
 OTHER_W=$(( TOTAL_WARNINGS - ${ORG_W:-0} - ${SOR_W:-0} - ${UI_W:-0} - ${SDK_W:-0} ))
 
 echo "=== Lint warnings by package ==="
-echo "$LINT_OUTPUT" | grep "Found " | grep -v "0 warnings"
+echo "$LINT_OUTPUT" | grep "Found " | grep -v "0 warnings" || echo "No warnings found!"
 echo ""
 echo "METRIC total_warnings=$TOTAL_WARNINGS"
 echo "METRIC org_warnings=${ORG_W:-0}"

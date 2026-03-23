@@ -290,7 +290,6 @@ function addMixedSwap<TInput extends Currency, TOutput extends Currency>(
   payerIsUser: boolean,
   routerMustCustody: boolean
 ): void {
-  // oxlint-disable-next-line eslint(no-shadow) -- route destructured from swap, deeply used below
   const { route, inputAmount, outputAmount } = swap
   const tradeRecipient = routerMustCustody
     ? ROUTER_AS_RECIPIENT
@@ -368,8 +367,10 @@ function addMixedSwap<TInput extends Currency, TOutput extends Currency>(
     /// Previous output is now input
     inputToken = outputToken
 
-    const mixedRouteIsAllV3 = (route: MixedRouteSDK<Currency, Currency>) => {
-      return route.pools.every((pool) => pool instanceof Pool)
+    const mixedRouteIsAllV3 = (
+      mixedRoute: MixedRouteSDK<Currency, Currency>
+    ) => {
+      return mixedRoute.pools.every((pool) => pool instanceof Pool)
     }
 
     if (mixedRouteIsAllV3(newRoute)) {
