@@ -73,8 +73,8 @@ export function useCreatedXchangeTokens(): UseCreatedXchangeTokensReturn {
         throw new Error("Network response was not ok")
       }
 
-      const { data } = await response.json()
-      return data?.pairCreateds ?? []
+      const { data: responseData } = await response.json()
+      return responseData?.pairCreateds ?? []
     },
     enabled: Boolean(chainId && subgraphUrl),
   })

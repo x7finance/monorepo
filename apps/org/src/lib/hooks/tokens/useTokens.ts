@@ -85,14 +85,14 @@ export const fetchTokensQueryFn = async (chainId: ChainId, config: Config) => {
       return validTokens.reduce<Record<number, Record<string, Token>>>(
         (acc, { id, name, symbol, decimals, address }) => {
           const [_chainId, _address] = id.split(":")
-          const chainId = Number(_chainId) as ChainId
+          const tokenChainId = Number(_chainId) as ChainId
 
-          if (!acc[chainId]) acc[chainId] = {}
+          if (!acc[tokenChainId]) acc[tokenChainId] = {}
 
-          const map = acc[chainId]
+          const map = acc[tokenChainId]
 
           map[getAddress(address)] = new Token({
-            chainId,
+            chainId: tokenChainId,
             name,
             decimals,
             symbol,

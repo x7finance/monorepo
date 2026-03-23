@@ -32,7 +32,7 @@ export function createTokenFilterFunction<T extends Token>(
     const sParts = s
       .toLowerCase()
       .split(/\s+/)
-      .filter((s) => s.length > 0)
+      .filter((part) => part.length > 0)
 
     return lowerSearchParts.every(
       (p) =>
