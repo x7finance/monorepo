@@ -179,7 +179,7 @@ export function useDeployToken(params: TokenDeploymentParams) {
         })
           .then((receipt) => {
             const event = receipt.logs.find(
-              (log) => log.topics[0] === eventSignatureHash
+              (txLog) => txLog.topics[0] === eventSignatureHash
             )
 
             if (event) {
