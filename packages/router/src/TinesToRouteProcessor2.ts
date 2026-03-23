@@ -253,7 +253,7 @@ export class TinesToRouteProcessor2 {
     route.legs.forEach((l) => {
       const tokenId = l.tokenFrom.tokenId?.toString()
       if (tokenId === undefined) {
-        console.assert(0, "Unseted tokenId")
+        console.assert(false, "Unseted tokenId")
       } else {
         const legsOutput = res.get(tokenId) ?? []
         legsOutput.push(l)

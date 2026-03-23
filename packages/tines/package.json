@@ -37,6 +37,6 @@
     "@types/seedrandom": "^3.0.8",
     "@x7/tsconfig": "workspace:*",
     "oxlint": "^1.56.0",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.2"
   }
 }

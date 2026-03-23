@@ -1,5 +1,5 @@
 /* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
-import { secp256k1 } from "@noble/curves/secp256k1"
+import { secp256k1 } from "@noble/curves/secp256k1.js"
 import invariant from "tiny-invariant"
 import { hexToNumber, toBytes } from "viem"
 
@@ -59,11 +59,12 @@ export function encodePermit(
     // signature = ethers.utils.joinSignature(
     //   ethers.utils.splitSignature(permit2.signature),
     // );
-    const { r, s } = secp256k1.Signature.fromCompact(
-      permit2.signature.slice(2, 130)
+    const { r, s } = secp256k1.Signature.fromHex(
+      permit2.signature.slice(2, 130),
+      "compact"
     )
     const v = hexToNumber(`0x${permit2.signature.slice(130)}`)
-    signature = `0x${new secp256k1.Signature(r, s).toCompactHex()}${v}`
+    signature = `0x${new secp256k1.Signature(r, s).toHex("compact")}${v}`
   }
 
   planner.addCommand(CommandType.PERMIT2_PERMIT, [permit2, signature])

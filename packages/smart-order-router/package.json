@@ -52,6 +52,6 @@
     "dotenv": "^17.3.1",
     "hardhat": "^2.28.6",
     "oxlint": "^1.56.0",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.2"
   }
 }
