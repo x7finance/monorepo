@@ -1,14 +1,18 @@
 # Autoresearch Ideas
 
-## Dependency Upgrades (future — no impact on current metric)
-- `@vitejs/plugin-react` was downgraded from v6→v5 due to vite 8 requirement. When vitest upgrades to support vite 8, re-upgrade.
-- Global turbo version (2.5.8) doesn't match repo version (^2.8.20) — install turbo locally
-
-## Architecture (no impact on current metric)
-- `getRandomPioneerNumber()` now uses a deterministic counter — works for builds but means each build gets the same pioneers. Consider using build timestamp as part of seed if variety is desired.
+## Remaining warnings (hard to fix safely)
+- SOR on-chain-quote-provider: retry loops re-declare inputs/normalizedChunk/inputsChunked — would need restructuring
+- SOR gas-factory-helpers: chainId shadows in nested functions — deep rename across many uses
+- SDK swapRouter.ts: route destructuring shadows in for-of loops — 60+ refs to rename
+- Org: 83 warnings (32 no-array-index-key, many no-shadow, 5 context-values, 4 no-explicit-any, 3 exhaustive-deps)
+- Org hubs/table.tsx: 12 warnings from state vars shadowing in effects
 
 ## DONE
-- ~~turbo.json outputs missing `build/**`~~ — fixed run 11
-- ~~`under-construction.tsx` uses `||` instead of `??`~~ — fixed run 12
-- ~~`@types/react-window` and `@types/react-virtualized-auto-sizer`~~ — removed run 10
-- ~~`env.mjs` → `env.ts`~~ — converted run 14
+- ~~turbo.json outputs missing `build/**`~~ — fixed
+- ~~`under-construction.tsx` uses `||` instead of `??`~~ — fixed
+- ~~`@types/react-window` and `@types/react-virtualized-auto-sizer`~~ — removed
+- ~~`env.mjs` → `env.ts`~~ — converted
+- ~~icons(10), utils(5), tines(4), router(4) shadows~~ — fixed
+- ~~ui(13) all warnings~~ — fixed  
+- ~~sdk(19→2)~~ — most fixed
+- ~~sor(31→12)~~ — most fixed

@@ -6,7 +6,7 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 
 import { ArcPath } from "./arc-path"
 import { LegendItem } from "./legend-item"
@@ -138,19 +138,34 @@ export const DonutChart: React.FC<Props> = function ({
   return (
     <>
       <DonutChartContext.Provider
-        value={{
-          className,
-          emptyOffset,
-          graphWidth,
-          innerRadius,
-          outerRadius,
-          selected,
-          selectedOffset,
-          toggledOffset,
-          toggleSelect,
-          total,
-          width,
-        }}
+        value={useMemo(
+          () => ({
+            className,
+            emptyOffset,
+            graphWidth,
+            innerRadius,
+            outerRadius,
+            selected,
+            selectedOffset,
+            toggledOffset,
+            toggleSelect,
+            total,
+            width,
+          }),
+          [
+            className,
+            emptyOffset,
+            graphWidth,
+            innerRadius,
+            outerRadius,
+            selected,
+            selectedOffset,
+            toggledOffset,
+            toggleSelect,
+            total,
+            width,
+          ]
+        )}
       >
         <div className="flex h-52 items-center justify-center">
           <svg className="relative left-[10%] flex h-full w-auto items-center justify-center sm:left-[5%]">
