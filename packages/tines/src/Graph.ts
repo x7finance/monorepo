@@ -1131,8 +1131,8 @@ export class Graph {
     let gasSpent = 0
     vertices.forEach((n) => {
       const outEdges = n.getOutputEdges().map((e) => {
-        const from = this.edgeFrom(e)
-        return from ? [e, from.vert, from.amount] : [e]
+        const edgeSource = this.edgeFrom(e)
+        return edgeSource ? [e, edgeSource.vert, edgeSource.amount] : [e]
       })
 
       let outAmount = outEdges.reduce((a, b) => a + (b[2] as number), 0)
