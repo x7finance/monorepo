@@ -7,7 +7,7 @@ import React, { Suspense } from "react"
 
 import { LinkInternal } from "@x7/ui/link"
 import { Splash } from "@x7/ui/splash"
-import { env } from "~/env.mjs"
+import { env } from "~/env"
 import { SiteContentContainer } from "~/lib/components/core/site-content-container"
 import { Assistance } from "~/lib/components/utils/assistance"
 import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"

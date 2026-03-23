@@ -18,7 +18,7 @@ import {
 import { Button } from "@x7/ui/button"
 import type { ChainId } from "@x7/utils"
 import { generateChainAbbreviation, LogCodes } from "@x7/utils"
-import { env } from "~/env.mjs"
+import { env } from "~/env"
 import { ExplorerDataType, getExplorerLink } from "~/lib/utils/getExplorerLink"
 import { GradientTypes } from "~/lib/utils/gradients"
 import { log } from "~/lib/utils/log"

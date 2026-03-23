@@ -3,7 +3,7 @@
 
 import { PinataSDK } from "pinata-web3"
 
-import { env } from "~/env.mjs"
+import { env } from "~/env"
 
 // Create an async function to initialize Pinata
 export async function getPinataClient() {

@@ -12,7 +12,7 @@ import {
   usePolygonScanApi as PolygonScanApi,
 } from "@x7/ui"
 import { ChainId, getAlchemyUrls } from "@x7/utils"
-import { env } from "~/env.mjs"
+import { env } from "~/env"
 
 import { getChainInfo } from "../../constants/chainInfo"
 

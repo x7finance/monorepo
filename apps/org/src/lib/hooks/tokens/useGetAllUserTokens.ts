@@ -22,7 +22,7 @@ import {
 } from "@x7/sdk"
 import type { ViemProviderType } from "@x7/smart-order-router"
 import { ChainId, Implementation, LogCodes, Protocol } from "@x7/utils"
-import { env } from "~/env.mjs"
+import { env } from "~/env"
 import { log } from "~/lib/utils/log"
 
 const NETWORK_CHEATSHEET = {

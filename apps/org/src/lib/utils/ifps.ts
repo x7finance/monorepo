@@ -3,7 +3,7 @@
 import { PinataSDK } from "pinata-web3"
 
 import { LogCodes, getLogger, ServiceNames } from "@x7/utils"
-import { env } from "~/env.mjs"
+import { env } from "~/env"
 
 const log = getLogger({ serviceName: ServiceNames.XCHANGE })
 

@@ -2,7 +2,7 @@ import Image from "next/image"
 
 import { Twitter } from "@x7/icons"
 import { LinkExternal, LinkInternal } from "@x7/ui/link"
-import { env } from "~/env.mjs"
+import { env } from "~/env"
 import type { SectionType } from "~/types"
 import { MarketingLinks } from "~/types/links"
 

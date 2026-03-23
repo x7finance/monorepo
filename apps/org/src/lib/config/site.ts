@@ -10,7 +10,7 @@ import {
   YouTube,
 } from "@x7/icons"
 import { SocialsEnum } from "@x7/utils"
-import { env } from "~/env.mjs"
+import { env } from "~/env"
 import type { SiteConfig } from "~/types"
 import {
   CommunityLinks,

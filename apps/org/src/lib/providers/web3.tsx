@@ -41,7 +41,7 @@ import { createConfig, WagmiProvider } from "wagmi"
 
 import { useLocalStorage } from "@x7/ui"
 import type { ChainId } from "@x7/utils"
-import { env } from "~/env.mjs"
+import { env } from "~/env"
 import { web3Config } from "~/lib/config/web3"
 
 interface Web3ContextType {

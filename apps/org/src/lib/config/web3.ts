@@ -22,7 +22,7 @@ import {
 import type { Chain, Transport } from "viem"
 
 import { ChainId } from "@x7/utils"
-import { env } from "~/env.mjs"
+import { env } from "~/env"
 
 const productionChains = [base, mainnet, polygon, optimism, arbitrum, bsc]
 const testnetChains = [

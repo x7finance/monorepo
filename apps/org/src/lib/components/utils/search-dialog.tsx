@@ -7,7 +7,7 @@ import { createPortal } from "react-dom"
 import { SearchIcon } from "@x7/icons"
 import { Button } from "@x7/ui/button"
 import { LinkInternal } from "@x7/ui/link"
-import { env } from "~/env.mjs"
+import { env } from "~/env"
 
 const docSearchConfig = {
   appId: env.NEXT_PUBLIC_DOCSEARCH_APP_ID,
