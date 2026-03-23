@@ -219,11 +219,10 @@ export function Web3Provider(props: Web3ProvidersProps) {
 
   return (
     <Web3Context.Provider
-      value={{
-        wagmiConfig,
-        transports,
-        updateTransports,
-      }}
+      value={useMemo(
+        () => ({ wagmiConfig, transports, updateTransports }),
+        [wagmiConfig, transports, updateTransports]
+      )}
     >
       <WagmiProvider initialState={initialState} config={wagmiConfig}>
         <RainbowKitProvider theme={theme} modalSize="compact" appInfo={appInfo}>

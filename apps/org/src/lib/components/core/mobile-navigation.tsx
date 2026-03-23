@@ -40,8 +40,8 @@ export function MobileNavigation({ className }: { className?: string }) {
             <X7LongLogo className="w-36 text-black dark:text-white" />
           </div>
           <div className="space-y-4 px-4">
-            {MOBILE_NAV_LINKS.map((link, key) => (
-              <SheetClose asChild key={`mobile-nav-${key}`}>
+            {MOBILE_NAV_LINKS.map((link) => (
+              <SheetClose asChild key={link.href}>
                 <LinkInternal
                   prefetch={true}
                   href={link.href}
