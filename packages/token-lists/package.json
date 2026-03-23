@@ -9,7 +9,8 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
-    "./schema": "./dist/tokenlist.schema.json"
+    "./schema": "./dist/tokenlist.schema.json",
+    "./src/tokenlist.schema.json": "./dist/tokenlist.schema.json"
   },
   "main": "dist/index.js",
   "module": "dist/index.js",
