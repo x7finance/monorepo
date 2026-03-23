@@ -1,47 +1,42 @@
-# Blockchain Development Standards
+# Blockchain (Viem / Wagmi)
 
-## Viem/Wagmi Patterns
+## Contract Reads
 
-**Client Creation:**
-```typescript
-import { createPublicClient, http } from 'viem'
-import { base } from 'viem/chains'
+```ts
+import { createPublicClient, http } from "viem"
+import { base } from "viem/chains"
+import { X7LendingPoolV2 } from "@x7/contracts"
 
-const client = createPublicClient({
-  chain: base,
-  transport: http()
+const client = createPublicClient({ chain: base, transport: http() })
+const liquidity = await client.readContract({
+  address: X7LendingPoolV2.address,
+  abi: X7LendingPoolV2.abi,
+  functionName: "getLiquidity",
 })
 ```
 
-**Contract Interaction:**
-```typescript
-const { data } = await client.readContract({
-  address: CONTRACT_ADDRESS,
-  abi: CONTRACT_ABI,
-  functionName: 'balanceOf',
-  args: [userAddress]
-})
+## Wagmi Hooks (Client Components Only)
+
+```ts
+"use client"
+import { useAccount, useWriteContract } from "wagmi"
+
+export function useDeposit() {
+  const { address } = useAccount()
+  const { writeContract, isPending } = useWriteContract()
+  const deposit = (amount: bigint) => {
+    if (!address) throw new Error("Wallet not connected")
+    return writeContract({
+      address: X7LendingPoolV2.address,
+      abi: X7LendingPoolV2.abi,
+      functionName: "deposit",
+      args: [amount],
+    })
+  }
+  return { deposit, isPending }
+}
 ```
 
-## X7 Contract Addresses
+## ABIs
 
-**Base Mainnet:**
-- X7 Lending Pool: `0x4eE199B7DFED6B96402623BdEcf2B1ae2f3750Dd`
-- WETH: `0x4200000000000000000000000000000000000006`
-- X7DAO: `0x...`
-
-## ABI Management
-
-- Store ABIs in `packages/contracts/src/abi/`
-- Export from `packages/contracts/src/index.ts`
-- Use typed ABIs with Viem
-
-## Wallet Connection
-
-Use Wagmi hooks:
-```typescript
-import { useAccount, useWriteContract } from 'wagmi'
-
-const { address } = useAccount()
-const { writeContract } = useWriteContract()
-```
+Store in `packages/contracts/src/abi/`, export from `packages/contracts/src/index.ts`.

@@ -9,7 +9,8 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
-    }
+    },
+    "./styles/*": "./src/styles/*"
   },
   "main": "dist/index.js",
   "module": "dist/index.js",

@@ -1,7 +1,6 @@
 import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
-  reactStrictMode: true,
   // Security headers (migrated from middleware.ts)
   headers: async () => [
     {
@@ -74,14 +73,6 @@ const nextConfig: NextConfig = {
       ],
     },
   ],
-  // Turbopack config (Next.js 16 default bundler)
-  turbopack: {},
-  // Legacy webpack config for fallback
-  webpack: (config) => {
-    config.resolve.fallback = { fs: false, net: false, tls: false }
-    config.externals.push("pino-pretty", "encoding")
-    return config
-  },
   // Enables hot reloading for local packages without a build step
   transpilePackages: [
     "@x7/dexie",
@@ -93,7 +84,6 @@ const nextConfig: NextConfig = {
     "@x7/utils",
     "websocket",
   ],
-  pageExtensions: ["ts", "tsx", "md"],
   poweredByHeader: false,
   images: {
     remotePatterns: [
@@ -141,41 +131,29 @@ const nextConfig: NextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
   },
-  // React Compiler (moved from experimental in Next.js 16)
-  reactCompiler: true,
-  // Cache Components enabled - uses React Server Components cache
-  cacheComponents: true,
-  // Cache profiles for streaming components
+  // typedRoutes: true,
+  pageExtensions: ["ts", "tsx", "js", "md"],
+  reactStrictMode: true,
+  // Configure cacheLife profiles for use cache directive
+  // See: https://nextjs.org/docs/app/api-reference/config/next-config-js/cacheLife
   cacheLife: {
-    default: {
-      stale: 300, // 5 minutes
-      revalidate: 900, // 15 minutes
-      expire: 3600, // 1 hour
+    // "max" profile - for static content that rarely changes
+    max: {
+      stale: 60 * 60 * 24 * 7, // 7 days on client
+      revalidate: 60 * 60 * 24, // Revalidate every 24 hours on server
+      expire: 60 * 60 * 24 * 365, // Expire after 1 year (effectively never)
     },
-    seconds: {
-      stale: 1,
-      revalidate: 5,
-      expire: 10,
-    },
-    minutes: {
-      stale: 60,
-      revalidate: 300,
-      expire: 600,
-    },
+    // "hours" profile - for content that updates periodically
     hours: {
-      stale: 3600,
-      revalidate: 10800,
-      expire: 86400,
+      stale: 60 * 60, // 1 hour on client
+      revalidate: 60 * 30, // Revalidate every 30 minutes on server
+      expire: 60 * 60 * 24, // Expire after 24 hours
     },
-    days: {
-      stale: 86400,
-      revalidate: 604800,
-      expire: 2592000, // 30 days
-    },
-    blockchain: {
-      stale: 12, // ~1 block
-      revalidate: 60,
-      expire: 300,
+    // "minutes" profile - for frequently updated content
+    minutes: {
+      stale: 60 * 5, // 5 minutes on client
+      revalidate: 60 * 2, // Revalidate every 2 minutes on server
+      expire: 60 * 60, // Expire after 1 hour
     },
   },
   // Partial Prerendering (PPR) - static shell with dynamic streaming

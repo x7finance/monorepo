@@ -2,15 +2,28 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "./base.json",
   "compilerOptions": {
-    "jsx": "react-jsx",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "noEmit": false,
-    "outDir": "dist",
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "tsBuildInfoFile": ".turbo/.tsbuildinfo"
-  }
+    "allowJs": true,
+    "jsx": "preserve",
+    "noEmit": true,
+    "declaration": false,
+    "declarationMap": false
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "*.mts",
+    "next.config.mjs"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

@@ -1,53 +1,37 @@
-# Agent Instructions - X7 Finance
+# X7 Finance - Agent Instructions
 
 ## Non-Negotiable
 
 1. **Run `bun run checks` before completing any task**
-2. **Use `??` for defaults, never `||`** (preserves falsy values)
+2. **Use `??` for defaults, never `||`** (preserves falsy values like `0`, `false`, `""`)
 3. **Check `packages/` for existing code before creating new**
-4. **All packages must build to `dist/` with `tsgo`**
+4. **All packages build to `dist/` with `tsgo`**
 
-## Monorepo Structure
+## Monorepo Layout
 
 ```
-x7finance/
-├── apps/
-│   └── org/              # Main X7 website
-├── packages/
-│   ├── contracts/        # Smart contract ABIs and types
-│   ├── sdk/              # Xchange SDK
-│   ├── ui/               # Shared UI components
-│   ├── router/           # Swap routing logic
-│   ├── tines/            # Pool math utilities
-│   ├── utils/            # Shared utilities
-│   └── ...
-└── tooling/
-    └── typescript/       # Shared tsconfig files
+apps/org/          → Main X7 website (Next.js 16)
+packages/          → Shared packages (@x7/*)
+tooling/           → Shared configs (tsconfig)
+scripts/           → Repo scripts (bun run)
+prds/              → Product requirement docs
 ```
 
 ## Quick Rules
 
-- **Packages**: Use `workspace:*` for internal dependencies
-- **Build**: All packages must have `bun run build` → outputs to `dist/`
-- **Versions**: Use root catalog for shared dependencies
-- **Console**: No `console.log` (use `console.error/warn` only)
-- **Naming**: kebab-case for files, camelCase for functions
+- **Deps**: `workspace:*` for internal, root catalog for shared
+- **Console**: Only `console.error` / `console.warn` (no `.log`)
+- **Naming**: kebab-case files, PascalCase components, camelCase functions
+- **Build**: Every package needs `bun run build` → `dist/`
 
 ## Commands
 
 ```bash
-bun run checks      # Run format, lint, typecheck (REQUIRED)
-bun run build       # Build all packages
-bun run build:setup # Build packages only (for dev)
-bun run dev         # Start development
+bun run checks      # format + lint + typecheck (REQUIRED)
+bun run build       # Build all
+bun run dev         # Start dev
 ```
 
-## Key Technologies
+## Stack
 
-- **Framework**: Next.js 16 (apps), TypeScript (packages)
-- **Blockchain**: Viem, Wagmi
-- **Styling**: Tailwind CSS v4
-- **Package Manager**: Bun
-- **Build System**: Turborepo + tsgo
-
-See other `.ruler/` files for detailed standards.
+Next.js 16, TypeScript, Viem/Wagmi, Tailwind CSS v4, Bun, Turborepo, tsgo

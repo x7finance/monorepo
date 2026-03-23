@@ -17,7 +17,8 @@
     "**/*.config.js",
     "**/*.config.ts",
     "**/artifacts/**",
-    "**/contracts/**"
+    "**/contracts/**",
+    "**/*.css"
   ],
   "experimentalSortImports": {
     "newlinesBetween": true,

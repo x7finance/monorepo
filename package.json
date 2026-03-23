@@ -24,7 +24,7 @@
     "lint:package-json": "sort-package-json package.json {apps,packages,tooling}/*/package.json",
     "manypkg": "manypkg check",
     "prepare": "husky && bun run ruler:apply",
-    "ruler:apply": "ruler apply --agents claude,cursor,codex",
+    "ruler:apply": "ruler apply --agents claude,cursor,codex --skills && mkdir -p .claude/commands && for d in .ruler/skills/*/; do cp \"$d/SKILL.md\" \".claude/commands/$(basename $d).md\"; done",
     "start": "turbo start",
     "test": "turbo test",
     "typecheck": "turbo typecheck"
