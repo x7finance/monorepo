@@ -75,9 +75,9 @@ export function TradingHistory({ contractAddress }: TradingHistoryProps) {
       })
 
       // parse logs
-      const trades = logs.map((log) => {
+      const parsedTrades = logs.map((txLog) => {
         const { sender, amount0In, amount1In, amount0Out, amount1Out, to } =
-          log.args
+          txLog.args
 
         const isToken0 = mockToken.sortsBefore(WETH9[chainId as ChainId])
 
@@ -114,7 +114,7 @@ export function TradingHistory({ contractAddress }: TradingHistoryProps) {
             : amount0Out! // WETH amount
 
         return {
-          blockNumber: Number(log.blockNumber),
+          blockNumber: Number(txLog.blockNumber),
           type: direction,
           amount,
           price,
