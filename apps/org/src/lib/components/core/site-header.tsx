@@ -31,11 +31,8 @@ export function SiteHeader({ className }: HTMLAttributes<HTMLElement>) {
               className="grid-gap-2 m-0 flex list-none gap-2 p-0"
               dir="ltr"
             >
-              {DESKTOP_NAV_LINKS.map((link, key) => (
-                <li
-                  key={`nav-item-${key}`}
-                  className="align-center flex items-center"
-                >
+              {DESKTOP_NAV_LINKS.map((link) => (
+                <li key={link.href} className="align-center flex items-center">
                   <LinkInternal
                     prefetch={true}
                     className="cursor-pointer rounded-full px-2 py-3 text-sm whitespace-nowrap text-zinc-800 outline-hidden hover:text-black dark:text-zinc-200 dark:hover:text-white"

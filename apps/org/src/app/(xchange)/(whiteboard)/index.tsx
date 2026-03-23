@@ -107,35 +107,34 @@ export function XChangeBoard() {
           </div> */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
             {isLoading
-              ? Array.from({ length: 9 }).map((_, i) => (
-                  <Card
-                    key={`skeleton-${i}`}
-                    className="flex h-full w-full flex-col"
-                  >
-                    <CardHeader className="relative p-0">
-                      <div className="relative mb-2 h-24 w-full">
-                        <SkeletonBox className="h-full w-full rounded-t-lg" />
-                      </div>
-                      <div className="absolute right-2 bottom-8 h-16 w-16 overflow-hidden rounded-lg shadow-xs">
-                        <SkeletonBox className="h-full w-full" />
-                      </div>
-                      <CardTitle className="p-3 pt-1 text-sm font-bold">
-                        <SkeletonBox className="mb-1 h-5 w-32" />
-                        <SkeletonBox className="h-4 w-24" />
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="text-2xs grow space-y-2 px-3 py-1">
-                      <SkeletonBox className="h-12 w-full" />
-                    </CardContent>
-                    <CardFooter className="flex flex-col items-start p-3 text-[10px] text-zinc-500">
-                      <SkeletonBox className="mb-2 h-3 w-32" />
-                      <div className="flex w-full items-center justify-between">
-                        <SkeletonBox className="h-3 w-40" />
-                        <SkeletonBox className="h-4 w-16" />
-                      </div>
-                    </CardFooter>
-                  </Card>
-                ))
+              ? ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9"].map(
+                  (skKey) => (
+                    <Card key={skKey} className="flex h-full w-full flex-col">
+                      <CardHeader className="relative p-0">
+                        <div className="relative mb-2 h-24 w-full">
+                          <SkeletonBox className="h-full w-full rounded-t-lg" />
+                        </div>
+                        <div className="absolute right-2 bottom-8 h-16 w-16 overflow-hidden rounded-lg shadow-xs">
+                          <SkeletonBox className="h-full w-full" />
+                        </div>
+                        <CardTitle className="p-3 pt-1 text-sm font-bold">
+                          <SkeletonBox className="mb-1 h-5 w-32" />
+                          <SkeletonBox className="h-4 w-24" />
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="text-2xs grow space-y-2 px-3 py-1">
+                        <SkeletonBox className="h-12 w-full" />
+                      </CardContent>
+                      <CardFooter className="flex flex-col items-start p-3 text-[10px] text-zinc-500">
+                        <SkeletonBox className="mb-2 h-3 w-32" />
+                        <div className="flex w-full items-center justify-between">
+                          <SkeletonBox className="h-3 w-40" />
+                          <SkeletonBox className="h-4 w-16" />
+                        </div>
+                      </CardFooter>
+                    </Card>
+                  )
+                )
               : tokens?.map((token) => (
                   <TokenCard
                     key={`token-card-${token.pairAddress}`}
