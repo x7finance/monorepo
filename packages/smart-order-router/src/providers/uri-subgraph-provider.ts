@@ -75,10 +75,10 @@ export class URISubgraphProvider<
       },
       {
         retries: this.retries,
-        onRetry: (err, retry) => {
+        onRetry: (err, retryAttempt) => {
           log.info(
             LogCodes.FAIL,
-            `Failed to get pools from uri ${this.uri}. Retry attempt: ${retry}`,
+            `Failed to get pools from uri ${this.uri}. Retry attempt: ${retryAttempt}`,
             { err }
           )
         },

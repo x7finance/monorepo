@@ -233,7 +233,7 @@ export class V3SubgraphProvider implements IV3SubgraphProvider {
       },
       {
         retries: this.retries,
-        onRetry: (err: Error, retry: number) => {
+        onRetry: (err: Error, retryAttempt: number) => {
           if (
             this.rollback &&
             blockNumber &&
@@ -248,7 +248,7 @@ export class V3SubgraphProvider implements IV3SubgraphProvider {
           pools = []
           log.error(
             LogCodes.SUBGRAPH_INDEXING_ERROR,
-            `Failed to get pools from subgraph. Retry attempt: ${retry}`,
+            `Failed to get pools from subgraph. Retry attempt: ${retryAttempt}`,
             { err }
           )
         },

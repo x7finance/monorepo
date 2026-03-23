@@ -294,7 +294,7 @@ export class LegacyRouter {
     log.debug(
       LogCodes.FETCHING_QUOTES,
       `Got ${
-        _.filter(quotesRaw, ([_, quotes]) => !!quotes[0]).length
+        _.filter(quotesRaw, ([_route, quotes]) => !!quotes[0]).length
       } valid quotes from ${routes.length} possible routes.`
     )
 

@@ -211,12 +211,12 @@ export abstract class IRouter<RoutingConfig> {
   ): Promise<SwapRoute | null>
 }
 
-export abstract class ISwapToRatio<RoutingConfig, SwapAndAddConfig> {
+export abstract class ISwapToRatio<RoutingConfig, TSwapAndAddConfig> {
   abstract routeToRatio(
     token0Balance: CurrencyAmount,
     token1Balance: CurrencyAmount,
     position: Position,
-    swapAndAddConfig: SwapAndAddConfig,
+    swapAndAddConfig: TSwapAndAddConfig,
     swapAndAddOptions?: SwapAndAddOptions,
     routingConfig?: RoutingConfig
   ): Promise<SwapToRatioResponse>
