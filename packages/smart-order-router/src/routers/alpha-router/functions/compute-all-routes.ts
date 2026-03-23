@@ -16,8 +16,8 @@ export function computeAllV3Routes(
   return computeAllRoutes<Pool, V3Route>(
     tokenIn,
     tokenOut,
-    (route: Pool[], tokenIn: Token, tokenOut: Token) => {
-      return new V3Route(route, tokenIn, tokenOut)
+    (route: Pool[], tIn: Token, tOut: Token) => {
+      return new V3Route(route, tIn, tOut)
     },
     pools,
     maxHops
@@ -33,8 +33,8 @@ export function computeAllV2Routes(
   return computeAllRoutes<Pair, V2Route>(
     tokenIn,
     tokenOut,
-    (route: Pair[], tokenIn: Token, tokenOut: Token) => {
-      return new V2Route(route, tokenIn, tokenOut)
+    (route: Pair[], tIn: Token, tOut: Token) => {
+      return new V2Route(route, tIn, tOut)
     },
     pools,
     maxHops
@@ -50,8 +50,8 @@ export function computeAllMixedRoutes(
   const routesRaw = computeAllRoutes<Pool | Pair, MixedRoute>(
     tokenIn,
     tokenOut,
-    (route: (Pool | Pair)[], tokenIn: Token, tokenOut: Token) => {
-      return new MixedRoute(route, tokenIn, tokenOut)
+    (route: (Pool | Pair)[], tIn: Token, tOut: Token) => {
+      return new MixedRoute(route, tIn, tOut)
     },
     parts,
     maxHops
@@ -79,10 +79,10 @@ export function computeAllRoutes<
   const routes: TRoute[] = []
 
   const computeRoutes = (
-    tokenIn: Token,
-    tokenOut: Token,
+    startToken: Token,
+    endToken: Token,
     currentRoute: TPool[],
-    poolsUsed: boolean[],
+    usedPools: boolean[],
     tokensVisited: Set<string>,
     _previousTokenOut?: Token
   ) => {
@@ -92,19 +92,19 @@ export function computeAllRoutes<
 
     if (
       currentRoute.length > 0 &&
-      currentRoute[currentRoute.length - 1]?.involvesToken(tokenOut)
+      currentRoute[currentRoute.length - 1]?.involvesToken(endToken)
     ) {
-      routes.push(buildRoute([...currentRoute], tokenIn, tokenOut))
+      routes.push(buildRoute([...currentRoute], startToken, endToken))
       return
     }
 
     for (let i = 0; i < pools.length; i++) {
-      if (poolsUsed[i]) {
+      if (usedPools[i]) {
         continue
       }
 
       const curPool = pools[i]
-      const previousTokenOut = _previousTokenOut || tokenIn
+      const previousTokenOut = _previousTokenOut || startToken
 
       if (!curPool?.involvesToken(previousTokenOut)) {
         continue
@@ -121,16 +121,16 @@ export function computeAllRoutes<
       // Because we have tow direct pools, we need to actually grab the more favorable one, currently this just grabs the first and will not compute the second (continue statements on similar token pairs)
       tokensVisited.add(currentTokenOut.address.toLowerCase())
       currentRoute.push(curPool)
-      poolsUsed[i] = true
+      usedPools[i] = true
       computeRoutes(
-        tokenIn,
-        tokenOut,
+        startToken,
+        endToken,
         currentRoute,
-        poolsUsed,
+        usedPools,
         tokensVisited,
         currentTokenOut
       )
-      poolsUsed[i] = false
+      usedPools[i] = false
       currentRoute.pop()
       tokensVisited.delete(currentTokenOut.address.toLowerCase())
     }
