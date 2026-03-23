@@ -24,6 +24,9 @@
     "format": "oxfmt --config ../../tooling/oxfmt/.oxfmtrc.json src/",
     "format:fix": "oxfmt --write --config ../../tooling/oxfmt/.oxfmtrc.json src/",
     "lint": "oxlint src/",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest watch",
     "typecheck": "tsgo --noEmit"
   },
   "dependencies": {
@@ -40,6 +43,7 @@
     "@types/node": "^22.19.11",
     "@x7/tsconfig": "workspace:*",
     "oxlint": "^1.56.0",
-    "typescript": "^6.0.2"
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.1"
   }
 }

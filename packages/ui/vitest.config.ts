@@ -1,13 +1,3 @@
-import react from "@vitejs/plugin-react"
-import { defineConfig } from "vitest/config"
+import { createReactConfig } from "../../vitest.shared"
 
-export default defineConfig({
-  plugins: [react()],
-  test: {
-    environment: "jsdom",
-    setupFiles: ["./src/test/setup.ts"],
-    globals: true,
-    css: true,
-    passWithNoTests: true,
-  },
-})
+export default createReactConfig(__dirname)
