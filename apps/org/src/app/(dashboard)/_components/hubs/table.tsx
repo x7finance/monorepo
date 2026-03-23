@@ -225,11 +225,11 @@ export function HubsTable({ chainId }: SplittersTableProps) {
 
   useEffect(() => {
     if (x7daoFetched) {
-      const x7daoBalanceThreshold = formatEther(
+      const newX7daoBalanceThreshold = formatEther(
         (x7daoData?.[8].result as bigint) ?? BigInt(0)
       )
-      const X7daoAuxiliary = x7daoData?.[1].result ?? "N/A"
-      const x7daoLiquidityRatio = (() => {
+      const newX7daoAuxiliary = x7daoData?.[1].result ?? "N/A"
+      const newX7daoLiquidityRatio = (() => {
         const result = x7daoData?.[9]?.result
         return typeof result === "number" ? result * 10 : 0
       })()
@@ -255,18 +255,18 @@ export function HubsTable({ chainId }: SplittersTableProps) {
         }, [])
 
       setX7daoSplit(builtX7daoSplitArray)
-      setX7daoAuxiliary(X7daoAuxiliary)
-      setX7daoBalanceThreshold(x7daoBalanceThreshold)
-      setX7daoLiquidityRatio(x7daoLiquidityRatio)
+      setX7daoAuxiliary(newX7daoAuxiliary)
+      setX7daoBalanceThreshold(newX7daoBalanceThreshold)
+      setX7daoLiquidityRatio(newX7daoLiquidityRatio)
     }
   }, [x7daoData, x7daoFetched])
 
   useEffect(() => {
     if (x7rFetched) {
-      const x7rBalanceThreshold = formatEther(
+      const newX7rBalanceThreshold = formatEther(
         (x7rData?.[6].result as bigint) ?? BigInt(0)
       )
-      const x7rLiquidityRatio = (() => {
+      const newX7rLiquidityRatio = (() => {
         const result = x7rData?.[7]?.result
         return typeof result === "number" ? result * 10 : 0
       })()
@@ -300,17 +300,17 @@ export function HubsTable({ chainId }: SplittersTableProps) {
       )
 
       setX7rSplit(builtX7rSplitArray)
-      setX7rBalanceThreshold(x7rBalanceThreshold)
-      setX7rLiquidityRatio(x7rLiquidityRatio)
+      setX7rBalanceThreshold(newX7rBalanceThreshold)
+      setX7rLiquidityRatio(newX7rLiquidityRatio)
     }
   }, [x7rData, x7rFetched])
 
   useEffect(() => {
     if (x7100Fetched) {
-      const x7100BalanceThreshold = formatEther(
+      const newX7100BalanceThreshold = formatEther(
         (x7100Data?.[8].result as bigint) ?? BigInt(0)
       )
-      const x7100LiquidityRatio = (() => {
+      const newX7100LiquidityRatio = (() => {
         const result = x7100Data?.[9]?.result
         return typeof result === "number" ? result * 10 : 0
       })()
@@ -336,8 +336,8 @@ export function HubsTable({ chainId }: SplittersTableProps) {
         }, [])
 
       setX7100Split(builtX7100SplitArray)
-      setX7100BalanceThreshold(x7100BalanceThreshold)
-      setX7100LiquidityRatio(x7100LiquidityRatio)
+      setX7100BalanceThreshold(newX7100BalanceThreshold)
+      setX7100LiquidityRatio(newX7100LiquidityRatio)
     }
   }, [x7100Data, x7100Fetched])
 
