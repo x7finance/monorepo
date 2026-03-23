@@ -223,17 +223,17 @@ export function Web3Provider(props: Web3ProvidersProps) {
     []
   )
 
+  const contextValue = useMemo(
+    () => ({ wagmiConfig, transports, updateTransports }),
+    [wagmiConfig, transports, updateTransports]
+  )
+
   if (!wagmiConfig) {
     return null
   }
 
   return (
-    <Web3Context.Provider
-      value={useMemo(
-        () => ({ wagmiConfig, transports, updateTransports }),
-        [wagmiConfig, transports, updateTransports]
-      )}
-    >
+    <Web3Context.Provider value={contextValue}>
       <WagmiProvider initialState={initialState} config={wagmiConfig}>
         <RainbowKitProvider theme={theme} modalSize="compact" appInfo={appInfo}>
           {children}
