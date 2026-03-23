@@ -92,3 +92,33 @@ Get the full X7 Finance monorepo to build, pass all checks (format, lint, typech
 - 24 files use this function across the org app
 
 ### Final result: 155 → 0 total errors (build + checks + tests + next build with 424 pages)
+
+## Phase 2: Lint Warning Cleanup (173 → 94)
+
+### ✅ Fix 8: Package-level no-shadow warnings
+- icons (10→0): Prefix glyph imports to avoid enum shadowing
+- utils (5→1): Rename inner loop vars, preserve-caught-error, non-null-assertion fix
+- tines (4→0): Rename nested function params (vPrice, vGasPrice, fromToken/toToken)
+- router (4→0): Rename filter destructuring, map callback params
+- sdk (19→2): Reduce accumulator renames, loop var renames, redundant var removal
+- sor (31→12): compute-all-routes callback params, retry renames, gas-factory-helpers, subgraph providers
+
+### ✅ Fix 9: UI warnings (13→0)
+- chart.tsx: useMemo for context value, config shadow rename
+- form.tsx: useMemo for FormField and FormItem context values
+- navigation-menu.tsx: useMemo for context value
+- button.tsx: Rename inner forwardRef function
+- chip-input.tsx: Rename sync callback param
+- pathname-button.tsx: Forward ref parameter
+- data-table: Static skeleton keys
+- static-table: Semantic row keys, header keys
+- token-view-row: Rename interface to Props suffix
+- use-interval: Rename inner function param
+
+### ✅ Fix 10: Org warnings (87→79)
+- swap store: Rename _token0/_token1 callback params
+- donut-chart: useMemo for context value
+- web3 provider: useMemo for context value
+- mobile-navigation: Use href as key
+- site-header: Use href as key
+- whiteboard skeleton: Static keys
