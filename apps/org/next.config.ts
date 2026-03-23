@@ -180,7 +180,7 @@ const nextConfig: NextConfig = {
   },
   // Partial Prerendering (PPR) - static shell with dynamic streaming
   experimental: {
-    ppr: true,
+    // PPR is now enabled via cacheComponents (above)
     // Caching features
     dynamicOnHover: true,
     useCache: true,
