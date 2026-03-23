@@ -250,8 +250,8 @@ export function useSwapState(): SwapState {
   ])
 
   const setToken0 = useCallback(
-    (_token0: string | Token | Native) => {
-      const token0 = getTokenAsString(_token0)
+    (newToken0: string | Token | Native) => {
+      const token0 = getTokenAsString(newToken0)
       routerSetPossibleRoutes([])
       routerSetBestRoute(undefined)
       routerSetSecondaryRoute(undefined)
@@ -282,8 +282,8 @@ export function useSwapState(): SwapState {
   )
 
   const setToken1 = useCallback(
-    (_token1: string | Token | Native) => {
-      const token1 = getTokenAsString(_token1)
+    (newToken1: string | Token | Native) => {
+      const token1 = getTokenAsString(newToken1)
       routerSetPossibleRoutes([])
       routerSetBestRoute(undefined)
       routerSetSecondaryRoute(undefined)
@@ -314,9 +314,12 @@ export function useSwapState(): SwapState {
   )
 
   const setTokens = useCallback(
-    (_token0: string | Token | Native, _token1: string | Token | Native) => {
-      const token0 = getTokenAsString(_token0)
-      const token1 = getTokenAsString(_token1)
+    (
+      newToken0: string | Token | Native,
+      newToken1: string | Token | Native
+    ) => {
+      const token0 = getTokenAsString(newToken0)
+      const token1 = getTokenAsString(newToken1)
       routerSetPossibleRoutes([])
       routerSetBestRoute(undefined)
       routerSetSecondaryRoute(undefined)
