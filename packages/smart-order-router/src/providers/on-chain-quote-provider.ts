@@ -874,9 +874,9 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
 
     for (let i = 0; i < quotesResultsByRoute.length; i++) {
       const route = routes[i]!
-      const quoteResults = quotesResultsByRoute[i]
+      const routeQuoteResults = quotesResultsByRoute[i]
       const quotes: AmountQuote[] = _.map(
-        quoteResults,
+        routeQuoteResults,
         (
           quoteResult: Result<[bigint, bigint[], number[], bigint]>,
           index: number

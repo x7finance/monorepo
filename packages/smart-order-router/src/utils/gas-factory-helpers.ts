@@ -190,7 +190,7 @@ export async function getHighestLiquidityV3USDPool(
     FeeAmount.LOWEST,
   ])
     .flatMap((feeAmount) => {
-      const pools = []
+      const feePools = []
 
       for (const usdToken of usdTokens) {
         const pool = poolAccessor.getPool(wrappedCurrency, usdToken, feeAmount)
@@ -206,11 +206,11 @@ export async function getHighestLiquidityV3USDPool(
         )
 
         if (pool.length > 0) {
-          pools.push(...pool)
+          feePools.push(...pool)
         }
       }
 
-      return pools
+      return feePools
     })
     .compact()
     .value()
@@ -719,18 +719,23 @@ export const calculateL1GasFeesHelper = async (
     swapConfig: SwapOptionsUniversalRouter,
     chainId: ChainId
   ): Promise<[bigint, bigint]> {
-    const route: RouteWithValidQuote = routes[0]!
+    const firstRoute: RouteWithValidQuote = routes[0]!
     const amountToken =
-      route.tradeType === TradeType.EXACT_INPUT
-        ? route.amount.currency
-        : route.quote.currency
+      firstRoute.tradeType === TradeType.EXACT_INPUT
+        ? firstRoute.amount.currency
+        : firstRoute.quote.currency
     const outputToken =
-      route.tradeType === TradeType.EXACT_INPUT
-        ? route.quote.currency
-        : route.amount.currency
+      firstRoute.tradeType === TradeType.EXACT_INPUT
+        ? firstRoute.quote.currency
+        : firstRoute.amount.currency
 
     // build trade for swap calldata
-    const trade = buildTrade(amountToken, outputToken, route.tradeType, routes)
+    const trade = buildTrade(
+      amountToken,
+      outputToken,
+      firstRoute.tradeType,
+      routes
+    )
     const data = buildSwapMethodParameters(
       trade,
       swapConfig,
@@ -750,19 +755,24 @@ export const calculateL1GasFeesHelper = async (
     gasData: ArbitrumGasData,
     chainId: ChainId
   ): [bigint, bigint, bigint] {
-    const route: RouteWithValidQuote = routes[0]!
+    const firstRoute: RouteWithValidQuote = routes[0]!
 
     const amountToken =
-      route.tradeType === TradeType.EXACT_INPUT
-        ? route.amount.currency
-        : route.quote.currency
+      firstRoute.tradeType === TradeType.EXACT_INPUT
+        ? firstRoute.amount.currency
+        : firstRoute.quote.currency
     const outputToken =
-      route.tradeType === TradeType.EXACT_INPUT
-        ? route.quote.currency
-        : route.amount.currency
+      firstRoute.tradeType === TradeType.EXACT_INPUT
+        ? firstRoute.quote.currency
+        : firstRoute.amount.currency
 
     // build trade for swap calldata
-    const trade = buildTrade(amountToken, outputToken, route.tradeType, routes)
+    const trade = buildTrade(
+      amountToken,
+      outputToken,
+      firstRoute.tradeType,
+      routes
+    )
     const data = buildSwapMethodParameters(
       trade,
       swapConfig,
