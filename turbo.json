@@ -49,6 +49,7 @@
         "!.next/cache/**",
         ".turbo/.tsbuildinfo",
         "dist/**",
+        "build/**",
         "artifacts/**",
         "contracts/**"
       ]

@@ -1,4 +1,3 @@
-/* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
 import Image from "next/image"
 
 import { cn } from "@x7/css"
@@ -113,7 +112,7 @@ export function UnderConstruction(props: ConstructionProps) {
                         <div className="rounded-b-lg border-t-2 border-zinc-800 px-6 pt-6 pb-8 sm:px-10">
                           <div>
                             <p className="text-secondary-foreground mt-2 mb-4 text-center">
-                              {description ||
+                              {description ??
                                 `Pioneers are hard at work to provide the best
                               information and experience for users looking to
                               utilize the most powerful and decentralized DEX on
