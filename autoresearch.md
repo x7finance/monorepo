@@ -115,10 +115,29 @@ Get the full X7 Finance monorepo to build, pass all checks (format, lint, typech
 - token-view-row: Rename interface to Props suffix
 - use-interval: Rename inner function param
 
-### ✅ Fix 10: Org warnings (87→79)
+### ✅ Fix 10: Org warnings (87→41)
 - swap store: Rename _token0/_token1 callback params
-- donut-chart: useMemo for context value
+- donut-chart: useMemo for context value, reduce accumulator rename
 - web3 provider: useMemo for context value
 - mobile-navigation: Use href as key
 - site-header: Use href as key
 - whiteboard skeleton: Static keys
+- Token/product pages: Use imgIdx for pioneer images
+- Governance proposals: Use calldata as key
+- Swap taxes: Use token as key
+- Loan pool choice: Use poolId as key
+- Token-list-content: Static skeleton keys
+- Coin skeletons: Static keys
+- Hubs/table: Rename 6 effect shadow vars (x7dao/x7r/x7100 balance/ratio)
+- Swap chart liquidity sheet: Use token.address as key
+- Swap implementations: Use poolAddresses as key
+- Blog slugs, search dialog, balances, approval callbacks
+- Pinned tokens: setValue prev param rename
+- useTokens: chainId rename in reduce
+- useSortedTokensByQuery: filter callback param rename
+- useCreatedXchangeTokens: data destructure rename
+- useDeployToken: log→txLog callback rename
+- TextTransition: getBoundingClientRect destructure→rect
+- TradingHistory: trades/log→parsedTrades/txLog
+- Contracts/table, manage-coin-form: chain find callback rename
+- tx.tsx, router.tsx: useMemo for context values
