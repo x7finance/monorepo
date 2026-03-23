@@ -14,51 +14,46 @@ export class AddressMapper {
     // Iterating over each address list
     for (const addressesByChain of addressLists) {
       // Iterating over each chain and its corresponding address(es)
-      Object.entries(addressesByChain).forEach(([chainId, address]) => {
-        // Converting the address(es) to an array if it is not already an array
-        const sisterAddresses: string[] = Array.isArray(address)
-          ? address
-          : [address]
+      Object.entries(addressesByChain).forEach(([outerChainId, outerAddr]) => {
+        const sisterAddresses: string[] = Array.isArray(outerAddr)
+          ? outerAddr
+          : [outerAddr]
 
-        // Iterating over each sister address
-        sisterAddresses.forEach((address) => {
-          // Generating the current address ID
-          const currentId = `${chainId}:${address.toLowerCase()}`
+        sisterAddresses.forEach((sisterAddr) => {
+          const currentId = `${outerChainId}:${sisterAddr.toLowerCase()}`
 
-          // Iterating over each chain and its corresponding address(es) again
-          Object.entries(addressesByChain).forEach(([chainId, addresses]) => {
-            // Converting the address(es) to an array if it is not already an array
-            const currentSisterAddresses: string[] = Array.isArray(addresses)
-              ? addresses
-              : [addresses]
+          Object.entries(addressesByChain).forEach(
+            ([innerChainId, innerAddresses]) => {
+              const currentSisterAddresses: string[] = Array.isArray(
+                innerAddresses
+              )
+                ? innerAddresses
+                : [innerAddresses]
 
-            // Iterating over each current sister address
-            currentSisterAddresses.forEach((address) => {
-              // Generating the ID of the current sister address
-              const id = `${chainId}:${address.toLowerCase()}`
+              currentSisterAddresses.forEach((innerAddr) => {
+                const id = `${innerChainId}:${innerAddr.toLowerCase()}`
 
-              // Checking if the current address ID is not equal to the current sister address ID
-              if (currentId !== id) {
-                // Adding the current sister address to the result if it does not already exist
-                if (!result[currentId]) {
-                  result[currentId] = []
+                if (currentId !== id) {
+                  if (!result[currentId]) {
+                    result[currentId] = []
+                  }
+
+                  if (
+                    !result[currentId].some(
+                      (item) =>
+                        item.chainId === Number(innerChainId) &&
+                        item.tokenAddress === innerAddr.toLowerCase()
+                    )
+                  ) {
+                    result[currentId].push({
+                      chainId: Number(innerChainId) as ChainId,
+                      tokenAddress: innerAddr.toLowerCase(),
+                    })
+                  }
                 }
-
-                if (
-                  !result[currentId].some(
-                    (item) =>
-                      item.chainId === Number(chainId) &&
-                      item.tokenAddress === address.toLowerCase()
-                  )
-                ) {
-                  result[currentId].push({
-                    chainId: Number(chainId) as ChainId,
-                    tokenAddress: address.toLowerCase(),
-                  })
-                }
-              }
-            })
-          })
+              })
+            }
+          )
         })
       })
     }

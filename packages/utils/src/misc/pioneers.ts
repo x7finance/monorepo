@@ -109,7 +109,11 @@ export const CURATED_PIONEERS = [
  * SSR-safe and deterministic.
  */
 export function getCuratedPioneerNumber(index: number): string {
-  return CURATED_PIONEERS[index % CURATED_PIONEERS.length]!
+  return (
+    CURATED_PIONEERS[index % CURATED_PIONEERS.length] ??
+    CURATED_PIONEERS[0] ??
+    "0001"
+  )
 }
 
 /**

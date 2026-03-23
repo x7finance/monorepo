@@ -54,18 +54,18 @@ export function getCurrencyCombinations(
       Boolean(tokens[0] && tokens[1])
     )
     .filter(([t0, t1]) => t0.address !== t1.address)
-    .filter(([tokenA, tokenB]) => {
+    .filter(([tA, tB]) => {
       if (!chainId) return true
       const customBases = CUSTOM_BASES[chainId]
 
-      const customBasesA: Token[] | undefined = customBases?.[tokenA.address]
-      const customBasesB: Token[] | undefined = customBases?.[tokenB.address]
+      const customBasesA: Token[] | undefined = customBases?.[tA.address]
+      const customBasesB: Token[] | undefined = customBases?.[tB.address]
 
       if (!customBasesA && !customBasesB) return true
 
-      if (customBasesA && !customBasesA.find((base) => tokenB.equals(base)))
+      if (customBasesA && !customBasesA.find((base) => tB.equals(base)))
         return false
-      if (customBasesB && !customBasesB.find((base) => tokenA.equals(base)))
+      if (customBasesB && !customBasesB.find((base) => tA.equals(base)))
         return false
 
       return true
@@ -102,9 +102,9 @@ export function getV3CurrencyCombinations(
     // the direct pair
     [tokenA, tokenB],
     // token A against all bases
-    ...(common?.map((common): [Token, Token] => [tokenA, common]) ?? []),
+    ...(common?.map((base): [Token, Token] => [tokenA, base]) ?? []),
     // token B against all bases
-    ...(common?.map((common): [Token, Token] => [tokenB, common]) ?? []),
+    ...(common?.map((base): [Token, Token] => [tokenB, base]) ?? []),
   ]
     .filter((tokens): tokens is [Token, Token] =>
       Boolean(tokens[0] && tokens[1])

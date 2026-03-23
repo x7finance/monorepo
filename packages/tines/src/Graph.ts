@@ -51,11 +51,11 @@ export interface MultiRoute {
   totalAmountOutBI: bigint
 }
 
-export function NoWayMultiRoute(from: RToken, to: RToken) {
+export function NoWayMultiRoute(fromToken: RToken, toToken: RToken) {
   return {
     status: RouteStatus.NoWay,
-    fromToken: from,
-    toToken: to,
+    fromToken,
+    toToken,
     amountIn: 0,
     amountInBI: 0n,
     amountOut: 0,
@@ -501,12 +501,12 @@ export class Graph {
     const edgeValues = new Map<Edge, number>()
     const value = (e: Edge): number => edgeValues.get(e)!
 
-    function addVertice(v: Vertice, price: number) {
-      v.price = price
+    function addVertice(v: Vertice, vPrice: number) {
+      v.price = vPrice
       const newEdges = v.edges.filter((e) => {
         if (processedVert.has(v.getNeibour(e)!)) return false
         if (e.pool.alwaysAppropriateForPricing()) return true
-        const liquidity = price * parseInt(e.reserve(v).toString())
+        const liquidity = vPrice * parseInt(e.reserve(v).toString())
         if (liquidity < minLiquidity) return false
         edgeValues.set(e, liquidity)
         return true
@@ -575,9 +575,9 @@ export class Graph {
     const edgeValues = new Map<Edge, number>()
     const value = (e: Edge): number => edgeValues.get(e)!
 
-    function addVertice(v: Vertice, price: number, gasPrice: number) {
-      v.price = price
-      v.gasPrice = gasPrice
+    function addVertice(v: Vertice, vPrice: number, vGasPrice: number) {
+      v.price = vPrice
+      v.gasPrice = vGasPrice
       const newEdges = v.edges.filter((e) => {
         const newV = v.getNeibour(e)
         return (
@@ -586,7 +586,7 @@ export class Graph {
         )
       })
       newEdges.forEach((e) =>
-        edgeValues.set(e, price * parseInt(e.reserve(v).toString()))
+        edgeValues.set(e, vPrice * parseInt(e.reserve(v).toString()))
       )
       newEdges.sort((e1, e2) => value(e1) - value(e2))
       const res: Edge[] = []

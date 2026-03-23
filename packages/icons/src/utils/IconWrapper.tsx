@@ -4,16 +4,16 @@ import { createElement } from "react"
 
 import { cn } from "@x7/css"
 
-import arbitrum from "../glyphs/arbitrum"
-import base from "../glyphs/base"
-import bsc from "../glyphs/bsc"
-import dextools from "../glyphs/dextools"
-import ethereum from "../glyphs/ethereum"
-import etherscan from "../glyphs/etherscan"
-import loading from "../glyphs/loading"
-import opensea from "../glyphs/opensea"
-import optimism from "../glyphs/optimism"
-import polygon from "../glyphs/polygon"
+import glyphArbitrum from "../glyphs/arbitrum"
+import glyphBase from "../glyphs/base"
+import glyphBsc from "../glyphs/bsc"
+import glyphDextools from "../glyphs/dextools"
+import glyphEthereum from "../glyphs/ethereum"
+import glyphEtherscan from "../glyphs/etherscan"
+import glyphLoading from "../glyphs/loading"
+import glyphOpensea from "../glyphs/opensea"
+import glyphOptimism from "../glyphs/optimism"
+import glyphPolygon from "../glyphs/polygon"
 
 type GlyphProps = SVGAttributes<SVGSVGElement> & {
   fill?: string
@@ -47,16 +47,16 @@ export enum Glyph {
 }
 
 export const GLYPH_MAPS: Record<Glyph, FC<GlyphProps>> = {
-  [Glyph.loading]: loading as FC<GlyphProps>,
-  [Glyph.arbitrum]: arbitrum,
-  [Glyph.bsc]: bsc,
-  [Glyph.ethereum]: ethereum,
-  [Glyph.etherscan]: etherscan,
-  [Glyph.optimism]: optimism,
-  [Glyph.polygon]: polygon,
-  [Glyph.dextools]: dextools,
-  [Glyph.base]: base,
-  [Glyph.opensea]: opensea,
+  [Glyph.loading]: glyphLoading as FC<GlyphProps>,
+  [Glyph.arbitrum]: glyphArbitrum,
+  [Glyph.bsc]: glyphBsc,
+  [Glyph.ethereum]: glyphEthereum,
+  [Glyph.etherscan]: glyphEtherscan,
+  [Glyph.optimism]: glyphOptimism,
+  [Glyph.polygon]: glyphPolygon,
+  [Glyph.dextools]: glyphDextools,
+  [Glyph.base]: glyphBase,
+  [Glyph.opensea]: glyphOpensea,
 }
 
 export function IconWrapper(props: IconProps): ReactElement {
