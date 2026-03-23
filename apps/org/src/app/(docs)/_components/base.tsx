@@ -61,8 +61,8 @@ export function DocsBase(props: DocsBaseProps) {
   const previousPage = allLinks[linkIndex - 1]
   const nextPage = allLinks[linkIndex + 1]
 
-  const section = navigation.find((section) =>
-    section.links.find((link) => link.href === slug)
+  const section = navigation.find((navSection) =>
+    navSection.links.find((link) => link.href === slug)
   )
 
   return (

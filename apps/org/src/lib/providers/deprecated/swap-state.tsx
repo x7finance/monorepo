@@ -353,7 +353,7 @@ export const X7SwapStateProvider: FC<X7SwapProviderProps> = ({ children }) => {
     if (!router) {
       throw new Error("No AlphaRouter instance setup")
     }
-    const route = await router.routeFromValidQuote(
+    const newRoute = await router.routeFromValidQuote(
       tryParseAmount(swapAmountString, _token0)!,
       routeToUse,
       TradeType.EXACT_INPUT,
@@ -370,11 +370,11 @@ export const X7SwapStateProvider: FC<X7SwapProviderProps> = ({ children }) => {
         },
       }
     )
-    if (route) {
-      setRoute(route)
+    if (newRoute) {
+      setRoute(newRoute)
     }
 
-    return route
+    return newRoute
   }
 
   // TODO: Monitor if this is ideal

@@ -113,8 +113,8 @@ export const TokenListContent: FC<TokenViewProps> = ({
 
   const pinnedTokens = useMemo(() => {
     return (pinnedTokenMap[chainId] ?? [])
-      .map((id: string) => {
-        const [, address]: string[] = id.split(":")
+      .map((tokenId: string) => {
+        const [, address]: string[] = tokenId.split(":")
         if (address === "NATIVE") {
           return Native.onChain(chainId)
         }

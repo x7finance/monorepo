@@ -85,7 +85,7 @@ export const DonutChart: React.FC<Props> = function ({
       item: Item,
       index: number
     ) => {
-      const { className, isEmpty, label, value } = item
+      const { className: itemClassName, isEmpty, label, value } = item
       const isSelected = selected?.label === label
       const isToggled = isSelected && toggleSelect
 
@@ -97,7 +97,7 @@ export const DonutChart: React.FC<Props> = function ({
             angle,
             index,
             ...item,
-            classNames: `${className ?? ""} ${isEmpty ? "empty" : ""} ${
+            classNames: `${itemClassName ?? ""} ${isEmpty ? "empty" : ""} ${
               isSelected ? "selected" : ""
             } ${isToggled ? "toggled" : ""}`.trim(),
             fill: isEmpty ? emptyColor : colorFunction(colors, index),
