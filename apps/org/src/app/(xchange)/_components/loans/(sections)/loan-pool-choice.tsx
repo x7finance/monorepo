@@ -52,12 +52,8 @@ export default function LoanPoolChoice(form: any) {
               defaultValue={field.value}
               className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4"
             >
-              {LOAN_POOL_OPTIONS.map((data, id) => (
-                <LoanPoolOption
-                  key={`${data.poolId}-${id}`}
-                  field={field}
-                  data={data}
-                />
+              {LOAN_POOL_OPTIONS.map((data) => (
+                <LoanPoolOption key={data.poolId} field={field} data={data} />
               ))}
             </RadioGroup>
           </FormControl>

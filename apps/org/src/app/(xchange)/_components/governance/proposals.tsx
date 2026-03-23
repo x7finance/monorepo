@@ -106,7 +106,7 @@ const Proposal = ({ proposal }: { proposal: Proposal }) => {
         <div className="flex flex-col">
           <p className="text-sm font-bold">Proposed Actions:</p>
           <div className="mx-2 flex flex-row items-center gap-1">
-            {proposal.actions.map((action: ProposalAction, index: number) => {
+            {proposal.actions.map((action: ProposalAction) => {
               const { functionName, args } = decodeFunctionData({
                 abi: GOVERNANCE_CONTRACTS[action.address]?.abi ?? X7R,
                 data: action.calldata,
@@ -114,7 +114,7 @@ const Proposal = ({ proposal }: { proposal: Proposal }) => {
 
               return (
                 <div
-                  key={`${action.address}-${index}`}
+                  key={`${action.address}-${action.calldata}`}
                   className="rounded-sm border bg-black/10 px-2 py-1 text-xs font-bold"
                 >
                   {GOVERNANCE_CONTRACTS[action.address]?.name ??
