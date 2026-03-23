@@ -4,8 +4,8 @@
 
 import type { CSSProperties, FC, ReactElement } from "react"
 import React, { useCallback } from "react"
-import AutoSizer from "react-virtualized-auto-sizer"
-import { FixedSizeList } from "react-window"
+import { AutoSizer } from "react-virtualized-auto-sizer"
+import { List } from "react-window"
 
 type RowCallback<_TData> = (row: {
   index: number
@@ -40,16 +40,14 @@ export function CurrencyList<TData>({
     <AutoSizer disableWidth className={className}>
       {({ height }: { height: number }) => {
         return (
-          <FixedSizeList
-            width="100%"
-            height={height}
-            itemCount={rowData.length}
-            itemSize={rowHeight ?? 48}
+          <List
+            style={{ width: "100%", overflow: "overlay" }}
+            defaultHeight={height}
+            rowCount={rowData.length}
+            rowHeight={rowHeight ?? 48}
             className="scrollbar rounded-lg bg-secondary"
-            style={{ overflow: "overlay" }}
-          >
-            {Row}
-          </FixedSizeList>
+            rowComponent={Row}
+          />
         )
       }}
     </AutoSizer>
