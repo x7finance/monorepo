@@ -95,7 +95,7 @@ export const ImplementationGroupTabbed = ({
 
           return (
             <span
-              key={`${route.poolAddresses.join("-")}-${i}`}
+              key={route.poolAddresses.join("-")}
               className={cn(
                 "relative flex w-full cursor-pointer flex-col border border-b-0 border-zinc-300 bg-white px-2 py-2 first:rounded-t-none last:rounded-b-lg last:border-b dark:border-zinc-700 dark:bg-black/40 dark:hover:bg-emerald-500/10",
                 highlighted ? "dark:bg-emerald-900/20" : ""

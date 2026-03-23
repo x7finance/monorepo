@@ -223,14 +223,9 @@ export const DonutChart: React.FC<Props> = function ({
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-zinc-200 bg-white dark:divide-zinc-800 dark:bg-zinc-900">
-                  {dataWithRenderProps.map(
-                    (item: ItemWithRenderProps, idx: number) => (
-                      <LegendItem
-                        key={`legenditem-${item.index}-${idx}`}
-                        item={item}
-                      />
-                    )
-                  )}
+                  {dataWithRenderProps.map((item: ItemWithRenderProps) => (
+                    <LegendItem key={`legenditem-${item.label}`} item={item} />
+                  ))}
                 </tbody>
               </table>
             </div>

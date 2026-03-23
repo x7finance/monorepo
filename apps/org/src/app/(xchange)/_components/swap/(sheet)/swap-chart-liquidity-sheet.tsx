@@ -56,12 +56,10 @@ export function SwapChartPanelLiquiditySheet({
             Reserves of your selected route.
             <div className="my-1">
               <Tag color="emerald" variant="large">
-                {path.map((token: any, index: number) => (
-                  <React.Fragment
-                    key={`${token.address ?? token.symbol}-${index}`}
-                  >
+                {path.map((token: any, tokenIdx: number) => (
+                  <React.Fragment key={token.address ?? token.symbol}>
                     {token.symbol}
-                    {index < path.length - 1 && "-"}
+                    {tokenIdx < path.length - 1 && "-"}
                   </React.Fragment>
                 ))}
               </Tag>
