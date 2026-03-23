@@ -139,12 +139,12 @@ export function PioneerDetails() {
 
   useEffect(() => {
     if (pioneerFetched) {
-      const walletBalance = pioneerData?.[0]?.result ?? 0
-      const poolBalance = (pioneerData?.[1]?.result as bigint) ?? 0n
-      const unlockFee = (pioneerData?.[2]?.result as bigint) ?? 0
-      setWalletBalance(Number(walletBalance))
-      setPoolBalance(parseFloat(formatEther(poolBalance)).toFixed(3))
-      setUnlockFee(parseFloat(formatEther(unlockFee)))
+      const newWalletBalance = pioneerData?.[0]?.result ?? 0
+      const newPoolBalance = (pioneerData?.[1]?.result as bigint) ?? 0n
+      const newUnlockFee = (pioneerData?.[2]?.result as bigint) ?? 0
+      setWalletBalance(Number(newWalletBalance))
+      setPoolBalance(parseFloat(formatEther(newPoolBalance)).toFixed(3))
+      setUnlockFee(parseFloat(formatEther(newUnlockFee)))
     }
   }, [pioneerData, pioneerFetched])
 

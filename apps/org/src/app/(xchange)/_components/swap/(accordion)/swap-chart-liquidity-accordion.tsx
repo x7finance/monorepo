@@ -17,10 +17,10 @@ export function SwapChartLiquidityAccordion({
 }: SwapChartLiquidityAccordionProps) {
   const protocol = route?.trade.swaps[0]?.route.protocol
   const pools = route?.trade.swaps[0]?.route.pools ?? []
-  const pair = route?.trade.swaps[0]?.route.pools[0] as Pair
-  const pool = route?.trade.swaps[0]?.route.pools[0] as Pool
+  const swapPair = route?.trade.swaps[0]?.route.pools[0] as Pair
+  const swapPool = route?.trade.swaps[0]?.route.pools[0] as Pool
 
-  const dex = protocol === Protocol.V2 ? pair.pairType : pool.poolType
+  const dex = protocol === Protocol.V2 ? swapPair.pairType : swapPool.poolType
 
   return (
     <>

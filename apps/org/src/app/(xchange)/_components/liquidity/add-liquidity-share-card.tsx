@@ -52,17 +52,17 @@ export const AddLiquidityStatCard: FC<AddLiquidityStatCard> = ({
     )
       return [undefined, undefined]
 
-    const token1Per0 = token1Input
+    const ratio1Per0 = token1Input
       .divide(token0Input)
       .multiply(10n ** BigInt(token0Input.currency.decimals))
       .toFixed(4)
 
-    const token0Per1 = token0Input
+    const ratio0Per1 = token0Input
       .divide(token1Input)
       .multiply(10n ** BigInt(token1Input.currency.decimals))
       .toFixed(4)
 
-    return [token1Per0, token0Per1]
+    return [ratio1Per0, ratio0Per1]
   }, [token0Input, token1Input])
 
   const poolShare = useMemo(() => {

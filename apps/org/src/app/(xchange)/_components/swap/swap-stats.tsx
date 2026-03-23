@@ -43,14 +43,14 @@ const implementationClassOverrides = {
 
 export const SimpleSwapTradeStats: FC = () => {
   const {
-    state: { swapAmountString, route, slippage },
+    state: { swapAmountString, route: swapRoute, slippage },
     loaders: { isQuoteLoading },
   } = useSwapState()
   const [showTradeChartPanelLiquidity, setShowTradeChartPanelLiquidity] =
     useTradeChartPanelLiquidity("tradeChartPanelLiquidity")
-  const loading = Boolean(isQuoteLoading && !route?.quote)
+  const loading = Boolean(isQuoteLoading && !swapRoute?.quote)
 
-  const { trade } = route ?? {}
+  const { trade } = swapRoute ?? {}
 
   const implementation = useMemo(() => {
     if (!trade?.routes[0]) {
@@ -72,7 +72,7 @@ export const SimpleSwapTradeStats: FC = () => {
     log.info(LogCodes.TRADE_ROUTES, trade.routes)
   }
 
-  if (+swapAmountString > 0 && !!route && !isQuoteLoading) {
+  if (+swapAmountString > 0 && !!swapRoute && !isQuoteLoading) {
     return (
       <div
         data-testid="trade-summary-details"
@@ -126,11 +126,11 @@ export const SimpleSwapTradeStats: FC = () => {
           label="Network fee"
           value={
             loading ||
-            !route?.estimatedGasUsed ||
-            route.estimatedGasUsed === "0" ? (
+            !swapRoute?.estimatedGasUsed ||
+            swapRoute.estimatedGasUsed === "0" ? (
               <SkeletonBox className="h-4 w-[120px] py-0.5" />
-            ) : route.estimatedGasUsedUSD ? (
-              `$${route.estimatedGasUsedUSD.toFixed(4)} USD`
+            ) : swapRoute.estimatedGasUsedUSD ? (
+              `$${swapRoute.estimatedGasUsedUSD.toFixed(4)} USD`
             ) : null
           }
         />
@@ -156,7 +156,7 @@ export const SimpleSwapTradeStats: FC = () => {
         <TradeStatRow
           label="Route"
           value={
-            loading || !route ? (
+            loading || !swapRoute ? (
               <SkeletonBox className="h-4 w-[40px] py-0.5" />
             ) : (
               <button
@@ -172,7 +172,7 @@ export const SimpleSwapTradeStats: FC = () => {
           }
         />
 
-        {route && <SwapTaxes route={route} />}
+        {swapRoute && <SwapTaxes route={swapRoute} />}
 
         {/* // TODO: re-enable if anyone would ever want to trade to another address */}
         {/* {recipient && isAddress(recipient) && (

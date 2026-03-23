@@ -84,7 +84,7 @@ function formatDateTime(
 
   futureDate.setTime(currentDate.getTime() + milliseconds)
 
-  const formatDateTime = (dateTime: Date) => {
+  const formatDate = (dateTime: Date) => {
     const day = dateTime.getUTCDate().toString().padStart(2, "0")
     const monthNames = [
       "Jan",
@@ -108,5 +108,5 @@ function formatDateTime(
     return `${month} ${day} ${year} ${hours}:${minutes}`
   }
 
-  return formatDateTime(futureDate)
+  return formatDate(futureDate)
 }

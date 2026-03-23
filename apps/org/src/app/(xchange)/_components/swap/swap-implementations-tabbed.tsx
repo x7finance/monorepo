@@ -72,7 +72,7 @@ export const ImplementationGroupTabbed = ({
         {(displayedRouteImplementation === bestRouteImplementaton
           ? (bestRoute?.routes.concat(routesToShow) ?? routesToShow)
           : routesToShow
-        ).map((route, i: number) => {
+        ).map((route, _i: number) => {
           const currentRouteimplementation =
             route.protocol === Protocol.V3
               ? (route.route.pools[0]?.poolType ?? Implementation.UNISWAP)

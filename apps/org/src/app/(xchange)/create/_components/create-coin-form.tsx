@@ -197,13 +197,11 @@ export function CreateCoinForm() {
       }
 
       writeContract(data.request)
-    } catch (error) {
+    } catch (err) {
       log.error(LogCodes.TX_FAIL, "Failed to deploy token", {
-        error: error instanceof Error ? error.message : String(error),
+        error: err instanceof Error ? err.message : String(err),
       })
-      toast.error(
-        error instanceof Error ? error.message : "Failed to deploy token"
-      )
+      toast.error(err instanceof Error ? err.message : "Failed to deploy token")
     }
   }
 
@@ -223,13 +221,13 @@ export function CreateCoinForm() {
 
         const cleanedTokenURI = tokenURI?.replace("ipfs://", "")
         form.setValue("tokenURI", cleanedTokenURI)
-      } catch (error) {
+      } catch (err) {
         toast.error("Failed to process image file")
         log.error(
           LogCodes.IPFS_UPLOAD_FAIL,
           "Failed to process image file for IPFS upload",
           {
-            error: error instanceof Error ? error.message : String(error),
+            error: err instanceof Error ? err.message : String(err),
           }
         )
       }
@@ -242,9 +240,9 @@ export function CreateCoinForm() {
       log.debug(LogCodes.UI_FORM_VALIDATION, "Form validation errors", {
         errors: Object.keys(formErrors),
       })
-      Object.entries(formErrors).forEach(([field, error]) => {
-        if (error.message) {
-          toast.error(`${field}: ${error.message}`)
+      Object.entries(formErrors).forEach(([field, fieldError]) => {
+        if (fieldError.message) {
+          toast.error(`${field}: ${fieldError.message}`)
         }
       })
     }
