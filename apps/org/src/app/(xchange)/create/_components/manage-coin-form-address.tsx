@@ -42,7 +42,7 @@ const formSchema = z.object({
 })
 
 const getScannerLink = (chainId: ChainId): string | undefined => {
-  const chain = ChainsArray.find((chain) => chain.id === chainId)
+  const chain = ChainsArray.find((c) => c.id === chainId)
   return chain ? chain.scannerLink : undefined
 }
 

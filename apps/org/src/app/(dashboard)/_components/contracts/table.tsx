@@ -1,27 +1,28 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 
-import { cn } from "@x7/css";
-import { X7ContractsEnum } from "@x7/sdk";
-import { buttonVariants } from "@x7/ui/button";
-import { ContractCopy } from "@x7/ui/contract-copy";
-import { LinkExternal, LinkInternal } from "@x7/ui/link";
-import { StaticTable } from "@x7/ui/static-table";
-import type { ChainId } from "@x7/utils";
-import { generateChainIdentifier } from "@x7/utils";
+import { cn } from "@x7/css"
+import { X7ContractsEnum } from "@x7/sdk"
+import { buttonVariants } from "@x7/ui/button"
+import { ContractCopy } from "@x7/ui/contract-copy"
+import { LinkExternal, LinkInternal } from "@x7/ui/link"
+import { StaticTable } from "@x7/ui/static-table"
+import type { ChainId } from "@x7/utils"
+import { generateChainIdentifier } from "@x7/utils"
+import { ChainsArray } from "~/lib/components/utils/contracts-dropdown"
 
-import { ChainsArray } from "~/lib/components/utils/contracts-dropdown";
-import { DashboardContainer } from "../../_components/dashboard-container";
-import { DashboardSubheader } from "../../_components/dashboard-subheader";
-import { Configuration } from "./configuration";
+import { DashboardContainer } from "../../_components/dashboard-container"
+import { DashboardSubheader } from "../../_components/dashboard-subheader"
+
+import { Configuration } from "./configuration"
 
 interface ContractsTableProps {
-  chainId: ChainId;
+  chainId: ChainId
 }
 
 const getScannerLink = (chainId: ChainId): string | undefined => {
-  const chain = ChainsArray.find((chain) => chain.id === chainId);
-  return chain ? chain.scannerLink : undefined;
-};
+  const chain = ChainsArray.find((c) => c.id === chainId)
+  return chain ? chain.scannerLink : undefined
+}
 
 export function ContractsTable({ chainId }: ContractsTableProps) {
   return (
@@ -46,7 +47,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                             <div className="flex shrink-0 space-x-1">
                               <LinkExternal
                                 href={`https://www.dextools.io/app/en/${generateChainIdentifier(
-                                  chainId,
+                                  chainId
                                 )}/pair-explorer/${t.contract}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
@@ -65,7 +66,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                               buttonVariants({
                                 variant: "default",
                                 size: "xs",
-                              }),
+                              })
                             )}
                           >
                             Trade
@@ -115,7 +116,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                         <div className="flex shrink-0 space-x-1">
                           <LinkExternal
                             href={`https://www.dextools.io/app/en/${generateChainIdentifier(
-                              chainId,
+                              chainId
                             )}/pair-explorer/${t.contract}`}
                             target="_blank"
                             rel="noopener noreferrer"
@@ -123,7 +124,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                               buttonVariants({
                                 variant: "outline",
                                 size: "xs",
-                              }),
+                              })
                             )}
                           >
                             Chart
@@ -147,7 +148,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                           buttonVariants({
                             variant: "outline",
                             size: "xs",
-                          }),
+                          })
                         )}
                       >
                         Scan
@@ -168,7 +169,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                         buttonVariants({
                           variant: "outline",
                           size: "xs",
-                        }),
+                        })
                       )}
                     >
                       Learn more
@@ -191,7 +192,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                             buttonVariants({
                               variant: "default",
                               size: "xs",
-                            }),
+                            })
                           )}
                         >
                           Trade
@@ -230,7 +231,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                               buttonVariants({
                                 variant: "outline",
                                 size: "xs",
-                              }),
+                              })
                             )}
                           >
                             Learn More
@@ -278,7 +279,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                           buttonVariants({
                             variant: "outline",
                             size: "xs",
-                          }),
+                          })
                         )}
                       >
                         Scan
@@ -299,7 +300,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                         buttonVariants({
                           variant: "outline",
                           size: "xs",
-                        }),
+                        })
                       )}
                     >
                       Learn more
@@ -322,7 +323,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                             buttonVariants({
                               variant: "default",
                               size: "xs",
-                            }),
+                            })
                           )}
                         >
                           Mint
@@ -361,7 +362,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                               buttonVariants({
                                 variant: "outline",
                                 size: "xs",
-                              }),
+                              })
                             )}
                           >
                             Learn More
@@ -409,7 +410,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                           buttonVariants({
                             variant: "outline",
                             size: "xs",
-                          }),
+                          })
                         )}
                       >
                         Scan
@@ -430,7 +431,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                         buttonVariants({
                           variant: "outline",
                           size: "xs",
-                        }),
+                        })
                       )}
                     >
                       Learn more
@@ -467,7 +468,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                               buttonVariants({
                                 variant: "outline",
                                 size: "xs",
-                              }),
+                              })
                             )}
                           >
                             Learn More
@@ -515,7 +516,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                           buttonVariants({
                             variant: "outline",
                             size: "xs",
-                          }),
+                          })
                         )}
                       >
                         Scan
@@ -536,7 +537,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                         buttonVariants({
                           variant: "outline",
                           size: "xs",
-                        }),
+                        })
                       )}
                     >
                       Learn more
@@ -573,7 +574,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                               buttonVariants({
                                 variant: "outline",
                                 size: "xs",
-                              }),
+                              })
                             )}
                           >
                             Learn More
@@ -621,7 +622,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                           buttonVariants({
                             variant: "outline",
                             size: "xs",
-                          }),
+                          })
                         )}
                       >
                         Scan
@@ -642,7 +643,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                         buttonVariants({
                           variant: "outline",
                           size: "xs",
-                        }),
+                        })
                       )}
                     >
                       Learn more
@@ -679,7 +680,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                               buttonVariants({
                                 variant: "default",
                                 size: "xs",
-                              }),
+                              })
                             )}
                           >
                             Scan
@@ -727,7 +728,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                           buttonVariants({
                             variant: "outline",
                             size: "xs",
-                          }),
+                          })
                         )}
                       >
                         Scan
@@ -748,7 +749,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                         buttonVariants({
                           variant: "outline",
                           size: "xs",
-                        }),
+                        })
                       )}
                     >
                       Learn more
@@ -784,7 +785,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                               buttonVariants({
                                 variant: "outline",
                                 size: "xs",
-                              }),
+                              })
                             )}
                           >
                             Learn More
@@ -832,7 +833,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                           buttonVariants({
                             variant: "outline",
                             size: "xs",
-                          }),
+                          })
                         )}
                       >
                         Scan
@@ -853,7 +854,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                         buttonVariants({
                           variant: "outline",
                           size: "xs",
-                        }),
+                        })
                       )}
                     >
                       Learn more
@@ -890,7 +891,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                               buttonVariants({
                                 variant: "outline",
                                 size: "xs",
-                              }),
+                              })
                             )}
                           >
                             Learn More
@@ -938,7 +939,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                           buttonVariants({
                             variant: "outline",
                             size: "xs",
-                          }),
+                          })
                         )}
                       >
                         Scan
@@ -952,7 +953,7 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
         </DashboardContainer>
       </div>
     </>
-  );
+  )
 }
 
 function tokens(chainId: ChainId) {
@@ -999,7 +1000,7 @@ function tokens(chainId: ChainId) {
       description: "Fifth of the price consistent constellation tokens",
       breakdown: "x7100tokencontract",
     },
-  ];
+  ]
 }
 
 function utilityTokens(chainId: ChainId) {
@@ -1010,7 +1011,7 @@ function utilityTokens(chainId: ChainId) {
       description: `When adding funds to the lending pool, X7D is minted - it's value is pegged 1:1 to the native chain currency`,
       breakdown: "x7d",
     },
-  ];
+  ]
 }
 
 function liquidityHubs(chainId: ChainId) {
@@ -1033,7 +1034,7 @@ function liquidityHubs(chainId: ChainId) {
       description: "Liquidity hub for X7100 - constellation tokens",
       breakdown: "x7100liquidityhub",
     },
-  ];
+  ]
 }
 
 function discountAuthorities(chainId: ChainId) {
@@ -1068,7 +1069,7 @@ function discountAuthorities(chainId: ChainId) {
       description: "Smart Contract for calculating lending discounts",
       breakdown: "x7lendingdiscountauthority",
     },
-  ];
+  ]
 }
 
 function splitters(chainId: ChainId) {
@@ -1092,7 +1093,7 @@ function splitters(chainId: ChainId) {
       description: "Smart contract managing liquidation of accured LP tokens",
       breakdown: "x7liquiditytreasury",
     },
-  ];
+  ]
 }
 
 function misc(chainId: ChainId) {
@@ -1123,7 +1124,7 @@ function misc(chainId: ChainId) {
         "Smart Contract for minting and redeeming X7D and funding the Lending Pool with ETH.",
       breakdown: "x7lendingpoolreserve",
     },
-  ];
+  ]
 }
 
 function xchange(chainId: ChainId) {
@@ -1142,7 +1143,7 @@ function xchange(chainId: ChainId) {
         "Uniswap v2 Fork - this contract includes functionality to remove liquidity in a failsafe manner to permit liquidation of fee liquidity in all cases.",
       breakdown: "xchangepair",
     },
-  ];
+  ]
 }
 
 function nft(chainId: ChainId) {
@@ -1178,5 +1179,5 @@ function nft(chainId: ChainId) {
         "A high value tradable NFT that gives unique X7DAO voting privileges",
       breakdown: "magister",
     },
-  ];
+  ]
 }
