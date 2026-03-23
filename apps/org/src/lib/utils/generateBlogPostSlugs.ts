@@ -12,7 +12,7 @@ export async function generateBlogPostSlugs() {
     const endIndex = postPath.lastIndexOf(".md")
     const sourceFilePath = postPath.substring(startIndex, endIndex)
 
-    const slug = sourceFilePath.split("/").filter((slug) => slug !== "")
+    const slug = sourceFilePath.split("/").filter((part) => part !== "")
 
     return { slug, locale: "en" }
   })

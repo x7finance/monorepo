@@ -57,10 +57,8 @@ export function Search({ isMobile = false }) {
   })
 
   useEffect(() => {
-    const modifierKey = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)
-      ? "⌘"
-      : "K"
-    setModifierKey(modifierKey)
+    const key = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform) ? "⌘" : "K"
+    setModifierKey(key)
   }, [])
 
   return (

@@ -34,10 +34,10 @@ export const queryFnUseBalances = async ({
   const [validatedTokens, validatedTokenAddresses] = currencies.reduce<
     [Token[], Address[]]
   >(
-    (acc, currencies) => {
-      if (chainId && currencies && isAddress(currencies.wrapped.address)) {
-        acc[0].push(currencies.wrapped)
-        acc[1].push(currencies.wrapped.address)
+    (acc, currency) => {
+      if (chainId && currency && isAddress(currency.wrapped.address)) {
+        acc[0].push(currency.wrapped)
+        acc[1].push(currency.wrapped.address)
       }
 
       return acc

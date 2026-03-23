@@ -105,8 +105,10 @@ export const useTokenApproval = ({
             completed: `Successfully approved ${amount.currency.symbol}`,
             failed: `Something went wrong approving ${amount.currency.symbol}`,
           },
-          onFail: (e) => {
-            log.error(LogCodes.APPROVAL_FAIL, "Failed to approve token", { e })
+          onFail: (err) => {
+            log.error(LogCodes.APPROVAL_FAIL, "Failed to approve token", {
+              e: err,
+            })
           },
         })
       }
