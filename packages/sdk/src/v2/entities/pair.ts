@@ -42,8 +42,6 @@ export const computePairAddress = ({
     : [tokenB, tokenA] // does safety checks
 
   if (pairType === Implementation.AERODROME) {
-    const chainIdFromToken = tokenA.chainId
-
     const prefix = "0x3d602d80600a3d3981f3363d3d373d3d3d363d73"
     const suffix = "5af43d82803e903d91602b57fd5bf3"
     const cleanImplementation = "a4e46b4f701c62e14df11b48dce76a7d793cd6d7"

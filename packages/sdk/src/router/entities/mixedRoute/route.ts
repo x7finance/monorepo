@@ -78,15 +78,15 @@ export class MixedRouteSDK<TInput extends Currency, TOutput extends Currency> {
     if (this._midPrice !== null) return this._midPrice
 
     const price = this.pools.slice(1).reduce(
-      ({ nextInput, price }, pool) => {
+      ({ nextInput, price: accPrice }, pool) => {
         return nextInput?.equals(pool.token0)
           ? {
               nextInput: pool.token1,
-              price: price?.multiply(pool.token0Price),
+              price: accPrice?.multiply(pool.token0Price),
             }
           : {
               nextInput: pool.token0,
-              price: price?.multiply(pool.token1Price),
+              price: accPrice?.multiply(pool.token1Price),
             }
       },
       this.pools[0]?.token0.equals(this.input.wrapped)

@@ -775,8 +775,8 @@ export abstract class SwapRouter {
     }
 
     const numberOfTrades = trades.reduce(
-      (numberOfTrades, trade) =>
-        numberOfTrades +
+      (count, trade) =>
+        count +
         (trade instanceof V3Trade || trade instanceof MixedRouteTrade
           ? trade.swaps.length
           : 1),
