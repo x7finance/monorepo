@@ -1,4 +1,3 @@
-/* oxlint-disable @typescript-eslint/no-unused-vars */
 import { getAddress } from "viem"
 
 /**
@@ -9,6 +8,6 @@ export function validateAndParseAddress(address: string): `0x${string}` {
   try {
     return getAddress(address)
   } catch (error) {
-    throw new Error(`${address} is not a valid address.`)
+    throw new Error(`${address} is not a valid address.`, { cause: error })
   }
 }

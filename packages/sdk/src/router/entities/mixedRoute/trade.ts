@@ -279,8 +279,8 @@ export class MixedRouteTrade<
       }
 
       // @ts-expect-error: todo fix
-      const [outputAmount] = await pool.getOutputAmount(amounts[i])
-      amounts[i + 1] = outputAmount
+      const [poolOutput] = await pool.getOutputAmount(amounts[i])
+      amounts[i + 1] = poolOutput
     }
     inputAmount = CurrencyAmount.fromFractionalAmount(
       route.input,
@@ -357,8 +357,8 @@ export class MixedRouteTrade<
           throw new Error("POOL")
         }
         // @ts-expect-error: todo fix
-        const [outputAmount] = await pool.getOutputAmount(amounts[i])
-        amounts[i + 1] = outputAmount
+        const [poolOutput] = await pool.getOutputAmount(amounts[i])
+        amounts[i + 1] = poolOutput
       }
 
       outputAmount = CurrencyAmount.fromFractionalAmount(

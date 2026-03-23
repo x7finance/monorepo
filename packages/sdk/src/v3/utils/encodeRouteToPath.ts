@@ -19,27 +19,27 @@ export function encodeRouteToPath(
   const { path, types } = route.pools.reduce(
     (
       {
-        inputToken,
-        path,
-        types,
+        inputToken: accInputToken,
+        path: accPath,
+        types: accTypes,
       }: { inputToken: Token; path: (string | number)[]; types: string[] },
       pool: Pool,
       index
     ): { inputToken: Token; path: (string | number)[]; types: string[] } => {
-      const outputToken: Token = pool.token0.equals(inputToken)
+      const outputToken: Token = pool.token0.equals(accInputToken)
         ? pool.token1
         : pool.token0
       if (index === 0) {
         return {
           inputToken: outputToken,
           types: ["address", "uint24", "address"],
-          path: [inputToken.address, pool.fee, outputToken.address],
+          path: [accInputToken.address, pool.fee, outputToken.address],
         }
       } else {
         return {
           inputToken: outputToken,
-          types: [...types, "uint24", "address"],
-          path: [...path, pool.fee, outputToken.address],
+          types: [...accTypes, "uint24", "address"],
+          path: [...accPath, pool.fee, outputToken.address],
         }
       }
     },

@@ -321,8 +321,8 @@ export class TradeV3<
           throw new Error("Pool not found")
         }
 
-        const [outputAmount] = await pool.getOutputAmount(amounts[i]!)
-        amounts[i + 1] = outputAmount
+        const [poolOutput] = await pool.getOutputAmount(amounts[i]!)
+        amounts[i + 1] = poolOutput
       }
       inputAmount = CurrencyAmount.fromFractionalAmount(
         route.input,
@@ -342,8 +342,8 @@ export class TradeV3<
         if (!pool) {
           throw new Error("Pool not found")
         }
-        const [inputAmount] = await pool.getInputAmount(amounts[i]!)
-        amounts[i - 1] = inputAmount
+        const [poolInput] = await pool.getInputAmount(amounts[i]!)
+        amounts[i - 1] = poolInput
       }
       inputAmount = CurrencyAmount.fromFractionalAmount(
         route.input,
@@ -415,8 +415,8 @@ export class TradeV3<
           if (!pool) {
             throw new Error("Pool not found")
           }
-          const [outputAmount] = await pool.getOutputAmount(amounts[i]!)
-          amounts[i + 1] = outputAmount
+          const [poolOutput] = await pool.getOutputAmount(amounts[i]!)
+          amounts[i + 1] = poolOutput
         }
 
         outputAmount = CurrencyAmount.fromFractionalAmount(
@@ -442,8 +442,8 @@ export class TradeV3<
           if (!pool) {
             throw new Error("Pool not found")
           }
-          const [inputAmount] = await pool.getInputAmount(amounts[i]!)
-          amounts[i - 1] = inputAmount
+          const [poolInput] = await pool.getInputAmount(amounts[i]!)
+          amounts[i - 1] = poolInput
         }
 
         inputAmount = CurrencyAmount.fromFractionalAmount(

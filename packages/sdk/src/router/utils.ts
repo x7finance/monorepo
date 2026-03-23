@@ -47,13 +47,13 @@ export const getOutputOfPools = (
   firstInputToken: Token
 ): Token => {
   const { inputToken: outputToken } = pools.reduce(
-    ({ inputToken }, pool: Pool | Pair): { inputToken: Token } => {
-      if (!pool.involvesToken(inputToken)) throw new Error("PATH")
-      const outputToken: Token = pool.token0.equals(inputToken)
+    ({ inputToken: accToken }, pool: Pool | Pair): { inputToken: Token } => {
+      if (!pool.involvesToken(accToken)) throw new Error("PATH")
+      const nextToken: Token = pool.token0.equals(accToken)
         ? pool.token1
         : pool.token0
       return {
-        inputToken: outputToken,
+        inputToken: nextToken,
       }
     },
     { inputToken: firstInputToken }

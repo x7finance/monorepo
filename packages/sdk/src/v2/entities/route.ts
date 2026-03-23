@@ -39,10 +39,10 @@ export class RouteV2<TInput extends Currency, TOutput extends Currency> {
       //   currentInput.equals(pair.token0) || currentInput.equals(pair.token1),
       //   "PATH",
       // );
-      const output = currentInput?.equals(pair.token0)
+      const pairOutput = currentInput?.equals(pair.token0)
         ? pair.token1
         : pair.token0
-      path.push(output)
+      path.push(pairOutput)
     }
 
     this.pairs = pairs

@@ -23,14 +23,14 @@ export function encodeMixedRouteToPath(
   const { path, types } = route.pools.reduce(
     (
       {
-        inputToken,
-        path,
-        types,
+        inputToken: accInputToken,
+        path: accPath,
+        types: accTypes,
       }: { inputToken: Token; path: (string | number)[]; types: string[] },
       pool: Pool | Pair,
       index
     ): { inputToken: Token; path: (string | number)[]; types: string[] } => {
-      const outputToken: Token = pool.token0.equals(inputToken)
+      const outputToken: Token = pool.token0.equals(accInputToken)
         ? pool.token1
         : pool.token0
       if (index === 0) {
@@ -38,7 +38,7 @@ export function encodeMixedRouteToPath(
           inputToken: outputToken,
           types: ["address", "uint24", "address"],
           path: [
-            inputToken.address,
+            accInputToken.address,
             pool instanceof Pool ? pool.fee : V2_FEE_PATH_PLACEHOLDER,
             outputToken.address,
           ],
@@ -46,9 +46,9 @@ export function encodeMixedRouteToPath(
       } else {
         return {
           inputToken: outputToken,
-          types: [...types, "uint24", "address"],
+          types: [...accTypes, "uint24", "address"],
           path: [
-            ...path,
+            ...accPath,
             pool instanceof Pool ? pool.fee : V2_FEE_PATH_PLACEHOLDER,
             outputToken.address,
           ],
