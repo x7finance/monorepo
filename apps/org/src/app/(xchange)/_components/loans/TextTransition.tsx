@@ -58,10 +58,10 @@ function TextTransition(props: PropsWithChildren<TextTransitionProps>) {
     // If element doesn't exist, then do nothing
     if (!element) return
 
-    const { width, height } = element.getBoundingClientRect()
+    const rect = element.getBoundingClientRect()
 
-    setWidth(width)
-    heightRef.current = height
+    setWidth(rect.width)
+    heightRef.current = rect.height
   }, [children, setWidth, currentRef])
 
   const widthTransition = useSpring({
