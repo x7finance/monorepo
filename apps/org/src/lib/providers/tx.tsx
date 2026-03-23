@@ -2,7 +2,7 @@ import { waitForTransactionReceipt } from "@wagmi/core"
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 import type { FC } from "react"
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useContext, useEffect, useMemo, useState } from "react"
 import { useAccount, useChainId } from "wagmi"
 
 import type { NotificationType, ResolvedNotification } from "@x7/dexie"
@@ -120,14 +120,17 @@ export const TransactionStoreProvider: FC<TransactionStoreProviderProps> = ({
     // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, [notifications])
 
-  const builtState = {
-    state: {
-      notifications: notifications!,
-    },
-    mutate: {
-      trackTransaction,
-    },
-  }
+  const builtState = useMemo(
+    () => ({
+      state: {
+        notifications: notifications!,
+      },
+      mutate: {
+        trackTransaction,
+      },
+    }),
+    [notifications, trackTransaction]
+  )
 
   return (
     <TransactionStoreContext.Provider value={builtState}>

@@ -105,8 +105,28 @@ export const AlphaRouterProvider: FC<AlphaRouterProviderProps> = ({
     return null
   }, [realChain, _enabledImplementations])
 
-  const builtState: AlphaRouterState = {
-    state: {
+  const builtState: AlphaRouterState = useMemo(
+    () => ({
+      state: {
+        router,
+        bestRoute,
+        secondaryRoute,
+        possibleRoutes,
+        enabledImplementations,
+        isChainIdSettled,
+        debouncedChainId,
+      },
+      mutate: {
+        addPossibleRoutes,
+        setBestRoute,
+        setSecondaryRoute: (route: typeof secondaryRoute) =>
+          setSecondaryRoute(route),
+        clearPossibleRoutes,
+        setPossibleRoutes: (routes: typeof possibleRoutes | undefined) =>
+          setPossibleRoutes(routes ?? []),
+      },
+    }),
+    [
       router,
       bestRoute,
       secondaryRoute,
@@ -114,15 +134,11 @@ export const AlphaRouterProvider: FC<AlphaRouterProviderProps> = ({
       enabledImplementations,
       isChainIdSettled,
       debouncedChainId,
-    },
-    mutate: {
       addPossibleRoutes,
       setBestRoute,
-      setSecondaryRoute: (route) => setSecondaryRoute(route),
       clearPossibleRoutes,
-      setPossibleRoutes: (routes) => setPossibleRoutes(routes ?? []),
-    },
-  }
+    ]
+  )
 
   return (
     <AlphaRouterContext.Provider value={builtState}>
