@@ -407,11 +407,11 @@ export class TokenProvider implements ITokenProvider {
           functionName: "symbol",
           providerConfig,
         })
-    } catch (error) {
+    } catch (err) {
       log.error(
         LogCodes.TOKEN_FETCH_ERROR,
-        `TokenProvider.getTokenSymbol[string] failed with error ${error}. Trying with bytes32.`,
-        { error },
+        `TokenProvider.getTokenSymbol[string] failed with error ${err}. Trying with bytes32.`,
+        { error: err },
         { addresses }
       )
 

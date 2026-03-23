@@ -22,8 +22,8 @@ export const routeAmountsToString = (
 ): string => {
   const total = _.reduce(
     routeAmounts,
-    (total: CurrencyAmount, cur: RouteWithValidQuoteMinimal) => {
-      return total.add(cur.amount)
+    (acc: CurrencyAmount, cur: RouteWithValidQuoteMinimal) => {
+      return acc.add(cur.amount)
     },
     CurrencyAmount.fromRawAmount(routeAmounts[0]!.amount.currency, 0)
   )
