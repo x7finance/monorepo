@@ -92,8 +92,8 @@ export function DocsBase(props: DocsBaseProps) {
                     </div>
                   )}
                   {!!tags?.length &&
-                    tags.map((tag: string, key: number) => {
-                      return <code key={`${tag}-${key}`}>{tag}</code>
+                    tags.map((tag: string) => {
+                      return <code key={tag}>{tag}</code>
                     })}
                   {title && <h1>{title}</h1>}
                   {date && (

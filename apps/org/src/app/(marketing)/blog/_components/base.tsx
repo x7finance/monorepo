@@ -50,10 +50,10 @@ export function BlogBase(props: BlogBaseProps) {
                 <header className="mb-6 space-y-1 sm:mb-9 md:mx-auto lg:mx-0">
                   {!!tags?.length && (
                     <div className="mb-6 flex flex-wrap items-center space-x-2">
-                      {tags.map((tag: string, key: number) => {
+                      {tags.map((tag: string) => {
                         return (
                           <div
-                            key={`${tag}-${key}`}
+                            key={tag}
                             className="inline-block rounded-3xl bg-linear-to-r from-yellow-600/30 to-red-600/30 px-4 py-1 shadow-xs"
                           >
                             <span className="font-semibold text-zinc-600 dark:text-zinc-300">

@@ -27,11 +27,11 @@ export const MixedImplementationDisplay: FC<
 
   return (
     <div className="flex items-center space-x-1">
-      {pools.map((pool, index) => (
+      {pools.map((pool, poolIdx) => (
         <Fragment
-          key={`${pool.token0.address}-${pool.token1.address}-${index}`}
+          key={`${pool.token0.address}-${pool.token1.address}-${poolIdx}`}
         >
-          {index > 0 && <span className="text-xs">→</span>}
+          {poolIdx > 0 && <span className="text-xs">→</span>}
           <ImplementationIcon
             implementation={pool.poolType}
             classNameOverrides={implementationClassOverrides}

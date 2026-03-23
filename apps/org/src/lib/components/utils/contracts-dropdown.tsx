@@ -110,9 +110,9 @@ export function Dropdown({
         className="text-foreground relative w-40 bg-zinc-100 dark:bg-zinc-900"
       >
         <DropdownMenuGroup className="text-muted-foreground">
-          {ChainsArray.map((c, id) => {
+          {ChainsArray.map((c) => {
             return (
-              <DropdownMenuItem asChild key={`${id}-${type}-${c.scanner}`}>
+              <DropdownMenuItem asChild key={`${type}-${c.scanner}`}>
                 <Link
                   prefetch={true}
                   rel="noopener noreferrer"
