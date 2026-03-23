@@ -24,7 +24,7 @@ import { LinkExternal } from "../link"
 import { SkeletonText } from "../skeleton"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../tooltip"
 
-export interface TokenViewRow {
+export interface TokenViewRowProps {
   id: string
   account?: `0x${string}`
   currency: CurrencyType
@@ -42,7 +42,7 @@ export interface TokenViewRow {
   isBalanceLoading: boolean
 }
 
-export const TokenViewRow: FC<TokenViewRow> = memo(function TokenViewRow({
+export const TokenViewRow: FC<TokenViewRowProps> = memo(function TokenViewRow({
   price,
   balance,
   currency,

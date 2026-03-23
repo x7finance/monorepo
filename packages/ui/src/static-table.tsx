@@ -28,7 +28,7 @@ export const StaticTable: FC<StaticTableProps> = ({ data, columns }) => {
         <tr>
           {columns.map((column, index) => (
             <th
-              key={`${column.header}-${index}`}
+              key={column.header}
               {...(column.width && index === 0 ? { width: column.width } : {})}
               className={cn(
                 column.responsive ? "hidden lg:table-cell" : "",
@@ -47,7 +47,14 @@ export const StaticTable: FC<StaticTableProps> = ({ data, columns }) => {
       </thead>
       <tbody className="x-body">
         {data.map((row, index) => (
-          <tr className="border-none" key={`${index}-static-table`}>
+          <tr
+            className="border-none"
+            key={
+              columns[0]?.accessor
+                ? String(row[columns[0].accessor])
+                : String(row[Object.keys(row)[0] ?? ""])
+            }
+          >
             {columns.map((column, colIndex) => (
               <td
                 key={column.accessor}

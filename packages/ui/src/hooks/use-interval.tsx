@@ -30,7 +30,7 @@ export function useInterval(
       }
     }
 
-    async function tick(delay: number, skip = false) {
+    async function tick(interval: number, skip = false) {
       if (!skip) {
         const promise = callback()
 
@@ -39,7 +39,7 @@ export function useInterval(
       }
 
       // oxlint-disable-next-line @typescript-eslint/no-misused-promises
-      timeout = setTimeout(() => tick(delay), delay)
+      timeout = setTimeout(() => tick(interval), interval)
     }
   }, [callback, delay, leading])
 }

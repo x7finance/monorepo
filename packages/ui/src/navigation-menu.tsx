@@ -30,11 +30,13 @@ function NavigationMenu({
   viewport?: boolean
 }) {
   const [activeItem, setActiveItem] = React.useState<string | null>(null)
+  const contextValue = React.useMemo(
+    () => ({ viewport, activeItem, setActiveItem }),
+    [viewport, activeItem]
+  )
 
   return (
-    <NavigationMenuContext.Provider
-      value={{ viewport, activeItem, setActiveItem }}
-    >
+    <NavigationMenuContext.Provider value={contextValue}>
       <nav
         data-slot="navigation-menu"
         data-viewport={viewport}

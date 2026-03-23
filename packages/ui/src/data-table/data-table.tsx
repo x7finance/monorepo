@@ -145,22 +145,20 @@ export function DataTable<TData, TValue>({
         </TableHeader>
         <TableBody>
           {loading ? (
-            Array.from({ length: 3 })
-              .fill(null)
-              .map((_, i) => (
-                <TableRow key={`skeleton-row-${i}`}>
-                  {table.getVisibleFlatColumns().map((column, _i) => {
-                    return (
-                      <TableCell
-                        style={{ width: column.getSize() }}
-                        key={column.id}
-                      >
-                        {column.columnDef.meta?.skeleton}
-                      </TableCell>
-                    )
-                  })}
-                </TableRow>
-              ))
+            ["skeleton-a", "skeleton-b", "skeleton-c"].map((skeletonKey) => (
+              <TableRow key={skeletonKey}>
+                {table.getVisibleFlatColumns().map((column, _i) => {
+                  return (
+                    <TableCell
+                      style={{ width: column.getSize() }}
+                      key={column.id}
+                    >
+                      {column.columnDef.meta?.skeleton}
+                    </TableCell>
+                  )
+                })}
+              </TableRow>
+            ))
           ) : table.getRowModel().rows.length ? (
             table.getRowModel().rows.map((row) => {
               const _row = (

@@ -71,8 +71,8 @@ const ChipInput: FC<ChipInputProps> = ({
     return str.split(regExp).filter((el) => el !== "")
   }
 
-  const sync = (values: string[]) =>
-    startTransition(() => onValueChange(values))
+  const sync = (newValues: string[]) =>
+    startTransition(() => onValueChange(newValues))
 
   const onKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (!ref.current) return

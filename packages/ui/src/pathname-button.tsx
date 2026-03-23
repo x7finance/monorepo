@@ -14,7 +14,7 @@ interface PathnameButton extends Omit<ButtonProps, "variant"> {
 }
 
 const PathnameButton = forwardRef<HTMLButtonElement, PathnameButton>(
-  ({ pathname, pathSelector, activeTab, defaultTab, ...props }) => {
+  ({ pathname, pathSelector, activeTab, defaultTab, ...props }, ref) => {
     const _pathname = usePathname()
     const params = useSearchParams()
 
@@ -24,6 +24,7 @@ const PathnameButton = forwardRef<HTMLButtonElement, PathnameButton>(
 
     return (
       <Button
+        ref={ref}
         {...props}
         className="border-0"
         variant={isActive ? "default" : "ghost"}

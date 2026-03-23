@@ -159,7 +159,7 @@ interface ButtonContentProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const ButtonContent = React.forwardRef<HTMLDivElement, ButtonContentProps>(
-  function Button({ asChild, children, ...props }, ref) {
+  function ButtonContentInner({ asChild, children, ...props }, ref) {
     if (asChild) {
       return (
         <div className="inline-flex gap-1" ref={ref} {...props}>
