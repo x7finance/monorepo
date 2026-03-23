@@ -19,13 +19,13 @@
 
 ### Key Metrics
 
-| Metric | Value |
-|--------|-------|
-| Total Profit (testnet) | X ETH |
-| Success Rate | X% |
-| Avg Profit per Trade | X ETH |
-| Total Transactions | X |
-| Gas Efficiency | X gas per trade |
+| Metric                 | Value           |
+| ---------------------- | --------------- |
+| Total Profit (testnet) | X ETH           |
+| Success Rate           | X%              |
+| Avg Profit per Trade   | X ETH           |
+| Total Transactions     | X               |
+| Gas Efficiency         | X gas per trade |
 
 ---
 
@@ -70,11 +70,11 @@ YourStrategy.sol
 
 ### Dependencies
 
-| Contract | Address | Purpose |
-|----------|---------|---------|
-| ClawLendFlashLoan | 0x... | Flash loan source |
-| DEX Router | 0x... | Trading |
-| Price Oracle | 0x... | Price data |
+| Contract          | Address | Purpose           |
+| ----------------- | ------- | ----------------- |
+| ClawLendFlashLoan | 0x...   | Flash loan source |
+| DEX Router        | 0x...   | Trading           |
+| Price Oracle      | 0x...   | Price data        |
 
 ---
 
@@ -113,10 +113,10 @@ YourStrategy.sol    |   95.2% |    88.9% |   100%  |   94.1% | 142-145
 
 **Period:** [Start date] to [End date]
 
-| Date | Trades | Profit | Gas Used | Notes |
-|------|--------|--------|----------|-------|
-| 2026-02-XX | 5 | 0.05 ETH | 1.2M | [Notes] |
-| 2026-02-XX | 8 | 0.08 ETH | 1.8M | [Notes] |
+| Date       | Trades | Profit   | Gas Used | Notes   |
+| ---------- | ------ | -------- | -------- | ------- |
+| 2026-02-XX | 5      | 0.05 ETH | 1.2M     | [Notes] |
+| 2026-02-XX | 8      | 0.08 ETH | 1.8M     | [Notes] |
 
 ### Profitability Analysis
 
@@ -139,8 +139,8 @@ YourStrategy.sol    |   95.2% |    88.9% |   100%  |   94.1% | 142-145
 
 ### Strategy Risks
 
-| Risk | Likelihood | Impact | Mitigation |
-|------|------------|--------|------------|
+| Risk     | Likelihood   | Impact       | Mitigation          |
+| -------- | ------------ | ------------ | ------------------- |
 | [Risk 1] | Low/Med/High | Low/Med/High | [How you handle it] |
 | [Risk 2] | Low/Med/High | Low/Med/High | [How you handle it] |
 
@@ -208,10 +208,10 @@ your-agent/
 
 ### Contract Addresses
 
-| Contract | Network | Address | Verified |
-|----------|---------|---------|----------|
-| YourStrategy | Base Sepolia | 0x... | ✅ |
-| YourStrategy | Base Mainnet | 0x... | ⏳ |
+| Contract     | Network      | Address | Verified |
+| ------------ | ------------ | ------- | -------- |
+| YourStrategy | Base Sepolia | 0x...   | ✅       |
+| YourStrategy | Base Mainnet | 0x...   | ⏳       |
 
 ### Deployment Commands
 
@@ -270,8 +270,8 @@ npx hardhat run scripts/deploy.js --network base
 
 ### Members
 
-| Name | Role | Background | Contribution |
-|------|------|------------|--------------|
+| Name   | Role   | Background   | Contribution    |
+| ------ | ------ | ------------ | --------------- |
 | [Name] | [Role] | [Background] | [What they did] |
 
 ### Acknowledgments
@@ -312,7 +312,7 @@ npx hardhat run scripts/deploy.js --network base
 
 ## Judges' Notes
 
-*This section for judges only*
+_This section for judges only_
 
 **Initial Review:** [Date]  
 **Reviewer:** [Name]  

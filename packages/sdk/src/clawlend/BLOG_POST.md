@@ -46,12 +46,12 @@ This is possible because we're optimizing for adoption and volume rather than im
 
 Rather than requiring over-collateralization (which defeats the purpose of flash loans), ClawLend uses a reputation system:
 
-| Tier | Max Loan | Requirements |
-|------|----------|--------------|
-| New | 10 ETH | Starting tier |
-| Proven | 25 ETH | 10+ successful loans |
-| Established | 50 ETH | 50+ loans, 1000+ ETH volume |
-| Trusted | 100 ETH | 200+ loans, 10000+ ETH volume |
+| Tier        | Max Loan | Requirements                  |
+| ----------- | -------- | ----------------------------- |
+| New         | 10 ETH   | Starting tier                 |
+| Proven      | 25 ETH   | 10+ successful loans          |
+| Established | 50 ETH   | 50+ loans, 1000+ ETH volume   |
+| Trusted     | 100 ETH  | 200+ loans, 10000+ ETH volume |
 
 This system rewards good actors with increased access while maintaining limits to manage risk.
 
@@ -90,10 +90,10 @@ contract ArbitrageBot is ClawLendBorrower {
     ) internal override returns (uint256 profit) {
         // Buy low on Xchange
         swap(XCHANGE, token, amount);
-        
+
         // Sell high on Uniswap
         uint256 received = swap(UNISWAP, tokenOut, balance);
-        
+
         // Repay loan and calculate profit
         repay(amount);
         profit = received - amount;
@@ -136,6 +136,7 @@ ClawLend is infrastructure for what we call the "agent economy"—a future where
 ### Current State
 
 Today, agents are mostly simple bots running predefined strategies:
+
 - Arbitrage between DEXs
 - Liquidation protection
 - Automated market making
@@ -143,6 +144,7 @@ Today, agents are mostly simple bots running predefined strategies:
 ### Near Future
 
 We're already seeing evolution toward more sophisticated agents:
+
 - Multi-strategy portfolios
 - Dynamic risk management
 - Cross-chain operations
@@ -150,6 +152,7 @@ We're already seeing evolution toward more sophisticated agents:
 ### Long Term Vision
 
 Eventually, we expect to see:
+
 - AI DAOs managing treasuries
 - Self-improving strategies
 - Agent-to-agent collaboration
@@ -188,8 +191,8 @@ npm install @x7/sdk @x7/contracts viem
 ### 2. Connect to ClawLend
 
 ```typescript
-import { ClawLendSDK, CLAWLEND_ADDRESSES } from '@x7/sdk'
-import { baseSepolia } from 'viem/chains'
+import { ClawLendSDK, CLAWLEND_ADDRESSES } from "@x7/sdk"
+import { baseSepolia } from "viem/chains"
 
 const clawLend = new ClawLendSDK(
   publicClient,
@@ -213,9 +216,9 @@ Start with one of our example contracts:
 import "@x7/contracts/src/clawlend/ClawLendBorrower.sol";
 
 contract MyStrategy is ClawLendBorrower {
-    constructor(address _clawLend, address _weth) 
+    constructor(address _clawLend, address _weth)
         ClawLendBorrower(_clawLend, _weth) {}
-    
+
     function _executeStrategy(...) internal override returns (uint256) {
         // Your strategy here
     }
@@ -228,7 +231,7 @@ contract MyStrategy is ClawLendBorrower {
 await clawLend.executeFlashLoan(
   strategyAddress,
   wethAddress,
-  parseEther('1'), // Start small!
+  parseEther("1"), // Start small!
   strategyData
 )
 ```
@@ -237,12 +240,12 @@ await clawLend.executeFlashLoan(
 
 To celebrate the launch, we're running a $10,000 contest for the best ClawLend agents:
 
-| Prize | Category | Criteria |
-|-------|----------|----------|
-| $5,000 | Most Profitable | Highest cumulative profit during contest period |
-| $2,500 | Most Creative | Most innovative or unexpected strategy |
-| $1,500 | Best Documentation | Best code quality and documentation |
-| $1,000 | Community Choice | Most votes from the community |
+| Prize  | Category           | Criteria                                        |
+| ------ | ------------------ | ----------------------------------------------- |
+| $5,000 | Most Profitable    | Highest cumulative profit during contest period |
+| $2,500 | Most Creative      | Most innovative or unexpected strategy          |
+| $1,500 | Best Documentation | Best code quality and documentation             |
+| $1,000 | Community Choice   | Most votes from the community                   |
 
 Submissions open [DATE]. Full rules at [LINK].
 
@@ -257,6 +260,7 @@ This is the infrastructure that enables the agent economy. We're excited to see 
 ---
 
 **Resources:**
+
 - Documentation: docs.x7.finance/clawlend
 - SDK: npm install @x7/sdk
 - Examples: github.com/x7finance/monorepo

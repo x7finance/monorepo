@@ -5,6 +5,7 @@ Use this checklist to get your first ClawLend agent from idea to production.
 ## Phase 1: Setup (15 minutes)
 
 ### Prerequisites
+
 - [ ] Node.js 18+ installed
 - [ ] Git configured
 - [ ] Code editor (VS Code recommended)
@@ -12,6 +13,7 @@ Use this checklist to get your first ClawLend agent from idea to production.
 - [ ] Familiarity with TypeScript
 
 ### Environment Setup
+
 - [ ] Clone x7/monorepo: `git clone https://github.com/x7finance/monorepo.git`
 - [ ] Install dependencies: `bun install` or `npm install`
 - [ ] Copy `.env.example` to `.env`
@@ -19,6 +21,7 @@ Use this checklist to get your first ClawLend agent from idea to production.
 - [ ] Verify build works: `bun run build`
 
 ### Wallet Setup
+
 - [ ] Create test wallet for development
 - [ ] Fund with Base Sepolia ETH
   - [ ] Get from faucet: https://www.coinbase.com/faucets/base-ethereum-sepolia-faucet
@@ -28,6 +31,7 @@ Use this checklist to get your first ClawLend agent from idea to production.
 ## Phase 2: Understanding (30 minutes)
 
 ### Read Documentation
+
 - [ ] Read GETTING_STARTED.md
 - [ ] Read SDK README.md
 - [ ] Review example strategies (3 contracts)
@@ -35,12 +39,14 @@ Use this checklist to get your first ClawLend agent from idea to production.
 - [ ] Review security considerations
 
 ### Explore Contracts
+
 - [ ] Read ClawLendPool.sol (understand ERC4626 vault)
 - [ ] Read ClawLendFlashLoan.sol (understand flash loan mechanics)
 - [ ] Read ClawLendBorrower.sol (base contract for strategies)
 - [ ] Run existing tests: `npx hardhat test`
 
 ### Study Examples
+
 - [ ] Analyze BaseArbitrageAgent.sol
 - [ ] Analyze LiquidationHunter.sol
 - [ ] Analyze X7EcosystemArbitrage.sol
@@ -49,12 +55,14 @@ Use this checklist to get your first ClawLend agent from idea to production.
 ## Phase 3: First Strategy (1 hour)
 
 ### Choose Strategy Type
+
 - [ ] Decide on strategy (arbitrage/liquidation/custom)
 - [ ] Identify target opportunities
 - [ ] Calculate expected profitability
 - [ ] Ensure gas costs < expected profit
 
 ### Implement Strategy
+
 - [ ] Create new file in `contracts/src/clawlend/examples/`
 - [ ] Inherit from `ClawLendBorrower`
 - [ ] Implement `_executeStrategy` function
@@ -63,6 +71,7 @@ Use this checklist to get your first ClawLend agent from idea to production.
 - [ ] Add NatSpec comments
 
 ### Test Locally
+
 - [ ] Write unit tests
 - [ ] Test with Hardhat network
 - [ ] Verify all revert conditions
@@ -72,6 +81,7 @@ Use this checklist to get your first ClawLend agent from idea to production.
 ## Phase 4: Deploy to Testnet (30 minutes)
 
 ### Deploy ClawLend Contracts (if not deployed)
+
 - [ ] Update Ignition module with your addresses
 - [ ] Run deployment: `npx hardhat ignition deploy ignition/modules/ClawLendTestnet.js --network baseSepolia`
 - [ ] Save deployed addresses
@@ -79,12 +89,14 @@ Use this checklist to get your first ClawLend agent from idea to production.
 - [ ] Update SDK addresses
 
 ### Deploy Your Strategy
+
 - [ ] Compile contracts: `npx hardhat compile`
 - [ ] Deploy strategy contract
 - [ ] Save contract address
 - [ ] Verify contract on Basescan
 
 ### Test Flash Loan
+
 - [ ] Approve WETH for strategy (if needed)
 - [ ] Execute test flash loan with small amount (0.01 ETH)
 - [ ] Verify transaction succeeds
@@ -94,6 +106,7 @@ Use this checklist to get your first ClawLend agent from idea to production.
 ## Phase 5: Optimize (2+ hours)
 
 ### Improve Strategy
+
 - [ ] Add profit threshold checks
 - [ ] Implement slippage protection
 - [ ] Add gas price awareness
@@ -101,12 +114,14 @@ Use this checklist to get your first ClawLend agent from idea to production.
 - [ ] Handle edge cases
 
 ### Add Monitoring
+
 - [ ] Set up event listeners
 - [ ] Create profit tracking
 - [ ] Add alerting for failures
 - [ ] Build dashboard (optional)
 
 ### Security Review
+
 - [ ] Check for reentrancy vulnerabilities
 - [ ] Verify all external calls are safe
 - [ ] Review access controls
@@ -116,6 +131,7 @@ Use this checklist to get your first ClawLend agent from idea to production.
 ## Phase 6: Production Readiness (1 hour)
 
 ### Documentation
+
 - [ ] Write strategy documentation
 - [ ] Include setup instructions
 - [ ] Document expected returns
@@ -123,12 +139,14 @@ Use this checklist to get your first ClawLend agent from idea to production.
 - [ ] Create runbook for operations
 
 ### Testing
+
 - [ ] Achieve >90% test coverage
 - [ ] Test with mainnet forks
 - [ ] Stress test with large amounts
 - [ ] Simulate failure scenarios
 
 ### Monitoring Setup
+
 - [ ] Set up error tracking
 - [ ] Configure alerting
 - [ ] Create health checks
@@ -137,6 +155,7 @@ Use this checklist to get your first ClawLend agent from idea to production.
 ## Phase 7: Launch (30 minutes)
 
 ### Final Checks
+
 - [ ] Review all contracts one final time
 - [ ] Verify contract verification on explorer
 - [ ] Check all addresses are correct
@@ -144,6 +163,7 @@ Use this checklist to get your first ClawLend agent from idea to production.
 - [ ] Have emergency procedures ready
 
 ### Execute
+
 - [ ] Start with small amounts
 - [ ] Gradually increase position sizes
 - [ ] Monitor closely for first 24 hours
@@ -155,6 +175,7 @@ Use this checklist to get your first ClawLend agent from idea to production.
 If submitting to the Build an Agent Contest:
 
 ### Required
+
 - [ ] Strategy contract deployed to testnet
 - [ ] Working demo video (2-5 minutes)
 - [ ] GitHub repository with code
@@ -162,6 +183,7 @@ If submitting to the Build an Agent Contest:
 - [ ] Documentation of expected returns
 
 ### Recommended
+
 - [ ] Live deployment with real profits
 - [ ] Unit tests with >80% coverage
 - [ ] Architecture diagram
@@ -169,6 +191,7 @@ If submitting to the Build an Agent Contest:
 - [ ] Twitter thread announcing it
 
 ### Judging Criteria
+
 - [ ] Profitability demonstrated
 - [ ] Code quality (clean, documented)
 - [ ] Innovation (unique approach)
@@ -180,16 +203,19 @@ If submitting to the Build an Agent Contest:
 ### Common Issues
 
 **"Insufficient repayment"**
+
 - Strategy didn't generate enough profit
 - Check slippage settings
 - Verify profit > gas costs
 
 **"Gas estimation failed"**
+
 - Transaction will revert
 - Check all approvals
 - Verify contract addresses
 
 **"Max loan exceeded"**
+
 - Requesting more than tier allows
 - Check `getAgentMaxLoan()` first
 - Build reputation with smaller loans
@@ -204,16 +230,19 @@ If submitting to the Build an Agent Contest:
 ## Resources
 
 ### Documentation
+
 - SDK README: `/packages/sdk/src/clawlend/README.md`
 - Getting Started: `/packages/sdk/src/clawlend/GETTING_STARTED.md`
 - Deployment Guide: `/packages/contracts/ignition/modules/DEPLOYMENT.md`
 
 ### Code Examples
+
 - BaseArbitrageAgent.sol
 - LiquidationHunter.sol
 - X7EcosystemArbitrage.sol
 
 ### Community
+
 - Discord: discord.gg/x7finance
 - Twitter: @X7_Finance
 - GitHub: github.com/x7finance

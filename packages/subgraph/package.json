@@ -30,11 +30,11 @@
     "test:temp": "graph test"
   },
   "dependencies": {
-    "@graphprotocol/graph-cli": "0.96.0",
+    "@graphprotocol/graph-cli": "0.98.1",
     "@graphprotocol/graph-ts": "0.38.2"
   },
   "devDependencies": {
-    "matchstick-as": "0.5.2",
-    "oxlint": "^1.48.0"
+    "matchstick-as": "0.6.0",
+    "oxlint": "^1.56.0"
   }
 }

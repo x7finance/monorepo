@@ -5,6 +5,7 @@
 ClawLend is an AI-native flash loan protocol built on X7 Finance. It enables AI agents and developers to execute DeFi strategies with zero upfront capital.
 
 **Key Features:**
+
 - **Zero-Fee Flash Loans:** Free flash loans for all agents
 - **Tiered Access:** Unlock higher borrowing limits based on reputation
 - **ERC4626 Vault:** Standard yield-bearing liquidity pool
@@ -19,20 +20,20 @@ npm install @x7/sdk @x7/contracts viem
 ## Quick Start
 
 ```typescript
-import { createPublicClient, createWalletClient, http } from 'viem'
-import { baseSepolia } from 'viem/chains'
-import { ClawLendSDK, CLAWLEND_ADDRESSES } from '@x7/sdk'
+import { createPublicClient, createWalletClient, http } from "viem"
+import { baseSepolia } from "viem/chains"
+import { ClawLendSDK, CLAWLEND_ADDRESSES } from "@x7/sdk"
 
 // Setup clients
 const publicClient = createPublicClient({
   chain: baseSepolia,
-  transport: http()
+  transport: http(),
 })
 
 const walletClient = createWalletClient({
   chain: baseSepolia,
   transport: http(),
-  account: privateKeyToAccount('0x...')
+  account: privateKeyToAccount("0x..."),
 })
 
 // Initialize SDK
@@ -62,7 +63,7 @@ console.log(`
 ```typescript
 const stats = await clawLend.getAgentStats(agentAddress)
 console.log(`
-  Tier: ${stats.tier} (${['New', 'Proven', 'Established', 'Trusted'][stats.tier]})
+  Tier: ${stats.tier} (${["New", "Proven", "Established", "Trusted"][stats.tier]})
   Loans: ${stats.loanCount}
   Volume: ${stats.totalVolume} ETH
 `)
@@ -76,13 +77,13 @@ console.log(`Max Loan: ${maxLoan} ETH`)
 ### Deposit
 
 ```typescript
-import { parseEther } from 'viem'
+import { parseEther } from "viem"
 
 // Approve WETH first
 // ... approval transaction ...
 
 const tx = await clawLend.deposit(
-  parseEther('1'), // 1 ETH worth of WETH
+  parseEther("1"), // 1 ETH worth of WETH
   userAddress
 )
 console.log(`Deposited: ${tx}`)
@@ -92,9 +93,9 @@ console.log(`Deposited: ${tx}`)
 
 ```typescript
 const tx = await clawLend.withdraw(
-  parseEther('1'), // Withdraw 1 ETH worth
-  userAddress,     // Send to
-  userAddress      // Owner
+  parseEther("1"), // Withdraw 1 ETH worth
+  userAddress, // Send to
+  userAddress // Owner
 )
 ```
 
@@ -102,7 +103,7 @@ const tx = await clawLend.withdraw(
 
 ```typescript
 const tx = await clawLend.redeem(
-  parseEther('100'), // 100 shares
+  parseEther("100"), // 100 shares
   userAddress,
   userAddress
 )
@@ -117,8 +118,8 @@ const tx = await clawLend.redeem(
 const tx = await clawLend.executeFlashLoan(
   borrowerContractAddress, // Your strategy contract
   wethAddress,
-  parseEther('10'), // Borrow 10 ETH
-  '0x' // Strategy-specific data
+  parseEther("10"), // Borrow 10 ETH
+  "0x" // Strategy-specific data
 )
 ```
 
@@ -133,7 +134,7 @@ pragma solidity ^0.8.20;
 import "@x7/contracts/src/clawlend/ClawLendBorrower.sol";
 
 contract MyStrategy is ClawLendBorrower {
-    constructor(address _clawLend, address _weth) 
+    constructor(address _clawLend, address _weth)
         ClawLendBorrower(_clawLend, _weth) {}
 
     function _executeStrategy(
@@ -147,17 +148,17 @@ contract MyStrategy is ClawLendBorrower {
         // 1. Use borrowed funds
         // 2. Generate profit
         // 3. Return profit amount
-        
+
         // Must have enough to repay amount + fee
         uint256 repayment = amount + fee;
         require(
             IERC20(token).balanceOf(address(this)) >= repayment,
             "Insufficient repayment"
         );
-        
+
         // Approve ClawLend to pull repayment
         IERC20(token).approve(CLAWLEND, repayment);
-        
+
         profit = IERC20(token).balanceOf(address(this)) - repayment;
         return profit;
     }
@@ -166,14 +167,15 @@ contract MyStrategy is ClawLendBorrower {
 
 ## Agent Tiers
 
-| Tier | Name | Max Loan | Requirements |
-|------|------|----------|--------------|
-| 0 | New | 10 ETH | 0-9 loans |
-| 1 | Proven | 25 ETH | 10+ loans |
-| 2 | Established | 50 ETH | 50+ loans, 1000+ ETH volume |
-| 3 | Trusted | 100 ETH | 200+ loans, 10000+ ETH volume |
+| Tier | Name        | Max Loan | Requirements                  |
+| ---- | ----------- | -------- | ----------------------------- |
+| 0    | New         | 10 ETH   | 0-9 loans                     |
+| 1    | Proven      | 25 ETH   | 10+ loans                     |
+| 2    | Established | 50 ETH   | 50+ loans, 1000+ ETH volume   |
+| 3    | Trusted     | 100 ETH  | 200+ loans, 10000+ ETH volume |
 
 **Benefits:**
+
 - Higher borrowing limits
 - Priority access during high demand
 - Reduced fees on premium features (future)
@@ -185,6 +187,7 @@ contract MyStrategy is ClawLendBorrower {
 See: `examples/BaseArbitrageAgent.sol`
 
 Arbitrage between two DEXs:
+
 ```typescript
 // Setup arbitrage parameters
 const params = {
@@ -211,6 +214,7 @@ await clawLend.executeFlashLoan(
 See: `examples/LiquidationHunter.sol`
 
 Liquidate underwater loans:
+
 ```typescript
 const params = {
   lendingProtocol: x7Lending,
@@ -234,19 +238,19 @@ Arbitrage X7 tokens between Xchange and external DEXs.
 
 ### Base Sepolia (Testnet)
 
-| Contract | Address |
-|----------|---------|
-| ClawLendPool | `0x...` (TBD) |
-| ClawLendFlashLoan | `0x...` (TBD) |
-| WETH | `0x4200000000000000000000000000000000000006` |
+| Contract          | Address                                      |
+| ----------------- | -------------------------------------------- |
+| ClawLendPool      | `0x...` (TBD)                                |
+| ClawLendFlashLoan | `0x...` (TBD)                                |
+| WETH              | `0x4200000000000000000000000000000000000006` |
 
 ### Base Mainnet
 
-| Contract | Address |
-|----------|---------|
-| ClawLendPool | `0x...` (TBD) |
-| ClawLendFlashLoan | `0x...` (TBD) |
-| WETH | `0x4200000000000000000000000000000000000006` |
+| Contract          | Address                                      |
+| ----------------- | -------------------------------------------- |
+| ClawLendPool      | `0x...` (TBD)                                |
+| ClawLendFlashLoan | `0x...` (TBD)                                |
+| WETH              | `0x4200000000000000000000000000000000000006` |
 
 ## Security Considerations
 
@@ -285,7 +289,7 @@ npx hardhat test
 await clawLend.executeFlashLoan(
   strategyAddress,
   weth,
-  parseEther('0.01'), // Start small
+  parseEther("0.01"), // Start small
   testData
 )
 ```
@@ -299,6 +303,7 @@ await clawLend.executeFlashLoan(
 ## Support
 
 For questions and support:
+
 - Discord: #clawlend-dev channel
 - Twitter: @X7_Finance
 - Email: dev@x7.finance

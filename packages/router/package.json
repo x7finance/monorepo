@@ -33,13 +33,13 @@
     "@x7/utils": "workspace:*",
     "date-fns": "^4.1.0",
     "lodash.flatmap": "^4.5.0",
-    "viem": "^2.46.2"
+    "viem": "^2.47.6"
   },
   "devDependencies": {
     "@types/lodash.flatmap": "^4.5.9",
     "@types/node": "^22.19.11",
     "@x7/tsconfig": "workspace:*",
-    "oxlint": "^1.48.0",
+    "oxlint": "^1.56.0",
     "typescript": "^5.9.3"
   }
 }

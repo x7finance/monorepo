@@ -39,8 +39,8 @@
     "dotenv": "^17.3.1",
     "hardhat": "^2.28.6",
     "hardhat-viem": "^1.0.0",
-    "oxlint": "^1.48.0",
+    "oxlint": "^1.56.0",
     "typescript": "^5.9.3",
-    "viem": "^2.46.2"
+    "viem": "^2.47.6"
   }
 }

@@ -231,10 +231,10 @@ function _executeStrategy(
 ) internal override returns (uint256 profit) {
     // Buy on Xchange
     swap(XCHANGE, token, amount);
-    
+
     // Sell on Uniswap
     uint256 received = swap(UNISWAP, tokenOut, balance);
-    
+
     // Repay and profit
     repay(amount);
     profit = received - amount;
@@ -375,6 +375,7 @@ Submit by [DATE]. Rules → [LINK]
 Ready to build your first DeFi agent?
 
 Start here:
+
 1. npm install @x7/sdk
 2. Copy example strategy
 3. Deploy to Base Sepolia

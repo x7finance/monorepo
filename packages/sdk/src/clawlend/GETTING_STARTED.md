@@ -22,19 +22,16 @@ npm install @x7/sdk @x7/contracts viem
 ### 2. Connect to ClawLend
 
 ```typescript
-import { createPublicClient, http } from 'viem'
-import { baseSepolia } from 'viem/chains'
-import { ClawLendSDK, CLAWLEND_ADDRESSES } from '@x7/sdk'
+import { createPublicClient, http } from "viem"
+import { baseSepolia } from "viem/chains"
+import { ClawLendSDK, CLAWLEND_ADDRESSES } from "@x7/sdk"
 
 const publicClient = createPublicClient({
   chain: baseSepolia,
-  transport: http()
+  transport: http(),
 })
 
-const clawLend = new ClawLendSDK(
-  publicClient,
-  CLAWLEND_ADDRESSES[84532]
-)
+const clawLend = new ClawLendSDK(publicClient, CLAWLEND_ADDRESSES[84532])
 ```
 
 ### 3. Check Pool Status
@@ -57,8 +54,8 @@ import "@x7/contracts/src/clawlend/ClawLendBorrower.sol";
 contract SimpleArb is ClawLendBorrower {
     address public constant DEX_A = 0x...;
     address public constant DEX_B = 0x...;
-    
-    constructor(address _clawLend, address _weth) 
+
+    constructor(address _clawLend, address _weth)
         ClawLendBorrower(_clawLend, _weth) {}
 
     function _executeStrategy(
@@ -72,10 +69,10 @@ contract SimpleArb is ClawLendBorrower {
         // Sell high on DEX B
         // Repay loan
         // Keep profit
-        
+
         uint256 balance = IERC20(token).balanceOf(address(this));
         uint256 repayment = amount + fee;
-        
+
         IERC20(token).approve(CLAWLEND, repayment);
         return balance - repayment;
     }
@@ -88,8 +85,8 @@ contract SimpleArb is ClawLendBorrower {
 const tx = await clawLend.executeFlashLoan(
   strategyAddress,
   wethAddress,
-  parseEther('1'), // Start with 1 ETH
-  '0x'
+  parseEther("1"), // Start with 1 ETH
+  "0x"
 )
 ```
 
@@ -120,14 +117,15 @@ Flash loan to optimize yield farming positions.
 
 Build trust, unlock higher limits:
 
-| Tier | Max Loan | How to Unlock |
-|------|----------|---------------|
-| New | 10 ETH | Start here |
-| Proven | 25 ETH | 10 successful loans |
-| Established | 50 ETH | 50 loans, 1000 ETH volume |
-| Trusted | 100 ETH | 200 loans, 10000 ETH volume |
+| Tier        | Max Loan | How to Unlock               |
+| ----------- | -------- | --------------------------- |
+| New         | 10 ETH   | Start here                  |
+| Proven      | 25 ETH   | 10 successful loans         |
+| Established | 50 ETH   | 50 loans, 1000 ETH volume   |
+| Trusted     | 100 ETH  | 200 loans, 10000 ETH volume |
 
 **Tips for leveling up:**
+
 - Start with small amounts
 - Always repay on time
 - Build consistent track record
@@ -139,7 +137,7 @@ Build trust, unlock higher limits:
 
 ```typescript
 // Test with 0.01 ETH first
-await clawLend.executeFlashLoan(strategy, weth, parseEther('0.01'), data)
+await clawLend.executeFlashLoan(strategy, weth, parseEther("0.01"), data)
 ```
 
 ### 2. Check Profitability
@@ -147,7 +145,7 @@ await clawLend.executeFlashLoan(strategy, weth, parseEther('0.01'), data)
 ```typescript
 const profit = await calculateExpectedProfit()
 if (profit < gasCost * 2) {
-  console.log('Not profitable, skipping')
+  console.log("Not profitable, skipping")
   return
 }
 ```
@@ -188,7 +186,7 @@ npx hardhat node --fork https://base-mainnet.infura.io/v3/YOUR_KEY
 ```typescript
 // Verify on testnet before mainnet
 if (chain.id === 84532) {
-  console.log('Testnet mode - verifying strategy')
+  console.log("Testnet mode - verifying strategy")
   await verifyStrategy()
 }
 ```
