@@ -1,8 +1,8 @@
 import { Inter } from "next/font/google"
 import calSansFont from "next/font/local"
-import { Core } from "nextjs-darkmode"
 
 import { cn } from "@x7/css"
+import { DarkModeInit } from "~/lib/components/utils/dark-mode"
 import { SITE_METADATA } from "~/lib/config/metadata"
 import "~/styles/globals.css"
 import "@rainbow-me/rainbowkit/styles.css"
@@ -34,7 +34,7 @@ export default function RootLayout({
           inter.className
         )}
       >
-        <Core t="background .3s" />
+        <DarkModeInit />
         {children}
       </body>
     </html>

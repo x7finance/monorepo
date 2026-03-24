@@ -6,7 +6,7 @@ import { buttonVariants } from "@x7/ui/button"
 import { LinkInternal } from "@x7/ui/link"
 import { DESKTOP_NAV_LINKS } from "~/lib/config/site"
 
-import { MobileNavigation } from "./mobile-navigation"
+import { ClientMobileNavigation } from "./client-mobile-nav"
 
 export function SiteHeader({ className }: HTMLAttributes<HTMLElement>) {
   return (
@@ -66,7 +66,7 @@ export function SiteHeader({ className }: HTMLAttributes<HTMLElement>) {
               <Xchange className="w-24" />
             </LinkInternal>
 
-            <MobileNavigation className="lg:hidden" />
+            <ClientMobileNavigation className="lg:hidden" />
           </div>
         </div>
       </div>

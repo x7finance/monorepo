@@ -47,14 +47,7 @@ export const StaticTable: FC<StaticTableProps> = ({ data, columns }) => {
       </thead>
       <tbody className="x-body">
         {data.map((row, index) => (
-          <tr
-            className="border-none"
-            key={
-              columns[0]?.accessor
-                ? String(row[columns[0].accessor])
-                : String(row[Object.keys(row)[0] ?? ""])
-            }
-          >
+          <tr className="border-none" key={String(index)}>
             {columns.map((column, colIndex) => (
               <td
                 key={column.accessor}

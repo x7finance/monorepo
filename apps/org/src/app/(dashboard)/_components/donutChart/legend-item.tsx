@@ -14,7 +14,7 @@ export interface Props {
 
 export const LegendItem: React.FC<Props> = ({ item }) => {
   const { graphWidth, width } = useContext(DonutChartContext)
-  const { clickHandlers, label, chain, value, ...restItemRenderProps } = item
+  const { clickHandlers, label, chain, value, fill, opacity, stroke } = item
 
   const legendWidth = width - graphWidth
   const sqUnit = legendWidth / 5
@@ -31,7 +31,13 @@ export const LegendItem: React.FC<Props> = ({ item }) => {
         <span className="flex items-center">
           <svg height={20} width={20}>
             <g>
-              <rect {...restItemRenderProps} height={sqUnit} width={sqUnit} />
+              <rect
+                fill={fill}
+                opacity={opacity}
+                stroke={stroke}
+                height={sqUnit}
+                width={sqUnit}
+              />
             </g>
           </svg>
           <span className="ml-2">{`${label}`}</span>

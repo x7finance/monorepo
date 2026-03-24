@@ -138,7 +138,7 @@ async function main() {
       const prefix = entry.type === "error" ? "❌" : "⚠️"
       // Truncate long messages
       const text =
-        entry.text.length > 200 ? entry.text.slice(0, 200) + "..." : entry.text
+        entry.text.length > 500 ? entry.text.slice(0, 500) + "..." : entry.text
       console.error(`  ${prefix} ${text}`)
     }
   }
@@ -196,6 +196,12 @@ function isKnownNoise(text: string): boolean {
     /Unhandled Runtime Error/i,
     // Lit dev mode warning (third-party: RainbowKit/WalletConnect)
     /Lit is in dev mode/i,
+    // External resource 404s (token logos from github)
+    /Failed to load resource.*404/i,
+    // react-hook-form element.ref (library issue, not our code)
+    /Accessing element\.ref was removed/i,
+    // LCP image loading hints (performance, not errors)
+    /was detected as the Largest Contentful Paint/i,
   ]
 
   return NOISE_PATTERNS.some((pattern) => pattern.test(text))

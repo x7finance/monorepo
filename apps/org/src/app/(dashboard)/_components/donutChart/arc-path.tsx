@@ -85,15 +85,9 @@ export const ArcPath: React.FC<Props> = ({ item }) => {
     toggleSelect,
     total,
   } = useContext(DonutChartContext)
-  const {
-    angle,
-    classNames,
-    clickHandlers,
-    isEmpty,
-    label,
-    value,
-    ...restItemRenderrops
-  } = item
+  const { angle, classNames, clickHandlers, isEmpty, label, value } = item
+  // Only extract valid SVG props — avoid spreading arbitrary data onto DOM elements
+  const { fill, opacity, stroke } = item
   const activeAngle =
     Number.isNaN(value / total) || total / value === 1
       ? 359.99
@@ -114,12 +108,12 @@ export const ArcPath: React.FC<Props> = ({ item }) => {
 
   return (
     <path
-      {...{
-        ...clickHandlers,
-        ...restItemRenderrops,
-      }}
+      {...clickHandlers}
+      fill={fill}
+      opacity={opacity}
+      stroke={stroke}
       className={`${className}-arcs-path ${classNames}`}
       d={path(activeAngle, angle, graphWidth, inner, outer)}
-    ></path>
+    />
   )
 }

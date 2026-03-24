@@ -1,14 +1,14 @@
 "use client"
 
-import { useMode } from "nextjs-darkmode/hooks"
 import { Suspense, useEffect, useState } from "react"
 
 import { cn } from "@x7/css"
 import { MoonIcon, SunIcon } from "@x7/icons"
+import { useDarkMode } from "~/lib/hooks/use-dark-mode"
 
 export function ThemeToggle() {
   const [mounted, setMounted] = useState(false)
-  const { resolvedMode, setMode } = useMode()
+  const { resolvedMode, setMode } = useDarkMode()
 
   useEffect(() => {
     setMounted(true)
@@ -45,17 +45,14 @@ export function ThemeToggle() {
             </span>
           </button>
           <button
-            // @ts-expect-error: todo fix
             onClick={() => setMode("light")}
             aria-label="Light"
             className={cn(
-              // @ts-expect-error: todo fix
               resolvedMode === "light"
                 ? "rounded-full bg-zinc-200 dark:bg-zinc-800"
                 : "",
               "m-0 flex h-8 w-8 cursor-pointer items-center justify-center px-0"
             )}
-            // @ts-expect-error: todo fix
             aria-checked={resolvedMode === "light"}
             role="radio"
             type="button"

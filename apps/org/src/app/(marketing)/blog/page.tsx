@@ -111,7 +111,7 @@ async function BlogPostsList() {
         {builtPosts.map((post: BlogPostType) => (
           <article
             className="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-zinc-900 px-8 pt-80 pb-8 ring-1 ring-zinc-700 sm:pt-48 lg:pt-80"
-            key={post.id}
+            key={post.id ?? post.slug ?? post.title}
           >
             <Image
               src={`${env.NEXT_PUBLIC_ASSETS_URL}/${post.imageUrl}`}
