@@ -1,23 +1,22 @@
-import { useChainId } from "wagmi";
+import { useChainId } from "wagmi"
 
-import { LinkExternal } from "@x7/ui/link";
-import { generateChainIdentifier } from "@x7/utils";
-import type { ChainId } from "@x7/utils";
-
-import { useXchangeTokenData } from "~/lib/hooks/tokens/useXchangeTokenData";
+import { LinkExternal } from "@x7/ui/link"
+import type { ChainId } from "@x7/utils"
+import { generateChainIdentifier } from "@x7/utils"
+import { useXchangeTokenData } from "~/lib/hooks/tokens/useXchangeTokenData"
 
 interface PairsProps {
-  id: number;
+  id: number
 
-  order: number;
+  order: number
 }
 
 export function SwapChartNewestRow({ id, order }: PairsProps) {
-  const { tokenName, tokenContract } = useXchangeTokenData(id);
-  const chainId = useChainId() as ChainId;
+  const { tokenName, tokenContract } = useXchangeTokenData(id)
+  const chainId = useChainId() as ChainId
 
   if (!tokenName) {
-    return null;
+    return null
   }
 
   return (
@@ -26,7 +25,7 @@ export function SwapChartNewestRow({ id, order }: PairsProps) {
       target="_blank"
       rel="noopener noreferrer"
       href={`https://www.dextools.io/app/en/${generateChainIdentifier(
-        chainId,
+        chainId
       )}/pair-explorer/${tokenContract}`}
     >
       <span>
@@ -34,5 +33,5 @@ export function SwapChartNewestRow({ id, order }: PairsProps) {
         {`${tokenName}`}
       </span>
     </LinkExternal>
-  );
+  )
 }

@@ -1,5 +1,5 @@
-import type { SVGProps } from "react";
-import { memo } from "react";
+import type { SVGProps } from "react"
+import { memo } from "react"
 
 function Opensea(props: SVGProps<SVGSVGElement>) {
   return (
@@ -17,7 +17,7 @@ function Opensea(props: SVGProps<SVGSVGElement>) {
         fill="#0086FF"
       />
     </svg>
-  );
+  )
 }
 
-export default memo(Opensea);
+export default memo(Opensea)

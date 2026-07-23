@@ -1,10 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { LogCodes } from "@x7/utils";
-import type { Token } from "@x7/utils";
+import type { Token } from "@x7/utils"
+/* oxlint-disable @typescript-eslint/no-unused-vars */
+import { LogCodes } from "@x7/utils"
 
-import { log } from "../../utils";
-import type { ProviderConfig } from "../provider";
-import type { IV2SubgraphProvider, V2SubgraphPool } from "./subgraph-provider";
+import { log } from "../../utils/log"
+import type { ProviderConfig } from "../provider"
+
+import type { IV2SubgraphProvider, V2SubgraphPool } from "./subgraph-provider"
 
 /**
  * Provider for getting V2 subgraph pools that falls back to a different provider
@@ -23,30 +24,26 @@ export class V2SubgraphProviderWithFallBacks implements IV2SubgraphProvider {
   public async getPools(
     tokenIn?: Token,
     tokenOut?: Token,
-    providerConfig?: ProviderConfig,
+    providerConfig?: ProviderConfig
   ): Promise<V2SubgraphPool[]> {
     for (let i = 0; i < this.fallbacks.length; i++) {
-      const provider = this.fallbacks[i];
+      const provider = this.fallbacks[i]
       if (provider === undefined) {
-        throw new Error("Undefined provider in fallbacks");
+        throw new Error("Undefined provider in fallbacks")
       }
 
       try {
-        const pools = await provider.getPools(
-          tokenIn,
-          tokenOut,
-          providerConfig,
-        );
-        return pools;
+        const pools = await provider.getPools(tokenIn, tokenOut, providerConfig)
+        return pools
       } catch (error) {
         log.error(
           LogCodes.FAIL,
-          `Failed to get subgraph pools for V2 from fallback #${i}`,
-        );
+          `Failed to get subgraph pools for V2 from fallback #${i}`
+        )
       }
     }
 
-    return [];
+    return []
     //throw new Error("Failed to get subgraph pools from any providers");
   }
 }

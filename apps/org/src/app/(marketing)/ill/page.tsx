@@ -1,14 +1,14 @@
-import type { Metadata } from "next";
+import type { Metadata } from "next"
 
-import { cn } from "@x7/css";
-import { CheckCircleIcon, X7Logo } from "@x7/icons";
-import { buttonVariants } from "@x7/ui/button";
-import { LinkInternal } from "@x7/ui/link";
+import { cn } from "@x7/css"
+import { CheckCircleIcon, X7Logo } from "@x7/icons"
+import { buttonVariants } from "@x7/ui/button"
+import { LinkInternal } from "@x7/ui/link"
+import { SiteContentContainer } from "~/lib/components/core/site-content-container"
+import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
+import { ExplorerDataType, getExplorerLink } from "~/lib/utils/getExplorerLink"
 
-import { SiteContentContainer } from "~/lib/components/core/site-content-container";
-import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc";
-import { ExplorerDataType, getExplorerLink } from "~/lib/utils/getExplorerLink";
-import { Heading } from "../_components/heading";
+import { Heading } from "../_components/heading"
 
 const metadata = {
   title: "Loans",
@@ -16,10 +16,10 @@ const metadata = {
     "Welcome to X7 Finance's Loans Homepage: Your gateway to innovative DeFi lending solutions. Explore our range of unique loan mechanisms, including the Simple Liquidity Loan, Interest Only Liquidity Loan, and Amortizing Liquidity Loan. Understand how these solutions provide initial liquidity to Automated Market Making (AMM) trading pairs with borrowed capital, enhancing liquidity and market capitalization. Start your journey into the future of decentralized finance lending with X7 Finance.",
   slug: "/ill",
   section: "default",
-};
+}
 
 export function generateMetadata(): Metadata {
-  return generateMetadataFromDoc(metadata);
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function LoansPage() {
@@ -40,7 +40,7 @@ export default function LoansPage() {
         </div>
       </SiteContentContainer>
     </div>
-  );
+  )
 }
 
 const loans: LoanViewType[] = [
@@ -54,7 +54,7 @@ const loans: LoanViewType[] = [
       href: getExplorerLink(
         1,
         "0x7400165e167479a3c81c8fc8cc3df3d2a92e9017",
-        ExplorerDataType.ADDRESS,
+        ExplorerDataType.ADDRESS
       ),
     },
     features: [
@@ -80,7 +80,7 @@ const loans: LoanViewType[] = [
       href: getExplorerLink(
         1,
         "0x740019a6b3a9cf3bd193986a560b05726143b217",
-        ExplorerDataType.ADDRESS,
+        ExplorerDataType.ADDRESS
       ),
     },
     features: [
@@ -106,7 +106,7 @@ const loans: LoanViewType[] = [
       href: getExplorerLink(
         1,
         "0x74001c747b6cc9091ee63bc9424dff633fbac617",
-        ExplorerDataType.ADDRESS,
+        ExplorerDataType.ADDRESS
       ),
     },
     features: [
@@ -122,19 +122,19 @@ const loans: LoanViewType[] = [
       "Failure to pay the principal or premium on time will result in full liquidation up to the liability amount. Note: The AMM pool will still operate as normal after the lent liquidity is removed.",
     logomarkClassName: "fill-orange-500/40",
   },
-];
+]
 
 interface LoanViewType {
-  id: string;
-  name: string;
-  liquidation: string;
-  description: string;
+  id: string
+  name: string
+  liquidation: string
+  description: string
   secondaryButton: {
-    label: string;
-    href: string;
-  };
-  features: [string, string][];
-  logomarkClassName: string;
+    label: string
+    href: string
+  }
+  features: [string, string][]
+  logomarkClassName: string
 }
 function LoanHeader({
   id,
@@ -146,20 +146,20 @@ function LoanHeader({
         <X7Logo
           className={cn(
             "h-5 w-5 stroke-zinc-700 transition-colors duration-300 group-hover:stroke-zinc-900 dark:stroke-zinc-400 dark:group-hover:fill-violet-300/10 dark:group-hover:stroke-violet-400",
-            logomarkClassName,
+            logomarkClassName
           )}
         />
       </div>
       <span className="ml-4 leading-7 text-zinc-500">{id}</span>
     </h3>
-  );
+  )
 }
 
 function LoanFeatures({ features }: Pick<LoanViewType, "features">) {
   return (
     <ul
       className={cn(
-        "-my-2 divide-y divide-zinc-200 text-sm text-zinc-700 dark:divide-zinc-800 dark:text-zinc-300",
+        "-my-2 divide-y divide-zinc-200 text-sm text-zinc-700 dark:divide-zinc-800 dark:text-zinc-300"
       )}
     >
       {features.map((feature: string[]) => (
@@ -172,7 +172,7 @@ function LoanFeatures({ features }: Pick<LoanViewType, "features">) {
         </li>
       ))}
     </ul>
-  );
+  )
 }
 
 function Loan({
@@ -189,7 +189,7 @@ function Loan({
       <LoanHeader id={id} logomarkClassName={logomarkClassName} />
       <p
         className={cn(
-          "relative mt-5 flex text-2xl tracking-tight text-zinc-900 dark:text-zinc-100",
+          "relative mt-5 flex text-2xl tracking-tight text-zinc-900 dark:text-zinc-100"
         )}
       >
         {name}
@@ -226,5 +226,5 @@ function Loan({
         {secondaryButton.label}
       </LinkInternal>
     </section>
-  );
+  )
 }

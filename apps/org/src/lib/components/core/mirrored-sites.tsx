@@ -1,21 +1,21 @@
-"use client";
+"use client"
 
-import Link from "next/link";
+import Link from "next/link"
 
-import { BoxesIcon, ExternalLinkIcon } from "@x7/icons";
+import { BoxesIcon, ExternalLinkIcon } from "@x7/icons"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@x7/ui/dropdown-menu";
+} from "@x7/ui/dropdown-menu"
 
 export function MirroredSites() {
   return (
     <div className="flex justify-center">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <button>
+          <button type="button" aria-label="Mirror sites">
             <BoxesIcon className="text-secondary-foreground h-4 w-4" />
           </button>
         </DropdownMenuTrigger>
@@ -81,5 +81,5 @@ export function MirroredSites() {
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-  );
+  )
 }

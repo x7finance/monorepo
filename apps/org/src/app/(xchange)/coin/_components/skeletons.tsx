@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { Card } from "@x7/ui/card";
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+import { Card } from "@x7/ui/card"
 
 export function TokenInfoSkeleton() {
   return (
@@ -23,19 +23,19 @@ export function TokenInfoSkeleton() {
       <div className="h-20 animate-pulse rounded-sm bg-gray-200" />
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        {[...Array(3)].map((_, i) => (
-          <Card key={i} className="p-4">
+        {["card-a", "card-b", "card-c"].map((cardKey) => (
+          <Card key={cardKey} className="p-4">
             <div className="h-4 w-24 animate-pulse rounded-sm bg-gray-200" />
             <div className="mt-2 h-6 animate-pulse rounded-sm bg-gray-200" />
           </Card>
         ))}
       </div>
     </div>
-  );
+  )
 }
 
 export function TradingViewSkeleton() {
-  return <div className="h-[400px] animate-pulse rounded-lg bg-gray-200" />;
+  return <div className="h-[400px] animate-pulse rounded-lg bg-gray-200" />
 }
 
 export function TradingHistorySkeleton() {
@@ -43,12 +43,15 @@ export function TradingHistorySkeleton() {
     <div className="space-y-4">
       <div className="h-8 w-48 animate-pulse rounded-sm bg-gray-200" />
       <div className="space-y-2">
-        {[...Array(5)].map((_, i) => (
-          <div key={i} className="h-12 animate-pulse rounded-sm bg-gray-200" />
+        {["h-1", "h-2", "h-3", "h-4", "h-5"].map((hKey) => (
+          <div
+            key={hKey}
+            className="h-12 animate-pulse rounded-sm bg-gray-200"
+          />
         ))}
       </div>
     </div>
-  );
+  )
 }
 
 export function ChatSkeleton() {
@@ -61,5 +64,5 @@ export function ChatSkeleton() {
         <div className="h-10 w-20 animate-pulse rounded-sm bg-gray-200" />
       </div>
     </div>
-  );
+  )
 }

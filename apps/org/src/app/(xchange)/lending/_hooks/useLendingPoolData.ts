@@ -1,19 +1,19 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState } from "react";
-import { formatEther } from "viem";
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-unsafe-call */
+/* oxlint-disable @typescript-eslint/no-unsafe-argument */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useState } from "react"
+import { formatEther } from "viem"
 
-import { X7ContractsEnum } from "@x7/sdk";
-import type { ChainId } from "@x7/utils";
+import { X7ContractsEnum } from "@x7/sdk"
+import type { ChainId } from "@x7/utils"
 
 export function useLendingPoolData(
   chainId: ChainId,
   poolBalanceData: any,
   reserveBalanceData: any,
   ReadContractData: any,
-  lendingPoolContractAddress: string,
+  lendingPoolContractAddress: string
 ) {
   const [statusData, setStatusData] = useState({
     available: "0",
@@ -24,33 +24,33 @@ export function useLendingPoolData(
     reserveBalance: "0",
     totalBalance: "0",
     liveLoans: 0,
-  });
-  const [splitData, setSplitData] = useState<any[]>([]);
-  const [utilizedData, setUtilizedData] = useState<any[]>([]);
+  })
+  const [splitData, setSplitData] = useState<any[]>([])
+  const [utilizedData, setUtilizedData] = useState<any[]>([])
 
   useEffect(() => {
     if (poolBalanceData && reserveBalanceData && ReadContractData) {
       const availableValue = parseFloat(
-        formatEther(BigInt(ReadContractData?.[2]?.result ?? "0")),
-      );
+        formatEther(BigInt(ReadContractData?.[2]?.result ?? "0"))
+      )
       const escrowValue = parseFloat(
-        formatEther(BigInt(ReadContractData?.[1]?.result ?? "0")),
-      );
+        formatEther(BigInt(ReadContractData?.[1]?.result ?? "0"))
+      )
       const liquidationRewardValue = parseFloat(
-        formatEther(BigInt(ReadContractData?.[3]?.result ?? "0")),
-      );
+        formatEther(BigInt(ReadContractData?.[3]?.result ?? "0"))
+      )
       const loanCountValue =
-        parseInt(ReadContractData?.[0]?.result?.toString() ?? "0", 10) - 1;
+        parseInt(ReadContractData?.[0]?.result?.toString() ?? "0", 10) - 1
       const poolBalanceValue = parseFloat(
-        formatEther(BigInt(poolBalanceData?.value ?? 0)),
-      );
+        formatEther(BigInt(poolBalanceData?.value ?? 0))
+      )
       const reserveBalanceValue = parseFloat(
-        formatEther(BigInt(reserveBalanceData?.value ?? 0)),
-      );
-      const totalBalanceValue = poolBalanceValue + reserveBalanceValue;
+        formatEther(BigInt(reserveBalanceData?.value ?? 0))
+      )
+      const totalBalanceValue = poolBalanceValue + reserveBalanceValue
       const liveLoansValue = liquidationRewardValue
         ? Math.ceil(escrowValue / liquidationRewardValue)
-        : 0;
+        : 0
 
       setStatusData({
         available: availableValue.toFixed(2),
@@ -61,20 +61,20 @@ export function useLendingPoolData(
         reserveBalance: reserveBalanceValue.toFixed(2),
         totalBalance: totalBalanceValue.toFixed(2),
         liveLoans: liveLoansValue,
-      });
+      })
 
       const poolPercentage = totalBalanceValue
         ? (poolBalanceValue / totalBalanceValue) * 100
-        : 0;
+        : 0
       const reservePercentage = totalBalanceValue
         ? (reserveBalanceValue / totalBalanceValue) * 100
-        : 0;
+        : 0
       const availablePercentage = poolBalanceValue
         ? (availableValue / poolBalanceValue) * 100
-        : 0;
+        : 0
       const utilizedPercentage = poolBalanceValue
         ? (escrowValue / poolBalanceValue) * 100
-        : 0;
+        : 0
 
       setSplitData([
         {
@@ -89,7 +89,7 @@ export function useLendingPoolData(
           value: Math.round(reservePercentage),
           address: { result: X7ContractsEnum.LendingPoolReserve(chainId) },
         },
-      ]);
+      ])
 
       setUtilizedData([
         {
@@ -104,7 +104,7 @@ export function useLendingPoolData(
           value: Math.round(utilizedPercentage),
           address: { result: lendingPoolContractAddress + "#readContract#F31" },
         },
-      ]);
+      ])
     }
   }, [
     chainId,
@@ -112,7 +112,7 @@ export function useLendingPoolData(
     reserveBalanceData,
     ReadContractData,
     lendingPoolContractAddress,
-  ]);
+  ])
 
-  return { statusData, splitData, utilizedData };
+  return { statusData, splitData, utilizedData }
 }

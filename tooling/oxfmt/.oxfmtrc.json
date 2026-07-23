@@ -1,0 +1,36 @@
+{
+  "$schema": "../../node_modules/oxfmt/configuration_schema.json",
+  "printWidth": 80,
+  "singleQuote": false,
+  "jsxSingleQuote": false,
+  "semi": false,
+  "trailingComma": "es5",
+  "tabWidth": 2,
+  "ignorePatterns": [
+    "**/node_modules/**",
+    "**/.next/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/.turbo/**",
+    "**/coverage/**",
+    "**/*.min.js",
+    "**/*.config.js",
+    "**/*.config.ts",
+    "**/artifacts/**",
+    "**/contracts/**",
+    "**/*.css"
+  ],
+  "experimentalSortImports": {
+    "newlinesBetween": true,
+    "ignoreCase": true,
+    "internalPattern": ["@x7/", "~/"],
+    "groups": [
+      ["builtin"],
+      ["external"],
+      ["internal"],
+      ["parent"],
+      ["sibling"],
+      ["index"]
+    ]
+  }
+}

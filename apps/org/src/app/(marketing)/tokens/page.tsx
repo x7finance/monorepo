@@ -1,17 +1,17 @@
-import type { Metadata } from "next";
-import Image from "next/image";
+import type { Metadata } from "next"
+import Image from "next/image"
 
-import { cn } from "@x7/css";
-import { X7ContractsEnum } from "@x7/sdk";
-import { buttonVariants } from "@x7/ui/button";
-import { LinkInternal } from "@x7/ui/link";
-import { ChainId } from "@x7/utils";
+import { cn } from "@x7/css"
+import { X7ContractsEnum } from "@x7/sdk"
+import { buttonVariants } from "@x7/ui/button"
+import { LinkInternal } from "@x7/ui/link"
+import { ChainId } from "@x7/utils"
+import { SiteContentContainer } from "~/lib/components/core/site-content-container"
+import { PioneerDrop } from "~/lib/components/utils/pioneer-drop"
+import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
+import { XchangeLinks } from "~/types/links"
 
-import { SiteContentContainer } from "~/lib/components/core/site-content-container";
-import { PioneerDrop } from "~/lib/components/utils/pioneer-drop";
-import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc";
-import { XchangeLinks } from "~/types/links";
-import { Heading } from "../_components/heading";
+import { Heading } from "../_components/heading"
 
 const metadata = {
   title: "Tokens",
@@ -19,10 +19,10 @@ const metadata = {
     "Explore the Core Seven Tokens of X7 Finance: A comprehensive overview of our unique tokens - X7 DAO, X7R, X7101, X7102, X7103, X7104, and X7105. Each token plays a significant role in our DeFi ecosystem, from facilitating transactions and incentivizing participation to empowering holders with governance rights. Understand the tokenomics, benefits, and potential returns of holding these tokens. Experience the diversity and potential of decentralized finance with the core seven tokens of X7 Finance.",
   slug: "/tokens",
   section: "default",
-};
+}
 
 export function generateMetadata(): Metadata {
-  return generateMetadataFromDoc(metadata);
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function TokensPage() {
@@ -74,7 +74,7 @@ export default function TokensPage() {
                           buttonVariants({
                             variant: "ghost",
                             size: "sm",
-                          }),
+                          })
                         )}
                       >
                         Learn More
@@ -88,7 +88,7 @@ export default function TokensPage() {
                           buttonVariants({
                             variant: "default",
                             size: "sm",
-                          }),
+                          })
                         )}
                       >
                         Trade
@@ -138,7 +138,7 @@ export default function TokensPage() {
                           buttonVariants({
                             variant: "ghost",
                             size: "sm",
-                          }),
+                          })
                         )}
                       >
                         Learn More
@@ -152,7 +152,7 @@ export default function TokensPage() {
                           buttonVariants({
                             variant: "default",
                             size: "sm",
-                          }),
+                          })
                         )}
                       >
                         Trade
@@ -209,7 +209,7 @@ export default function TokensPage() {
                             buttonVariants({
                               variant: "ghost",
                               size: "sm",
-                            }),
+                            })
                           )}
                         >
                           Learn More
@@ -221,7 +221,7 @@ export default function TokensPage() {
                             buttonVariants({
                               variant: "default",
                               size: "sm",
-                            }),
+                            })
                           )}
                         >
                           Deposit
@@ -272,7 +272,7 @@ export default function TokensPage() {
                             buttonVariants({
                               variant: "ghost",
                               size: "sm",
-                            }),
+                            })
                           )}
                         >
                           Learn More
@@ -286,7 +286,7 @@ export default function TokensPage() {
                             buttonVariants({
                               variant: "default",
                               size: "sm",
-                            }),
+                            })
                           )}
                         >
                           Trade
@@ -316,7 +316,7 @@ export default function TokensPage() {
         </div>
       </SiteContentContainer>
     </div>
-  );
+  )
 }
 
 const quints = [
@@ -355,4 +355,4 @@ const quints = [
     link: "",
     token: X7ContractsEnum.X7105(ChainId.ETHEREUM),
   },
-];
+]

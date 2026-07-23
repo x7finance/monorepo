@@ -1,92 +1,96 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 
-/* eslint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable react-hooks/exhaustive-deps */
 
-"use client";
+"use client"
 
+import { getPublicClient } from "@wagmi/core"
+import type { FC } from "react"
 import React, {
   createContext,
   useContext,
   useEffect,
   useMemo,
   useState,
-} from "react";
-import type { FC } from "react";
-import { getPublicClient } from "@wagmi/core";
-import { useAccount } from "wagmi";
+} from "react"
+import { useAccount } from "wagmi"
 
-import { AlphaRouter } from "@x7/smart-order-router";
-import type {
-  BestSwapRoute,
-  RouteWithValidQuote,
-} from "@x7/smart-order-router";
-import { useEnabledImplentations } from "@x7/ui";
-import type { ChainId, Implementation } from "@x7/utils";
-
-import { useWeb3Config } from "~/lib/providers/web3";
-import useDebounce from "../hooks/utils/useDebounce";
+import type { BestSwapRoute, RouteWithValidQuote } from "@x7/smart-order-router"
+import { AlphaRouter } from "@x7/smart-order-router"
+import { useEnabledImplentations } from "@x7/ui"
+import { useDebounce } from "@x7/ui"
+import type { ChainId, Implementation } from "@x7/utils"
+import { useWeb3Config } from "~/lib/providers/web3"
 
 export interface AlphaRouterState {
   state: {
-    router: AlphaRouter | null;
-    possibleRoutes: RouteWithValidQuote[];
-    bestRoute: BestSwapRoute | undefined;
-    secondaryRoute: BestSwapRoute | undefined;
-    enabledImplementations: Implementation[];
-    isChainIdSettled: boolean;
-    debouncedChainId: number | undefined;
-  };
+    router: AlphaRouter | null
+    possibleRoutes: RouteWithValidQuote[]
+    bestRoute: BestSwapRoute | undefined
+    secondaryRoute: BestSwapRoute | undefined
+    enabledImplementations: Implementation[]
+    isChainIdSettled: boolean
+    debouncedChainId: number | undefined
+  }
   mutate: {
-    addPossibleRoutes(routes?: RouteWithValidQuote[]): void;
-    setBestRoute(route?: BestSwapRoute): void;
-    setSecondaryRoute(route?: BestSwapRoute): void;
-    setPossibleRoutes(routes?: RouteWithValidQuote[]): void;
-    clearPossibleRoutes(): void;
-  };
+    addPossibleRoutes(routes?: RouteWithValidQuote[]): void
+    setBestRoute(route?: BestSwapRoute): void
+    setSecondaryRoute(route?: BestSwapRoute): void
+    setPossibleRoutes(routes?: RouteWithValidQuote[]): void
+    clearPossibleRoutes(): void
+  }
 }
 
 const AlphaRouterContext = createContext<AlphaRouterState>(
-  {} as AlphaRouterState,
-);
+  {} as AlphaRouterState
+)
 
 interface AlphaRouterProviderProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export const AlphaRouterProvider: FC<AlphaRouterProviderProps> = ({
   children,
 }) => {
-  const { wagmiConfig } = useWeb3Config();
-  const publicClient = getPublicClient(wagmiConfig);
-  const { chainId: realChain } = useAccount();
-  const debouncedChainId = useDebounce(realChain, 500);
-  const [isChainIdSettled, setIsChainIdSettled] = useState(false);
+  const { wagmiConfig } = useWeb3Config()
+  const publicClient = useMemo(
+    () => getPublicClient(wagmiConfig),
+    [wagmiConfig]
+  )
+  const { chainId: realChain } = useAccount()
+  const debouncedChainId = useDebounce(realChain, 500)
+  const [isChainIdSettled, setIsChainIdSettled] = useState(false)
   const [possibleRoutes, setPossibleRoutes] = useState<RouteWithValidQuote[]>(
-    [],
-  );
-  const [bestRoute, setBestRoute] = useState<BestSwapRoute>();
-  const [secondaryRoute, setSecondaryRoute] = useState<BestSwapRoute>();
+    []
+  )
+  const [bestRoute, setBestRoute] = useState<BestSwapRoute>()
+  const [secondaryRoute, setSecondaryRoute] = useState<BestSwapRoute>()
 
   const [_enabledImplementations] = useEnabledImplentations(
-    "enabledImplementations",
-  );
-  const enabledImplementations = (
-    _enabledImplementations ?? "UNISWAP,XCHANGE"
-  ).split(",") as Implementation[];
+    "enabledImplementations"
+  )
+  // Memoize to avoid creating new array reference on every render
+  const enabledImplementations = useMemo(
+    () =>
+      (_enabledImplementations ?? "UNISWAP,XCHANGE").split(
+        ","
+      ) as Implementation[],
+    [_enabledImplementations]
+  )
 
   const addPossibleRoutes = (routes: RouteWithValidQuote[]) => {
-    setPossibleRoutes(routes);
-  };
+    setPossibleRoutes(routes)
+  }
 
   const clearPossibleRoutes = () => {
-    setPossibleRoutes([]);
-  };
+    setPossibleRoutes([])
+  }
 
   useEffect(() => {
     if (debouncedChainId) {
-      setIsChainIdSettled(true);
+      setIsChainIdSettled(true)
     }
-  }, [debouncedChainId]);
+  }, [debouncedChainId])
 
   const router: AlphaRouter | null = useMemo(() => {
     if (realChain) {
@@ -98,14 +102,34 @@ export const AlphaRouterProvider: FC<AlphaRouterProviderProps> = ({
         setBestRoute,
         setSecondaryRoute,
         enabledImplementations,
-      });
-      return _router;
+      })
+      return _router
     }
-    return null;
-  }, [realChain, _enabledImplementations]);
+    return null
+  }, [realChain, _enabledImplementations])
 
-  const builtState: AlphaRouterState = {
-    state: {
+  const builtState: AlphaRouterState = useMemo(
+    () => ({
+      state: {
+        router,
+        bestRoute,
+        secondaryRoute,
+        possibleRoutes,
+        enabledImplementations,
+        isChainIdSettled,
+        debouncedChainId,
+      },
+      mutate: {
+        addPossibleRoutes,
+        setBestRoute,
+        setSecondaryRoute: (route: typeof secondaryRoute) =>
+          setSecondaryRoute(route),
+        clearPossibleRoutes,
+        setPossibleRoutes: (routes: typeof possibleRoutes | undefined) =>
+          setPossibleRoutes(routes ?? []),
+      },
+    }),
+    [
       router,
       bestRoute,
       secondaryRoute,
@@ -113,28 +137,24 @@ export const AlphaRouterProvider: FC<AlphaRouterProviderProps> = ({
       enabledImplementations,
       isChainIdSettled,
       debouncedChainId,
-    },
-    mutate: {
       addPossibleRoutes,
       setBestRoute,
-      setSecondaryRoute: (route) => setSecondaryRoute(route),
       clearPossibleRoutes,
-      setPossibleRoutes: (routes) => setPossibleRoutes(routes ?? []),
-    },
-  };
+    ]
+  )
 
   return (
     <AlphaRouterContext.Provider value={builtState}>
       {children}
     </AlphaRouterContext.Provider>
-  );
-};
+  )
+}
 
 export const useAlphaRouter = () => {
-  const context = useContext(AlphaRouterContext);
+  const context = useContext(AlphaRouterContext)
   if (!context) {
-    throw new Error("Hook can only be used inside AlphaRouter Context");
+    throw new Error("Hook can only be used inside AlphaRouter Context")
   }
 
-  return context;
-};
+  return context
+}

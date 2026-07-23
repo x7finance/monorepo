@@ -1,13 +1,13 @@
-"use client";
+"use client"
 
-import Image from "next/image";
+import Image from "next/image"
 
-import { ChevronRightIcon, X7Logo } from "@x7/icons";
-import { LinkInternal } from "@x7/ui/link";
-import { getRandomPioneerNumber, SocialsEnum } from "@x7/utils";
+import { ChevronRightIcon, X7Logo } from "@x7/icons"
+import { LinkInternal } from "@x7/ui/link"
+import { getRandomPioneerNumber, SocialsEnum } from "@x7/utils"
 
 interface ErrorProps {
-  error: Error & { digest?: string };
+  error: Error & { digest?: string }
 }
 
 export default function ErrorPage({ error }: ErrorProps) {
@@ -40,8 +40,8 @@ export default function ErrorPage({ error }: ErrorProps) {
           You have some options here
         </h2>
         <ul className="-mt-6 divide-y divide-zinc-900/5 border-b border-zinc-900/5 dark:divide-zinc-100/5 dark:border-zinc-100/5">
-          {ERROR_LINKS.map((link, linkIdx) => (
-            <li key={linkIdx} className="relative flex gap-x-6 py-6">
+          {ERROR_LINKS.map((link) => (
+            <li key={link.href} className="relative flex gap-x-6 py-6">
               <div className="flex h-14 w-14 flex-none items-center justify-center">
                 <Image
                   height={100}
@@ -73,7 +73,7 @@ export default function ErrorPage({ error }: ErrorProps) {
         </ul>
       </div>
     </main>
-  );
+  )
 }
 
 const ERROR_LINKS = [
@@ -93,4 +93,4 @@ const ERROR_LINKS = [
     href: "/",
     description: "And we'll both forget this ever happened",
   },
-];
+]

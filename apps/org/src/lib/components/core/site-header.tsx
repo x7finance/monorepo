@@ -1,12 +1,12 @@
-import type { HTMLAttributes } from "react";
+import type { HTMLAttributes } from "react"
 
-import { cn } from "@x7/css";
-import { X7LongLogo, Xchange } from "@x7/icons";
-import { buttonVariants } from "@x7/ui/button";
-import { LinkInternal } from "@x7/ui/link";
+import { cn } from "@x7/css"
+import { X7LongLogo, Xchange } from "@x7/icons"
+import { buttonVariants } from "@x7/ui/button"
+import { LinkInternal } from "@x7/ui/link"
+import { DESKTOP_NAV_LINKS } from "~/lib/config/site"
 
-import { DESKTOP_NAV_LINKS } from "~/lib/config/site";
-import { MobileNavigation } from "./mobile-navigation";
+import { ClientMobileNavigation } from "./client-mobile-nav"
 
 export function SiteHeader({ className }: HTMLAttributes<HTMLElement>) {
   return (
@@ -31,11 +31,8 @@ export function SiteHeader({ className }: HTMLAttributes<HTMLElement>) {
               className="grid-gap-2 m-0 flex list-none gap-2 p-0"
               dir="ltr"
             >
-              {DESKTOP_NAV_LINKS.map((link, key) => (
-                <li
-                  key={`nav-item-${key}`}
-                  className="align-center flex items-center"
-                >
+              {DESKTOP_NAV_LINKS.map((link) => (
+                <li key={link.href} className="align-center flex items-center">
                   <LinkInternal
                     prefetch={true}
                     className="cursor-pointer rounded-full px-2 py-3 text-sm whitespace-nowrap text-zinc-800 outline-hidden hover:text-black dark:text-zinc-200 dark:hover:text-white"
@@ -63,16 +60,16 @@ export function SiteHeader({ className }: HTMLAttributes<HTMLElement>) {
                 buttonVariants({
                   variant: "default",
                 }),
-                "hidden py-1.5 lg:block",
+                "hidden py-1.5 lg:block"
               )}
             >
               <Xchange className="w-24" />
             </LinkInternal>
 
-            <MobileNavigation className="lg:hidden" />
+            <ClientMobileNavigation className="lg:hidden" />
           </div>
         </div>
       </div>
     </header>
-  );
+  )
 }

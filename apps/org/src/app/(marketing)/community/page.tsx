@@ -1,6 +1,6 @@
-import type { Metadata } from "next";
+import type { Metadata } from "next"
 
-import { cn } from "@x7/css";
+import { cn } from "@x7/css"
 import {
   BookIcon,
   Discord,
@@ -15,15 +15,15 @@ import {
   Warpcast,
   X7Logo,
   YouTube,
-} from "@x7/icons";
-import type { IconComponent } from "@x7/ui";
-import { LinkExternal } from "@x7/ui/link";
-import { SocialsEnum } from "@x7/utils";
+} from "@x7/icons"
+import type { IconComponent } from "@x7/ui"
+import { LinkExternal } from "@x7/ui/link"
+import { SocialsEnum } from "@x7/utils"
+import { SiteContentContainer } from "~/lib/components/core/site-content-container"
+import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
+import { MarketingLinks } from "~/types/links"
 
-import { SiteContentContainer } from "~/lib/components/core/site-content-container";
-import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc";
-import { MarketingLinks } from "~/types/links";
-import { Heading } from "../_components/heading";
+import { Heading } from "../_components/heading"
 
 const metadata = {
   title: "Community",
@@ -31,10 +31,10 @@ const metadata = {
     "Experience the Power of Community at X7 Finance: Our vibrant community is the heart of our DeFi ecosystem. Comprising of passionate crypto enthusiasts, innovative thinkers, and dedicated investors, the X7 Finance community actively contributes to our democratic DAO governance, shares insights, and supports each other in navigating the DeFi landscape. Join us and be part of a community that's shaping the future of decentralized finance.",
   slug: "/community",
   section: "default",
-};
+}
 
 export function generateMetadata(): Metadata {
-  return generateMetadataFromDoc(metadata);
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function CommunityPage() {
@@ -53,20 +53,20 @@ export default function CommunityPage() {
         </div>
       </SiteContentContainer>
     </div>
-  );
+  )
 }
 
 function Social({
   social,
 }: {
   social: {
-    href: string;
-    icon: IconComponent;
-    external?: boolean;
-    name: string;
-    description: string;
-    fill?: string;
-  };
+    href: string
+    icon: IconComponent
+    external?: boolean
+    name: string
+    description: string
+    fill?: string
+  }
 }) {
   return (
     <div
@@ -91,15 +91,15 @@ function Social({
         </p>
       </div>
     </div>
-  );
+  )
 }
 
 function SocialIcon({
   icon: Icon,
   fill,
 }: {
-  icon: IconComponent;
-  fill?: string;
+  icon: IconComponent
+  fill?: string
 }) {
   return (
     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-900/5 ring-1 ring-zinc-900/25 backdrop-blur-[2px] transition duration-300 group-hover:bg-white/50 group-hover:ring-zinc-900/25 dark:bg-white/7.5 dark:ring-white/15 dark:group-hover:bg-violet-300/10 dark:group-hover:ring-white">
@@ -107,11 +107,11 @@ function SocialIcon({
         className={cn(
           fill ??
             `fill-zinc-700/10 stroke-zinc-700 dark:fill-white/10 dark:stroke-zinc-400`,
-          `h-7 w-7 transition-colors duration-300 group-hover:stroke-zinc-900 dark:group-hover:fill-white dark:group-hover:stroke-white`,
+          `h-7 w-7 transition-colors duration-300 group-hover:stroke-zinc-900 dark:group-hover:fill-white dark:group-hover:stroke-white`
         )}
       />
     </div>
-  );
+  )
 }
 
 const socials = [
@@ -220,4 +220,4 @@ const socials = [
       "An exclusive gated Telegram group for holders of X7DAO tokens, Talk about your ideas for proposals",
     icon: Telegram,
   },
-];
+]

@@ -1,18 +1,17 @@
-import { Tag } from "@x7/ui/tag";
-import type { ChainId } from "@x7/utils";
-
-import { useCanLiquidate } from "~/lib/hooks/loans/useXchangeLendingPoolData";
+import { Tag } from "@x7/ui/tag"
+import type { ChainId } from "@x7/utils"
+import { useCanLiquidate } from "~/lib/hooks/loans/useXchangeLendingPoolData"
 
 interface ILLCardLiquidationStatusProps {
-  tokenByIndex: number;
-  chainId: ChainId;
+  tokenByIndex: number
+  chainId: ChainId
 }
 
 export function ILLCardLiquidationStatus({
   tokenByIndex,
   chainId,
 }: ILLCardLiquidationStatusProps) {
-  const canLiquidate = useCanLiquidate(tokenByIndex, chainId).canLiquidate;
+  const canLiquidate = useCanLiquidate(tokenByIndex, chainId).canLiquidate
 
   return (
     <div className="flex w-full border-t border-muted py-2">
@@ -29,5 +28,5 @@ export function ILLCardLiquidationStatus({
         )}
       </div>
     </div>
-  );
+  )
 }

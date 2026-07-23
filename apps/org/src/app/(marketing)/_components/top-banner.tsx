@@ -1,11 +1,10 @@
-import Image from "next/image";
+import Image from "next/image"
 
-import { cn } from "@x7/css";
-import { buttonVariants } from "@x7/ui/button";
-import { LinkInternal } from "@x7/ui/link";
-import { getRandomPioneerNumber } from "@x7/utils";
-
-import { XchangeLinks } from "~/types/links";
+import { cn } from "@x7/css"
+import { buttonVariants } from "@x7/ui/button"
+import { LinkInternal } from "@x7/ui/link"
+import { getRandomPioneerNumber } from "@x7/utils"
+import { XchangeLinks } from "~/types/links"
 
 export function TopBanner() {
   return (
@@ -18,7 +17,7 @@ export function TopBanner() {
                 style={{ height: "40" }}
                 className={cn(
                   "to-emerald-500",
-                  `pioneer-line-drop mx-auto block w-[1px] bg-linear-to-b`,
+                  `pioneer-line-drop mx-auto block w-[1px] bg-linear-to-b`
                 )}
               />
 
@@ -53,7 +52,7 @@ export function TopBanner() {
                   size: "sm",
                   variant: "outline",
                 }),
-                "inline-flex border-emerald-400 bg-emerald-900 text-emerald-100 hover:bg-emerald-800 hover:text-white",
+                "inline-flex border-emerald-400 bg-emerald-900 text-emerald-100 hover:bg-emerald-800 hover:text-white"
               )}
             >
               Learn more &rarr;
@@ -65,5 +64,5 @@ export function TopBanner() {
         </div>
       </div>
     </div>
-  );
+  )
 }

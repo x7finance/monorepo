@@ -1,18 +1,19 @@
-import type { Metadata } from "next";
+import type { Metadata } from "next"
 
-import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc";
-import { XchangeLinks } from "~/types/links";
-import { LendingBase } from "./_components/base";
+import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
+import { XchangeLinks } from "~/types/links"
+
+import { LendingBase } from "./_components/base"
 
 const metadata = {
   title: "Xchange Lending",
   description:
     "X7 Finance: View and manage your liquidity loans on the Xchange protocol.",
   slug: XchangeLinks.Lending,
-};
+}
 
 export function generateMetadata(): Metadata {
-  return generateMetadataFromDoc(metadata);
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function LendingPage() {
@@ -24,5 +25,5 @@ export default function LendingPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }

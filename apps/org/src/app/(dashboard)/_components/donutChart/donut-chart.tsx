@@ -1,165 +1,122 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-"use client";
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-unsafe-argument */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-unsafe-call */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+"use client"
 
-import React, { createContext, useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react"
 
-import type { ChainId } from "@x7/utils";
+import { ArcPath } from "./arc-path"
+import { LegendItem } from "./legend-item"
+import type { Item, ItemWithRenderProps, Props } from "./types"
+import { DonutChartContext } from "./types"
 
-import { ArcPath } from "./arc-path";
-import { LegendItem } from "./legend-item";
+export type { Colors, Context, Item, ItemWithRenderProps, Props } from "./types"
+export { DonutChartContext } from "./types"
 
-export interface Item {
-  className?: string;
-  isEmpty?: boolean;
-  label: string;
-  value: number;
-  chain: ChainId;
-  address?: {
-    result?: string;
-    status?: "success" | "loading" | "error";
-  };
-}
-export type ItemWithRenderProps = Item & {
-  angle: number;
-  classNames: string;
-  clickHandlers?: {
-    onClick: () => void;
-    onMouseEnter: () => void;
-    onMouseLeave: () => void;
-  };
-  fill: string;
-  index: number;
-  opacity: number;
-  stroke: string;
-};
-export type Colors = string[];
-export interface Props {
-  className?: string;
-  clickToggle?: boolean;
-  colorFunction?: (colors: Colors, index: number) => string;
-  colors?: Colors;
-  data: Item[];
-  emptyColor?: string;
-  emptyOffset?: number;
-  formatValues?: (value: number, total: number) => string;
-  height?: number;
-  interactive?: boolean;
-  innerRadius?: number;
-  legend?: boolean;
-  onClick?: (item: Item, toggled: boolean) => void;
-  onMouseEnter?: (item: Item) => void;
-  onMouseLeave?: (item: Item) => void;
-  outerRadius?: number;
-  selectedOffset?: number;
-  strokeColor?: string;
-  toggledOffset?: number;
-  width?: number;
-}
-export type Context = Pick<
-  Required<Props>,
-  | "className"
-  | "emptyOffset"
-  | "innerRadius"
-  | "outerRadius"
-  | "selectedOffset"
-  | "toggledOffset"
-  | "width"
-> & {
-  graphWidth: number;
-  selected: Item | null;
-  toggleSelect: boolean;
-  total: number;
-};
+const DEFAULT_COLOR_FUNCTION: NonNullable<Props["colorFunction"]> = (
+  colors,
+  index
+) => colors[index % colors.length]!
 
-export const DonutChartContext = createContext<Context>(undefined!);
+const DEFAULT_COLORS: NonNullable<Props["colors"]> = [
+  "#4066b9",
+  "#950ad0",
+  "#c22e5e",
+  "#971264",
+  "#2002d7",
+  "#212984",
+  "#b7dde4",
+  "#17dce5",
+  "#16e4ab",
+  "#795548",
+  "#607d8b",
+]
+
+const DEFAULT_DATA = [
+  {
+    className: "",
+    label: "",
+    chain: "",
+    value: 100,
+    isEmpty: true,
+  },
+] as any
+
+const DEFAULT_FORMAT_VALUES: NonNullable<Props["formatValues"]> = (
+  value,
+  total
+) =>
+  Number.isNaN(value / total) ? "--" : `${((value / total) * 100).toFixed(0)}%`
+
+const DEFAULT_ON_MOUSE_ENTER: NonNullable<Props["onMouseEnter"]> = (item) =>
+  item
+const DEFAULT_ON_MOUSE_LEAVE: NonNullable<Props["onMouseLeave"]> = (item) =>
+  item
+const DEFAULT_ON_CLICK: NonNullable<Props["onClick"]> = (item, toggled) =>
+  toggled ? item : null
 
 export const DonutChart: React.FC<Props> = function ({
   className = "donutchart",
   clickToggle = true,
-  colorFunction = (colors, index) => colors[index % colors.length],
-  colors = [
-    "#4066b9",
-    "#950ad0",
-    "#c22e5e",
-    "#971264",
-    "#2002d7",
-    "#212984",
-    "#b7dde4",
-    "#17dce5",
-    "#16e4ab",
-    "#795548",
-    "#607d8b",
-  ],
-  data = [
-    {
-      className: "",
-      label: "",
-      chain: "",
-      value: 100,
-      isEmpty: true,
-    },
-  ] as any,
+  colorFunction = DEFAULT_COLOR_FUNCTION,
+  colors = DEFAULT_COLORS,
+  data = DEFAULT_DATA,
   emptyColor = "#e0e0e0",
   emptyOffset = 0.08,
-  formatValues = (value, total) =>
-    Number.isNaN(value / total)
-      ? "--"
-      : `${((value / total) * 100).toFixed(0)}%`,
+  formatValues = DEFAULT_FORMAT_VALUES,
   interactive = true,
   innerRadius = 0.7,
   legend = true,
-  onMouseEnter = (item) => item,
-  onMouseLeave = (item) => item,
-  onClick = (item, toggled) => (toggled ? item : null),
+  onMouseEnter = DEFAULT_ON_MOUSE_ENTER,
+  onMouseLeave = DEFAULT_ON_MOUSE_LEAVE,
+  onClick = DEFAULT_ON_CLICK,
   outerRadius = 0.9,
   selectedOffset = 0.03,
   strokeColor = "#212121",
   toggledOffset = 0.04,
   width = 750,
 }) {
-  const [selected, setSelected] = useState<any>(null);
-  const [toggleSelect, setToggleSelect] = useState(false);
+  const [selected, setSelected] = useState<any>(null)
+  const [toggleSelect, setToggleSelect] = useState(false)
 
   useEffect(() => {
     if (interactive) {
-      setSelected(null);
-      setToggleSelect(false);
+      setSelected(null)
+      setToggleSelect(false)
     }
-  }, [interactive, data]);
+  }, [interactive, data])
 
-  const graphWidth = legend ? width * (2 / 3) : width;
+  const graphWidth = legend ? width * (2 / 3) : width
   const total = data.reduce(
     (sum: number, { value }: { value: number }) => sum + value,
-    0,
-  );
+    0
+  )
 
   const { dataWithRenderProps } = data.reduce(
     (
       {
         angle,
-        dataWithRenderProps,
+        dataWithRenderProps: accItems,
       }: { angle: number; dataWithRenderProps: ItemWithRenderProps[] },
       item: Item,
-      index: number,
+      index: number
     ) => {
-      const { className, isEmpty, label, value } = item;
-      const isSelected = selected?.label === label;
-      const isToggled = isSelected && toggleSelect;
+      const { className: itemClassName, isEmpty, label, value } = item
+      const isSelected = selected?.label === label
+      const isToggled = isSelected && toggleSelect
 
       return {
         angle: angle + (value / total) * 360,
         dataWithRenderProps: [
-          ...dataWithRenderProps,
+          ...accItems,
           {
             angle,
             index,
             ...item,
-            classNames: `${className ?? ""} ${isEmpty ? "empty" : ""} ${
+            classNames: `${itemClassName ?? ""} ${isEmpty ? "empty" : ""} ${
               isSelected ? "selected" : ""
             } ${isToggled ? "toggled" : ""}`.trim(),
             fill: isEmpty ? emptyColor : colorFunction(colors, index),
@@ -169,22 +126,22 @@ export const DonutChart: React.FC<Props> = function ({
               ? {
                   onClick: () => {
                     if (selected?.label === label) {
-                      const toggle = clickToggle ? !toggleSelect : false;
-                      setSelected(item);
-                      setToggleSelect(toggle);
-                      onClick(item, toggle);
+                      const toggle = clickToggle ? !toggleSelect : false
+                      setSelected(item)
+                      setToggleSelect(toggle)
+                      onClick(item, toggle)
                     }
                   },
                   onMouseEnter: () => {
                     if (!toggleSelect) {
-                      setSelected(item);
-                      onMouseEnter(item);
+                      setSelected(item)
+                      onMouseEnter(item)
                     }
                   },
 
                   onMouseLeave: () => {
                     if (!toggleSelect) {
-                      onMouseLeave(item);
+                      onMouseLeave(item)
                     }
                   },
                 }
@@ -192,27 +149,42 @@ export const DonutChart: React.FC<Props> = function ({
           },
         ],
         total: total + value,
-      };
+      }
     },
-    { angle: 0, dataWithRenderProps: [] as ItemWithRenderProps[] },
-  );
+    { angle: 0, dataWithRenderProps: [] as ItemWithRenderProps[] }
+  )
 
   return (
     <>
       <DonutChartContext.Provider
-        value={{
-          className,
-          emptyOffset,
-          graphWidth,
-          innerRadius,
-          outerRadius,
-          selected,
-          selectedOffset,
-          toggledOffset,
-          toggleSelect,
-          total,
-          width,
-        }}
+        value={useMemo(
+          () => ({
+            className,
+            emptyOffset,
+            graphWidth,
+            innerRadius,
+            outerRadius,
+            selected,
+            selectedOffset,
+            toggledOffset,
+            toggleSelect,
+            total,
+            width,
+          }),
+          [
+            className,
+            emptyOffset,
+            graphWidth,
+            innerRadius,
+            outerRadius,
+            selected,
+            selectedOffset,
+            toggledOffset,
+            toggleSelect,
+            total,
+            width,
+          ]
+        )}
       >
         <div className="flex h-52 items-center justify-center">
           <svg className="relative left-[10%] flex h-full w-auto items-center justify-center sm:left-[5%]">
@@ -270,14 +242,9 @@ export const DonutChart: React.FC<Props> = function ({
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-zinc-200 bg-white dark:divide-zinc-800 dark:bg-zinc-900">
-                  {dataWithRenderProps.map(
-                    (item: ItemWithRenderProps, idx: number) => (
-                      <LegendItem
-                        key={`legenditem-${item.index}-${idx}`}
-                        item={item}
-                      />
-                    ),
-                  )}
+                  {dataWithRenderProps.map((item: ItemWithRenderProps) => (
+                    <LegendItem key={`legenditem-${item.label}`} item={item} />
+                  ))}
                 </tbody>
               </table>
             </div>
@@ -285,5 +252,5 @@ export const DonutChart: React.FC<Props> = function ({
         </div>
       </DonutChartContext.Provider>
     </>
-  );
-};
+  )
+}

@@ -1,11 +1,11 @@
-import type { CSSProperties, FC, ReactNode } from "react";
+import type { CSSProperties, FC, ReactNode } from "react"
 
-import { cn } from "@x7/css";
+import { cn } from "@x7/css"
 
 interface AnimatedShinyTextProps {
-  children: ReactNode;
-  className?: string;
-  shimmerWidth?: number;
+  children: ReactNode
+  className?: string
+  shimmerWidth?: number
 }
 
 export const AnimatedShinyText: FC<AnimatedShinyTextProps> = ({
@@ -29,10 +29,10 @@ export const AnimatedShinyText: FC<AnimatedShinyTextProps> = ({
         // Shine gradient
         "bg-linear-to-r from-transparent via-black/80 via-50% to-transparent dark:via-white",
 
-        className,
+        className
       )}
     >
       {children}
     </div>
-  );
-};
+  )
+}

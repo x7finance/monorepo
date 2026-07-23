@@ -1,4 +1,4 @@
-import { sqrt } from "@x7/utils";
+import { sqrt } from "@x7/utils"
 
 /**
  * Returns the sqrt ratio as a Q64.96 corresponding to a given ratio of amount1 and amount0
@@ -8,9 +8,9 @@ import { sqrt } from "@x7/utils";
  */
 
 export function encodeSqrtRatioX96(amount1: bigint, amount0: bigint): bigint {
-  const numerator = BigInt(amount1) << BigInt(192);
-  const denominator = BigInt(amount0);
-  const ratioX192 = numerator / denominator;
+  const numerator = BigInt(amount1) << BigInt(192)
+  const denominator = BigInt(amount0)
+  const ratioX192 = numerator / denominator
 
-  return sqrt(ratioX192);
+  return sqrt(ratioX192)
 }

@@ -1,8 +1,9 @@
-import type { Currency, Token } from "@x7/utils";
+import type { Currency, Token } from "@x7/utils"
 
-import { Pair } from "../v2";
-import { Pool } from "../v3";
-import type { MixedRouteSDK } from "./entities/mixedRoute/route";
+import { Pair } from "../v2"
+import { Pool } from "../v3"
+
+import type { MixedRouteSDK } from "./entities/mixedRoute/route"
 
 /**
  * Utility function to return each consecutive section of Pools or Pairs in a MixedRoute
@@ -10,30 +11,30 @@ import type { MixedRouteSDK } from "./entities/mixedRoute/route";
  * @returns a nested array of Pools or Pairs in the order of the route
  */
 export const partitionMixedRouteByProtocol = (
-  route: MixedRouteSDK<Currency, Currency>,
+  route: MixedRouteSDK<Currency, Currency>
 ): (Pool | Pair)[][] => {
-  const acc = [];
+  const acc = []
 
-  let left = 0;
-  let right = 0;
+  let left = 0
+  let right = 0
   while (right < route.pools.length) {
     if (
       (route.pools[left] instanceof Pool &&
         route.pools[right] instanceof Pair) ||
       (route.pools[left] instanceof Pair && route.pools[right] instanceof Pool)
     ) {
-      acc.push(route.pools.slice(left, right));
-      left = right;
+      acc.push(route.pools.slice(left, right))
+      left = right
     }
     // seek forward with right pointer
-    right++;
+    right++
     if (right === route.pools.length) {
       /// we reached the end, take the rest
-      acc.push(route.pools.slice(left, right));
+      acc.push(route.pools.slice(left, right))
     }
   }
-  return acc;
-};
+  return acc
+}
 
 /**
  * Simple utility function to get the output of an array of Pools or Pairs
@@ -43,19 +44,19 @@ export const partitionMixedRouteByProtocol = (
  */
 export const getOutputOfPools = (
   pools: (Pool | Pair)[],
-  firstInputToken: Token,
+  firstInputToken: Token
 ): Token => {
   const { inputToken: outputToken } = pools.reduce(
-    ({ inputToken }, pool: Pool | Pair): { inputToken: Token } => {
-      if (!pool.involvesToken(inputToken)) throw new Error("PATH");
-      const outputToken: Token = pool.token0.equals(inputToken)
+    ({ inputToken: accToken }, pool: Pool | Pair): { inputToken: Token } => {
+      if (!pool.involvesToken(accToken)) throw new Error("PATH")
+      const nextToken: Token = pool.token0.equals(accToken)
         ? pool.token1
-        : pool.token0;
+        : pool.token0
       return {
-        inputToken: outputToken,
-      };
+        inputToken: nextToken,
+      }
     },
-    { inputToken: firstInputToken },
-  );
-  return outputToken;
-};
+    { inputToken: firstInputToken }
+  )
+  return outputToken
+}

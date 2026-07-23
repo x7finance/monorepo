@@ -1,10 +1,10 @@
-import { create } from "zustand";
+import { create } from "zustand"
 
 interface ClosedLoanStore {
-  closedLoans: number;
-  initialLoanLoaded: boolean;
-  loansLoaded: () => void;
-  increaseLoanCount: () => void;
+  closedLoans: number
+  initialLoanLoaded: boolean
+  loansLoaded: () => void
+  increaseLoanCount: () => void
 }
 
 export const useClosedLoanStore = create<ClosedLoanStore>((set) => ({
@@ -13,4 +13,4 @@ export const useClosedLoanStore = create<ClosedLoanStore>((set) => ({
   loansLoaded: () => set(() => ({ initialLoanLoaded: true })),
   increaseLoanCount: () =>
     set((state) => ({ closedLoans: state.closedLoans + 1 })),
-}));
+}))

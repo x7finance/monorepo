@@ -1,10 +1,10 @@
 interface Props {
-  size?: number;
-  fill?: string;
+  size?: number
+  fill?: string
 }
 
 export function Blockchain(props: Props) {
-  const { size = 24, fill = "black" } = props;
+  const { size = 24, fill = "black" } = props
 
   return (
     <svg
@@ -75,5 +75,5 @@ export function Blockchain(props: Props) {
         fill={fill}
       />
     </svg>
-  );
+  )
 }

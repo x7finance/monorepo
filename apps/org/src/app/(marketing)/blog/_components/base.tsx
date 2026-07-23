@@ -1,34 +1,35 @@
-import Image from "next/image";
+import Image from "next/image"
 
-import { Twitter } from "@x7/icons";
-import { LinkExternal, LinkInternal } from "@x7/ui/link";
+import { Twitter } from "@x7/icons"
+import { LinkExternal, LinkInternal } from "@x7/ui/link"
+import { env } from "~/env"
+import type { SectionType } from "~/types"
+import { MarketingLinks } from "~/types/links"
 
-import { env } from "~/env.mjs";
-import type { SectionType } from "~/types";
-import { MarketingLinks } from "~/types/links";
-import type { BlogType } from "../_types";
-import { Prose } from "./tags/prose";
+import type { BlogType } from "../_types"
+
+import { Prose } from "./tags/prose"
 
 interface BlogAuthor {
-  id: string;
-  name: string;
-  image: string;
-  twitter: string;
+  id: string
+  name: string
+  image: string
+  twitter: string
 }
 
 interface BlogBaseProps {
-  children: React.ReactNode;
-  title?: string;
-  date?: string;
-  tags?: string[];
-  tableOfContents?: SectionType[] | null;
-  blogsType?: BlogType;
-  slug?: string;
-  summary?: string;
-  authors?: BlogAuthor[];
+  children: React.ReactNode
+  title?: string
+  date?: string
+  tags?: string[]
+  tableOfContents?: SectionType[] | null
+  blogsType?: BlogType
+  slug?: string
+  summary?: string
+  authors?: BlogAuthor[]
 }
 export function BlogBase(props: BlogBaseProps) {
-  const { children, title, date, tags, summary, authors } = props;
+  const { children, title, date, tags, summary, authors } = props
 
   return (
     <>
@@ -49,17 +50,17 @@ export function BlogBase(props: BlogBaseProps) {
                 <header className="mb-6 space-y-1 sm:mb-9 md:mx-auto lg:mx-0">
                   {!!tags?.length && (
                     <div className="mb-6 flex flex-wrap items-center space-x-2">
-                      {tags.map((tag: string, key: number) => {
+                      {tags.map((tag: string) => {
                         return (
                           <div
-                            key={`${tag}-${key}`}
+                            key={tag}
                             className="inline-block rounded-3xl bg-linear-to-r from-yellow-600/30 to-red-600/30 px-4 py-1 shadow-xs"
                           >
                             <span className="font-semibold text-zinc-600 dark:text-zinc-300">
                               {tag}
                             </span>
                           </div>
-                        );
+                        )
                       })}
                       {date && (
                         <h2 className="font-display mt-0 mb-0 text-[14px] font-normal tracking-tight text-zinc-500">
@@ -180,5 +181,5 @@ export function BlogBase(props: BlogBaseProps) {
         </LinkInternal>
       </div>
     </>
-  );
+  )
 }

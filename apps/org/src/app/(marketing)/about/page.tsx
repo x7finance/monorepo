@@ -1,10 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata } from "next"
 
-import { LinkExternal, LinkInternal } from "@x7/ui/link";
-import { SocialsEnum } from "@x7/utils";
-
-import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc";
-import { DocsLinks, XchangeLinks } from "~/types/links";
+import { LinkExternal, LinkInternal } from "@x7/ui/link"
+import { SocialsEnum } from "@x7/utils"
+import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
+import { DocsLinks, XchangeLinks } from "~/types/links"
 
 const metadata = {
   title: "X7 Finance: Open Source DeFi Infrastructure",
@@ -12,10 +11,10 @@ const metadata = {
     "X7 Finance: Building open-source decentralized financial infrastructure with trustless smart contracts, AMM DEX, and innovative Liquidity Loans.",
   slug: "/about",
   section: "default",
-};
+}
 
 export function generateMetadata(): Metadata {
-  return generateMetadataFromDoc(metadata);
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function AboutPage() {
@@ -417,5 +416,5 @@ const governanceStructure = {
         </div>
       </section>
     </>
-  );
+  )
 }

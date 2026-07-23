@@ -1,21 +1,21 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import React, { useEffect, useRef, useState } from "react";
-import type { CSSProperties, PropsWithChildren } from "react";
-import type { SpringConfig } from "@react-spring/web";
-import { config, useSpring, useTransition } from "@react-spring/web";
+import type { SpringConfig } from "@react-spring/web"
+import { config, useSpring, useTransition } from "@react-spring/web"
+import type { CSSProperties, PropsWithChildren } from "react"
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+import React, { useEffect, useRef, useState } from "react"
 
-import { cn } from "@x7/css";
-import { AnimatedDiv } from "@x7/ui";
+import { cn } from "@x7/css"
+import { AnimatedDiv } from "@x7/ui"
 
 export interface TextTransitionProps {
-  className?: string;
-  delay?: number;
-  direction?: "up" | "down";
-  inline?: boolean;
-  springConfig?: SpringConfig;
-  style?: CSSProperties;
-  translateValue?: string;
+  className?: string
+  delay?: number
+  direction?: "up" | "down"
+  inline?: boolean
+  springConfig?: SpringConfig
+  style?: CSSProperties
+  translateValue?: string
 }
 
 function TextTransition(props: PropsWithChildren<TextTransitionProps>) {
@@ -28,11 +28,11 @@ function TextTransition(props: PropsWithChildren<TextTransitionProps>) {
     style,
     translateValue: tv = "100%",
     children,
-  } = props;
+  } = props
 
-  const initialRun = useRef(true);
-  const fromTransform = direction === "down" ? `-${tv}` : tv;
-  const leaveTransform = direction === "down" ? tv : `-${tv}`;
+  const initialRun = useRef(true)
+  const fromTransform = direction === "down" ? `-${tv}` : tv
+  const leaveTransform = direction === "down" ? tv : `-${tv}`
 
   const transitions = useTransition([children], {
     enter: { opacity: 1, transform: "translateY(0%)" },
@@ -45,31 +45,31 @@ function TextTransition(props: PropsWithChildren<TextTransitionProps>) {
     config: springConfig,
     immediate: initialRun.current,
     delay: !initialRun.current ? delay : undefined,
-  });
+  })
 
-  const [width, setWidth] = useState<number>(0);
-  const currentRef = useRef<HTMLDivElement>(null);
-  const heightRef = useRef<number | string>("auto");
+  const [width, setWidth] = useState<number>(0)
+  const currentRef = useRef<HTMLDivElement>(null)
+  const heightRef = useRef<number | string>("auto")
 
   useEffect(() => {
-    initialRun.current = false;
-    const element = currentRef.current;
+    initialRun.current = false
+    const element = currentRef.current
 
     // If element doesn't exist, then do nothing
-    if (!element) return;
+    if (!element) return
 
-    const { width, height } = element.getBoundingClientRect();
+    const rect = element.getBoundingClientRect()
 
-    setWidth(width);
-    heightRef.current = height;
-  }, [children, setWidth, currentRef]);
+    setWidth(rect.width)
+    heightRef.current = rect.height
+  }, [children, setWidth, currentRef])
 
   const widthTransition = useSpring({
     to: { width },
     config: springConfig,
     immediate: initialRun.current,
     delay: !initialRun.current ? delay : undefined,
-  });
+  })
 
   return (
     <AnimatedDiv
@@ -90,11 +90,12 @@ function TextTransition(props: PropsWithChildren<TextTransitionProps>) {
         <AnimatedDiv
           style={styles as any}
           ref={item === children ? currentRef : undefined}
-          children={item}
-        />
+        >
+          {item}
+        </AnimatedDiv>
       ))}
     </AnimatedDiv>
-  );
+  )
 }
 
-export default TextTransition;
+export default TextTransition

@@ -1,16 +1,15 @@
-import type { Metadata } from "next";
-import Image from "next/image";
+import type { Metadata } from "next"
+import Image from "next/image"
 
-import { cn } from "@x7/css";
-import { buttonVariants } from "@x7/ui/button";
-import { LinkInternal } from "@x7/ui/link";
-import { getRandomPioneerNumber } from "@x7/utils";
-
-import { SiteContentContainer } from "~/lib/components/core/site-content-container";
-import { PioneerDrop } from "~/lib/components/utils/pioneer-drop";
-import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc";
-import { GradientTypes } from "~/lib/utils/gradients";
-import { XchangeLinks } from "~/types/links";
+import { cn } from "@x7/css"
+import { buttonVariants } from "@x7/ui/button"
+import { LinkInternal } from "@x7/ui/link"
+import { getRandomPioneerNumber } from "@x7/utils"
+import { SiteContentContainer } from "~/lib/components/core/site-content-container"
+import { PioneerDrop } from "~/lib/components/utils/pioneer-drop"
+import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
+import { GradientTypes } from "~/lib/utils/gradients"
+import { XchangeLinks } from "~/types/links"
 
 const metadata = {
   title: "X7D",
@@ -18,13 +17,13 @@ const metadata = {
     "With insurance of the investor at heart - individuals and institutions will hold these tokens just as they would underwrite treasury bills and other stable assets. Holders of X7D will be able to mint a time-based interest-bearing NFT. X7D is always exchangeable with Ethereum at a 1-to-1 ratio. The X7 Finance protocol will only permit minting of new X7 Deposit tokens when on-chain reserves permit.",
   slug: "/tokens/x7d",
   section: "default",
-};
-
-export function generateMetadata(): Metadata {
-  return generateMetadataFromDoc(metadata);
 }
 
-const imagesArray = Array.from({ length: 60 }, (_, index) => index);
+export function generateMetadata(): Metadata {
+  return generateMetadataFromDoc(metadata)
+}
+
+const imagesArray = Array.from({ length: 60 }, (_, index) => index)
 
 export default function X7D() {
   return (
@@ -40,7 +39,7 @@ export default function X7D() {
               <p
                 className={cn(
                   GradientTypes.bank,
-                  `font-display my-3 inline bg-linear-to-r bg-clip-text text-xl font-bold text-transparent uppercase`,
+                  `font-display my-3 inline bg-linear-to-r bg-clip-text text-xl font-bold text-transparent uppercase`
                 )}
               ></p>
               <h2 className="font-heading text-3xl leading-[1.1] text-black sm:text-3xl md:text-6xl dark:text-white">
@@ -58,7 +57,7 @@ export default function X7D() {
                     buttonVariants({
                       variant: "ghost",
                       size: "sm",
-                    }),
+                    })
                   )}
                 >
                   Learn More
@@ -73,7 +72,7 @@ export default function X7D() {
                       variant: "outline",
                       size: "sm",
                     }),
-                    "border-opacity-60 hover:border-opacity-100 border-white",
+                    "border-opacity-60 hover:border-opacity-100 border-white"
                   )}
                 >
                   Deposit
@@ -86,9 +85,9 @@ export default function X7D() {
         </div>
         <div className="image-container flex items-center justify-center">
           <div className="columns-4 gap-8 xl:columns-6 2xl:columns-8">
-            {imagesArray.map((_i, key) => (
+            {imagesArray.map((imgIdx) => (
               <div
-                key={key}
+                key={`pioneer-image-${imgIdx}`}
                 className="after:content after:shadow-highlight group relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg"
               >
                 <Image
@@ -105,5 +104,5 @@ export default function X7D() {
         </div>
       </SiteContentContainer>
     </div>
-  );
+  )
 }

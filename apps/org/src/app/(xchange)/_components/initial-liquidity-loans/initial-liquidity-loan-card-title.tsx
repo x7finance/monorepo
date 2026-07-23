@@ -1,21 +1,20 @@
-"use client";
+"use client"
 
-import { ArrowUpRightIcon } from "@x7/icons";
-import { LinkExternal } from "@x7/ui/link";
-import { Tag } from "@x7/ui/tag";
-import type { ChainId, LoanType } from "@x7/utils";
-
-import { useLoanToken } from "~/lib/hooks/loans/useXchangeLendingPoolData";
+import { ArrowUpRightIcon } from "@x7/icons"
+import { LinkExternal } from "@x7/ui/link"
+import { Tag } from "@x7/ui/tag"
+import type { ChainId, LoanType } from "@x7/utils"
+import { useLoanToken } from "~/lib/hooks/loans/useXchangeLendingPoolData"
 import {
   useFullLoanAddress,
   useSymbol,
   useTokenSymbol,
-} from "~/lib/hooks/loans/useXchangeLoanData";
+} from "~/lib/hooks/loans/useXchangeLoanData"
 
 interface LoansCellProps {
-  tokenByIndex: number;
-  chainId: ChainId;
-  loanType: LoanType;
+  tokenByIndex: number
+  chainId: ChainId
+  loanType: LoanType
 }
 
 export function ILLCardTitle({
@@ -23,10 +22,10 @@ export function ILLCardTitle({
   chainId,
   loanType,
 }: LoansCellProps) {
-  const symbol = useSymbol(tokenByIndex, chainId, loanType).symbol;
-  const loanAddress = useLoanToken(tokenByIndex, chainId).loanToken;
-  const tokenSymbol = useTokenSymbol(loanAddress, chainId).tokenSymbol;
-  const fullLoanAddress = useFullLoanAddress(chainId, loanType).fullLoanAddress;
+  const symbol = useSymbol(tokenByIndex, chainId, loanType).symbol
+  const loanAddress = useLoanToken(tokenByIndex, chainId).loanToken
+  const tokenSymbol = useTokenSymbol(loanAddress, chainId).tokenSymbol
+  const fullLoanAddress = useFullLoanAddress(chainId, loanType).fullLoanAddress
 
   return (
     <>
@@ -53,5 +52,5 @@ export function ILLCardTitle({
         </div>
       </div>
     </>
-  );
+  )
 }

@@ -1,16 +1,16 @@
-"use client";
+"use client"
 
 // import { useSearchParams } from "next/navigation"
-import { Container } from "@x7/ui/container";
-import { LinkInternal } from "@x7/ui/link";
-import { PathnameButton } from "@x7/ui/pathname-button";
+import { Container } from "@x7/ui/container"
+import { LinkInternal } from "@x7/ui/link"
+import { PathnameButton } from "@x7/ui/pathname-button"
 
-import { Hero } from "./_components/hero";
+import { Hero } from "./_components/hero"
 
 export default function TabsLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   // const searchParams = useSearchParams()
 
@@ -23,7 +23,6 @@ export default function TabsLayout({
         <div className="mb-4 flex flex-wrap items-center gap-2">
           <LinkInternal
             prefetch={true}
-            shallow={true}
             scroll={false}
             href="#"
             // href={`/vote?${searchParams.toString()}`}
@@ -40,7 +39,6 @@ export default function TabsLayout({
             </PathnameButton>
           </LinkInternal>
           <LinkInternal
-            shallow={true}
             scroll={false}
             href="#"
             // href={`/vote/new?${searchParams.toString()}`}
@@ -58,7 +56,6 @@ export default function TabsLayout({
             </PathnameButton>
           </LinkInternal>
           <LinkInternal
-            shallow={true}
             scroll={false}
             href="#"
             // href={`vote/closed?${searchParams.toString()}`}
@@ -76,7 +73,6 @@ export default function TabsLayout({
             </PathnameButton>
           </LinkInternal>
           <LinkInternal
-            shallow={true}
             scroll={false}
             href="#"
             // href={`/vote/excecuted?${searchParams.toString()}`}
@@ -101,5 +97,5 @@ export default function TabsLayout({
         </div>
       </section>
     </>
-  );
+  )
 }

@@ -1,7 +1,7 @@
-import type { FC, ReactNode } from "react";
-import React from "react";
+import type { FC, ReactNode } from "react"
+import React from "react"
 
-import { X7Logo } from "@x7/icons";
+import { X7Logo } from "@x7/icons"
 
 const Splash: FC = () => {
   return (
@@ -12,14 +12,14 @@ const Splash: FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 const SplashController: FC<{ children: ReactNode; show?: boolean }> = ({
   children,
   show = false,
 }) => {
-  return <>{show ? <Splash /> : children}</>;
-};
+  return <>{show ? <Splash /> : children}</>
+}
 
-export { Splash, SplashController };
+export { Splash, SplashController }

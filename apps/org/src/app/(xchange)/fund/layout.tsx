@@ -1,19 +1,19 @@
-import { Container } from "@x7/ui/container";
+import { Container } from "@x7/ui/container"
+import { AnimatedTabs } from "~/lib/components/core/animate-tabs"
+import { FundingTabs } from "~/lib/types"
+import { XchangeLinks } from "~/types/links"
 
-import { AnimatedTabs } from "~/lib/components/core/animate-tabs";
-import { FundingTabs } from "~/lib/types";
-import { XchangeLinks } from "~/types/links";
-import { Hero } from "./_components/hero";
+import { Hero } from "./_components/hero"
 
 const fundTabs = [
   { id: FundingTabs.Fund, label: "Mint X7D" },
   { id: FundingTabs.History, label: "Transaction History" },
-];
+]
 
 export default function LendingLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <>
@@ -35,5 +35,5 @@ export default function LendingLayout({
         </Container>
       </div>
     </>
-  );
+  )
 }

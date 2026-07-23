@@ -1,8 +1,8 @@
-import Image from "next/image";
+import Image from "next/image"
 
-import { CheckCircleIcon } from "@x7/icons";
-import { LinkExternal } from "@x7/ui/link";
-import { getRandomPioneerNumber } from "@x7/utils";
+import { CheckCircleIcon } from "@x7/icons"
+import { LinkExternal } from "@x7/ui/link"
+import { getRandomPioneerNumber } from "@x7/utils"
 
 const SUPPORT_ITEMS = [
   "Partnerships",
@@ -11,10 +11,10 @@ const SUPPORT_ITEMS = [
   "Request a Demo",
   "General Questions",
   "Other",
-];
+]
 
 export function Assistance(props: { title?: string }) {
-  const { title = "Not any of the above?" } = props;
+  const { title = "Not any of the above?" } = props
   return (
     <div className="py-24 sm:py-32">
       <div className="relative isolate">
@@ -73,5 +73,5 @@ export function Assistance(props: { title?: string }) {
         </div>
       </div>
     </div>
-  );
+  )
 }

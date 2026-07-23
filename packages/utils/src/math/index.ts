@@ -1,11 +1,11 @@
-export * from "./constants";
+export * from "./constants"
 
-export { default as Decimal } from "./Decimal";
-export { default as Fraction } from "./Fraction";
+export { default as Decimal } from "./Decimal"
+export { default as Fraction } from "./Fraction"
 
-export * from "./functions";
+export * from "./functions"
 
-export { default as Percent } from "./Percent";
-export { default as Rounding } from "./Rounding";
+export { default as Percent } from "./Percent"
+export { default as Rounding } from "./Rounding"
 
-export * from "./fractions/currencyAmount";
+export * from "./fractions/currencyAmount"

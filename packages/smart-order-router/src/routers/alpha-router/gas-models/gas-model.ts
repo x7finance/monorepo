@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/prefer-for-of */
-import type { Pair, Pool } from "@x7/sdk";
-import { ChainId } from "@x7/utils";
-import type { CurrencyAmount as CurrencyAmountRaw, Token } from "@x7/utils";
+/* oxlint-disable @typescript-eslint/prefer-for-of */
+import type { Pair, Pool } from "@x7/sdk"
+import type { CurrencyAmount as CurrencyAmountRaw, Token } from "@x7/utils"
+import { ChainId } from "@x7/utils"
 
-import type { ProviderConfig } from "../../../providers/provider";
+import type { ProviderConfig } from "../../../providers/provider"
 import {
   DAI_ARBITRUM,
   DAI_BNB,
@@ -31,20 +31,25 @@ import {
   USDT_OPTIMISM,
   USDT_OPTIMISM_SEPOLIA,
   USDT_POLYGON,
-} from "../../../providers/token-provider";
-import type { IV2PoolProvider } from "../../../providers/v2/pool-provider";
+} from "../../../providers/token-provider"
+import type { IV2PoolProvider } from "../../../providers/v2/pool-provider"
 import type {
   ArbitrumGasData,
   IL2GasDataProvider,
-} from "../../../providers/v3/gas-data-provider";
-import { WRAPPED_NATIVE_CURRENCY } from "../../../utils";
-import type { CurrencyAmount } from "../../../utils";
+} from "../../../providers/v3/gas-data-provider"
+import type { CurrencyAmount } from "../../../utils/amounts"
+import { WRAPPED_NATIVE_CURRENCY } from "../../../utils/chains"
 import type {
   MixedRouteWithValidQuote,
   RouteWithValidQuote,
   V2RouteWithValidQuote,
   V3RouteWithValidQuote,
-} from "../entities/route-with-valid-quote";
+} from "../entities/route-with-valid-quote"
+
+import type { IGasModel } from "./gas-model-types"
+
+// Re-export for backwards compatibility
+export type { IGasModel, L1ToL2GasCosts } from "./gas-model-types"
 
 // When adding new usd gas tokens, ensure the tokens are ordered
 // from tokens with highest decimals to lowest decimals. For example,
@@ -76,81 +81,48 @@ export const usdGasTokensByChain: Partial<Record<ChainId, Token[]>> = {
   [ChainId.BSC_TESTNET]: [USDC_BNB],
   [ChainId.BASE]: [USDC_BASE, USDC_NATIVE_BASE],
   [ChainId.BASE_TESTNET]: [USDC_BASE_SEPOLIA],
-};
-
-export interface L1ToL2GasCosts {
-  gasUsedL1: bigint;
-  gasUsedL1OnL2: bigint;
-  gasCostL1USD: CurrencyAmount;
-  gasCostL1QuoteToken: CurrencyAmount;
 }
 
 export type GasModelProviderConfig = ProviderConfig & {
   /*
    * Any additional overhead to add to the gas estimate
    */
-  additionalGasOverhead?: bigint;
+  additionalGasOverhead?: bigint
 
-  gasToken?: Token;
-};
+  gasToken?: Token
+}
 
 export interface BuildOnChainGasModelFactoryType {
-  chainId: ChainId;
-  gasPriceWei: bigint;
-  pools: LiquidityCalculationPools;
-  amountToken: Token;
-  quoteToken: Token;
-  v2poolProvider: IV2PoolProvider;
-  l2GasDataProvider?: IL2GasDataProvider<ArbitrumGasData>;
-  providerConfig?: GasModelProviderConfig;
+  chainId: ChainId
+  gasPriceWei: bigint
+  pools: LiquidityCalculationPools
+  amountToken: Token
+  quoteToken: Token
+  v2poolProvider: IV2PoolProvider
+  l2GasDataProvider?: IL2GasDataProvider<ArbitrumGasData>
+  providerConfig?: GasModelProviderConfig
 }
 
 export interface BuildV2GasModelFactoryType {
-  chainId: ChainId;
-  gasPriceWei: bigint;
-  poolProvider: IV2PoolProvider;
-  token: Token;
-  l2GasDataProvider?: IL2GasDataProvider<ArbitrumGasData>;
-  providerConfig?: GasModelProviderConfig;
+  chainId: ChainId
+  gasPriceWei: bigint
+  poolProvider: IV2PoolProvider
+  token: Token
+  l2GasDataProvider?: IL2GasDataProvider<ArbitrumGasData>
+  providerConfig?: GasModelProviderConfig
 }
 
 export interface LiquidityCalculationPools {
-  usdPool: Pool;
-  nativeAndQuoteTokenV3Pool: Pool | null;
-  nativeAndAmountTokenV3Pool: Pool | null;
-  nativeAndSpecifiedGasTokenV3Pool: Pool | null;
+  usdPool: Pool
+  nativeAndQuoteTokenV3Pool: Pool | null
+  nativeAndAmountTokenV3Pool: Pool | null
+  nativeAndSpecifiedGasTokenV3Pool: Pool | null
 }
 
 export interface GasModelType {
-  v2GasModel?: IGasModel<V2RouteWithValidQuote>;
-  v3GasModel: IGasModel<V3RouteWithValidQuote>;
-  mixedRouteGasModel: IGasModel<MixedRouteWithValidQuote>;
-}
-
-/**
- * Contains functions for generating gas estimates for given routes.
- *
- * We generally compute gas estimates off-chain because
- *  1/ Calling eth_estimateGas for a swaps requires the caller to have
- *     the full balance token being swapped, and approvals.
- *  2/ Tracking gas used using a wrapper contract is not accurate with Multicall
- *     due to EIP-2929
- *  3/ For V2 we simulate all our swaps off-chain so have no way to track gas used.
- *
- * Generally these models should be optimized to return quickly by performing any
- * long running operations (like fetching external data) outside of the functions defined.
- * This is because the functions in the model are called once for every route and every
- * amount that is considered in the algorithm so it is important to minimize the number of
- * long running operations.
- */
-export interface IGasModel<TRouteWithValidQuote extends RouteWithValidQuote> {
-  estimateGasCost(routeWithValidQuote: TRouteWithValidQuote): {
-    gasEstimate: bigint;
-    gasCostInToken: CurrencyAmount;
-    gasCostInUSD: CurrencyAmount;
-    gasCostInGasToken?: CurrencyAmount;
-  };
-  calculateL1GasFees?(routes: TRouteWithValidQuote[]): Promise<L1ToL2GasCosts>;
+  v2GasModel?: IGasModel<V2RouteWithValidQuote>
+  v3GasModel: IGasModel<V3RouteWithValidQuote>
+  mixedRouteGasModel: IGasModel<MixedRouteWithValidQuote>
 }
 
 /**
@@ -171,7 +143,7 @@ export abstract class IV2GasModelFactory {
     poolProvider,
     token,
     providerConfig,
-  }: BuildV2GasModelFactoryType): Promise<IGasModel<V2RouteWithValidQuote>>;
+  }: BuildV2GasModelFactoryType): Promise<IGasModel<V2RouteWithValidQuote>>
 }
 
 /**
@@ -197,22 +169,22 @@ export abstract class IOnChainGasModelFactory<
     v2poolProvider,
     l2GasDataProvider,
     providerConfig,
-  }: BuildOnChainGasModelFactoryType): Promise<IGasModel<TRouteWithValidQuote>>;
+  }: BuildOnChainGasModelFactoryType): Promise<IGasModel<TRouteWithValidQuote>>
 
   protected totalInitializedTicksCrossed(
-    initializedTicksCrossedList: number[],
+    initializedTicksCrossedList: number[]
   ) {
-    let ticksCrossed = 0;
+    let ticksCrossed = 0
     for (let i = 0; i < initializedTicksCrossedList.length; i++) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      // oxlint-disable-next-line @typescript-eslint/no-non-null-assertion
       if (initializedTicksCrossedList[i]! > 0) {
         // Quoter returns Array<number of calls to crossTick + 1>, so we need to subtract 1 here.
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        ticksCrossed += initializedTicksCrossedList[i]! - 1;
+        // oxlint-disable-next-line @typescript-eslint/no-non-null-assertion
+        ticksCrossed += initializedTicksCrossedList[i]! - 1
       }
     }
 
-    return ticksCrossed;
+    return ticksCrossed
   }
 }
 
@@ -222,14 +194,14 @@ export abstract class IOnChainGasModelFactory<
 export const getQuoteThroughNativePool = (
   chainId: ChainId,
   nativeTokenAmount: CurrencyAmountRaw<Token>,
-  nativeTokenPool: Pool | Pair,
+  nativeTokenPool: Pool | Pair
 ): CurrencyAmount => {
-  const nativeCurrency = WRAPPED_NATIVE_CURRENCY[chainId];
-  const isToken0 = nativeTokenPool.token0.equals(nativeCurrency);
+  const nativeCurrency = WRAPPED_NATIVE_CURRENCY[chainId]
+  const isToken0 = nativeTokenPool.token0.equals(nativeCurrency)
   // returns mid price in terms of the native currency (the ratio of token/nativeToken)
   const nativeTokenPrice = isToken0
     ? nativeTokenPool.token0Price
-    : nativeTokenPool.token1Price;
+    : nativeTokenPool.token1Price
   // return gas cost in terms of the non native currency
-  return nativeTokenPrice.quote(nativeTokenAmount) as CurrencyAmount;
-};
+  return nativeTokenPrice.quote(nativeTokenAmount) as CurrencyAmount
+}

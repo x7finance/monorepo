@@ -1,36 +1,31 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 
-import { ArrowUpRightSquareIcon, CircleAlertIcon, X7Logo } from "@x7/icons";
-import { LinkExternal } from "@x7/ui/link";
-import { TableCell, TableRow } from "@x7/ui/table";
-import { Tag } from "@x7/ui/tag";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@x7/ui/tooltip";
-import type { ChainId } from "@x7/utils";
-import { generateChainDenomination, LogCodes } from "@x7/utils";
-
-import { SECONDS_IN_A_DAY } from "~/lib/constants/misc";
-import { ExplorerDataType, getExplorerLink } from "~/lib/utils/getExplorerLink";
-import { log } from "~/lib/utils/log";
+import { ArrowUpRightSquareIcon, CircleAlertIcon, X7Logo } from "@x7/icons"
+import { LinkExternal } from "@x7/ui/link"
+import { TableCell, TableRow } from "@x7/ui/table"
+import { Tag } from "@x7/ui/tag"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@x7/ui/tooltip"
+import type { ChainId } from "@x7/utils"
+import { generateChainDenomination, LogCodes } from "@x7/utils"
+import { SECONDS_IN_A_DAY } from "~/lib/constants/misc"
+import { ExplorerDataType, getExplorerLink } from "~/lib/utils/getExplorerLink"
+import { log } from "~/lib/utils/log"
 
 interface LoanTermRowProps {
-  loan: any;
-  chainId: ChainId;
-  isPopular: boolean;
+  loan: any
+  chainId: ChainId
+  isPopular: boolean
 }
 
 export function LoanTermRow({ loan, chainId, isPopular }: LoanTermRowProps) {
-  const _totalLoanCost = calculateTotalLoanCost(loan);
+  const _totalLoanCost = calculateTotalLoanCost(loan)
   const paymentDue = loan.premiumAndPrincipalDueAtEnd
     ? "throughout loan"
-    : "end of loan";
+    : "end of loan"
 
-  log.info(
-    LogCodes.LOAN_INFO,
-    `Implement total cost of loan: `,
-    _totalLoanCost,
-  );
+  log.info(LogCodes.LOAN_INFO, `Implement total cost of loan: `, _totalLoanCost)
 
   return (
     <TableRow>
@@ -163,21 +158,21 @@ export function LoanTermRow({ loan, chainId, isPopular }: LoanTermRowProps) {
         </Tooltip>
       </TableCell>
     </TableRow>
-  );
+  )
 }
 
 function calculateTotalLoanCost(loan: any): number {
-  const originationFee = loan.originationFeeNumerator / 100;
-  const premiumPeriods = loan.numberOfPremiumPeriods;
+  const originationFee = loan.originationFeeNumerator / 100
+  const premiumPeriods = loan.numberOfPremiumPeriods
   // Assuming a fixed premium rate of 1% per period (adjust as needed)
-  const premiumRate = 1;
+  const premiumRate = 1
 
-  return originationFee + premiumPeriods * premiumRate;
+  return originationFee + premiumPeriods * premiumRate
 }
 
 function calculateLoanCost(loan: any): number {
-  const premiumPeriods = loan.numberOfPremiumPeriods;
+  const premiumPeriods = loan.numberOfPremiumPeriods
   // Assuming a fixed premium rate of 1% per period (adjust as needed)
-  const premiumRate = 1;
-  return premiumPeriods * premiumRate;
+  const premiumRate = 1
+  return premiumPeriods * premiumRate
 }

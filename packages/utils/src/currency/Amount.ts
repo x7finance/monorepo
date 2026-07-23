@@ -1,24 +1,27 @@
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
+/* oxlint-disable @typescript-eslint/no-unsafe-argument */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-unsafe-call */
 
-import invariant from "tiny-invariant";
+import invariant from "tiny-invariant"
 
-import { Fraction, MAX_UINT256, Rounding, ZERO } from "../math";
-import Big from "../math/Big";
-import { Native } from "./Native";
-import { Share } from "./Share";
-import { Token } from "./Token";
-import type { Currency } from "./Type";
-import { amountSchema } from "./zod";
-import type { SerializedAmount } from "./zod";
+import Big from "../math/Big"
+import { MAX_UINT256, ZERO } from "../math/constants/numbers"
+import Fraction from "../math/Fraction"
+import Rounding from "../math/Rounding"
+
+import { Native } from "./Native"
+import { Share } from "./Share"
+import { Token } from "./Token"
+import type { Currency } from "./Type"
+import type { SerializedAmount } from "./zod"
+import { amountSchema } from "./zod"
 
 export class Amount<T extends Currency> extends Fraction {
-  public readonly currency: T;
-  public readonly scale: bigint;
+  public readonly currency: T
+  public readonly scale: bigint
   /**
    * Returns a new currency amount instance from the unitless amount of token, i.e. the raw amount
    * @param currency the currency in the amount
@@ -26,43 +29,43 @@ export class Amount<T extends Currency> extends Fraction {
    */
   public static fromRawAmount<T extends Currency>(
     currency: T,
-    rawAmount: bigint | number,
+    rawAmount: bigint | number
   ): Amount<T> {
-    return new Amount(currency, rawAmount);
+    return new Amount(currency, rawAmount)
   }
 
   public static fromShare<T extends Currency>(
     currency: T,
     shares: bigint | number,
     rebase: { base: bigint; elastic: bigint },
-    roundUp = false,
+    roundUp = false
   ): Amount<T> {
-    if (rebase.base === ZERO) return new Amount(currency, shares);
+    if (rebase.base === ZERO) return new Amount(currency, shares)
 
     const sharesBI =
-      typeof shares === "bigint" ? shares : BigInt(shares.toString());
+      typeof shares === "bigint" ? shares : BigInt(shares.toString())
 
-    const elastic = (sharesBI * rebase.elastic) / rebase.base;
+    const elastic = (sharesBI * rebase.elastic) / rebase.base
 
     if (roundUp && (elastic * rebase.base) / rebase.elastic < sharesBI) {
-      return new Amount(currency, elastic + 1n);
+      return new Amount(currency, elastic + 1n)
     }
 
-    return new Amount(currency, elastic);
+    return new Amount(currency, elastic)
   }
 
   public toShare(rebase: { base: bigint; elastic: bigint }, roundUp = false) {
     if (rebase.elastic === ZERO) {
-      return Share.fromRawShare(this.currency, this.quotient);
+      return Share.fromRawShare(this.currency, this.quotient)
     }
 
-    const base = (this.quotient * rebase.base) / rebase.elastic;
+    const base = (this.quotient * rebase.base) / rebase.elastic
 
     if (roundUp && (base * rebase.elastic) / rebase.base < this.quotient) {
-      return Share.fromRawShare(this.currency, base + 1n);
+      return Share.fromRawShare(this.currency, base + 1n)
     }
 
-    return Share.fromRawShare(this.currency, base);
+    return Share.fromRawShare(this.currency, base)
   }
 
   /**
@@ -74,131 +77,131 @@ export class Amount<T extends Currency> extends Fraction {
   public static fromFractionalAmount<T extends Currency>(
     currency: T,
     numerator: bigint,
-    denominator: bigint,
+    denominator: bigint
   ): Amount<T> {
-    return new Amount(currency, numerator, denominator);
+    return new Amount(currency, numerator, denominator)
   }
 
   protected constructor(
     currency: T,
     numerator: bigint | number,
-    denominator?: bigint,
+    denominator?: bigint
   ) {
-    super(numerator, denominator);
-    invariant(this.quotient <= MAX_UINT256, "AMOUNT");
-    this.currency = currency;
-    this.scale = 10n ** BigInt(currency.decimals);
+    super(numerator, denominator)
+    invariant(this.quotient <= MAX_UINT256, "AMOUNT")
+    this.currency = currency
+    this.scale = 10n ** BigInt(currency.decimals)
   }
 
   public override add(other: Amount<T>): Amount<T> {
-    invariant(this.currency.equals(other.currency), "CURRENCY");
-    const added = super.add(other);
+    invariant(this.currency.equals(other.currency), "CURRENCY")
+    const added = super.add(other)
     return Amount.fromFractionalAmount(
       this.currency,
       added.numerator,
-      added.denominator,
-    );
+      added.denominator
+    )
   }
 
   public override subtract(other: Amount<T>): Amount<T> {
-    invariant(this.currency.equals(other.currency), "CURRENCY");
-    const subtracted = super.subtract(other);
+    invariant(this.currency.equals(other.currency), "CURRENCY")
+    const subtracted = super.subtract(other)
     return Amount.fromFractionalAmount(
       this.currency,
       subtracted.numerator,
-      subtracted.denominator,
-    );
+      subtracted.denominator
+    )
   }
 
   public override multiply(other: Fraction | bigint): Amount<T> {
-    const multiplied = super.multiply(other);
+    const multiplied = super.multiply(other)
     return Amount.fromFractionalAmount(
       this.currency,
       multiplied.numerator,
-      multiplied.denominator,
-    );
+      multiplied.denominator
+    )
   }
 
   public override divide(other: Fraction | bigint): Amount<T> {
-    const divided = super.divide(other);
+    const divided = super.divide(other)
     return Amount.fromFractionalAmount(
       this.currency,
       divided.numerator,
-      divided.denominator,
-    );
+      divided.denominator
+    )
   }
 
   public override toSignificant(
     significantDigits = 6,
     format?: any,
-    rounding: Rounding = Rounding.ROUND_DOWN,
+    rounding: Rounding = Rounding.ROUND_DOWN
   ): string {
     return super
       .divide(this.scale)
-      .toSignificant(significantDigits, format, rounding);
+      .toSignificant(significantDigits, format, rounding)
   }
 
   public override toFixed(
     decimalPlaces: number = this.currency.decimals,
     format?: object,
-    rounding: Rounding = Rounding.ROUND_DOWN,
+    rounding: Rounding = Rounding.ROUND_DOWN
   ): string {
-    invariant(decimalPlaces <= this.currency.decimals, "DECIMALS");
-    return super.divide(this.scale).toFixed(decimalPlaces, format, rounding);
+    invariant(decimalPlaces <= this.currency.decimals, "DECIMALS")
+    return super.divide(this.scale).toFixed(decimalPlaces, format, rounding)
   }
 
   public toHex(): string {
-    return `0x${this.quotient.toString(16)}`;
+    return `0x${this.quotient.toString(16)}`
   }
 
   public toExact(groupSeparator = ""): string {
-    Big.DP = this.currency.decimals;
+    Big.DP = this.currency.decimals
 
     const exactNumber = new Big(this.quotient.toString()).div(
-      this.scale.toString(),
-    );
+      this.scale.toString()
+    )
 
-    const parts = exactNumber.toFixed().split(".");
-    const integerPart = parts[0];
-    const decimalPart = parts[1] || "";
+    const parts = exactNumber.toFixed().split(".")
+    const integerPart = parts[0]
+    const decimalPart = parts[1] || ""
 
     const formattedIntegerPart = integerPart?.replace(
       /\B(?=(\d{3})+(?!\d))/g,
-      groupSeparator,
-    );
+      groupSeparator
+    )
 
     return decimalPart
       ? `${formattedIntegerPart}.${decimalPart}`
-      : `${formattedIntegerPart}`;
+      : `${formattedIntegerPart}`
   }
 
   public get wrapped(): Amount<Token> {
-    if (this.currency.isToken) return this as Amount<Token>;
+    if (this.currency.isToken) return this as Amount<Token>
     return Amount.fromFractionalAmount(
       this.currency.wrapped,
       this.numerator,
-      this.denominator,
-    );
+      this.denominator
+    )
   }
 
   public serialize(): SerializedAmount {
     return amountSchema.parse({
       amount: this.quotient.toString(),
       currency: this.currency.serialize(),
-    });
+    })
   }
 
   public static deserialize<T extends Currency>(
-    amount: SerializedAmount,
+    amount: SerializedAmount
   ): Amount<T> {
     if (amount.currency.isNative)
       return Amount.fromRawAmount(
         Native.deserialize(amount.currency) as T,
-        BigInt(amount.amount),
-      );
+        BigInt(amount.amount)
+      )
     return Amount.fromRawAmount(
       Token.deserialize(amount.currency) as T,
-      BigInt(amount.amount),
-    );
+      BigInt(amount.amount)
+    )
   }
 }

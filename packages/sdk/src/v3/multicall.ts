@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-empty-function */
-import { encodeFunctionData } from "viem";
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-empty-function */
+import { encodeFunctionData } from "viem"
 
-import { mutlicall3ABI } from "@x7/contracts";
+import { mutlicall3ABI } from "@x7/contracts"
 
 export abstract class Multicall {
   /**
@@ -12,7 +12,7 @@ export abstract class Multicall {
 
   public static encodeMulticall(calldatas: string | string[]): string {
     if (!Array.isArray(calldatas)) {
-      calldatas = [calldatas];
+      calldatas = [calldatas]
     }
 
     return calldatas.length === 1
@@ -21,6 +21,6 @@ export abstract class Multicall {
           abi: mutlicall3ABI,
           functionName: "multicall",
           args: [calldatas as `0x${string}`[]],
-        });
+        })
   }
 }

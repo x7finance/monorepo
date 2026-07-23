@@ -1,4 +1,4 @@
-export type LoanType = "001" | "003" | "004" | "005";
+export type LoanType = "001" | "003" | "004" | "005"
 
 export enum Implementation {
   XCHANGE = "XCHANGE",

@@ -1,13 +1,13 @@
-"use client";
+"use client"
 
-import { useMemo } from "react";
+import { useMemo } from "react"
 
-import { ChainId, Native } from "@x7/utils";
+import { ChainId, Native } from "@x7/utils"
 
 export function useNativeCurrency({
   chainId = ChainId.ETHEREUM,
 }: {
-  chainId?: ChainId;
+  chainId?: ChainId
 }): Native {
-  return useMemo(() => Native.onChain(chainId), [chainId]);
+  return useMemo(() => Native.onChain(chainId), [chainId])
 }

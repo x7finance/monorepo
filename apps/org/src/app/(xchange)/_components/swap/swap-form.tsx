@@ -1,41 +1,41 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/unbound-method */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-"use client";
+/* oxlint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable @typescript-eslint/unbound-method */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+"use client"
 
-import React, { Suspense, useCallback, useEffect } from "react";
-import { useAccount } from "wagmi";
+import React, { Suspense, useCallback, useEffect } from "react"
+import { useAccount } from "wagmi"
 
-import { Button } from "@x7/ui/button";
-import type { Token } from "@x7/utils";
+import { Button } from "@x7/ui/button"
+import type { Token } from "@x7/utils"
+import { CurrencyInput } from "~/lib/components/utils/currency-input"
+import { ApprovalState } from "~/lib/hooks/approvals/useTokenApproval"
+import { useSwapState } from "~/lib/stores/swap"
+import { Checker } from "~/lib/systems/Checker"
+import { ApproveERC20 } from "~/lib/systems/Checker/ApproveERC20"
 
-import { CurrencyInput } from "~/lib/components/utils/currency-input";
-import { ApprovalState } from "~/lib/hooks/approvals/useTokenApproval";
-import { useSwapState } from "~/lib/providers/swap-state";
-import { Checker } from "~/lib/systems/Checker";
-import { ApproveERC20 } from "~/lib/systems/Checker/ApproveERC20";
 // import { SwapRecipientAddressDrawer } from "./(drawers)/swap-recipient-address-drawer";
-import { useSwapFormLogic } from "./(hooks)/use-swap-form-logic";
-import { SwapErrorMessage } from "./swap-error-message";
-import { FlipSwapTokensButton } from "./swap-flip-button";
-import { SimpleSwapTradeStats } from "./swap-stats";
+import { useSwapFormLogic } from "./(hooks)/use-swap-form-logic"
+import { SwapErrorMessage } from "./swap-error-message"
+import { FlipSwapTokensButton } from "./swap-flip-button"
+import { SimpleSwapTradeStats } from "./swap-stats"
 
 const LazySwapChartPanelLiquiditySheet = React.lazy(() =>
   import("./(sheet)/swap-chart-liquidity-sheet").then((module) => ({
     default: module.SwapChartPanelLiquiditySheet,
-  })),
-);
+  }))
+)
 
 interface X7SwapFormProps {
-  token0?: Token;
-  token1?: Token;
-  actionText?: string;
-  defaultAmount?: number | null;
-  hideAction?: boolean;
-  onQuickBuySelect?: (amount: number) => void;
+  token0?: Token
+  token1?: Token
+  actionText?: string
+  defaultAmount?: number | null
+  hideAction?: boolean
+  onQuickBuySelect?: (amount: number) => void
 }
 
-const QUICK_BUY_AMOUNTS = [0.005, 0.01, 0.05, 0.1, 0.25];
+const QUICK_BUY_AMOUNTS = [0.005, 0.01, 0.05, 0.1, 0.25]
 
 export function X7SwapForm(props: X7SwapFormProps) {
   const {
@@ -44,9 +44,9 @@ export function X7SwapForm(props: X7SwapFormProps) {
     hideAction = false,
     defaultAmount,
     onQuickBuySelect,
-  } = props;
+  } = props
 
-  const { address } = useAccount();
+  const { address } = useAccount()
   const {
     state: {
       swapError,
@@ -60,7 +60,7 @@ export function X7SwapForm(props: X7SwapFormProps) {
     },
     mutate: { setToken0, setToken1, setSwapAmount, switchTokens },
     loaders: { token0Loading, token1Loading, isQuoteLoading },
-  } = useSwapState();
+  } = useSwapState()
 
   const {
     refetchCount,
@@ -75,12 +75,12 @@ export function X7SwapForm(props: X7SwapFormProps) {
     token0 as Token | undefined,
     token1 as Token | undefined,
     route,
-    swapAmountString,
-  );
+    swapAmountString
+  )
 
   const handleSwitchTokens = useCallback(() => {
-    switchTokens();
-  }, [switchTokens]);
+    switchTokens()
+  }, [switchTokens])
 
   const renderApprovalButton = useCallback(() => {
     if (
@@ -94,23 +94,23 @@ export function X7SwapForm(props: X7SwapFormProps) {
           amount={swapAmount}
           contract={token0Approval.address}
         />
-      );
+      )
     }
-    return null;
-  }, [token0Approval, swapAmountString, token0, swapAmount]);
+    return null
+  }, [token0Approval, swapAmountString, token0, swapAmount])
 
   useEffect(() => {
     if (_token0 && !token0?.equals(_token0)) {
-      setToken0(_token0);
+      setToken0(_token0)
     }
     if (_token1 && !token1?.equals(_token1)) {
-      setToken1(_token1);
+      setToken1(_token1)
     }
-  }, [token0, _token0, token1, _token1]);
+  }, [token0, _token0, token1, _token1])
 
   const renderSwapButton = useCallback(() => {
     if (hideAction) {
-      return null;
+      return null
     }
 
     return (
@@ -133,7 +133,7 @@ export function X7SwapForm(props: X7SwapFormProps) {
                   : "Swap"}
         </Button>
       </Checker.Amounts>
-    );
+    )
   }, [
     hideAction,
     chainId,
@@ -144,7 +144,7 @@ export function X7SwapForm(props: X7SwapFormProps) {
     address,
     isWrap,
     isUnwrap,
-  ]);
+  ])
 
   return (
     <div className="mb-8 grid w-full gap-1">
@@ -193,8 +193,8 @@ export function X7SwapForm(props: X7SwapFormProps) {
               variant="outline"
               size="xs"
               onClick={() => {
-                setSwapAmount(amount.toString());
-                onQuickBuySelect?.(amount);
+                setSwapAmount(amount.toString())
+                onQuickBuySelect?.(amount)
               }}
               className={`flex-1 ${
                 defaultAmount === amount
@@ -209,7 +209,7 @@ export function X7SwapForm(props: X7SwapFormProps) {
       </div>
       {renderApprovalButton()}
       <SimpleSwapTradeStats />
-      <SwapErrorMessage error={swapError} />
+      <SwapErrorMessage error={swapError ?? null} />
       {renderSwapButton()}
       <Suspense fallback={<div></div>}>
         <LazySwapChartPanelLiquiditySheet
@@ -219,5 +219,5 @@ export function X7SwapForm(props: X7SwapFormProps) {
         />
       </Suspense>
     </div>
-  );
+  )
 }

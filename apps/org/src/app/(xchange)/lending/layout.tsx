@@ -1,9 +1,9 @@
-import { Container } from "@x7/ui/container";
+import { Container } from "@x7/ui/container"
+import { AnimatedTabs } from "~/lib/components/core/animate-tabs"
+import { LendingTabs } from "~/lib/types"
+import { XchangeLinks } from "~/types/links"
 
-import { AnimatedTabs } from "~/lib/components/core/animate-tabs";
-import { LendingTabs } from "~/lib/types";
-import { XchangeLinks } from "~/types/links";
-import { Hero } from "./_components/hero";
+import { Hero } from "./_components/hero"
 
 const lendingTabs = [
   { id: LendingTabs.AllLoans, label: "All Loans" },
@@ -12,12 +12,12 @@ const lendingTabs = [
   { id: LendingTabs.LendingPool, label: "Lending Pool" },
   { id: LendingTabs.LoanTerms, label: "Loan Terms" },
   { id: LendingTabs.InitiateLoan, label: "Initiate Loan" },
-];
+]
 
 export default function LendingLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <>
@@ -39,5 +39,5 @@ export default function LendingLayout({
         </Container>
       </div>
     </>
-  );
+  )
 }

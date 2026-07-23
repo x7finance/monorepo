@@ -1,110 +1,114 @@
-/* eslint-disable @typescript-eslint/await-thenable */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import fs from "fs";
-import path from "path";
-import type { RenderableTreeNode } from "@markdoc/markdoc";
-import Markdoc from "@markdoc/markdoc";
-import { slugifyWithCounter } from "@sindresorhus/slugify";
-import matter from "gray-matter";
+/* oxlint-disable @typescript-eslint/await-thenable */
+/* oxlint-disable @typescript-eslint/restrict-template-expressions */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unsafe-argument */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-unused-vars */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+import fs from "fs"
+import path from "path"
 
-import { LogCodes } from "@x7/utils";
+import type { RenderableTreeNode } from "@markdoc/markdoc"
+import Markdoc from "@markdoc/markdoc"
+import { slugifyWithCounter } from "@sindresorhus/slugify"
+import matter from "gray-matter"
+import { cache } from "react"
 
-import { log } from "~/lib/utils/log";
-import type { SectionType } from "~/types";
-import type { BlogType } from "../_types";
-import { AUTHORS } from "./authors";
-import { config } from "./config.markdoc";
+import { LogCodes } from "@x7/utils"
+import { log } from "~/lib/utils/log"
+import type { SectionType } from "~/types"
 
-export const SOURCE_FILES = path.join("src", "content", "blog");
+import type { BlogType } from "../_types"
 
-export const SOURCE_DIR = path.join(process.cwd(), SOURCE_FILES);
+import { AUTHORS } from "./authors"
+import { config } from "./config.markdoc"
+
+export const SOURCE_FILES = path.join("src", "content", "blog")
+
+export const SOURCE_DIR = path.join(process.cwd(), SOURCE_FILES)
 
 // Define the type for the slug
-type SlugType = string[] | undefined;
+type SlugType = string[] | undefined
 
 // Define the return type for parsing the markdown file
 interface ParsedMarkdown {
-  matterResult: matter.GrayMatterFile<string>;
-  content: RenderableTreeNode;
-  tableOfContents: SectionType[];
+  matterResult: matter.GrayMatterFile<string>
+  content: RenderableTreeNode
+  tableOfContents: SectionType[]
 }
 
 // Create function to parse the markdown file
 async function parseMarkdownFile(filePath: string): Promise<ParsedMarkdown> {
-  const absolutePath = path.resolve(filePath);
+  const absolutePath = path.resolve(filePath)
 
   // Check if the file exists and is accessible
   try {
-    await fs.promises.access(absolutePath, fs.constants.F_OK);
+    await fs.promises.access(absolutePath, fs.constants.F_OK)
   } catch (error) {
     throw new Error(
       `File does not exist or is not accessible: ${absolutePath}`,
-    );
+      { cause: error }
+    )
   }
 
   // If the file exists and is accessible, proceed with reading and parsing
-  const source = await fs.promises.readFile(absolutePath, "utf-8");
+  const source = await fs.promises.readFile(absolutePath, "utf-8")
 
-  const matterResult = matter(source);
-  const ast = Markdoc.parse(source);
-  const content = Markdoc.transform(ast, config);
-  const tableOfContents = collectHeadings(content) ?? [];
+  const matterResult = matter(source)
+  const ast = Markdoc.parse(source)
+  const content = Markdoc.transform(ast, config)
+  const tableOfContents = collectHeadings(content) ?? []
 
-  return { matterResult, content, tableOfContents };
+  return { matterResult, content, tableOfContents }
 }
 
 // Define the types for the parameters
 export interface ParamsProps {
-  slug: SlugType;
-  section: BlogType;
-  omitProperties?: (keyof MarkdownContent)[];
+  slug?: SlugType
+  section?: BlogType
+  omitProperties?: (keyof MarkdownContent)[]
 }
 
 interface Author {
-  id: string;
-  name: string;
-  twitter: string;
-  image: string;
+  id: string
+  name: string
+  twitter: string
+  image: string
 }
 
 // Define the type for the return object
 export interface MarkdownContent {
-  section: BlogType;
-  content: RenderableTreeNode | null;
-  title?: string;
-  tags?: string[];
-  tableOfContents: SectionType[] | null;
-  date?: string;
-  description: string | null;
-  slug?: string;
-  seoTitle: string | null;
-  imageUrl?: string;
-  authors: Author[];
-  summary?: string;
+  section: BlogType
+  content: RenderableTreeNode | null
+  title?: string
+  tags?: string[]
+  tableOfContents: SectionType[] | null
+  date?: string
+  description: string | null
+  slug?: string
+  seoTitle: string | null
+  imageUrl?: string
+  authors: Author[]
+  summary?: string
 }
 
 function findAuthorsByIds(ids: string[]): Author[] {
-  return AUTHORS.filter((author) => ids.includes(author.id));
+  return AUTHORS.filter((author) => ids.includes(author.id))
 }
 
-// Main function to get the markdown content
-export async function getMarkdownContent(
-  params: ParamsProps,
+// Main function to get the markdown content - wrapped with cache for deduplication
+export const getMarkdownContent = cache(async function getMarkdownContent(
+  params: ParamsProps
 ): Promise<Partial<MarkdownContent>> {
-  const { slug, omitProperties = [] } = await params;
+  const { slug, omitProperties = [] } = await params
 
   try {
-    const chainPath = slug?.join("/");
+    const chainPath = slug?.join("/")
 
     const { matterResult, content, tableOfContents } = await parseMarkdownFile(
-      path.join(SOURCE_DIR, `/${chainPath}.md`),
-    );
+      path.join(SOURCE_DIR, `/${chainPath}.md`)
+    )
 
     const {
       title,
@@ -115,9 +119,9 @@ export async function getMarkdownContent(
       imageUrl,
       authors,
       summary,
-    } = matterResult.data;
+    } = matterResult.data
 
-    const section = (slug ? slug[0] : "posts") as BlogType;
+    const section = (slug ? slug[0] : "posts") as BlogType
 
     const result: Partial<MarkdownContent> = {
       section,
@@ -132,83 +136,80 @@ export async function getMarkdownContent(
       slug: `${!slug ? "" : slug.join("/")}`,
       seoTitle,
       summary,
-    };
+    }
 
     // Omit the properties if any
     omitProperties.forEach((prop) => {
-      delete result[prop];
-    });
+      delete result[prop]
+    })
 
-    return result;
+    return result
   } catch (error) {
-    log.error(LogCodes.FAIL, `${error}`);
+    log.error(LogCodes.FAIL, `${error}`)
 
     return {
       content: null,
       title: undefined,
       tags: undefined,
       tableOfContents: null,
-    };
+    }
   }
-}
+})
 
 interface Node {
-  children?: (string | Node)[];
+  children?: (string | Node)[]
 }
 
 function getNodeText(node: Node): string {
-  let text = "";
+  let text = ""
   for (const child of node.children ?? []) {
     if (typeof child === "string") {
-      text += child;
+      text += child
     } else {
-      text += getNodeText(child);
+      text += getNodeText(child)
     }
   }
-  return text;
+  return text
 }
 
-const SUBHEADINGS: number[] = [2, 3];
+const SUBHEADINGS = new Set([2, 3])
 
-type SlugifyFunction = (title: string) => string;
+type SlugifyFunction = (title: string) => string
 
 function collectHeadings(
   nodes: any,
-  slugify: SlugifyFunction = slugifyWithCounter(),
+  slugify: SlugifyFunction = slugifyWithCounter()
 ): SectionType[] {
-  const sections: SectionType[] = [];
+  const sections: SectionType[] = []
 
   for (const node of nodes?.children ?? []) {
-    if (
-      node?.name === "Heading" &&
-      SUBHEADINGS.includes(node?.attributes?.level)
-    ) {
-      const title = getNodeText(node);
+    if (node?.name === "Heading" && SUBHEADINGS.has(node?.attributes?.level)) {
+      const title = getNodeText(node)
 
       if (title) {
-        const id = slugify(title);
-        node.attributes.id = id;
+        const id = slugify(title)
+        node.attributes.id = id
 
         if (node.name === "Heading" && node.attributes.level === 3) {
           if (sections.length === 0) {
             throw new Error(
-              "Cannot add `h3` to the table of contents without a preceding `h2`",
-            );
+              "Cannot add `h3` to the table of contents without a preceding `h2`"
+            )
           }
 
           sections[sections.length - 1]?.children.push({
             id,
             title,
             children: [],
-          });
+          })
         } else {
-          sections.push({ id, title, children: [] });
+          sections.push({ id, title, children: [] })
         }
       }
     }
 
-    sections.push(...collectHeadings(node.children ?? [], slugify));
+    sections.push(...collectHeadings(node.children ?? [], slugify))
   }
 
-  return sections;
+  return sections
 }

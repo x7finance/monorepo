@@ -2,31 +2,44 @@
   "name": "@x7/css",
   "version": "0.0.1",
   "private": true,
-  "license": "UNLICENSED",
+  "description": "Shared CSS utilities and Tailwind helpers for X7 Finance",
+  "license": "MIT",
   "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "default": "./src/index.ts"
-    }
+      "default": "./dist/index.js"
+    },
+    "./styles/*": "./src/styles/*"
   },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
+    "build": "tsc",
     "clean": "git clean -xdf .turbo node_modules dist",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
-    "lint": "eslint",
-    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+    "dev": "tsc --watch",
+    "format": "oxfmt --check --config ../../tooling/oxfmt/.oxfmtrc.json src/",
+    "format:fix": "oxfmt --write --config ../../tooling/oxfmt/.oxfmtrc.json src/",
+    "lint": "oxlint src/",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest watch",
+    "typecheck": "tsc --noEmit"
   },
-  "prettier": "@x7/prettier-config",
   "devDependencies": {
-    "@types/react": "catalog:react19",
-    "@types/react-dom": "catalog:react19",
-    "@x7/eslint-config": "workspace:*",
-    "@x7/prettier-config": "workspace:*",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
     "@x7/tsconfig": "workspace:*",
     "clsx": "^2.1.1",
-    "eslint": "catalog:",
-    "tailwind-merge": "^3.0.2",
-    "tailwindcss": "catalog:",
-    "typescript": "catalog:"
+    "oxlint": "^1.75.0",
+    "tailwind-merge": "^3.6.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.10"
   }
 }

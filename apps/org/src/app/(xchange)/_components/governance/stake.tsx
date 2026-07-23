@@ -1,32 +1,31 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import { useAccount } from "wagmi";
+import { useEffect, useState } from "react"
+import { useAccount } from "wagmi"
 
-import { cn } from "@x7/css";
-import { Button, buttonVariants } from "@x7/ui/button";
+import { cn } from "@x7/css"
+import { Button, buttonVariants } from "@x7/ui/button"
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@x7/ui/radix-collapsible";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@x7/ui/tabs";
-import type { ActiveChainId } from "@x7/utils";
-
-import { CurrencyInput } from "~/lib/components/utils/currency-input";
-import { ConnectionComponent } from "~/lib/components/utils/web3-connect-button";
-import { X7DAO } from "~/lib/constants/tokens";
-import { useBalanceWeb3 } from "~/lib/hooks/balances/useBalanceWeb3";
+} from "@x7/ui/collapsible"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@x7/ui/tabs"
+import type { ActiveChainId } from "@x7/utils"
+import { CurrencyInput } from "~/lib/components/utils/currency-input"
+import { ConnectionComponent } from "~/lib/components/utils/web3-connect-button"
+import { X7DAO } from "~/lib/constants/tokens"
+import { useBalanceWeb3 } from "~/lib/hooks/balances/useBalanceWeb3"
 
 export function X7Staking() {
-  const [refetchCount, _setRefetchCount] = useState<number>(0);
-  const [valueInput, setValueInput] = useState<string>("");
-  const [redeemInput, setRedeemInput] = useState<string>("");
-  const [activeTab, setActiveTab] = useState<string>("mint-x7d");
-  const [open, setOpen] = useState(false);
-  const { address, chain, isConnected } = useAccount();
+  const [refetchCount, _setRefetchCount] = useState<number>(0)
+  const [valueInput, setValueInput] = useState<string>("")
+  const [redeemInput, setRedeemInput] = useState<string>("")
+  const [activeTab, setActiveTab] = useState<string>("mint-x7d")
+  const [open, setOpen] = useState(false)
+  const { address, chain, isConnected } = useAccount()
 
-  const chainId = chain?.id as ActiveChainId;
+  const chainId = chain?.id as ActiveChainId
 
   const {
     data: balance,
@@ -36,7 +35,7 @@ export function X7Staking() {
     chainId,
     account: address,
     currency: X7DAO,
-  });
+  })
 
   const {
     data: _stakedBalance,
@@ -46,16 +45,14 @@ export function X7Staking() {
     chainId,
     account: address,
     currency: X7DAO,
-  });
+  })
 
-  const [big, portion] = (balance ? `${balance.toFixed(2)}` : "0.00").split(
-    ".",
-  );
+  const [big, portion] = (balance ? `${balance.toFixed(2)}` : "0.00").split(".")
 
   useEffect(() => {
-    void refetchDAO({ cancelRefetch: true });
-    void refetchStaked({ cancelRefetch: true });
-  }, [refetchCount, refetchStaked, refetchDAO]);
+    void refetchDAO({ cancelRefetch: true })
+    void refetchStaked({ cancelRefetch: true })
+  }, [refetchCount, refetchStaked, refetchDAO])
 
   //   useEffect(() => {
   //     void refetchDAO({ cancelRefetch: true });
@@ -104,7 +101,7 @@ export function X7Staking() {
                   "text-xs transition-opacity duration-500 ease-in-out sm:text-sm",
                   {
                     "opacity-0": !open,
-                  },
+                  }
                 )}
               >
                 Close
@@ -113,8 +110,8 @@ export function X7Staking() {
                 <span
                   role="button"
                   onClick={() => {
-                    setActiveTab("redeem-x7d");
-                    setOpen(!open);
+                    setActiveTab("redeem-x7d")
+                    setOpen(!open)
                   }}
                   className={cn(
                     buttonVariants({
@@ -124,7 +121,7 @@ export function X7Staking() {
                     "text-xs transition-opacity duration-500 ease-in-out sm:text-sm",
                     {
                       "hidden opacity-0": open,
-                    },
+                    }
                   )}
                 >
                   Withdraw X7DAO
@@ -137,8 +134,8 @@ export function X7Staking() {
                 <span
                   role="button"
                   onClick={() => {
-                    setActiveTab("mint-x7d");
-                    setOpen(!open);
+                    setActiveTab("mint-x7d")
+                    setOpen(!open)
                   }}
                   className={cn(
                     buttonVariants({
@@ -148,7 +145,7 @@ export function X7Staking() {
                     "text-xs transition-opacity duration-500 ease-in-out sm:text-sm",
                     {
                       "hidden opacity-0": open,
-                    },
+                    }
                   )}
                 >
                   Stake X7DAO
@@ -159,7 +156,7 @@ export function X7Staking() {
         </CollapsibleTrigger>
         <CollapsibleContent
           className={cn(
-            `flex w-full transform overflow-hidden rounded-b-xl border border-t-0 border-zinc-800 bg-zinc-900/50 transition-all duration-500 ease-in-out ${open ? "max-h-screen" : "max-h-0"}`,
+            `flex w-full transform overflow-hidden rounded-b-xl border border-t-0 border-zinc-800 bg-zinc-900/50 transition-all duration-500 ease-in-out ${open ? "max-h-screen" : "max-h-0"}`
           )}
         >
           <div className="relative mx-auto sm:px-6 lg:px-8">
@@ -198,7 +195,7 @@ export function X7Staking() {
                           disabled={
                             !isConnected || parseFloat(valueInput) === 0
                           }
-                          onClick={console.log}
+                          onClick={() => {}}
                           className="w-full"
                         >
                           Stake
@@ -229,7 +226,7 @@ export function X7Staking() {
                           disabled={
                             !isConnected || parseFloat(redeemInput) === 0
                           }
-                          onClick={console.log}
+                          onClick={() => {}}
                           className="w-full"
                         >
                           Unstake
@@ -244,5 +241,5 @@ export function X7Staking() {
         </CollapsibleContent>
       </Collapsible>
     </div>
-  );
+  )
 }

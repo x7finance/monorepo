@@ -1,22 +1,23 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-empty-function */
-import invariant from "tiny-invariant";
-import { encodeFunctionData, toHex } from "viem";
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-empty-function */
+import invariant from "tiny-invariant"
+import { encodeFunctionData, toHex } from "viem"
 
-import { swapRouter03, swapRouter03WDeadline } from "@x7/contracts";
-import type { Currency, Percent } from "@x7/utils";
-import { CurrencyAmount, Implementation, TradeType } from "@x7/utils";
+import { swapRouter03, swapRouter03WDeadline } from "@x7/contracts"
+import type { Currency, Percent } from "@x7/utils"
+import { CurrencyAmount, Implementation, TradeType } from "@x7/utils"
 
-import { validateAndParseAddress } from "../core";
-import { ADDRESS_ZERO } from "./constants";
-import type { TradeV3 } from "./entities/trade";
-import { Multicall } from "./multicall";
-import type { FeeOptions } from "./payments";
-import { Payments } from "./payments";
-import type { PermitOptions } from "./selfPermit";
-import { SelfPermit } from "./selfPermit";
-import { encodeRouteToPath } from "./utils";
-import type { MethodParameters } from "./utils/calldata";
+import { validateAndParseAddress } from "../core/validateAndParseAddress"
+
+import { ADDRESS_ZERO } from "./constants"
+import type { TradeV3 } from "./entities/trade"
+import { Multicall } from "./multicall"
+import type { FeeOptions } from "./payments"
+import { Payments } from "./payments"
+import type { PermitOptions } from "./selfPermit"
+import { SelfPermit } from "./selfPermit"
+import { encodeRouteToPath } from "./utils"
+import type { MethodParameters } from "./utils/calldata"
 
 /**
  * Options for producing the arguments to send calls to the router.
@@ -25,32 +26,32 @@ export interface SwapOptionsV3 {
   /**
    * How much the execution price is allowed to move unfavorably from the trade execution price.
    */
-  slippageTolerance: Percent;
+  slippageTolerance: Percent
 
   /**
    * The account that should receive the output.
    */
-  recipient: string;
+  recipient: string
 
   /**
    * When the transaction expires, in epoch seconds.
    */
-  deadline: bigint;
+  deadline: bigint
 
   /**
    * The optional permit parameters for spending the input.
    */
-  inputTokenPermit?: PermitOptions;
+  inputTokenPermit?: PermitOptions
 
   /**
    * The optional price limit for the trade.
    */
-  sqrtPriceLimitX96?: bigint;
+  sqrtPriceLimitX96?: bigint
 
   /**
    * Optional information for taking a fee on output.
    */
-  fee?: FeeOptions;
+  fee?: FeeOptions
 }
 
 /**
@@ -71,98 +72,97 @@ export abstract class SwapRouterV3 {
     trades:
       | TradeV3<Currency, Currency, TradeType>
       | TradeV3<Currency, Currency, TradeType>[],
-    options: SwapOptionsV3,
+    options: SwapOptionsV3
   ): MethodParameters {
     if (!Array.isArray(trades)) {
-      trades = [trades];
+      trades = [trades]
     }
 
-    const sampleTrade = trades[0];
+    const sampleTrade = trades[0]
     if (sampleTrade === undefined) {
-      throw new Error("No trades provided");
+      throw new Error("No trades provided")
     }
 
-    const tokenIn = sampleTrade.inputAmount.currency.wrapped;
-    const tokenOut = sampleTrade.outputAmount.currency.wrapped;
+    const tokenIn = sampleTrade.inputAmount.currency.wrapped
+    const tokenOut = sampleTrade.outputAmount.currency.wrapped
 
     // All trades should have the same starting and ending token.
     invariant(
       trades.every((trade) =>
-        trade.inputAmount.currency.wrapped.equals(tokenIn),
+        trade.inputAmount.currency.wrapped.equals(tokenIn)
       ),
-      "TOKEN_IN_DIFF",
-    );
+      "TOKEN_IN_DIFF"
+    )
     invariant(
       trades.every((trade) =>
-        trade.outputAmount.currency.wrapped.equals(tokenOut),
+        trade.outputAmount.currency.wrapped.equals(tokenOut)
       ),
-      "TOKEN_OUT_DIFF",
-    );
+      "TOKEN_OUT_DIFF"
+    )
 
-    const calldatas: string[] = [];
+    const calldatas: string[] = []
 
     const ZERO_IN: CurrencyAmount<Currency> = CurrencyAmount.fromRawAmount(
       trades[0]!.inputAmount.currency,
-      0,
-    );
+      0
+    )
     const ZERO_OUT: CurrencyAmount<Currency> = CurrencyAmount.fromRawAmount(
       trades[0]!.outputAmount.currency,
-      0,
-    );
+      0
+    )
 
     const totalAmountOut: CurrencyAmount<Currency> = trades.reduce(
       (sum, trade) =>
         sum.add(trade.minimumAmountOut(options.slippageTolerance)),
-      ZERO_OUT,
-    );
+      ZERO_OUT
+    )
 
     // flag for whether a refund needs to happen
     const mustRefund =
       sampleTrade.inputAmount.currency.isNative &&
-      sampleTrade.tradeType === TradeType.EXACT_OUTPUT;
-    const inputIsNative = sampleTrade.inputAmount.currency.isNative;
+      sampleTrade.tradeType === TradeType.EXACT_OUTPUT
+    const inputIsNative = sampleTrade.inputAmount.currency.isNative
     // flags for whether funds should be send first to the router
-    const outputIsNative = sampleTrade.outputAmount.currency.isNative;
-    const routerMustCustody = outputIsNative || !!options.fee;
+    const outputIsNative = sampleTrade.outputAmount.currency.isNative
+    const routerMustCustody = outputIsNative || !!options.fee
 
     const totalValue: CurrencyAmount<Currency> = inputIsNative
       ? trades.reduce(
           (sum, trade) =>
             sum.add(trade.maximumAmountIn(options.slippageTolerance)),
-          ZERO_IN,
+          ZERO_IN
         )
-      : ZERO_IN;
+      : ZERO_IN
 
     // encode permit if necessary
     if (options.inputTokenPermit) {
-      invariant(sampleTrade.inputAmount.currency.isToken, "NON_TOKEN_PERMIT");
+      invariant(sampleTrade.inputAmount.currency.isToken, "NON_TOKEN_PERMIT")
       calldatas.push(
         SelfPermit.encodePermit(
           sampleTrade.inputAmount.currency,
-          options.inputTokenPermit,
-        ),
-      );
+          options.inputTokenPermit
+        )
+      )
     }
 
-    const recipient: string = validateAndParseAddress(options.recipient);
-    const deadline = BigInt(options.deadline);
+    const recipient: string = validateAndParseAddress(options.recipient)
+    const deadline = BigInt(options.deadline)
 
     for (const trade of trades) {
       for (const { route, inputAmount, outputAmount } of trade.swaps) {
         const amountIn = BigInt(
-          trade.maximumAmountIn(options.slippageTolerance, inputAmount)
-            .quotient,
-        );
+          trade.maximumAmountIn(options.slippageTolerance, inputAmount).quotient
+        )
         const amountOut = BigInt(
           trade.minimumAmountOut(options.slippageTolerance, outputAmount)
-            .quotient,
-        );
+            .quotient
+        )
 
         // flag for whether the trade is single hop or not
-        const singleHop = route.pools.length === 1;
+        const singleHop = route.pools.length === 1
 
         const needsDeadline =
-          route.pools[0]?.poolType === Implementation.SUSHISWAP;
+          route.pools[0]?.poolType === Implementation.SUSHISWAP
 
         if (singleHop) {
           if (trade.tradeType === TradeType.EXACT_INPUT) {
@@ -177,15 +177,15 @@ export abstract class SwapRouterV3 {
               amountIn,
               amountOutMinimum: amountOut,
               sqrtPriceLimitX96: BigInt(options.sqrtPriceLimitX96 ?? 0),
-            };
+            }
 
             calldatas.push(
               encodeFunctionData({
                 abi: needsDeadline ? swapRouter03WDeadline : swapRouter03,
                 functionName: "exactInputSingle",
                 args: [exactInputSingleParams],
-              }),
-            );
+              })
+            )
           } else {
             const exactOutputSingleParams = {
               tokenIn: route.tokenPath[0]!.address,
@@ -198,26 +198,26 @@ export abstract class SwapRouterV3 {
               amountOut,
               amountInMaximum: amountIn,
               sqrtPriceLimitX96: BigInt(options.sqrtPriceLimitX96 ?? 0),
-            };
+            }
 
             calldatas.push(
               encodeFunctionData({
                 abi: needsDeadline ? swapRouter03WDeadline : swapRouter03,
                 functionName: "exactOutputSingle",
                 args: [exactOutputSingleParams],
-              }),
-            );
+              })
+            )
           }
         } else {
           invariant(
             options.sqrtPriceLimitX96 === undefined,
-            "MULTIHOP_PRICE_LIMIT",
-          );
+            "MULTIHOP_PRICE_LIMIT"
+          )
 
           const path: string = encodeRouteToPath(
             route,
-            trade.tradeType === TradeType.EXACT_OUTPUT,
-          );
+            trade.tradeType === TradeType.EXACT_OUTPUT
+          )
 
           if (trade.tradeType === TradeType.EXACT_INPUT) {
             const exactInputParams = {
@@ -228,15 +228,15 @@ export abstract class SwapRouterV3 {
               ...(needsDeadline ? { deadline } : {}),
               amountIn,
               amountOutMinimum: amountOut,
-            };
+            }
 
             calldatas.push(
               encodeFunctionData({
                 abi: needsDeadline ? swapRouter03WDeadline : swapRouter03,
                 functionName: "exactInput",
                 args: [exactInputParams],
-              }),
-            );
+              })
+            )
           } else {
             const exactOutputParams = {
               path: path as `0x${string}`,
@@ -246,15 +246,15 @@ export abstract class SwapRouterV3 {
               ...(needsDeadline ? { deadline } : {}),
               amountOut,
               amountInMaximum: amountIn,
-            };
+            }
 
             calldatas.push(
               encodeFunctionData({
                 abi: needsDeadline ? swapRouter03WDeadline : swapRouter03,
                 functionName: "exactOutput",
                 args: [exactOutputParams],
-              }),
-            );
+              })
+            )
           }
         }
       }
@@ -268,34 +268,34 @@ export abstract class SwapRouterV3 {
             Payments.encodeUnwrapWETH9(
               totalAmountOut.quotient,
               recipient,
-              options.fee,
-            ),
-          );
+              options.fee
+            )
+          )
         } else {
           calldatas.push(
             Payments.encodeSweepToken(
               sampleTrade.outputAmount.currency.wrapped,
               totalAmountOut.quotient,
               recipient,
-              options.fee,
-            ),
-          );
+              options.fee
+            )
+          )
         }
       } else {
         calldatas.push(
-          Payments.encodeUnwrapWETH9(totalAmountOut.quotient, recipient),
-        );
+          Payments.encodeUnwrapWETH9(totalAmountOut.quotient, recipient)
+        )
       }
     }
 
     // refund
     if (mustRefund) {
-      calldatas.push(Payments.encodeRefundETH());
+      calldatas.push(Payments.encodeRefundETH())
     }
 
     return {
       calldata: Multicall.encodeMulticall(calldatas),
       value: toHex(totalValue.quotient),
-    };
+    }
   }
 }

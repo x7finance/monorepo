@@ -1,25 +1,25 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-"use client";
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+"use client"
 
-import type { FC, ReactNode } from "react";
-import { useMemo } from "react";
+import type { FC, ReactNode } from "react"
+import { useMemo } from "react"
 
-import { cn } from "@x7/css";
-import type { Pool, RouteV2Wrapper, RouteV3Wrapper } from "@x7/sdk";
-import { useTradeChartPanelLiquidity } from "@x7/ui";
-import { SkeletonBox } from "@x7/ui/skeleton";
-import type { Currency } from "@x7/utils";
-import { Implementation, LogCodes, Protocol } from "@x7/utils";
-
-import { useSwapState } from "~/lib/providers/swap-state";
-import { log } from "~/lib/utils/log";
+import { cn } from "@x7/css"
+import type { Pool, RouteV2Wrapper, RouteV3Wrapper } from "@x7/sdk"
+import { useTradeChartPanelLiquidity } from "@x7/ui"
+import { SkeletonBox } from "@x7/ui/skeleton"
+import type { Currency } from "@x7/utils"
+import { Implementation, LogCodes, Protocol } from "@x7/utils"
+import { useSwapState } from "~/lib/stores/swap"
+import { log } from "~/lib/utils/log"
 import {
   warningSeverity,
   warningSeverityClassName,
-} from "~/lib/utils/warning-severity";
-import { ImplementationIcon } from "./swap-implementation-logos";
-import { MixedImplementationDisplay } from "./swap-mixed-implementation";
-import { SwapTaxes } from "./swap-taxes";
+} from "~/lib/utils/warning-severity"
+
+import { ImplementationIcon } from "./swap-implementation-logos"
+import { MixedImplementationDisplay } from "./swap-mixed-implementation"
+import { SwapTaxes } from "./swap-taxes"
 
 const TradeStatRow: FC<{ label: string; value: ReactNode }> = ({
   label,
@@ -31,7 +31,7 @@ const TradeStatRow: FC<{ label: string; value: ReactNode }> = ({
       {value}
     </span>
   </div>
-);
+)
 
 const implementationClassOverrides = {
   [Implementation.AERODROME]: "h-4 text-muted-foreground",
@@ -39,40 +39,40 @@ const implementationClassOverrides = {
   [Implementation.PANCAKESWAP]: "h-5",
   [Implementation.XCHANGE]: "h-5",
   [Implementation.SUSHISWAP]: "h-4 text-muted-foreground",
-};
+}
 
 export const SimpleSwapTradeStats: FC = () => {
   const {
-    state: { swapAmountString, route, slippage },
+    state: { swapAmountString, route: swapRoute, slippage },
     loaders: { isQuoteLoading },
-  } = useSwapState();
+  } = useSwapState()
   const [showTradeChartPanelLiquidity, setShowTradeChartPanelLiquidity] =
-    useTradeChartPanelLiquidity("tradeChartPanelLiquidity");
-  const loading = Boolean(isQuoteLoading && !route?.quote);
+    useTradeChartPanelLiquidity("tradeChartPanelLiquidity")
+  const loading = Boolean(isQuoteLoading && !swapRoute?.quote)
 
-  const { trade } = route ?? {};
+  const { trade } = swapRoute ?? {}
 
   const implementation = useMemo(() => {
     if (!trade?.routes[0]) {
-      return Implementation.MIXED;
+      return Implementation.MIXED
     }
 
-    const route = trade.routes[0];
+    const route = trade.routes[0]
 
     if (route.protocol === Protocol.V3) {
-      return (route as RouteV3Wrapper<Currency, Currency>).pools[0]?.poolType;
+      return (route as RouteV3Wrapper<Currency, Currency>).pools[0]?.poolType
     }
     if (route.protocol === Protocol.V2) {
-      return (route as RouteV2Wrapper<Currency, Currency>).pairs[0]?.pairType;
+      return (route as RouteV2Wrapper<Currency, Currency>).pairs[0]?.pairType
     }
-    return Implementation.MIXED;
-  }, [trade]);
+    return Implementation.MIXED
+  }, [trade])
 
   if (trade?.routes) {
-    log.info(LogCodes.TRADE_ROUTES, trade.routes);
+    log.info(LogCodes.TRADE_ROUTES, trade.routes)
   }
 
-  if (+swapAmountString > 0 && !!route && !isQuoteLoading) {
+  if (+swapAmountString > 0 && !!swapRoute && !isQuoteLoading) {
     return (
       <div
         data-testid="trade-summary-details"
@@ -91,7 +91,7 @@ export const SimpleSwapTradeStats: FC = () => {
               <span
                 className={cn(
                   "text-right text-xs font-semibold",
-                  warningSeverityClassName(warningSeverity(trade.priceImpact)),
+                  warningSeverityClassName(warningSeverity(trade.priceImpact))
                 )}
               >
                 {`${trade.priceImpact.lessThan(0) ? "+" : trade.priceImpact.greaterThan(0) ? "-" : ""}${Math.abs(Number(trade.priceImpact.toFixed(2)))}%`}
@@ -126,11 +126,11 @@ export const SimpleSwapTradeStats: FC = () => {
           label="Network fee"
           value={
             loading ||
-            !route?.estimatedGasUsed ||
-            route.estimatedGasUsed === "0" ? (
+            !swapRoute?.estimatedGasUsed ||
+            swapRoute.estimatedGasUsed === "0" ? (
               <SkeletonBox className="h-4 w-[120px] py-0.5" />
-            ) : route.estimatedGasUsedUSD ? (
-              `$${route.estimatedGasUsedUSD.toFixed(4)} USD`
+            ) : swapRoute.estimatedGasUsedUSD ? (
+              `$${swapRoute.estimatedGasUsedUSD.toFixed(4)} USD`
             ) : null
           }
         />
@@ -156,7 +156,7 @@ export const SimpleSwapTradeStats: FC = () => {
         <TradeStatRow
           label="Route"
           value={
-            loading || !route ? (
+            loading || !swapRoute ? (
               <SkeletonBox className="h-4 w-[40px] py-0.5" />
             ) : (
               <button
@@ -172,7 +172,7 @@ export const SimpleSwapTradeStats: FC = () => {
           }
         />
 
-        {route && <SwapTaxes route={route} />}
+        {swapRoute && <SwapTaxes route={swapRoute} />}
 
         {/* // TODO: re-enable if anyone would ever want to trade to another address */}
         {/* {recipient && isAddress(recipient) && (
@@ -212,8 +212,8 @@ export const SimpleSwapTradeStats: FC = () => {
           </div>
         )} */}
       </div>
-    );
+    )
   }
 
-  return null;
-};
+  return null
+}

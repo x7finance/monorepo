@@ -1,24 +1,24 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import type { FC } from "react";
+/* oxlint-disable @typescript-eslint/no-unsafe-argument */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+import type { FC } from "react"
 
-import { cn } from "@x7/css";
+import { cn } from "@x7/css"
 
-type DataRow = Record<any, any>;
+type DataRow = Record<any, any>
 
 interface Column {
-  header: string;
-  responsiveHeader?: string;
-  width?: string;
-  accessor: string;
-  responsive?: boolean;
-  cellRenderer?: (row: DataRow) => React.JSX.Element;
+  header: string
+  responsiveHeader?: string
+  width?: string
+  accessor: string
+  responsive?: boolean
+  cellRenderer?: (row: DataRow) => React.JSX.Element
 }
 
 interface StaticTableProps {
-  data: any[];
-  columns: Column[];
+  data: any[]
+  columns: Column[]
 }
 
 export const StaticTable: FC<StaticTableProps> = ({ data, columns }) => {
@@ -28,11 +28,11 @@ export const StaticTable: FC<StaticTableProps> = ({ data, columns }) => {
         <tr>
           {columns.map((column, index) => (
             <th
+              key={column.header}
               {...(column.width && index === 0 ? { width: column.width } : {})}
-              key={`${column.header}-${index}}`}
               className={cn(
                 column.responsive ? "hidden lg:table-cell" : "",
-                "border-b border-t border-zinc-200 px-3 py-3 text-left text-xs font-semibold uppercase text-zinc-500 last:pr-8 last:text-right dark:border-zinc-800 sm:first:pl-6",
+                "border-b border-t border-zinc-200 px-3 py-3 text-left text-xs font-semibold uppercase text-zinc-500 last:pr-8 last:text-right dark:border-zinc-800 sm:first:pl-6"
               )}
             >
               <>
@@ -47,9 +47,11 @@ export const StaticTable: FC<StaticTableProps> = ({ data, columns }) => {
       </thead>
       <tbody className="x-body">
         {data.map((row, index) => (
-          <tr className="border-none" key={`${index}-static-table`}>
+          // oxlint-disable-next-line react/no-array-index-key -- StaticTable renders fixed, non-reordering data; index is a stable key
+          <tr className="border-none" key={String(index)}>
             {columns.map((column, colIndex) => (
               <td
+                key={column.accessor}
                 {...(column.width && index === 0
                   ? { width: column.width }
                   : {})}
@@ -57,9 +59,8 @@ export const StaticTable: FC<StaticTableProps> = ({ data, columns }) => {
                   index === 0 ? "" : "",
                   colIndex === 0 ? "pl-4 sm:pl-6" : "",
                   column.responsive ? "hidden lg:table-cell" : "",
-                  "relative px-3 py-3.5 text-sm",
+                  "relative px-3 py-3.5 text-sm"
                 )}
-                key={colIndex}
               >
                 {column.cellRenderer
                   ? column.cellRenderer(row)
@@ -70,5 +71,5 @@ export const StaticTable: FC<StaticTableProps> = ({ data, columns }) => {
         ))}
       </tbody>
     </table>
-  );
-};
+  )
+}

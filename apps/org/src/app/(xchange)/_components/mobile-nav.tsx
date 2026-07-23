@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import type { Route } from "next";
+import type { Route } from "next"
+import { useState } from "react"
 
 import {
   ChevronDownIcon,
@@ -12,12 +12,11 @@ import {
   Twitter,
   Warpcast,
   X7Logo,
-} from "@x7/icons";
-import { Collapsible } from "@x7/ui/collapsible";
-import { Drawer, DrawerContent, DrawerTrigger } from "@x7/ui/drawer";
-import { LinkExternal, LinkInternal } from "@x7/ui/link";
-import { SocialsEnum } from "@x7/utils";
-
+} from "@x7/icons"
+import { Collapsible, CollapsibleContent } from "@x7/ui/collapsible"
+import { Drawer, DrawerContent, DrawerTrigger } from "@x7/ui/drawer"
+import { LinkExternal, LinkInternal } from "@x7/ui/link"
+import { SocialsEnum } from "@x7/utils"
 import {
   DashboardLinksEnum,
   DocsLinks,
@@ -25,7 +24,7 @@ import {
   NftsLinkEnum,
   TokenLinksEnum,
   XchangeLinks,
-} from "~/types/links";
+} from "~/types/links"
 
 export const MOBILE_XCHANGE_NAV = [
   {
@@ -52,10 +51,10 @@ export const MOBILE_XCHANGE_NAV = [
     title: "More",
   },
 ] satisfies {
-  href: Route;
-  title: string | React.JSX.Element;
-  img?: string;
-}[];
+  href: Route
+  title: string | React.JSX.Element
+  img?: string
+}[]
 
 const navSections = [
   {
@@ -108,16 +107,19 @@ const navSections = [
       { label: "X7 Tokens", href: TokenLinksEnum.Index },
     ],
   },
-];
+]
 
 export function MobileNav() {
-  const [openSection, setOpenSection] = useState<string | null>(null);
-  const [isOpen, setIsOpen] = useState(false);
-  const closeDrawer = () => setIsOpen(false);
+  const [openSection, setOpenSection] = useState<string | null>(null)
+  const [isOpen, setIsOpen] = useState(false)
+  const closeDrawer = () => setIsOpen(false)
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
-      <DrawerTrigger className="flex items-center justify-center">
+      <DrawerTrigger
+        aria-label="Open menu"
+        className="flex items-center justify-center"
+      >
         <TextIcon className="text-muted-foreground h-6 w-6" />
         <ChevronDownIcon className="text-muted-foreground h-3 w-3" />
       </DrawerTrigger>
@@ -160,28 +162,27 @@ export function MobileNav() {
                 className="flex w-full items-center justify-between text-lg"
                 onClick={() =>
                   setOpenSection(
-                    openSection === section.title ? null : section.title,
+                    openSection === section.title ? null : section.title
                   )
                 }
               >
                 <span className="font-heading">{section.title}</span>
                 <ChevronDownIcon className="h-4 w-4" />
               </button>
-              <Collapsible
-                open={openSection === section.title}
-                className="mt-2 space-y-1"
-              >
-                {section.items.map((item) => (
-                  <LinkInternal
-                    prefetch={true}
-                    key={item.label}
-                    href={item.href}
-                    onClick={closeDrawer}
-                    className="text-muted-foreground ml-2 block"
-                  >
-                    {item.label}
-                  </LinkInternal>
-                ))}
+              <Collapsible open={openSection === section.title}>
+                <CollapsibleContent className="mt-2 space-y-1">
+                  {section.items.map((item) => (
+                    <LinkInternal
+                      prefetch={true}
+                      key={item.label}
+                      href={item.href}
+                      onClick={closeDrawer}
+                      className="text-muted-foreground ml-2 block"
+                    >
+                      {item.label}
+                    </LinkInternal>
+                  ))}
+                </CollapsibleContent>
               </Collapsible>
             </div>
           ))}
@@ -220,5 +221,5 @@ export function MobileNav() {
         </div>
       </DrawerContent>
     </Drawer>
-  );
+  )
 }

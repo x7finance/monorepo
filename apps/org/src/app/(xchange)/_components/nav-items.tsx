@@ -1,26 +1,26 @@
-/* eslint-disable @typescript-eslint/no-unsafe-enum-comparison */
+/* oxlint-disable @typescript-eslint/no-unsafe-enum-comparison */
 
-"use client";
+"use client"
 
-import * as React from "react";
-import type { Route } from "next";
-import type { LinkProps } from "next/link";
-import { usePathname } from "next/navigation";
+import type { Route } from "next"
+import type { LinkProps } from "next/link"
+import { usePathname } from "next/navigation"
+import * as React from "react"
 
-import { cn } from "@x7/css";
-import { LinkInternal } from "@x7/ui/link";
+import { cn } from "@x7/css"
+import { LinkInternal } from "@x7/ui/link"
 import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
+  NavigationMenuItemWithMenu,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@x7/ui/navigation-menu";
-import { getRandomPioneerNumber } from "@x7/utils";
-
-import { XchangeLinks } from "~/types/links";
+} from "@x7/ui/navigation-menu"
+import { getSeededPioneerNumber } from "@x7/utils"
+import { XchangeLinks } from "~/types/links"
 
 export const DESKTOP_XCHANGE_NAV = [
   {
@@ -43,40 +43,37 @@ export const DESKTOP_XCHANGE_NAV = [
     href: XchangeLinks.About,
     title: "About",
   },
-] satisfies { href: Route; title: string }[];
+] satisfies { href: Route; title: string }[]
 
 export function NavItems() {
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   const isActive = (href: string) => {
-    if (href === XchangeLinks.Swap) return pathname === "/";
-    return pathname.startsWith(href);
-  };
+    if (href === XchangeLinks.Swap) return pathname === "/"
+    return pathname.startsWith(href)
+  }
 
   return (
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <LinkInternal
-            prefetch={true}
-            href={XchangeLinks.Swap}
-            legacyBehavior
-            passHref
-          >
-            <NavigationMenuLink
+          <NavigationMenuLink asChild>
+            <LinkInternal
+              prefetch={true}
+              href={XchangeLinks.Swap}
               className={cn(
                 navigationMenuTriggerStyle(),
-                isActive(XchangeLinks.Swap) && "text-foreground",
+                isActive(XchangeLinks.Swap) && "text-foreground"
               )}
             >
               Swap
-            </NavigationMenuLink>
-          </LinkInternal>
+            </LinkInternal>
+          </NavigationMenuLink>
         </NavigationMenuItem>
-        <NavigationMenuItem>
+        <NavigationMenuItemWithMenu>
           <NavigationMenuTrigger
             className={cn(
-              isActive(XchangeLinks.Liquidity) && "text-foreground",
+              isActive(XchangeLinks.Liquidity) && "text-foreground"
             )}
           >
             Liquidity
@@ -94,7 +91,7 @@ export function NavItems() {
                     <div
                       className="absolute inset-0 bg-cover bg-center"
                       style={{
-                        backgroundImage: `url('https://assets.x7finance.org/pioneers/${getRandomPioneerNumber()}.png')`,
+                        backgroundImage: `url('https://assets.x7finance.org/pioneers/${getSeededPioneerNumber("liquidity-nav")}.png')`,
                       }}
                     ></div>
                     <div className="relative z-20">
@@ -129,8 +126,8 @@ export function NavItems() {
               </ListItem>
             </ul>
           </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
+        </NavigationMenuItemWithMenu>
+        <NavigationMenuItemWithMenu>
           <NavigationMenuTrigger
             className={cn(isActive(XchangeLinks.Lending) && "text-foreground")}
           >
@@ -149,7 +146,7 @@ export function NavItems() {
                     <div
                       className="absolute inset-0 bg-cover bg-center"
                       style={{
-                        backgroundImage: `url('https://assets.x7finance.org/pioneers/${getRandomPioneerNumber()}.png')`,
+                        backgroundImage: `url('https://assets.x7finance.org/pioneers/${getSeededPioneerNumber("lending-nav")}.png')`,
                       }}
                     ></div>
                     <div className="relative z-20">
@@ -185,8 +182,8 @@ export function NavItems() {
               </ListItem>
             </ul>
           </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
+        </NavigationMenuItemWithMenu>
+        <NavigationMenuItemWithMenu>
           <NavigationMenuTrigger>About</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
@@ -210,10 +207,10 @@ export function NavItems() {
               </ListItem>
             </ul>
           </NavigationMenuContent>
-        </NavigationMenuItem>
+        </NavigationMenuItemWithMenu>
       </NavigationMenuList>
     </NavigationMenu>
-  );
+  )
 }
 
 const ListItem = React.forwardRef<
@@ -229,7 +226,7 @@ const ListItem = React.forwardRef<
           href={props.href as LinkProps["href"]}
           className={cn(
             "group hover:bg-accent/50 hover:text-accent-foreground focus:bg-accent/50 focus:text-accent-foreground block space-y-1 rounded-lg p-3 leading-none no-underline outline-hidden transition-colors select-none",
-            className,
+            className
           )}
           {...props}
         >
@@ -245,6 +242,6 @@ const ListItem = React.forwardRef<
         </LinkInternal>
       </NavigationMenuLink>
     </li>
-  );
-});
-ListItem.displayName = "ListItem";
+  )
+})
+ListItem.displayName = "ListItem"

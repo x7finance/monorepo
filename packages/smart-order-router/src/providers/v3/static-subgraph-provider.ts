@@ -1,13 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-import _ from "lodash";
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+import _ from "lodash"
 
-import type { Token } from "@x7/utils";
-import { ChainId, FeeAmount, LogCodes } from "@x7/utils";
+import type { Token } from "@x7/utils"
+import { ChainId, FeeAmount, LogCodes } from "@x7/utils"
 
-import { unparseFeeAmount } from "../../utils/amounts";
-import { WRAPPED_NATIVE_CURRENCY } from "../../utils/chains";
-import { log } from "../../utils/log";
-import type { ProviderConfig } from "../provider";
+import { unparseFeeAmount } from "../../utils/amounts"
+import { WRAPPED_NATIVE_CURRENCY } from "../../utils/chains"
+import { log } from "../../utils/log"
+import type { ProviderConfig } from "../provider"
 import {
   ARB_ARBITRUM,
   BTC_BNB,
@@ -35,11 +35,12 @@ import {
   WETH_POLYGON,
   WMATIC_POLYGON,
   WMATIC_POLYGON_MUMBAI,
-} from "../token-provider";
-import type { IV3PoolProvider } from "./pool-provider";
-import type { IV3SubgraphProvider, V3SubgraphPool } from "./subgraph-provider";
+} from "../token-provider"
 
-type ChainTokenList = Readonly<Record<ChainId, Token[]>>;
+import type { IV3PoolProvider } from "./pool-provider"
+import type { IV3SubgraphProvider, V3SubgraphPool } from "./subgraph-provider"
+
+type ChainTokenList = Readonly<Record<ChainId, Token[]>>
 
 // @ts-expect-error: fix migration
 const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
@@ -90,7 +91,7 @@ const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
 
   [ChainId.BASE_TESTNET]: [WRAPPED_NATIVE_CURRENCY[ChainId.BASE_TESTNET]],
   [ChainId.BASE]: [WRAPPED_NATIVE_CURRENCY[ChainId.BASE], USDC_BASE],
-};
+}
 
 /**
  * Provider that uses a hardcoded list of V3 pools to generate a list of subgraph pools.
@@ -106,40 +107,40 @@ const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
 export class StaticV3SubgraphProvider implements IV3SubgraphProvider {
   constructor(
     private chainId: ChainId,
-    private poolProvider: IV3PoolProvider,
+    private poolProvider: IV3PoolProvider
   ) {}
 
   public async getPools(
     tokenIn?: Token,
     tokenOut?: Token,
-    providerConfig?: ProviderConfig,
+    providerConfig?: ProviderConfig
   ): Promise<V3SubgraphPool[]> {
     log.info(
       LogCodes.FETCHING_SUBGRAPH_POOLS,
-      "In static subgraph provider for V3",
-    );
-    const bases = BASES_TO_CHECK_TRADES_AGAINST[this.chainId];
+      "In static subgraph provider for V3"
+    )
+    const bases = BASES_TO_CHECK_TRADES_AGAINST[this.chainId]
 
     const basePairs: [Token, Token][] = _.flatMap(
       bases,
-      (base): [Token, Token][] => bases.map((otherBase) => [base, otherBase]),
-    );
+      (base): [Token, Token][] => bases.map((otherBase) => [base, otherBase])
+    )
 
     if (tokenIn && tokenOut) {
       basePairs.push(
         [tokenIn, tokenOut],
         ...bases.map((base): [Token, Token] => [tokenIn, base]),
-        ...bases.map((base): [Token, Token] => [tokenOut, base]),
-      );
+        ...bases.map((base): [Token, Token] => [tokenOut, base])
+      )
     }
 
     const pairs: [Token, Token, FeeAmount][] = _(basePairs)
       .filter((tokens): tokens is [Token, Token] =>
-        Boolean(tokens[0] && tokens[1]),
+        Boolean(tokens[0] && tokens[1])
       )
       .filter(
         ([tokenA, tokenB]) =>
-          tokenA.address !== tokenB.address && !tokenA.equals(tokenB),
+          tokenA.address !== tokenB.address && !tokenA.equals(tokenB)
       )
       .flatMap<[Token, Token, FeeAmount]>(([tokenA, tokenB]) => {
         return [
@@ -147,38 +148,35 @@ export class StaticV3SubgraphProvider implements IV3SubgraphProvider {
           [tokenA, tokenB, FeeAmount.LOW],
           [tokenA, tokenB, FeeAmount.MEDIUM],
           [tokenA, tokenB, FeeAmount.HIGH],
-        ];
+        ]
       })
-      .value();
+      .value()
 
     log.info(
       LogCodes.FETCHING_SUBGRAPH_POOLS,
-      `V3 Static subgraph provider about to get ${pairs.length} pools on-chain`,
-    );
-    const poolAccessor = await this.poolProvider.getPools(
-      pairs,
-      providerConfig,
-    );
-    const pools = poolAccessor.getAllPools();
+      `V3 Static subgraph provider about to get ${pairs.length} pools on-chain`
+    )
+    const poolAccessor = await this.poolProvider.getPools(pairs, providerConfig)
+    const pools = poolAccessor.getAllPools()
 
-    const poolAddressSet = new Set<string>();
+    const poolAddressSet = new Set<string>()
     const subgraphPools: V3SubgraphPool[] = _(pools)
       .map((pool) => {
-        const { token0, token1, fee, liquidity, poolType } = pool;
+        const { token0, token1, fee, liquidity, poolType } = pool
 
         const poolAddress = this.poolProvider
           .getPoolAddresses(pool.token0, pool.token1, pool.fee)
-          .poolAddresses?.find((pa) => pa.implementation === poolType);
+          .poolAddresses?.find((pa) => pa.implementation === poolType)
 
         if (poolAddress && poolAddressSet.has(poolAddress.address)) {
-          return undefined;
+          return undefined
         }
-        if (poolAddress) poolAddressSet.add(poolAddress?.address);
+        if (poolAddress) poolAddressSet.add(poolAddress?.address)
 
-        const liquidityNumber = Number(liquidity);
+        const liquidityNumber = Number(liquidity)
 
         return {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          // oxlint-disable-next-line @typescript-eslint/no-non-null-assertion
           id: poolAddress!.address,
           factory: poolType,
           feeTier: unparseFeeAmount(fee),
@@ -192,11 +190,11 @@ export class StaticV3SubgraphProvider implements IV3SubgraphProvider {
           // As a very rough proxy we just use liquidity for TVL.
           tvlETH: liquidityNumber,
           tvlUSD: liquidityNumber,
-        };
+        }
       })
       .compact()
-      .value();
+      .value()
 
-    return subgraphPools;
+    return subgraphPools
   }
 }

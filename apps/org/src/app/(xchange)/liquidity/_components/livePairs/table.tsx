@@ -1,31 +1,31 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { useEffect, useState } from "react";
-import { useReadContracts } from "wagmi";
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+import { useEffect, useState } from "react"
+import { useReadContracts } from "wagmi"
 
-import { AllPairsLength } from "@x7/contracts";
-import { X7ContractsEnum } from "@x7/sdk";
+import { AllPairsLength } from "@x7/contracts"
+import { X7ContractsEnum } from "@x7/sdk"
 import {
   Pagination,
   PaginationContent,
   PaginationItem,
   PaginationNext,
   PaginationPrevious,
-} from "@x7/ui/pagination";
-import { StaticTable } from "@x7/ui/static-table";
-import type { ChainId } from "@x7/utils";
+} from "@x7/ui/pagination"
+import { StaticTable } from "@x7/ui/static-table"
+import type { ChainId } from "@x7/utils"
 
-import { PairRow } from "./row";
+import { PairRow } from "./row"
 
 interface PairsTableProps {
-  chainId: ChainId;
+  chainId: ChainId
 }
 
-const ITEMS_PER_PAGE = 8;
+const ITEMS_PER_PAGE = 8
 
 export function PairsTable({ chainId }: PairsTableProps) {
-  const [allPairsLength, setAllPairsLength] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [allPairsLength, setAllPairsLength] = useState(0)
+  const [currentPage, setCurrentPage] = useState(1)
 
   const { data } = useReadContracts({
     contracts: [
@@ -36,30 +36,30 @@ export function PairsTable({ chainId }: PairsTableProps) {
         chainId,
       },
     ],
-  });
+  })
 
-  const pairsCount = parseInt(data?.[0]?.result?.toString() ?? "0", 10);
+  const pairsCount = parseInt(data?.[0]?.result?.toString() ?? "0", 10)
 
   useEffect(() => {
-    setAllPairsLength(pairsCount);
-  }, [pairsCount]);
+    setAllPairsLength(pairsCount)
+  }, [pairsCount])
 
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
+  const endIndex = startIndex + ITEMS_PER_PAGE
 
   const pairsToDisplay: number[] = Array.from(
     { length: allPairsLength },
-    (_, idx) => allPairsLength - idx - 1,
-  ).slice(startIndex, endIndex);
+    (_, idx) => allPairsLength - idx - 1
+  ).slice(startIndex, endIndex)
 
   const goToPreviousPage = () => {
-    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
-  };
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))
+  }
 
   const goToNextPage = () => {
-    const maxPage = Math.ceil(allPairsLength / ITEMS_PER_PAGE);
-    setCurrentPage((prevPage) => Math.min(prevPage + 1, maxPage));
-  };
+    const maxPage = Math.ceil(allPairsLength / ITEMS_PER_PAGE)
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, maxPage))
+  }
 
   return (
     <>
@@ -125,5 +125,5 @@ export function PairsTable({ chainId }: PairsTableProps) {
         </Pagination>
       </div>
     </>
-  );
+  )
 }

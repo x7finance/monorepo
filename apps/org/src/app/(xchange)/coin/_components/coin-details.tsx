@@ -1,50 +1,51 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-"use client";
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+"use client"
 
-import { Suspense, useEffect, useState } from "react";
-import { notFound, useParams } from "next/navigation";
-import { useChainId } from "wagmi";
+import { notFound, useParams } from "next/navigation"
+import { Suspense, useEffect, useState } from "react"
+import { useChainId } from "wagmi"
 
-import { Button } from "@x7/ui/button";
-import { Card } from "@x7/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@x7/ui/tabs";
-import type { ChainId } from "@x7/utils";
-import { Token } from "@x7/utils";
+import { Button } from "@x7/ui/button"
+import { Card } from "@x7/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@x7/ui/tabs"
+import type { ChainId } from "@x7/utils"
+import { Token } from "@x7/utils"
+import { useTokenData } from "~/lib/hooks/tokens/useTokenData"
+import { CheckerProviderComponent } from "~/lib/providers/checker"
 
-import { useTokenData } from "~/lib/hooks/tokens/useTokenData";
-import { CheckerProviderComponent } from "~/lib/providers/checker";
-import { X7SwapForm } from "../../_components/swap/swap-form";
-import { PriceChartEmbed } from "./chart-view-embedded";
+import { X7SwapForm } from "../../_components/swap/swap-form"
+
+import { PriceChartEmbed } from "./chart-view-embedded"
 import {
   ChatSkeleton,
   TokenInfoSkeleton,
   TradingViewSkeleton,
-} from "./skeletons";
-import { TokenInfo } from "./token-info";
+} from "./skeletons"
+import { TokenInfo } from "./token-info"
 
-const QUICK_BUY_AMOUNTS = [0.005, 0.01, 0.05, 0.1, 0.25];
+const QUICK_BUY_AMOUNTS = [0.005, 0.01, 0.05, 0.1, 0.25]
 
 export function CoinDetails() {
-  const params = useParams();
-  const chainId = useChainId();
-  const contractAddress = params.contract as `0x${string}`;
-  const [_isClient, setIsClient] = useState(false);
-  const { data: token } = useTokenData(contractAddress);
-  const [activeTab, setActiveTab] = useState<"chart" | "trade">("chart");
-  const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
+  const params = useParams()
+  const chainId = useChainId()
+  const contractAddress = params.contract as `0x${string}`
+  const [_isClient, setIsClient] = useState(false)
+  const { data: token } = useTokenData(contractAddress)
+  const [activeTab, setActiveTab] = useState<"chart" | "trade">("chart")
+  const [selectedAmount, setSelectedAmount] = useState<number | null>(null)
 
   useEffect(() => {
-    setIsClient(true);
-  }, []);
+    setIsClient(true)
+  }, [])
 
   if (!contractAddress) {
-    notFound();
+    notFound()
   }
 
   const handleQuickBuy = (amount: number) => {
-    setSelectedAmount(amount);
-    setActiveTab("trade");
-  };
+    setSelectedAmount(amount)
+    setActiveTab("trade")
+  }
 
   const QuickBuyButtons = () => (
     <div className="flex flex-wrap gap-2 p-2">
@@ -63,7 +64,7 @@ export function CoinDetails() {
         ))}
       </div>
     </div>
-  );
+  )
 
   return (
     <CheckerProviderComponent>
@@ -71,9 +72,9 @@ export function CoinDetails() {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
           {/* Main Content Area */}
           <div className="lg:col-span-8">
-          <Suspense fallback={<TokenInfoSkeleton />}>
-            {token ? <TokenInfo token={token} /> : <TokenInfoSkeleton />}
-          </Suspense>
+            <Suspense fallback={<TokenInfoSkeleton />}>
+              {token ? <TokenInfo token={token} /> : <TokenInfoSkeleton />}
+            </Suspense>
 
             {/* Mobile Tabs */}
             <div className="mt-4 lg:hidden">
@@ -162,5 +163,5 @@ export function CoinDetails() {
         </div>
       </div>
     </CheckerProviderComponent>
-  );
+  )
 }

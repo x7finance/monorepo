@@ -1,24 +1,24 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-"use client";
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+"use client"
 
-import type { Table } from "@tanstack/react-table";
+import type { Table } from "@tanstack/react-table"
 
-import { SearchIcon, XIcon } from "@x7/icons";
+import { SearchIcon, XIcon } from "@x7/icons"
 
-import { Button } from "./../button";
-import { TextField } from "./../text-field";
-import { DataTableViewOptions } from "./data-table-view-options";
+import { Button } from "./../button"
+import { TextField } from "./../text-field"
+import { DataTableViewOptions } from "./data-table-view-options"
 
 interface DataTableToolbarProps<TData> {
-  table: Table<TData>;
-  children: React.ReactNode;
+  table: Table<TData>
+  children: React.ReactNode
 }
 
 export function DataTableToolbar<TData>({
   table,
   children,
 }: DataTableToolbarProps<TData>) {
-  const isFiltered = table.getState().columnFilters.length > 0;
+  const isFiltered = table.getState().columnFilters.length > 0
 
   return (
     <div className="flex items-center justify-between gap-4">
@@ -46,5 +46,5 @@ export function DataTableToolbar<TData>({
       </div>
       <DataTableViewOptions table={table} />
     </div>
-  );
+  )
 }

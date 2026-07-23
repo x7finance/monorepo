@@ -1,70 +1,70 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import React, { useEffect, useState } from "react";
-import { useReadContract } from "wagmi";
+/* oxlint-disable @typescript-eslint/no-unused-vars */
+/* oxlint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+import React, { useEffect, useState } from "react"
+import { useReadContract } from "wagmi"
 
-import { ChainLinkAbi } from "@x7/contracts";
+import { ChainLinkAbi } from "@x7/contracts"
 import {
   AlertCircleIcon,
   ChevronDownIcon,
   ChevronUpIcon,
   CogIcon,
-} from "@x7/icons";
-import { WETH_ADDRESS } from "@x7/sdk";
-import { Button } from "@x7/ui/button";
-import { Card, CardContent, CardDescription, CardHeader } from "@x7/ui/card";
-import { SkeletonBox } from "@x7/ui/skeleton";
-import { Tag } from "@x7/ui/tag";
-import type { ActiveChainId } from "@x7/utils";
+} from "@x7/icons"
+import { WETH_ADDRESS } from "@x7/sdk"
+import { Button } from "@x7/ui/button"
+import { Card, CardContent, CardDescription, CardHeader } from "@x7/ui/card"
+import { SkeletonBox } from "@x7/ui/skeleton"
+import { Tag } from "@x7/ui/tag"
+import type { ActiveChainId } from "@x7/utils"
 import {
   formatUSD,
   generateChainTokenOracleEtherUSDEnum,
   Native,
   Token,
-} from "@x7/utils";
+} from "@x7/utils"
+import { usePrice } from "~/lib/hooks/prices/usePrice"
+import type { UserPositionsResponse } from "~/lib/hooks/tokens/useGetAllUserTokens"
 
-import { usePrice } from "~/lib/hooks/prices/usePrice";
-import type { UserPositionsResponse } from "~/lib/hooks/tokens/useGetAllUserTokens";
-import { AddLiquidityTab } from "./tabs/add-liquidity";
-import { RemoveLiquidityTab } from "./tabs/remove-liquidity";
-import { SyncLiquidityTab } from "./tabs/sync-liquidity";
+import { AddLiquidityTab } from "./tabs/add-liquidity"
+import { RemoveLiquidityTab } from "./tabs/remove-liquidity"
+import { SyncLiquidityTab } from "./tabs/sync-liquidity"
 
 export const LiquidityPositionRow = ({
   position,
   chainId,
   view = "default",
 }: {
-  position: UserPositionsResponse;
-  chainId: ActiveChainId;
-  view?: "small" | "default";
+  position: UserPositionsResponse
+  chainId: ActiveChainId
+  view?: "small" | "default"
 }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [activeTab, setActiveTab] = useState<"add" | "remove" | "sync">("add");
+  const [isExpanded, setIsExpanded] = useState(false)
+  const [activeTab, setActiveTab] = useState<"add" | "remove" | "sync">("add")
 
-  const [liquidityToken, setLiquidityToken] = useState<Token>();
-  const [token0, setToken0] = useState<Token | Native>();
-  const [token1, setToken1] = useState<Token | Native>();
+  const [liquidityToken, setLiquidityToken] = useState<Token>()
+  const [token0, setToken0] = useState<Token | Native>()
+  const [token1, setToken1] = useState<Token | Native>()
 
-  const ethUsdOracleAddress = generateChainTokenOracleEtherUSDEnum(chainId);
+  const ethUsdOracleAddress = generateChainTokenOracleEtherUSDEnum(chainId)
 
   const { data: ethUsdPrice, isLoading: isEthUsdPriceLoading } =
     useReadContract({
       address: ethUsdOracleAddress,
       abi: ChainLinkAbi,
       functionName: "latestAnswer",
-    });
+    })
 
   const { data: priceToken0InEth, isLoading: isPriceLoadingToken0 } = usePrice({
     chainId,
     currency: token0,
-  });
+  })
 
   const { data: priceToken1InEth, isLoading: isPriceLoadingToken1 } = usePrice({
     chainId,
     currency: token1,
-  });
+  })
 
   const token0UsdValue =
     token0 && priceToken0InEth && ethUsdPrice
@@ -76,7 +76,7 @@ export const LiquidityPositionRow = ({
             Number(`1e${position.token0.decimals}`)) *
           Number(priceToken0InEth.toExact()) *
           (Number(ethUsdPrice) / 1e8)
-      : 0;
+      : 0
 
   const token1UsdValue =
     token1 && priceToken1InEth && ethUsdPrice
@@ -88,19 +88,19 @@ export const LiquidityPositionRow = ({
             Number(`1e${position.token1.decimals}`)) *
           Number(priceToken1InEth.toExact()) *
           (Number(ethUsdPrice) / 1e8)
-      : 0;
+      : 0
   const tokenValueDifference =
     Math.abs(token0UsdValue - token1UsdValue) /
-    Math.max(token0UsdValue, token1UsdValue);
+    Math.max(token0UsdValue, token1UsdValue)
   const isSynced =
     position.ownership < 75 ||
     (tokenValueDifference <= 0.2 &&
       position.token0.balance !== 0n &&
-      position.token1.balance !== 0n);
+      position.token1.balance !== 0n)
   useEffect(() => {
     if (position.token0) {
       if (WETH_ADDRESS(chainId) === position.token0.address) {
-        setToken0(Native.onChain(chainId));
+        setToken0(Native.onChain(chainId))
       } else {
         setToken0(
           new Token({
@@ -109,14 +109,14 @@ export const LiquidityPositionRow = ({
             symbol: position.token0.symbol,
             decimals: position.token0.decimals,
             name: position.token0.symbol,
-          }),
-        );
+          })
+        )
       }
     }
 
     if (position.token1) {
       if (WETH_ADDRESS(chainId) === position.token1.address) {
-        setToken1(Native.onChain(chainId));
+        setToken1(Native.onChain(chainId))
       } else {
         setToken1(
           new Token({
@@ -125,8 +125,8 @@ export const LiquidityPositionRow = ({
             symbol: position.token1.symbol,
             decimals: position.token1.decimals,
             name: position.token1.symbol,
-          }),
-        );
+          })
+        )
       }
     }
 
@@ -138,10 +138,10 @@ export const LiquidityPositionRow = ({
           symbol: "X7-AMM",
           decimals: position.decimals ?? 18,
           name: `${position.token0.symbol}/${position.token1.symbol}`,
-        }),
-      );
+        })
+      )
     }
-  }, [position]);
+  }, [position])
 
   return (
     <>
@@ -303,5 +303,5 @@ export const LiquidityPositionRow = ({
         </tr>
       )}
     </>
-  );
-};
+  )
+}

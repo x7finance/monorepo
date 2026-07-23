@@ -1,10 +1,11 @@
-import Image from "next/image";
+"use client"
 
-import { ChevronRightIcon, X7Logo } from "@x7/icons";
-import { LinkInternal } from "@x7/ui/link";
-import { getRandomPioneerNumber } from "@x7/utils";
+import Image from "next/image"
 
-import { NOT_FOUND_LINKS } from "~/lib/config/site";
+import { ChevronRightIcon, X7Logo } from "@x7/icons"
+import { LinkInternal } from "@x7/ui/link"
+import { getRandomPioneerNumber } from "@x7/utils"
+import { NOT_FOUND_LINKS } from "~/lib/config/site"
 
 export function NotFoundContent() {
   return (
@@ -27,8 +28,8 @@ export function NotFoundContent() {
       <div className="mx-auto mt-16 flow-root max-w-lg sm:mt-20">
         <h2 className="sr-only">Popular pages</h2>
         <ul className="-mt-6 divide-y divide-zinc-900/5 border-b border-zinc-900/5 dark:divide-zinc-100/5 dark:border-zinc-100/5">
-          {NOT_FOUND_LINKS.map((link, linkIdx) => (
-            <li key={linkIdx} className="relative flex gap-x-6 py-6">
+          {NOT_FOUND_LINKS.map((link) => (
+            <li key={link.href} className="relative flex gap-x-6 py-6">
               <div className="flex h-14 w-14 flex-none items-center justify-center">
                 <Image
                   height={100}
@@ -70,5 +71,5 @@ export function NotFoundContent() {
         </div>
       </div>
     </main>
-  );
+  )
 }

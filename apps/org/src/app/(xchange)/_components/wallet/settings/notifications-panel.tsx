@@ -1,38 +1,38 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import React from "react";
-import { useAccount } from "wagmi";
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+import React from "react"
+import { useAccount } from "wagmi"
 
-import { cn } from "@x7/css";
-import type { ResolvedNotification } from "@x7/dexie";
-import { useNotifications } from "@x7/dexie";
-import { AlertCircleIcon, CheckCircleIcon, ExternalLinkIcon } from "@x7/icons";
-import { Badge } from "@x7/ui/badge";
-import { Card, CardContent } from "@x7/ui/card";
-import { CircleLoading } from "@x7/ui/circle-loading";
-import { ScrollArea } from "@x7/ui/scroll-area";
-import { Chain } from "@x7/utils";
+import { cn } from "@x7/css"
+import type { ResolvedNotification } from "@x7/dexie"
+import { useNotifications } from "@x7/dexie/client"
+import { AlertCircleIcon, CheckCircleIcon, ExternalLinkIcon } from "@x7/icons"
+import { Badge } from "@x7/ui/badge"
+import { Card, CardContent } from "@x7/ui/card"
+import { CircleLoading } from "@x7/ui/circle-loading"
+import { ScrollArea } from "@x7/ui/scroll-area"
+import { Chain } from "@x7/utils"
 
 export function NotificationsPanel() {
-  const { address } = useAccount();
-  const notifications = useNotifications({ account: address });
+  const { address } = useAccount()
+  const notifications = useNotifications({ account: address })
 
   if (!notifications) {
     return (
       <div className="flex h-full items-center justify-center">
         <CircleLoading containerClass="h-4 w-4" />
       </div>
-    );
+    )
   }
-  return <NotificationsFeed notifications={notifications} />;
+  return <NotificationsFeed notifications={notifications} />
 }
 
-type NotificationStatus = "pending" | "completed" | "failed";
+type NotificationStatus = "pending" | "completed" | "failed"
 
 const statusIcons: Record<NotificationStatus, React.ReactNode> = {
   pending: <CircleLoading containerClass="inline-flex mr-1 h-3 w-3" />,
   completed: <CheckCircleIcon className="h-3 w-3 text-emerald-500" />,
   failed: <AlertCircleIcon className="h-3 w-3 text-red-500" />,
-};
+}
 
 const statusColors: Record<NotificationStatus, string> = {
   pending:
@@ -41,19 +41,19 @@ const statusColors: Record<NotificationStatus, string> = {
     "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-400 dark:ring-1 dark:ring-emerald-500 dark:ring-opacity-50",
   failed:
     "bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400 dark:ring-1 dark:ring-red-500 dark:ring-opacity-50",
-};
+}
 
 function NotificationsFeed({
   notifications,
 }: {
-  notifications: never[] | Record<string, ResolvedNotification[]>;
+  notifications: never[] | Record<string, ResolvedNotification[]>
 }) {
   const notificationArray = Array.isArray(notifications)
     ? notifications
-    : Object.values(notifications).flat();
+    : Object.values(notifications).flat()
 
   if (!notificationArray.length) {
-    return null;
+    return null
   }
 
   return (
@@ -63,13 +63,13 @@ function NotificationsFeed({
           {notificationArray.map((notification) => {
             const txUrl = notification.txHash
               ? Chain.from(notification.chainId)?.getTxUrl(notification.txHash)
-              : "";
+              : ""
 
             return (
               <div
                 key={notification.id}
                 className={cn(
-                  `border-b border-zinc-300 p-3 dark:border-zinc-700`,
+                  `border-b border-zinc-300 p-3 dark:border-zinc-700`
                 )}
               >
                 <div className="space-y-2">
@@ -114,10 +114,10 @@ function NotificationsFeed({
                   </div>
                 </div>
               </div>
-            );
+            )
           })}
         </ScrollArea>
       </CardContent>
     </Card>
-  );
+  )
 }

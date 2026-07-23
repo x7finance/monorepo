@@ -1,12 +1,13 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import _ from "lodash";
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+import _ from "lodash"
 
-import type { Token } from "@x7/utils";
-import { ChainId, LogCodes } from "@x7/utils";
+import type { Token } from "@x7/utils"
+import { ChainId, LogCodes } from "@x7/utils"
 
-import { log, WRAPPED_NATIVE_CURRENCY } from "../utils";
-import type { ICache } from "./cache";
-import type { ITokenProvider, TokenAccessor } from "./token-provider";
+import { log, WRAPPED_NATIVE_CURRENCY } from "../utils"
+
+import type { ICache } from "./cache"
+import type { ITokenProvider, TokenAccessor } from "./token-provider"
 import {
   BTC_BNB,
   BUSD_BNB,
@@ -33,7 +34,7 @@ import {
   WBTC_OPTIMISM,
   WMATIC_POLYGON,
   WMATIC_POLYGON_MUMBAI,
-} from "./token-provider";
+} from "./token-provider"
 
 // These tokens will added to the Token cache on initialization.
 export const CACHE_SEED_TOKENS: Partial<
@@ -88,7 +89,7 @@ export const CACHE_SEED_TOKENS: Partial<
     WETH: WRAPPED_NATIVE_CURRENCY[ChainId.BASE],
   },
   // Currently we do not have providers for Moonbeam mainnet or Gnosis testnet
-};
+}
 
 /**
  * Provider for getting token metadata that falls back to a different provider
@@ -99,7 +100,7 @@ export const CACHE_SEED_TOKENS: Partial<
  */
 export class CachingTokenProviderWithFallback implements ITokenProvider {
   private CACHE_KEY = (chainId: ChainId, address: string) =>
-    `token-${chainId}-${address}`;
+    `token-${chainId}-${address}`
 
   constructor(
     protected chainId: ChainId,
@@ -107,41 +108,43 @@ export class CachingTokenProviderWithFallback implements ITokenProvider {
     // Constructing a new token object is slow as sdk-core does checksumming.
     private tokenCache: ICache<Token>,
     protected primaryTokenProvider: ITokenProvider,
-    protected fallbackTokenProvider?: ITokenProvider,
+    protected fallbackTokenProvider?: ITokenProvider
   ) {}
 
   public async getTokens(_addresses: string[]): Promise<TokenAccessor> {
-    const seedTokens = CACHE_SEED_TOKENS[this.chainId];
+    const seedTokens = CACHE_SEED_TOKENS[this.chainId]
 
     if (seedTokens) {
-      for (const token of Object.values(seedTokens)) {
-        await this.tokenCache.set(
-          this.CACHE_KEY(this.chainId, token.address.toLowerCase()),
-          token,
-        );
-      }
+      await Promise.all(
+        Object.values(seedTokens).map((token) =>
+          this.tokenCache.set(
+            this.CACHE_KEY(this.chainId, token.address.toLowerCase()),
+            token
+          )
+        )
+      )
     }
 
-    const addressToToken: Record<string, Token> = {};
-    const symbolToToken: Record<string, Token> = {};
+    const addressToToken: Record<string, Token> = {}
+    const symbolToToken: Record<string, Token> = {}
 
     const addresses = _(_addresses)
       .map((address) => address.toLowerCase())
       .uniq()
-      .value();
+      .value()
 
-    const addressesToFindInPrimary = [];
-    const addressesToFindInSecondary = [];
+    const addressesToFindInPrimary = []
+    const addressesToFindInSecondary = []
 
     for (const address of addresses) {
       if (await this.tokenCache.has(this.CACHE_KEY(this.chainId, address))) {
         addressToToken[address.toLowerCase()] = (await this.tokenCache.get(
-          this.CACHE_KEY(this.chainId, address),
-        ))!;
+          this.CACHE_KEY(this.chainId, address)
+        ))!
         symbolToToken[addressToToken[address]!.symbol!] =
-          (await this.tokenCache.get(this.CACHE_KEY(this.chainId, address)))!;
+          (await this.tokenCache.get(this.CACHE_KEY(this.chainId, address)))!
       } else {
-        addressesToFindInPrimary.push(address);
+        addressesToFindInPrimary.push(address)
       }
     }
 
@@ -155,26 +158,26 @@ export class CachingTokenProviderWithFallback implements ITokenProvider {
           : ``
       }
       `,
-      { addressesToFindInPrimary },
-    );
+      { addressesToFindInPrimary }
+    )
 
     if (addressesToFindInPrimary.length > 0) {
       const primaryTokenAccessor = await this.primaryTokenProvider.getTokens(
-        addressesToFindInPrimary,
-      );
+        addressesToFindInPrimary
+      )
 
       for (const address of addressesToFindInPrimary) {
-        const token = primaryTokenAccessor.getTokenByAddress(address);
+        const token = primaryTokenAccessor.getTokenByAddress(address)
 
         if (token) {
-          addressToToken[address.toLowerCase()] = token;
-          symbolToToken[addressToToken[address]!.symbol!] = token;
+          addressToToken[address.toLowerCase()] = token
+          symbolToToken[addressToToken[address]!.symbol!] = token
           await this.tokenCache.set(
             this.CACHE_KEY(this.chainId, address.toLowerCase()),
-            addressToToken[address]!,
-          );
+            addressToToken[address]!
+          )
         } else {
-          addressesToFindInSecondary.push(address);
+          addressesToFindInSecondary.push(address)
         }
       }
 
@@ -187,38 +190,38 @@ export class CachingTokenProviderWithFallback implements ITokenProvider {
           this.fallbackTokenProvider
             ? `Checking secondary token provider for ${addressesToFindInSecondary.length} tokens`
             : `No fallback token provider specified. About to return.`
-        }`,
-      );
+        }`
+      )
     }
 
     if (this.fallbackTokenProvider && addressesToFindInSecondary.length > 0) {
       const secondaryTokenAccessor = await this.fallbackTokenProvider.getTokens(
-        addressesToFindInSecondary,
-      );
+        addressesToFindInSecondary
+      )
 
       for (const address of addressesToFindInSecondary) {
-        const token = secondaryTokenAccessor.getTokenByAddress(address);
+        const token = secondaryTokenAccessor.getTokenByAddress(address)
         if (token) {
-          addressToToken[address.toLowerCase()] = token;
-          symbolToToken[addressToToken[address]!.symbol!] = token;
+          addressToToken[address.toLowerCase()] = token
+          symbolToToken[addressToToken[address]!.symbol!] = token
           await this.tokenCache.set(
             this.CACHE_KEY(this.chainId, address.toLowerCase()),
-            addressToToken[address]!,
-          );
+            addressToToken[address]!
+          )
         }
       }
     }
 
     return {
       getTokenByAddress: (address: string): Token | undefined => {
-        return addressToToken[address.toLowerCase()];
+        return addressToToken[address.toLowerCase()]
       },
       getTokenBySymbol: (symbol: string): Token | undefined => {
-        return symbolToToken[symbol.toLowerCase()];
+        return symbolToToken[symbol.toLowerCase()]
       },
       getAllTokens: (): Token[] => {
-        return Object.values(addressToToken);
+        return Object.values(addressToToken)
       },
-    };
+    }
   }
 }

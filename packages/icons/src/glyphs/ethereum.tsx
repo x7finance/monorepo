@@ -1,5 +1,5 @@
-import type { SVGProps } from "react";
-import { memo } from "react";
+import type { SVGProps } from "react"
+import { memo } from "react"
 
 function Ethereum(props: SVGProps<SVGSVGElement>) {
   return (
@@ -22,7 +22,7 @@ function Ethereum(props: SVGProps<SVGSVGElement>) {
         fill="#62688F"
       />
     </svg>
-  );
+  )
 }
 
-export default memo(Ethereum);
+export default memo(Ethereum)

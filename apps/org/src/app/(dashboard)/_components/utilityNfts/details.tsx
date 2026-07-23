@@ -1,34 +1,33 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-import { useCallback, useState } from "react";
-import Image from "next/image";
-import { toast } from "sonner";
-import { formatEther, parseEther } from "viem";
-import { useChainId, useReadContracts, useWriteContract } from "wagmi";
+import Image from "next/image"
+/* oxlint-disable @typescript-eslint/restrict-template-expressions */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+import { useCallback, useState } from "react"
+import { toast } from "sonner"
+import { formatEther, parseEther } from "viem"
+import { useChainId, useReadContracts, useWriteContract } from "wagmi"
 
-import { X7NFT } from "@x7/contracts";
-import { cn } from "@x7/css";
+import { X7NFT } from "@x7/contracts"
+import { cn } from "@x7/css"
 import {
   BoxIcon,
   CheckCircleIcon,
   LayoutListIcon,
   MinusCircleIcon,
   PlusCircleIcon,
-} from "@x7/icons";
-import { Button } from "@x7/ui/button";
-import type { ChainId } from "@x7/utils";
-import { generateChainAbbreviation, LogCodes } from "@x7/utils";
-
-import { env } from "~/env.mjs";
-import { ExplorerDataType, getExplorerLink } from "~/lib/utils/getExplorerLink";
-import { GradientTypes } from "~/lib/utils/gradients";
-import { log } from "~/lib/utils/log";
-import type { UtilityNftType } from "~/types";
+} from "@x7/icons"
+import { Button } from "@x7/ui/button"
+import type { ChainId } from "@x7/utils"
+import { generateChainAbbreviation, LogCodes } from "@x7/utils"
+import { env } from "~/env"
+import { ExplorerDataType, getExplorerLink } from "~/lib/utils/getExplorerLink"
+import { GradientTypes } from "~/lib/utils/gradients"
+import { log } from "~/lib/utils/log"
+import type { UtilityNftType } from "~/types"
 
 export function UtilityNftDetails({ nft }: { nft: UtilityNftType }) {
-  const chainId = useChainId() as ChainId;
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [mintCount, setMintCount] = useState(1);
+  const chainId = useChainId() as ChainId
+  const [drawerOpen, setDrawerOpen] = useState(false)
+  const [mintCount, setMintCount] = useState(1)
 
   const { data } = useReadContracts({
     contracts: [
@@ -53,27 +52,27 @@ export function UtilityNftDetails({ nft }: { nft: UtilityNftType }) {
         functionName: "totalSupply",
       },
     ],
-  });
+  })
 
-  const { data: _hash, writeContract } = useWriteContract();
+  const { data: _hash, writeContract } = useWriteContract()
 
   const price =
     data?.[1]?.result && !!data[0].result
       ? formatEther(data[1].result as bigint)
-      : 0;
+      : 0
 
-  const maxSupply = data?.[2]?.result ? Number(data[2].result) : 0;
-  const totalSupply = data?.[3]?.result ? Number(data[3].result) : -1;
+  const maxSupply = data?.[2]?.result ? Number(data[2].result) : 0
+  const totalSupply = data?.[3]?.result ? Number(data[3].result) : -1
 
   const mintNft = useCallback(
     (quantity: number) => {
       try {
-        const priceValue = Number(price);
+        const priceValue = Number(price)
 
         if (quantity <= 0 && priceValue > 0) {
-          toast.error("Please ensure you are minting at least 1 NFT");
+          toast.error("Please ensure you are minting at least 1 NFT")
 
-          return;
+          return
         }
         writeContract({
           address: nft.contract,
@@ -82,16 +81,16 @@ export function UtilityNftDetails({ nft }: { nft: UtilityNftType }) {
           args: [quantity],
           value: parseEther(
             // @ts-expect-error: todo fix
-            `${parseFloat(formatEther(data?.[1]?.result)) * quantity}`,
+            `${parseFloat(formatEther(data?.[1]?.result)) * quantity}`
           ),
-        });
+        })
       } catch (error) {
-        log.error(LogCodes.FAIL, `${error}`);
+        log.error(LogCodes.FAIL, `${error}`)
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data, price, writeContract],
-  );
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
+    [data, price, writeContract]
+  )
 
   return (
     <>
@@ -108,7 +107,7 @@ export function UtilityNftDetails({ nft }: { nft: UtilityNftType }) {
 
       <p
         className={cn(
-          "relative mx-auto mt-3 flex h-8 text-2xl tracking-tight text-zinc-900 dark:text-zinc-100",
+          "relative mx-auto mt-3 flex h-8 text-2xl tracking-tight text-zinc-900 dark:text-zinc-100"
         )}
       >
         {nft.name}
@@ -116,14 +115,14 @@ export function UtilityNftDetails({ nft }: { nft: UtilityNftType }) {
       <div
         className={cn(
           GradientTypes.x7,
-          `mx-auto bg-linear-to-r bg-clip-text font-bold text-transparent`,
+          `mx-auto bg-linear-to-r bg-clip-text font-bold text-transparent`
         )}
       >
         {price ?? nft.price} {generateChainAbbreviation(chainId)}
       </div>
       <p
         className={cn(
-          "xl:48 mt-3 h-48 px-3 text-sm text-secondary-foreground sm:h-60 md:h-48 lg:h-80",
+          "xl:48 mt-3 h-48 px-3 text-sm text-secondary-foreground sm:h-60 md:h-48 lg:h-80"
         )}
       >
         {nft.description}
@@ -131,11 +130,11 @@ export function UtilityNftDetails({ nft }: { nft: UtilityNftType }) {
       <div className="mt-2 px-4">
         <ul
           className={cn(
-            "-my-2 h-40 divide-y divide-zinc-200 text-sm text-zinc-700 dark:divide-zinc-800 dark:text-zinc-300 sm:h-48 md:h-48 lg:h-56",
+            "-my-2 h-40 divide-y divide-zinc-200 text-sm text-zinc-700 dark:divide-zinc-800 dark:text-zinc-300 sm:h-48 md:h-48 lg:h-56"
           )}
         >
-          {nft.benefits.map((b: string, idx: number) => (
-            <li key={`${nft.slug}-${idx}-benefit`} className="flex w-full py-2">
+          {nft.benefits.map((b: string) => (
+            <li key={`${nft.slug}-${b}`} className="flex w-full py-2">
               <CheckCircleIcon
                 className={cn("h-6 w-6 flex-none text-emerald-500")}
               />
@@ -192,12 +191,12 @@ export function UtilityNftDetails({ nft }: { nft: UtilityNftType }) {
           <div className="-ml-px flex w-0 flex-1 overflow-hidden">
             <button
               onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-                e.preventDefault();
+                e.preventDefault()
 
-                setDrawerOpen(!drawerOpen);
+                setDrawerOpen(!drawerOpen)
               }}
               className={cn(
-                `relative inline-flex w-0 flex-1 cursor-pointer items-center justify-center rounded-br-lg bg-linear-to-r from-emerald-500 to-emerald-700 py-4 text-sm font-medium text-zinc-100 hover:from-violet-400 hover:to-sky-600`,
+                `relative inline-flex w-0 flex-1 cursor-pointer items-center justify-center rounded-br-lg bg-linear-to-r from-emerald-500 to-emerald-700 py-4 text-sm font-medium text-zinc-100 hover:from-violet-400 hover:to-sky-600`
               )}
             >
               <BoxIcon className="h-5 w-5 text-zinc-100" aria-hidden="true" />
@@ -211,7 +210,7 @@ export function UtilityNftDetails({ nft }: { nft: UtilityNftType }) {
       <div
         className={cn(
           drawerOpen ? "h-32" : "h-0",
-          "bg-zinc-200 transition-all duration-500 dark:bg-zinc-800",
+          "bg-zinc-200 transition-all duration-500 dark:bg-zinc-800"
         )}
       >
         <div className="mt-2 flex flex-col items-center justify-center px-4 text-sm">
@@ -222,9 +221,9 @@ export function UtilityNftDetails({ nft }: { nft: UtilityNftType }) {
           >
             <button
               onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-                e.preventDefault();
+                e.preventDefault()
 
-                setMintCount(mintCount - 1 < 1 ? 1 : mintCount - 1);
+                setMintCount(mintCount - 1 < 1 ? 1 : mintCount - 1)
               }}
               className="relative inline-flex cursor-pointer items-center rounded-l-md border border-zinc-300 bg-white px-2 py-2 text-sm font-medium text-zinc-500 hover:bg-zinc-50 focus:z-20"
             >
@@ -238,16 +237,16 @@ export function UtilityNftDetails({ nft }: { nft: UtilityNftType }) {
 
             <button
               onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-                e.preventDefault();
+                e.preventDefault()
 
                 if (mintCount >= nft.maxMint) {
                   return toast.error(
-                    "This is the max you can mint in a single transaction",
-                  );
+                    "This is the max you can mint in a single transaction"
+                  )
                 }
 
-                setMintCount(mintCount + 1);
-                return;
+                setMintCount(mintCount + 1)
+                return
               }}
               className="relative inline-flex cursor-pointer items-center rounded-r-md border border-zinc-300 bg-white px-2 py-2 text-sm font-medium text-zinc-500 hover:bg-zinc-50 focus:z-20"
             >
@@ -258,11 +257,11 @@ export function UtilityNftDetails({ nft }: { nft: UtilityNftType }) {
               <Button
                 className="flex h-10 w-20 items-center"
                 onClick={(
-                  e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+                  e: React.MouseEvent<HTMLButtonElement, MouseEvent>
                 ) => {
-                  e.preventDefault();
+                  e.preventDefault()
 
-                  mintNft(mintCount);
+                  mintNft(mintCount)
                 }}
               >
                 Mint
@@ -272,5 +271,5 @@ export function UtilityNftDetails({ nft }: { nft: UtilityNftType }) {
         </div>
       </div>
     </>
-  );
+  )
 }

@@ -1,9 +1,9 @@
-import * as React from "react";
+import * as React from "react"
 
-import { cn } from "@x7/css";
-import { ChevronDownIcon } from "@x7/icons";
-import { useLocalStorage } from "@x7/ui";
-import { Button } from "@x7/ui/button";
+import { cn } from "@x7/css"
+import { ChevronDownIcon } from "@x7/icons"
+import { useLocalStorage } from "@x7/ui"
+import { Button } from "@x7/ui/button"
 import {
   Command,
   CommandEmpty,
@@ -11,14 +11,14 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@x7/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@x7/ui/popover";
-import { ChainId, ChainIdentifierEnum } from "@x7/utils";
+} from "@x7/ui/command"
+import { Popover, PopoverContent, PopoverTrigger } from "@x7/ui/popover"
+import { ChainId, ChainIdentifierEnum } from "@x7/utils"
 
 interface TabButtonInterface {
-  id: ChainIdentifierEnum | string;
-  label: string;
-  color: string;
+  id: ChainIdentifierEnum | string
+  label: string
+  color: string
 }
 
 export const CHAIN_MAPPING = {
@@ -34,7 +34,7 @@ export const CHAIN_MAPPING = {
   [ChainIdentifierEnum.optimism_testnet]: ChainId.OPTIMISM_TESTNET,
   [ChainIdentifierEnum.base]: ChainId.BASE,
   [ChainIdentifierEnum.base_testnet]: ChainId.BASE_TESTNET,
-};
+}
 
 export const CHAIN_TAB_BUTTONS: TabButtonInterface[] = [
   { id: ChainIdentifierEnum.base, label: "Base", color: "blue" },
@@ -73,21 +73,21 @@ export const CHAIN_TAB_BUTTONS: TabButtonInterface[] = [
     label: "Binance Smart Chain Testnet",
     color: "yellow",
   },
-];
+]
 
 export const LOAN_TAB_BUTTONS: TabButtonInterface[] = [
   { id: "001", label: "001", color: "lime" },
   { id: "003", label: "003", color: "amber" },
   { id: "004", label: "004", color: "blue" },
   { id: "005", label: "005", color: "cyan" },
-];
+]
 
 interface TabButtonsProps {
-  activeTab: ChainIdentifierEnum | string;
-  handleTabChange: (id: ChainIdentifierEnum | string) => void;
-  tabs: TabButtonInterface[];
-  title: string;
-  placeholderSearch: string;
+  activeTab: ChainIdentifierEnum | string
+  handleTabChange: (id: ChainIdentifierEnum | string) => void
+  tabs: TabButtonInterface[]
+  title: string
+  placeholderSearch: string
 }
 
 export const Combobox = ({
@@ -97,14 +97,14 @@ export const Combobox = ({
   title,
   placeholderSearch,
 }: TabButtonsProps) => {
-  const [open, setOpen] = React.useState(false);
-  const [storedTab, setStoredTab] = useLocalStorage<string>(title, activeTab);
+  const [open, setOpen] = React.useState(false)
+  const [storedTab, setStoredTab] = useLocalStorage<string>(title, activeTab)
 
   const handleSelect = (value: string) => {
-    handleTabChange(value);
-    setStoredTab(value);
-    setOpen(false);
-  };
+    handleTabChange(value)
+    setStoredTab(value)
+    setOpen(false)
+  }
 
   return (
     <div className="mr-8 flex flex-wrap justify-start">
@@ -152,7 +152,7 @@ export const Combobox = ({
                     <span
                       className={cn(
                         "mr-2 h-4 w-4",
-                        tab.id === storedTab ? "opacity-100" : "opacity-40",
+                        tab.id === storedTab ? "opacity-100" : "opacity-40"
                       )}
                     />
                     <span>{tab.label}</span>
@@ -164,5 +164,5 @@ export const Combobox = ({
         </PopoverContent>
       </Popover>
     </div>
-  );
-};
+  )
+}

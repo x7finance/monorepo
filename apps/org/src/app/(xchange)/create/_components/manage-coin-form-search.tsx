@@ -1,22 +1,22 @@
-import { useEffect, useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import type { Abi } from "viem";
-import { useAccount, useReadContracts } from "wagmi";
-import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useEffect, useState } from "react"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import type { Abi } from "viem"
+import { useAccount, useReadContracts } from "wagmi"
+import { z } from "zod"
 
-import { XchangeTokenAbi } from "@x7/contracts";
-import { Button } from "@x7/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@x7/ui/card";
+import { XchangeTokenAbi } from "@x7/contracts"
+import { Button } from "@x7/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@x7/ui/card"
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@x7/ui/form";
-import { Input } from "@x7/ui/input";
+} from "@x7/ui/form"
+import { Input } from "@x7/ui/input"
 
 const formSchema = z.object({
   contractAddress: z
@@ -25,27 +25,27 @@ const formSchema = z.object({
     .refine((value) => !value || /^0x[a-fA-F0-9]{40}$/.test(value), {
       message: "Invalid contract address",
     }),
-});
+})
 
 export function ManageCoinFormSearch({
   onSuccess,
 }: {
-  onSuccess: (contractAddress: `0x${string}`) => void;
+  onSuccess: (contractAddress: `0x${string}`) => void
 }) {
-  const { address } = useAccount();
-  const [ownerError, setOwnerError] = useState<boolean>(false);
+  const { address } = useAccount()
+  const [ownerError, setOwnerError] = useState<boolean>(false)
 
   const searchForm = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       contractAddress: "",
     },
-  });
+  })
 
   const contractAddress = searchForm.watch(
     "contractAddress",
-    "",
-  ) as `0x${string}`;
+    ""
+  ) as `0x${string}`
 
   const {
     data: ownerData,
@@ -59,34 +59,34 @@ export function ManageCoinFormSearch({
         functionName: "owner",
       },
     ],
-  });
+  })
 
   useEffect(() => {
-    if (isError) setOwnerError(true);
-  }, [isError]);
+    if (isError) setOwnerError(true)
+  }, [isError])
 
   function onSubmit(_data: { contractAddress?: string }) {
     if (!_data.contractAddress) {
-      toast.error("Contract address is required");
-      return;
+      toast.error("Contract address is required")
+      return
     }
 
     if (isLoading) {
-      toast("Checking ownership, please wait...");
-      return;
+      toast("Checking ownership, please wait...")
+      return
     }
 
     if (ownerError || !ownerData?.[0]?.result) {
-      toast.error("Failed to verify ownership or contract does not exist.");
-      return;
+      toast.error("Failed to verify ownership or contract does not exist.")
+      return
     }
 
-    const contractOwner = ownerData[0].result;
+    const contractOwner = ownerData[0].result
     if (contractOwner === address) {
-      onSuccess(contractAddress);
-      toast.success("Ownership verified. Loading contract details...");
+      onSuccess(contractAddress)
+      toast.success("Ownership verified. Loading contract details...")
     } else {
-      toast.error("You are not the owner of this contract.");
+      toast.error("You are not the owner of this contract.")
     }
   }
 
@@ -135,5 +135,5 @@ export function ManageCoinFormSearch({
         </div>
       </CardContent>
     </Card>
-  );
+  )
 }

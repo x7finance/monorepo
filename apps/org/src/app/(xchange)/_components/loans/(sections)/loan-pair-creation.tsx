@@ -1,53 +1,52 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-import { isAddress, zeroAddress } from "viem";
-import { useAccount, useChainId } from "wagmi";
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+import { isAddress, zeroAddress } from "viem"
+import { useAccount, useChainId } from "wagmi"
 
-import { CheckCircleIcon } from "@x7/icons";
-import { generateChainEtherTokenEnum, X7ContractsEnum } from "@x7/sdk";
-import { Button } from "@x7/ui/button";
-import { DEAD_ADDRESS } from "@x7/utils";
-import type { ChainId, Currency } from "@x7/utils";
-
-import { useCreatePair } from "~/lib/hooks/pairs/useCreatePair";
-import { useGetPair } from "~/lib/hooks/pairs/useGetPair";
-import { useGetReserves } from "~/lib/hooks/pairs/useGetReserves";
+import { CheckCircleIcon } from "@x7/icons"
+import { generateChainEtherTokenEnum, X7ContractsEnum } from "@x7/sdk"
+import { Button } from "@x7/ui/button"
+import type { ChainId, Currency } from "@x7/utils"
+import { DEAD_ADDRESS } from "@x7/utils"
+import { useCreatePair } from "~/lib/hooks/pairs/useCreatePair"
+import { useGetPair } from "~/lib/hooks/pairs/useGetPair"
+import { useGetReserves } from "~/lib/hooks/pairs/useGetReserves"
 
 interface LoanPairCreationProps {
-  collateralToken: Currency;
+  collateralToken: Currency
 }
 
 export function LoanPairCreation({ collateralToken }: LoanPairCreationProps) {
-  const { isConnected } = useAccount();
-  const chainId = useChainId() as ChainId;
+  const { isConnected } = useAccount()
+  const chainId = useChainId() as ChainId
   const address =
     collateralToken && "address" in collateralToken
       ? collateralToken.address
-      : DEAD_ADDRESS;
+      : DEAD_ADDRESS
 
-  const chainEtherToken = generateChainEtherTokenEnum(chainId);
-  const factoryAddress = X7ContractsEnum.XchangeFactory ?? DEAD_ADDRESS;
+  const chainEtherToken = generateChainEtherTokenEnum(chainId)
+  const factoryAddress = X7ContractsEnum.XchangeFactory ?? DEAD_ADDRESS
 
   const { getPair } = useGetPair(
     chainId,
     factoryAddress,
     address,
-    chainEtherToken ?? DEAD_ADDRESS,
-  );
+    chainEtherToken ?? DEAD_ADDRESS
+  )
 
-  const { getReserves } = useGetReserves(chainId, getPair);
+  const { getReserves } = useGetReserves(chainId, getPair)
 
   const { writeContract, data, isPending } = useCreatePair({
     tokenA: address,
     tokenB: chainEtherToken,
     factoryAddress,
-  });
+  })
 
   const handleCreatePair = () => {
     if (address) {
       // @ts-expect-error: todo fix
-      writeContract(data?.request);
+      writeContract(data?.request)
     }
-  };
+  }
 
   if (
     !isAddress(getPair) ||
@@ -65,7 +64,7 @@ export function LoanPairCreation({ collateralToken }: LoanPairCreationProps) {
       >
         Create Pair
       </Button>
-    );
+    )
   }
 
   if (!getReserves || getReserves[0] > 0n || getReserves[1] > 0n) {
@@ -79,7 +78,7 @@ export function LoanPairCreation({ collateralToken }: LoanPairCreationProps) {
           eligible for a loan.
         </span>
       </div>
-    );
+    )
   }
 
   return (
@@ -96,5 +95,5 @@ export function LoanPairCreation({ collateralToken }: LoanPairCreationProps) {
     >
       Pair Created
     </Button>
-  );
+  )
 }

@@ -1,4 +1,4 @@
-import { ArrowUpDownIcon } from "@x7/icons";
+import { ArrowUpDownIcon } from "@x7/icons"
 
 export function FlipSwapTokensButton({ onClick }: { onClick: () => void }) {
   return (
@@ -6,6 +6,7 @@ export function FlipSwapTokensButton({ onClick }: { onClick: () => void }) {
       <button
         onClick={onClick}
         type="button"
+        aria-label="Swap input and output tokens"
         className="transition-border group z-10 cursor-pointer rounded-full border border-border bg-[#fafafa] p-2 transition-all hover:shadow-xs dark:bg-black"
       >
         <div className="rotate-0 transition-transform group-hover:rotate-180">
@@ -16,5 +17,5 @@ export function FlipSwapTokensButton({ onClick }: { onClick: () => void }) {
         </div>
       </button>
     </div>
-  );
+  )
 }

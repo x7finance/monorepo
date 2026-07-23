@@ -1,100 +1,107 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-import type { Address, PublicClient } from "viem";
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+import type { Address, PublicClient } from "viem"
 
-import { erc20Abi, tickLensAbi } from "@x7/contracts";
-import { computePoolAddress, FeeAmount, TICK_SPACINGS } from "@x7/sdk";
-import type { RToken } from "@x7/tines";
-import { UniV3Pool } from "@x7/tines";
-import { LogCodes } from "@x7/utils";
-import type { ChainId, Currency, Token } from "@x7/utils";
+import { erc20Abi, tickLensAbi } from "@x7/contracts"
+import { computePoolAddress, FeeAmount, TICK_SPACINGS } from "@x7/sdk"
+import type { RToken } from "@x7/tines"
+import { UniV3Pool } from "@x7/tines"
+import type { ChainId, Currency, Token } from "@x7/utils"
+import { LogCodes } from "@x7/utils"
 
-import { getCurrencyCombinations } from "../getCurrencyCombinations";
-import { log } from "../lib/logger";
-import type { PoolCode } from "../pools/PoolCode";
-import { UniV3PoolCode } from "../pools/UniV3Pool";
-import { LiquidityProvider } from "./LiquidityProvider";
+import { getCurrencyCombinations } from "../getCurrencyCombinations"
+import { log } from "../lib/logger"
+import type { PoolCode } from "../pools/PoolCode"
+import { UniV3PoolCode } from "../pools/UniV3Pool"
+
+import { LiquidityProvider } from "./LiquidityProvider"
 
 interface StaticPool {
-  address: Address;
-  token0: Token;
-  token1: Token;
-  fee: FeeAmount;
+  address: Address
+  token0: Token
+  token1: Token
+  fee: FeeAmount
 }
 
 interface V3Pool {
-  address: Address;
-  token0: Token;
-  token1: Token;
-  fee: FeeAmount;
-  sqrtPriceX96: bigint;
-  activeTick: number;
+  address: Address
+  token0: Token
+  token1: Token
+  fee: FeeAmount
+  sqrtPriceX96: bigint
+  activeTick: number
 }
 
-export const NUMBER_OF_SURROUNDING_TICKS = 1000; // 10% price impact
+export const NUMBER_OF_SURROUNDING_TICKS = 1000 // 10% price impact
 
 const getActiveTick = (tickCurrent: number, feeAmount: FeeAmount) =>
   typeof tickCurrent === "number" && feeAmount
     ? Math.floor(tickCurrent / TICK_SPACINGS[feeAmount]) *
       TICK_SPACINGS[feeAmount]
-    : undefined;
+    : undefined
 
 const bitmapIndex = (tick: number, tickSpacing: number) => {
-  return Math.floor(tick / tickSpacing / 256);
-};
+  return Math.floor(tick / tickSpacing / 256)
+}
 
 interface PoolFilter {
-  has: (arg: string) => boolean;
+  has: (arg: string) => boolean
+}
+
+interface PopulatedTick {
+  tick: number
+  liquidityNet: bigint
+  liquidityGross: bigint
 }
 
 export abstract class UniswapV3BaseProvider extends LiquidityProvider {
-  poolsByTrade = new Map<string, string[]>();
-  pools = new Map<string, PoolCode>();
+  poolsByTrade = new Map<string, string[]>()
+  pools = new Map<string, PoolCode>()
 
-  blockListener?: () => void;
-  unwatchBlockNumber?: () => void;
+  blockListener?: () => void
+  unwatchBlockNumber?: () => void
 
-  isInitialized = false;
-  factory: Record<number, Address> = {};
-  initCodeHash: Record<number, string> = {};
-  tickLens: Record<number, string> = {};
+  isInitialized = false
+  factory: Record<number, Address> = {}
+  initCodeHash: Record<number, string> = {}
+  tickLens: Record<number, string> = {}
 
   constructor(
     chainId: ChainId,
     web3Client: PublicClient,
     factory: Record<number, Address>,
     initCodeHash: Record<number, string>,
-    tickLens: Record<number, string>,
+    tickLens: Record<number, string>
   ) {
-    super(chainId, web3Client);
-    this.factory = factory;
-    this.initCodeHash = initCodeHash;
-    this.tickLens = tickLens;
+    super(chainId, web3Client)
+    this.factory = factory
+    this.initCodeHash = initCodeHash
+    this.tickLens = tickLens
     if (
       !(chainId in this.factory) ||
       !(chainId in this.initCodeHash) ||
       !(chainId in tickLens)
     ) {
       throw new Error(
-        `${this.getType()} cannot be instantiated for chainid ${chainId}, no factory or initCodeHash`,
-      );
+        `${this.getType()} cannot be instantiated for chainid ${chainId}, no factory or initCodeHash`
+      )
     }
   }
 
   async fetchPoolsForToken(
     t0: Token,
     t1: Token,
-    excludePools?: Set<string> | PoolFilter,
+    excludePools?: Set<string> | PoolFilter
   ): Promise<void> {
-    let staticPools = this.getStaticPools(t0, t1);
+    let staticPools = this.getStaticPools(t0, t1)
     if (excludePools)
-      staticPools = staticPools.filter((p) => !excludePools.has(p.address));
+      staticPools = staticPools.filter((p) => !excludePools.has(p.address))
 
-    console.debug("staticPools v3 base", staticPools.length);
+    console.debug("staticPools v3 base", staticPools.length)
 
     const slot0: any = await this.client
       .multicall({
@@ -143,36 +150,36 @@ export abstract class UniswapV3BaseProvider extends LiquidityProvider {
                 },
               ],
               functionName: "slot0",
-            }) as const,
+            }) as const
         ),
       })
       .catch((e) => {
         console.warn(
           `${this.getLogPrefix()} - INIT: multicall failed, message: ${
             e.message
-          }`,
-        );
-        return undefined;
-      });
+          }`
+        )
+        return undefined
+      })
 
-    const existingPools: V3Pool[] = [];
+    const existingPools: V3Pool[] = []
 
     staticPools.forEach((pool, i) => {
-      if (!slot0?.[i]) return;
-      const sqrtPriceX96 = slot0[i].result?.[0];
-      const tick = slot0[i].result?.[1];
+      if (!slot0?.[i]) return
+      const sqrtPriceX96 = slot0[i].result?.[0]
+      const tick = slot0[i].result?.[1]
       if (!sqrtPriceX96 || sqrtPriceX96 === 0n || typeof tick !== "number")
-        return;
-      const activeTick = getActiveTick(tick, pool.fee);
-      if (typeof activeTick !== "number") return;
+        return
+      const activeTick = getActiveTick(tick, pool.fee)
+      if (typeof activeTick !== "number") return
       existingPools.push({
         ...pool,
         sqrtPriceX96,
         activeTick,
-      });
-    });
+      })
+    })
 
-    if (existingPools.length === 0) return;
+    if (existingPools.length === 0) return
 
     const liquidityContracts = this.client.multicall({
       multicallAddress: this.client.chain?.contracts?.multicall3?.address!,
@@ -194,9 +201,9 @@ export abstract class UniswapV3BaseProvider extends LiquidityProvider {
               },
             ],
             functionName: "liquidity",
-          }) as const,
+          }) as const
       ),
-    });
+    })
 
     const token0Contracts = this.client.multicall({
       multicallAddress: this.client.chain?.contracts?.multicall3?.address!,
@@ -209,9 +216,9 @@ export abstract class UniswapV3BaseProvider extends LiquidityProvider {
             args: [pool.address],
             abi: erc20Abi,
             functionName: "balanceOf",
-          }) as const,
+          }) as const
       ),
-    });
+    })
 
     const token1Contracts = this.client.multicall({
       multicallAddress: this.client.chain?.contracts?.multicall3?.address!,
@@ -224,49 +231,45 @@ export abstract class UniswapV3BaseProvider extends LiquidityProvider {
             args: [pool.address],
             abi: erc20Abi,
             functionName: "balanceOf",
-          }) as const,
+          }) as const
       ),
-    });
+    })
 
     const minIndexes = existingPools.map((pool) =>
       bitmapIndex(
         pool.activeTick - NUMBER_OF_SURROUNDING_TICKS,
-        TICK_SPACINGS[pool.fee],
-      ),
-    );
+        TICK_SPACINGS[pool.fee]
+      )
+    )
     const maxIndexes = existingPools.map((pool) =>
       bitmapIndex(
         pool.activeTick + NUMBER_OF_SURROUNDING_TICKS,
-        TICK_SPACINGS[pool.fee],
-      ),
-    );
+        TICK_SPACINGS[pool.fee]
+      )
+    )
 
     const wordList = existingPools.flatMap((pool, i) => {
-      const minIndex = minIndexes[i];
-      const maxIndex = maxIndexes[i];
+      const minIndex = minIndexes[i]!
+      const maxIndex = maxIndexes[i]!
 
-      return Array.from(
-        // @ts-expect-error: todo fix
+      return Array.from<unknown, number>(
         { length: maxIndex - minIndex + 1 },
-        // @ts-expect-error: todo fix
-        (_, i) => minIndex + i,
-      ).flatMap((j) => ({
+        (_, j) => minIndex + j
+      ).map((j) => ({
         chainId: this.chainId,
-        address: this.tickLens[
-          this.chainId as keyof typeof this.tickLens
-        ] as Address,
+        address: this.tickLens[this.chainId]! as Address,
         args: [pool.address, j] as const,
         abi: tickLensAbi,
         functionName: "getPopulatedTicksInWord" as const,
         index: i,
-      }));
-    });
+      }))
+    })
 
     const ticksContracts = this.client.multicall({
       multicallAddress: this.client.chain?.contracts?.multicall3?.address!,
       allowFailure: true,
       contracts: wordList,
-    });
+    })
 
     const [liquidityResults, token0Balances, token1Balances, tickResults] =
       await Promise.all([
@@ -274,70 +277,65 @@ export abstract class UniswapV3BaseProvider extends LiquidityProvider {
         token0Contracts,
         token1Contracts,
         ticksContracts,
-      ]);
+      ])
 
-    const ticks: NonNullable<(typeof tickResults)[number]["result"]>[] = [];
+    const ticks: PopulatedTick[][] = []
     tickResults.forEach((t, i) => {
-      // @ts-expect-error: todo fix
-      const index = wordList[i].index;
-      ticks[index] = (ticks[index] ?? []).concat(t.result ?? []);
-    });
+      const index = wordList[i]!.index
+      const result = [...(t.result ?? [])] as PopulatedTick[]
+      ticks[index] = (ticks[index] ?? []).concat(result)
+    })
 
-    const transformedV3Pools: PoolCode[] = [];
+    const transformedV3Pools: PoolCode[] = []
     existingPools.forEach((pool, i) => {
-      if (
-        !liquidityResults[i] ||
-        // @ts-expect-error: todo fix
-        !token0Balances[i].result ||
-        // @ts-expect-error: todo fix
-        !token1Balances[i].result
-      )
-        return;
+      const token0Balance = token0Balances[i]
+      const token1Balance = token1Balances[i]
+      const liquidityResult = liquidityResults[i]
 
-      const balance0 = token0Balances[i]?.result;
+      if (!liquidityResult || !token0Balance?.result || !token1Balance?.result)
+        return
 
-      const balance1 = token1Balances[i]?.result;
+      const balance0 = token0Balance.result
+      const balance1 = token1Balance.result
+      const liquidity = liquidityResult.result
 
-      const liquidity = liquidityResults[i]?.result;
       if (
         balance0 === undefined ||
         balance1 === undefined ||
         liquidity === undefined
       )
-        return;
+        return
 
-      // @ts-expect-error: todo fix
-      const poolTicks = ticks[i]
+      const poolTicksRaw = ticks[i]
+      if (!poolTicksRaw) return
+
+      const poolTicks = poolTicksRaw
         .map((tick) => ({
           index: tick.tick,
           DLiquidity: tick.liquidityNet,
         }))
-        .sort((a, b) => a.index - b.index);
+        .toSorted((a, b) => a.index - b.index)
 
       const lowerUnknownTick =
-        // @ts-expect-error: todo fix
-        minIndexes[i] * TICK_SPACINGS[pool.fee] * 256 - TICK_SPACINGS[pool.fee];
+        minIndexes[i]! * TICK_SPACINGS[pool.fee] * 256 - TICK_SPACINGS[pool.fee]
       console.assert(
-        // @ts-expect-error: todo fix
-        poolTicks.length === 0 || lowerUnknownTick < poolTicks[0].index,
-        "Error 236: unexpected min tick index",
-      );
+        poolTicks.length === 0 || lowerUnknownTick < poolTicks[0]!.index,
+        "Error 236: unexpected min tick index"
+      )
       poolTicks.unshift({
         index: lowerUnknownTick,
         DLiquidity: 0n,
-      });
+      })
       const upperUnknownTick =
-        // @ts-expect-error: todo fix
-        (maxIndexes[i] + 1) * TICK_SPACINGS[pool.fee] * 256;
+        (maxIndexes[i]! + 1) * TICK_SPACINGS[pool.fee] * 256
       console.assert(
-        // @ts-expect-error: todo fix
-        poolTicks[poolTicks.length - 1].index < upperUnknownTick,
-        "Error 244: unexpected max tick index",
-      );
+        poolTicks[poolTicks.length - 1]!.index < upperUnknownTick,
+        "Error 244: unexpected max tick index"
+      )
       poolTicks.push({
         index: upperUnknownTick,
         DLiquidity: 0n,
-      });
+      })
 
       const v3Pool = new UniV3Pool(
         pool.address,
@@ -349,26 +347,26 @@ export abstract class UniswapV3BaseProvider extends LiquidityProvider {
         pool.activeTick,
         liquidity,
         pool.sqrtPriceX96,
-        poolTicks,
-      );
+        poolTicks
+      )
 
       const pc = new UniV3PoolCode(
         v3Pool,
         this.getType(),
-        this.getPoolProviderName(),
-      );
-      transformedV3Pools.push(pc);
-      this.pools.set(pool.address.toLowerCase(), pc);
-    });
+        this.getPoolProviderName()
+      )
+      transformedV3Pools.push(pc)
+      this.pools.set(pool.address.toLowerCase(), pc)
+    })
 
     this.poolsByTrade.set(
       this.getTradeId(t0, t1),
-      transformedV3Pools.map((pc) => pc.pool.address.toLowerCase()),
-    );
+      transformedV3Pools.map((pc) => pc.pool.address.toLowerCase())
+    )
   }
 
   getStaticPools(t1: Token, t2: Token): StaticPool[] {
-    const currencyCombinations = getCurrencyCombinations(this.chainId, t1, t2);
+    const currencyCombinations = getCurrencyCombinations(this.chainId, t1, t2)
 
     const allCurrencyCombinationsWithAllFees: [
       Currency,
@@ -382,50 +380,48 @@ export abstract class UniswapV3BaseProvider extends LiquidityProvider {
             [tokenA, tokenB, FeeAmount.LOW],
             [tokenA, tokenB, FeeAmount.MEDIUM],
             [tokenA, tokenB, FeeAmount.HIGH],
-          ]);
+          ])
         }
-        return [];
+        return []
       },
-      [],
-    );
+      []
+    )
 
-    const filtered: [Token, Token, FeeAmount][] = [];
+    const filtered: [Token, Token, FeeAmount][] = []
     allCurrencyCombinationsWithAllFees.forEach(
       ([currencyA, currencyB, feeAmount]) => {
         if (currencyA && currencyB && feeAmount) {
-          const tokenA = currencyA.wrapped;
-          const tokenB = currencyB.wrapped;
-          if (tokenA.equals(tokenB)) return;
+          const tokenA = currencyA.wrapped
+          const tokenB = currencyB.wrapped
+          if (tokenA.equals(tokenB)) return
           filtered.push(
             tokenA.sortsBefore(tokenB)
               ? [tokenA, tokenB, feeAmount]
-              : [tokenB, tokenA, feeAmount],
-          );
+              : [tokenB, tokenA, feeAmount]
+          )
         }
-      },
-    );
+      }
+    )
     return filtered.map(([currencyA, currencyB, fee]) => ({
       address: computePoolAddress({
-        // @ts-expect-error: TODO FIX
-        factoryAddress: this.factory[this.chainId as keyof typeof this.factory],
+        factoryAddress: this.factory[this.chainId]!,
         tokenA: currencyA.wrapped,
         tokenB: currencyB.wrapped,
         fee,
-        initCodeHashManualOverride:
-          this.initCodeHash[this.chainId as keyof typeof this.initCodeHash],
+        initCodeHashManualOverride: this.initCodeHash[this.chainId]!,
       }),
       token0: currencyA,
       token1: currencyB,
       fee,
-    }));
+    }))
   }
 
   startFetchPoolsData() {
-    this.stopFetchPoolsData();
+    this.stopFetchPoolsData()
     // this.topPools = new Map()
     this.unwatchBlockNumber = this.client.watchBlockNumber({
       onBlockNumber: (blockNumber) => {
-        this.lastUpdateBlock = Number(blockNumber);
+        this.lastUpdateBlock = Number(blockNumber)
         // if (!this.isInitialized) {
         //   this.initialize()
         // } else {
@@ -437,10 +433,10 @@ export abstract class UniswapV3BaseProvider extends LiquidityProvider {
           LogCodes.WATCH_BLOCK_NUMBER_ERROR,
           `${this.getLogPrefix()} - Error watching block number: ${
             error.message
-          }`,
-        );
+          }`
+        )
       },
-    });
+    })
   }
 
   getCurrentPoolList(): PoolCode[] {
@@ -451,11 +447,11 @@ export abstract class UniswapV3BaseProvider extends LiquidityProvider {
     //       .filter(([poolAddress]) => poolsByTrade.includes(poolAddress))
     //       .map(([, p]) => p)
     //   : []
-    return Array.from(this.pools.values());
+    return Array.from(this.pools.values())
   }
 
   stopFetchPoolsData() {
-    if (this.unwatchBlockNumber) this.unwatchBlockNumber();
-    this.blockListener = undefined;
+    if (this.unwatchBlockNumber) this.unwatchBlockNumber()
+    this.blockListener = undefined
   }
 }

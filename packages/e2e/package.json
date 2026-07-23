@@ -1,21 +1,23 @@
 {
   "name": "@x7/e2e",
-  "version": "0.0.01",
+  "version": "0.0.1",
   "description": "e2e tests for Xchange",
-  "main": "index.js",
-  "devDependencies": {
-    "@inquirer/prompts": "^7.4.0",
-    "@playwright/test": "^1.51.1",
-    "@synthetixio/synpress": "^4.0.10",
-    "axios": "^1.8.4",
-    "@types/node": "^22.13.10",
-    "dotenv": "^16.4.7",
-    "@x7/eslint-config": "workspace:*",
-    "@x7/prettier-config": "workspace:*",
-    "@x7/tsconfig": "workspace:*"
-  },
+  "private": true,
   "scripts": {
-    "e2e": "HEADLESS_MODE=true npx playwright test",
-    "e2e:headed": "npx playwright test"
+    "e2e": "HEADLESS_MODE=true playwright test",
+    "e2e:headed": "playwright test",
+    "e2e:ui": "playwright test --ui",
+    "format": "oxfmt --check --config ../../tooling/oxfmt/.oxfmtrc.json tests/ fixtures/ lib/",
+    "format:fix": "oxfmt --write --config ../../tooling/oxfmt/.oxfmtrc.json tests/ fixtures/ lib/",
+    "lint": "oxlint tests/ fixtures/ lib/",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "@types/node": "^22.20.1",
+    "@x7/tsconfig": "workspace:*",
+    "dotenv": "^17.4.2",
+    "oxlint": "^1.75.0",
+    "typescript": "^7.0.2"
   }
 }

@@ -6,13 +6,13 @@
  */
 export function isSorted<T>(
   list: T[],
-  comparator: (a: T, b: T) => number,
+  comparator: (a: T, b: T) => number
 ): boolean {
   for (let i = 0; i < list.length - 1; i++) {
     // @ts-expect-error: todo fix
     if (comparator(list[i], list[i + 1]) > 0) {
-      return false;
+      return false
     }
   }
-  return true;
+  return true
 }

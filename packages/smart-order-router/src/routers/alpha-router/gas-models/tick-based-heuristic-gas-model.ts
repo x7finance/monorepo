@@ -1,14 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
+/* oxlint-disable @typescript-eslint/no-unnecessary-type-assertion */
 
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
 
-import type { Pool } from "@x7/sdk";
-import { CurrencyAmount, LogCodes, Price } from "@x7/utils";
-import type { ChainId, Currency } from "@x7/utils";
+import type { Pool } from "@x7/sdk"
+import type { ChainId, Currency } from "@x7/utils"
+import { CurrencyAmount, LogCodes, Price } from "@x7/utils"
 
-import { log, WRAPPED_NATIVE_CURRENCY } from "../../../utils";
-import { calculateL1GasFeesHelper } from "../../../utils/gas-factory-helpers";
-import type { V3RouteWithValidQuote } from "../entities";
+import { log, WRAPPED_NATIVE_CURRENCY } from "../../../utils"
+import { calculateL1GasFeesHelper } from "../../../utils/gas-factory-helpers"
+import type { V3RouteWithValidQuote } from "../entities"
+
 import {
   BASE_SWAP_COST,
   COST_PER_HOP,
@@ -16,22 +17,19 @@ import {
   COST_PER_UNINIT_TICK,
   SINGLE_HOP_OVERHEAD,
   TOKEN_OVERHEAD,
-} from "./gas-costs";
+} from "./gas-costs"
 import type {
   BuildOnChainGasModelFactoryType,
   GasModelProviderConfig,
   IGasModel,
-} from "./gas-model";
-import {
-  getQuoteThroughNativePool,
-  IOnChainGasModelFactory,
-} from "./gas-model";
+} from "./gas-model"
+import { getQuoteThroughNativePool, IOnChainGasModelFactory } from "./gas-model"
 
 export abstract class TickBasedHeuristicGasModelFactory<
   TRouteWithValidQuote extends V3RouteWithValidQuote,
 > extends IOnChainGasModelFactory<TRouteWithValidQuote> {
   protected constructor() {
-    super();
+    super()
   }
 
   protected async buildGasModelInternal({
@@ -47,17 +45,17 @@ export abstract class TickBasedHeuristicGasModelFactory<
   > {
     const l2GasData = l2GasDataProvider
       ? await l2GasDataProvider.getGasData(providerConfig)
-      : undefined;
+      : undefined
 
-    const usdPool: Pool = pools.usdPool;
+    const usdPool: Pool = pools.usdPool
 
     const calculateL1GasFees = async (
-      route: TRouteWithValidQuote[],
+      route: TRouteWithValidQuote[]
     ): Promise<{
-      gasUsedL1: bigint;
-      gasUsedL1OnL2: bigint;
-      gasCostL1USD: CurrencyAmount<Currency>;
-      gasCostL1QuoteToken: CurrencyAmount<Currency>;
+      gasUsedL1: bigint
+      gasUsedL1OnL2: bigint
+      gasCostL1USD: CurrencyAmount<Currency>
+      gasCostL1QuoteToken: CurrencyAmount<Currency>
     }> => {
       return await calculateL1GasFeesHelper(
         route,
@@ -65,34 +63,34 @@ export abstract class TickBasedHeuristicGasModelFactory<
         usdPool,
         quoteToken,
         pools.nativeAndQuoteTokenV3Pool,
-        l2GasData,
-      );
-    };
+        l2GasData
+      )
+    }
 
-    const nativeCurrency = WRAPPED_NATIVE_CURRENCY[chainId]!;
-    let nativeAmountPool: Pool | null = null;
+    const nativeCurrency = WRAPPED_NATIVE_CURRENCY[chainId]!
+    let nativeAmountPool: Pool | null = null
     if (!amountToken.equals(nativeCurrency)) {
-      nativeAmountPool = pools.nativeAndAmountTokenV3Pool;
+      nativeAmountPool = pools.nativeAndAmountTokenV3Pool
     }
 
     const usdToken = usdPool.token0.equals(nativeCurrency)
       ? usdPool.token1
-      : usdPool.token0;
+      : usdPool.token0
 
     const estimateGasCost = (
-      routeWithValidQuote: TRouteWithValidQuote,
+      routeWithValidQuote: TRouteWithValidQuote
     ): {
-      gasEstimate: bigint;
-      gasCostInToken: CurrencyAmount<Currency>;
-      gasCostInUSD: CurrencyAmount<Currency>;
-      gasCostInGasToken?: CurrencyAmount<Currency>;
+      gasEstimate: bigint
+      gasCostInToken: CurrencyAmount<Currency>
+      gasCostInUSD: CurrencyAmount<Currency>
+      gasCostInGasToken?: CurrencyAmount<Currency>
     } => {
       const { totalGasCostNativeCurrency, baseGasUse } = this.estimateGas(
         routeWithValidQuote,
         gasPriceWei,
         chainId,
-        providerConfig,
-      );
+        providerConfig
+      )
 
       /** ------ MARK: USD logic  -------- */
       // We only need to go through V2 and V3 USD pools for now,
@@ -101,14 +99,14 @@ export abstract class TickBasedHeuristicGasModelFactory<
       const gasCostInTermsOfUSD = getQuoteThroughNativePool(
         chainId,
         totalGasCostNativeCurrency,
-        usdPool,
-      );
+        usdPool
+      )
 
       /** ------ MARK: Conditional logic run if gasToken is specified  -------- */
       const nativeAndSpecifiedGasTokenPool: Pool | null =
-        pools.nativeAndSpecifiedGasTokenV3Pool;
+        pools.nativeAndSpecifiedGasTokenV3Pool
       let gasCostInTermsOfGasToken: CurrencyAmount<Currency> | undefined =
-        undefined;
+        undefined
       // we don't want to fetch the gasToken pool if the gasToken is the native currency
       if (nativeAndSpecifiedGasTokenPool) {
         // We only need to go through V2 and V3 USD pools for now,
@@ -117,12 +115,12 @@ export abstract class TickBasedHeuristicGasModelFactory<
         gasCostInTermsOfGasToken = getQuoteThroughNativePool(
           chainId,
           totalGasCostNativeCurrency,
-          nativeAndSpecifiedGasTokenPool,
-        );
+          nativeAndSpecifiedGasTokenPool
+        )
       }
       // if the gasToken is the native currency, we can just use the totalGasCostNativeCurrency
       else if (providerConfig?.gasToken?.equals(nativeCurrency)) {
-        gasCostInTermsOfGasToken = totalGasCostNativeCurrency;
+        gasCostInTermsOfGasToken = totalGasCostNativeCurrency
       }
 
       /** ------ MARK: return early if quoteToken is wrapped native currency ------- */
@@ -132,7 +130,7 @@ export abstract class TickBasedHeuristicGasModelFactory<
           gasCostInToken: totalGasCostNativeCurrency,
           gasCostInUSD: gasCostInTermsOfUSD,
           gasCostInGasToken: gasCostInTermsOfGasToken,
-        };
+        }
       }
 
       /** ------ MARK: Main gas logic in terms of quote token -------- */
@@ -140,9 +138,9 @@ export abstract class TickBasedHeuristicGasModelFactory<
       // Since the quote token is not in the native currency, we convert the gas cost to be in terms of the quote token.
       // We do this by getting the highest liquidity <quoteToken>/<nativeCurrency> pool. eg. <quoteToken>/ETH pool.
       const nativeAndQuoteTokenPool: Pool | null =
-        pools.nativeAndQuoteTokenV3Pool;
+        pools.nativeAndQuoteTokenV3Pool
 
-      let gasCostInTermsOfQuoteToken: CurrencyAmount<Currency> | null = null;
+      let gasCostInTermsOfQuoteToken: CurrencyAmount<Currency> | null = null
       if (nativeAndQuoteTokenPool) {
         // We only need to go through V2 and V3 USD pools for now,
         // because v4 pools don't have deep liquidity yet.
@@ -150,8 +148,8 @@ export abstract class TickBasedHeuristicGasModelFactory<
         gasCostInTermsOfQuoteToken = getQuoteThroughNativePool(
           chainId,
           totalGasCostNativeCurrency,
-          nativeAndQuoteTokenPool,
-        );
+          nativeAndQuoteTokenPool
+        )
       }
       // We may have a nativeAmountPool, but not a nativePool
       else {
@@ -171,36 +169,36 @@ export abstract class TickBasedHeuristicGasModelFactory<
           routeWithValidQuote.amount.currency,
           routeWithValidQuote.quote.currency,
           routeWithValidQuote.amount.quotient,
-          routeWithValidQuote.quote.quotient,
-        );
+          routeWithValidQuote.quote.quotient
+        )
 
         const inputIsToken0 =
-          nativeAmountPool.token0.address == nativeCurrency.address;
+          nativeAmountPool.token0.address === nativeCurrency.address
         // ratio of input / native
         const nativeAndAmountTokenPrice = inputIsToken0
           ? nativeAmountPool.token0Price
-          : nativeAmountPool.token1Price;
+          : nativeAmountPool.token1Price
 
         const gasCostInTermsOfAmountToken = nativeAndAmountTokenPrice.quote(
-          totalGasCostNativeCurrency,
-        ) as CurrencyAmount<Currency>;
+          totalGasCostNativeCurrency
+        ) as CurrencyAmount<Currency>
 
         // Convert gasCostInTermsOfAmountToken to quote token using execution price
-        let syntheticGasCostInTermsOfQuoteToken: CurrencyAmount<Currency> | null;
+        let syntheticGasCostInTermsOfQuoteToken: CurrencyAmount<Currency> | null
         try {
           syntheticGasCostInTermsOfQuoteToken = executionPrice.quote(
-            gasCostInTermsOfAmountToken,
-          );
+            gasCostInTermsOfAmountToken
+          )
         } catch (err) {
           if (
             err instanceof RangeError &&
             err.message.includes("Division by zero")
           ) {
             // If the quote fails (division by zero), set syntheticGasCostInTermsOfQuoteToken to null
-            syntheticGasCostInTermsOfQuoteToken = null;
+            syntheticGasCostInTermsOfQuoteToken = null
           } else {
             // any other error, throw
-            throw err;
+            throw err
           }
         }
 
@@ -211,7 +209,7 @@ export abstract class TickBasedHeuristicGasModelFactory<
           syntheticGasCostInTermsOfQuoteToken !== null &&
           (gasCostInTermsOfQuoteToken === null ||
             syntheticGasCostInTermsOfQuoteToken.lessThan(
-              gasCostInTermsOfQuoteToken.asFraction,
+              gasCostInTermsOfQuoteToken.asFraction
             ))
         ) {
           // log.info(
@@ -230,7 +228,7 @@ export abstract class TickBasedHeuristicGasModelFactory<
           //   "New gasCostInTermsOfQuoteToken calculated with synthetic quote token price is less than original",
           // );
 
-          gasCostInTermsOfQuoteToken = syntheticGasCostInTermsOfQuoteToken;
+          gasCostInTermsOfQuoteToken = syntheticGasCostInTermsOfQuoteToken
         }
       }
 
@@ -238,13 +236,13 @@ export abstract class TickBasedHeuristicGasModelFactory<
       if (gasCostInTermsOfQuoteToken === null) {
         log.error(
           LogCodes.NOT_FOUND,
-          `Unable to find ${nativeCurrency.symbol} pool with the quote token, ${quoteToken.symbol}, or amount Token, ${amountToken.symbol} to produce gas adjusted costs. Route will not account for gas.`,
-        );
+          `Unable to find ${nativeCurrency.symbol} pool with the quote token, ${quoteToken.symbol}, or amount Token, ${amountToken.symbol} to produce gas adjusted costs. Route will not account for gas.`
+        )
         return {
           gasEstimate: baseGasUse,
           gasCostInToken: CurrencyAmount.fromRawAmount(quoteToken, 0),
           gasCostInUSD: CurrencyAmount.fromRawAmount(usdToken, 0),
-        };
+        }
       }
 
       return {
@@ -252,42 +250,42 @@ export abstract class TickBasedHeuristicGasModelFactory<
         gasCostInToken: gasCostInTermsOfQuoteToken,
         gasCostInUSD: gasCostInTermsOfUSD,
         gasCostInGasToken: gasCostInTermsOfGasToken,
-      };
-    };
+      }
+    }
 
     return {
       estimateGasCost: estimateGasCost.bind(this),
       calculateL1GasFees,
-    };
+    }
   }
 
   protected estimateGas(
     routeWithValidQuote: TRouteWithValidQuote,
     gasPriceWei: bigint,
     chainId: ChainId,
-    providerConfig?: GasModelProviderConfig,
+    providerConfig?: GasModelProviderConfig
   ) {
     const totalInitializedTicksCrossed = this.totalInitializedTicksCrossed(
-      routeWithValidQuote.initializedTicksCrossedList,
-    );
-    const totalHops = BigInt(routeWithValidQuote.route.pools.length);
+      routeWithValidQuote.initializedTicksCrossedList
+    )
+    const totalHops = BigInt(routeWithValidQuote.route.pools.length)
 
-    let hopsGasUse = COST_PER_HOP(chainId) * totalHops;
+    let hopsGasUse = COST_PER_HOP(chainId) * totalHops
 
     // We have observed that this algorithm tends to underestimate single hop swaps.
     // We add a buffer in the case of a single hop swap.
     if (totalHops === 1n) {
-      hopsGasUse = hopsGasUse + SINGLE_HOP_OVERHEAD(chainId);
+      hopsGasUse = hopsGasUse + SINGLE_HOP_OVERHEAD(chainId)
     }
 
     // Some tokens have extremely expensive transferFrom functions, which causes
     // us to underestimate them by a large amount. For known tokens, we apply an
     // adjustment.
-    const tokenOverhead = TOKEN_OVERHEAD(chainId, routeWithValidQuote.route);
+    const tokenOverhead = TOKEN_OVERHEAD(chainId, routeWithValidQuote.route)
 
     const tickGasUse =
-      COST_PER_INIT_TICK(chainId) * BigInt(totalInitializedTicksCrossed);
-    const uninitializedTickGasUse = COST_PER_UNINIT_TICK * 0n;
+      COST_PER_INIT_TICK(chainId) * BigInt(totalInitializedTicksCrossed)
+    const uninitializedTickGasUse = COST_PER_UNINIT_TICK * 0n
 
     /*
     // Eventually we can just use the quoter gas estimate for the base gas use
@@ -304,21 +302,21 @@ export abstract class TickBasedHeuristicGasModelFactory<
       tokenOverhead +
       tickGasUse +
       uninitializedTickGasUse +
-      (providerConfig?.additionalGasOverhead ?? 0n);
+      (providerConfig?.additionalGasOverhead ?? 0n)
 
-    const baseGasCostWei = gasPriceWei * baseGasUse;
+    const baseGasCostWei = gasPriceWei * baseGasUse
 
-    const wrappedCurrency = WRAPPED_NATIVE_CURRENCY[chainId]!;
+    const wrappedCurrency = WRAPPED_NATIVE_CURRENCY[chainId]!
 
     const totalGasCostNativeCurrency = CurrencyAmount.fromRawAmount(
       wrappedCurrency,
-      baseGasCostWei,
-    );
+      baseGasCostWei
+    )
 
     return {
       totalGasCostNativeCurrency,
       totalInitializedTicksCrossed,
       baseGasUse,
-    };
+    }
   }
 }

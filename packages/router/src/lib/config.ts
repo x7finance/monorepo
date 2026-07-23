@@ -1,5 +1,5 @@
-import type { PublicClientConfig } from "viem";
-import { fallback, http } from "viem";
+import type { PublicClientConfig } from "viem"
+import { fallback, http } from "viem"
 import {
   arbitrum,
   arbitrumSepolia,
@@ -13,9 +13,9 @@ import {
   polygon,
   polygonAmoy,
   sepolia,
-} from "viem/chains";
+} from "viem/chains"
 
-import { ChainId } from "@x7/utils";
+import { ChainId } from "@x7/utils"
 
 export const config: Partial<Record<ChainId, PublicClientConfig>> = {
   [ChainId.BASE]: {
@@ -30,7 +30,7 @@ export const config: Partial<Record<ChainId, PublicClientConfig>> = {
       [http(process.env.NEXT_PUBLIC_DEFAULT_BASE_TESTNET_RPC)],
       {
         rank: true,
-      },
+      }
     ),
   },
   [ChainId.ETHEREUM]: {
@@ -45,7 +45,7 @@ export const config: Partial<Record<ChainId, PublicClientConfig>> = {
       [http(process.env.NEXT_PUBLIC_DEFAULT_ETHER_TESTNET_RPC)],
       {
         rank: true,
-      },
+      }
     ),
   },
   [ChainId.BSC]: {
@@ -60,7 +60,7 @@ export const config: Partial<Record<ChainId, PublicClientConfig>> = {
       [http(process.env.NEXT_PUBLIC_DEFAULT_BSC_TESTNET_RPC)],
       {
         rank: true,
-      },
+      }
     ),
   },
   [ChainId.OPTIMISM]: {
@@ -75,7 +75,7 @@ export const config: Partial<Record<ChainId, PublicClientConfig>> = {
       [http(process.env.NEXT_PUBLIC_DEFAULT_OPTI_TESTNET_RPC)],
       {
         rank: true,
-      },
+      }
     ),
   },
   [ChainId.ARBITRUM]: {
@@ -90,7 +90,7 @@ export const config: Partial<Record<ChainId, PublicClientConfig>> = {
       [http(process.env.NEXT_PUBLIC_DEFAULT_ARB_TESTNET_RPC)],
       {
         rank: true,
-      },
+      }
     ),
   },
   [ChainId.POLYGON]: {
@@ -105,7 +105,7 @@ export const config: Partial<Record<ChainId, PublicClientConfig>> = {
       [http(process.env.NEXT_PUBLIC_DEFAULT_POLY_TESTNET_RPC)],
       {
         rank: true,
-      },
+      }
     ),
   },
-};
+}

@@ -1,24 +1,25 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import _ from "lodash";
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+import _ from "lodash"
 
-import ITokenValidator from "@x7/contracts/artifacts/contracts/swap-router-contracts/lens/TokenValidator.sol/TokenValidator.json";
-import { LogCodes } from "@x7/utils";
-import type { ChainId, Token } from "@x7/utils";
+import ITokenValidator from "@x7/contracts/artifacts/contracts/swap-router-contracts/lens/TokenValidator.sol/TokenValidator.json"
+import type { ChainId, Token } from "@x7/utils"
+import { LogCodes } from "@x7/utils"
 
 import {
   log,
   metric,
   MetricLoggerUnit,
   WRAPPED_NATIVE_CURRENCY,
-} from "../utils";
-import type { ICache } from "./cache";
-import type { IMulticallProvider } from "./multicall-provider";
-import type { ProviderConfig } from "./provider";
+} from "../utils"
+
+import type { ICache } from "./cache"
+import type { IMulticallProvider } from "./multicall-provider"
+import type { ProviderConfig } from "./provider"
 
 // TODO: refactor this out?
 export const DEFAULT_ALLOWLIST = new Set<string>([
   "0x777E2ae845272a2F540ebf6a3D03734A5a8f618e".toLowerCase(),
-]);
+])
 
 export enum TokenValidationResult {
   UNKN = 0,
@@ -27,12 +28,12 @@ export enum TokenValidationResult {
 }
 
 export interface TokenValidationResults {
-  getValidationByToken(token: Token): TokenValidationResult | undefined;
+  getValidationByToken(token: Token): TokenValidationResult | undefined
 }
 
-const TOKEN_VALIDATOR_ADDRESS = "0xb5ee1690b7dcc7859771148d0889be838fe108e0";
-const AMOUNT_TO_FLASH_BORROW = "1000";
-const GAS_LIMIT_PER_VALIDATE = 1_000_000;
+const TOKEN_VALIDATOR_ADDRESS = "0xb5ee1690b7dcc7859771148d0889be838fe108e0"
+const AMOUNT_TO_FLASH_BORROW = "1000"
+const GAS_LIMIT_PER_VALIDATE = 1_000_000
 
 /**
  * Provider for getting token data.
@@ -50,15 +51,15 @@ export interface ITokenValidatorProvider {
    */
   validateTokens(
     tokens: Token[],
-    providerConfig?: ProviderConfig,
-  ): Promise<TokenValidationResults>;
+    providerConfig?: ProviderConfig
+  ): Promise<TokenValidationResults>
 }
 
 export class TokenValidatorProvider implements ITokenValidatorProvider {
   private CACHE_KEY = (chainId: ChainId, address: string) =>
-    `token-${chainId}-${address}`;
+    `token-${chainId}-${address}`
 
-  private BASES: string[];
+  private BASES: string[]
 
   constructor(
     protected chainId: ChainId,
@@ -67,45 +68,45 @@ export class TokenValidatorProvider implements ITokenValidatorProvider {
     private tokenValidatorAddress = TOKEN_VALIDATOR_ADDRESS,
     private gasLimitPerCall = GAS_LIMIT_PER_VALIDATE,
     private amountToFlashBorrow = AMOUNT_TO_FLASH_BORROW,
-    private allowList = DEFAULT_ALLOWLIST,
+    private allowList = DEFAULT_ALLOWLIST
   ) {
-    this.BASES = [WRAPPED_NATIVE_CURRENCY[this.chainId].address];
+    this.BASES = [WRAPPED_NATIVE_CURRENCY[this.chainId].address]
   }
 
   public async validateTokens(
     tokens: Token[],
-    providerConfig?: ProviderConfig,
+    providerConfig?: ProviderConfig
   ): Promise<TokenValidationResults> {
-    const tokenAddressToToken = _.keyBy(tokens, "address");
+    const tokenAddressToToken = _.keyBy(tokens, "address")
     const addressesRaw = _(tokens)
       .map((token) => token.address)
       .uniq()
-      .value();
+      .value()
 
-    const addresses: string[] = [];
-    const tokenToResult: Record<string, TokenValidationResult> = {};
+    const addresses: string[] = []
+    const tokenToResult: Record<string, TokenValidationResult> = {}
 
     // Check if we have cached token validation results for any tokens.
     for (const address of addressesRaw) {
       if (
         await this.tokenValidationCache.has(
-          this.CACHE_KEY(this.chainId, address),
+          this.CACHE_KEY(this.chainId, address)
         )
       ) {
         tokenToResult[address.toLowerCase()] =
           (await this.tokenValidationCache.get(
-            this.CACHE_KEY(this.chainId, address),
-          ))!;
+            this.CACHE_KEY(this.chainId, address)
+          ))!
 
         metric.putMetric(
           `TokenValidatorProviderValidateCacheHitResult${
             tokenToResult[address.toLowerCase()]
           }`,
           1,
-          MetricLoggerUnit.Count,
-        );
+          MetricLoggerUnit.Count
+        )
       } else {
-        addresses.push(address);
+        addresses.push(address)
       }
     }
 
@@ -113,12 +114,12 @@ export class TokenValidatorProvider implements ITokenValidatorProvider {
       LogCodes.TOKEN_VALIDATOR,
       `Got token validation results for ${
         addressesRaw.length - addresses.length
-      } tokens from cache. Getting ${addresses.length} on-chain.`,
-    );
+      } tokens from cache. Getting ${addresses.length} on-chain.`
+    )
 
     const functionParams = _(addresses)
       .map((address) => [address, this.BASES, this.amountToFlashBorrow])
-      .value() as [string, string[], string][];
+      .value() as [string, string[], string][]
 
     // We use the validate function instead of batchValidate to avoid poison pill problem.
     // One token that consumes too much gas could cause the entire batch to fail.
@@ -135,23 +136,22 @@ export class TokenValidatorProvider implements ITokenValidatorProvider {
         additionalConfig: {
           gasLimitPerCallOverride: this.gasLimitPerCall,
         },
-      });
+      })
 
     for (let i = 0; i < multicallResult.results.length; i++) {
-      const resultWrapper = multicallResult.results[i];
-      const tokenAddress = addresses[i];
-      const token = tokenAddressToToken[tokenAddress!];
+      const resultWrapper = multicallResult.results[i]
+      const tokenAddress = addresses[i]
+      const token = tokenAddressToToken[tokenAddress!]
 
       if (this.allowList.has(token!.address.toLowerCase())) {
-        tokenToResult[token!.address.toLowerCase()] =
-          TokenValidationResult.UNKN;
+        tokenToResult[token!.address.toLowerCase()] = TokenValidationResult.UNKN
 
         await this.tokenValidationCache.set(
           this.CACHE_KEY(this.chainId, token!.address.toLowerCase()),
-          tokenToResult[token!.address.toLowerCase()]!,
-        );
+          tokenToResult[token!.address.toLowerCase()]!
+        )
 
-        continue;
+        continue
       }
 
       // Could happen if the tokens transfer consumes too much gas so we revert. Just
@@ -160,42 +160,42 @@ export class TokenValidatorProvider implements ITokenValidatorProvider {
         metric.putMetric(
           "TokenValidatorProviderValidateFailed",
           1,
-          MetricLoggerUnit.Count,
-        );
+          MetricLoggerUnit.Count
+        )
 
         log.error(LogCodes.FAIL, `Failed to validate token ${token?.symbol}`, {
           result: resultWrapper,
-        });
+        })
 
-        continue;
+        continue
       }
 
       metric.putMetric(
         "TokenValidatorProviderValidateSuccess",
         1,
-        MetricLoggerUnit.Count,
-      );
+        MetricLoggerUnit.Count
+      )
 
-      const validationResult = resultWrapper.result[0];
+      const validationResult = resultWrapper.result[0]
 
       tokenToResult[token!.address.toLowerCase()] =
-        validationResult as TokenValidationResult;
+        validationResult as TokenValidationResult
 
       await this.tokenValidationCache.set(
         this.CACHE_KEY(this.chainId, token!.address.toLowerCase()),
-        tokenToResult[token!.address.toLowerCase()]!,
-      );
+        tokenToResult[token!.address.toLowerCase()]!
+      )
 
       metric.putMetric(
         `TokenValidatorProviderValidateCacheMissResult${validationResult}`,
         1,
-        MetricLoggerUnit.Count,
-      );
+        MetricLoggerUnit.Count
+      )
     }
 
     return {
       getValidationByToken: (token: Token) =>
         tokenToResult[token.address.toLowerCase()],
-    };
+    }
   }
 }

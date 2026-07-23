@@ -1,21 +1,26 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-"use client";
+/* oxlint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable @typescript-eslint/no-unused-vars */
+"use client"
 
-import { useEffect, useMemo, useState } from "react";
-import Image from "next/image";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { parseEther } from "viem";
-import { useAccount, useChainId } from "wagmi";
-import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod"
+import Image from "next/image"
+import { useEffect, useMemo, useState } from "react"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { parseEther } from "viem"
+import { useAccount, useChainId } from "wagmi"
+import { z } from "zod"
 
-import { AlertCircleIcon, ChevronDownIcon, ChevronUpIcon } from "@x7/icons";
-import { X7ContractsEnum } from "@x7/sdk";
-import { Alert, AlertDescription } from "@x7/ui/alert";
-import { Button } from "@x7/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@x7/ui/card";
+import { AlertCircleIcon, ChevronDownIcon, ChevronUpIcon } from "@x7/icons"
+import { X7ContractsEnum } from "@x7/sdk"
+import { Alert, AlertDescription } from "@x7/ui/alert"
+import { Button } from "@x7/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@x7/ui/card"
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@x7/ui/collapsible"
 import {
   Form,
   FormControl,
@@ -24,18 +29,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@x7/ui/form";
-import { Input } from "@x7/ui/input";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@x7/ui/radix-collapsible";
-import { Textarea } from "@x7/ui/textarea";
-import type { ChainId } from "@x7/utils";
+} from "@x7/ui/form"
+import { Input } from "@x7/ui/input"
+import { Textarea } from "@x7/ui/textarea"
+import type { ChainId } from "@x7/utils"
+import { LogCodes } from "@x7/utils"
+import { uploadMetadataToIPFS } from "~/lib/utils/ifps"
+import { log } from "~/lib/utils/log"
 
-import { uploadMetadataToIPFS } from "~/lib/utils/ifps";
-import { useDeployToken } from "../_hooks/useDeployToken";
+import { useDeployToken } from "../_hooks/useDeployToken"
 
 const formSchema = z
   .object({
@@ -51,43 +53,29 @@ const formSchema = z
     websiteLink: z.string().url().optional().or(z.literal("")),
     tokenURI: z.string().optional(),
     supply: z.coerce
-      .number({
-        invalid_type_error: "Total supply must be a valid number",
-      })
+      .number()
       .min(1, "Total supply must be at least 1")
       .default(0),
 
-    buyTax: z.coerce
-      .number({
-        invalid_type_error: "Buy tax must be a valid number",
-      })
-      .max(20, "Buy tax cannot exceed 20%")
-      .default(0),
+    buyTax: z.coerce.number().max(20, "Buy tax cannot exceed 20%").default(0),
 
-    sellTax: z.coerce
-      .number({
-        invalid_type_error: "Sell tax must be a valid number",
-      })
-      .max(20, "Sell tax cannot exceed 20%")
-      .default(0),
+    sellTax: z.coerce.number().max(20, "Sell tax cannot exceed 20%").default(0),
 
     taxWallet: z
       .string()
       .optional()
       .refine(
         (value) => {
-          if (!value) return true;
-          return /^0x[a-fA-F0-9]{40}$/.test(value);
+          if (!value) return true
+          return /^0x[a-fA-F0-9]{40}$/.test(value)
         },
         {
           message: "Invalid address",
-        },
+        }
       ),
 
     teamTokens: z.coerce
-      .number({
-        invalid_type_error: "Team Percentage must be a valid number",
-      })
+      .number()
       .min(0, "Team percent cannot be negative")
       .max(50, "Team percent cannot exceed 50%")
       .default(0),
@@ -99,21 +87,22 @@ const formSchema = z
         path: ["taxWallet"],
         message:
           "Tax wallet is required when buy tax or sell tax is greater than 0",
-      });
+      })
     }
-  });
+  })
 
-type CreateCoinForm = z.infer<typeof formSchema>;
+type CreateCoinForm = z.infer<typeof formSchema>
 
 export function CreateCoinForm() {
-  const { address } = useAccount();
-  const chainId = useChainId() as ChainId;
+  const { address } = useAccount()
+  const chainId = useChainId() as ChainId
 
-  const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
-  const [isSocialsOpen, setIsSocialsOpen] = useState(false);
-  const [previewUrl, setPreviewUrl] = useState<string>();
+  const [isAdvancedOpen, setIsAdvancedOpen] = useState(false)
+  const [isSocialsOpen, setIsSocialsOpen] = useState(false)
+  const [previewUrl, setPreviewUrl] = useState<string>()
 
   const form = useForm<CreateCoinForm>({
+    // @ts-expect-error - zodResolver type incompatibility with RHF
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
@@ -129,29 +118,33 @@ export function CreateCoinForm() {
       taxWallet: address,
       teamTokens: 0,
     },
-  });
+  })
+
+  // Cast control to avoid RHF type incompatibility with zodResolver
+  // oxlint-disable-next-line @typescript-eslint/no-explicit-any -- RHF control type incompatible with zodResolver inference
+  const control = form.control as any
 
   useEffect(() => {
     if (address) {
-      form.setValue("taxWallet", address);
+      form.setValue("taxWallet", address)
     }
-  }, [address, form]);
+  }, [address, form])
 
   const deployParams = useMemo(() => {
-    const name = form.watch("name");
-    const symbol = form.watch("ticker");
-    const description = form.watch("description");
-    const twitterLink = form.watch("twitterLink") ?? "";
-    const telegramLink = form.watch("telegramLink") ?? "";
-    const websiteLink = form.watch("websiteLink") ?? "";
-    const tokenURI = form.watch("tokenURI") ?? "";
-    const supply = BigInt(form.watch("supply"));
-    const buyTax = form.watch("buyTax");
-    const sellTax = form.watch("sellTax");
-    const taxWallet = form.watch("taxWallet") ?? address ?? "";
-    const teamTokens = form.watch("teamTokens");
+    const name = form.watch("name")
+    const symbol = form.watch("ticker")
+    const description = form.watch("description")
+    const twitterLink = form.watch("twitterLink") ?? ""
+    const telegramLink = form.watch("telegramLink") ?? ""
+    const websiteLink = form.watch("websiteLink") ?? ""
+    const tokenURI = form.watch("tokenURI") ?? ""
+    const supply = BigInt(form.watch("supply"))
+    const buyTax = form.watch("buyTax")
+    const sellTax = form.watch("sellTax")
+    const taxWallet = form.watch("taxWallet") ?? address ?? ""
+    const teamTokens = form.watch("teamTokens")
 
-    const deadline = BigInt(Math.floor(Date.now() / 1000) + 3600);
+    const deadline = BigInt(Math.floor(Date.now() / 1000) + 3600)
 
     const params = {
       name,
@@ -171,9 +164,9 @@ export function CreateCoinForm() {
       sellTax,
       taxWallet,
       enabled: Boolean(name && symbol && description),
-    };
+    }
 
-    return params;
+    return params
   }, [
     form.watch("name"),
     form.watch("ticker"),
@@ -188,74 +181,81 @@ export function CreateCoinForm() {
     form.watch("sellTax"),
     form.watch("taxWallet"),
     chainId,
-  ]);
+  ])
 
-  const { writeContract, isPending, data, error } =
-    useDeployToken(deployParams);
+  const { writeContract, isPending, data, error } = useDeployToken(deployParams)
 
   function onSubmit() {
     if (!address) {
-      toast.error("Please connect your wallet");
-      return;
+      toast.error("Please connect your wallet")
+      return
     }
 
     try {
       if (!data?.request) {
-        toast.error("There was an error with your request");
-        return;
+        toast.error("There was an error with your request")
+        return
       }
 
-      writeContract(data.request);
-    } catch (error) {
-      console.error("Failed to deploy token:", error);
-      toast.error(
-        error instanceof Error ? error.message : "Failed to deploy token",
-      );
+      writeContract(data.request)
+    } catch (err) {
+      log.error(LogCodes.TX_FAIL, "Failed to deploy token", {
+        error: err instanceof Error ? err.message : String(err),
+      })
+      toast.error(err instanceof Error ? err.message : "Failed to deploy token")
     }
   }
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.[0]) {
       try {
-        const file = e.target.files[0];
+        const file = e.target.files[0]
 
-        const objectUrl = URL.createObjectURL(file);
-        setPreviewUrl(objectUrl);
+        const objectUrl = URL.createObjectURL(file)
+        setPreviewUrl(objectUrl)
 
         const tokenURI = await uploadMetadataToIPFS(
           form.getValues("name"),
           form.getValues("description"),
-          file,
-        );
+          file
+        )
 
-        const cleanedTokenURI = tokenURI?.replace("ipfs://", "");
-        form.setValue("tokenURI", cleanedTokenURI);
-      } catch (error) {
-        toast.error("Failed to process image file");
-        console.error(error);
+        const cleanedTokenURI = tokenURI?.replace("ipfs://", "")
+        form.setValue("tokenURI", cleanedTokenURI)
+      } catch (err) {
+        toast.error("Failed to process image file")
+        log.error(
+          LogCodes.IPFS_UPLOAD_FAIL,
+          "Failed to process image file for IPFS upload",
+          {
+            error: err instanceof Error ? err.message : String(err),
+          }
+        )
       }
     }
-  };
+  }
 
   useEffect(() => {
-    const formErrors = form.formState.errors;
+    const formErrors = form.formState.errors
     if (Object.keys(formErrors).length > 0) {
-      console.log("Form validation errors:", formErrors);
-      Object.entries(formErrors).forEach(([field, error]) => {
-        if (error.message) {
-          toast.error(`${field}: ${error.message}`);
+      log.debug(LogCodes.UI_FORM_VALIDATION, "Form validation errors", {
+        errors: Object.keys(formErrors),
+      })
+      Object.entries(formErrors).forEach(([field, fieldError]) => {
+        if (fieldError.message) {
+          toast.error(`${field}: ${fieldError.message}`)
         }
-      });
+      })
     }
-  }, [form.formState.errors]);
+  }, [form.formState.errors])
 
   useEffect(() => {
     return () => {
       if (previewUrl) {
-        URL.revokeObjectURL(previewUrl);
+        URL.revokeObjectURL(previewUrl)
       }
-    };
-  }, [previewUrl]);
+    }
+  }, [previewUrl])
 
   return (
     <Card className="mx-auto mt-8 max-w-lg transition-colors duration-300 hover:border-emerald-500 focus:z-20">
@@ -266,7 +266,7 @@ export function CreateCoinForm() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
-              control={form.control}
+              control={control}
               name="name"
               render={({ field }) => (
                 <FormItem>
@@ -280,7 +280,7 @@ export function CreateCoinForm() {
             />
 
             <FormField
-              control={form.control}
+              control={control}
               name="ticker"
               render={({ field }) => (
                 <FormItem>
@@ -297,7 +297,7 @@ export function CreateCoinForm() {
             />
 
             <FormField
-              control={form.control}
+              control={control}
               name="description"
               render={({ field }) => (
                 <FormItem>
@@ -315,7 +315,7 @@ export function CreateCoinForm() {
             />
 
             <FormField
-              control={form.control}
+              control={control}
               name="tokenURI"
               render={({ field: { value, onChange, ...field } }) => (
                 <FormItem>
@@ -336,8 +336,9 @@ export function CreateCoinForm() {
                           <Image
                             src={previewUrl}
                             alt="Coin logo preview"
-                            layout="fill"
-                            objectFit="cover"
+                            fill
+                            sizes="128px"
+                            className="object-cover"
                           />
                         </div>
                       )}
@@ -374,7 +375,7 @@ export function CreateCoinForm() {
 
               <CollapsibleContent className="space-y-4">
                 <FormField
-                  control={form.control}
+                  control={control}
                   name="supply"
                   render={({ field }) => (
                     <FormItem>
@@ -388,7 +389,7 @@ export function CreateCoinForm() {
                 />
 
                 <FormField
-                  control={form.control}
+                  control={control}
                   name="buyTax"
                   render={({ field }) => (
                     <FormItem>
@@ -402,7 +403,7 @@ export function CreateCoinForm() {
                 />
 
                 <FormField
-                  control={form.control}
+                  control={control}
                   name="sellTax"
                   render={({ field }) => (
                     <FormItem>
@@ -416,7 +417,7 @@ export function CreateCoinForm() {
                 />
 
                 <FormField
-                  control={form.control}
+                  control={control}
                   name="taxWallet"
                   render={({ field }) => (
                     <FormItem>
@@ -430,7 +431,7 @@ export function CreateCoinForm() {
                 />
 
                 <FormField
-                  control={form.control}
+                  control={control}
                   name="teamTokens"
                   render={({ field }) => (
                     <FormItem>
@@ -470,7 +471,7 @@ export function CreateCoinForm() {
 
               <CollapsibleContent className="space-y-4">
                 <FormField
-                  control={form.control}
+                  control={control}
                   name="twitterLink"
                   render={({ field }) => (
                     <FormItem>
@@ -487,7 +488,7 @@ export function CreateCoinForm() {
                 />
 
                 <FormField
-                  control={form.control}
+                  control={control}
                   name="telegramLink"
                   render={({ field }) => (
                     <FormItem>
@@ -501,7 +502,7 @@ export function CreateCoinForm() {
                 />
 
                 <FormField
-                  control={form.control}
+                  control={control}
                   name="websiteLink"
                   render={({ field }) => (
                     <FormItem>
@@ -538,5 +539,5 @@ export function CreateCoinForm() {
         </Form>
       </CardContent>
     </Card>
-  );
+  )
 }

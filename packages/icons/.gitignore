@@ -1,0 +1,7 @@
+# Build output
+dist/
+
+# Generated files in src (shouldn't exist but prevent accidents)
+src/**/*.js
+src/**/*.js.map
+src/**/*.d.ts.map

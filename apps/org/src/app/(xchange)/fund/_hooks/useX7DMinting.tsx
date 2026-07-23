@@ -1,50 +1,49 @@
-"use client";
+"use client"
 
-import type { Dispatch, SetStateAction } from "react";
-import { useCallback, useMemo, useState } from "react";
-import type { BaseError } from "@wagmi/core";
-import { toast } from "sonner";
-import { parseEther, UserRejectedRequestError } from "viem";
+import type { BaseError } from "@wagmi/core"
+import type { Dispatch, SetStateAction } from "react"
+import { useCallback, useMemo, useState } from "react"
+import { toast } from "sonner"
+import { parseEther, UserRejectedRequestError } from "viem"
 import {
   useAccount,
   useChainId,
   useSimulateContract,
   useWriteContract,
-} from "wagmi";
+} from "wagmi"
 import type {
   WriteContractErrorType,
   WriteContractReturnType,
-} from "wagmi/actions";
-import { waitForTransactionReceipt } from "wagmi/actions";
+} from "wagmi/actions"
+import { waitForTransactionReceipt } from "wagmi/actions"
 
-import { X7LendingPoolReserve } from "@x7/contracts";
-import { X7ContractsEnum } from "@x7/sdk";
-import type { ChainId } from "@x7/utils";
-
-import { useNativeCurrency } from "~/lib/hooks/currency/useNativeCurrency";
-import { useTransactionStore } from "~/lib/providers/tx";
-import { useWeb3Config } from "~/lib/providers/web3";
+import { X7LendingPoolReserve } from "@x7/contracts"
+import { X7ContractsEnum } from "@x7/sdk"
+import type { ChainId } from "@x7/utils"
+import { useNativeCurrency } from "~/lib/hooks/currency/useNativeCurrency"
+import { useTransactionStore } from "~/lib/providers/tx"
+import { useWeb3Config } from "~/lib/providers/web3"
 
 interface UseX7DMintingParams {
-  valueInput: string | undefined;
-  enabled?: boolean;
-  setRefetchCount?: Dispatch<SetStateAction<number>>;
+  valueInput: string | undefined
+  enabled?: boolean
+  setRefetchCount?: Dispatch<SetStateAction<number>>
 }
 
 export const useX7DMinting = ({
   valueInput,
   setRefetchCount,
 }: UseX7DMintingParams) => {
-  const { address } = useAccount();
+  const { address } = useAccount()
 
-  const [isPending, setIsPending] = useState(false);
-  const chainId = useChainId() as ChainId;
-  const { wagmiConfig: config } = useWeb3Config();
-  const lendingPoolReserve = X7ContractsEnum.LendingPoolReserve(chainId);
+  const [isPending, setIsPending] = useState(false)
+  const chainId = useChainId() as ChainId
+  const { wagmiConfig: config } = useWeb3Config()
+  const lendingPoolReserve = X7ContractsEnum.LendingPoolReserve(chainId)
 
   const {
     mutate: { trackTransaction },
-  } = useTransactionStore();
+  } = useTransactionStore()
 
   const { data } = useSimulateContract({
     config,
@@ -52,19 +51,19 @@ export const useX7DMinting = ({
     abi: X7LendingPoolReserve,
     functionName: "depositETH",
     value: valueInput ? parseEther(valueInput) : 0n,
-  });
-  const { symbol } = useNativeCurrency({ chainId });
+  })
+  const { symbol } = useNativeCurrency({ chainId })
 
   const onSettled = useCallback(
     (hash: `0x${string}` | undefined, e: WriteContractErrorType | null) => {
       if (e instanceof Error) {
         if (!(e instanceof UserRejectedRequestError)) {
-          toast.error((e as BaseError).shortMessage || e.message);
+          toast.error((e as BaseError).shortMessage || e.message)
         }
       }
 
       if (hash && valueInput) {
-        setIsPending(true);
+        setIsPending(true)
 
         trackTransaction({
           txHash: hash,
@@ -74,12 +73,12 @@ export const useX7DMinting = ({
             completed: `Successfully minted ${valueInput} X7D`,
             failed: `Something went wrong minting ${valueInput} X7D`,
           },
-        });
+        })
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [address, valueInput],
-  );
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
+    [address, valueInput]
+  )
 
   const write = useWriteContract({
     mutation: {
@@ -91,21 +90,21 @@ export const useX7DMinting = ({
           retryDelay: 2_500,
         })
           .then(() => {
-            setIsPending(false);
+            setIsPending(false)
             if (setRefetchCount)
-              setRefetchCount((refetchCount: number) => refetchCount + 1);
+              setRefetchCount((refetchCount: number) => refetchCount + 1)
           })
-          .catch(() => setIsPending(false));
+          .catch(() => setIsPending(false))
       },
     },
-  });
+  })
 
   return useMemo(() => {
     return {
       ...write,
       isPending,
       data,
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPending, write]);
-};
+    }
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
+  }, [isPending, write, data])
+}

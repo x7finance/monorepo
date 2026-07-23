@@ -1,10 +1,11 @@
-"use client";
+"use client"
 
-import { useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation"
 
-import { FundingTabs } from "~/lib/types";
-import { X7DFunding } from "../_components/x7d/base";
-import { X7DTransactionTable } from "../_components/x7d/transaction-table";
+import { FundingTabs } from "~/lib/types"
+
+import { X7DFunding } from "../_components/x7d/base"
+import { X7DTransactionTable } from "../_components/x7d/transaction-table"
 
 function getView(tab: string | null) {
   switch (tab) {
@@ -15,16 +16,16 @@ function getView(tab: string | null) {
             <X7DTransactionTable />
           </div>
         </div>
-      );
+      )
     default:
-      return <X7DFunding />;
+      return <X7DFunding />
   }
 }
 
 export function FundBase() {
-  const router = useSearchParams();
-  const tab = router.get("tab") ?? FundingTabs.Fund;
-  const view = getView(tab);
+  const router = useSearchParams()
+  const tab = router.get("tab") ?? FundingTabs.Fund
+  const view = getView(tab)
 
-  return <div className="mb-96">{view}</div>;
+  return <div className="mb-96">{view}</div>
 }

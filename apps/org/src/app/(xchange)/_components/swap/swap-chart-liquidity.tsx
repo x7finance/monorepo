@@ -1,3 +1,3 @@
 export function SwapChartLiquidity() {
-  return <></>;
+  return <></>
 }

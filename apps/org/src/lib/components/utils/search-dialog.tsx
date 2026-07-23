@@ -1,56 +1,65 @@
-"use client";
+"use client"
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import { DocSearchModal, useDocSearchKeyboardEvents } from "@docsearch/react";
-import { createPortal } from "react-dom";
+import { DocSearchModal, useDocSearchKeyboardEvents } from "@docsearch/react"
+import { useCallback, useEffect, useRef, useState } from "react"
+import { createPortal } from "react-dom"
 
-import { SearchIcon } from "@x7/icons";
-import { Button } from "@x7/ui/button";
-import { LinkInternal } from "@x7/ui/link";
-
-import { env } from "~/env.mjs";
+import { SearchIcon } from "@x7/icons"
+import { Button } from "@x7/ui/button"
+import { LinkInternal } from "@x7/ui/link"
+import { env } from "~/env"
 
 const docSearchConfig = {
   appId: env.NEXT_PUBLIC_DOCSEARCH_APP_ID,
   apiKey: env.NEXT_PUBLIC_DOCSEARCH_API_KEY,
   indexName: env.NEXT_PUBLIC_DOCSEARCH_INDEX_NAME,
-};
+}
 
 function Hit({
   hit,
   children,
 }: {
-  hit: { url: string };
-  children: React.ReactNode;
+  hit: { url: string }
+  children: React.ReactNode
 }) {
   return (
     <LinkInternal prefetch={true} href={hit.url}>
       {children}
     </LinkInternal>
-  );
+  )
 }
 
 export function Search({ isMobile = false }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [modifierKey, setModifierKey] = useState<string>("");
-  const searchButtonRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(false)
+  const [isAskAiActive, setIsAskAiActive] = useState(false)
+  const [modifierKey, setModifierKey] = useState<string>("")
+  const searchButtonRef = useRef(null)
 
   const onOpen = useCallback(() => {
-    setIsOpen(true);
-  }, [setIsOpen]);
+    setIsOpen(true)
+  }, [setIsOpen])
 
   const onClose = useCallback(() => {
-    setIsOpen(false);
-  }, [setIsOpen]);
+    setIsOpen(false)
+  }, [setIsOpen])
 
-  useDocSearchKeyboardEvents({ isOpen, onOpen, onClose, searchButtonRef });
+  const onAskAiToggle = useCallback(() => {
+    setIsAskAiActive((prev) => !prev)
+  }, [setIsAskAiActive])
+
+  useDocSearchKeyboardEvents({
+    isOpen,
+    onOpen,
+    onClose,
+    searchButtonRef,
+    isAskAiActive,
+    onAskAiToggle,
+  })
 
   useEffect(() => {
-    const modifierKey = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)
-      ? "⌘"
-      : "K";
-    setModifierKey(modifierKey);
-  }, []);
+    const key = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform) ? "⌘" : "K"
+    setModifierKey(key)
+  }, [])
 
   return (
     <>
@@ -89,9 +98,10 @@ export function Search({ isMobile = false }) {
             initialScrollY={window.scrollY}
             onClose={onClose}
             hitComponent={Hit}
+            onAskAiToggle={onAskAiToggle}
           />,
-          document.body,
+          document.body
         )}
     </>
-  );
+  )
 }

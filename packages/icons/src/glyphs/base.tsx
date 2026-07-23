@@ -1,5 +1,5 @@
-import type { SVGProps } from "react";
-import { memo } from "react";
+import type { SVGProps } from "react"
+import { memo } from "react"
 
 function Base(props: SVGProps<SVGSVGElement>) {
   return (
@@ -1546,7 +1546,7 @@ function Base(props: SVGProps<SVGSVGElement>) {
         fill="white"
       />
     </svg>
-  );
+  )
 }
 
-export default memo(Base);
+export default memo(Base)

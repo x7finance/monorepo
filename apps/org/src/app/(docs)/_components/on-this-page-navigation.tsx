@@ -1,39 +1,39 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 
-import { cn } from "@x7/css";
-import { LinkInternal } from "@x7/ui/link";
+import { cn } from "@x7/css"
+import { LinkInternal } from "@x7/ui/link"
 
 interface Section {
-  id: string;
-  title: string;
-  children: Section[];
+  id: string
+  title: string
+  children: Section[]
 }
 
 interface StyledHeaderProps {
-  section: Section;
-  currentSlug: string;
+  section: Section
+  currentSlug: string
 }
 
 interface StyledLineItemProps {
-  subSection: Section;
-  currentSlug: string;
+  subSection: Section
+  currentSlug: string
 }
 
 interface OnThisPageNavProps {
-  tableOfContents: Section[];
-  currentSlug: string;
-  section: Section;
+  tableOfContents: Section[]
+  currentSlug: string
+  section: Section
 }
 
 const activeHeader =
-  "bg-linear-to-r from-sky-500 to-violet-500 bg-clip-text text-transparent";
+  "bg-linear-to-r from-sky-500 to-violet-500 bg-clip-text text-transparent"
 const inactiveHeader =
-  "font-normal text-zinc-500 hover:text-secondary-foreground dark:hover:text-zinc-300";
+  "font-normal text-zinc-500 hover:text-secondary-foreground dark:hover:text-zinc-300"
 
-const activeSubHeader = "text-violet-500";
-const inactiveSubHeader = "hover:text-zinc-600 dark:hover:text-zinc-300";
+const activeSubHeader = "text-violet-500"
+const inactiveSubHeader = "hover:text-zinc-600 dark:hover:text-zinc-300"
 
 export function OnThisPageNav({
   tableOfContents,
@@ -72,7 +72,7 @@ export function OnThisPageNav({
         </>
       )}
     </nav>
-  );
+  )
 }
 
 function isActive(section: Section): boolean {
@@ -80,26 +80,26 @@ function isActive(section: Section): boolean {
     typeof window !== "undefined" &&
     window.location.hash === `#${section.id}`
   ) {
-    return true;
+    return true
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  // oxlint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!section.children) {
-    return false;
+    return false
   }
 
-  return section.children.findIndex(isActive) > -1;
+  return section.children.findIndex(isActive) > -1
 }
 
 function StyledHeader({ currentSlug, section }: StyledHeaderProps) {
-  const [headerStyling, setHeaderStyling] = useState(inactiveHeader);
+  const [headerStyling, setHeaderStyling] = useState(inactiveHeader)
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    // oxlint-disable-next-line @typescript-eslint/no-unused-expressions
     isActive(section)
       ? setHeaderStyling(activeHeader)
-      : setHeaderStyling(inactiveHeader);
-  }, [section]);
+      : setHeaderStyling(inactiveHeader)
+  }, [section])
 
   return (
     <h3>
@@ -107,22 +107,22 @@ function StyledHeader({ currentSlug, section }: StyledHeaderProps) {
         <span className={cn(headerStyling)}>{section.title}</span>
       </LinkInternal>
     </h3>
-  );
+  )
 }
 
 function StyledLineItem({ currentSlug, subSection }: StyledLineItemProps) {
-  const [headerStyling, setHeaderStyling] = useState(inactiveHeader);
+  const [headerStyling, setHeaderStyling] = useState(inactiveHeader)
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    // oxlint-disable-next-line @typescript-eslint/no-unused-expressions
     isActive(subSection)
       ? setHeaderStyling(activeSubHeader)
-      : setHeaderStyling(inactiveSubHeader);
-  }, [subSection]);
+      : setHeaderStyling(inactiveSubHeader)
+  }, [subSection])
 
   return (
     <LinkInternal prefetch={true} href={`${currentSlug}#${subSection.id}`}>
       <span className={cn(headerStyling)}>{subSection.title}</span>
     </LinkInternal>
-  );
+  )
 }

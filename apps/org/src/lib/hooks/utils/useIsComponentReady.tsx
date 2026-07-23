@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 
 export function useIsComponentReady(): boolean {
-  const [isComponentReady, setComponentReady] = useState<boolean>(false);
+  const [isComponentReady, setComponentReady] = useState<boolean>(false)
 
   useEffect(() => {
-    setComponentReady(true);
-  }, []);
+    setComponentReady(true)
+  }, [])
 
-  return isComponentReady;
+  return isComponentReady
 }

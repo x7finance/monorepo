@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata } from "next"
 
-import { SiteContentContainer } from "~/lib/components/core/site-content-container";
-import { UnderConstruction } from "~/lib/components/core/under-construction";
-import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc";
-import { Heading } from "../../_components/heading";
+import { SiteContentContainer } from "~/lib/components/core/site-content-container"
+import { UnderConstruction } from "~/lib/components/core/under-construction"
+import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
+
+import { Heading } from "../../_components/heading"
 
 const metadata = {
   title: "Interest Only Liquidity Loan",
@@ -11,10 +12,10 @@ const metadata = {
     "Explore X7 Finance's Interest Only Liquidity Loan: A pioneering DeFi solution that provides initial liquidity to an Automated Market Making (AMM) trading pair with borrowed capital, while only requiring the payment of interest during the loan term. Understand how this innovative loan mechanism offers flexibility, enhances liquidity, and fosters market capitalization. Delve into the mechanics, benefits, and potential returns of our Interest Only Liquidity Loan and navigate the decentralized finance landscape with confidence.",
   slug: "/loans/interest",
   section: "default",
-};
+}
 
 export function generateMetadata(): Metadata {
-  return generateMetadataFromDoc(metadata);
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function InterestOnlyLoanPage() {
@@ -31,5 +32,5 @@ export default function InterestOnlyLoanPage() {
         </div>
       </SiteContentContainer>
     </div>
-  );
+  )
 }

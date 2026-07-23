@@ -1,12 +1,12 @@
-import type { Config } from "@markdoc/markdoc";
+import type { Config } from "@markdoc/markdoc"
 
-import { Fence } from "../_components/fence.markdoc";
-import { Heading } from "../_components/heading.markdoc";
-import { LiveLaunchList } from "../_components/live-launch-list.markdoc";
-import { Callout } from "../_components/tags/callout.markdoc";
-import { QuickLink } from "../_components/tags/quick-link.markdoc";
-import { QuickLinks } from "../_components/tags/quick-links.markdoc";
-import { Spacer } from "../_components/tags/spacer.markdoc";
+import { Fence } from "../_components/fence.markdoc"
+import { Heading } from "../_components/heading.markdoc"
+import { LiveLaunchList } from "../_components/live-launch-list.markdoc"
+import { Callout } from "../_components/tags/callout.markdoc"
+import { QuickLink } from "../_components/tags/quick-link.markdoc"
+import { QuickLinks } from "../_components/tags/quick-links.markdoc"
+import { Spacer } from "../_components/tags/spacer.markdoc"
 
 const config: Config = {
   nodes: {
@@ -57,7 +57,7 @@ const config: Config = {
       render: "LiveLaunchList",
     },
   },
-};
+}
 
 const components = {
   Heading,
@@ -67,6 +67,6 @@ const components = {
   QuickLinks,
   Spacer,
   LiveLaunchList,
-};
+}
 
-export { config, components };
+export { config, components }

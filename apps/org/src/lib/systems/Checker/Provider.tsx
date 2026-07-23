@@ -1,7 +1,8 @@
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
-"use client";
+/* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
+"use client"
 
-import type { FC, ReactNode } from "react";
+import { watchAccount } from "@wagmi/core"
+import type { FC, ReactNode } from "react"
 import React, {
   createContext,
   useCallback,
@@ -9,40 +10,39 @@ import React, {
   useEffect,
   useMemo,
   useState,
-} from "react";
-import { watchAccount } from "@wagmi/core";
-import type { Signature } from "viem";
+} from "react"
+import type { Signature } from "viem"
 
-import { useWeb3Config } from "~/lib/providers/web3";
+import { useWeb3Config } from "~/lib/providers/web3"
 
 interface CheckerContext {
-  setApproved: (tag: string, approved: boolean) => void;
-  setSignature: (tag: string, signature: Signature | undefined) => void;
+  setApproved: (tag: string, approved: boolean) => void
+  setSignature: (tag: string, signature: Signature | undefined) => void
 }
 
 interface CheckerStateContext {
-  state: Record<string, boolean>;
-  signatureState: Record<string, Signature | undefined>;
+  state: Record<string, boolean>
+  signatureState: Record<string, Signature | undefined>
 }
 
-const CheckerContext = createContext<CheckerContext | undefined>(undefined);
+const CheckerContext = createContext<CheckerContext | undefined>(undefined)
 const CheckerStateContext = createContext<CheckerStateContext | undefined>(
-  undefined,
-);
+  undefined
+)
 
 interface ProviderProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 interface State {
-  state: Record<string, boolean>;
-  signatureState: Record<string, Signature | undefined>;
+  state: Record<string, boolean>
+  signatureState: Record<string, Signature | undefined>
 }
 
-const initialState = { state: {}, signatureState: {} };
+const initialState = { state: {}, signatureState: {} }
 
 const CheckerProvider: FC<ProviderProps> = ({ children }) => {
-  const [{ state, signatureState }, setState] = useState<State>(initialState);
+  const [{ state, signatureState }, setState] = useState<State>(initialState)
 
   const setApproved = useCallback((tag: string, approved: boolean) => {
     setState((prevState) => ({
@@ -51,8 +51,8 @@ const CheckerProvider: FC<ProviderProps> = ({ children }) => {
         ...prevState.state,
         [tag]: approved,
       },
-    }));
-  }, []);
+    }))
+  }, [])
 
   const setSignature = useCallback(
     (tag: string, signature: Signature | undefined) => {
@@ -62,90 +62,90 @@ const CheckerProvider: FC<ProviderProps> = ({ children }) => {
           ...prevState.signatureState,
           [tag]: signature,
         },
-      }));
+      }))
     },
-    [],
-  );
+    []
+  )
 
-  const { wagmiConfig: config } = useWeb3Config();
+  const { wagmiConfig: config } = useWeb3Config()
 
   // Reset state when account changes
   useEffect(() => {
     const unwatchAccountListener = watchAccount(config, {
       onChange() {
-        setState(initialState);
+        setState(initialState)
       },
-    });
+    })
 
     return () => {
-      unwatchAccountListener();
-    };
-  }, [config]);
+      unwatchAccountListener()
+    }
+  }, [config])
 
   return (
     <CheckerContext.Provider
       value={useMemo(
         () => ({ setApproved, setSignature }),
-        [setApproved, setSignature],
+        [setApproved, setSignature]
       )}
     >
       <CheckerStateContext.Provider
         value={useMemo(
           () => ({ state, signatureState }),
-          [state, signatureState],
+          [state, signatureState]
         )}
       >
         {children}
       </CheckerStateContext.Provider>
     </CheckerContext.Provider>
-  );
-};
+  )
+}
 
-const useCheckerContext = () => useContext(CheckerContext);
-const useCheckerStateContext = () => useContext(CheckerStateContext);
+const useCheckerContext = () => useContext(CheckerContext)
+const useCheckerStateContext = () => useContext(CheckerStateContext)
 
 const useApprovedActions = (tag: string) => {
-  const context = useCheckerContext();
+  const context = useCheckerContext()
 
   if (!context) {
-    throw new Error("Hook can only be used inside Checker Context");
+    throw new Error("Hook can only be used inside Checker Context")
   }
 
-  const { setApproved, setSignature } = context;
+  const { setApproved, setSignature } = context
 
   return useMemo(
     () => ({
       setApproved: (approved: boolean) => {
-        setApproved(tag, approved);
+        setApproved(tag, approved)
       },
       setSignature: (signature: Signature | undefined) => {
-        setSignature(tag, signature);
+        setSignature(tag, signature)
       },
     }),
-    [setApproved, setSignature, tag],
-  );
-};
+    [setApproved, setSignature, tag]
+  )
+}
 
 const useApproved = (tag: string) => {
-  const stateContext = useCheckerStateContext();
+  const stateContext = useCheckerStateContext()
 
   if (!stateContext) {
-    throw new Error("Hook can only be used inside Checker Context");
+    throw new Error("Hook can only be used inside Checker Context")
   }
 
   return useMemo(
     () => ({
       approved: stateContext.state[tag] ? stateContext.state[tag] : false,
     }),
-    [stateContext, tag],
-  );
-};
+    [stateContext, tag]
+  )
+}
 
 const useSignature = (tag: string) => {
-  const stateContext = useCheckerStateContext();
+  const stateContext = useCheckerStateContext()
 
   if (!stateContext) {
-    throw new Error("Hook can only be used inside Checker Context");
+    throw new Error("Hook can only be used inside Checker Context")
   }
 
   return useMemo(
@@ -154,22 +154,23 @@ const useSignature = (tag: string) => {
         ? stateContext.signatureState[tag]
         : undefined,
     }),
-    [stateContext, tag],
-  );
-};
+    [stateContext, tag]
+  )
+}
 
 // HOC component
 // useful for when the useApproved hook and the Checker.Success component are in the same component
 const withCheckerRoot = <P extends object>(
-  Component: React.FunctionComponent<P>,
+  Component: React.FunctionComponent<P>
 ): FC<P> =>
+  // oxlint-disable-next-line unicorn/consistent-function-scoping -- HOC wrapper must capture `Component`; it cannot be hoisted to module scope
   function WithCheckerRootComponent(props: P) {
     return (
       <CheckerProvider>
         <Component {...props} />
       </CheckerProvider>
-    );
-  };
+    )
+  }
 
 export {
   type CheckerContext,
@@ -180,4 +181,4 @@ export {
   useApprovedActions,
   useSignature,
   withCheckerRoot,
-};
+}

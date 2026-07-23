@@ -6,22 +6,22 @@ import {
   ChainNameEnum,
   ChainShortNameEnum,
   ChainTokenOracleEtherUSDEnum,
-} from "../chain";
+} from "../chain"
 
 type ChainMapping = Partial<
   Record<
     ChainId,
     {
-      denomination: ChainDenominationEnum;
-      name: ChainNameEnum;
-      identifier: ChainIdentifierEnum;
+      denomination: ChainDenominationEnum
+      name: ChainNameEnum
+      identifier: ChainIdentifierEnum
       // base: ChainScannerLinksEnum;
-      abbreviation: ChainDenominationEnum;
-      shortName: ChainShortNameEnum;
-      tokenOracleEtherUSDEnum: ChainTokenOracleEtherUSDEnum;
+      abbreviation: ChainDenominationEnum
+      shortName: ChainShortNameEnum
+      tokenOracleEtherUSDEnum: ChainTokenOracleEtherUSDEnum
     }
   >
->;
+>
 
 const chainMapping: ChainMapping = {
   [ChainId.BASE]: {
@@ -88,64 +88,64 @@ const chainMapping: ChainMapping = {
     shortName: ChainShortNameEnum.eth_testnet,
     tokenOracleEtherUSDEnum: ChainTokenOracleEtherUSDEnum.base,
   },
-};
+}
 
 export function generateChainDenomination(chain: ChainId) {
-  return chainMapping[chain]?.denomination ?? ChainDenominationEnum.eth;
+  return chainMapping[chain]?.denomination ?? ChainDenominationEnum.eth
 }
 
 export function generateChainIdentifier(chain: ChainId) {
-  return chainMapping[chain]?.identifier ?? ChainIdentifierEnum.eth;
+  return chainMapping[chain]?.identifier ?? ChainIdentifierEnum.eth
 }
 
 export function generateChainAbbreviation(chain?: ChainId) {
-  return chainMapping[chain ?? ChainId.ETHEREUM]?.abbreviation ?? "ETH";
+  return chainMapping[chain ?? ChainId.ETHEREUM]?.abbreviation ?? "ETH"
 }
 
 export function generateChainShortName(chain?: ChainId) {
   return (
     chainMapping[chain ?? ChainId.ETHEREUM]?.shortName ?? ChainShortNameEnum.eth
-  );
+  )
 }
 
 export function generateChainName(chain?: ChainId) {
-  return chainMapping[chain ?? ChainId.ETHEREUM]?.name ?? ChainNameEnum.eth;
+  return chainMapping[chain ?? ChainId.ETHEREUM]?.name ?? ChainNameEnum.eth
 }
 
 export function generateChainTokenOracleEtherUSDEnum(chainId?: ChainId) {
   return (
     chainMapping[chainId ?? ChainId.ETHEREUM]?.tokenOracleEtherUSDEnum ??
     ChainTokenOracleEtherUSDEnum.eth
-  );
+  )
 }
 
 export function getAlchemyUrls(id: ChainId) {
   switch (id) {
     case ChainId.ETHEREUM:
-      return ChainAlchemyLinksEnum.eth;
+      return ChainAlchemyLinksEnum.eth
     case ChainId.ETHEREUM_TESTNET:
-      return ChainAlchemyLinksEnum.eth_testnet;
+      return ChainAlchemyLinksEnum.eth_testnet
     case ChainId.POLYGON:
-      return ChainAlchemyLinksEnum.polygon;
+      return ChainAlchemyLinksEnum.polygon
     case ChainId.POLYGON_TESTNET:
-      return ChainAlchemyLinksEnum.polygon_amoy;
+      return ChainAlchemyLinksEnum.polygon_amoy
     case ChainId.ARBITRUM:
-      return ChainAlchemyLinksEnum.arbitrum;
+      return ChainAlchemyLinksEnum.arbitrum
     case ChainId.ARBITRUM_TESTNET:
-      return ChainAlchemyLinksEnum.arbitrum_testnet;
+      return ChainAlchemyLinksEnum.arbitrum_testnet
     case ChainId.OPTIMISM:
-      return ChainAlchemyLinksEnum.optimism;
+      return ChainAlchemyLinksEnum.optimism
     case ChainId.OPTIMISM_TESTNET:
-      return ChainAlchemyLinksEnum.optimism_testnet;
+      return ChainAlchemyLinksEnum.optimism_testnet
     case ChainId.BSC:
-      return ChainAlchemyLinksEnum.bsc;
+      return ChainAlchemyLinksEnum.bsc
     case ChainId.BSC_TESTNET:
-      return ChainAlchemyLinksEnum.bsc_testnet;
+      return ChainAlchemyLinksEnum.bsc_testnet
     case ChainId.BASE:
-      return ChainAlchemyLinksEnum.base;
+      return ChainAlchemyLinksEnum.base
     case ChainId.BASE_TESTNET:
-      return ChainAlchemyLinksEnum.base_testnet;
+      return ChainAlchemyLinksEnum.base_testnet
     default:
-      return ChainAlchemyLinksEnum.eth;
+      return ChainAlchemyLinksEnum.eth
   }
 }

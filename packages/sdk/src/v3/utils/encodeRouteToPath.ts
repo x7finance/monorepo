@@ -1,9 +1,9 @@
-import { encodePacked } from "viem";
+import { encodePacked } from "viem"
 
-import type { Currency, Token } from "@x7/utils";
+import type { Currency, Token } from "@x7/utils"
 
-import type { Pool } from "../entities/pool";
-import type { RouteV3 } from "../entities/route";
+import type { Pool } from "../entities/pool"
+import type { RouteV3 } from "../entities/route"
 
 /**
  * Converts a route to a hex encoded path
@@ -12,41 +12,41 @@ import type { RouteV3 } from "../entities/route";
  */
 export function encodeRouteToPath(
   route: RouteV3<Currency, Currency>,
-  exactOutput: boolean,
+  exactOutput: boolean
 ): `0x${string}` {
-  const firstInputToken: Token = route.input.wrapped;
+  const firstInputToken: Token = route.input.wrapped
 
   const { path, types } = route.pools.reduce(
     (
       {
-        inputToken,
-        path,
-        types,
+        inputToken: accInputToken,
+        path: accPath,
+        types: accTypes,
       }: { inputToken: Token; path: (string | number)[]; types: string[] },
       pool: Pool,
-      index,
+      index
     ): { inputToken: Token; path: (string | number)[]; types: string[] } => {
-      const outputToken: Token = pool.token0.equals(inputToken)
+      const outputToken: Token = pool.token0.equals(accInputToken)
         ? pool.token1
-        : pool.token0;
+        : pool.token0
       if (index === 0) {
         return {
           inputToken: outputToken,
           types: ["address", "uint24", "address"],
-          path: [inputToken.address, pool.fee, outputToken.address],
-        };
+          path: [accInputToken.address, pool.fee, outputToken.address],
+        }
       } else {
         return {
           inputToken: outputToken,
-          types: [...types, "uint24", "address"],
-          path: [...path, pool.fee, outputToken.address],
-        };
+          types: [...accTypes, "uint24", "address"],
+          path: [...accPath, pool.fee, outputToken.address],
+        }
       }
     },
-    { inputToken: firstInputToken, path: [], types: [] },
-  );
+    { inputToken: firstInputToken, path: [], types: [] }
+  )
 
   return exactOutput
-    ? encodePacked(types.reverse(), path.reverse())
-    : encodePacked(types, path);
+    ? encodePacked(types.toReversed(), path.toReversed())
+    : encodePacked(types, path)
 }

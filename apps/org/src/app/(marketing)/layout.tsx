@@ -1,8 +1,8 @@
-import { SiteFooter } from "~/lib/components/core/site-footer";
-import { SiteHeader } from "~/lib/components/core/site-header";
+import { SiteFooter } from "~/lib/components/core/site-footer"
+import { SiteHeader } from "~/lib/components/core/site-header"
 
 interface MarketingLayoutProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export default function MarketingLayout(props: MarketingLayoutProps) {
@@ -16,5 +16,5 @@ export default function MarketingLayout(props: MarketingLayoutProps) {
       </div>
       <SiteFooter className="border-muted border-t bg-[#fafafa] dark:bg-[#111111]" />
     </div>
-  );
+  )
 }

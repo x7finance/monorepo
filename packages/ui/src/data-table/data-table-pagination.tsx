@@ -1,12 +1,12 @@
-import type { Table } from "@tanstack/react-table";
+import type { Table } from "@tanstack/react-table"
 
-import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from "@x7/icons";
+import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from "@x7/icons"
 
-import { Button } from "../button";
-import { Select, SelectContent, SelectItem, SelectTrigger } from "../select";
+import { Button } from "../button"
+import { Select, SelectContent, SelectItem, SelectTrigger } from "../select"
 
 interface DataTablePaginationProps<TData> {
-  table: Table<TData>;
+  table: Table<TData>
 }
 
 export function DataTablePagination<TData>({
@@ -19,7 +19,7 @@ export function DataTablePagination<TData>({
         <Select
           value={`${table.getState().pagination.pageSize}`}
           onValueChange={(value) => {
-            table.setPageSize(Number(value));
+            table.setPageSize(Number(value))
           }}
         >
           <SelectTrigger>
@@ -86,5 +86,5 @@ export function DataTablePagination<TData>({
         </Button>
       </div>
     </div>
-  );
+  )
 }

@@ -1,23 +1,23 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from "next/image"
+import Link from "next/link"
 
-import { cn } from "@x7/css";
-import { buttonVariants } from "@x7/ui/button";
+import { cn } from "@x7/css"
+import { buttonVariants } from "@x7/ui/button"
 
 interface SectionStepProps {
-  header: string;
-  subHeader: string;
-  highlightHeader: string;
-  highlights: string[];
-  pioneerId: string;
-  gradient: string;
-  checkColor: string;
-  isReverse?: boolean;
-  showLeadIn?: boolean;
+  header: string
+  subHeader: string
+  highlightHeader: string
+  highlights: string[]
+  pioneerId: string
+  gradient: string
+  checkColor: string
+  isReverse?: boolean
+  showLeadIn?: boolean
   primaryAction?: {
-    text: string;
-    href: string;
-  };
+    text: string
+    href: string
+  }
 }
 
 export function SectionStep(props: SectionStepProps) {
@@ -32,7 +32,7 @@ export function SectionStep(props: SectionStepProps) {
     isReverse,
     showLeadIn,
     primaryAction,
-  } = props;
+  } = props
 
   return (
     <>
@@ -50,7 +50,7 @@ export function SectionStep(props: SectionStepProps) {
       <div
         className={cn(
           isReverse ? `lg:flex-row-reverse` : ``,
-          `mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-zinc-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none dark:ring-zinc-800`,
+          `mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-zinc-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none dark:ring-zinc-800`
         )}
       >
         <div className="p-8 sm:p-10 lg:flex-auto">
@@ -64,7 +64,7 @@ export function SectionStep(props: SectionStepProps) {
             <h4
               className={cn(
                 gradient,
-                `font-display flex-none bg-linear-to-r bg-clip-text text-sm leading-6 font-semibold text-transparent`,
+                `font-display flex-none bg-linear-to-r bg-clip-text text-sm leading-6 font-semibold text-transparent`
               )}
             >
               {highlightHeader}
@@ -72,8 +72,8 @@ export function SectionStep(props: SectionStepProps) {
             <div className="h-px flex-auto bg-zinc-100 dark:bg-zinc-900" />
           </div>
           <ul className="text-muted-foreground mt-8 grid grid-cols-1 gap-4 text-sm leading-6 sm:grid-cols-2 sm:gap-6">
-            {highlights.map((highlight, key) => (
-              <li key={key} className="flex gap-x-3">
+            {highlights.map((highlight) => (
+              <li key={highlight} className="flex gap-x-3">
                 <svg
                   className={cn(checkColor, `h-6 w-5 flex-none`)}
                   viewBox="0 0 20 20"
@@ -100,7 +100,7 @@ export function SectionStep(props: SectionStepProps) {
                     variant: "default",
                     size: "lg",
                   }),
-                  "inline-flex",
+                  "inline-flex"
                 )}
               >
                 {primaryAction.text}
@@ -121,5 +121,5 @@ export function SectionStep(props: SectionStepProps) {
         </div>
       </div>
     </>
-  );
+  )
 }

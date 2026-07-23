@@ -1,3 +1,3 @@
-import { getLogger, ServiceNames } from "@x7/utils";
+import { getLogger, ServiceNames } from "@x7/utils"
 
-export const log = getLogger({ serviceName: ServiceNames.XCHANGE });
+export const log = getLogger({ serviceName: ServiceNames.XCHANGE })

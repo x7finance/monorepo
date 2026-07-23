@@ -1,32 +1,33 @@
-/* eslint-disable @typescript-eslint/only-throw-error */
-import invariant from "tiny-invariant";
-import type { Address } from "viem";
-import { getAddress } from "viem";
+/* oxlint-disable @typescript-eslint/only-throw-error */
+import invariant from "tiny-invariant"
+import type { Address } from "viem"
+import { getAddress } from "viem"
 
-import type { ChainId } from "../chain";
-import { Currency } from "./Currency";
-import type { Currency as Type } from "./Type";
-import { WETH9 } from "./wrapped";
-import { tokenSchema } from "./zod";
-import type { SerializedToken } from "./zod";
+import type { ChainId } from "../chain"
+
+import { Currency } from "./Currency"
+import type { Currency as Type } from "./Type"
+import { WETH9_ADDRESS } from "./weth-addresses"
+import type { SerializedToken } from "./zod"
+import { tokenSchema } from "./zod"
 
 /**
  * Represents an ERC20 token with a unique address and some metadata.
  */
 export class Token extends Currency {
-  public readonly id: string;
-  public readonly isNative = false as const;
-  public readonly isToken = true as const;
+  public readonly id: string
+  public readonly isNative = false as const
+  public readonly isToken = true as const
   /**
    * The contract address on the chain on which this token lives
    */
-  public readonly address: Address;
+  public readonly address: Address
   /**
    * Relevant for fee-on-transfer (FOT) token taxes,
    * Not every ERC20 token is FOT token, so this field is optional
    */
-  public readonly buyFeeBps?: bigint;
-  public readonly sellFeeBps?: bigint;
+  public readonly buyFeeBps?: bigint
+  public readonly sellFeeBps?: bigint
 
   /**
    *
@@ -48,28 +49,28 @@ export class Token extends Currency {
     buyFeeBps,
     sellFeeBps,
   }: {
-    chainId: ChainId;
-    address: `0x${string}`;
-    decimals: number;
-    symbol?: string;
-    name?: string;
-    bypassChecksum?: boolean;
-    buyFeeBps?: bigint;
-    sellFeeBps?: bigint;
+    chainId: ChainId
+    address: `0x${string}`
+    decimals: number
+    symbol?: string
+    name?: string
+    bypassChecksum?: boolean
+    buyFeeBps?: bigint
+    sellFeeBps?: bigint
   }) {
     super({
       chainId,
       decimals,
       symbol,
       name,
-    });
+    })
     try {
-      this.address = getAddress(address);
-      this.id = `${chainId}:${address}`;
-      this.buyFeeBps = buyFeeBps;
-      this.sellFeeBps = sellFeeBps;
+      this.address = getAddress(address)
+      this.id = `${chainId}:${address}`
+      this.buyFeeBps = buyFeeBps
+      this.sellFeeBps = sellFeeBps
     } catch {
-      throw `${address} is not a valid address`;
+      throw `${address} is not a valid address`
     }
   }
 
@@ -82,7 +83,7 @@ export class Token extends Currency {
       other.isToken &&
       this.chainId === other.chainId &&
       this.address === other.address
-    );
+    )
   }
 
   /**
@@ -92,25 +93,24 @@ export class Token extends Currency {
    * @throws if the tokens are on different chains
    */
   public sortsBefore(other: Token): boolean {
-    invariant(this.chainId === other.chainId, "CHAIN_IDS");
+    invariant(this.chainId === other.chainId, "CHAIN_IDS")
 
     // This will hit for only wrapping/unwrapping cases
-    if (
-      this.address === other.address &&
-      this.address === WETH9[this.chainId].address
-    ) {
-      return true;
+    const weth9Address =
+      WETH9_ADDRESS[this.chainId as keyof typeof WETH9_ADDRESS]
+    if (this.address === other.address && this.address === weth9Address) {
+      return true
     }
 
-    invariant(this.address !== other.address, "ADDRESSES");
-    return this.address.toLowerCase() < other.address.toLowerCase();
+    invariant(this.address !== other.address, "ADDRESSES")
+    return this.address.toLowerCase() < other.address.toLowerCase()
   }
 
   /**
    * Return this token, which does not need to be wrapped
    */
   public get wrapped(): Token {
-    return this;
+    return this
   }
 
   // public get tokenURI(): string {
@@ -128,7 +128,7 @@ export class Token extends Currency {
       decimals: this.decimals,
       chainId: this.chainId,
       address: this.address,
-    });
+    })
   }
 
   public static deserialize({
@@ -144,6 +144,6 @@ export class Token extends Currency {
       address,
       decimals,
       chainId: chainId as ChainId,
-    });
+    })
   }
 }

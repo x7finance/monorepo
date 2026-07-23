@@ -1,27 +1,27 @@
-"use client";
+"use client"
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation"
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@x7/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@x7/ui/tabs"
 
-import { XChangeBoard } from "..";
-import { XChangeSwap } from "../../_components/swap/base";
+import { XChangeBoard } from ".."
+import { XChangeSwap } from "../../_components/swap/base"
 
 export function TradingLayout() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const router = useRouter()
+  const searchParams = useSearchParams()
 
   // Check for token parameters to determine default tab
   const hasTokenParams =
-    searchParams.has("token0") || searchParams.has("token1");
+    searchParams.has("token0") || searchParams.has("token1")
   const activeTab =
-    searchParams.get("tab") ?? (hasTokenParams ? "swap" : "tokens");
+    searchParams.get("tab") ?? (hasTokenParams ? "swap" : "tokens")
 
   const handleTabChange = (value: string) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("tab", value);
-    router.push(`?${params.toString()}`);
-  };
+    const params = new URLSearchParams(searchParams)
+    params.set("tab", value)
+    router.push(`?${params.toString()}`)
+  }
 
   return (
     <>
@@ -60,5 +60,5 @@ export function TradingLayout() {
         </div>
       </div>
     </>
-  );
+  )
 }

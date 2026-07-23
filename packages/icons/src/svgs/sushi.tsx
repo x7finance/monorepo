@@ -1,4 +1,4 @@
-import type { SVGProps } from "react";
+import type { SVGProps } from "react"
 
 export function SushiSwap(props: SVGProps<SVGSVGElement>) {
   return (
@@ -47,5 +47,5 @@ export function SushiSwap(props: SVGProps<SVGSVGElement>) {
         </linearGradient>
       </defs>
     </svg>
-  );
+  )
 }

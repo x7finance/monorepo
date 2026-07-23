@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { ChainId, WRAPPED_CONTRACTS } from "@x7/utils";
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+import { ChainId, WRAPPED_CONTRACTS } from "@x7/utils"
 
 interface ChainConfig {
-  router: `0x${string}`;
-  creationBlock: number;
-  weth: `0x${string}`;
+  router: `0x${string}`
+  creationBlock: number
+  weth: `0x${string}`
 }
 
 // TODO: explain
@@ -59,25 +59,25 @@ const CHAIN_CONFIGS: Record<number, ChainConfig> = {
     weth: WRAPPED_CONTRACTS.WETH_BASE_TESTNET,
     creationBlock: 6915289,
   },
-};
+}
 
 export const UNIVERSAL_ROUTER_ADDRESS = (chainId: number): `0x${string}` => {
   if (!(chainId in CHAIN_CONFIGS)) {
-    throw new Error(`Universal Router not deployed on chain ${chainId}`);
+    throw new Error(`Universal Router not deployed on chain ${chainId}`)
   }
 
-  return CHAIN_CONFIGS[chainId]!.router;
-};
+  return CHAIN_CONFIGS[chainId]!.router
+}
 
 export const WETH_ADDRESS = (chainId: number): `0x${string}` => {
   if (!(chainId in CHAIN_CONFIGS)) {
-    throw new Error(`Universal Router not deployed on chain ${chainId}`);
+    throw new Error(`Universal Router not deployed on chain ${chainId}`)
   }
 
-  return CHAIN_CONFIGS[chainId]!.weth;
-};
+  return CHAIN_CONFIGS[chainId]!.weth
+}
 
-export const CONTRACT_BALANCE = BigInt(2) ** BigInt(255);
+export const CONTRACT_BALANCE = BigInt(2) ** BigInt(255)
 
-export const OPENSEA_CONDUIT_SPENDER_ID = 0;
-export const SUDOSWAP_SPENDER_ID = 1;
+export const OPENSEA_CONDUIT_SPENDER_ID = 0
+export const SUDOSWAP_SPENDER_ID = 1

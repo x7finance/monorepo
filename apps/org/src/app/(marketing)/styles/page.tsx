@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata } from "next"
 
-import { getRandomPioneerNumber } from "@x7/utils";
+import { getRandomPioneerNumber } from "@x7/utils"
+import { SiteContentContainer } from "~/lib/components/core/site-content-container"
+import { PioneerDrop } from "~/lib/components/utils/pioneer-drop"
+import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
 
-import { SiteContentContainer } from "~/lib/components/core/site-content-container";
-import { PioneerDrop } from "~/lib/components/utils/pioneer-drop";
-import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc";
-import { Heading } from "../_components/heading";
+import { Heading } from "../_components/heading"
 
 const metadata = {
   title: "Styles",
@@ -13,10 +13,10 @@ const metadata = {
     "Embark on Your DeFi Journey with X7 Finance: A comprehensive platform tailored for investors and project launchers. Delve into our innovative DeFi solutions, including our Automated Market Making (AMM) Decentralized Exchange (DEX), Lending Pool, and Liquidity Loans. Explore our democratic DAO governance model and learn how to participate. Whether you're an investor seeking opportunities or a project launcher aiming for success, X7 Finance is your portal to the future of decentralized finance.",
   slug: "/styles",
   section: "default",
-};
+}
 
 export function generateMetadata(): Metadata {
-  return generateMetadataFromDoc(metadata);
+  return generateMetadataFromDoc(metadata)
 }
 
 const colorList = [
@@ -40,7 +40,7 @@ const colorList = [
   "destructive-foreground",
   "nav-shadow-color",
   "ring-3",
-];
+]
 
 export default function StylesPage() {
   return (
@@ -73,5 +73,5 @@ export default function StylesPage() {
         </div>
       </SiteContentContainer>
     </div>
-  );
+  )
 }

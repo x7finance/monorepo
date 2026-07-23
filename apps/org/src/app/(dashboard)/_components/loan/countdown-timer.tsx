@@ -1,18 +1,20 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { useEffect, useState } from "react";
+"use client"
+
+/* oxlint-disable @typescript-eslint/no-unsafe-argument */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+import { useEffect, useState } from "react"
 
 interface CountdownTimerProps {
-  getPrincipalPaymentSchedule: any;
-  getPremiumPaymentSchedule: any;
-  numberOfPremiumPeriods: number;
-  numberOfRepaymentPeriods: number;
-  loanState: number;
-  liquidationAmount: number;
+  getPrincipalPaymentSchedule: any
+  getPremiumPaymentSchedule: any
+  numberOfPremiumPeriods: number
+  numberOfRepaymentPeriods: number
+  loanState: number
+  liquidationAmount: number
 }
 
 export function CountdownTimer(props: CountdownTimerProps) {
@@ -23,30 +25,30 @@ export function CountdownTimer(props: CountdownTimerProps) {
     numberOfRepaymentPeriods,
     loanState,
     liquidationAmount,
-  } = props;
+  } = props
 
-  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null)
   const [remainingTime, setRemainingTime] = useState<{
-    days: number;
-    hours: number;
-    minutes: number;
-    seconds: number | string;
-  }>(calculateRemainingTime());
+    days: number
+    hours: number
+    minutes: number
+    seconds: number | string
+  }>(calculateRemainingTime())
 
   useEffect(() => {
-    const fetchedEndDate = findEndDate();
-    setEndDate(fetchedEndDate);
-  }, []);
+    const fetchedEndDate = findEndDate()
+    setEndDate(fetchedEndDate)
+  }, [])
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setRemainingTime(calculateRemainingTime());
-    }, 1000);
+      setRemainingTime(calculateRemainingTime())
+    }, 1000)
 
     return () => {
-      clearInterval(timer);
-    };
-  }, [endDate]);
+      clearInterval(timer)
+    }
+  }, [endDate])
 
   // Rest of the code...
 
@@ -54,72 +56,72 @@ export function CountdownTimer(props: CountdownTimerProps) {
     const paymentSchedule =
       numberOfPremiumPeriods > numberOfRepaymentPeriods
         ? getPremiumPaymentSchedule
-        : getPrincipalPaymentSchedule;
+        : getPrincipalPaymentSchedule
     if (paymentSchedule && paymentSchedule.length > 0) {
       const arrayCount =
         numberOfPremiumPeriods > numberOfRepaymentPeriods
           ? numberOfPremiumPeriods
-          : numberOfRepaymentPeriods;
+          : numberOfRepaymentPeriods
 
-      const nowUnix = Math.floor(Date.now() / 1000); // Current Unix timestamp in seconds
+      const nowUnix = Math.floor(Date.now() / 1000) // Current Unix timestamp in seconds
 
-      let nextLargest = 0;
+      let nextLargest = 0
 
       for (let i = 0; i < arrayCount; i++) {
-        const value = parseInt(paymentSchedule?.[0]?.[i] ?? "0", 10) || 0;
+        const value = parseInt(paymentSchedule?.[0]?.[i] ?? "0", 10) || 0
 
         if (value && value > nowUnix) {
           if (nextLargest === 0 || value < nextLargest) {
-            nextLargest = value;
+            nextLargest = value
           }
         }
       }
 
       if (nextLargest > 0) {
-        const timestamp = parseInt(nextLargest.toString(), 10);
-        return new Date(timestamp * 1000);
+        const timestamp = parseInt(nextLargest.toString(), 10)
+        return new Date(timestamp * 1000)
       }
     }
-    return null;
+    return null
   }
 
   function calculateRemainingTime(): {
-    days: number;
-    hours: number;
-    minutes: number;
-    seconds: number | string;
+    days: number
+    hours: number
+    minutes: number
+    seconds: number | string
   } {
     const currentTime =
-      parseInt(new Date().getTime().toString() ?? "0", 10) || 0;
+      parseInt(new Date().getTime().toString() ?? "0", 10) || 0
     const targetTime = endDate
       ? parseInt(endDate.getTime().toString() ?? "0", 10) || 0
-      : 0;
-    let timeDifference = currentTime - targetTime;
+      : 0
+    let timeDifference = currentTime - targetTime
 
     if (timeDifference < 0 && loanState === 0 && liquidationAmount !== -1) {
-      timeDifference = timeDifference * -1;
-      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      timeDifference = timeDifference * -1
+      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24))
       const hours = Math.floor(
-        (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-      );
+        (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      )
       const minutes = Math.floor(
-        (timeDifference % (1000 * 60 * 60)) / (1000 * 60),
-      );
-      const seconds = (timeDifference % (1000 * 60)) / 1000;
+        (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+      )
+      const seconds = (timeDifference % (1000 * 60)) / 1000
 
       return {
         days,
         hours,
         minutes,
         seconds: seconds.toFixed(3),
-      };
+      }
     } else {
       return {
         days: 0,
         hours: 0,
         minutes: 0,
         seconds: 0,
-      };
+      }
     }
   }
 
@@ -130,5 +132,5 @@ export function CountdownTimer(props: CountdownTimerProps) {
       <span className="mr-2">{remainingTime.minutes}m</span>
       <span>{remainingTime.seconds}s</span>
     </div>
-  );
+  )
 }

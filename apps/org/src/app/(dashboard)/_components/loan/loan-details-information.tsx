@@ -1,25 +1,24 @@
-"use client";
+"use client"
 
-import { cn } from "@x7/css";
-import { ArrowUpRightIcon } from "@x7/icons";
-import { buttonVariants } from "@x7/ui/button";
+import { cn } from "@x7/css"
+import { ArrowUpRightIcon } from "@x7/icons"
+import { buttonVariants } from "@x7/ui/button"
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@x7/ui/card";
-import { LinkExternal } from "@x7/ui/link";
-import { Tag } from "@x7/ui/tag";
-import { generateChainAbbreviation, generateChainIdByName } from "@x7/utils";
-
+} from "@x7/ui/card"
+import { LinkExternal } from "@x7/ui/link"
+import { Tag } from "@x7/ui/tag"
+import { generateChainAbbreviation, generateChainIdByName } from "@x7/utils"
 import {
   useCanLiquidate,
   useLoanBorrower,
   useLoanPair,
   useLoanToken,
-} from "~/lib/hooks/loans/useXchangeLendingPoolData";
+} from "~/lib/hooks/loans/useXchangeLendingPoolData"
 import {
   useLiquidationAmount,
   useLoanAmount,
@@ -28,40 +27,41 @@ import {
   useOriginationFeeCollected,
   useSymbol,
   useTokenByIndex,
-} from "~/lib/hooks/loans/useXchangeLoanData";
-import type { LoanProps } from "~/lib/types";
-import { ExplorerDataType, getExplorerLink } from "~/lib/utils/getExplorerLink";
-import { generateX7InitialLiquidityLoanTermContract } from "~/lib/utils/lending";
-import { LiquidateButton } from "./liquidate-button";
+} from "~/lib/hooks/loans/useXchangeLoanData"
+import type { LoanProps } from "~/lib/types"
+import { ExplorerDataType, getExplorerLink } from "~/lib/utils/getExplorerLink"
+import { generateX7InitialLiquidityLoanTermContract } from "~/lib/utils/lending"
+
+import { LiquidateButton } from "./liquidate-button"
 
 export function LoanDetailsInformation(props: LoanProps) {
-  const { loanId, loanType, chain } = props;
+  const { loanId, loanType, chain } = props
 
-  const chainId = generateChainIdByName(chain);
-  const tokenByIndex = useTokenByIndex(loanId, chainId, loanType).tokenByIndex;
-  const symbol = useSymbol(tokenByIndex, chainId, loanType).symbol;
-  const loanAmount = useLoanAmount(tokenByIndex, chainId, loanType).loanAmount;
+  const chainId = generateChainIdByName(chain)
+  const tokenByIndex = useTokenByIndex(loanId, chainId, loanType).tokenByIndex
+  const symbol = useSymbol(tokenByIndex, chainId, loanType).symbol
+  const loanAmount = useLoanAmount(tokenByIndex, chainId, loanType).loanAmount
   const loanStartTime = useLoanStartTime(
     tokenByIndex,
     chainId,
-    loanType,
-  ).loanStartTime;
+    loanType
+  ).loanStartTime
   const liquidationAmount = useLiquidationAmount(
     tokenByIndex,
     chainId,
-    loanType,
-  ).liquidationAmount;
-  const loanState = useLoanState(tokenByIndex, chainId, loanType).loanState;
-  const canLiquidate = useCanLiquidate(tokenByIndex, chainId).canLiquidate;
+    loanType
+  ).liquidationAmount
+  const loanState = useLoanState(tokenByIndex, chainId, loanType).loanState
+  const canLiquidate = useCanLiquidate(tokenByIndex, chainId).canLiquidate
   const originationFeeCollected = useOriginationFeeCollected(
     tokenByIndex,
     chainId,
-    loanType,
-  ).originationFeeCollected;
+    loanType
+  ).originationFeeCollected
 
-  const loanBorrower = useLoanBorrower(tokenByIndex, chainId).loanBorrower;
-  const loanToken = useLoanToken(tokenByIndex, chainId).loanToken;
-  const loanPair = useLoanPair(tokenByIndex, chainId).loanPair;
+  const loanBorrower = useLoanBorrower(tokenByIndex, chainId).loanBorrower
+  const loanToken = useLoanToken(tokenByIndex, chainId).loanToken
+  const loanPair = useLoanPair(tokenByIndex, chainId).loanPair
 
   const loanDetails = [
     {
@@ -76,7 +76,7 @@ export function LoanDetailsInformation(props: LoanProps) {
               size: "xs",
               variant: "outline",
             }),
-            "text-2xs text-muted-foreground",
+            "text-2xs text-muted-foreground"
           )}
         >
           {loanBorrower}
@@ -96,7 +96,7 @@ export function LoanDetailsInformation(props: LoanProps) {
               size: "xs",
               variant: "outline",
             }),
-            "text-2xs text-muted-foreground",
+            "text-2xs text-muted-foreground"
           )}
         >
           {loanToken}
@@ -116,7 +116,7 @@ export function LoanDetailsInformation(props: LoanProps) {
               size: "xs",
               variant: "outline",
             }),
-            "text-2xs text-muted-foreground",
+            "text-2xs text-muted-foreground"
           )}
         >
           {loanPair}
@@ -195,7 +195,7 @@ export function LoanDetailsInformation(props: LoanProps) {
         </Tag>
       ),
     },
-  ];
+  ]
 
   return (
     <Card className="col-span-1">
@@ -225,7 +225,7 @@ export function LoanDetailsInformation(props: LoanProps) {
           href={`${getExplorerLink(
             chainId,
             generateX7InitialLiquidityLoanTermContract(loanType, chainId),
-            ExplorerDataType.TOKEN,
+            ExplorerDataType.TOKEN
           )}?a=${tokenByIndex}`}
           target="_blank"
           rel="noopener noreferrer"
@@ -233,12 +233,12 @@ export function LoanDetailsInformation(props: LoanProps) {
             buttonVariants({
               variant: "outline",
             }),
-            "w-full",
+            "w-full"
           )}
         >
           View On Chain
         </LinkExternal>
       </CardFooter>
     </Card>
-  );
+  )
 }

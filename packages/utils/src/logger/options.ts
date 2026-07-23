@@ -1,5 +1,5 @@
-import type { ServiceNames } from "../types";
+import type { ServiceNames } from "../types"
 
 export interface LoggerOptions {
-  serviceName: ServiceNames;
+  serviceName: ServiceNames
 }

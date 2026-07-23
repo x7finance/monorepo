@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { useClipboard } from "use-clipboard-copy";
+import { useEffect, useState } from "react"
+import { useClipboard } from "use-clipboard-copy"
 
-import { cn } from "@x7/css";
-import { ClipboardIcon } from "@x7/icons";
+import { cn } from "@x7/css"
+import { ClipboardIcon } from "@x7/icons"
 
 export function PasteButton({
   onPaste,
@@ -10,28 +10,28 @@ export function PasteButton({
   buttonPositionClass = "",
   size = 5,
 }: {
-  onPaste: (pastedContent: string) => void;
-  title: string;
-  buttonPositionClass?: string;
-  size?: number;
+  onPaste: (pastedContent: string) => void
+  title: string
+  buttonPositionClass?: string
+  size?: number
 }) {
-  const [pasteCount, setPasteCount] = useState(0);
-  const pasted = pasteCount > 0;
+  const [pasteCount, setPasteCount] = useState(0)
+  const pasted = pasteCount > 0
 
   const clipboard = useClipboard({
     onSuccess() {
-      setPasteCount((count) => count + 1);
+      setPasteCount((count) => count + 1)
     },
-  });
+  })
 
   useEffect(() => {
     if (pasteCount > 0) {
-      const timeout = setTimeout(() => setPasteCount(0), 1000);
+      const timeout = setTimeout(() => setPasteCount(0), 1000)
       return () => {
-        clearTimeout(timeout);
-      };
+        clearTimeout(timeout)
+      }
     }
-  }, [pasteCount]);
+  }, [pasteCount])
 
   return (
     <button
@@ -41,20 +41,20 @@ export function PasteButton({
         pasted
           ? "bg-emerald-400/10 font-bold ring-1 ring-inset ring-emerald-400/20 dark:font-medium"
           : "bg-white/5 ring-1 ring-black/40 hover:bg-white/7.5 dark:bg-white/5 dark:ring-white/20 dark:hover:bg-white/5",
-        buttonPositionClass,
+        buttonPositionClass
       )}
       onClick={() => {
         void navigator.clipboard.readText().then((pastedContent) => {
-          onPaste(pastedContent);
-          clipboard.copy(pastedContent); // Optional: Copy the content as well
-        });
+          onPaste(pastedContent)
+          clipboard.copy(pastedContent) // Optional: Copy the content as well
+        })
       }}
     >
       <span
         aria-hidden={pasted}
         className={cn(
           "pointer-events-none flex items-center gap-0.5 whitespace-nowrap text-zinc-600 transition duration-300 dark:text-zinc-400",
-          pasted && "-translate-y-1.5 opacity-0",
+          pasted && "-translate-y-1.5 opacity-0"
         )}
       >
         <ClipboardIcon
@@ -66,11 +66,11 @@ export function PasteButton({
         aria-hidden={!pasted}
         className={cn(
           "pointer-events-none absolute inset-0 flex items-center justify-center text-emerald-600 transition duration-300 dark:text-emerald-400",
-          !pasted && "translate-y-1.5 opacity-0",
+          !pasted && "translate-y-1.5 opacity-0"
         )}
       >
         Pasted!
       </span>
     </button>
-  );
+  )
 }

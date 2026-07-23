@@ -4,9 +4,8 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@x7/ui/card";
-
-import { ConnectionComponent } from "~/lib/components/utils/web3-connect-button";
+} from "@x7/ui/card"
+import { ConnectionComponent } from "~/lib/components/utils/web3-connect-button"
 
 export function ILLTableConnect() {
   return (
@@ -25,5 +24,5 @@ export function ILLTableConnect() {
         </div>
       </CardContent>
     </Card>
-  );
+  )
 }

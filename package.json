@@ -1,69 +1,71 @@
 {
   "name": "x7finance",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "tooling/*"
+  ],
   "scripts": {
+    "all": "bun run --elide-lines=0 clean && bun install && TURBO_LOG_ORDER=stream turbo run build lint typecheck format --output-logs=full",
     "build": "turbo build",
     "build:setup": "turbo build --filter='./packages/*'",
-    "clean:all": "turbo clean && pnpm run clean:root",
-    "clean:root": "git clean -xdf .pnpm-store .turbo node_modules",
-    "dev": "turbo watch dev --continue",
-    "format": "turbo run format --continue -- --cache --cache-location .cache/.prettiercache",
-    "format:fix": "turbo run format --continue -- --write --cache --cache-location .cache/.prettiercache",
-    "preinstall": "npx -y only-allow pnpm",
-    "lint": "run-p lint:turbo lint:md lint:package-json",
-    "lint:fix": "turbo run lint --continue -- --fix --cache --cache-location .cache/.eslintcache && pnpm lint:package-json",
+    "check:cycles": "madge --circular --extensions ts,tsx packages/*/src apps/*/src",
+    "checks": "TURBO_LOG_ORDER=stream turbo format lint typecheck --continue --output-logs=full",
+    "clean": "turbo run clean && bun run --elide-lines=0 scripts/infra/clean.mjs node_modules bun.lock",
+    "clean:workspace": "turbo run clean && bun run --elide-lines=0 scripts/infra/clean.mjs .turbo dist .next .cache",
+    "dev": "turbo build --filter='./packages/*' && turbo watch dev --continue --filter=@x7/org",
+    "e2e": "turbo run e2e --filter=@x7/e2e",
+    "format": "turbo run format --continue",
+    "format:fix": "turbo run format:fix --continue",
+    "lint": "turbo run lint --continue",
+    "lint:fix": "turbo run lint --continue -- --fix",
     "lint:md": "markdownlint --fix **/*.md --ignore '**/node_modules/**' --ignore '**/CHANGELOG.md'",
     "lint:package-json": "sort-package-json package.json {apps,packages,tooling}/*/package.json",
-    "lint:staged": "lint-staged --allow-empty",
-    "lint:turbo": "turbo run lint --continue -- --cache --cache-location .cache/.eslintcache",
     "manypkg": "manypkg check",
-    "prepare": "husky",
-    "prettier-write": "prettier --write .",
+    "prepare": "husky && bun run ruler:apply",
+    "ruler:apply": "ruler apply --agents claude,cursor,codex --skills && mkdir -p .claude/commands && for d in .ruler/skills/*/; do cp \"$d/SKILL.md\" \".claude/commands/$(basename $d).md\"; done",
     "start": "turbo start",
-    "test": "turbo test",
-    "e2e": "turbo run e2e --filter=@x7/e2e",
+    "test": "bun run --elide-lines=0 scripts/testing/run-tests-with-cleanup.ts",
+    "test:coverage": "bun run --elide-lines=0 scripts/testing/run-tests-with-cleanup.ts --task=test:coverage",
     "typecheck": "turbo typecheck"
   },
-  "prettier": "@x7/prettier-config",
-  "dependencies": {
-    "@commitlint/cli": "^19.8.0",
-    "@commitlint/config-conventional": "^19.8.0",
-    "@commitlint/types": "^19.8.0",
-    "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
-    "@manypkg/cli": "^0.23.0",
-    "@wayofdev/eslint-config-bases": "^4.0.0",
-    "@wayofdev/lint-staged-config": "^2.2.0",
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "oxfmt --config ./tooling/oxfmt/.oxfmtrc.json",
+      "oxlint --fix"
+    ]
+  },
+  "overrides": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-hook-form": "^7.82.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.2.1",
+    "@commitlint/config-conventional": "^21.2.0",
+    "@commitlint/types": "^21.2.0",
+    "@intellectronica/ruler": "^0.3.44",
+    "@manypkg/cli": "^0.25.1",
+    "@playwright/test": "^1.61.1",
+    "@vitest/coverage-v8": "^4.1.10",
     "@wayofdev/markdownlint-config": "^4.0.0",
-    "@x7/prettier-config": "workspace:*",
-    "eslint": "catalog:",
     "husky": "^9.1.7",
     "is-ci": "^4.1.0",
-    "lint-staged": "^15.5.0",
-    "markdownlint": "^0.37.4",
-    "markdownlint-cli": "^0.44.0",
-    "npm-run-all": "^4.1.5",
-    "prettier": "catalog:",
-    "prettier-plugin-tailwindcss": "^0.6.11",
-    "rimraf": "^6.0.1",
-    "sort-package-json": "^3.0.0",
-    "turbo": "^2.4.4",
-    "typescript": "catalog:",
-    "vercel": "^41.4.1"
+    "lint-staged": "^17.1.1",
+    "madge": "8.0.0",
+    "markdownlint": "^0.41.1",
+    "markdownlint-cli": "^0.49.1",
+    "oxfmt": "^0.60.0",
+    "oxlint": "^1.75.0",
+    "rimraf": "^6.1.3",
+    "sort-package-json": "^4.0.0",
+    "turbo": "^2.10.6",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.10"
   },
-  "packageManager": "pnpm@10.6.2",
+  "packageManager": "bun@1.3.14",
   "engines": {
-    "node": "22.x"
-  },
-  "resolutions": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-hook-form": "^7.54.2"
-  },
-  "pnpm": {
-    "overrides": {
-      "react": "^19.0.0",
-      "react-dom": "^19.0.0",
-      "react-hook-form": "^7.54.2"
-    }
+    "node": ">=22"
   }
 }

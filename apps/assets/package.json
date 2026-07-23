@@ -1,11 +1,12 @@
 {
   "name": "@x7/assets",
   "version": "0.0.1",
+  "private": true,
   "description": "shared assets for x7 finance",
   "scripts": {
-    "dev": "serve src/ --listen 3009 --no-request-logging"
+    "dev": "portless x7-assets serve src/ --no-request-logging"
   },
-  "dependencies": {
-    "serve": "^14.2.4"
+  "devDependencies": {
+    "serve": "^14.2.6"
   }
 }

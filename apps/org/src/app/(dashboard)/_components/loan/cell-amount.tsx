@@ -1,15 +1,14 @@
-"use client";
+"use client"
 
-import { Tag } from "@x7/ui/tag";
-import type { ChainId, LoanType } from "@x7/utils";
-import { generateChainDenomination } from "@x7/utils";
-
-import { useLoanAmount } from "~/lib/hooks/loans/useXchangeLoanData";
+import { Tag } from "@x7/ui/tag"
+import type { ChainId, LoanType } from "@x7/utils"
+import { generateChainDenomination } from "@x7/utils"
+import { useLoanAmount } from "~/lib/hooks/loans/useXchangeLoanData"
 
 interface LoansCellProps {
-  tokenByIndex: number;
-  chainId: ChainId;
-  loanType: LoanType;
+  tokenByIndex: number
+  chainId: ChainId
+  loanType: LoanType
 }
 
 export function LoanCellAmount({
@@ -17,7 +16,7 @@ export function LoanCellAmount({
   chainId,
   loanType,
 }: LoansCellProps) {
-  const loanAmount = useLoanAmount(tokenByIndex, chainId, loanType).loanAmount;
+  const loanAmount = useLoanAmount(tokenByIndex, chainId, loanType).loanAmount
   return (
     <div className="flex items-center space-x-2">
       <div>
@@ -26,5 +25,5 @@ export function LoanCellAmount({
         </Tag>
       </div>
     </div>
-  );
+  )
 }

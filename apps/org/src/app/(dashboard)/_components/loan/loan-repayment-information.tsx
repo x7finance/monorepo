@@ -1,19 +1,18 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-"use client";
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-unsafe-argument */
+/* oxlint-disable @typescript-eslint/no-unsafe-call */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+"use client"
 
-import { useState } from "react";
-import { useChainId } from "wagmi";
+import { useState } from "react"
+import { useChainId } from "wagmi"
 
-import { cn } from "@x7/css";
-import { Card, CardContent, CardHeader, CardTitle } from "@x7/ui/card";
-import { Input } from "@x7/ui/input";
-import { Tag } from "@x7/ui/tag";
-import { generateChainAbbreviation, generateChainIdByName } from "@x7/utils";
-
+import { cn } from "@x7/css"
+import { Card, CardContent, CardHeader, CardTitle } from "@x7/ui/card"
+import { Input } from "@x7/ui/input"
+import { Tag } from "@x7/ui/tag"
+import { generateChainAbbreviation, generateChainIdByName } from "@x7/utils"
 import {
   useGetPremiumPaymentSchedule,
   useGetPremiumsDue,
@@ -28,71 +27,70 @@ import {
   usePremiumAmount,
   usePremiumAmountPaid,
   useTokenByIndex,
-} from "~/lib/hooks/loans/useXchangeLoanData";
-import type { LoanProps } from "~/lib/types";
-import { CountdownTimer } from "./countdown-timer";
-import { PaymentButton } from "./payment-button";
-import { PaymentScheduleElements } from "./payment-schedule-elements";
+} from "~/lib/hooks/loans/useXchangeLoanData"
+import type { LoanProps } from "~/lib/types"
+
+import { CountdownTimer } from "./countdown-timer"
+import { PaymentButton } from "./payment-button"
+import { PaymentScheduleElements } from "./payment-schedule-elements"
 
 export function LoanRepaymentInformation(props: LoanProps) {
-  const { loanId, loanType, chain } = props;
+  const { loanId, loanType, chain } = props
 
-  const chainId = generateChainIdByName(chain);
-  const currentChainId = useChainId();
-  const isCorrectNetwork = currentChainId === chainId;
-  const [paymentAmount, setPaymentAmount] = useState<string>("");
+  const chainId = generateChainIdByName(chain)
+  const currentChainId = useChainId()
+  const isCorrectNetwork = currentChainId === chainId
+  const [paymentAmount, setPaymentAmount] = useState<string>("")
 
-  const tokenByIndex = useTokenByIndex(loanId, chainId, loanType).tokenByIndex;
+  const tokenByIndex = useTokenByIndex(loanId, chainId, loanType).tokenByIndex
   const getPremiumPaymentSchedule = useGetPremiumPaymentSchedule(
     tokenByIndex,
     chainId,
-    loanType,
-  ).getPremiumPaymentSchedule;
+    loanType
+  ).getPremiumPaymentSchedule
   const getPrincipalPaymentSchedule = useGetPrincipalPaymentSchedule(
     tokenByIndex,
     chainId,
-    loanType,
-  ).getPrincipalPaymentSchedule;
+    loanType
+  ).getPrincipalPaymentSchedule
   const numberOfPremiumPeriods = useNumberOfPremiumPeriods(
     chainId,
-    loanType,
-  ).numberOfPremiumPeriods;
+    loanType
+  ).numberOfPremiumPeriods
   const numberOfRepaymentPeriods = useNumberOfRepaymentPeriods(
     chainId,
-    loanType,
-  ).numberOfRepaymentPeriods;
-  const loanState = useLoanState(tokenByIndex, chainId, loanType).loanState;
+    loanType
+  ).numberOfRepaymentPeriods
+  const loanState = useLoanState(tokenByIndex, chainId, loanType).loanState
   const liquidationAmount = useLiquidationAmount(
     tokenByIndex,
     chainId,
-    loanType,
-  ).liquidationAmount;
+    loanType
+  ).liquidationAmount
   const premiumAmountPaid = usePremiumAmountPaid(
     tokenByIndex,
     chainId,
-    loanType,
-  ).premiumAmountPaid;
+    loanType
+  ).premiumAmountPaid
   const premiumAmount = usePremiumAmount(
     tokenByIndex,
     chainId,
-    loanType,
-  ).premiumAmount;
+    loanType
+  ).premiumAmount
   const getPremiumsDue = useGetPremiumsDue(
     tokenByIndex,
     chainId,
     loanType,
-    getPremiumPaymentSchedule?.[0]?.[
-      getPremiumPaymentSchedule?.[0]?.length - 1
-    ],
-  ).getPremiumsDue;
+    getPremiumPaymentSchedule?.[0]?.[getPremiumPaymentSchedule?.[0]?.length - 1]
+  ).getPremiumsDue
   const getPrincipalDue = useGetPrincipalDue(
     tokenByIndex,
     chainId,
     loanType,
     getPrincipalPaymentSchedule?.[0]?.[
       getPrincipalPaymentSchedule?.[0]?.length - 1
-    ],
-  ).getPrincipalDue;
+    ]
+  ).getPrincipalDue
   const totalDue = useGetTotalDue(
     tokenByIndex,
     chainId,
@@ -102,20 +100,20 @@ export function LoanRepaymentInformation(props: LoanProps) {
     ],
     getPrincipalPaymentSchedule?.[0]?.[
       getPrincipalPaymentSchedule?.[0]?.length - 1
-    ],
-  ).getTotalDue;
+    ]
+  ).getTotalDue
   const getRemainingLiability = useGetRemainingLiability(
     tokenByIndex,
     chainId,
-    loanType,
-  ).getRemainingLiability;
+    loanType
+  ).getRemainingLiability
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
+    const { value } = event.target
     if (!isNaN(Number(value)) && Number(value) <= totalDue) {
-      setPaymentAmount(value);
+      setPaymentAmount(value)
     }
-  };
+  }
 
   const loanDetails = [
     {
@@ -187,7 +185,7 @@ export function LoanRepaymentInformation(props: LoanProps) {
         />
       ),
     },
-  ];
+  ]
 
   return (
     <Card className="col-span-1">
@@ -210,13 +208,12 @@ export function LoanRepaymentInformation(props: LoanProps) {
                           .filter(() => outerIndex === 0)
                           .map((element: number, innerIndex: number) => (
                             <div
-                              key={`${outerIndex}-${innerIndex}`}
+                              key={`${outerIndex}-${element}`}
                               className="flex justify-between text-muted-foreground"
                             >
                               <Tag variant="large" color="zinc">
                                 {new Date(
-                                  parseInt(element.toString() ?? "0", 10) *
-                                    1000,
+                                  parseInt(element.toString() ?? "0", 10) * 1000
                                 ).toLocaleString()}
                               </Tag>
                               <span>
@@ -226,7 +223,7 @@ export function LoanRepaymentInformation(props: LoanProps) {
                                       detail.value[outerIndex + 1][
                                         innerIndex
                                       ].toString() ?? "0",
-                                      10,
+                                      10
                                     ) /
                                     10 ** 18
                                   ).toFixed(4)}{" "}
@@ -234,7 +231,7 @@ export function LoanRepaymentInformation(props: LoanProps) {
                                 </Tag>
                               </span>
                             </div>
-                          )),
+                          ))
                     )}
                   </div>
                 </>
@@ -308,5 +305,5 @@ export function LoanRepaymentInformation(props: LoanProps) {
         )}
       </CardContent>
     </Card>
-  );
+  )
 }

@@ -1,34 +1,40 @@
 {
   "name": "@x7/subgraph",
+  "version": "0.0.1",
+  "description": "The Graph subgraph definitions for Xchange DEX indexing",
   "license": "UNLICENSED",
   "scripts": {
-    "build:temp": "graph build",
+    "build": "cp ./subgraph-mainnet.yaml ./subgraph.yaml && graph codegen && graph build && rm ./subgraph.yaml",
+    "build:arb": "cp ./subgraph-arbitrum-one.yaml ./subgraph.yaml && graph codegen && graph build && rm ./subgraph.yaml",
+    "build:base": "cp ./subgraph-base.yaml ./subgraph.yaml && graph codegen && graph build && rm ./subgraph.yaml",
+    "build:bsc": "cp ./subgraph-bsc.yaml ./subgraph.yaml && graph codegen && graph build && rm ./subgraph.yaml",
+    "build:mainnet": "cp ./subgraph-mainnet.yaml ./subgraph.yaml && graph codegen && graph build && rm ./subgraph.yaml",
+    "build:matic": "cp ./subgraph-matic.yaml ./subgraph.yaml && graph codegen && graph build && rm ./subgraph.yaml",
+    "build:optimism": "cp ./subgraph-optimism.yaml ./subgraph.yaml && graph codegen && graph build && rm ./subgraph.yaml",
+    "build:sepolia": "cp ./subgraph-sepolia.yaml ./subgraph.yaml && graph codegen && graph build && rm ./subgraph.yaml",
     "codegen": "graph codegen",
     "create-local": "graph create --node http://127.0.0.1:8020/ xchange",
     "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ xchange",
-    "deploy-local": "graph deploy --node http://127.0.0.1:8020/ --ipfs http://127.0.0.1:5001 xchange",
-    "remove-local": "graph remove --node http://127.0.0.1:8020/ xchange",
-    "test:temp": "graph test",
-    "build:mainnet": "cp ./subgraph-mainnet.yaml ./subgraph.yaml && graph codegen && graph build && rm ./subgraph.yaml",
-    "deploy:mainnet": "run-p build:mainnet && goldsky subgraph deploy xchange-mainnet/1.1.0",
-    "build:base": "cp ./subgraph-base.yaml ./subgraph.yaml && graph codegen && graph build && rm ./subgraph.yaml",
-    "deploy:base": "run-p build:base && goldsky subgraph deploy xchange-base/1.0.0",
-    "build:bsc": "cp ./subgraph-bsc.yaml ./subgraph.yaml && graph codegen && graph build && rm ./subgraph.yaml",
-    "deploy:bsc": "run-p build:bsc && goldsky subgraph deploy xchange-bsc/1.0.0",
-    "build:arb": "cp ./subgraph-arbitrum-one.yaml ./subgraph.yaml && graph codegen && graph build && rm ./subgraph.yaml",
     "deploy:arb": "run-p build:arb && goldsky subgraph deploy xchange-arb/1.0.0",
-    "build:matic": "cp ./subgraph-matic.yaml ./subgraph.yaml && graph codegen && graph build && rm ./subgraph.yaml",
+    "deploy:base": "run-p build:base && goldsky subgraph deploy xchange-base/1.0.0",
+    "deploy:bsc": "run-p build:bsc && goldsky subgraph deploy xchange-bsc/1.0.0",
+    "deploy:mainnet": "run-p build:mainnet && goldsky subgraph deploy xchange-mainnet/1.1.0",
     "deploy:matic": "run-p build:matic && goldsky subgraph deploy xchange-matic/1.0.0",
-    "build:optimism": "cp ./subgraph-optimism.yaml ./subgraph.yaml && graph codegen && graph build && rm ./subgraph.yaml",
     "deploy:optimism": "run-p build:optimism && goldsky subgraph deploy xchange-optimism/1.0.0",
-    "build:sepolia": "cp ./subgraph-sepolia.yaml ./subgraph.yaml && graph codegen && graph build && rm ./subgraph.yaml",
-    "deploy:sepolia": "run-p build:sepolia && goldsky subgraph deploy xchange-sepolia/1.0.0"
+    "deploy:sepolia": "run-p build:sepolia && goldsky subgraph deploy xchange-sepolia/1.0.0",
+    "deploy-local": "graph deploy --node http://127.0.0.1:8020/ --ipfs http://127.0.0.1:5001 xchange",
+    "format": "oxfmt --check --config ../../tooling/oxfmt/.oxfmtrc.json src/",
+    "format:fix": "oxfmt --write --config ../../tooling/oxfmt/.oxfmtrc.json src/",
+    "lint": "oxlint src/",
+    "remove-local": "graph remove --node http://127.0.0.1:8020/ xchange",
+    "test:temp": "graph test"
   },
   "dependencies": {
-    "@graphprotocol/graph-cli": "0.96.0",
-    "@graphprotocol/graph-ts": "0.38.0"
+    "@graphprotocol/graph-cli": "0.98.1",
+    "@graphprotocol/graph-ts": "0.38.2"
   },
   "devDependencies": {
-    "matchstick-as": "0.5.0"
+    "matchstick-as": "0.6.0",
+    "oxlint": "^1.75.0"
   }
 }

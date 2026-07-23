@@ -1,9 +1,9 @@
-import type { HTMLAttributes } from "react";
+import type { HTMLAttributes } from "react"
 
-import { cn } from "@x7/css";
+import { cn } from "@x7/css"
 
 interface SiteContentContainerProps extends HTMLAttributes<HTMLDivElement> {
-  className?: string;
+  className?: string
 }
 
 export function SiteContentContainer({
@@ -15,5 +15,5 @@ export function SiteContentContainer({
     <div className={cn("mx-auto max-w-6xl", className)} {...props}>
       {children}
     </div>
-  );
+  )
 }

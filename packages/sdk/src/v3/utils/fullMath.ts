@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-import { ONE, ZERO } from "@x7/utils";
+/* oxlint-disable @typescript-eslint/no-empty-function */
+import { ONE, ZERO } from "@x7/utils"
 
 export abstract class FullMath {
   /**
@@ -10,14 +10,14 @@ export abstract class FullMath {
   public static mulDivRoundingUp(
     a: bigint,
     b: bigint,
-    denominator: bigint,
+    denominator: bigint
   ): bigint {
-    const product = a * b;
-    let result = product / denominator;
+    const product = a * b
+    let result = product / denominator
 
     if (product % denominator !== ZERO) {
-      result += ONE;
+      result += ONE
     }
-    return result;
+    return result
   }
 }

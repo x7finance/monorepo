@@ -1,7 +1,7 @@
-import type { Address } from "viem";
+import type { Address } from "viem"
 
-import type { RToken } from "./PrimaryPools";
-import { RPool } from "./PrimaryPools";
+import type { RToken } from "./PrimaryPools"
+import { RPool } from "./PrimaryPools"
 
 export class BridgeUnlimited extends RPool {
   constructor(
@@ -9,30 +9,30 @@ export class BridgeUnlimited extends RPool {
     token0: RToken,
     token1: RToken,
     fee: number,
-    swapGasCost = 150_000,
+    swapGasCost = 150_000
   ) {
-    super(address as Address, token0, token1, fee, -1n, -1n, 0, swapGasCost);
+    super(address as Address, token0, token1, fee, -1n, -1n, 0, swapGasCost)
   }
 
   calcOutByIn(
     amountIn: number,
-    _direction: boolean,
+    _direction: boolean
   ): { out: number; gasSpent: number } {
-    return { out: amountIn * (1 - this.fee), gasSpent: this.swapGasCost };
+    return { out: amountIn * (1 - this.fee), gasSpent: this.swapGasCost }
   }
 
   calcInByOut(
     amountOut: number,
-    _direction: boolean,
+    _direction: boolean
   ): { inp: number; gasSpent: number } {
-    return { inp: amountOut / (1 - this.fee), gasSpent: this.swapGasCost };
+    return { inp: amountOut / (1 - this.fee), gasSpent: this.swapGasCost }
   }
 
   calcCurrentPriceWithoutFee(_direction: boolean): number {
-    return 1;
+    return 1
   }
 
   override alwaysAppropriateForPricing() {
-    return true;
+    return true
   }
 }

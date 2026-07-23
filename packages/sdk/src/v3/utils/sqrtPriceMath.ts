@@ -1,21 +1,22 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
+/* oxlint-disable @typescript-eslint/no-empty-function */
 
-import invariant from "tiny-invariant";
-import { maxUint256 } from "viem";
+import invariant from "tiny-invariant"
+import { maxUint256 } from "viem"
 
-import { ONE, Q96, ZERO } from "../../core";
-import { FullMath } from "./fullMath";
+import { ONE, Q96, ZERO } from "../../core/constants"
 
-const MaxUint160: bigint = BigInt(2) ** BigInt(160) - ONE;
+import { FullMath } from "./fullMath"
+
+const MaxUint160: bigint = BigInt(2) ** BigInt(160) - ONE
 
 function multiplyIn256(x: bigint, y: bigint): bigint {
-  const product: bigint = x * y;
-  return product & maxUint256;
+  const product: bigint = x * y
+  return product & maxUint256
 }
 
 function addIn256(x: bigint, y: bigint): bigint {
-  const sum: bigint = x + y;
-  return sum & maxUint256;
+  const sum: bigint = x + y
+  return sum & maxUint256
 }
 
 export abstract class SqrtPriceMath {
@@ -28,19 +29,19 @@ export abstract class SqrtPriceMath {
     sqrtRatioAX96: bigint,
     sqrtRatioBX96: bigint,
     liquidity: bigint,
-    roundUp: boolean,
+    roundUp: boolean
   ) {
     if (sqrtRatioAX96 > sqrtRatioBX96) {
-      [sqrtRatioAX96, sqrtRatioBX96] = [sqrtRatioBX96, sqrtRatioAX96];
+      ;[sqrtRatioAX96, sqrtRatioBX96] = [sqrtRatioBX96, sqrtRatioAX96]
     }
 
-    const numerator1 = liquidity << BigInt(96);
-    const numerator2 = sqrtRatioBX96 - sqrtRatioAX96;
+    const numerator1 = liquidity << BigInt(96)
+    const numerator2 = sqrtRatioBX96 - sqrtRatioAX96
 
     if (roundUp) {
-      return FullMath.mulDivRoundingUp(numerator1, numerator2, sqrtRatioBX96);
+      return FullMath.mulDivRoundingUp(numerator1, numerator2, sqrtRatioBX96)
     } else {
-      return (numerator1 * numerator2) / (sqrtRatioBX96 * sqrtRatioAX96);
+      return (numerator1 * numerator2) / (sqrtRatioBX96 * sqrtRatioAX96)
     }
   }
 
@@ -48,20 +49,20 @@ export abstract class SqrtPriceMath {
     sqrtRatioAX96: bigint,
     sqrtRatioBX96: bigint,
     liquidity: bigint,
-    roundUp: boolean,
+    roundUp: boolean
   ): bigint {
     if (sqrtRatioAX96 > sqrtRatioBX96) {
-      [sqrtRatioAX96, sqrtRatioBX96] = [sqrtRatioBX96, sqrtRatioAX96];
+      ;[sqrtRatioAX96, sqrtRatioBX96] = [sqrtRatioBX96, sqrtRatioAX96]
     }
 
-    const subtractedValue = sqrtRatioBX96 - sqrtRatioAX96;
+    const subtractedValue = sqrtRatioBX96 - sqrtRatioAX96
 
     if (roundUp) {
       // Replace FullMath.mulDivRoundingUp with appropriate BigInt calculations
       // Assuming FullMath.mulDivRoundingUp can handle BigInt or replace with a custom implementation
-      return FullMath.mulDivRoundingUp(liquidity, subtractedValue, Q96);
+      return FullMath.mulDivRoundingUp(liquidity, subtractedValue, Q96)
     } else {
-      return (liquidity * subtractedValue) / Q96;
+      return (liquidity * subtractedValue) / Q96
     }
   }
 
@@ -69,80 +70,80 @@ export abstract class SqrtPriceMath {
     sqrtPX96: bigint,
     liquidity: bigint,
     amountIn: bigint,
-    zeroForOne: boolean,
+    zeroForOne: boolean
   ): bigint {
-    invariant(sqrtPX96 > ZERO);
-    invariant(liquidity > ZERO);
+    invariant(sqrtPX96 > ZERO)
+    invariant(liquidity > ZERO)
 
     return zeroForOne
       ? this.getNextSqrtPriceFromAmount0RoundingUp(
           sqrtPX96,
           liquidity,
           amountIn,
-          true,
+          true
         )
       : this.getNextSqrtPriceFromAmount1RoundingDown(
           sqrtPX96,
           liquidity,
           amountIn,
-          true,
-        );
+          true
+        )
   }
 
   public static getNextSqrtPriceFromOutput(
     sqrtPX96: bigint,
     liquidity: bigint,
     amountOut: bigint,
-    zeroForOne: boolean,
+    zeroForOne: boolean
   ): bigint {
-    invariant(sqrtPX96 > ZERO);
-    invariant(liquidity > ZERO);
+    invariant(sqrtPX96 > ZERO)
+    invariant(liquidity > ZERO)
 
     return zeroForOne
       ? this.getNextSqrtPriceFromAmount1RoundingDown(
           sqrtPX96,
           liquidity,
           amountOut,
-          false,
+          false
         )
       : this.getNextSqrtPriceFromAmount0RoundingUp(
           sqrtPX96,
           liquidity,
           amountOut,
-          false,
-        );
+          false
+        )
   }
 
   private static getNextSqrtPriceFromAmount0RoundingUp(
     sqrtPX96: bigint,
     liquidity: bigint,
     amount: bigint,
-    add: boolean,
+    add: boolean
   ): bigint {
-    if (amount === ZERO) return sqrtPX96;
-    const numerator1 = liquidity << BigInt(96);
+    if (amount === ZERO) return sqrtPX96
+    const numerator1 = liquidity << BigInt(96)
 
     if (add) {
-      const product = multiplyIn256(amount, sqrtPX96);
+      const product = multiplyIn256(amount, sqrtPX96)
       if (product / amount === sqrtPX96) {
-        const denominator = addIn256(numerator1, product);
+        const denominator = addIn256(numerator1, product)
         if (denominator >= numerator1) {
-          return FullMath.mulDivRoundingUp(numerator1, sqrtPX96, denominator);
+          return FullMath.mulDivRoundingUp(numerator1, sqrtPX96, denominator)
         }
       }
 
       return FullMath.mulDivRoundingUp(
         numerator1,
         ONE,
-        numerator1 / sqrtPX96 + amount,
-      );
+        numerator1 / sqrtPX96 + amount
+      )
     } else {
-      const product = multiplyIn256(amount, sqrtPX96);
+      const product = multiplyIn256(amount, sqrtPX96)
 
-      invariant(product / amount === sqrtPX96);
-      invariant(numerator1 > product);
-      const denominator = numerator1 - product;
-      return FullMath.mulDivRoundingUp(numerator1, sqrtPX96, denominator);
+      invariant(product / amount === sqrtPX96)
+      invariant(numerator1 > product)
+      const denominator = numerator1 - product
+      return FullMath.mulDivRoundingUp(numerator1, sqrtPX96, denominator)
     }
   }
 
@@ -150,20 +151,20 @@ export abstract class SqrtPriceMath {
     sqrtPX96: bigint,
     liquidity: bigint,
     amount: bigint,
-    add: boolean,
+    add: boolean
   ): bigint {
     if (add) {
       const quotient =
         amount <= MaxUint160
           ? (amount << BigInt(96)) / liquidity
-          : (amount * Q96) / liquidity;
+          : (amount * Q96) / liquidity
 
-      return sqrtPX96 + quotient;
+      return sqrtPX96 + quotient
     } else {
-      const quotient = FullMath.mulDivRoundingUp(amount, Q96, liquidity);
+      const quotient = FullMath.mulDivRoundingUp(amount, Q96, liquidity)
 
-      invariant(sqrtPX96 > quotient);
-      return sqrtPX96 - quotient;
+      invariant(sqrtPX96 > quotient)
+      return sqrtPX96 - quotient
     }
   }
 }

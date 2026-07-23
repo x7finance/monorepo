@@ -2,31 +2,41 @@
   "name": "@x7/icons",
   "version": "0.0.1",
   "private": true,
-  "license": "UNLICENSED",
+  "description": "Icon library and components for X7 Finance",
+  "license": "MIT",
   "type": "module",
+  "sideEffects": false,
   "exports": {
     ".": {
-      "default": "./src/index.ts"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     }
   },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
+    "build": "tsc",
     "clean": "git clean -xdf .turbo node_modules dist",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
-    "lint": "eslint",
-    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+    "dev": "tsc --watch",
+    "format": "oxfmt --check --config ../../tooling/oxfmt/.oxfmtrc.json src/",
+    "format:fix": "oxfmt --write --config ../../tooling/oxfmt/.oxfmtrc.json src/",
+    "lint": "oxlint src/",
+    "typecheck": "tsc --noEmit"
   },
-  "prettier": "@x7/prettier-config",
   "dependencies": {
     "@x7/css": "workspace:*",
-    "lucide-react": "^0.483.0"
+    "lucide-react": "^1.25.0"
   },
   "devDependencies": {
-    "@types/react": "catalog:react19",
-    "@types/react-dom": "catalog:react19",
-    "@x7/eslint-config": "workspace:*",
-    "@x7/prettier-config": "workspace:*",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
     "@x7/tsconfig": "workspace:*",
-    "eslint": "catalog:",
-    "typescript": "catalog:"
+    "oxlint": "^1.75.0",
+    "typescript": "^7.0.2"
   }
 }

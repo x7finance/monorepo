@@ -1,4 +1,4 @@
-import { Q96 } from "../../core";
+import { Q96 } from "../../core/constants"
 
 /**
  * Returns an imprecise maximum amount of liquidity received for a given amount of token 0.
@@ -14,13 +14,13 @@ import { Q96 } from "../../core";
 function maxLiquidityForAmount0Imprecise(
   sqrtRatioAX96: bigint,
   sqrtRatioBX96: bigint,
-  amount0: bigint,
+  amount0: bigint
 ): bigint {
   if (sqrtRatioAX96 > sqrtRatioBX96) {
-    [sqrtRatioAX96, sqrtRatioBX96] = [sqrtRatioBX96, sqrtRatioAX96];
+    ;[sqrtRatioAX96, sqrtRatioBX96] = [sqrtRatioBX96, sqrtRatioAX96]
   }
-  const intermediate = (sqrtRatioAX96 * sqrtRatioBX96) / Q96;
-  return (amount0 * intermediate) / (sqrtRatioBX96 - sqrtRatioAX96);
+  const intermediate = (sqrtRatioAX96 * sqrtRatioBX96) / Q96
+  return (amount0 * intermediate) / (sqrtRatioBX96 - sqrtRatioAX96)
 }
 
 /**
@@ -34,16 +34,16 @@ function maxLiquidityForAmount0Imprecise(
 function maxLiquidityForAmount0Precise(
   sqrtRatioAX96: bigint,
   sqrtRatioBX96: bigint,
-  amount0: bigint,
+  amount0: bigint
 ): bigint {
   if (sqrtRatioAX96 > sqrtRatioBX96) {
-    [sqrtRatioAX96, sqrtRatioBX96] = [sqrtRatioBX96, sqrtRatioAX96];
+    ;[sqrtRatioAX96, sqrtRatioBX96] = [sqrtRatioBX96, sqrtRatioAX96]
   }
 
-  const numerator = BigInt(amount0) * sqrtRatioAX96 * sqrtRatioBX96;
-  const denominator = Q96 * (sqrtRatioBX96 - sqrtRatioAX96);
+  const numerator = BigInt(amount0) * sqrtRatioAX96 * sqrtRatioBX96
+  const denominator = Q96 * (sqrtRatioBX96 - sqrtRatioAX96)
 
-  return numerator / denominator;
+  return numerator / denominator
 }
 
 /**
@@ -56,12 +56,12 @@ function maxLiquidityForAmount0Precise(
 function maxLiquidityForAmount1(
   sqrtRatioAX96: bigint,
   sqrtRatioBX96: bigint,
-  amount1: bigint,
+  amount1: bigint
 ): bigint {
   if (sqrtRatioAX96 > sqrtRatioBX96) {
-    [sqrtRatioAX96, sqrtRatioBX96] = [sqrtRatioBX96, sqrtRatioAX96];
+    ;[sqrtRatioAX96, sqrtRatioBX96] = [sqrtRatioBX96, sqrtRatioAX96]
   }
-  return (amount1 * Q96) / (sqrtRatioBX96 - sqrtRatioAX96);
+  return (amount1 * Q96) / (sqrtRatioBX96 - sqrtRatioAX96)
 }
 
 /**
@@ -81,31 +81,31 @@ export function maxLiquidityForAmounts(
   sqrtRatioBX96: bigint,
   amount0: bigint,
   amount1: bigint,
-  useFullPrecision: boolean,
+  useFullPrecision: boolean
 ): bigint {
   if (sqrtRatioAX96 > sqrtRatioBX96) {
-    [sqrtRatioAX96, sqrtRatioBX96] = [sqrtRatioBX96, sqrtRatioAX96];
+    ;[sqrtRatioAX96, sqrtRatioBX96] = [sqrtRatioBX96, sqrtRatioAX96]
   }
 
   const maxLiquidityForAmount0 = useFullPrecision
     ? maxLiquidityForAmount0Precise
-    : maxLiquidityForAmount0Imprecise;
+    : maxLiquidityForAmount0Imprecise
 
   if (sqrtRatioCurrentX96 <= sqrtRatioAX96) {
-    return maxLiquidityForAmount0(sqrtRatioAX96, sqrtRatioBX96, amount0);
+    return maxLiquidityForAmount0(sqrtRatioAX96, sqrtRatioBX96, amount0)
   } else if (sqrtRatioCurrentX96 < sqrtRatioBX96) {
     const liquidity0 = maxLiquidityForAmount0(
       sqrtRatioCurrentX96,
       sqrtRatioBX96,
-      amount0,
-    );
+      amount0
+    )
     const liquidity1 = maxLiquidityForAmount1(
       sqrtRatioAX96,
       sqrtRatioCurrentX96,
-      amount1,
-    );
-    return liquidity0 < liquidity1 ? liquidity0 : liquidity1;
+      amount1
+    )
+    return liquidity0 < liquidity1 ? liquidity0 : liquidity1
   } else {
-    return maxLiquidityForAmount1(sqrtRatioAX96, sqrtRatioBX96, amount1);
+    return maxLiquidityForAmount1(sqrtRatioAX96, sqrtRatioBX96, amount1)
   }
 }

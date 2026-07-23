@@ -1,22 +1,22 @@
-import { cn } from "@x7/css";
-import { buttonVariants } from "@x7/ui/button";
-import { LinkInternal } from "@x7/ui/link";
+import { cn } from "@x7/css"
+import { buttonVariants } from "@x7/ui/button"
+import { LinkInternal } from "@x7/ui/link"
 
 interface HeaderProps {
-  title: string;
-  subHeader?: string;
+  title: string
+  subHeader?: string
   secondaryButton?: {
-    text: string;
-    href: string;
-  };
+    text: string
+    href: string
+  }
   primaryButton?: {
-    text: string;
-    href: string;
-  };
+    text: string
+    href: string
+  }
 }
 
 export function DashboardTitle(props: HeaderProps) {
-  const { title, subHeader, secondaryButton, primaryButton } = props;
+  const { title, subHeader, secondaryButton, primaryButton } = props
 
   return (
     <div className="border-b border-zinc-200 bg-white py-10 dark:border-zinc-800 dark:bg-black">
@@ -42,7 +42,7 @@ export function DashboardTitle(props: HeaderProps) {
                 buttonVariants({
                   variant: "outline",
                 }),
-                "inline-flex",
+                "inline-flex"
               )}
             >
               {secondaryButton.text}
@@ -57,7 +57,7 @@ export function DashboardTitle(props: HeaderProps) {
                 buttonVariants({
                   variant: "default",
                 }),
-                "inline-flex",
+                "inline-flex"
               )}
             >
               {primaryButton.text}
@@ -66,5 +66,5 @@ export function DashboardTitle(props: HeaderProps) {
         </div>
       </div>
     </div>
-  );
+  )
 }

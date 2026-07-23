@@ -1,13 +1,13 @@
-import Image from "next/image";
+import Image from "next/image"
 
-import { getRandomPioneerNumber } from "@x7/utils";
+import { getRandomPioneerNumber } from "@x7/utils"
 
 export function EmptyPioneer({
   message,
   secondaryMessage,
 }: {
-  message: string;
-  secondaryMessage?: string;
+  message: string
+  secondaryMessage?: string
 }) {
   return (
     <div className="my-12 text-center">
@@ -27,5 +27,5 @@ export function EmptyPioneer({
         {secondaryMessage ?? "Trust No One, Trust Code."}
       </p>
     </div>
-  );
+  )
 }

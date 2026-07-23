@@ -1,33 +1,33 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
 
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
 
-"use client";
+"use client"
 
-import React from "react";
+import React from "react"
 
-import type { Pair, Pool } from "@x7/sdk";
-import type { SwapRoute } from "@x7/smart-order-router";
-import { useTradeChartPanelLiquidity } from "@x7/ui";
+import type { Pair, Pool } from "@x7/sdk"
+import type { SwapRoute } from "@x7/smart-order-router"
+import { useTradeChartPanelLiquidity } from "@x7/ui"
 import {
   Sheet,
   SheetContent,
   SheetFooter,
   SheetHeader,
   SheetTitle,
-} from "@x7/ui/sheet";
-import { Tag } from "@x7/ui/tag";
-import type { Native, Token } from "@x7/utils";
-import { Protocol } from "@x7/utils";
+} from "@x7/ui/sheet"
+import { Tag } from "@x7/ui/tag"
+import type { Native, Token } from "@x7/utils"
+import { Protocol } from "@x7/utils"
 
-import { SwapChartLiquidityAccordion } from "../(accordion)/swap-chart-liquidity-accordion";
-import { SwapChartLiquidityBarChartV2 } from "../(chart)/swap-chart-liquidity-bar-chart-v2";
-import { SwapChartLiquidityBarChartV3 } from "../(chart)/swap-chart-liquidity-bar-chart-v3";
+import { SwapChartLiquidityAccordion } from "../(accordion)/swap-chart-liquidity-accordion"
+import { SwapChartLiquidityBarChartV2 } from "../(chart)/swap-chart-liquidity-bar-chart-v2"
+import { SwapChartLiquidityBarChartV3 } from "../(chart)/swap-chart-liquidity-bar-chart-v3"
 
 interface SwapChartPanelLiquiditySheetProps {
-  route?: SwapRoute;
-  token0: Token | Native | undefined;
-  token1: Token | Native | undefined;
+  route?: SwapRoute
+  token0: Token | Native | undefined
+  token1: Token | Native | undefined
 }
 
 export function SwapChartPanelLiquiditySheet({
@@ -36,13 +36,13 @@ export function SwapChartPanelLiquiditySheet({
   token1,
 }: SwapChartPanelLiquiditySheetProps) {
   const [showTradeChartPanelLiquidity, setShowTradeChartPanelLiquidity] =
-    useTradeChartPanelLiquidity();
+    useTradeChartPanelLiquidity()
 
-  const protocol = route?.trade.swaps[0]?.route.protocol;
+  const protocol = route?.trade.swaps[0]?.route.protocol
 
-  const pools = route?.trade.swaps[0]?.route.pools ?? [];
-  const path = route?.trade.swaps[0]?.route.path ?? [];
-  const isRouteFound = pools.length > 0;
+  const pools = route?.trade.swaps[0]?.route.pools ?? []
+  const path = route?.trade.swaps[0]?.route.path ?? []
+  const isRouteFound = pools.length > 0
 
   return (
     <Sheet
@@ -56,10 +56,10 @@ export function SwapChartPanelLiquiditySheet({
             Reserves of your selected route.
             <div className="my-1">
               <Tag color="emerald" variant="large">
-                {path.map((token: any, index: number) => (
-                  <React.Fragment key={index}>
+                {path.map((token: any, tokenIdx: number) => (
+                  <React.Fragment key={token.address ?? token.symbol}>
                     {token.symbol}
-                    {index < path.length - 1 && "-"}
+                    {tokenIdx < path.length - 1 && "-"}
                   </React.Fragment>
                 ))}
               </Tag>
@@ -68,15 +68,15 @@ export function SwapChartPanelLiquiditySheet({
         </SheetHeader>
         {isRouteFound ? (
           <div className="space-y-8">
-            {pools.map((pool, index: number) => {
-              const pair = pool as Pair;
+            {pools.map((pool, poolIndex) => {
+              const pair = pool as Pair
               return (
                 <div
-                  key={index}
+                  key={`${pool.token0.address}-${pool.token1.address}`}
                   className="flex flex-col items-center justify-center"
                 >
                   <h3 className="mb-2 font-heading text-lg font-semibold">
-                    Hop {index + 1} Pool: {pool.token0.symbol}/
+                    Hop {poolIndex + 1} Pool: {pool.token0.symbol}/
                     {pool.token1.symbol}
                   </h3>
                   {protocol === Protocol.V2 ? (
@@ -96,7 +96,7 @@ export function SwapChartPanelLiquiditySheet({
                     />
                   ) : null}
                 </div>
-              );
+              )
             })}{" "}
             <SwapChartLiquidityAccordion route={route} />
           </div>
@@ -108,5 +108,5 @@ export function SwapChartPanelLiquiditySheet({
         <SheetFooter className="pt-2"></SheetFooter>
       </SheetContent>
     </Sheet>
-  );
+  )
 }

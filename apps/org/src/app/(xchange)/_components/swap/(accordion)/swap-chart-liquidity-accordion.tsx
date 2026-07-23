@@ -1,26 +1,26 @@
-import type { Pair, Pool } from "@x7/sdk";
-import type { SwapRoute } from "@x7/smart-order-router";
+import type { Pair, Pool } from "@x7/sdk"
+import type { SwapRoute } from "@x7/smart-order-router"
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@x7/ui/accordion";
-import { Protocol } from "@x7/utils";
+} from "@x7/ui/accordion"
+import { Protocol } from "@x7/utils"
 
 interface SwapChartLiquidityAccordionProps {
-  route?: SwapRoute;
+  route?: SwapRoute
 }
 
 export function SwapChartLiquidityAccordion({
   route,
 }: SwapChartLiquidityAccordionProps) {
-  const protocol = route?.trade.swaps[0]?.route.protocol;
-  const pools = route?.trade.swaps[0]?.route.pools ?? [];
-  const pair = route?.trade.swaps[0]?.route.pools[0] as Pair;
-  const pool = route?.trade.swaps[0]?.route.pools[0] as Pool;
+  const protocol = route?.trade.swaps[0]?.route.protocol
+  const pools = route?.trade.swaps[0]?.route.pools ?? []
+  const swapPair = route?.trade.swaps[0]?.route.pools[0] as Pair
+  const swapPool = route?.trade.swaps[0]?.route.pools[0] as Pool
 
-  const dex = protocol === Protocol.V2 ? pair.pairType : pool.poolType;
+  const dex = protocol === Protocol.V2 ? swapPair.pairType : swapPool.poolType
 
   return (
     <>
@@ -38,11 +38,15 @@ export function SwapChartLiquidityAccordion({
               </p>
               <div className="break-all text-left text-xs">
                 {pools.map((pair, index) => {
-                  const pairData = pair as Pair;
-                  const poolData = pair as Pool;
+                  const pairData = pair as Pair
+                  const poolData = pair as Pool
+                  const poolAddress =
+                    protocol === Protocol.V2
+                      ? pairData.liquidityToken.address
+                      : poolData.address
 
                   return (
-                    <div key={index}>
+                    <div key={poolAddress}>
                       <p className="break-all text-left text-xs">
                         Hop{index + 1}:
                       </p>
@@ -52,7 +56,7 @@ export function SwapChartLiquidityAccordion({
                           : poolData.address}
                       </p>
                     </div>
-                  );
+                  )
                 })}
               </div>
             </AccordionContent>
@@ -80,5 +84,5 @@ export function SwapChartLiquidityAccordion({
         </Accordion>
       </div>
     </>
-  );
+  )
 }

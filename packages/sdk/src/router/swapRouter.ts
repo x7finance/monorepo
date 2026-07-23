@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-empty-function */
-import invariant from "tiny-invariant";
-import { encodeFunctionData, toHex } from "viem";
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unused-expressions */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-empty-function */
+import invariant from "tiny-invariant"
+import { encodeFunctionData, toHex } from "viem"
 
 import {
   aerodromeAbi,
@@ -12,7 +12,8 @@ import {
   swapRouter02NewABI,
   swapRouter03,
   swapRouter03WDeadline,
-} from "@x7/contracts";
+} from "@x7/contracts"
+import type { Currency } from "@x7/utils"
 import {
   ETH_ADDRESS_02 as ADDRESS_THIS,
   ChainId,
@@ -26,20 +27,20 @@ import {
   TradeType,
   WETH9,
   ZERO,
-} from "@x7/utils";
-import type { Currency } from "@x7/utils";
+} from "@x7/utils"
 
-import { BASIS_POINTS, ONE, validateAndParseAddress } from "../core";
-import { WETH_ADDRESS } from "../universal-router";
-import { log } from "../utils/logger";
-import type { TradeV2 } from "../v2";
-import { TradeV2 as V2Trade } from "../v2";
+import { BASIS_POINTS, ONE } from "../core/constants"
+import { validateAndParseAddress } from "../core/validateAndParseAddress"
+import { WETH_ADDRESS } from "../universal-router/utils/constants"
+import { log } from "../utils/logger"
+import type { TradeV2 } from "../v2"
+import { TradeV2 as V2Trade } from "../v2"
 import type {
   FeeOptions,
   MethodParameters,
   PermitOptions,
   TradeV3,
-} from "../v3";
+} from "../v3"
 import {
   encodeRouteToPath,
   Payments,
@@ -47,20 +48,21 @@ import {
   Position,
   SelfPermit,
   TradeV3 as V3Trade,
-} from "../v3";
-import type { CondensedAddLiquidityOptions } from "./approveAndCall";
-import { ApprovalTypes, ApproveAndCall } from "./approveAndCall";
-import { encodeMixedRouteToPath } from "./encodeMixedRouteToPath";
-import { MixedRouteSDK } from "./entities/mixedRoute/route";
-import { MixedRouteTrade } from "./entities/mixedRoute/trade";
-import type { RouteV2Wrapper, RouteV3Wrapper } from "./entities/route";
-import { MixedRoute } from "./entities/route";
-import { Trade } from "./entities/trade";
-import { MulticallExtended } from "./multicallExtended";
-import { PaymentsExtended } from "./paymentsExtended";
-import { getOutputOfPools, partitionMixedRouteByProtocol } from "./utils";
+} from "../v3"
 
-const REFUND_ETH_PRICE_IMPACT_THRESHOLD = new Percent(BigInt(50), BigInt(100));
+import type { CondensedAddLiquidityOptions } from "./approveAndCall"
+import { ApprovalTypes, ApproveAndCall } from "./approveAndCall"
+import { encodeMixedRouteToPath } from "./encodeMixedRouteToPath"
+import { MixedRouteSDK } from "./entities/mixedRoute/route"
+import { MixedRouteTrade } from "./entities/mixedRoute/trade"
+import type { RouteV2Wrapper, RouteV3Wrapper } from "./entities/route"
+import { MixedRoute } from "./entities/route"
+import { Trade } from "./entities/trade"
+import { MulticallExtended } from "./multicallExtended"
+import { PaymentsExtended } from "./paymentsExtended"
+import { getOutputOfPools, partitionMixedRouteByProtocol } from "./utils"
+
+const REFUND_ETH_PRICE_IMPACT_THRESHOLD = new Percent(BigInt(50), BigInt(100))
 
 /**
  * Options for producing the arguments to send calls to the router.
@@ -69,34 +71,34 @@ export interface SwapOptions {
   /**
    * How much the execution price is allowed to move unfavorably from the trade execution price.
    */
-  slippageTolerance: Percent;
+  slippageTolerance: Percent
 
   /**
    * The account that should receive the output. If omitted, output is sent to msg.sender.
    */
-  recipient?: `0x${string}`;
+  recipient?: `0x${string}`
 
   /**
    * Either deadline (when the transaction expires, in epoch seconds), or previousBlockhash.
    */
-  deadlineOrPreviousBlockhash?: number;
+  deadlineOrPreviousBlockhash?: number
 
   /**
    * The optional permit parameters for spending the input.
    */
-  inputTokenPermit?: PermitOptions;
+  inputTokenPermit?: PermitOptions
 
   /**
    * Optional information for taking a fee on output.
    */
-  fee?: FeeOptions;
+  fee?: FeeOptions
 }
 
 export interface SwapAndAddOptions extends SwapOptions {
   /**
    * The optional permit parameters for pulling in remaining output token.
    */
-  outputTokenPermit?: PermitOptions;
+  outputTokenPermit?: PermitOptions
 }
 
 type AnyTradeType =
@@ -108,11 +110,15 @@ type AnyTradeType =
       | V2Trade<Currency, Currency, TradeType>
       | V3Trade<Currency, Currency, TradeType>
       | MixedRouteTrade<Currency, Currency, TradeType>
-    )[];
+    )[]
 
 /**
  * Represents the Uniswap V2 + V3 SwapRouter02, and has static methods for helping execute trades.
  */
+function mixedRouteIsAllV3(mixedRoute: MixedRouteSDK<Currency, Currency>) {
+  return mixedRoute.pools.every((pool) => pool instanceof Pool)
+}
+
 export abstract class SwapRouter {
   /**
    * Cannot be constructed.
@@ -131,20 +137,20 @@ export abstract class SwapRouter {
     trade: V2Trade<Currency, Currency, TradeType>,
     options: SwapOptions,
     routerMustCustody: boolean,
-    performAggregatedSlippageCheck: boolean,
+    performAggregatedSlippageCheck: boolean
   ): string {
     const amountIn: string = toHex(
-      trade.maximumAmountIn(options.slippageTolerance).quotient,
-    );
+      trade.maximumAmountIn(options.slippageTolerance).quotient
+    )
     const amountOut: string = toHex(
-      trade.minimumAmountOut(options.slippageTolerance).quotient,
-    );
+      trade.minimumAmountOut(options.slippageTolerance).quotient
+    )
 
-    const chainId = trade.route.chainId;
+    const chainId = trade.route.chainId
     const imp =
       (trade.route as RouteV2Wrapper<Currency, Currency>).pairs[0]!.pairType ??
-      Implementation.UNISWAP;
-    const path = trade.route.path.map((token) => token.address);
+      Implementation.UNISWAP
+    const path = trade.route.path.map((token) => token.address)
     const recipient =
       routerMustCustody &&
       trade.route.chainId === ChainId.ETHEREUM &&
@@ -152,35 +158,35 @@ export abstract class SwapRouter {
         ? ADDRESS_THIS
         : typeof options.recipient === "undefined"
           ? MSG_SENDER
-          : validateAndParseAddress(options.recipient);
+          : validateAndParseAddress(options.recipient)
 
     const etherIn =
       trade.inputAmount.currency.isNative ||
-      trade.inputAmount.currency.address === WETH_ADDRESS(chainId);
+      trade.inputAmount.currency.address === WETH_ADDRESS(chainId)
     const etherOut =
       trade.outputAmount.currency.isNative ||
-      trade.outputAmount.currency.address === WETH_ADDRESS(chainId);
+      trade.outputAmount.currency.address === WETH_ADDRESS(chainId)
 
     const inputTokenWithFess =
       trade.route.pairs?.[0]?.token0.address ===
       trade.inputAmount.currency.wrapped.address
         ? trade.route.pairs?.[0]?.token0
-        : trade.route.pairs?.[0]?.token1;
+        : trade.route.pairs?.[0]?.token1
 
     const outputTokenWithFess =
       trade.route.pairs?.[0]?.token1.address ===
       trade.outputAmount.currency.wrapped.address
         ? trade.route.pairs?.[0]?.token1
-        : trade.route.pairs?.[0]?.token0;
+        : trade.route.pairs?.[0]?.token0
 
-    const inHasFeesSelling = !!inputTokenWithFess?.sellFeeBps;
-    const outHasBuyFees = !!outputTokenWithFess?.buyFeeBps;
+    const inHasFeesSelling = !!inputTokenWithFess?.sellFeeBps
+    const outHasBuyFees = !!outputTokenWithFess?.buyFeeBps
 
-    const hasFees = inHasFeesSelling || outHasBuyFees;
+    const hasFees = inHasFeesSelling || outHasBuyFees
 
     let amountOutMin = trade.minimumAmountOut(
-      options.slippageTolerance,
-    ).quotient;
+      options.slippageTolerance
+    ).quotient
 
     if (hasFees) {
       if (inHasFeesSelling) {
@@ -188,8 +194,8 @@ export abstract class SwapRouter {
           .add(new Percent(inputTokenWithFess?.sellFeeBps ?? 0, BASIS_POINTS))
           .invert()
           .multiply(
-            trade.minimumAmountOut(options.slippageTolerance).quotient,
-          ).quotient;
+            trade.minimumAmountOut(options.slippageTolerance).quotient
+          ).quotient
       }
 
       if (outHasBuyFees) {
@@ -197,8 +203,8 @@ export abstract class SwapRouter {
           .add(new Percent(outputTokenWithFess?.buyFeeBps ?? 0, BASIS_POINTS))
           .invert()
           .multiply(
-            trade.minimumAmountOut(options.slippageTolerance).quotient,
-          ).quotient;
+            trade.minimumAmountOut(options.slippageTolerance).quotient
+          ).quotient
       }
     }
 
@@ -228,7 +234,7 @@ export abstract class SwapRouter {
                   recipient,
                   BigInt(options.deadlineOrPreviousBlockhash!),
                 ],
-        });
+        })
       }
       if (etherIn) {
         if (imp === Implementation.AERODROME) {
@@ -250,7 +256,7 @@ export abstract class SwapRouter {
               recipient,
               BigInt(options.deadlineOrPreviousBlockhash!),
             ],
-          });
+          })
         }
         return encodeFunctionData({
           abi: swapRouter02NewABI,
@@ -263,7 +269,7 @@ export abstract class SwapRouter {
             recipient,
             BigInt(options.deadlineOrPreviousBlockhash!),
           ],
-        });
+        })
       } else if (etherOut) {
         if (imp === Implementation.AERODROME) {
           return encodeFunctionData({
@@ -285,7 +291,7 @@ export abstract class SwapRouter {
               recipient,
               BigInt(options.deadlineOrPreviousBlockhash!),
             ],
-          });
+          })
         }
         return encodeFunctionData({
           abi: swapRouter02NewABI,
@@ -299,10 +305,10 @@ export abstract class SwapRouter {
             recipient,
             BigInt(options.deadlineOrPreviousBlockhash!),
           ],
-        });
+        })
       }
 
-      return "HANDLEME";
+      return "HANDLEME"
     } else {
       if ((!etherIn && !etherOut) || imp === Implementation.UNISWAP) {
         return encodeFunctionData({
@@ -321,7 +327,7 @@ export abstract class SwapRouter {
                   recipient,
                   BigInt(options.deadlineOrPreviousBlockhash!),
                 ],
-        });
+        })
       }
 
       if (etherIn) {
@@ -344,7 +350,7 @@ export abstract class SwapRouter {
               recipient,
               BigInt(options.deadlineOrPreviousBlockhash!),
             ],
-          });
+          })
         }
         return encodeFunctionData({
           abi: swapRouter02NewABI,
@@ -355,7 +361,7 @@ export abstract class SwapRouter {
             recipient,
             BigInt(options.deadlineOrPreviousBlockhash!),
           ],
-        });
+        })
       } else if (etherOut) {
         if (imp === Implementation.AERODROME) {
           return encodeFunctionData({
@@ -377,7 +383,7 @@ export abstract class SwapRouter {
               recipient,
               BigInt(options.deadlineOrPreviousBlockhash!),
             ],
-          });
+          })
         }
         return encodeFunctionData({
           abi: swapRouter02NewABI,
@@ -389,10 +395,10 @@ export abstract class SwapRouter {
             recipient,
             BigInt(options.deadlineOrPreviousBlockhash!),
           ],
-        });
+        })
       }
 
-      return "HANDLEME2.0";
+      return "HANDLEME2.0"
     }
   }
 
@@ -408,33 +414,32 @@ export abstract class SwapRouter {
     trade: V3Trade<Currency, Currency, TradeType>,
     options: SwapOptions,
     routerMustCustody: boolean,
-    performAggregatedSlippageCheck: boolean,
+    performAggregatedSlippageCheck: boolean
   ): string[] {
-    const calldatas: string[] = [];
+    const calldatas: string[] = []
 
     for (const { route, inputAmount, outputAmount } of trade.swaps) {
       const amountIn: string = toHex(
-        trade.maximumAmountIn(options.slippageTolerance, inputAmount).quotient,
-      );
+        trade.maximumAmountIn(options.slippageTolerance, inputAmount).quotient
+      )
       const amountOut: string = toHex(
-        trade.minimumAmountOut(options.slippageTolerance, outputAmount)
-          .quotient,
-      );
+        trade.minimumAmountOut(options.slippageTolerance, outputAmount).quotient
+      )
 
       // flag for whether the trade is single hop or not
-      const singleHop = route.pools.length === 1;
-      const chainId = route.chainId;
+      const singleHop = route.pools.length === 1
+      const chainId = route.chainId
       const recipient = routerMustCustody
         ? ADDRESS_THIS
         : typeof options.recipient === "undefined"
           ? MSG_SENDER
-          : validateAndParseAddress(options.recipient);
+          : validateAndParseAddress(options.recipient)
       const deadline = BigInt(
         options.deadlineOrPreviousBlockhash ??
-          Math.floor(+new Date() / 1000 + 60 * 20),
-      );
+          Math.floor(+new Date() / 1000 + 60 * 20)
+      )
       const needsDeadline =
-        route.pools[0]?.poolType === Implementation.SUSHISWAP;
+        route.pools[0]?.poolType === Implementation.SUSHISWAP
 
       if (singleHop) {
         if (trade.tradeType === TradeType.EXACT_INPUT) {
@@ -455,13 +460,13 @@ export abstract class SwapRouter {
                   ...(needsDeadline ? { deadline } : {}),
                   amountIn: BigInt(amountIn),
                   amountOutMinimum: BigInt(
-                    performAggregatedSlippageCheck ? 0 : amountOut,
+                    performAggregatedSlippageCheck ? 0 : amountOut
                   ),
                   sqrtPriceLimitX96: BigInt(0),
                 },
               ],
-            }),
-          );
+            })
+          )
         } else {
           calldatas.push(
             encodeFunctionData({
@@ -483,14 +488,14 @@ export abstract class SwapRouter {
                   sqrtPriceLimitX96: BigInt(0),
                 },
               ],
-            }),
-          );
+            })
+          )
         }
       } else {
         const path: string = encodeRouteToPath(
           route,
-          trade.tradeType === TradeType.EXACT_OUTPUT,
-        );
+          trade.tradeType === TradeType.EXACT_OUTPUT
+        )
 
         if (trade.tradeType === TradeType.EXACT_INPUT) {
           calldatas.push(
@@ -508,12 +513,12 @@ export abstract class SwapRouter {
                   ...(needsDeadline ? { deadline } : {}),
                   amountIn: BigInt(amountIn),
                   amountOutMinimum: BigInt(
-                    performAggregatedSlippageCheck ? 0 : amountOut,
+                    performAggregatedSlippageCheck ? 0 : amountOut
                   ),
                 },
               ],
-            }),
-          );
+            })
+          )
         } else {
           calldatas.push(
             encodeFunctionData({
@@ -532,13 +537,13 @@ export abstract class SwapRouter {
                   amountInMaximum: BigInt(amountIn),
                 },
               ],
-            }),
-          );
+            })
+          )
         }
       }
     }
 
-    return calldatas;
+    return calldatas
   }
 
   /**
@@ -554,33 +559,28 @@ export abstract class SwapRouter {
     trade: MixedRouteTrade<Currency, Currency, TradeType>,
     options: SwapOptions,
     routerMustCustody: boolean,
-    performAggregatedSlippageCheck: boolean,
+    performAggregatedSlippageCheck: boolean
   ): string[] {
-    const calldatas: string[] = [];
+    const calldatas: string[] = []
 
-    invariant(trade.tradeType === TradeType.EXACT_INPUT, "TRADE_TYPE");
+    invariant(trade.tradeType === TradeType.EXACT_INPUT, "TRADE_TYPE")
 
     for (const { route, inputAmount, outputAmount } of trade.swaps) {
       const amountIn: string = toHex(
-        trade.maximumAmountIn(options.slippageTolerance, inputAmount).quotient,
-      );
+        trade.maximumAmountIn(options.slippageTolerance, inputAmount).quotient
+      )
       const amountOut: string = toHex(
-        trade.minimumAmountOut(options.slippageTolerance, outputAmount)
-          .quotient,
-      );
+        trade.minimumAmountOut(options.slippageTolerance, outputAmount).quotient
+      )
 
       // flag for whether the trade is single hop or not
-      const singleHop = route.pools.length === 1;
+      const singleHop = route.pools.length === 1
 
       const recipient = routerMustCustody
         ? ADDRESS_THIS
         : typeof options.recipient === "undefined"
           ? MSG_SENDER
-          : validateAndParseAddress(options.recipient);
-
-      const mixedRouteIsAllV3 = (route: MixedRouteSDK<Currency, Currency>) => {
-        return route.pools.every((pool) => pool instanceof Pool);
-      };
+          : validateAndParseAddress(options.recipient)
 
       if (singleHop) {
         /// For single hop, since it isn't really a mixedRoute, we'll just mimic behavior of V3 or V2
@@ -598,15 +598,15 @@ export abstract class SwapRouter {
                   recipient: recipient,
                   amountIn: BigInt(amountIn),
                   amountOutMinimum: BigInt(
-                    performAggregatedSlippageCheck ? 0 : amountOut,
+                    performAggregatedSlippageCheck ? 0 : amountOut
                   ),
                   sqrtPriceLimitX96: BigInt(0),
                 },
               ],
-            }),
-          );
+            })
+          )
         } else {
-          const path = route.path.map((token) => token.address);
+          const path = route.path.map((token) => token.address)
 
           calldatas.push(
             encodeFunctionData({
@@ -618,43 +618,43 @@ export abstract class SwapRouter {
                 path,
                 recipient,
               ],
-            }),
-          );
+            })
+          )
         }
       } else {
-        const sections = partitionMixedRouteByProtocol(route);
+        const sections = partitionMixedRouteByProtocol(route)
 
         const isLastSectionInRoute = (i: number) => {
-          return i === sections.length - 1;
-        };
+          return i === sections.length - 1
+        }
 
-        let outputToken;
-        let inputToken = route.input.wrapped;
+        let outputToken
+        let inputToken = route.input.wrapped
 
         for (let i = 0; i < sections.length; i++) {
-          const section = sections[i];
+          const section = sections[i]
 
           if (section === undefined) {
-            throw new Error("MixedRoute is invalid");
+            throw new Error("MixedRoute is invalid")
           }
           /// Now, we get output of this section
-          outputToken = getOutputOfPools(section, inputToken);
+          outputToken = getOutputOfPools(section, inputToken)
 
           const newRouteOriginal = new MixedRouteSDK(
             [...section],
             section[0]!.token0.equals(inputToken)
               ? section[0]!.token0
               : section[0]!.token1,
-            outputToken,
-          );
-          const newRoute = new MixedRoute(newRouteOriginal);
+            outputToken
+          )
+          const newRoute = new MixedRoute(newRouteOriginal)
 
           /// Previous output is now input
 
-          inputToken = outputToken;
+          inputToken = outputToken
 
           if (mixedRouteIsAllV3(newRoute)) {
-            const path: string = encodeMixedRouteToPath(newRoute);
+            const path: string = encodeMixedRouteToPath(newRoute)
 
             calldatas.push(
               encodeFunctionData({
@@ -669,91 +669,91 @@ export abstract class SwapRouter {
                     recipient: isLastSectionInRoute(i)
                       ? recipient
                       : ADDRESS_THIS,
-                    amountIn: BigInt(i == 0 ? amountIn : 0),
+                    amountIn: BigInt(i === 0 ? amountIn : 0),
                     amountOutMinimum: BigInt(
-                      !isLastSectionInRoute(i) ? 0 : amountOut,
+                      !isLastSectionInRoute(i) ? 0 : amountOut
                     ),
                   },
                 ],
-              }),
-            );
+              })
+            )
           } else {
             calldatas.push(
               encodeFunctionData({
                 abi: swapRouter02ABI,
                 functionName: "swapExactTokensForTokens",
                 args: [
-                  BigInt(i == 0 ? amountIn : 0), // amountIn
+                  BigInt(i === 0 ? amountIn : 0), // amountIn
                   BigInt(!isLastSectionInRoute(i) ? 0 : amountOut), // amountOutMin
                   newRoute.path.map((token) => token.address), // path
                   isLastSectionInRoute(i) ? recipient : ADDRESS_THIS, // to
                 ],
-              }),
-            );
+              })
+            )
           }
         }
       }
     }
 
-    return calldatas;
+    return calldatas
   }
 
   private static encodeSwaps(
     trades: AnyTradeType,
     options: SwapOptions,
-    isSwapAndAdd?: boolean,
+    isSwapAndAdd?: boolean
   ): {
-    calldatas: string[];
+    calldatas: string[]
     sampleTrade:
       | V2Trade<Currency, Currency, TradeType>
       | V3Trade<Currency, Currency, TradeType>
-      | MixedRouteTrade<Currency, Currency, TradeType>;
-    routerMustCustody: boolean;
-    inputIsNative: boolean;
-    outputIsNative: boolean;
-    totalAmountIn: CurrencyAmount<Currency>;
-    minimumAmountOut: CurrencyAmount<Currency>;
-    quoteAmountOut: CurrencyAmount<Currency>;
+      | MixedRouteTrade<Currency, Currency, TradeType>
+    routerMustCustody: boolean
+    inputIsNative: boolean
+    outputIsNative: boolean
+    totalAmountIn: CurrencyAmount<Currency>
+    minimumAmountOut: CurrencyAmount<Currency>
+    quoteAmountOut: CurrencyAmount<Currency>
   } {
     // If dealing with an instance of the aggregated Trade object, unbundle it to individual trade objects.
     if (trades instanceof Trade) {
       invariant(
         trades.swaps.every(
           (swap) =>
-            swap.route.protocol == Protocol.V3 ||
-            swap.route.protocol == Protocol.V2 ||
-            swap.route.protocol == Protocol.MIXED,
+            swap.route.protocol === Protocol.V3 ||
+            swap.route.protocol === Protocol.V2 ||
+            swap.route.protocol === Protocol.MIXED
         ),
-        "UNSUPPORTED_PROTOCOL",
-      );
+        "UNSUPPORTED_PROTOCOL"
+      )
 
       const individualTrades: (
         | V2Trade<Currency, Currency, TradeType>
         | V3Trade<Currency, Currency, TradeType>
         | MixedRouteTrade<Currency, Currency, TradeType>
-      )[] = [];
+      )[] = []
 
       for (const { route, inputAmount, outputAmount } of trades.swaps) {
-        if (route.protocol == Protocol.V2) {
+        if (route.protocol === Protocol.V2) {
           individualTrades.push(
             new V2Trade(
               route as RouteV2Wrapper<Currency, Currency>,
-              trades.tradeType == TradeType.EXACT_INPUT
+              trades.tradeType === TradeType.EXACT_INPUT
                 ? inputAmount
                 : outputAmount,
-              trades.tradeType,
-            ),
-          );
-        } else if (route.protocol == Protocol.V3) {
+              trades.tradeType
+            )
+          )
+        } else if (route.protocol === Protocol.V3) {
           individualTrades.push(
             V3Trade.createUncheckedTrade({
               route: route as RouteV3Wrapper<Currency, Currency>,
               inputAmount,
               outputAmount,
               tradeType: trades.tradeType,
-            }),
-          );
-        } else if (route.protocol == Protocol.MIXED) {
+            })
+          )
+        } else if (route.protocol === Protocol.MIXED) {
           individualTrades.push(
             /// we can change the naming of this function on MixedRouteTrade if needed
             MixedRouteTrade.createUncheckedTrade({
@@ -761,69 +761,69 @@ export abstract class SwapRouter {
               inputAmount,
               outputAmount,
               tradeType: trades.tradeType,
-            }),
-          );
+            })
+          )
         } else {
-          throw new Error("UNSUPPORTED_TRADE_PROTOCOL");
+          throw new Error("UNSUPPORTED_TRADE_PROTOCOL")
         }
       }
-      trades = individualTrades;
+      trades = individualTrades
     }
 
     if (!Array.isArray(trades)) {
-      trades = [trades];
+      trades = [trades]
     }
 
     const numberOfTrades = trades.reduce(
-      (numberOfTrades, trade) =>
-        numberOfTrades +
+      (count, trade) =>
+        count +
         (trade instanceof V3Trade || trade instanceof MixedRouteTrade
           ? trade.swaps.length
           : 1),
-      0,
-    );
+      0
+    )
 
-    const sampleTrade = trades[0];
+    const sampleTrade = trades[0]
 
     if (sampleTrade === undefined) {
-      throw new Error("NO_TRADES");
+      throw new Error("NO_TRADES")
     }
 
     // All trades should have the same starting/ending currency and trade type
     invariant(
       trades.every((trade) =>
-        trade.inputAmount.currency.equals(sampleTrade.inputAmount.currency),
+        trade.inputAmount.currency.equals(sampleTrade.inputAmount.currency)
       ),
-      "TOKEN_IN_DIFF",
-    );
+      "TOKEN_IN_DIFF"
+    )
     invariant(
       trades.every((trade) =>
-        trade.outputAmount.currency.equals(sampleTrade.outputAmount.currency),
+        trade.outputAmount.currency.equals(sampleTrade.outputAmount.currency)
       ),
-      "TOKEN_OUT_DIFF",
-    );
+      "TOKEN_OUT_DIFF"
+    )
     invariant(
       trades.every((trade) => trade.tradeType === sampleTrade.tradeType),
-      "TRADE_TYPE_DIFF",
-    );
+      "TRADE_TYPE_DIFF"
+    )
 
-    const calldatas: string[] = [];
+    const calldatas: string[] = []
 
     const inputIsNative =
       sampleTrade.inputAmount.currency.isNative ||
       sampleTrade.inputAmount.currency.address ===
-        WETH_ADDRESS(sampleTrade.route?.chainId ?? ChainId.BASE);
+        WETH_ADDRESS(sampleTrade.route?.chainId ?? ChainId.BASE)
     const outputIsNative =
       sampleTrade.outputAmount.currency.isNative ||
       sampleTrade.outputAmount.currency.address ===
-        WETH_ADDRESS(sampleTrade.route?.chainId ?? ChainId.BASE);
+        WETH_ADDRESS(sampleTrade.route?.chainId ?? ChainId.BASE)
 
     // flag for whether we want to perform an aggregated slippage check
     //   1. when there are >2 exact input trades. this is only a heuristic,
     //      as it's still more gas-expensive even in this case, but has benefits
     //      in that the reversion probability is lower
     const performAggregatedSlippageCheck =
-      sampleTrade.tradeType === TradeType.EXACT_INPUT && numberOfTrades > 2;
+      sampleTrade.tradeType === TradeType.EXACT_INPUT && numberOfTrades > 2
     // flag for whether funds should be send first to the router
     //   1. when receiving ETH (which much be unwrapped from WETH)
     //   2. when a fee on the output is being taken
@@ -833,17 +833,17 @@ export abstract class SwapRouter {
       outputIsNative ||
       !!options.fee ||
       !!isSwapAndAdd ||
-      performAggregatedSlippageCheck;
+      performAggregatedSlippageCheck
 
     // encode permit if necessary
     if (options.inputTokenPermit) {
-      invariant(sampleTrade.inputAmount.currency.isToken, "NON_TOKEN_PERMIT");
+      invariant(sampleTrade.inputAmount.currency.isToken, "NON_TOKEN_PERMIT")
       calldatas.push(
         SelfPermit.encodePermit(
           sampleTrade.inputAmount.currency,
-          options.inputTokenPermit,
-        ),
-      );
+          options.inputTokenPermit
+        )
+      )
     }
 
     for (const trade of trades) {
@@ -853,56 +853,56 @@ export abstract class SwapRouter {
             trade,
             options,
             routerMustCustody,
-            performAggregatedSlippageCheck,
-          ),
-        );
+            performAggregatedSlippageCheck
+          )
+        )
       } else if (trade instanceof V3Trade) {
         for (const calldata of SwapRouter.encodeV3Swap(
           trade,
           options,
           routerMustCustody,
-          performAggregatedSlippageCheck,
+          performAggregatedSlippageCheck
         )) {
-          calldatas.push(calldata);
+          calldatas.push(calldata)
         }
       } else if (trade instanceof MixedRouteTrade) {
         for (const calldata of SwapRouter.encodeMixedRouteSwap(
           trade,
           options,
           routerMustCustody,
-          performAggregatedSlippageCheck,
+          performAggregatedSlippageCheck
         )) {
-          calldatas.push(calldata);
+          calldatas.push(calldata)
         }
       } else {
-        throw new Error("Unsupported trade object");
+        throw new Error("Unsupported trade object")
       }
     }
 
     const ZERO_IN: CurrencyAmount<Currency> = CurrencyAmount.fromRawAmount(
       sampleTrade.inputAmount.currency,
-      0,
-    );
+      0
+    )
     const ZERO_OUT: CurrencyAmount<Currency> = CurrencyAmount.fromRawAmount(
       sampleTrade.outputAmount.currency,
-      0,
-    );
+      0
+    )
 
     const minimumAmountOut: CurrencyAmount<Currency> = trades.reduce(
       (sum, trade) =>
         sum.add(trade.minimumAmountOut(options.slippageTolerance)),
-      ZERO_OUT,
-    );
+      ZERO_OUT
+    )
 
     const quoteAmountOut: CurrencyAmount<Currency> = trades.reduce(
       (sum, trade) => sum.add(trade.outputAmount),
-      ZERO_OUT,
-    );
+      ZERO_OUT
+    )
 
     const totalAmountIn: CurrencyAmount<Currency> = trades.reduce(
       (sum, trade) => sum.add(trade.maximumAmountIn(options.slippageTolerance)),
-      ZERO_IN,
-    );
+      ZERO_IN
+    )
 
     return {
       calldatas,
@@ -913,7 +913,7 @@ export abstract class SwapRouter {
       totalAmountIn,
       minimumAmountOut,
       quoteAmountOut,
-    };
+    }
   }
 
   private static shouldUseMulticall(
@@ -921,31 +921,31 @@ export abstract class SwapRouter {
       | TradeV2<Currency, Currency, TradeType>
       | TradeV3<Currency, Currency, TradeType>
       | MixedRouteTrade<Currency, Currency, TradeType>,
-    implementation: Implementation,
+    implementation: Implementation
   ) {
     // @ts-expect-error: We know
 
-    const protocol: Protocol = sampleTrade?.protocol ?? Protocol.MIXED;
-    const chainId = sampleTrade.route?.chainId ?? ChainId.BASE;
+    const protocol: Protocol = sampleTrade?.protocol ?? Protocol.MIXED
+    const chainId = sampleTrade.route?.chainId ?? ChainId.BASE
     // Sushiswap does not have mutlicalls enabled
     if (implementation && implementation === Implementation.SUSHISWAP) {
-      return false;
+      return false
     }
 
     if (implementation && implementation === Implementation.AERODROME) {
-      return false;
+      return false
     }
 
     if (
       implementation &&
-      implementation == Implementation.UNISWAP &&
-      chainId == ChainId.BASE &&
-      protocol == Protocol.V2
+      implementation === Implementation.UNISWAP &&
+      chainId === ChainId.BASE &&
+      protocol === Protocol.V2
     ) {
-      return false;
+      return false
     }
 
-    return true;
+    return true
   }
 
   /**
@@ -965,7 +965,7 @@ export abstract class SwapRouter {
           | MixedRouteTrade<Currency, Currency, TradeType>
         )[],
     options: SwapOptions,
-    implementation?: Implementation,
+    implementation?: Implementation
   ): MethodParameters {
     const {
       calldatas,
@@ -975,7 +975,7 @@ export abstract class SwapRouter {
       outputIsNative,
       totalAmountIn,
       minimumAmountOut,
-    } = SwapRouter.encodeSwaps(trades, options);
+    } = SwapRouter.encodeSwaps(trades, options)
 
     // unwrap or sweep idea here is only uniswap uses it, but where it would error a TX (in a multicall unexpected we dont use multicalls, more work to break this down further for no reason)
     if (routerMustCustody && implementation === Implementation.UNISWAP) {
@@ -984,18 +984,18 @@ export abstract class SwapRouter {
           PaymentsExtended.encodeUnwrapWETH9(
             minimumAmountOut.quotient,
             options.recipient,
-            options.fee,
-          ),
-        );
+            options.fee
+          )
+        )
       } else {
         calldatas.push(
           PaymentsExtended.encodeSweepToken(
             sampleTrade.outputAmount.currency.wrapped,
             minimumAmountOut.quotient,
             options.recipient,
-            options.fee,
-          ),
-        );
+            options.fee
+          )
+        )
       }
     }
 
@@ -1007,27 +1007,27 @@ export abstract class SwapRouter {
         SwapRouter.riskOfPartialFill(trades)) &&
       implementation === Implementation.UNISWAP
     ) {
-      calldatas.push(Payments.encodeRefundETH());
+      calldatas.push(Payments.encodeRefundETH())
     }
 
     log.info(LogCodes.TRADE_REBUILD, {
       inputIsNative,
       total: totalAmountIn.quotient,
       selected: inputIsNative ? totalAmountIn.quotient : ZERO,
-    });
+    })
 
     return {
       calldata: (!this.shouldUseMulticall(
         sampleTrade,
-        implementation ?? Implementation.UNISWAP,
+        implementation ?? Implementation.UNISWAP
       )
         ? calldatas[0]
         : MulticallExtended.encodeMulticall(
             calldatas,
-            options.deadlineOrPreviousBlockhash,
+            options.deadlineOrPreviousBlockhash
           ))!,
       value: toHex(inputIsNative ? totalAmountIn.quotient : ZERO),
-    };
+    }
   }
 
   /**
@@ -1041,7 +1041,7 @@ export abstract class SwapRouter {
     position: Position,
     addLiquidityOptions: CondensedAddLiquidityOptions,
     tokenInApprovalType: ApprovalTypes,
-    tokenOutApprovalType: ApprovalTypes,
+    tokenOutApprovalType: ApprovalTypes
   ): MethodParameters {
     const {
       calldatas,
@@ -1051,84 +1051,82 @@ export abstract class SwapRouter {
       totalAmountIn: totalAmountSwapped,
       quoteAmountOut,
       minimumAmountOut,
-    } = SwapRouter.encodeSwaps(trades, options, true);
+    } = SwapRouter.encodeSwaps(trades, options, true)
 
     // encode output token permit if necessary
     if (options.outputTokenPermit) {
-      invariant(quoteAmountOut.currency.isToken, "NON_TOKEN_PERMIT_OUTPUT");
+      invariant(quoteAmountOut.currency.isToken, "NON_TOKEN_PERMIT_OUTPUT")
       calldatas.push(
         SelfPermit.encodePermit(
           quoteAmountOut.currency,
-          options.outputTokenPermit,
-        ),
-      );
+          options.outputTokenPermit
+        )
+      )
     }
 
     if (sampleTrade.route === undefined) {
-      throw new Error("sample trade undefined");
+      throw new Error("sample trade undefined")
     }
 
-    const chainId = sampleTrade.route.chainId as ChainId;
+    const chainId = sampleTrade.route.chainId as ChainId
     const zeroForOne =
       position.pool.token0.wrapped.address ===
-      totalAmountSwapped.currency.wrapped.address;
+      totalAmountSwapped.currency.wrapped.address
     const { positionAmountIn, positionAmountOut } =
-      SwapRouter.getPositionAmounts(position, zeroForOne);
+      SwapRouter.getPositionAmounts(position, zeroForOne)
 
     // if tokens are native they will be converted to WETH9
     const tokenIn = inputIsNative
       ? WETH9[chainId]
-      : positionAmountIn.currency.wrapped;
+      : positionAmountIn.currency.wrapped
     const tokenOut = outputIsNative
       ? WETH9[chainId]
-      : positionAmountOut.currency.wrapped;
+      : positionAmountOut.currency.wrapped
 
     if (tokenOut === undefined) {
-      throw new Error("token out undefined");
+      throw new Error("token out undefined")
     }
 
     if (tokenIn === undefined) {
-      throw new Error("token in undefined");
+      throw new Error("token in undefined")
     }
 
     // if swap output does not make up whole outputTokenBalanceDesired, pull in remaining tokens for adding liquidity
     const amountOutRemaining = positionAmountOut.subtract(
-      quoteAmountOut.wrapped,
-    );
+      quoteAmountOut.wrapped
+    )
     if (
       amountOutRemaining.greaterThan(
-        CurrencyAmount.fromRawAmount(positionAmountOut.currency, 0),
+        CurrencyAmount.fromRawAmount(positionAmountOut.currency, 0)
       )
     ) {
       // if output is native, this means the remaining portion is included as native value in the transaction
       // and must be wrapped. Otherwise, pull in remaining ERC20 token.
       outputIsNative
         ? calldatas.push(
-            PaymentsExtended.encodeWrapETH(amountOutRemaining.quotient),
+            PaymentsExtended.encodeWrapETH(amountOutRemaining.quotient)
           )
         : calldatas.push(
-            PaymentsExtended.encodePull(tokenOut, amountOutRemaining.quotient),
-          );
+            PaymentsExtended.encodePull(tokenOut, amountOutRemaining.quotient)
+          )
     }
 
     // if input is native, convert to WETH9, else pull ERC20 token
     inputIsNative
       ? calldatas.push(
-          PaymentsExtended.encodeWrapETH(positionAmountIn.quotient),
+          PaymentsExtended.encodeWrapETH(positionAmountIn.quotient)
         )
       : calldatas.push(
-          PaymentsExtended.encodePull(tokenIn, positionAmountIn.quotient),
-        );
+          PaymentsExtended.encodePull(tokenIn, positionAmountIn.quotient)
+        )
 
     // approve token balances to NFTManager
     if (tokenInApprovalType !== ApprovalTypes.NOT_REQUIRED)
-      calldatas.push(
-        ApproveAndCall.encodeApprove(tokenIn, tokenInApprovalType),
-      );
+      calldatas.push(ApproveAndCall.encodeApprove(tokenIn, tokenInApprovalType))
     if (tokenOutApprovalType !== ApprovalTypes.NOT_REQUIRED)
       calldatas.push(
-        ApproveAndCall.encodeApprove(tokenOut, tokenOutApprovalType),
-      );
+        ApproveAndCall.encodeApprove(tokenOut, tokenOutApprovalType)
+      )
 
     // represents a position with token amounts resulting from a swap with maximum slippage
     // hence the minimal amount out possible.
@@ -1143,7 +1141,7 @@ export abstract class SwapRouter {
         ? minimumAmountOut.quotient
         : position.amount1.quotient,
       useFullPrecision: false,
-    });
+    })
 
     // encode NFTManager add liquidity
     calldatas.push(
@@ -1151,25 +1149,25 @@ export abstract class SwapRouter {
         position,
         minimalPosition,
         addLiquidityOptions,
-        options.slippageTolerance,
-      ),
-    );
+        options.slippageTolerance
+      )
+    )
 
     // sweep remaining tokens
     inputIsNative
       ? calldatas.push(PaymentsExtended.encodeUnwrapWETH9(ZERO))
-      : calldatas.push(PaymentsExtended.encodeSweepToken(tokenIn, ZERO));
+      : calldatas.push(PaymentsExtended.encodeSweepToken(tokenIn, ZERO))
     outputIsNative
       ? calldatas.push(PaymentsExtended.encodeUnwrapWETH9(ZERO))
-      : calldatas.push(PaymentsExtended.encodeSweepToken(tokenOut, ZERO));
+      : calldatas.push(PaymentsExtended.encodeSweepToken(tokenOut, ZERO))
 
-    let value: bigint;
+    let value: bigint
     if (inputIsNative) {
-      value = totalAmountSwapped.wrapped.add(positionAmountIn.wrapped).quotient;
+      value = totalAmountSwapped.wrapped.add(positionAmountIn.wrapped).quotient
     } else if (outputIsNative) {
-      value = amountOutRemaining.quotient;
+      value = amountOutRemaining.quotient
     } else {
-      value = ZERO;
+      value = ZERO
     }
 
     log.info(LogCodes.SWAP_AND_ADD_PARAMETERS, {
@@ -1183,25 +1181,25 @@ export abstract class SwapRouter {
         (sampleTrade.tradeType === TradeType.EXACT_OUTPUT ||
           SwapRouter.riskOfPartialFill(trades)),
       calldatas,
-    });
+    })
 
     return {
       calldata: MulticallExtended.encodeMulticall(
         calldatas,
-        options.deadlineOrPreviousBlockhash,
+        options.deadlineOrPreviousBlockhash
       ),
       value: value.toString(),
-    };
+    }
   }
 
   // if price impact is very high, there's a chance of hitting max/min prices resulting in a partial fill of the swap
   private static riskOfPartialFill(trades: AnyTradeType): boolean {
     if (Array.isArray(trades)) {
       return trades.some((trade) => {
-        return SwapRouter.v3TradeWithHighPriceImpact(trade);
-      });
+        return SwapRouter.v3TradeWithHighPriceImpact(trade)
+      })
     } else {
-      return SwapRouter.v3TradeWithHighPriceImpact(trades);
+      return SwapRouter.v3TradeWithHighPriceImpact(trades)
     }
   }
 
@@ -1210,34 +1208,34 @@ export abstract class SwapRouter {
       | Trade<Currency, Currency, TradeType>
       | V2Trade<Currency, Currency, TradeType>
       | V3Trade<Currency, Currency, TradeType>
-      | MixedRouteTrade<Currency, Currency, TradeType>,
+      | MixedRouteTrade<Currency, Currency, TradeType>
   ): boolean {
     return (
       !(trade instanceof V2Trade) &&
       trade.priceImpact.greaterThan(REFUND_ETH_PRICE_IMPACT_THRESHOLD)
-    );
+    )
   }
 
   private static getPositionAmounts(
     position: Position,
-    zeroForOne: boolean,
+    zeroForOne: boolean
   ): {
-    positionAmountIn: CurrencyAmount<Currency>;
-    positionAmountOut: CurrencyAmount<Currency>;
+    positionAmountIn: CurrencyAmount<Currency>
+    positionAmountOut: CurrencyAmount<Currency>
   } {
-    const { amount0, amount1 } = position.mintAmounts;
+    const { amount0, amount1 } = position.mintAmounts
     const currencyAmount0 = CurrencyAmount.fromRawAmount(
       position.pool.token0,
-      amount0,
-    );
+      amount0
+    )
     const currencyAmount1 = CurrencyAmount.fromRawAmount(
       position.pool.token1,
-      amount1,
-    );
+      amount1
+    )
 
     const [positionAmountIn, positionAmountOut] = zeroForOne
       ? [currencyAmount0, currencyAmount1]
-      : [currencyAmount1, currencyAmount0];
-    return { positionAmountIn, positionAmountOut };
+      : [currencyAmount1, currencyAmount0]
+    return { positionAmountIn, positionAmountOut }
   }
 }

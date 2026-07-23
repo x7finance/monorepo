@@ -1,27 +1,27 @@
-import React, { useContext } from "react";
+import React, { useContext } from "react"
 
-import type { ItemWithRenderProps } from "./donut-chart";
-import { DonutChartContext } from "./donut-chart";
+import type { ItemWithRenderProps } from "./types"
+import { DonutChartContext } from "./types"
 
 export interface Props {
-  item: ItemWithRenderProps;
+  item: ItemWithRenderProps
 }
 
 function coordinates(
   half: number,
   radius: number,
   startAngle: number,
-  endAngle: number,
+  endAngle: number
 ) {
-  const startAngleDegrees = (Math.PI * startAngle) / 180;
-  const endAngleDegrees = (Math.PI * endAngle) / 180;
+  const startAngleDegrees = (Math.PI * startAngle) / 180
+  const endAngleDegrees = (Math.PI * endAngle) / 180
 
   return {
     x1: half + half * radius * Math.cos(startAngleDegrees),
     y1: half + half * radius * Math.sin(startAngleDegrees),
     x2: half + half * radius * Math.cos(endAngleDegrees),
     y2: half + half * radius * Math.sin(endAngleDegrees),
-  };
+  }
 }
 
 function arc(
@@ -29,11 +29,11 @@ function arc(
   radius: number,
   largeArcFlag: string,
   x: number,
-  y: number,
+  y: number
 ) {
-  const z = (width / 2) * radius;
+  const z = (width / 2) * radius
 
-  return `A${z}, ${z} 0 ${largeArcFlag} ${x}, ${y}`;
+  return `A${z}, ${z} 0 ${largeArcFlag} ${x}, ${y}`
 }
 
 function path(
@@ -41,35 +41,35 @@ function path(
   startAngle: number,
   width: number,
   innerRadius: number,
-  outerRadius: number,
+  outerRadius: number
 ) {
-  const endAngle = startAngle + activeAngle;
+  const endAngle = startAngle + activeAngle
 
-  const largeArcFlagOuter = activeAngle > 180 ? "1 1" : "0 1";
-  const largeArcFlagInner = activeAngle > 180 ? "1 0" : "0 0";
-  const half = width / 2;
-  const outerCoords = coordinates(half, outerRadius, startAngle, endAngle);
-  const innerCoords = coordinates(half, innerRadius, startAngle, endAngle);
+  const largeArcFlagOuter = activeAngle > 180 ? "1 1" : "0 1"
+  const largeArcFlagInner = activeAngle > 180 ? "1 0" : "0 0"
+  const half = width / 2
+  const outerCoords = coordinates(half, outerRadius, startAngle, endAngle)
+  const innerCoords = coordinates(half, innerRadius, startAngle, endAngle)
 
   const outerArc = arc(
     width,
     outerRadius,
     largeArcFlagOuter,
     outerCoords.x2,
-    outerCoords.y2,
-  );
+    outerCoords.y2
+  )
   const innerArc = arc(
     width,
     innerRadius,
     largeArcFlagInner,
     innerCoords.x1,
-    innerCoords.y1,
-  );
+    innerCoords.y1
+  )
 
   return `M${outerCoords.x1},${outerCoords.y1}
   ${outerArc}
   L${innerCoords.x2},${innerCoords.y2}
-  ${innerArc} z`;
+  ${innerArc} z`
 }
 
 export const ArcPath: React.FC<Props> = ({ item }) => {
@@ -84,42 +84,36 @@ export const ArcPath: React.FC<Props> = ({ item }) => {
     toggledOffset,
     toggleSelect,
     total,
-  } = useContext(DonutChartContext);
-  const {
-    angle,
-    classNames,
-    clickHandlers,
-    isEmpty,
-    label,
-    value,
-    ...restItemRenderrops
-  } = item;
+  } = useContext(DonutChartContext)
+  const { angle, classNames, clickHandlers, isEmpty, label, value } = item
+  // Only extract valid SVG props — avoid spreading arbitrary data onto DOM elements
+  const { fill, opacity, stroke } = item
   const activeAngle =
     Number.isNaN(value / total) || total / value === 1
       ? 359.99
-      : (value / total) * 360;
-  let [inner, outer] = [innerRadius, outerRadius];
+      : (value / total) * 360
+  let [inner, outer] = [innerRadius, outerRadius]
 
   if (isEmpty) {
-    inner += emptyOffset;
-    outer -= emptyOffset;
+    inner += emptyOffset
+    outer -= emptyOffset
   } else if (selected?.label === label) {
     if (toggleSelect) {
-      inner -= toggledOffset;
-      outer += toggledOffset;
+      inner -= toggledOffset
+      outer += toggledOffset
     } else {
-      outer += selectedOffset;
+      outer += selectedOffset
     }
   }
 
   return (
     <path
-      {...{
-        ...clickHandlers,
-        ...restItemRenderrops,
-      }}
+      {...clickHandlers}
+      fill={fill}
+      opacity={opacity}
+      stroke={stroke}
       className={`${className}-arcs-path ${classNames}`}
       d={path(activeAngle, angle, graphWidth, inner, outer)}
-    ></path>
-  );
-};
+    />
+  )
+}

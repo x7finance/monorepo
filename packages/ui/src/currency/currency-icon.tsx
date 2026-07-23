@@ -1,38 +1,38 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 
-"use client";
+"use client"
 
-import { useMemo, useState } from "react";
-import Image from "next/image";
-import type { ImageProps } from "next/image";
+import type { ImageProps } from "next/image"
+import Image from "next/image"
+import { useMemo, useState } from "react"
 
-import type { Currency } from "@x7/utils";
-import { Chain } from "@x7/utils";
+import type { Currency } from "@x7/utils"
+import { Chain } from "@x7/utils"
 
-import { useAssetLogoSource } from "../hooks/use-token-logo-source";
-import { LinkExternal } from "../link";
+import { useAssetLogoSource } from "../hooks/use-token-logo-source"
+import { LinkExternal } from "../link"
 
 function djb2(str: string) {
-  let hash = 5381;
+  let hash = 5381
   for (let i = 0; i < str.length; i++) {
-    hash = (hash << 5) + hash + str.charCodeAt(i); /* hash * 33 + c */
+    hash = (hash << 5) + hash + str.charCodeAt(i) /* hash * 33 + c */
   }
-  return hash;
+  return hash
 }
 
 function hashStringToColor(str: string) {
-  const hash = djb2(str);
-  const r = (hash & 0xff0000) >> 16;
-  const g = (hash & 0x00ff00) >> 8;
-  const b = hash & 0x0000ff;
+  const hash = djb2(str)
+  const r = (hash & 0xff0000) >> 16
+  const g = (hash & 0x00ff00) >> 8
+  const b = hash & 0x0000ff
   return `#${`0${r.toString(16)}`.substr(-2)}${`0${g.toString(16)}`.substr(
-    -2,
-  )}${`0${b.toString(16)}`.substr(-2)}`;
+    -2
+  )}${`0${b.toString(16)}`.substr(-2)}`
 }
 
 export interface CurrencyIconProps extends Omit<ImageProps, "src" | "alt"> {
-  currency: Currency;
-  disableLink?: boolean;
+  currency: Currency
+  disableLink?: boolean
 }
 
 export const CurrencyIcon = ({
@@ -46,32 +46,32 @@ export const CurrencyIcon = ({
   const tokenAddress =
     "isToken" in currency && currency.isToken
       ? (currency as { address: `0x${string}` }).address
-      : undefined;
+      : undefined
 
   const [imgSrc, nextSrc] = useAssetLogoSource(
     tokenAddress,
     currency.chainId,
     currency.isNative,
-    "",
-  );
+    ""
+  )
 
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(false)
 
   // Generate fallback background color based on currency details
   const fallbackColor = useMemo(
     () => hashStringToColor(`${currency.symbol} ${currency.name}`),
-    [currency.symbol, currency.name],
-  );
+    [currency.symbol, currency.name]
+  )
 
   // Handle image loading error
   const handleError = () => {
-    setError(true);
-    if (nextSrc) nextSrc();
-  };
+    setError(true)
+    if (nextSrc) nextSrc()
+  }
 
   // Convert width/height to numbers with default value
-  const widthPx = typeof width === "number" ? width : Number(width || 20);
-  const heightPx = typeof height === "number" ? height : Number(height || 20);
+  const widthPx = typeof width === "number" ? width : Number(width || 20)
+  const heightPx = typeof height === "number" ? height : Number(height || 20)
 
   const fallbackElement = (
     <div
@@ -91,12 +91,12 @@ export const CurrencyIcon = ({
     >
       {currency.symbol?.substring(0, 2)}
     </div>
-  );
+  )
 
   // If we have no image source or encountered an error, show fallback
   if (!imgSrc || error) {
     if (disableLink) {
-      return fallbackElement;
+      return fallbackElement
     }
 
     return (
@@ -105,7 +105,7 @@ export const CurrencyIcon = ({
       >
         {fallbackElement}
       </LinkExternal>
-    );
+    )
   }
 
   // Render actual image if we have a valid source
@@ -136,10 +136,10 @@ export const CurrencyIcon = ({
         {...rest}
       />
     </div>
-  );
+  )
 
   if (disableLink) {
-    return imageElement;
+    return imageElement
   }
 
   return (
@@ -148,5 +148,5 @@ export const CurrencyIcon = ({
     >
       {imageElement}
     </LinkExternal>
-  );
-};
+  )
+}

@@ -1,35 +1,35 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { config } from "@react-spring/web";
-import type { Address } from "viem";
-import { useChainId } from "wagmi";
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+import { config } from "@react-spring/web"
+import type { Address } from "viem"
+import { useChainId } from "wagmi"
 
-import { cn } from "@x7/css";
+import { cn } from "@x7/css"
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@x7/ui/form";
-import { Slider } from "@x7/ui/slider";
-import { Tag } from "@x7/ui/tag";
-import type { ChainId } from "@x7/utils";
-
-import { SECONDS_IN_A_DAY } from "~/lib/constants/misc";
+} from "@x7/ui/form"
+import { Slider } from "@x7/ui/slider"
+import { Tag } from "@x7/ui/tag"
+import type { ChainId } from "@x7/utils"
+import { SECONDS_IN_A_DAY } from "~/lib/constants/misc"
 import {
   useMaximumLoanLengthSeconds,
   useMinimumLoanLengthSeconds,
-} from "~/lib/hooks/loans/useXchangeLoanData";
-import { generateX7InitialLiquidityLoanTermNumber } from "~/lib/utils/lending";
-import TextTransition from "../TextTransition";
+} from "~/lib/hooks/loans/useXchangeLoanData"
+import { generateX7InitialLiquidityLoanTermNumber } from "~/lib/utils/lending"
+
+import TextTransition from "../TextTransition"
 
 interface LoanTypeDurationProps {
-  form: any;
-  loanDuration: number;
-  setLoanDuration: (value: number) => void;
-  loanAddress: Address;
+  form: any
+  loanDuration: number
+  setLoanDuration: (value: number) => void
+  loanAddress: Address
 }
 
 export const LoanTypeDuration: React.FC<LoanTypeDurationProps> = ({
@@ -38,22 +38,22 @@ export const LoanTypeDuration: React.FC<LoanTypeDurationProps> = ({
   setLoanDuration,
   loanAddress,
 }) => {
-  const chainId = (useChainId() || 1) as ChainId;
+  const chainId = (useChainId() || 1) as ChainId
   const { minimumLoanLengthSeconds } = useMinimumLoanLengthSeconds(
     chainId,
-    generateX7InitialLiquidityLoanTermNumber(loanAddress.toString(), chainId),
-  );
+    generateX7InitialLiquidityLoanTermNumber(loanAddress.toString(), chainId)
+  )
   const { maximumLoanLengthSeconds } = useMaximumLoanLengthSeconds(
     chainId,
-    generateX7InitialLiquidityLoanTermNumber(loanAddress.toString(), chainId),
-  );
+    generateX7InitialLiquidityLoanTermNumber(loanAddress.toString(), chainId)
+  )
 
   const minimumLoanLengthDays = Math.ceil(
-    minimumLoanLengthSeconds / SECONDS_IN_A_DAY,
-  );
+    minimumLoanLengthSeconds / SECONDS_IN_A_DAY
+  )
   const maximumLoanLengthDays = Math.floor(
-    maximumLoanLengthSeconds / SECONDS_IN_A_DAY,
-  );
+    maximumLoanLengthSeconds / SECONDS_IN_A_DAY
+  )
 
   return (
     <FormField
@@ -71,7 +71,7 @@ export const LoanTypeDuration: React.FC<LoanTypeDurationProps> = ({
                 <div
                   className={cn(
                     `px-0.5`,
-                    loanDuration.toString().length > 1 ? "w-8" : "w-4",
+                    loanDuration.toString().length > 1 ? "w-8" : "w-4"
                   )}
                 >
                   <TextTransition springConfig={config.gentle} direction="down">
@@ -102,5 +102,5 @@ export const LoanTypeDuration: React.FC<LoanTypeDurationProps> = ({
         </FormItem>
       )}
     />
-  );
-};
+  )
+}

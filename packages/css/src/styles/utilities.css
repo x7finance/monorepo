@@ -1,0 +1,159 @@
+/* =============================================================================
+   Shared Utilities
+   packages/css/src/styles/utilities.css
+   ============================================================================= */
+
+@utility backdrop-blur-nav {
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+@utility header-tb-gradient {
+  background: linear-gradient(0deg, transparent, white 20%) no-repeat;
+}
+
+@utility header-tb-black {
+  background: transparent;
+}
+
+@utility text-hero {
+  background: -webkit-linear-gradient(top, #c94895, rgb(102, 108, 150));
+  -webkit-background-clip: text;
+  -webkit-text-stroke: 8px transparent;
+  color: rgba(255, 255, 255, 0.641);
+}
+
+@utility text-on {
+  -webkit-text-stroke: 3px transparent;
+
+  @media (width >= theme(--breakpoint-sm)) {
+    -webkit-text-stroke: 6px transparent;
+  }
+}
+
+@utility text-hero-header {
+  background: -webkit-linear-gradient(top, #ac00bf79, #ffffff5d);
+  -webkit-background-clip: text;
+  -webkit-text-stroke: 5px transparent;
+  color: black;
+}
+
+@utility text-hero-header-light {
+  background: -webkit-linear-gradient(top, #000000, #0000008d);
+  -webkit-background-clip: text;
+  -webkit-text-stroke: 4px transparent;
+  color: white;
+}
+
+@utility text-hero-header-regular {
+  background: -webkit-linear-gradient(top, #ffffff9b, #ffffff5d);
+  font-weight: bold;
+  -webkit-background-clip: text;
+  -webkit-text-stroke: 4px transparent;
+  color: black;
+}
+
+@utility nav-shadow {
+  box-shadow: inset 0 -1px hsl(var(--nav-shadow-color));
+}
+
+@utility circle-shadow {
+  box-shadow: 0 0 0 1.5px #52525b inset;
+}
+
+@utility dashboard-container {
+  @apply min-h-svh;
+}
+
+@utility connection-layout-shift {
+  position: relative;
+  right: var(--removed-body-scroll-bar-size) !important;
+}
+
+/* =============================================================================
+   COMPONENT STYLES
+   ============================================================================= */
+
+@layer components {
+  .loading-dot {
+    animation-delay: 0s;
+
+    &:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    &:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+  }
+
+  .rounded-header-corners {
+    border-radius: 4px;
+    border-spacing: 0;
+    border-collapse: separate;
+
+    thead tr:first-child th:first-child {
+      border-top-left-radius: 4px;
+    }
+
+    thead tr:last-child th:first-child {
+      border-bottom-left-radius: 4px;
+      @apply border-l border-zinc-200 dark:border-zinc-800;
+    }
+
+    thead tr:first-child th:last-child {
+      border-top-right-radius: 4px;
+    }
+
+    thead tr:last-child th:last-child {
+      border-bottom-right-radius: 4px;
+      @apply border-r border-zinc-200 dark:border-zinc-800;
+    }
+  }
+
+  .x-body tr:not(:last-child) td {
+    @apply border-b border-zinc-200 dark:border-zinc-800;
+  }
+
+  thead + .x-body tr:last-child td {
+    @apply border-b border-zinc-200 dark:border-zinc-800;
+  }
+}
+
+/* =============================================================================
+   UTILITY STYLES
+   ============================================================================= */
+
+@layer utilities {
+  .tracking-tightest {
+    letter-spacing: -0.06em;
+  }
+
+  .text-2xs {
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+  }
+
+  .scrollbar-minimal {
+    scrollbar-width: thin;
+    @apply [scrollbar-color:var(--color-zinc-300)_transparent] dark:[scrollbar-color:var(--color-zinc-600)_transparent];
+
+    &::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 3px;
+      @apply bg-zinc-300 dark:bg-muted-foreground/50;
+
+      &:hover {
+        @apply bg-zinc-400 dark:bg-muted-foreground/70;
+      }
+    }
+  }
+}

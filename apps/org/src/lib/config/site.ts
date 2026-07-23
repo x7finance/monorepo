@@ -1,4 +1,4 @@
-import type { Route } from "next";
+import type { Route } from "next"
 
 import {
   Discord,
@@ -8,11 +8,10 @@ import {
   Twitter,
   Warpcast,
   YouTube,
-} from "@x7/icons";
-import { SocialsEnum } from "@x7/utils";
-
-import { env } from "~/env.mjs";
-import type { SiteConfig } from "~/types";
+} from "@x7/icons"
+import { SocialsEnum } from "@x7/utils"
+import { env } from "~/env"
+import type { SiteConfig } from "~/types"
 import {
   CommunityLinks,
   DashboardLinksEnum,
@@ -21,7 +20,7 @@ import {
   NftsLinkEnum,
   TokenLinksEnum,
   XchangeLinks,
-} from "~/types/links";
+} from "~/types/links"
 
 export const siteConfig: SiteConfig = {
   name: "X7 Finance",
@@ -32,7 +31,7 @@ export const siteConfig: SiteConfig = {
     twitter: SocialsEnum.twitter,
     github: SocialsEnum.github,
   },
-};
+}
 
 export const NOT_FOUND_LINKS = [
   {
@@ -61,7 +60,7 @@ export const NOT_FOUND_LINKS = [
     href: DocsLinks.Whitepaper,
     description: "Read the X7 Finance whitepaper from our founding devs.",
   },
-] satisfies { href: Route; name: string; description: string }[];
+] satisfies { href: Route; name: string; description: string }[]
 
 export const DESKTOP_NAV_LINKS = [
   { name: "Get Started", href: MarketingLinks.GetStarted },
@@ -69,7 +68,7 @@ export const DESKTOP_NAV_LINKS = [
   { name: "Tokens", href: TokenLinksEnum.Index },
   { name: "Docs", href: DocsLinks.Index },
   { name: "Blog", href: MarketingLinks.Blog },
-] satisfies { href: Route; name: string; isExternal?: boolean }[];
+] satisfies { href: Route; name: string; isExternal?: boolean }[]
 
 export const MOBILE_NAV_LINKS = [
   { name: "Get Started", href: MarketingLinks.GetStarted },
@@ -77,13 +76,13 @@ export const MOBILE_NAV_LINKS = [
   { name: "Tokens", href: TokenLinksEnum.Index },
   { name: "Docs", href: DocsLinks.Index },
   { name: "Blog", href: MarketingLinks.Blog },
-] satisfies { href: Route; name: string }[];
+] satisfies { href: Route; name: string }[]
 
 export const DASHBOARD_TABS_NAV = [
   { name: "Ecosystem", href: DashboardLinksEnum.Index },
   { name: "NFTs", href: DashboardLinksEnum.Marketplace },
   { name: "Docs", href: DocsLinks.Index },
-];
+]
 
 export const FOOTER_NAVIGATION = {
   tokens: [
@@ -162,4 +161,4 @@ export const FOOTER_NAVIGATION = {
       icon: Github,
     },
   ],
-};
+}

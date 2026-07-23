@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-"use client";
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+"use client"
 
-import { useCallback, useEffect, useState } from "react";
-import { useAccount } from "wagmi";
+import { useCallback, useEffect, useState } from "react"
+import { useAccount } from "wagmi"
 
-import { Button } from "@x7/ui/button";
+import { Button } from "@x7/ui/button"
 import {
   Card,
   CardContent,
@@ -12,27 +12,27 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@x7/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@x7/ui/tabs";
-import type { ActiveChainId } from "@x7/utils";
+} from "@x7/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@x7/ui/tabs"
+import type { ActiveChainId } from "@x7/utils"
+import { CurrencyInput } from "~/lib/components/utils/currency-input"
+import { ConnectionComponent } from "~/lib/components/utils/web3-connect-button"
+import { X7D } from "~/lib/constants/tokens"
+import { useBalanceWeb3 } from "~/lib/hooks/balances/useBalanceWeb3"
+import { useNativeCurrency } from "~/lib/hooks/currency/useNativeCurrency"
 
-import { CurrencyInput } from "~/lib/components/utils/currency-input";
-import { ConnectionComponent } from "~/lib/components/utils/web3-connect-button";
-import { X7D } from "~/lib/constants/tokens";
-import { useBalanceWeb3 } from "~/lib/hooks/balances/useBalanceWeb3";
-import { useNativeCurrency } from "~/lib/hooks/currency/useNativeCurrency";
-import { useX7DMinting } from "../../fund/_hooks/useX7DMinting";
-import { useX7DRedeem } from "../../fund/_hooks/useX7DRedeem";
+import { useX7DMinting } from "../../fund/_hooks/useX7DMinting"
+import { useX7DRedeem } from "../../fund/_hooks/useX7DRedeem"
 
 export function X7DFunding() {
-  const [refetchCount, setRefetchCount] = useState<number>(0);
-  const [valueInput, setValueInput] = useState<string>("");
-  const [redeemInput, setRedeemInput] = useState<string>("");
-  const [activeTab, setActiveTab] = useState<string>("mint-x7d");
+  const [refetchCount, setRefetchCount] = useState<number>(0)
+  const [valueInput, setValueInput] = useState<string>("")
+  const [redeemInput, setRedeemInput] = useState<string>("")
+  const [activeTab, setActiveTab] = useState<string>("mint-x7d")
 
-  const { address, chain, isConnected } = useAccount();
+  const { address, chain, isConnected } = useAccount()
 
-  const chainId = chain?.id as ActiveChainId;
+  const chainId = chain?.id as ActiveChainId
 
   const {
     writeContract,
@@ -42,14 +42,14 @@ export function X7DFunding() {
   } = useX7DMinting({
     valueInput,
     setRefetchCount,
-  });
+  })
   const {
     writeContract: writeContractRedeem,
     data: redeemData,
     isPending: redeemPending,
     isSuccess: isSuccessfulRedeem,
-  } = useX7DRedeem({ redeemInput, setRefetchCount });
-  const nativeCurrency = useNativeCurrency({ chainId });
+  } = useX7DRedeem({ redeemInput, setRefetchCount })
+  const nativeCurrency = useNativeCurrency({ chainId })
 
   const {
     data: balance,
@@ -59,39 +59,37 @@ export function X7DFunding() {
     chainId,
     account: address,
     currency: X7D[chainId],
-  });
+  })
 
-  const [big, portion] = (balance ? `${balance.toFixed(2)}` : "0.00").split(
-    ".",
-  );
+  const [big, portion] = (balance ? `${balance.toFixed(2)}` : "0.00").split(".")
 
   const handleMint = useCallback(() => {
     if (valueInput && data?.request) {
-      writeContract(data.request);
+      writeContract(data.request)
     }
-  }, [valueInput, data, writeContract]);
+  }, [valueInput, data, writeContract])
 
   const handleRedeem = useCallback(() => {
     if (redeemInput && redeemData?.request) {
-      writeContractRedeem(redeemData.request);
+      writeContractRedeem(redeemData.request)
     }
-  }, [redeemInput, redeemData, writeContractRedeem]);
+  }, [redeemInput, redeemData, writeContractRedeem])
 
   const refetchBalancesCallback = useCallback(() => {
-    void refetchBalances({ cancelRefetch: true });
-  }, [refetchBalances]);
+    void refetchBalances({ cancelRefetch: true })
+  }, [refetchBalances])
 
   useEffect(() => {
-    refetchBalancesCallback();
-  }, [refetchCount, refetchBalancesCallback]);
+    refetchBalancesCallback()
+  }, [refetchCount, refetchBalancesCallback])
 
   useEffect(() => {
     if (isSuccessfulMint || isSuccessfulRedeem) {
-      refetchBalancesCallback();
-      setRedeemInput("");
-      setValueInput("");
+      refetchBalancesCallback()
+      setRedeemInput("")
+      setValueInput("")
     }
-  }, [isSuccessfulMint, isSuccessfulRedeem, refetchBalancesCallback]);
+  }, [isSuccessfulMint, isSuccessfulRedeem, refetchBalancesCallback])
 
   return (
     <Card className="mx-auto mt-6 max-w-2xl">
@@ -222,5 +220,5 @@ export function X7DFunding() {
         {!isConnected && !address && <ConnectionComponent />}
       </CardFooter>
     </Card>
-  );
+  )
 }

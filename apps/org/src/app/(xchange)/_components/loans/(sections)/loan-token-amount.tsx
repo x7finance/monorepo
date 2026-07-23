@@ -1,38 +1,38 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { useState } from "react";
-import { config } from "@react-spring/web";
-import type { Address } from "viem";
-import { useChainId } from "wagmi";
+import { config } from "@react-spring/web"
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+import { useState } from "react"
+import type { Address } from "viem"
+import { useChainId } from "wagmi"
 
-import { cn } from "@x7/css";
-import { PencilIcon } from "@x7/icons";
+import { cn } from "@x7/css"
+import { PencilIcon } from "@x7/icons"
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@x7/ui/form";
-import { Input } from "@x7/ui/input";
-import { Slider } from "@x7/ui/slider";
-import { Tag } from "@x7/ui/tag";
-import type { ChainId } from "@x7/utils";
-
-import { useNativeCurrency } from "~/lib/hooks/currency/useNativeCurrency";
+} from "@x7/ui/form"
+import { Input } from "@x7/ui/input"
+import { Slider } from "@x7/ui/slider"
+import { Tag } from "@x7/ui/tag"
+import type { ChainId } from "@x7/utils"
+import { useNativeCurrency } from "~/lib/hooks/currency/useNativeCurrency"
 import {
   useMaximumLoanAmount,
   useMinimumLoanAmount,
-} from "~/lib/hooks/loans/useXchangeLoanData";
-import { generateX7InitialLiquidityLoanTermNumber } from "~/lib/utils/lending";
-import TextTransition from "../TextTransition";
+} from "~/lib/hooks/loans/useXchangeLoanData"
+import { generateX7InitialLiquidityLoanTermNumber } from "~/lib/utils/lending"
+
+import TextTransition from "../TextTransition"
 
 interface LoanTokenAmountProps {
-  form: any;
-  loanAmount: string;
-  setLoanAmount: (value: string) => void;
-  loanAddress: Address;
+  form: any
+  loanAmount: string
+  setLoanAmount: (value: string) => void
+  loanAddress: Address
 }
 
 export const LoanTokenAmount: React.FC<LoanTokenAmountProps> = ({
@@ -41,18 +41,18 @@ export const LoanTokenAmount: React.FC<LoanTokenAmountProps> = ({
   setLoanAmount,
   loanAddress,
 }) => {
-  const [showCustomInput, setShowCustomInput] = useState(false);
-  const chainId = (useChainId() || 1) as ChainId;
+  const [showCustomInput, setShowCustomInput] = useState(false)
+  const chainId = (useChainId() || 1) as ChainId
   const { minimumLoanAmount } = useMinimumLoanAmount(
     chainId,
-    generateX7InitialLiquidityLoanTermNumber(loanAddress.toString(), chainId),
-  );
+    generateX7InitialLiquidityLoanTermNumber(loanAddress.toString(), chainId)
+  )
   const { maximumLoanAmount } = useMaximumLoanAmount(
     chainId,
-    generateX7InitialLiquidityLoanTermNumber(loanAddress.toString(), chainId),
-  );
+    generateX7InitialLiquidityLoanTermNumber(loanAddress.toString(), chainId)
+  )
 
-  const { symbol } = useNativeCurrency({ chainId });
+  const { symbol } = useNativeCurrency({ chainId })
 
   return (
     <FormField
@@ -70,7 +70,7 @@ export const LoanTokenAmount: React.FC<LoanTokenAmountProps> = ({
                 <div
                   className={cn(
                     `px-0.5`,
-                    loanAmount.toString().length > 1 ? "w-18" : "w-4",
+                    loanAmount.toString().length > 1 ? "w-18" : "w-4"
                   )}
                 >
                   <TextTransition springConfig={config.gentle} direction="down">
@@ -118,5 +118,5 @@ export const LoanTokenAmount: React.FC<LoanTokenAmountProps> = ({
         </FormItem>
       )}
     />
-  );
-};
+  )
+}

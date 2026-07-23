@@ -1,27 +1,26 @@
-import { useAccount } from "wagmi";
+import { useAccount } from "wagmi"
 
-import { Card, CardContent } from "@x7/ui/card";
-import { LinkExternal } from "@x7/ui/link";
-import type { ChainId } from "@x7/utils";
-
-import { getChainInfo } from "~/lib/constants/chainInfo";
+import { Card, CardContent } from "@x7/ui/card"
+import { LinkExternal } from "@x7/ui/link"
+import type { ChainId } from "@x7/utils"
+import { getChainInfo } from "~/lib/constants/chainInfo"
 
 interface ActivityTransactionProps {
-  hash: string;
-  value: string;
-  blockNum: string;
-  asset: string;
+  hash: string
+  value: string
+  blockNum: string
+  asset: string
 }
 
 export function ActivityAlchemyTransaction({
   transaction,
 }: {
-  transaction: ActivityTransactionProps;
+  transaction: ActivityTransactionProps
 }) {
-  const { hash, value, blockNum, asset } = transaction;
-  const { chain } = useAccount();
-  const chainId = chain?.id as ChainId;
-  const chainInfo = getChainInfo(chainId);
+  const { hash, value, blockNum, asset } = transaction
+  const { chain } = useAccount()
+  const chainId = chain?.id as ChainId
+  const chainInfo = getChainInfo(chainId)
 
   return (
     <Card
@@ -50,5 +49,5 @@ export function ActivityAlchemyTransaction({
         </p>
       </CardContent>
     </Card>
-  );
+  )
 }

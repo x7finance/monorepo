@@ -1,19 +1,19 @@
-export function handleMintV2(event: PairCreatedEvent): void {}
+export function handleMintV2(_event: PairCreatedEvent): void {}
 
-export function handleBurnV2(event: PoolCreatedEvent): void {}
+export function handleBurnV2(_event: PoolCreatedEvent): void {}
 
-export function handleSwapV2(event: PairCreatedEvent): void {}
+export function handleSwapV2(_event: PairCreatedEvent): void {}
 
-export function handleSync(event: PairCreatedEvent): void {}
+export function handleSync(_event: PairCreatedEvent): void {}
 
-export function handleTransfer(event: PairCreatedEvent): void {}
+export function handleTransfer(_event: PairCreatedEvent): void {}
 
-export function handleMintV3(event: PairCreatedEvent): void {}
+export function handleMintV3(_event: PairCreatedEvent): void {}
 
-export function handleBurnV3(event: PairCreatedEvent): void {}
+export function handleBurnV3(_event: PairCreatedEvent): void {}
 
-export function handleCollectV3(event: PairCreatedEvent): void {}
+export function handleCollectV3(_event: PairCreatedEvent): void {}
 
-export function handleSwapV3(event: PairCreatedEvent): void {}
+export function handleSwapV3(_event: PairCreatedEvent): void {}
 
-export function handleFlashV3(event: PairCreatedEvent): void {}
+export function handleFlashV3(_event: PairCreatedEvent): void {}

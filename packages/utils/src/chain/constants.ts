@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
+/* oxlint-disable @typescript-eslint/no-duplicate-enum-values */
 
 export const ChainId = {
   ETHEREUM: 1,
@@ -13,9 +13,9 @@ export const ChainId = {
   OPTIMISM_TESTNET: 11155420,
   BASE: 8453,
   BASE_TESTNET: 84532,
-} as const;
+} as const
 
-export type ChainId = (typeof ChainId)[keyof typeof ChainId];
+export type ChainId = (typeof ChainId)[keyof typeof ChainId]
 
 export type ActiveChainId =
   | typeof ChainId.BASE
@@ -29,7 +29,7 @@ export type ActiveChainId =
   | typeof ChainId.POLYGON_TESTNET
   | typeof ChainId.ARBITRUM_TESTNET
   | typeof ChainId.OPTIMISM_TESTNET
-  | typeof ChainId.BASE_TESTNET;
+  | typeof ChainId.BASE_TESTNET
 
 export const TESTNET_CHAIN_IDS = [
   ChainId.ETHEREUM_TESTNET,
@@ -38,9 +38,9 @@ export const TESTNET_CHAIN_IDS = [
   ChainId.BSC_TESTNET,
   ChainId.POLYGON_TESTNET,
   ChainId.BASE_TESTNET,
-] as const;
+] as const
 
-export type TestnetChainId = (typeof TESTNET_CHAIN_IDS)[number];
+export type TestnetChainId = (typeof TESTNET_CHAIN_IDS)[number]
 
 export const ChainNameKey = {
   [ChainId.ARBITRUM]: "arbitrum",
@@ -54,8 +54,8 @@ export const ChainNameKey = {
   [ChainId.OPTIMISM]: "optimism",
   [ChainId.BASE]: "base",
   [ChainId.BASE_TESTNET]: "base-testnet",
-} as const;
-export type ChainNameKey = (typeof ChainNameKey)[keyof typeof ChainNameKey];
+} as const
+export type ChainNameKey = (typeof ChainNameKey)[keyof typeof ChainNameKey]
 
 export const L1_CHAIN_IDS = [
   ChainId.ETHEREUM,
@@ -64,9 +64,9 @@ export const L1_CHAIN_IDS = [
   ChainId.POLYGON_TESTNET,
   ChainId.BSC,
   ChainId.BSC_TESTNET,
-] as const;
+] as const
 
-export type SupportedL1ChainId = (typeof L1_CHAIN_IDS)[number];
+export type SupportedL1ChainId = (typeof L1_CHAIN_IDS)[number]
 
 /**
  * Controls some L2 specific behavior, e.g. slippage tolerance, special UI behavior.
@@ -79,9 +79,9 @@ export const L2_CHAIN_IDS = [
   ChainId.BASE_TESTNET,
   ChainId.OPTIMISM,
   ChainId.OPTIMISM_TESTNET,
-] as const;
+] as const
 
-export type SupportedL2ChainId = (typeof L2_CHAIN_IDS)[number];
+export type SupportedL2ChainId = (typeof L2_CHAIN_IDS)[number]
 
 export const XCHANGE_V2_SUPPORTED_CHAIN_IDS = [
   ChainId.BASE,
@@ -96,28 +96,28 @@ export const XCHANGE_V2_SUPPORTED_CHAIN_IDS = [
   ChainId.OPTIMISM_TESTNET,
   ChainId.POLYGON,
   ChainId.POLYGON_TESTNET,
-];
+]
 
 export function generateChainIdByName(chain: ChainShortNameType): ChainId {
   switch (chain) {
     case ChainShortNameEnum.eth:
-      return ChainId.ETHEREUM;
+      return ChainId.ETHEREUM
     case ChainShortNameEnum.eth_testnet:
-      return ChainId.ETHEREUM_TESTNET;
+      return ChainId.ETHEREUM_TESTNET
     case ChainShortNameEnum.bsc:
-      return ChainId.BSC;
+      return ChainId.BSC
     case ChainShortNameEnum.polygon:
-      return ChainId.POLYGON;
+      return ChainId.POLYGON
     case ChainShortNameEnum.arbitrum:
-      return ChainId.ARBITRUM;
+      return ChainId.ARBITRUM
     case ChainShortNameEnum.optimism:
-      return ChainId.OPTIMISM;
+      return ChainId.OPTIMISM
     case ChainShortNameEnum.base:
-      return ChainId.BASE;
+      return ChainId.BASE
     case ChainShortNameEnum.base_testnet:
-      return ChainId.BASE_TESTNET;
+      return ChainId.BASE_TESTNET
     default:
-      return ChainId.ETHEREUM;
+      return ChainId.ETHEREUM
   }
 }
 
@@ -160,7 +160,7 @@ export type ChainShortNameType =
   | ChainShortNameEnum.polygon
   | ChainShortNameEnum.base
   | ChainShortNameEnum.base_testnet
-  | ChainShortNameEnum.eth_testnet;
+  | ChainShortNameEnum.eth_testnet
 
 export enum ChainIdentifierEnum {
   eth = "eth",
@@ -218,14 +218,14 @@ export const NETWORKS_WITH_SAME_UNISWAP_ADDRESSES = [
   ChainId.ARBITRUM,
   ChainId.POLYGON,
   ChainId.POLYGON_TESTNET,
-];
+]
 
 export const V2_SUPPORTED = [
   ChainId.ETHEREUM,
   ChainId.ETHEREUM_TESTNET,
   ChainId.BASE,
   ChainId.BASE_TESTNET,
-];
+]
 
 export const HAS_L1_FEE: ChainId[] = [
   ChainId.OPTIMISM,
@@ -233,4 +233,4 @@ export const HAS_L1_FEE: ChainId[] = [
   ChainId.ARBITRUM_TESTNET,
   ChainId.BASE,
   ChainId.BASE_TESTNET,
-];
+]

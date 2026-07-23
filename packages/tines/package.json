@@ -2,32 +2,46 @@
   "name": "@x7/tines",
   "version": "0.0.1",
   "private": true,
-  "license": "UNLICENSED",
+  "description": "AMM pool math and liquidity calculations for X7 Finance",
+  "license": "MIT",
   "type": "module",
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "default": "./src/index.ts"
+      "default": "./dist/index.js"
     }
   },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
-    "clean": "git clean -xdf .turbo node_modules",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
-    "lint": "eslint",
+    "build": "tsc",
+    "clean": "git clean -xdf .turbo node_modules dist",
+    "dev": "tsc --watch",
+    "format": "oxfmt --check --config ../../tooling/oxfmt/.oxfmtrc.json src/",
+    "format:fix": "oxfmt --write --config ../../tooling/oxfmt/.oxfmtrc.json src/",
+    "lint": "oxlint src/",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest watch",
     "typecheck": "tsc --noEmit"
   },
-  "prettier": "@x7/prettier-config",
   "dependencies": {
     "@x7/utils": "workspace:*",
     "seedrandom": "^3.0.5",
-    "viem": "^2.23.13"
+    "viem": "^2.55.7"
   },
   "devDependencies": {
-    "@types/node": "^22.13.10",
+    "@types/node": "^22.20.1",
     "@types/seedrandom": "^3.0.8",
-    "@x7/eslint-config": "workspace:*",
-    "@x7/prettier-config": "workspace:*",
     "@x7/tsconfig": "workspace:*",
-    "typescript": "catalog:"
+    "oxlint": "^1.75.0",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.10"
   }
 }

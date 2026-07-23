@@ -1,60 +1,60 @@
-import type { FC } from "react";
-import { useCallback, useState } from "react";
+import type { FC } from "react"
+import { useCallback, useState } from "react"
 
-import { cn } from "@x7/css";
-import { AlertCircleIcon, InfoIcon, PencilIcon } from "@x7/icons";
-import { useSlippageTolerance } from "@x7/ui";
-import { Alert, AlertDescription, AlertTitle } from "@x7/ui/alert";
-import { CardDescription, CardHeader, CardTitle } from "@x7/ui/card";
-import { Collapsible } from "@x7/ui/collapsible";
+import { cn } from "@x7/css"
+import { AlertCircleIcon, InfoIcon, PencilIcon } from "@x7/icons"
+import { useSlippageTolerance } from "@x7/ui"
+import { Alert, AlertDescription, AlertTitle } from "@x7/ui/alert"
+import { CardDescription, CardHeader, CardTitle } from "@x7/ui/card"
+import { Collapsible } from "@x7/ui/collapsible"
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@x7/ui/hover-card";
-import { Input } from "@x7/ui/input";
-import { Label } from "@x7/ui/label";
-import { LinkInternal } from "@x7/ui/link";
-import { Slider } from "@x7/ui/slider";
-import { Switch } from "@x7/ui/switch";
+} from "@x7/ui/hover-card"
+import { Input } from "@x7/ui/input"
+import { Label } from "@x7/ui/label"
+import { LinkInternal } from "@x7/ui/link"
+import { Slider } from "@x7/ui/slider"
+import { Switch } from "@x7/ui/switch"
+
+const formatSlippage = (value: number): string => {
+  if (Number.isInteger(value)) {
+    return value.toString()
+  }
+  return value.toFixed(1)
+}
 
 export const SlippageTolerance: FC<{
   options?: {
-    storageKey?: string;
-    defaultValue?: string;
-    title?: string;
-  };
-  showAutoSelector?: boolean;
+    storageKey?: string
+    defaultValue?: string
+    title?: string
+  }
+  showAutoSelector?: boolean
 }> = ({ options, showAutoSelector = true }) => {
   const [slippageTolerance, setSlippageTolerance] = useSlippageTolerance(
-    options?.storageKey,
-  );
+    options?.storageKey
+  )
 
-  const [showCustomInput, setShowCustomInput] = useState(false);
-
-  const formatSlippage = (value: number): string => {
-    if (Number.isInteger(value)) {
-      return value.toString();
-    }
-    return value.toFixed(1);
-  };
+  const [showCustomInput, setShowCustomInput] = useState(false)
 
   const onChange = useCallback(
     (value: string) => {
-      const numValue = parseFloat(value);
+      const numValue = parseFloat(value)
       if (!isNaN(numValue)) {
-        const formattedValue = formatSlippage(numValue);
-        setSlippageTolerance(formattedValue);
+        const formattedValue = formatSlippage(numValue)
+        setSlippageTolerance(formattedValue)
       }
     },
-    [setSlippageTolerance],
-  );
+    [setSlippageTolerance]
+  )
 
   const isDangerous =
     (!Number.isNaN(+slippageTolerance) && +slippageTolerance >= 5) ||
     (!Number.isNaN(+slippageTolerance) &&
       +slippageTolerance < 0.1 &&
-      +slippageTolerance > 0);
+      +slippageTolerance > 0)
 
   return (
     <HoverCard openDelay={0} closeDelay={0}>
@@ -83,7 +83,7 @@ export const SlippageTolerance: FC<{
                         slippageTolerance === "AUTO"
                           ? "bg-emerald-500!"
                           : "bg-zinc-300",
-                        "focus-visible:ring-emerald-500",
+                        "focus-visible:ring-emerald-500"
                       )}
                     />
                   </div>
@@ -125,7 +125,7 @@ export const SlippageTolerance: FC<{
           <span
             className={cn(
               isDangerous ? "text-red-500" : "text-muted-foreground",
-              "text-sm font-semibold",
+              "text-sm font-semibold"
             )}
           >
             {slippageTolerance === "AUTO" ? "0.5%" : `${slippageTolerance}%`}
@@ -177,5 +177,5 @@ export const SlippageTolerance: FC<{
         </Collapsible>
       </div>
     </HoverCard>
-  );
-};
+  )
+}

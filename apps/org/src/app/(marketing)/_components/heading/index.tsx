@@ -1,10 +1,10 @@
-import React from "react";
+import React from "react"
 
 interface HeadingProps {
-  eyebrow?: string;
-  title: string;
-  subHeader?: string | React.JSX.Element;
-  id: string;
+  eyebrow?: string
+  title: string
+  subHeader?: string | React.JSX.Element
+  id: string
 }
 
 export const Heading: React.FC<HeadingProps> = ({
@@ -34,5 +34,5 @@ export const Heading: React.FC<HeadingProps> = ({
         )}
       </div>
     </div>
-  );
-};
+  )
+}

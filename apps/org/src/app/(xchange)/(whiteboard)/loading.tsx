@@ -1,7 +1,7 @@
-import React from "react";
+import React from "react"
 
-import { Container } from "@x7/ui/container";
-import { SkeletonBox } from "@x7/ui/skeleton";
+import { Container } from "@x7/ui/container"
+import { SkeletonBox } from "@x7/ui/skeleton"
 
 export default function SimpleSwapLoading() {
   return (
@@ -20,5 +20,5 @@ export default function SimpleSwapLoading() {
         </div>
       </div>
     </Container>
-  );
+  )
 }

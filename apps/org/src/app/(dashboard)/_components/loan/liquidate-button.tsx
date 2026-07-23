@@ -1,28 +1,27 @@
-import { useAccount } from "wagmi";
+import { useAccount } from "wagmi"
 
-import { cn } from "@x7/css";
-import { Button, buttonVariants } from "@x7/ui/button";
-import type { ChainId } from "@x7/utils";
-
-import { useLiquidate } from "~/lib/hooks/loans/useLiquidate";
+import { cn } from "@x7/css"
+import { Button, buttonVariants } from "@x7/ui/button"
+import type { ChainId } from "@x7/utils"
+import { useLiquidate } from "~/lib/hooks/loans/useLiquidate"
 
 interface LiquidateButtonProps {
-  loanId: number;
-  chainId?: ChainId;
+  loanId: number
+  chainId?: ChainId
 }
 
 export function LiquidateButton({ loanId }: LiquidateButtonProps) {
-  const { isConnected } = useAccount();
+  const { isConnected } = useAccount()
   const { writeContract, data, isPending } = useLiquidate({
     loanId,
-  });
+  })
 
   const handleLiquidation = () => {
     if (loanId > 0) {
       // @ts-expect-error: todo fix
-      writeContract(data?.request);
+      writeContract(data?.request)
     }
-  };
+  }
 
   return (
     <Button
@@ -32,11 +31,11 @@ export function LiquidateButton({ loanId }: LiquidateButtonProps) {
         buttonVariants({
           variant: "outline",
         }),
-        "mt-2",
+        "mt-2"
       )}
       onClick={handleLiquidation}
     >
       liquidate
     </Button>
-  );
+  )
 }

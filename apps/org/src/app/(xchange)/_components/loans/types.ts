@@ -1,43 +1,42 @@
-import { useMemo } from "react";
-import { useChainId } from "wagmi";
+import { useMemo } from "react"
+import { useChainId } from "wagmi"
 
-import { X7ContractsEnum } from "@x7/sdk";
-import type { ActiveChainId, Currency } from "@x7/utils";
-
-import type { ApprovalState } from "~/lib/hooks/approvals/useTokenApproval";
+import { X7ContractsEnum } from "@x7/sdk"
+import type { ActiveChainId, Currency } from "@x7/utils"
+import type { ApprovalState } from "~/lib/hooks/approvals/useTokenApproval"
 
 export interface LoanTermData {
-  readonly address: `0x${string}`;
-  readonly id: string;
-  readonly name: string;
-  readonly description: string;
-  readonly leverage: string;
-  readonly loanOriginationFee: string;
-  readonly loanRetentionPremium: string;
-  readonly principalRepaymentCondition: string;
-  readonly principalRepaymentDuring: boolean;
-  readonly color: string;
+  readonly address: `0x${string}`
+  readonly id: string
+  readonly name: string
+  readonly description: string
+  readonly leverage: string
+  readonly loanOriginationFee: string
+  readonly loanRetentionPremium: string
+  readonly principalRepaymentCondition: string
+  readonly principalRepaymentDuring: boolean
+  readonly color: string
   readonly loanSize: {
-    min: number;
-    max: number;
-  };
+    min: number
+    max: number
+  }
   readonly loanLength: {
-    min: number;
-    max: number;
-  };
+    min: number
+    max: number
+  }
 }
 
 export interface TokenApprovals {
-  approval: ApprovalState;
-  amount: bigint;
-  address: `0x${string}`;
-  token: Currency | undefined;
+  approval: ApprovalState
+  amount: bigint
+  address: `0x${string}`
+  token: Currency | undefined
 }
 
-export type LoanTermDataMap = Readonly<Record<string, LoanTermData>>;
+export type LoanTermDataMap = Readonly<Record<string, LoanTermData>>
 
 export const useLoanTerms = () => {
-  const chainId = useChainId() as ActiveChainId;
+  const chainId = useChainId() as ActiveChainId
 
   const LOAN_TERMS: LoanTermDataMap = useMemo(
     () => ({
@@ -104,8 +103,8 @@ export const useLoanTerms = () => {
         },
       },
     }),
-    [chainId],
-  );
+    [chainId]
+  )
 
-  return LOAN_TERMS;
-};
+  return LOAN_TERMS
+}

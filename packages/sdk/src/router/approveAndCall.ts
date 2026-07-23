@@ -1,20 +1,20 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-import invariant from "tiny-invariant";
-import { encodeFunctionData } from "viem";
+/* oxlint-disable @typescript-eslint/no-empty-function */
+import invariant from "tiny-invariant"
+import { encodeFunctionData } from "viem"
 
-import { approveAndCallABI, nfPositionManagerABI } from "@x7/contracts";
-import type { Currency, Percent, Token } from "@x7/utils";
+import { approveAndCallABI, nfPositionManagerABI } from "@x7/contracts"
+import type { Currency, Percent, Token } from "@x7/utils"
 
 import type {
   IncreaseSpecificOptions,
   MintSpecificOptions,
   Position,
-} from "../v3";
+} from "../v3"
 
 // condensed version of v3-sdk AddLiquidityOptions containing only necessary swap + add attributes
 export type CondensedAddLiquidityOptions =
   | Omit<MintSpecificOptions, "createPool">
-  | IncreaseSpecificOptions;
+  | IncreaseSpecificOptions
 
 export enum ApprovalTypes {
   NOT_REQUIRED = 0,
@@ -26,9 +26,9 @@ export enum ApprovalTypes {
 
 // type guard
 export function isMint(
-  options: CondensedAddLiquidityOptions,
+  options: CondensedAddLiquidityOptions
 ): options is Omit<MintSpecificOptions, "createPool"> {
-  return Object.keys(options).some((k) => k === "recipient");
+  return Object.keys(options).some((k) => k === "recipient")
 }
 
 export abstract class ApproveAndCall {
@@ -42,7 +42,7 @@ export abstract class ApproveAndCall {
       abi: approveAndCallABI,
       functionName: "approveMax",
       args: [token.address],
-    });
+    })
   }
 
   public static encodeApproveMaxMinusOne(token: Token): string {
@@ -50,7 +50,7 @@ export abstract class ApproveAndCall {
       abi: approveAndCallABI,
       functionName: "approveMaxMinusOne",
       args: [token.address],
-    });
+    })
   }
 
   public static encodeApproveZeroThenMax(token: Token): string {
@@ -58,7 +58,7 @@ export abstract class ApproveAndCall {
       abi: approveAndCallABI,
       functionName: "approveZeroThenMax",
       args: [token.address],
-    });
+    })
   }
 
   public static encodeApproveZeroThenMaxMinusOne(token: Token): string {
@@ -66,29 +66,29 @@ export abstract class ApproveAndCall {
       abi: approveAndCallABI,
       functionName: "approveZeroThenMaxMinusOne",
       args: [token.address],
-    });
+    })
   }
 
   public static encodeCallPositionManager(calldatas: string[]): string {
-    invariant(calldatas.length > 0, "NULL_CALLDATA");
+    invariant(calldatas.length > 0, "NULL_CALLDATA")
 
-    if (calldatas.length == 1) {
+    if (calldatas.length === 1) {
       return encodeFunctionData({
         abi: approveAndCallABI,
         functionName: "callPositionManager",
         args: [calldatas[0] as `0x${string}`],
-      });
+      })
     } else {
       const encodedMulticall = encodeFunctionData({
         abi: nfPositionManagerABI,
         functionName: "multicall",
         args: [calldatas as `0x${string}`[]],
-      });
+      })
       return encodeFunctionData({
         abi: approveAndCallABI,
         functionName: "callPositionManager",
         args: [encodedMulticall],
-      });
+      })
     }
   }
   /**
@@ -102,19 +102,19 @@ export abstract class ApproveAndCall {
     position: Position,
     minimalPosition: Position,
     addLiquidityOptions: CondensedAddLiquidityOptions,
-    slippageTolerance: Percent,
+    slippageTolerance: Percent
   ): string {
     let { amount0: amount0Min, amount1: amount1Min } =
-      position.mintAmountsWithSlippage(slippageTolerance);
+      position.mintAmountsWithSlippage(slippageTolerance)
 
     // position.mintAmountsWithSlippage() can create amounts not dependenable in scenarios
     // such as range orders. Allow the option to provide a position with custom minimum amounts
     // for these scenarios
     if (minimalPosition.amount0.quotient < amount0Min) {
-      amount0Min = minimalPosition.amount0.quotient;
+      amount0Min = minimalPosition.amount0.quotient
     }
     if (minimalPosition.amount1.quotient < amount1Min) {
-      amount1Min = minimalPosition.amount1.quotient;
+      amount1Min = minimalPosition.amount1.quotient
     }
 
     if (isMint(addLiquidityOptions)) {
@@ -133,7 +133,7 @@ export abstract class ApproveAndCall {
             recipient: addLiquidityOptions.recipient,
           },
         ],
-      });
+      })
     } else {
       return encodeFunctionData({
         abi: approveAndCallABI,
@@ -147,25 +147,25 @@ export abstract class ApproveAndCall {
             tokenId: BigInt(addLiquidityOptions.tokenId),
           },
         ],
-      });
+      })
     }
   }
 
   public static encodeApprove(
     token: Currency,
-    approvalType: ApprovalTypes,
+    approvalType: ApprovalTypes
   ): string {
     switch (approvalType) {
       case ApprovalTypes.MAX:
-        return ApproveAndCall.encodeApproveMax(token.wrapped);
+        return ApproveAndCall.encodeApproveMax(token.wrapped)
       case ApprovalTypes.MAX_MINUS_ONE:
-        return ApproveAndCall.encodeApproveMaxMinusOne(token.wrapped);
+        return ApproveAndCall.encodeApproveMaxMinusOne(token.wrapped)
       case ApprovalTypes.ZERO_THEN_MAX:
-        return ApproveAndCall.encodeApproveZeroThenMax(token.wrapped);
+        return ApproveAndCall.encodeApproveZeroThenMax(token.wrapped)
       case ApprovalTypes.ZERO_THEN_MAX_MINUS_ONE:
-        return ApproveAndCall.encodeApproveZeroThenMaxMinusOne(token.wrapped);
+        return ApproveAndCall.encodeApproveZeroThenMaxMinusOne(token.wrapped)
       default:
-        throw new Error("Invalid ApprovalType");
+        throw new Error("Invalid ApprovalType")
     }
   }
 }

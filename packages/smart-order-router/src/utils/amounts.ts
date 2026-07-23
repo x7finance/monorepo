@@ -1,47 +1,47 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-import { parseUnits } from "viem";
+/* oxlint-disable @typescript-eslint/restrict-template-expressions */
+import { parseUnits } from "viem"
 
-import { FeeAmount } from "@x7/sdk";
-import { CurrencyAmount as CurrencyAmountRaw } from "@x7/utils";
-import type { Currency } from "@x7/utils";
+import { FeeAmount } from "@x7/sdk"
+import type { Currency } from "@x7/utils"
+import { CurrencyAmount as CurrencyAmountRaw } from "@x7/utils"
 
 export class CurrencyAmount extends CurrencyAmountRaw<Currency> {}
 
-export const MAX_UINT160 = "0xffffffffffffffffffffffffffffffffffffffff";
+export const MAX_UINT160 = "0xffffffffffffffffffffffffffffffffffffffff"
 
 // Try to parse a user entered amount for a given token
 export function parseAmount(value: string, currency: Currency): CurrencyAmount {
-  const typedValueParsed = parseUnits(value, currency.decimals).toString();
+  const typedValueParsed = parseUnits(value, currency.decimals).toString()
 
-  return CurrencyAmount.fromRawAmount(currency, BigInt(typedValueParsed));
+  return CurrencyAmount.fromRawAmount(currency, BigInt(typedValueParsed))
 }
 
 export function parseFeeAmount(feeAmountStr: string) {
   switch (feeAmountStr) {
     case "10000":
-      return FeeAmount.HIGH;
+      return FeeAmount.HIGH
     case "3000":
-      return FeeAmount.MEDIUM;
+      return FeeAmount.MEDIUM
     case "500":
-      return FeeAmount.LOW;
+      return FeeAmount.LOW
     case "100":
-      return FeeAmount.LOWEST;
+      return FeeAmount.LOWEST
     default:
-      throw new Error(`Fee amount ${feeAmountStr} not supported.`);
+      throw new Error(`Fee amount ${feeAmountStr} not supported.`)
   }
 }
 
 export function unparseFeeAmount(feeAmount: FeeAmount) {
   switch (feeAmount) {
     case FeeAmount.HIGH:
-      return "10000";
+      return "10000"
     case FeeAmount.MEDIUM:
-      return "3000";
+      return "3000"
     case FeeAmount.LOW:
-      return "500";
+      return "500"
     case FeeAmount.LOWEST:
-      return "100";
+      return "100"
     default:
-      throw new Error(`Fee amount ${feeAmount} not supported.`);
+      throw new Error(`Fee amount ${feeAmount} not supported.`)
   }
 }

@@ -1,37 +1,37 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-base-to-string */
-import type { Options as RetryOptions } from "async-retry";
-import retry from "async-retry";
-import _ from "lodash";
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-unsafe-call */
+/* oxlint-disable @typescript-eslint/no-unsafe-argument */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/restrict-template-expressions */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-base-to-string */
+import type { Options as RetryOptions } from "async-retry"
+import retry from "async-retry"
+import _ from "lodash"
 
-import IUniswapV3Pool from "@x7/contracts/artifacts/contracts/v3-core/interfaces/IUniswapV3Pool.sol/IUniswapV3Pool.json";
-import type { FeeAmount } from "@x7/sdk";
+import IUniswapV3Pool from "@x7/contracts/artifacts/contracts/v3-core/interfaces/IUniswapV3Pool.sol/IUniswapV3Pool.json"
+import type { FeeAmount } from "@x7/sdk"
 import {
   computePoolAddress,
   FACTORY_ADDRESSES,
   PAIR_INIT_HASH,
   Pool,
-} from "@x7/sdk";
-import { getLogger, LogCodes, Protocol, ServiceNames } from "@x7/utils";
-import type { ChainId, Implementation, Token } from "@x7/utils";
+} from "@x7/sdk"
+import type { ChainId, Implementation, Token } from "@x7/utils"
+import { getLogger, LogCodes, Protocol, ServiceNames } from "@x7/utils"
 
-import { log } from "../../utils";
-import { poolToString } from "../../utils/routes";
-import type { IMulticallProvider, Result } from "../multicall-provider";
-import type { ProviderConfig } from "../provider";
+import { log } from "../../utils/log"
+import { poolToString } from "../../utils/route-string"
+import type { IMulticallProvider, Result } from "../multicall-provider"
+import type { ProviderConfig } from "../provider"
 
-const logger = getLogger({ serviceName: ServiceNames.SMART_ORDER_ROUTER });
+const logger = getLogger({ serviceName: ServiceNames.SMART_ORDER_ROUTER })
 
 export interface V3ImplementationPair {
-  address: string;
-  fee: FeeAmount;
-  implementation: Implementation;
+  address: string
+  fee: FeeAmount
+  implementation: Implementation
 }
 /**
  * Provider or getting V3 pools.
@@ -49,8 +49,8 @@ export interface IV3PoolProvider {
    */
   getPools(
     tokenPairs: [Token, Token, FeeAmount][],
-    providerConfig?: ProviderConfig,
-  ): Promise<V3PoolAccessor>;
+    providerConfig?: ProviderConfig
+  ): Promise<V3PoolAccessor>
 
   /**
    * Gets the pool address for the specified token pair and fee tier.
@@ -63,8 +63,8 @@ export interface IV3PoolProvider {
   getPoolAddress(
     tokenA: Token,
     tokenB: Token,
-    feeAmount: FeeAmount,
-  ): { poolAddress: V3ImplementationPair; token0: Token; token1: Token };
+    feeAmount: FeeAmount
+  ): { poolAddress: V3ImplementationPair; token0: Token; token1: Token }
   /**
    * Gets the pool address for the specified token pair and fee tier.
    *
@@ -77,26 +77,26 @@ export interface IV3PoolProvider {
     tokenA: Token,
     tokenB: Token,
     feeAmount: FeeAmount,
-    forceAllImplementations?: boolean,
-  ): { poolAddresses: V3ImplementationPair[]; token0: Token; token1: Token };
+    forceAllImplementations?: boolean
+  ): { poolAddresses: V3ImplementationPair[]; token0: Token; token1: Token }
 }
 
 export interface V3PoolAccessor {
   getPool: (
     tokenA: Token,
     tokenB: Token,
-    feeAmount: FeeAmount,
-  ) => (Pool | undefined)[];
-  getPoolByAddress: (address: string) => Pool | undefined;
-  getAllPools: () => Pool[];
+    feeAmount: FeeAmount
+  ) => (Pool | undefined)[]
+  getPoolByAddress: (address: string) => Pool | undefined
+  getAllPools: () => Pool[]
 }
 
-export type V3PoolRetryOptions = RetryOptions;
+export type V3PoolRetryOptions = RetryOptions
 
 export class V3PoolProvider implements IV3PoolProvider {
   // Computing pool addresses is slow as it requires hashing, encoding etc.
   // Addresses never change so can always be cached.
-  private POOL_ADDRESS_CACHE: Record<string, V3ImplementationPair[]> = {};
+  private POOL_ADDRESS_CACHE: Record<string, V3ImplementationPair[]> = {}
 
   /**
    * Creates an instance of V3PoolProvider.
@@ -112,26 +112,26 @@ export class V3PoolProvider implements IV3PoolProvider {
       retries: 2,
       minTimeout: 50,
       maxTimeout: 500,
-    },
+    }
   ) {}
 
   public async getPools(
     tokenPairs: [Token, Token, FeeAmount][],
-    providerConfig?: ProviderConfig,
+    providerConfig?: ProviderConfig
   ): Promise<V3PoolAccessor> {
-    const poolAddressSet: Set<string> = new Set<string>();
-    const sortedTokenPairs = new Map<string, [Token, Token, FeeAmount]>();
-    const sortedPoolAddresses: V3ImplementationPair[] = [];
+    const poolAddressSet: Set<string> = new Set<string>()
+    const sortedTokenPairs = new Map<string, [Token, Token, FeeAmount]>()
+    const sortedPoolAddresses: V3ImplementationPair[] = []
 
     for (const tokenPair of tokenPairs) {
-      const [tokenA, tokenB, feeAmount] = tokenPair;
+      const [tokenA, tokenB, feeAmount] = tokenPair
 
       const { poolAddresses, token0, token1 } = this.getPoolAddresses(
         tokenA,
         tokenB,
         feeAmount,
-        providerConfig?.forceAllImplementations ?? false,
-      );
+        providerConfig?.forceAllImplementations ?? false
+      )
 
       // console.log(`Debug Token Readout`, {
       //   tokenA: `${tokenA.symbol} - ${tokenA.address}`,
@@ -143,33 +143,33 @@ export class V3PoolProvider implements IV3PoolProvider {
         poolAddresses.filter((impPair) => poolAddressSet.has(impPair.address))
           .length > 0
       ) {
-        continue;
+        continue
       }
 
       poolAddresses.map((impPair) => {
-        poolAddressSet.add(impPair.address);
-        sortedTokenPairs.set(impPair.address, [token0, token1, feeAmount]);
-        sortedPoolAddresses.push(impPair);
-      });
+        poolAddressSet.add(impPair.address)
+        sortedTokenPairs.set(impPair.address, [token0, token1, feeAmount])
+        sortedPoolAddresses.push(impPair)
+      })
     }
 
     logger.debug(
       LogCodes.FETCHING_POOLS,
-      `getPools called with ${tokenPairs.length} token pairs. Deduped down to ${poolAddressSet.size}`,
-    );
+      `getPools called with ${tokenPairs.length} token pairs. Deduped down to ${poolAddressSet.size}`
+    )
 
     const [slot0Results, liquidityResults] = await Promise.all([
       this.getPoolsData<any>(
         sortedPoolAddresses.map((impPair) => impPair.address),
         "slot0",
-        providerConfig,
+        providerConfig
       ),
       this.getPoolsData<any>(
         sortedPoolAddresses.map((impPair) => impPair.address),
         "liquidity",
-        providerConfig,
+        providerConfig
       ),
-    ]);
+    ])
     // console.log(`Results from stuff2`, {
     //   slot0Results,
     //   liquidityResults,
@@ -181,18 +181,18 @@ export class V3PoolProvider implements IV3PoolProvider {
         providerConfig?.blockNumber
           ? `as of block: ${providerConfig.blockNumber}.`
           : ``
-      }`,
-    );
+      }`
+    )
 
-    const poolAddressToPool: Record<string, Pool> = {};
+    const poolAddressToPool: Record<string, Pool> = {}
 
-    const invalidPools: [Token, Token, FeeAmount][] = [];
+    const invalidPools: [Token, Token, FeeAmount][] = []
 
     for (let i = 0; i < sortedPoolAddresses.length; i++) {
-      const slot0Result = slot0Results[i];
-      const liquidityResult = liquidityResults[i];
-      const poolAddress = sortedPoolAddresses[i]?.address as `0x${string}`;
-      const implementation = sortedPoolAddresses[i]?.implementation;
+      const slot0Result = slot0Results[i]
+      const liquidityResult = liquidityResults[i]
+      const poolAddress = sortedPoolAddresses[i]?.address as `0x${string}`
+      const implementation = sortedPoolAddresses[i]?.implementation
 
       // console.log(`Results from stuff`, {
       //   slot0Result,
@@ -204,18 +204,18 @@ export class V3PoolProvider implements IV3PoolProvider {
       if (
         !slot0Result?.success ||
         !liquidityResult?.success ||
-        BigInt(slot0Result.result[0]) == BigInt(0) ||
-        BigInt(liquidityResult.result) == BigInt(0)
+        BigInt(slot0Result.result[0]) === BigInt(0) ||
+        BigInt(liquidityResult.result) === BigInt(0)
       ) {
-        const [token0, token1, fee] = sortedTokenPairs.get(poolAddress)!;
-        invalidPools.push([token0, token1, fee]);
+        const [token0, token1, fee] = sortedTokenPairs.get(poolAddress)!
+        invalidPools.push([token0, token1, fee])
 
-        continue;
+        continue
       }
 
-      const [token0, token1, fee] = sortedTokenPairs.get(poolAddress)!;
-      const slot0 = slot0Result.result;
-      const liquidity = liquidityResult.result;
+      const [token0, token1, fee] = sortedTokenPairs.get(poolAddress)!
+      const slot0 = slot0Result.result
+      const liquidity = liquidityResult.result
 
       const pool = new Pool(
         token0,
@@ -224,16 +224,16 @@ export class V3PoolProvider implements IV3PoolProvider {
         slot0[0].toString(),
         liquidity,
         slot0[1],
-        implementation!,
-      );
+        implementation!
+      )
 
-      poolAddressToPool[poolAddress] = pool;
+      poolAddressToPool[poolAddress] = pool
     }
 
     if (invalidPools.length > 0) {
       console.log(`Invalid pools`, {
         invalidPools,
-      });
+      })
       logger.error(
         LogCodes.FAIL,
         `${invalidPools.length} pools invalid after checking their slot0 and liquidity results. Dropping.`,
@@ -241,68 +241,68 @@ export class V3PoolProvider implements IV3PoolProvider {
           invalidPools: _.map(
             invalidPools,
             ([token0, token1, fee]) =>
-              `${token0.symbol}/${token1.symbol}/${fee / 10000}%`,
+              `${token0.symbol}/${token1.symbol}/${fee / 10000}%`
           ),
-        },
-      );
+        }
+      )
     }
 
-    const poolStrs = _.map(Object.values(poolAddressToPool), poolToString);
+    const poolStrs = _.map(Object.values(poolAddressToPool), poolToString)
 
     logger.debug(
       LogCodes.FETCHING_POOLS,
       `Found ${poolStrs.length} valid pools`,
-      { poolStrs },
-    );
+      { poolStrs }
+    )
 
     return {
       getPool: (
         tokenA: Token,
         tokenB: Token,
-        feeAmount: FeeAmount,
+        feeAmount: FeeAmount
       ): (Pool | undefined)[] => {
         const { poolAddresses } = this.getPoolAddresses(
           tokenA,
           tokenB,
           feeAmount,
-          providerConfig?.forceAllImplementations ?? false,
-        );
+          providerConfig?.forceAllImplementations ?? false
+        )
         return poolAddresses.map(
-          (impPair) => poolAddressToPool[impPair.address] ?? undefined,
-        );
+          (impPair) => poolAddressToPool[impPair.address] ?? undefined
+        )
       },
       getPoolByAddress: (address: string): Pool | undefined =>
         poolAddressToPool[address],
       getAllPools: (): Pool[] => Object.values(poolAddressToPool),
-    };
+    }
   }
 
   public getPoolAddress(
     tokenA: Token,
     tokenB: Token,
-    feeAmount: FeeAmount,
+    feeAmount: FeeAmount
   ): { poolAddress: V3ImplementationPair; token0: Token; token1: Token } {
     const [token0, token1] = tokenA.sortsBefore(tokenB)
       ? [tokenA, tokenB]
-      : [tokenB, tokenA];
+      : [tokenB, tokenA]
 
-    const cacheKey = `${this.chainId}/${token0.address}/${token1.address}/${feeAmount}`;
+    const cacheKey = `${this.chainId}/${token0.address}/${token1.address}/${feeAmount}`
 
     const cachedAddresses =
       this.POOL_ADDRESS_CACHE[cacheKey]?.filter(
         (ca) =>
           ca.address.length > 0 &&
           this.activeImplementations(this.chainId, false).includes(
-            ca.implementation,
-          ),
-      ) ?? [];
+            ca.implementation
+          )
+      ) ?? []
 
     if (cachedAddresses.length) {
       return {
         poolAddress: cachedAddresses.find((ca) => ca.address.length > 0)!,
         token0,
         token1,
-      };
+      }
     }
 
     const allPools = this.activeImplementations(this.chainId, false).map(
@@ -318,41 +318,41 @@ export class V3PoolProvider implements IV3PoolProvider {
             initCodeHashManualOverride:
               PAIR_INIT_HASH[this.chainId][imp][Protocol.V3],
           }),
-        };
-      },
-    );
+        }
+      }
+    )
 
-    const poolAddress = allPools.filter((ca) => ca.address.length > 0);
-    this.POOL_ADDRESS_CACHE[cacheKey] = poolAddress;
+    const poolAddress = allPools.filter((ca) => ca.address.length > 0)
+    this.POOL_ADDRESS_CACHE[cacheKey] = poolAddress
 
     return {
       poolAddress: poolAddress.find((ca) => ca.address.length > 0)!,
       token0,
       token1,
-    };
+    }
   }
 
   public getPoolAddresses(
     tokenA: Token,
     tokenB: Token,
     feeAmount: FeeAmount,
-    forceAllImplementations = false,
+    forceAllImplementations = false
   ): { poolAddresses: V3ImplementationPair[]; token0: Token; token1: Token } {
     const [token0, token1] = tokenA.sortsBefore(tokenB)
       ? [tokenA, tokenB]
-      : [tokenB, tokenA];
+      : [tokenB, tokenA]
 
-    const cacheKey = `${this.chainId}/${token0.address}/${token1.address}/${feeAmount}`;
+    const cacheKey = `${this.chainId}/${token0.address}/${token1.address}/${feeAmount}`
 
-    const cachedAddress = this.POOL_ADDRESS_CACHE[cacheKey];
+    const cachedAddress = this.POOL_ADDRESS_CACHE[cacheKey]
 
     if (cachedAddress && !forceAllImplementations) {
-      return { poolAddresses: cachedAddress, token0, token1 };
+      return { poolAddresses: cachedAddress, token0, token1 }
     }
 
     const allPools = this.activeImplementations(
       this.chainId,
-      forceAllImplementations,
+      forceAllImplementations
     ).map((imp) => {
       return {
         implementation: imp,
@@ -365,30 +365,30 @@ export class V3PoolProvider implements IV3PoolProvider {
           initCodeHashManualOverride:
             PAIR_INIT_HASH[this.chainId][imp][Protocol.V3],
         }),
-      };
-    });
+      }
+    })
 
-    const poolAddresses = allPools.filter((imp) => imp.address.length > 0);
+    const poolAddresses = allPools.filter((imp) => imp.address.length > 0)
     log.info(
       LogCodes.GET_POOL_ADDRESSES,
       `Get Pool Addresses: ${poolAddresses.length}`,
       {
         poolAddresses,
-      },
-    );
+      }
+    )
 
-    this.POOL_ADDRESS_CACHE[cacheKey] = poolAddresses;
+    this.POOL_ADDRESS_CACHE[cacheKey] = poolAddresses
 
-    return { poolAddresses, token0, token1 };
+    return { poolAddresses, token0, token1 }
   }
 
   private activeImplementations(
     chainId: ChainId,
-    forceAllImplementations: boolean,
+    forceAllImplementations: boolean
   ): Implementation[] {
-    const factoryAddresses = FACTORY_ADDRESSES[chainId];
-    const pairInitHashes = PAIR_INIT_HASH[chainId];
-    const activeImplementations: Implementation[] = [];
+    const factoryAddresses = FACTORY_ADDRESSES[chainId]
+    const pairInitHashes = PAIR_INIT_HASH[chainId]
+    const activeImplementations: Implementation[] = []
 
     if (factoryAddresses && pairInitHashes) {
       Object.entries(factoryAddresses).forEach(
@@ -399,19 +399,19 @@ export class V3PoolProvider implements IV3PoolProvider {
             (forceAllImplementations ||
               this.enabledImplementations.includes(implementation))
           ) {
-            activeImplementations.push(implementation);
+            activeImplementations.push(implementation)
           }
-        },
-      );
+        }
+      )
     }
 
-    return activeImplementations;
+    return activeImplementations
   }
 
   private async getPoolsData<TReturn>(
     poolAddresses: string[],
     functionName: string,
-    providerConfig?: ProviderConfig,
+    providerConfig?: ProviderConfig
   ): Promise<Result<TReturn>[]> {
     const { results, blockNumber } = await retry(async () => {
       return this.multicall2Provider.callSameFunctionOnMultipleContracts<
@@ -422,14 +422,14 @@ export class V3PoolProvider implements IV3PoolProvider {
         contractInterface: IUniswapV3Pool.abi,
         functionName: functionName,
         providerConfig,
-      });
-    }, this.retryOptions);
+      })
+    }, this.retryOptions)
 
     logger.debug(
       LogCodes.FETCHING_POOLS,
-      `Pool data fetched as of block ${blockNumber}`,
-    );
+      `Pool data fetched as of block ${blockNumber}`
+    )
 
-    return results;
+    return results
   }
 }

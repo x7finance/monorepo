@@ -1,24 +1,24 @@
-import type { ReactNode } from "react";
-import React from "react";
+import type { ReactNode } from "react"
+import React from "react"
 
-import { cn } from "@x7/css";
+import { cn } from "@x7/css"
 
-type CalloutType = "note" | "warning";
+type CalloutType = "note" | "warning"
 
 interface CalloutProps {
-  type?: CalloutType;
-  title: string;
-  children: ReactNode;
+  type?: CalloutType
+  title: string
+  children: ReactNode
 }
 
 type Styles = Record<
   string,
   {
-    container: string;
-    title: string;
-    body: string;
+    container: string
+    title: string
+    body: string
   }
->;
+>
 
 const styles: Styles = {
   note: {
@@ -33,7 +33,7 @@ const styles: Styles = {
     title: "text-amber-900 dark:text-amber-500",
     body: "text-amber-800 [--tw-prose-underline:var(--color-amber-400)] [--tw-prose-background:var(--color-amber-50)] prose-a:text-amber-900 prose-code:text-amber-900 dark:text-zinc-300 dark:[--tw-prose-underline:var(--color-violet-700)] dark:prose-code:text-zinc-300",
   },
-};
+}
 
 export function Callout({ type = "note", title, children }: CalloutProps) {
   return (
@@ -42,7 +42,7 @@ export function Callout({ type = "note", title, children }: CalloutProps) {
         <p
           className={cn(
             "font-display m-0 text-xl font-medium",
-            styles[type]?.title,
+            styles[type]?.title
           )}
         >
           {title}
@@ -50,5 +50,5 @@ export function Callout({ type = "note", title, children }: CalloutProps) {
         <div className={cn("prose mt-2.5", styles[type]?.body)}>{children}</div>
       </div>
     </div>
-  );
+  )
 }

@@ -2,34 +2,45 @@
   "name": "@x7/contracts",
   "version": "0.0.1",
   "description": "Contracts for building applications on top of Xchange",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "default": "./src/index.ts"
+      "default": "./dist/index.js"
     },
     "./artifacts/*": "./artifacts/*"
   },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "artifacts"
+  ],
   "scripts": {
     "build": "hardhat compile && tsc",
     "clean": "git clean -xdf .turbo artifacts node_modules cache dist",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
-    "lint": "eslint",
-    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+    "dev": "tsc --watch",
+    "format": "oxfmt --check --config ../../tooling/oxfmt/.oxfmtrc.json src/index.ts",
+    "format:fix": "oxfmt --write --config ../../tooling/oxfmt/.oxfmtrc.json src/index.ts",
+    "lint": "oxlint src/",
+    "typecheck": "tsc --noEmit"
   },
-  "prettier": "@x7/prettier-config",
   "devDependencies": {
+    "@nomicfoundation/hardhat-ignition": "^0.15.16",
     "@nomicfoundation/hardhat-toolbox-viem": "^3.0.0",
-    "@x7/eslint-config": "workspace:*",
-    "@x7/prettier-config": "workspace:*",
+    "@nomicfoundation/hardhat-viem": "^2.1.4",
+    "@nomicfoundation/ignition-core": "^0.15.15",
     "@x7/tsconfig": "workspace:*",
-    "base64-sol": "1.0.1",
-    "decimal.js": "^10.5.0",
-    "dotenv": "^16.4.7",
-    "eslint": "catalog:",
-    "hardhat": "^2.22.19",
+    "base64-sol": "1.1.0",
+    "decimal.js": "^10.6.0",
+    "dotenv": "^17.4.2",
+    "hardhat": "^2.29.0",
     "hardhat-viem": "^1.0.0",
-    "typescript": "catalog:"
+    "oxlint": "^1.75.0",
+    "typescript": "^7.0.2",
+    "viem": "^2.55.7"
   }
 }

@@ -1,42 +1,42 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-import type { Options as RetryOptions } from "async-retry";
-import retry from "async-retry";
-import _ from "lodash";
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-unsafe-argument */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+import type { Options as RetryOptions } from "async-retry"
+import retry from "async-retry"
+import _ from "lodash"
 
-import IUniswapV2Pair from "@x7/contracts/artifacts/contracts/v2-core/UniswapV2Pair.sol/UniswapV2Pair.json";
-import { FACTORY_ADDRESSES, Pair, PAIR_INIT_HASH } from "@x7/sdk";
+import IUniswapV2Pair from "@x7/contracts/artifacts/contracts/v2-core/UniswapV2Pair.sol/UniswapV2Pair.json"
+import { FACTORY_ADDRESSES, Pair, PAIR_INIT_HASH } from "@x7/sdk"
+import type { ChainId } from "@x7/utils"
 import {
   CurrencyAmount,
   Implementation,
   LogCodes,
   Protocol,
   Token,
-} from "@x7/utils";
-import type { ChainId } from "@x7/utils";
+} from "@x7/utils"
 
-import { log } from "../../utils";
-import type { IMulticallProvider, Result } from "../multicall-provider";
-import type { ProviderConfig } from "../provider";
+import { log } from "../../utils/log"
+import type { IMulticallProvider, Result } from "../multicall-provider"
+import type { ProviderConfig } from "../provider"
 import type {
   ITokenPropertiesProvider,
   TokenPropertiesMap,
-} from "../token-properties-provider";
-import { TokenValidationResult } from "../token-validator-provider";
+} from "../token-properties-provider"
+import { TokenValidationResult } from "../token-validator-provider"
 
 type IReserves = [
   reserve0: bigint,
   reserve1: bigint,
   blockTimestampLast: number,
-];
+]
 
 export interface ImplementationPair {
-  address: string;
-  implementation: Implementation;
+  address: string
+  implementation: Implementation
 }
 
 /**
@@ -55,8 +55,8 @@ export interface IV2PoolProvider {
    */
   getPools(
     tokenPairs: [Token, Token][],
-    providerConfig?: ProviderConfig,
-  ): Promise<V2PoolAccessor>;
+    providerConfig?: ProviderConfig
+  ): Promise<V2PoolAccessor>
 
   /**
    * Gets the pool address for the specified token pair.
@@ -67,8 +67,8 @@ export interface IV2PoolProvider {
    */
   getPoolAddress(
     tokenA: Token,
-    tokenB: Token,
-  ): { poolAddress: ImplementationPair; token0: Token; token1: Token };
+    tokenB: Token
+  ): { poolAddress: ImplementationPair; token0: Token; token1: Token }
 
   /**
    * Gets the pool address for the specified token pair.
@@ -80,22 +80,22 @@ export interface IV2PoolProvider {
   getPoolAddresses(
     tokenA: Token,
     tokenB: Token,
-    forceAllImplementations?: boolean,
-  ): { poolAddresses: ImplementationPair[]; token0: Token; token1: Token };
+    forceAllImplementations?: boolean
+  ): { poolAddresses: ImplementationPair[]; token0: Token; token1: Token }
 }
 
 export interface V2PoolAccessor {
-  getPool: (tokenA: Token, tokenB: Token) => (Pair | undefined)[];
-  getPoolByAddress: (address: string) => Pair | undefined;
-  getAllPools: () => Pair[];
+  getPool: (tokenA: Token, tokenB: Token) => (Pair | undefined)[]
+  getPoolByAddress: (address: string) => Pair | undefined
+  getAllPools: () => Pair[]
 }
 
-export type V2PoolRetryOptions = RetryOptions;
+export type V2PoolRetryOptions = RetryOptions
 
 export class V2PoolProvider implements IV2PoolProvider {
   // Computing pool addresses is slow as it requires hashing, encoding etc.
   // Addresses never change so can always be cached.
-  private POOL_ADDRESS_CACHE: Record<string, ImplementationPair[]> = {};
+  private POOL_ADDRESS_CACHE: Record<string, ImplementationPair[]> = {}
 
   /**
    * Creates an instance of V2PoolProvider.
@@ -113,38 +113,38 @@ export class V2PoolProvider implements IV2PoolProvider {
       retries: 2,
       minTimeout: 50,
       maxTimeout: 500,
-    },
+    }
   ) {}
 
   public async getPools(
     tokenPairs: [Token, Token][],
-    providerConfig?: ProviderConfig,
+    providerConfig?: ProviderConfig
   ): Promise<V2PoolAccessor> {
-    const poolAddressSet: Set<string> = new Set<string>();
-    const sortedTokenPairs = new Map<string, [Token, Token]>();
-    const sortedPoolAddresses: ImplementationPair[] = [];
+    const poolAddressSet: Set<string> = new Set<string>()
+    const sortedTokenPairs = new Map<string, [Token, Token]>()
+    const sortedPoolAddresses: ImplementationPair[] = []
 
     for (const tokenPair of tokenPairs) {
-      const [tokenA, tokenB] = tokenPair;
+      const [tokenA, tokenB] = tokenPair
 
       const { poolAddresses, token0, token1 } = this.getPoolAddresses(
         tokenA,
         tokenB,
-        providerConfig?.forceAllImplementations ?? false,
-      );
+        providerConfig?.forceAllImplementations ?? false
+      )
 
       if (
         poolAddresses.filter((impPair) => poolAddressSet.has(impPair.address))
           .length > 0
       ) {
-        continue;
+        continue
       }
 
       poolAddresses.map((impPair) => {
-        poolAddressSet.add(impPair.address);
-        sortedTokenPairs.set(impPair.address, [token0, token1]);
-        sortedPoolAddresses.push(impPair);
-      });
+        poolAddressSet.add(impPair.address)
+        sortedTokenPairs.set(impPair.address, [token0, token1])
+        sortedPoolAddresses.push(impPair)
+      })
     }
 
     const [reservesResults, tokenPropertiesMap]: [
@@ -154,31 +154,30 @@ export class V2PoolProvider implements IV2PoolProvider {
       this.getPoolsData<IReserves>(
         sortedPoolAddresses.map((impPair) => impPair.address),
         "getReserves",
-        providerConfig,
+        providerConfig
       ),
       this.tokenPropertiesProvider.getTokensProperties(
         this.flatten(tokenPairs),
-        providerConfig,
+        providerConfig
       ),
-    ]);
+    ])
 
-    const poolAddressToPool: Record<string, Pair> = {};
+    const poolAddressToPool: Record<string, Pair> = {}
 
-    const invalidPools: { address: string; token0: Token; token1: Token }[] =
-      [];
+    const invalidPools: { address: string; token0: Token; token1: Token }[] = []
 
     for (let i = 0; i < sortedPoolAddresses.length; i++) {
-      const reservesResult = reservesResults[i];
-      const poolAddress = sortedPoolAddresses[i]?.address as `0x${string}`;
-      const implementation = sortedPoolAddresses[i]?.implementation;
+      const reservesResult = reservesResults[i]
+      const poolAddress = sortedPoolAddresses[i]?.address as `0x${string}`
+      const implementation = sortedPoolAddresses[i]?.implementation
       if (!reservesResult?.success) {
-        const [token0, token1] = sortedTokenPairs.get(poolAddress)!;
-        invalidPools.push({ address: poolAddress, token0, token1 });
+        const [token0, token1] = sortedTokenPairs.get(poolAddress)!
+        invalidPools.push({ address: poolAddress, token0, token1 })
 
-        continue;
+        continue
       }
 
-      let [token0, token1] = sortedTokenPairs.get(poolAddress)!;
+      let [token0, token1] = sortedTokenPairs.get(poolAddress)!
 
       if (
         tokenPropertiesMap[token0.address.toLowerCase()]
@@ -193,13 +192,13 @@ export class V2PoolProvider implements IV2PoolProvider {
           bypassChecksum: true, // at this point we know it's valid token address
           buyFeeBps: BigInt(
             tokenPropertiesMap[token0.address.toLowerCase()]?.tokenFeeResult
-              ?.buyFeeBps!,
+              ?.buyFeeBps!
           ),
           sellFeeBps: BigInt(
             tokenPropertiesMap[token0.address.toLowerCase()]?.tokenFeeResult
-              ?.sellFeeBps!,
+              ?.sellFeeBps!
           ),
-        });
+        })
       }
 
       if (
@@ -215,30 +214,30 @@ export class V2PoolProvider implements IV2PoolProvider {
           bypassChecksum: true, // at this point we know it's valid token address
           buyFeeBps: BigInt(
             tokenPropertiesMap[token1.address.toLowerCase()]?.tokenFeeResult
-              ?.buyFeeBps!,
+              ?.buyFeeBps!
           ),
           sellFeeBps: BigInt(
             tokenPropertiesMap[token1.address.toLowerCase()]?.tokenFeeResult
-              ?.sellFeeBps!,
+              ?.sellFeeBps!
           ),
-        });
+        })
       }
 
-      const [reserve0, reserve1] = reservesResult.result;
+      const [reserve0, reserve1] = reservesResult.result
 
       const pool = new Pair(
         CurrencyAmount.fromRawAmount(token0, BigInt(reserve0)),
         CurrencyAmount.fromRawAmount(token1, BigInt(reserve1)),
-        implementation!,
-      );
+        implementation!
+      )
 
-      poolAddressToPool[poolAddress] = pool;
+      poolAddressToPool[poolAddress] = pool
     }
 
     if (invalidPools.length > 0) {
       console.log(`Invalid pools`, {
         invalidPools,
-      });
+      })
       log.error(
         LogCodes.FAIL,
         `Invalid Pools`,
@@ -250,14 +249,14 @@ export class V2PoolProvider implements IV2PoolProvider {
               token0,
               token1,
             }: {
-              address: string;
-              token0: Token;
-              token1: Token;
-            }) => `${address}: ${token0.symbol}/${token1.symbol}`,
+              address: string
+              token0: Token
+              token1: Token
+            }) => `${address}: ${token0.symbol}/${token1.symbol}`
           ),
         },
-        `${invalidPools.length} pools invalid after checking their slot0 and liquidity results. Dropping.`,
-      );
+        `${invalidPools.length} pools invalid after checking their slot0 and liquidity results. Dropping.`
+      )
     }
 
     return {
@@ -265,117 +264,117 @@ export class V2PoolProvider implements IV2PoolProvider {
         const { poolAddresses } = this.getPoolAddresses(
           tokenA,
           tokenB,
-          providerConfig?.forceAllImplementations ?? false,
-        );
+          providerConfig?.forceAllImplementations ?? false
+        )
         return poolAddresses.map(
-          (impPair) => poolAddressToPool[impPair.address] ?? undefined,
-        );
+          (impPair) => poolAddressToPool[impPair.address] ?? undefined
+        )
       },
       getPoolByAddress: (address: string): Pair | undefined =>
         poolAddressToPool[address],
       getAllPools: (): Pair[] => Object.values(poolAddressToPool),
-    };
+    }
   }
 
   public getPoolAddress(
     tokenA: Token,
-    tokenB: Token,
+    tokenB: Token
   ): { poolAddress: ImplementationPair; token0: Token; token1: Token } {
     const [token0, token1] = tokenA.sortsBefore(tokenB)
       ? [tokenA, tokenB]
-      : [tokenB, tokenA];
+      : [tokenB, tokenA]
 
-    const cacheKey = `${this.chainId}/${token0.address}/${token1.address}`;
+    const cacheKey = `${this.chainId}/${token0.address}/${token1.address}`
 
     const cachedAddresses =
       this.POOL_ADDRESS_CACHE[cacheKey]?.filter(
         (ca) =>
           ca.address.length > 0 &&
           this.activeImplementations(this.chainId, false).includes(
-            ca.implementation,
-          ),
-      ) ?? [];
+            ca.implementation
+          )
+      ) ?? []
 
     if (cachedAddresses.length > 0) {
       const xchangePool = cachedAddresses.find(
-        (ca) => ca.implementation === Implementation.XCHANGE,
-      );
+        (ca) => ca.implementation === Implementation.XCHANGE
+      )
       if (xchangePool) {
         return {
           poolAddress: xchangePool,
           token0,
           token1,
-        };
+        }
       }
       return {
         poolAddress: cachedAddresses[0]!,
         token0,
         token1,
-      };
+      }
     }
 
     const allPools = Object.values(Implementation).map((imp) => {
       return {
         implementation: imp as Implementation,
         address: Pair.getAddress(token0, token1, imp as Implementation),
-      };
-    });
+      }
+    })
 
-    const addressPair = allPools.filter((imp) => imp.address.length > 0);
+    const addressPair = allPools.filter((imp) => imp.address.length > 0)
 
-    this.POOL_ADDRESS_CACHE[cacheKey] = addressPair;
+    this.POOL_ADDRESS_CACHE[cacheKey] = addressPair
 
     return {
       poolAddress: addressPair[1]!,
       token0,
       token1,
-    };
+    }
   }
 
   public getPoolAddresses(
     tokenA: Token,
     tokenB: Token,
-    forceAllImplementations = false,
+    forceAllImplementations = false
   ): { poolAddresses: ImplementationPair[]; token0: Token; token1: Token } {
     const [token0, token1] = tokenA.sortsBefore(tokenB)
       ? [tokenA, tokenB]
-      : [tokenB, tokenA];
+      : [tokenB, tokenA]
 
-    const cacheKey = `${this.chainId}/${token0.address}/${token1.address}`;
+    const cacheKey = `${this.chainId}/${token0.address}/${token1.address}`
 
-    const cachedAddresses = this.POOL_ADDRESS_CACHE[cacheKey];
+    const cachedAddresses = this.POOL_ADDRESS_CACHE[cacheKey]
 
     if (cachedAddresses && !forceAllImplementations) {
-      return { poolAddresses: cachedAddresses, token0, token1 };
+      return { poolAddresses: cachedAddresses, token0, token1 }
     }
 
     const allPools = this.activeImplementations(
       this.chainId,
-      forceAllImplementations,
+      forceAllImplementations
     ).map((imp) => {
       return {
         implementation: imp,
         address: Pair.getAddress(token0, token1, imp),
-      };
-    });
+      }
+    })
 
-    log.info(LogCodes.POOL_ADDRESS_CACHE, { allPools });
+    log.info(LogCodes.POOL_ADDRESS_CACHE, { allPools })
 
-    const addressPair = allPools.filter((imp) => imp.address.length > 0);
+    const addressPair = allPools.filter((imp) => imp.address.length > 0)
 
-    this.POOL_ADDRESS_CACHE[cacheKey] = addressPair;
+    this.POOL_ADDRESS_CACHE[cacheKey] = addressPair
 
     return {
       poolAddresses: addressPair,
       token0,
       token1,
-    };
+    }
   }
 
   private async getPoolsData<TReturn>(
     poolAddresses: string[],
     functionName: string,
-    providerConfig?: ProviderConfig,
+    providerConfig?: ProviderConfig
   ): Promise<Result<TReturn>[]> {
     const { results } = await retry(async () => {
       return this.multicall2Provider.callSameFunctionOnMultipleContracts<
@@ -386,19 +385,19 @@ export class V2PoolProvider implements IV2PoolProvider {
         contractInterface: IUniswapV2Pair.abi,
         functionName: functionName,
         providerConfig,
-      });
-    }, this.retryOptions);
+      })
+    }, this.retryOptions)
 
-    return results;
+    return results
   }
 
   private activeImplementations(
     chainId: ChainId,
-    forceAllImplementations: boolean,
+    forceAllImplementations: boolean
   ): Implementation[] {
-    const factoryAddresses = FACTORY_ADDRESSES[chainId];
-    const pairInitHashes = PAIR_INIT_HASH[chainId];
-    const activeImplementations: Implementation[] = [];
+    const factoryAddresses = FACTORY_ADDRESSES[chainId]
+    const pairInitHashes = PAIR_INIT_HASH[chainId]
+    const activeImplementations: Implementation[] = []
 
     if (factoryAddresses && pairInitHashes) {
       Object.entries(factoryAddresses).forEach(
@@ -409,24 +408,24 @@ export class V2PoolProvider implements IV2PoolProvider {
             (forceAllImplementations ||
               this.enabledImplementations.includes(implementation))
           ) {
-            activeImplementations.push(implementation);
+            activeImplementations.push(implementation)
           }
-        },
-      );
+        }
+      )
     }
 
-    return activeImplementations;
+    return activeImplementations
   }
 
   // We are using ES2017. ES2019 has native flatMap support
   private flatten(tokenPairs: [Token, Token][]): Token[] {
-    const tokens = new Array<Token>();
+    const tokens = new Array<Token>()
 
     for (const [tokenA, tokenB] of tokenPairs) {
-      tokens.push(tokenA);
-      tokens.push(tokenB);
+      tokens.push(tokenA)
+      tokens.push(tokenB)
     }
 
-    return tokens;
+    return tokens
   }
 }

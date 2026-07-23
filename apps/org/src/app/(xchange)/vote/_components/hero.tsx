@@ -1,11 +1,11 @@
-"use client";
+"use client"
 
-import type { FC } from "react";
+import type { FC } from "react"
 
-import { Button } from "@x7/ui/button";
-import { Card, CardDescription, CardHeader, CardTitle } from "@x7/ui/card";
-import { LinkExternal, LinkInternal } from "@x7/ui/link";
-import { SocialsEnum } from "@x7/utils";
+import { Button } from "@x7/ui/button"
+import { Card, CardDescription, CardHeader, CardTitle } from "@x7/ui/card"
+import { LinkExternal, LinkInternal } from "@x7/ui/link"
+import { SocialsEnum } from "@x7/utils"
 
 export const Hero: FC = () => {
   return (
@@ -56,5 +56,5 @@ export const Hero: FC = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}

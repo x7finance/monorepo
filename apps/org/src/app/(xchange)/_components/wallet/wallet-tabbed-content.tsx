@@ -1,9 +1,9 @@
-import { Tabs, TabsList, TabsTrigger } from "@x7/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@x7/ui/tabs"
 
 // import { ActivityTab } from "./tabs/activity";
-import { LoansTab } from "./tabs/loans";
-import { PoolsTab } from "./tabs/pools";
-import { TokensTab } from "./tabs/tokens";
+import { LoansTab } from "./tabs/loans"
+import { PoolsTab } from "./tabs/pools"
+import { TokensTab } from "./tabs/tokens"
 
 export function WalletTabbedContent() {
   return (
@@ -20,5 +20,5 @@ export function WalletTabbedContent() {
       <LoansTab />
       {/* <ActivityTab /> */}
     </Tabs>
-  );
+  )
 }

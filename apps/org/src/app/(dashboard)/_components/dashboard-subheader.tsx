@@ -1,11 +1,11 @@
 interface SubHeaderProps {
-  title: string;
-  description?: string;
-  id: string;
+  title: string
+  description?: string
+  id: string
 }
 
 export function DashboardSubheader(props: SubHeaderProps) {
-  const { title, description, id } = props;
+  const { title, description, id } = props
   return (
     <div className="mx-4 mb-4 mt-24 border-b border-zinc-900/5 pb-1.5 dark:border-white/5 sm:mb-6 lg:mx-0">
       <h2
@@ -18,5 +18,5 @@ export function DashboardSubheader(props: SubHeaderProps) {
         <p className="text-sm font-medium text-zinc-500">{description}</p>
       )}
     </div>
-  );
+  )
 }

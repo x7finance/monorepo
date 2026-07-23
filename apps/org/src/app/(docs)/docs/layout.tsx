@@ -1,9 +1,9 @@
-import { DashboardHeader } from "~/lib/components/core/dashboard-header";
-import { SiteFooter } from "~/lib/components/core/site-footer";
-import { AppProviders } from "~/lib/providers/app";
+import { DashboardHeader } from "~/lib/components/core/dashboard-header"
+import { SiteFooter } from "~/lib/components/core/site-footer"
+import { AppProviders } from "~/lib/providers/app"
 
 interface DocsLayoutProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export default function DocsLayout({ children }: DocsLayoutProps) {
@@ -17,5 +17,5 @@ export default function DocsLayout({ children }: DocsLayoutProps) {
         <SiteFooter className="border-t border-zinc-200 bg-white dark:border-zinc-800 dark:bg-black" />
       </div>
     </AppProviders>
-  );
+  )
 }

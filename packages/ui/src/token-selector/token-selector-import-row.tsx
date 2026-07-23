@@ -1,30 +1,30 @@
-/* eslint-disable @typescript-eslint/unbound-method */
-import type { FC } from "react";
-import React, { useCallback, useState } from "react";
+/* oxlint-disable @typescript-eslint/unbound-method */
+import type { FC } from "react"
+import React, { useCallback, useState } from "react"
 
-import type { Token } from "@x7/utils";
+import type { Token } from "@x7/utils"
 
-import { Button } from "../button";
-import { CurrencyIcon } from "../currency/currency-icon";
+import { Button } from "../button"
+import { CurrencyIcon } from "../currency/currency-icon"
 
 interface TokenSelectorImportRow {
-  currencies: (Token | undefined)[];
-  onImport(): void;
+  currencies: (Token | undefined)[]
+  onImport(): void
 }
 
 export const TokenSelectorImportRow: FC<TokenSelectorImportRow> = ({
   currencies,
   onImport,
 }) => {
-  const [_open, setOpen] = useState(false);
+  const [_open, setOpen] = useState(false)
 
   const onClick = useCallback(() => {
-    onImport();
+    onImport()
 
     setTimeout(() => {
-      setOpen(false);
-    }, 250);
-  }, [onImport]);
+      setOpen(false)
+    }, 250)
+  }, [onImport])
 
   return (
     <div className="relative h-[64px] py-0.5">
@@ -57,5 +57,5 @@ export const TokenSelectorImportRow: FC<TokenSelectorImportRow> = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

@@ -1,9 +1,9 @@
-import type { ChainShortNameType, LoanType } from "@x7/utils";
+import type { ChainShortNameType, LoanType } from "@x7/utils"
 
 export interface LoanProps {
-  loanId: number;
-  loanType: LoanType;
-  chain: ChainShortNameType;
+  loanId: number
+  loanType: LoanType
+  chain: ChainShortNameType
 }
 
 export enum LendingTabs {

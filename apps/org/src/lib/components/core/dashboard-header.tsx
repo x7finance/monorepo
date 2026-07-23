@@ -1,11 +1,12 @@
-import { cn } from "@x7/css";
-import { X7Logo } from "@x7/icons";
-import { LinkInternal } from "@x7/ui/link";
+import { cn } from "@x7/css"
+import { X7Logo } from "@x7/icons"
+import { LinkInternal } from "@x7/ui/link"
 
-import { Search } from "../utils/search-dialog";
-import { ConnectionComponent } from "../utils/web3-connect-button";
-import { DashboardTabNavigation } from "./dashboard-tab-nav";
-import { MobileNavigation } from "./mobile-navigation";
+import { Search } from "../utils/search-dialog"
+import { ConnectionComponent } from "../utils/web3-connect-button"
+
+import { DashboardTabNavigation } from "./dashboard-tab-nav"
+import { MobileNavigation } from "./mobile-navigation"
 
 export function DashboardHeader() {
   return (
@@ -15,7 +16,7 @@ export function DashboardHeader() {
           <div className="flex items-center justify-between">
             <div
               className={cn(
-                "fixed inset-x-0 top-0 flex h-14 items-center justify-between gap-4 bg-white px-4 transition sm:justify-normal md:justify-between lg:left-20 lg:z-30 lg:gap-12 dark:bg-black",
+                "fixed inset-x-0 top-0 flex h-14 items-center justify-between gap-4 bg-white px-4 transition sm:justify-normal md:justify-between lg:left-20 lg:z-30 lg:gap-12 dark:bg-black"
               )}
             >
               <div className="flex lg:hidden">
@@ -41,7 +42,7 @@ export function DashboardHeader() {
         <DashboardTabNavigation />
       </div>
     </>
-  );
+  )
 }
 
 function LogoMarkLink() {
@@ -53,5 +54,5 @@ function LogoMarkLink() {
         </LinkInternal>
       </div>
     </div>
-  );
+  )
 }

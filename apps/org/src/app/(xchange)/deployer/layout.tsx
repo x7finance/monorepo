@@ -1,19 +1,19 @@
-import { Container } from "@x7/ui/container";
+import { Container } from "@x7/ui/container"
+import { AnimatedTabs } from "~/lib/components/core/animate-tabs"
+import { DeployerTabs } from "~/lib/types"
+import { XchangeLinks } from "~/types/links"
 
-import { AnimatedTabs } from "~/lib/components/core/animate-tabs";
-import { DeployerTabs } from "~/lib/types";
-import { XchangeLinks } from "~/types/links";
-import { Hero } from "./_components/hero";
+import { Hero } from "./_components/hero"
 
 const DeployerTabsBuilt = [
   { id: DeployerTabs.DeployForm, label: "Deploy" },
   { id: DeployerTabs.PreviousDeployments, label: "Previous Deployments" },
-];
+]
 
 export default function DeployerLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <>
@@ -35,5 +35,5 @@ export default function DeployerLayout({
         </Container>
       </div>
     </>
-  );
+  )
 }

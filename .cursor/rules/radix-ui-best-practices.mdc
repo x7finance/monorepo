@@ -1,9 +1,0 @@
----
-description: Best practices for using Radix UI primitives
-globs: **/*.{ts,tsx}
----
-- Use Radix UI primitives as the foundation for your custom components.
-- Implement proper accessibility features using Radix UI's built-in support.
-- Customize the look and feel of Radix UI components using your own styles.
-- Keep your Radix UI components modular and reusable throughout your application.
-- Utilize Radix UI's state management utilities for complex component interactions.

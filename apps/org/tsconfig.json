@@ -1,15 +1,11 @@
 {
-  "extends": "@x7/tsconfig/base.json",
+  "extends": "@x7/tsconfig/next-build.json",
   "compilerOptions": {
-    "lib": ["es2022", "dom", "dom.iterable"],
-    "jsx": "preserve",
-    "baseUrl": ".",
+    "lib": ["es2023", "dom", "dom.iterable"],
     "paths": {
       "~/*": ["./src/*"]
     },
-    "plugins": [{ "name": "next" }],
-    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
-    "module": "esnext"
+    "tsBuildInfoFile": ".turbo/.tsbuildinfo"
   },
   "include": [".", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]

@@ -1,8 +1,8 @@
-import * as React from "react";
-import { cva } from "class-variance-authority";
-import type { VariantProps } from "class-variance-authority";
+import type { VariantProps } from "class-variance-authority"
+import { cva } from "class-variance-authority"
+import * as React from "react"
 
-import { cn } from "@x7/css";
+import { cn } from "@x7/css"
 
 function SkeletonBox(props: React.HTMLAttributes<HTMLDivElement>) {
   return (
@@ -10,14 +10,14 @@ function SkeletonBox(props: React.HTMLAttributes<HTMLDivElement>) {
       {...props}
       className={cn(
         props.className,
-        "animate-pulse overflow-hidden rounded-lg bg-black/[0.10] dark:bg-white/[0.10]",
+        "animate-pulse overflow-hidden rounded-lg bg-black/[0.10] dark:bg-white/[0.10]"
       )}
     />
-  );
+  )
 }
 
 export interface CircleProps extends React.HTMLAttributes<HTMLDivElement> {
-  radius: number;
+  radius: number
 }
 
 function SkeletonCircle(props: CircleProps) {
@@ -33,10 +33,10 @@ function SkeletonCircle(props: CircleProps) {
       }}
       className={cn(
         props.className,
-        "animate-pulse overflow-hidden rounded-full bg-black/[0.10] dark:bg-white/[0.10]",
+        "animate-pulse overflow-hidden rounded-full bg-black/[0.10] dark:bg-white/[0.10]"
       )}
     />
-  );
+  )
 }
 
 const skeletonTextVariants = cva("flex w-full", {
@@ -60,10 +60,11 @@ const skeletonTextVariants = cva("flex w-full", {
     fontSize: "default",
     align: "left",
   },
-});
+})
 
 export interface SkeletonTextProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "size">,
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, "size">,
     VariantProps<typeof skeletonTextVariants> {}
 
 function SkeletonText({
@@ -77,11 +78,11 @@ function SkeletonText({
       <div
         className={cn(
           className,
-          "flex h-full w-full animate-pulse overflow-hidden rounded-md bg-black/[0.10] dark:bg-white/[0.10]",
+          "flex h-full w-full animate-pulse overflow-hidden rounded-md bg-black/[0.10] dark:bg-white/[0.10]"
         )}
       />
     </div>
-  );
+  )
 }
 
-export { SkeletonBox, SkeletonCircle, SkeletonText };
+export { SkeletonBox, SkeletonCircle, SkeletonText }

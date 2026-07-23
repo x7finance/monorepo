@@ -1,60 +1,60 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-// /* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+// /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 
-import React from "react";
-import { formatEther } from "viem";
-import { useChainId } from "wagmi";
+import React from "react"
+import { formatEther } from "viem"
+import { useChainId } from "wagmi"
 
-import { cn } from "@x7/css";
-import { InfoIcon } from "@x7/icons";
-import { Card, CardContent } from "@x7/ui/card";
-import { CircleLoading } from "@x7/ui/circle-loading";
-import { Tag } from "@x7/ui/tag";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@x7/ui/tooltip";
-import type { ChainId } from "@x7/utils";
-import { Native } from "@x7/utils";
+import { cn } from "@x7/css"
+import { InfoIcon } from "@x7/icons"
+import { Card, CardContent } from "@x7/ui/card"
+import { CircleLoading } from "@x7/ui/circle-loading"
+import { Tag } from "@x7/ui/tag"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@x7/ui/tooltip"
+import type { ChainId } from "@x7/utils"
+import { Native } from "@x7/utils"
+import { useLiquidationReward } from "~/lib/hooks/loans/useXchangeLendingPoolData"
+import type { QuoteResponse, RawQuoteResponse } from "~/lib/stores/loan"
 
-import { useLiquidationReward } from "~/lib/hooks/loans/useXchangeLendingPoolData";
-import type { QuoteResponse, RawQuoteResponse } from "~/lib/providers/loan";
-import { LoanTypeRepaymentSummary } from "./loan-type-repayment-summary";
+import { LoanTypeRepaymentSummary } from "./loan-type-repayment-summary"
 
 interface LoanSummaryProps {
-  selectedQuote?: QuoteResponse;
-  loanDuration: number;
-  quotes: RawQuoteResponse[];
+  selectedQuote?: QuoteResponse
+  loanDuration: number
+  quotes: RawQuoteResponse[]
 }
 
 export function LoanSummary({ selectedQuote, loanDuration }: LoanSummaryProps) {
-  const chainId = useChainId() as ChainId;
-  const { liquidationReward } = useLiquidationReward(chainId);
-  const nativeCurrency = Native.onChain(chainId);
+  const chainId = useChainId() as ChainId
+  const { liquidationReward } = useLiquidationReward(chainId)
+  const nativeCurrency = Native.onChain(chainId)
 
   if (!selectedQuote) {
     return (
       <div className="flex h-full items-center justify-center">
         <CircleLoading size={8} />
       </div>
-    );
+    )
   }
 
-  const liquidationFee = formatEther(liquidationReward ?? 0n).toString();
+  const liquidationFee = formatEther(liquidationReward ?? 0n).toString()
   const totalCostRaw =
-    (selectedQuote.result[3] ?? 0n) + (selectedQuote.result[4] ?? 0n);
+    (selectedQuote.result[3] ?? 0n) + (selectedQuote.result[4] ?? 0n)
   const totalSavings = formatEther(
     (selectedQuote.result[2] ?? 0n) +
       (selectedQuote.result[1] ?? 0n) -
-      totalCostRaw,
-  ).toString();
+      totalCostRaw
+  ).toString()
   const totalCostToLaunch = formatEther(
-    BigInt(selectedQuote.result[1] ?? 0n) + liquidationReward,
-  ).toString();
+    BigInt(selectedQuote.result[1] ?? 0n) + liquidationReward
+  ).toString()
   const discountedTotalPremium = formatEther(
-    BigInt(selectedQuote.result[4] ?? 0n),
-  ).toString();
+    BigInt(selectedQuote.result[4] ?? 0n)
+  ).toString()
 
   const originationFee = formatEther(
-    BigInt(selectedQuote.result[1] ?? 0n),
-  ).toString();
+    BigInt(selectedQuote.result[1] ?? 0n)
+  ).toString()
 
   // const totalPremium = formatEther(
   //   BigInt(selectedQuote.result[2] ?? 0n),
@@ -171,5 +171,5 @@ export function LoanSummary({ selectedQuote, loanDuration }: LoanSummaryProps) {
                  </div> */}
       </CardContent>
     </Card>
-  );
+  )
 }

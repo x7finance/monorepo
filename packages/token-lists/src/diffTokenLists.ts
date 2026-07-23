@@ -1,13 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-import type { TokenInfo } from "./types";
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unsafe-return */
+import type { TokenInfo } from "./types"
 
-export type TokenInfoChangeKey = Exclude<
-  keyof TokenInfo,
-  "address" | "chainId"
->;
-export type TokenInfoChanges = TokenInfoChangeKey[];
+export type TokenInfoChangeKey = Exclude<keyof TokenInfo, "address" | "chainId">
+export type TokenInfoChanges = TokenInfoChangeKey[]
 
 /**
  * compares two token info key values
@@ -16,12 +13,12 @@ export type TokenInfoChanges = TokenInfoChangeKey[];
  * @param b comparison item b
  */
 function compareTokenInfoProperty(a: unknown, b: unknown): boolean {
-  if (a === b) return true;
-  if (typeof a !== typeof b) return false;
+  if (a === b) return true
+  if (typeof a !== typeof b) return false
   if (Array.isArray(a) && Array.isArray(b)) {
-    return a.every((el, i) => b[i] === el);
+    return a.every((el, i) => b[i] === el)
   }
-  return false;
+  return false
 }
 
 /**
@@ -31,15 +28,15 @@ export interface TokenListDiff {
   /**
    * Tokens from updated with chainId/address not present in base list
    */
-  readonly added: TokenInfo[];
+  readonly added: TokenInfo[]
   /**
    * Tokens from base with chainId/address not present in the updated list
    */
-  readonly removed: TokenInfo[];
+  readonly removed: TokenInfo[]
   /**
    * The token info that changed
    */
-  readonly changed: Record<number, Record<string, TokenInfoChanges>>;
+  readonly changed: Record<number, Record<string, TokenInfoChanges>>
 }
 
 /**
@@ -49,66 +46,66 @@ export interface TokenListDiff {
  */
 export function diffTokenLists(
   base: TokenInfo[],
-  update: TokenInfo[],
+  update: TokenInfo[]
 ): TokenListDiff {
   const indexedBase = base.reduce<Record<number, Record<string, TokenInfo>>>(
     (memo: any, tokenInfo) => {
-      if (!memo[tokenInfo.chainId]) memo[tokenInfo.chainId] = {};
-      memo[tokenInfo.chainId][tokenInfo.address] = tokenInfo;
-      return memo;
+      if (!memo[tokenInfo.chainId]) memo[tokenInfo.chainId] = {}
+      memo[tokenInfo.chainId][tokenInfo.address] = tokenInfo
+      return memo
     },
-    {},
-  );
+    {}
+  )
 
   const newListUpdates = update.reduce<{
-    added: TokenInfo[];
-    changed: Record<number, Record<string, TokenInfoChanges>>;
-    index: Record<number, Record<string, true>>;
+    added: TokenInfo[]
+    changed: Record<number, Record<string, TokenInfoChanges>>
+    index: Record<number, Record<string, true>>
   }>(
     (memo: any, tokenInfo) => {
-      const baseToken = indexedBase[tokenInfo.chainId]?.[tokenInfo.address];
+      const baseToken = indexedBase[tokenInfo.chainId]?.[tokenInfo.address]
       if (!baseToken) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-        memo.added.push(tokenInfo);
+        // oxlint-disable-next-line @typescript-eslint/no-unsafe-call
+        memo.added.push(tokenInfo)
       } else {
         const changes: TokenInfoChanges = Object.keys(tokenInfo)
           .filter(
-            (s): s is TokenInfoChangeKey => s !== "address" && s !== "chainId",
+            (s): s is TokenInfoChangeKey => s !== "address" && s !== "chainId"
           )
           .filter((s) => {
-            return !compareTokenInfoProperty(tokenInfo[s], baseToken[s]);
-          });
+            return !compareTokenInfoProperty(tokenInfo[s], baseToken[s])
+          })
         if (changes.length > 0) {
           if (!memo.changed[tokenInfo.chainId]) {
-            memo.changed[tokenInfo.chainId] = {};
+            memo.changed[tokenInfo.chainId] = {}
           }
-          memo.changed[tokenInfo.chainId][tokenInfo.address] = changes;
+          memo.changed[tokenInfo.chainId][tokenInfo.address] = changes
         }
       }
 
       if (!memo.index[tokenInfo.chainId]) {
         memo.index[tokenInfo.chainId] = {
           [tokenInfo.address]: true,
-        };
+        }
       } else {
-        memo.index[tokenInfo.chainId][tokenInfo.address] = true;
+        memo.index[tokenInfo.chainId][tokenInfo.address] = true
       }
 
-      return memo;
+      return memo
     },
-    { added: [], changed: {}, index: {} },
-  );
+    { added: [], changed: {}, index: {} }
+  )
 
   const removed = base.reduce<TokenInfo[]>((list, curr) => {
     if (!newListUpdates.index[curr.chainId]?.[curr.address]) {
-      list.push(curr);
+      list.push(curr)
     }
-    return list;
-  }, []);
+    return list
+  }, [])
 
   return {
     added: newListUpdates.added,
     changed: newListUpdates.changed,
     removed,
-  };
+  }
 }

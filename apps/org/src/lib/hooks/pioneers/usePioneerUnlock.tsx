@@ -1,48 +1,48 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable react-hooks/exhaustive-deps */
 
-"use client";
+"use client"
 
-import { useCallback, useMemo, useState } from "react";
-import type { BaseError } from "@wagmi/core";
-import { toast } from "sonner";
-import { UserRejectedRequestError } from "viem";
+import type { BaseError } from "@wagmi/core"
+import { useCallback, useMemo, useState } from "react"
+import { toast } from "sonner"
+import { UserRejectedRequestError } from "viem"
 import {
   useAccount,
   useChainId,
   useSimulateContract,
   useWriteContract,
-} from "wagmi";
+} from "wagmi"
 import type {
   WriteContractErrorType,
   WriteContractReturnType,
-} from "wagmi/actions";
-import { waitForTransactionReceipt } from "wagmi/actions";
+} from "wagmi/actions"
+import { waitForTransactionReceipt } from "wagmi/actions"
 
-import { X7Pioneer } from "@x7/contracts";
-import { X7ContractsEnum } from "@x7/sdk";
-import type { ChainId } from "@x7/utils";
+import { X7Pioneer } from "@x7/contracts"
+import { X7ContractsEnum } from "@x7/sdk"
+import type { ChainId } from "@x7/utils"
+import { useTransactionStore } from "~/lib/providers/tx"
 
-import { useTransactionStore } from "~/lib/providers/tx";
-import { useWeb3Config } from "../../providers/web3";
+import { useWeb3Config } from "../../providers/web3"
 
 interface UsePioneerUnlockParams {
-  pioneerId: number;
-  unlockFee: number;
-  enabled?: boolean;
+  pioneerId: number
+  unlockFee: number
+  enabled?: boolean
 }
 
 export const usePioneerUnlock = ({
   pioneerId,
   unlockFee,
 }: UsePioneerUnlockParams) => {
-  const { address } = useAccount();
-  const [isPending, setIsPending] = useState(false);
-  const chainId = useChainId() as ChainId;
-  const { wagmiConfig: config } = useWeb3Config();
+  const { address } = useAccount()
+  const [isPending, setIsPending] = useState(false)
+  const chainId = useChainId() as ChainId
+  const { wagmiConfig: config } = useWeb3Config()
 
   const {
     mutate: { trackTransaction },
-  } = useTransactionStore();
+  } = useTransactionStore()
 
   const { data } = useSimulateContract({
     config,
@@ -50,18 +50,18 @@ export const usePioneerUnlock = ({
     abi: X7Pioneer,
     functionName: "claimRewards",
     args: [unlockFee, pioneerId],
-  });
+  })
 
   const onSettled = useCallback(
     (hash: `0x${string}` | undefined, e: WriteContractErrorType | null) => {
       if (e instanceof Error) {
         if (!(e instanceof UserRejectedRequestError)) {
-          toast.error((e as BaseError).shortMessage || e.message);
+          toast.error((e as BaseError).shortMessage || e.message)
         }
       }
 
       if (hash && pioneerId) {
-        setIsPending(true);
+        setIsPending(true)
 
         trackTransaction({
           txHash: hash,
@@ -71,11 +71,11 @@ export const usePioneerUnlock = ({
             completed: `Succesfully Unlocked Pioneer ${pioneerId}`,
             failed: `Something went wrong unlocking Pioneer ${pioneerId}`,
           },
-        });
+        })
       }
     },
-    [address, pioneerId],
-  );
+    [address, pioneerId]
+  )
 
   const write = useWriteContract({
     mutation: {
@@ -87,18 +87,18 @@ export const usePioneerUnlock = ({
           retryDelay: 2_500,
         })
           .then(() => {
-            setIsPending(false);
+            setIsPending(false)
           })
-          .catch(() => setIsPending(false));
+          .catch(() => setIsPending(false))
       },
     },
-  });
+  })
 
   return useMemo(() => {
     return {
       ...write,
       isPending,
       data,
-    };
-  }, [isPending, write]);
-};
+    }
+  }, [isPending, write])
+}

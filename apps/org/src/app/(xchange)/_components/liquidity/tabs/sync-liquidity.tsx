@@ -1,30 +1,30 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import React, { useCallback, useEffect, useState } from "react";
-import { toast } from "sonner";
-import type { BaseError } from "viem";
-import { UserRejectedRequestError } from "viem";
-import { useAccount, useSimulateContract, useWriteContract } from "wagmi";
-import type { WriteContractErrorType } from "wagmi/actions";
+/* oxlint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+import React, { useCallback, useEffect, useState } from "react"
+import { toast } from "sonner"
+import type { BaseError } from "viem"
+import { UserRejectedRequestError } from "viem"
+import { useAccount, useSimulateContract, useWriteContract } from "wagmi"
+import type { WriteContractErrorType } from "wagmi/actions"
 
-import { uniswapV2PairAbi } from "@x7/contracts";
-import { CheckCircleIcon, PlusCircleIcon } from "@x7/icons";
-import { X7ContractsEnum } from "@x7/sdk";
-import { Button } from "@x7/ui/button";
-import type { ActiveChainId, Native, Token } from "@x7/utils";
-import { CurrencyAmount } from "@x7/utils";
+import { uniswapV2PairAbi } from "@x7/contracts"
+import { CheckCircleIcon, PlusCircleIcon } from "@x7/icons"
+import { X7ContractsEnum } from "@x7/sdk"
+import { Button } from "@x7/ui/button"
+import type { ActiveChainId, Native, Token } from "@x7/utils"
+import { CurrencyAmount } from "@x7/utils"
+import { CurrencyInput } from "~/lib/components/utils/currency-input"
+import { APPROVE_TAG_REMOVE } from "~/lib/constants/misc"
+import type { UserPositionsResponse } from "~/lib/hooks/tokens/useGetAllUserTokens"
+import { useTransactionStore } from "~/lib/providers/tx"
+import { useWeb3Config } from "~/lib/providers/web3"
+import { Checker } from "~/lib/systems/Checker"
+import { CheckerProvider } from "~/lib/systems/Checker/Provider"
 
-import { CurrencyInput } from "~/lib/components/utils/currency-input";
-import { APPROVE_TAG_REMOVE } from "~/lib/constants/misc";
-import type { UserPositionsResponse } from "~/lib/hooks/tokens/useGetAllUserTokens";
-import { useTransactionStore } from "~/lib/providers/tx";
-import { useWeb3Config } from "~/lib/providers/web3";
-import { Checker } from "~/lib/systems/Checker";
-import { CheckerProvider } from "~/lib/systems/Checker/Provider";
-import { ConfirmLiquidityRemoval } from "../confirm-liquidity-removal";
-import { LockedAmountsPoolInfoCard } from "../locked-amounts-pool-info-card";
-import { RemoveSectionPoolInfoCard } from "../remove-section-pool-info-card";
+import { ConfirmLiquidityRemoval } from "../confirm-liquidity-removal"
+import { LockedAmountsPoolInfoCard } from "../locked-amounts-pool-info-card"
+import { RemoveSectionPoolInfoCard } from "../remove-section-pool-info-card"
 
 export const SyncLiquidityTab = ({
   token0,
@@ -33,41 +33,41 @@ export const SyncLiquidityTab = ({
   position,
   chainId,
 }: {
-  token0: Token | Native;
-  token1: Token | Native;
-  liquidityToken: Token;
-  position: UserPositionsResponse;
-  chainId: ActiveChainId;
+  token0: Token | Native
+  token1: Token | Native
+  liquidityToken: Token
+  position: UserPositionsResponse
+  chainId: ActiveChainId
 }) => {
-  const [remainingLiquidity, setRemainingLiquidity] = useState<number>();
-  const [removingAmm, setRemovingAmm] = useState<CurrencyAmount<Token>>();
-  const [token0Amt, setToken0Amt] = useState<CurrencyAmount<Token | Native>>();
-  const [token1Amt, setToken1Amt] = useState<CurrencyAmount<Token | Native>>();
-  const [refetchCount, setRefetchCount] = useState<number>(0);
+  const [remainingLiquidity, setRemainingLiquidity] = useState<number>()
+  const [removingAmm, setRemovingAmm] = useState<CurrencyAmount<Token>>()
+  const [token0Amt, setToken0Amt] = useState<CurrencyAmount<Token | Native>>()
+  const [token1Amt, setToken1Amt] = useState<CurrencyAmount<Token | Native>>()
+  const [refetchCount, setRefetchCount] = useState<number>(0)
 
   const [{ input0, input1 }, setTypedAmounts] = useState<{
-    input0: string;
-    input1: string;
-  }>({ input0: "", input1: "" });
+    input0: string
+    input1: string
+  }>({ input0: "", input1: "" })
 
-  const { address } = useAccount();
+  const { address } = useAccount()
   const {
     mutate: { trackTransaction },
-  } = useTransactionStore();
-  const { wagmiConfig } = useWeb3Config();
+  } = useTransactionStore()
+  const { wagmiConfig } = useWeb3Config()
 
   const { data } = useSimulateContract({
     config: wagmiConfig,
     address: position.contractAddress,
     abi: uniswapV2PairAbi,
     functionName: "sync",
-  });
+  })
 
   const onSettled = useCallback(
     (hash: `0x${string}` | undefined, e: WriteContractErrorType | null) => {
       if (e instanceof Error) {
         if (!(e instanceof UserRejectedRequestError)) {
-          toast.error((e as BaseError).shortMessage || e.message);
+          toast.error((e as BaseError).shortMessage || e.message)
         }
       }
 
@@ -80,51 +80,51 @@ export const SyncLiquidityTab = ({
             completed: `Successfully synced reserves`,
             failed: `Something went wrong syncing reserves`,
           },
-        });
+        })
       }
     },
-    [address],
-  );
+    [address]
+  )
 
   const { writeContract } = useWriteContract({
     mutation: {
       onSettled,
     },
-  });
+  })
 
   useEffect(() => {
     if (!!token0 && !!token1 && !!liquidityToken) {
-      const amountOfLiquidity = position.tokenBalance ?? 0n;
+      const amountOfLiquidity = position.tokenBalance ?? 0n
       const _t0Amt = CurrencyAmount.fromRawAmount(
         token0,
         (BigInt(amountOfLiquidity) *
           (position.token0.balance! - position.token0.minimumBalance)) /
-          position.liquidity!,
-      );
+          position.liquidity!
+      )
 
       const _t1Amt = CurrencyAmount.fromRawAmount(
         token1,
         (BigInt(amountOfLiquidity) *
           (position.token1.balance! - position.token1.minimumBalance)) /
-          position.liquidity!,
-      );
+          position.liquidity!
+      )
 
-      setToken0Amt(_t0Amt);
-      setToken1Amt(_t1Amt);
+      setToken0Amt(_t0Amt)
+      setToken1Amt(_t1Amt)
       setRemovingAmm(
-        CurrencyAmount.fromRawAmount(liquidityToken, amountOfLiquidity),
-      );
-      setRemainingLiquidity(0);
+        CurrencyAmount.fromRawAmount(liquidityToken, amountOfLiquidity)
+      )
+      setRemainingLiquidity(0)
 
       setTypedAmounts({
         input0: `${_t0Amt.toFixed(6)}`,
         input1: `${_t1Amt.toFixed(6)}`,
-      });
+      })
     }
-  }, [token0, token1]);
+  }, [token0, token1])
 
-  const lockedAmount0 = position.token0.minimumBalance;
-  const lockedAmount1 = position.token1.minimumBalance;
+  const lockedAmount0 = position.token0.minimumBalance
+  const lockedAmount1 = position.token1.minimumBalance
 
   return (
     <div className="flex flex-col">
@@ -155,8 +155,8 @@ export const SyncLiquidityTab = ({
             className="w-full rounded-lg bg-white p-3 py-2 dark:bg-zinc-800"
             chainId={chainId}
             value={input0}
-            onChange={console.log}
-            onSelect={console.log}
+            onChange={() => {}}
+            onSelect={() => {}}
             currency={token0}
             disabled={true}
             loading={false}
@@ -181,8 +181,8 @@ export const SyncLiquidityTab = ({
             className="w-full rounded-lg bg-white p-3 py-2 dark:bg-zinc-800"
             chainId={chainId}
             value={input1}
-            onChange={console.log}
-            onSelect={console.log}
+            onChange={() => {}}
+            onSelect={() => {}}
             currency={token1}
             disabled={true}
             loading={false}
@@ -250,8 +250,8 @@ export const SyncLiquidityTab = ({
                   }}
                   liquidityRemoving={removingAmm}
                   onSuccess={() => {
-                    setTypedAmounts({ input0: "", input1: "" });
-                    setRefetchCount(refetchCount + 1);
+                    setTypedAmounts({ input0: "", input1: "" })
+                    setRefetchCount(refetchCount + 1)
                   }}
                 />
               </Checker.Success>
@@ -266,7 +266,7 @@ export const SyncLiquidityTab = ({
             onClick={() => {
               if (writeContract) {
                 // @ts-expect-error: todo fix
-                writeContract(data?.request);
+                writeContract(data?.request)
               }
             }}
           >
@@ -279,5 +279,5 @@ export const SyncLiquidityTab = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

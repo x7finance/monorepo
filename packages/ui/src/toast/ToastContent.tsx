@@ -1,20 +1,20 @@
-"use client";
+"use client"
 
-import type { FC, ReactNode } from "react";
-import { useState } from "react";
+import type { FC, ReactNode } from "react"
+import { useState } from "react"
 
-import { ArrowUpRightSquareIcon } from "@x7/icons";
+import { ArrowUpRightSquareIcon } from "@x7/icons"
 
-import { CircleLoading } from "../circle-loading";
-import { TimeAgo } from "../time-ago";
+import { CircleLoading } from "../circle-loading"
+import { TimeAgo } from "../time-ago"
 
 interface ToastContent {
-  icon?: ReactNode;
-  summary: ReactNode | ReactNode[];
-  code?: boolean;
-  href?: string;
-  type?: ToastTypes;
-  children?: ReactNode;
+  icon?: ReactNode
+  summary: ReactNode | ReactNode[]
+  code?: boolean
+  href?: string
+  type?: ToastTypes
+  children?: ReactNode
 }
 
 export enum ToastTypes {
@@ -31,7 +31,7 @@ export const ToastContent: FC<ToastContent> = ({
   type = ToastTypes.INFO,
   children,
 }) => {
-  const [date] = useState(new Date());
+  const [date] = useState(new Date())
 
   return (
     <div className="flex w-full flex-col gap-1 overflow-hidden">
@@ -65,5 +65,5 @@ export const ToastContent: FC<ToastContent> = ({
       )}
       {children}
     </div>
-  );
-};
+  )
+}

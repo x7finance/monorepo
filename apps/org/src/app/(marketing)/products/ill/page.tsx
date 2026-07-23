@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata } from "next"
 
-import { SiteContentContainer } from "~/lib/components/core/site-content-container";
-import { UnderConstruction } from "~/lib/components/core/under-construction";
-import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc";
-import { Heading } from "../../_components/heading";
+import { SiteContentContainer } from "~/lib/components/core/site-content-container"
+import { UnderConstruction } from "~/lib/components/core/under-construction"
+import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
+
+import { Heading } from "../../_components/heading"
 
 const metadata = {
   title: "Liquidity Loans",
@@ -11,10 +12,10 @@ const metadata = {
     "Explore X7 Finance's Liquidity Loans: Innovative DeFi solutions designed to provide initial liquidity to Automated Market Making (AMM) trading pairs with borrowed capital. Learn how these unique loan mechanisms, including Simple, Interest Only, and Amortizing loans, can reduce the amount of capital locked to a pair, provide leverage to the system, and increase liquidity and market capitalization. Unlock new opportunities in the world of decentralized finance with X7 Finance's Liquidity Loans.",
   slug: "/products/ill",
   section: "default",
-};
+}
 
 export function generateMetadata(): Metadata {
-  return generateMetadataFromDoc(metadata);
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function InitialLiquidityLoansPage() {
@@ -31,5 +32,5 @@ export default function InitialLiquidityLoansPage() {
         </div>
       </SiteContentContainer>
     </div>
-  );
+  )
 }

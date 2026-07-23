@@ -1,24 +1,24 @@
-"use client";
+"use client"
 
-import Image from "next/image";
+import Image from "next/image"
 
-import { XIcon } from "@x7/icons";
-import { useLocalStorage } from "@x7/ui";
-import { LinkInternal } from "@x7/ui/link";
-import { Tag } from "@x7/ui/tag";
-import { getRandomPioneerNumber } from "@x7/utils";
+import { XIcon } from "@x7/icons"
+import { useLocalStorage } from "@x7/ui"
+import { LinkInternal } from "@x7/ui/link"
+import { Tag } from "@x7/ui/tag"
+import { getRandomPioneerNumber } from "@x7/utils"
 
 export function MarketingBlurb({
   compactView = false,
 }: {
-  compactView?: boolean;
+  compactView?: boolean
 }) {
   const [isHidden, setIsHidden] = useLocalStorage(
     "marketing-blurb-hidden",
-    false,
-  );
+    false
+  )
 
-  if (isHidden || compactView) return null;
+  if (isHidden || compactView) return null
 
   return (
     <LinkInternal prefetch={true} href="/create">
@@ -48,13 +48,13 @@ export function MarketingBlurb({
         <button
           className="absolute top-2 right-2 rounded-md p-1 text-zinc-400 transition-colors hover:bg-zinc-700 hover:text-zinc-300"
           onClick={(e) => {
-            e.preventDefault();
-            setIsHidden(true);
+            e.preventDefault()
+            setIsHidden(true)
           }}
         >
           <XIcon className="h-4 w-4" />
         </button>
       </div>
     </LinkInternal>
-  );
+  )
 }

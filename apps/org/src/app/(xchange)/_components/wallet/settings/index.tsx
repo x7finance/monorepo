@@ -1,14 +1,14 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useAccount } from "wagmi";
+/* oxlint-disable react-hooks/exhaustive-deps */
+import { useCallback, useEffect, useMemo, useState } from "react"
+import { useAccount } from "wagmi"
 
-import { cn } from "@x7/css";
-import { ArrowLeftIcon } from "@x7/icons";
-import { Button } from "@x7/ui/button";
+import { cn } from "@x7/css"
+import { ArrowLeftIcon } from "@x7/icons"
+import { Button } from "@x7/ui/button"
 
-import { FeaturesPanel } from "./features-panel";
-import { NotificationsPanel } from "./notifications-panel";
-import { SettingsPanel } from "./settings-panel";
+import { FeaturesPanel } from "./features-panel"
+import { NotificationsPanel } from "./notifications-panel"
+import { SettingsPanel } from "./settings-panel"
 
 export enum SettingsMenuState {
   DEFAULT,
@@ -24,83 +24,81 @@ export function DefaultSettings({
   closeCallback,
   slide,
 }: {
-  overlayOpen: boolean;
-  closeCallback: () => void;
-  slide: string | null;
+  overlayOpen: boolean
+  closeCallback: () => void
+  slide: string | null
 }) {
-  const { address } = useAccount();
-  const isAuthenticated = !!address;
+  const { address } = useAccount()
+  const isAuthenticated = !!address
 
-  const [menu, setMenu] = useState<SettingsMenuState>(
-    SettingsMenuState.DEFAULT,
-  );
+  const [menu, setMenu] = useState<SettingsMenuState>(SettingsMenuState.DEFAULT)
 
   const openSettings = useCallback(
     () => setMenu(SettingsMenuState.SETTINGS),
-    [],
-  );
+    []
+  )
   const closeSettings = useCallback(() => {
-    closeCallback();
-    setMenu(SettingsMenuState.DEFAULT);
-  }, []);
+    closeCallback()
+    setMenu(SettingsMenuState.DEFAULT)
+  }, [])
   const openLanguageSettings = useCallback(
     () => setMenu(SettingsMenuState.LANGUAGE_SETTINGS),
-    [],
-  );
+    []
+  )
   const openLocalCurrencySettings = useCallback(
     () => setMenu(SettingsMenuState.LOCAL_CURRENCY_SETTINGS),
-    [],
-  );
+    []
+  )
   const openFeaturesSettings = useCallback(
     () => setMenu(SettingsMenuState.FEATURES),
-    [],
-  );
+    []
+  )
 
   const openNotifications = useCallback(
     () => setMenu(SettingsMenuState.NOTIFICATIONS),
-    [],
-  );
+    []
+  )
 
   useEffect(() => {
     if (overlayOpen) {
       switch (slide) {
         case "settings":
-          openSettings();
-          break;
+          openSettings()
+          break
         case "features":
-          openFeaturesSettings();
-          break;
+          openFeaturesSettings()
+          break
         case "notifications":
-          openNotifications();
-          break;
+          openNotifications()
+          break
         default:
-          openSettings();
-          break;
+          openSettings()
+          break
       }
     }
-  }, [overlayOpen, slide]);
+  }, [overlayOpen, slide])
 
   useEffect(() => {
     if (!overlayOpen && menu !== SettingsMenuState.DEFAULT) {
       // wait for the drawer to close before resetting the menu
       const timer = setTimeout(() => {
-        closeSettings();
-      }, 250);
-      return () => clearTimeout(timer);
+        closeSettings()
+      }, 250)
+      return () => clearTimeout(timer)
     }
-    return;
-  }, [overlayOpen, menu, closeSettings]);
+    return
+  }, [overlayOpen, menu, closeSettings])
 
   const SubMenu = useMemo(() => {
     switch (menu) {
       case SettingsMenuState.DEFAULT:
-        return <></>;
+        return <></>
       case SettingsMenuState.NOTIFICATIONS:
-        return <NotificationsPanel />;
+        return <NotificationsPanel />
       case SettingsMenuState.SETTINGS:
-        return <SettingsPanel />;
+        return <SettingsPanel />
       case SettingsMenuState.FEATURES:
-        return <FeaturesPanel />;
+        return <FeaturesPanel />
     }
   }, [
     address,
@@ -110,28 +108,28 @@ export function DefaultSettings({
     openLanguageSettings,
     openLocalCurrencySettings,
     openSettings,
-  ]);
+  ])
 
   const settingsText = (() => {
     switch (menu) {
       case SettingsMenuState.DEFAULT:
-        return "Settings";
+        return "Settings"
       case SettingsMenuState.SETTINGS:
-        return "Settings";
+        return "Settings"
       case SettingsMenuState.NOTIFICATIONS:
-        return "Notifications";
+        return "Notifications"
       case SettingsMenuState.FEATURES:
-        return "Features";
+        return "Features"
       default:
-        return "Settings"; // or provide a default value if needed
+        return "Settings" // or provide a default value if needed
     }
-  })();
+  })()
 
   return (
     <div
       className={cn(
         overlayOpen ? "absolute" : "hidden",
-        "bg-background top-0 right-0 z-10 h-full w-full rounded-xl",
+        "bg-background top-0 right-0 z-10 h-full w-full rounded-xl"
       )}
     >
       <div className="bg-background mt-1 px-3.5 py-3">
@@ -153,5 +151,5 @@ export function DefaultSettings({
         {SubMenu}
       </div>
     </div>
-  );
+  )
 }

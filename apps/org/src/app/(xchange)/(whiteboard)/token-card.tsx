@@ -1,36 +1,35 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-"use client";
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-unsafe-argument */
+"use client"
 
-import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useChainId } from "wagmi";
+import Image from "next/image"
+import { useRouter, useSearchParams } from "next/navigation"
+import { useChainId } from "wagmi"
 
-import { GlobeIcon, Telegram, Twitter } from "@x7/icons";
-import { getChainLogo } from "@x7/ui";
+import { GlobeIcon, Telegram, Twitter } from "@x7/icons"
+import { getChainLogo } from "@x7/ui"
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@x7/ui/card";
-import { LinkExternal, LinkInternal } from "@x7/ui/link";
-import { SkeletonBox } from "@x7/ui/skeleton";
-import { TimeAgo } from "@x7/ui/time-ago";
-import type { ChainId } from "@x7/utils";
-import { formatUSD, shortenAddress } from "@x7/utils";
-
-import { ChainsArray } from "~/lib/components/utils/contracts-dropdown";
+} from "@x7/ui/card"
+import { LinkExternal, LinkInternal } from "@x7/ui/link"
+import { SkeletonBox } from "@x7/ui/skeleton"
+import { TimeAgo } from "@x7/ui/time-ago"
+import type { ChainId } from "@x7/utils"
+import { formatUSD, shortenAddress } from "@x7/utils"
+import { ChainsArray } from "~/lib/components/utils/contracts-dropdown"
 // import type { TokenWithTimestamp } from "~/lib/hooks/tokens/useCreatedXchangeTokens";
-import { useTokenData } from "~/lib/hooks/tokens/useTokenData";
+import { useTokenData } from "~/lib/hooks/tokens/useTokenData"
 
 export function TokenCard({ token }: { token: any }) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const chainId = useChainId();
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const chainId = useChainId()
 
   const {
     data: {
@@ -47,19 +46,19 @@ export function TokenCard({ token }: { token: any }) {
       logoUrl,
     },
     isLoading,
-  } = useTokenData(token.address, { skipHistoricalData: true });
+  } = useTokenData(token.address, { skipHistoricalData: true })
 
   // Check if this token is currently selected
-  const isSelected = searchParams.get("token0") === token.address;
+  const isSelected = searchParams.get("token0") === token.address
 
   // Get the block explorer URL for the current chain
   const blockExplorer = ChainsArray.find(
-    (chain) => chain.id === chainId,
-  )?.scannerLink;
+    (chain) => chain.id === chainId
+  )?.scannerLink
 
   // Check ETH liquidity before rendering
   if (reserves.ethReserve && Number(reserves.ethReserve) < 0.1) {
-    return null;
+    return null
   }
 
   return (
@@ -71,16 +70,16 @@ export function TokenCard({ token }: { token: any }) {
       } hover:border-emerald-400 hover:shadow-[0_0_15px_rgba(52,211,153,0.3)] dark:hover:border-emerald-400`}
       onClick={() => {
         // Create new URLSearchParams object with current params
-        const params = new URLSearchParams(searchParams);
-        params.set("token0", "NATIVE");
-        params.set("token1", token.address);
-        params.set("swapAmount", "0.01");
+        const params = new URLSearchParams(searchParams)
+        params.set("token0", "NATIVE")
+        params.set("token1", token.address)
+        params.set("swapAmount", "0.01")
 
         // Update the mobile tab to show swap
-        params.set("tab", "swap");
+        params.set("tab", "swap")
 
         // Use router.push to update the URL
-        router.push(`?${params.toString()}`);
+        router.push(`?${params.toString()}`)
       }}
     >
       <div className="font-heading absolute right-3 bottom-3 text-xl font-bold text-zinc-400/30 transition-all duration-300 group-hover:text-green-400/80">
@@ -216,5 +215,5 @@ export function TokenCard({ token }: { token: any }) {
         </div>
       </CardFooter>
     </Card>
-  );
+  )
 }

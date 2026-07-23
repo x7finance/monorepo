@@ -1,77 +1,77 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-import { formatEther } from "viem";
-import { useChainId } from "wagmi";
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
+import { formatEther } from "viem"
+import { useChainId } from "wagmi"
 
-import { Tag } from "@x7/ui/tag";
-import { Native } from "@x7/utils";
-import type { ChainId } from "@x7/utils";
-
+import { Tag } from "@x7/ui/tag"
+import type { ChainId } from "@x7/utils"
+import { Native } from "@x7/utils"
 import {
   useNumberOfPremiumPeriods,
   useNumberOfRepaymentPeriods,
   usePremiumPeriodIndices,
   usePrincipleFractionDenominator,
   useRepaymentPeriodIndices,
-} from "~/lib/hooks/loans/useXchangeLoanData";
-import type { QuoteResponse } from "~/lib/providers/loan";
-import { generateX7InitialLiquidityLoanTermNumber } from "~/lib/utils/lending";
-import { LoanTypeRepaymentFraction } from "./loan-type-repayment-fraction";
+} from "~/lib/hooks/loans/useXchangeLoanData"
+import type { QuoteResponse } from "~/lib/stores/loan"
+import { generateX7InitialLiquidityLoanTermNumber } from "~/lib/utils/lending"
+
+import { LoanTypeRepaymentFraction } from "./loan-type-repayment-fraction"
 
 interface LoanTypeRepaymentSummaryProps {
-  quote: QuoteResponse;
-  loanDuration: number;
+  quote: QuoteResponse
+  loanDuration: number
 }
 
 export function LoanTypeRepaymentSummary({
   quote,
   loanDuration,
 }: LoanTypeRepaymentSummaryProps) {
-  const chainId = useChainId() as ChainId;
-  const nativeCurrency = Native.onChain(chainId);
+  const chainId = useChainId() as ChainId
+  const nativeCurrency = Native.onChain(chainId)
   const loanTermNumber = generateX7InitialLiquidityLoanTermNumber(
     quote.loanTerm.address,
-    chainId,
-  );
+    chainId
+  )
   const { numberOfPremiumPeriods } = useNumberOfPremiumPeriods(
     chainId,
-    loanTermNumber,
-  );
+    loanTermNumber
+  )
   const { numberOfRepaymentPeriods } = useNumberOfRepaymentPeriods(
     chainId,
-    loanTermNumber,
-  );
+    loanTermNumber
+  )
   const { premiumPeriodIndices } = usePremiumPeriodIndices(
     numberOfPremiumPeriods - 1,
     chainId,
-    loanTermNumber,
-  );
+    loanTermNumber
+  )
   const { repaymentPeriodIndices } = useRepaymentPeriodIndices(
     numberOfRepaymentPeriods - 1,
     chainId,
-    loanTermNumber,
-  );
+    loanTermNumber
+  )
   const { principleFractionDenominator } = usePrincipleFractionDenominator(
     chainId,
-    loanTermNumber,
-  );
+    loanTermNumber
+  )
 
   const totalIndices =
     repaymentPeriodIndices > premiumPeriodIndices
       ? repaymentPeriodIndices
-      : premiumPeriodIndices;
+      : premiumPeriodIndices
 
   const FractionArray = Array.from(
     { length: totalIndices },
-    (_, index) => index + 1,
-  );
+    (_, index) => index + 1
+  )
 
-  const currentDate = new Date();
-  const futureDate = new Date(currentDate);
-  futureDate.setDate(currentDate.getDate() + loanDuration);
+  const currentDate = new Date()
+  const futureDate = new Date(currentDate)
+  futureDate.setDate(currentDate.getDate() + loanDuration)
 
-  const formattedFutureDate = formatDateTime(futureDate);
+  const formattedFutureDate = formatDateTime(futureDate)
 
-  const totalPremium = formatEther(BigInt(quote.result[2] ?? 0)).toString();
+  const totalPremium = formatEther(BigInt(quote.result[2] ?? 0)).toString()
 
   return (
     <div className="border-b border-accent pb-4 pt-2">
@@ -96,9 +96,9 @@ export function LoanTypeRepaymentSummary({
       )}
       <div className="grid grid-cols-1 py-2">
         {numberOfPremiumPeriods !== 0 && numberOfRepaymentPeriods > 0 ? (
-          FractionArray.map((period, index) => (
+          FractionArray.map((period) => (
             <LoanTypeRepaymentFraction
-              key={`period-${period}-index-${index}`}
+              key={`period-${period}`}
               period={period}
               loanDuration={loanDuration}
               chainId={chainId}
@@ -128,11 +128,11 @@ export function LoanTypeRepaymentSummary({
         )}
       </div>
     </div>
-  );
+  )
 }
 
 function formatDateTime(dateTime: Date) {
-  const day = dateTime.getDate().toString().padStart(2, "0");
+  const day = dateTime.getDate().toString().padStart(2, "0")
   const monthNames = [
     "Jan",
     "Feb",
@@ -146,11 +146,11 @@ function formatDateTime(dateTime: Date) {
     "Oct",
     "Nov",
     "Dec",
-  ];
-  const month = monthNames[dateTime.getMonth()];
-  const year = dateTime.getFullYear().toString();
-  const hours = dateTime.getHours().toString().padStart(2, "0");
-  const minutes = dateTime.getMinutes().toString().padStart(2, "0");
+  ]
+  const month = monthNames[dateTime.getMonth()]
+  const year = dateTime.getFullYear().toString()
+  const hours = dateTime.getHours().toString().padStart(2, "0")
+  const minutes = dateTime.getMinutes().toString().padStart(2, "0")
 
-  return `${month} ${day}, ${year} ${hours}:${minutes}`;
+  return `${month} ${day}, ${year} ${hours}:${minutes}`
 }

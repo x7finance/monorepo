@@ -7,9 +7,10 @@
     "skipDefaultLibCheck": true,
     "target": "ES2020",
     "allowJs": true,
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./lib/*"]
-    }
+    },
+    "incremental": true,
+    "tsBuildInfoFile": ".turbo/.tsbuildinfo"
   }
 }

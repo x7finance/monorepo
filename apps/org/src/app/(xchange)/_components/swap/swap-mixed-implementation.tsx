@@ -1,13 +1,13 @@
-import type { FC } from "react";
-import { Fragment } from "react";
+import type { FC } from "react"
+import { Fragment } from "react"
 
-import type { Pool } from "@x7/sdk";
-import { Implementation } from "@x7/utils";
+import type { Pool } from "@x7/sdk"
+import { Implementation } from "@x7/utils"
 
-import { ImplementationIcon } from "./swap-implementation-logos";
+import { ImplementationIcon } from "./swap-implementation-logos"
 
 interface MixedImplementationDisplayProps {
-  pools?: Pool[];
+  pools?: Pool[]
 }
 
 const implementationClassOverrides = {
@@ -16,20 +16,23 @@ const implementationClassOverrides = {
   [Implementation.PANCAKESWAP]: "h-5",
   [Implementation.XCHANGE]: "h-5",
   [Implementation.SUSHISWAP]: "h-4",
-};
+}
 
 export const MixedImplementationDisplay: FC<
   MixedImplementationDisplayProps
 > = ({ pools }) => {
   if (!pools || pools.length === 0) {
-    return null;
+    return null
   }
 
   return (
     <div className="flex items-center space-x-1">
-      {pools.map((pool, index) => (
-        <Fragment key={index}>
-          {index > 0 && <span className="text-xs">→</span>}
+      {pools.map((pool, poolIdx) => (
+        <Fragment
+          // oxlint-disable-next-line react/no-array-index-key -- Pool route steps may repeat same pair; index disambiguates
+          key={`${pool.token0.address}-${pool.token1.address}-${poolIdx}`}
+        >
+          {poolIdx > 0 && <span className="text-xs">→</span>}
           <ImplementationIcon
             implementation={pool.poolType}
             classNameOverrides={implementationClassOverrides}
@@ -37,5 +40,5 @@ export const MixedImplementationDisplay: FC<
         </Fragment>
       ))}
     </div>
-  );
-};
+  )
+}

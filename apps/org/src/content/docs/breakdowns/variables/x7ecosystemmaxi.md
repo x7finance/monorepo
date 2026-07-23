@@ -46,9 +46,10 @@ tags: [breakdowns]
 | `holder`       | `address`      | The holder address to check in whitelist. |
 
 **Returns:**
-| Return | Type | Description |
-|--------------------|----------------|-----------------------------------------------------|
-| | `bool` | Returns true if the holder is in whitelist. |
+
+| Return | Type   | Description                                 |
+| ------ | ------ | ------------------------------------------- |
+|        | `bool` | Returns true if the holder is in whitelist. |
 
 ### setMintFeeDestination
 
@@ -108,6 +109,7 @@ This function does not have any parameters.
 
 This function does not have any parameters.
 **Returns:**
-| Return | Type | Description |
-|--------------------|----------------|-----------------------------------------------------|
-| | `string` | Returns the base URI. |
+
+| Return | Type     | Description           |
+| ------ | -------- | --------------------- |
+|        | `string` | Returns the base URI. |

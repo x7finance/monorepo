@@ -1,25 +1,26 @@
-import _ from "lodash";
+import _ from "lodash"
 
-import type { ChainId, Protocol, Token, TradeType } from "@x7/utils";
+import type { ChainId, Protocol, Token, TradeType } from "@x7/utils"
 
+import type { RouteWithValidQuote } from "../../../../routers/alpha-router/entities/route-with-valid-quote"
 import type {
   MixedRoute,
-  RouteWithValidQuote,
   V2Route,
   V3Route,
-} from "../../../../routers";
-import { CachedRoute } from "./cached-route";
+} from "../../../../routers/route-types"
+
+import { CachedRoute } from "./cached-route"
 
 interface CachedRoutesParams {
-  routes: CachedRoute<V3Route | V2Route | MixedRoute>[];
-  chainId: ChainId;
-  tokenIn: Token;
-  tokenOut: Token;
-  protocolsCovered: Protocol[];
-  blockNumber: number;
-  tradeType: TradeType;
-  originalAmount: string;
-  blocksToLive?: number;
+  routes: CachedRoute<V3Route | V2Route | MixedRoute>[]
+  chainId: ChainId
+  tokenIn: Token
+  tokenOut: Token
+  protocolsCovered: Protocol[]
+  blockNumber: number
+  tradeType: TradeType
+  originalAmount: string
+  blocksToLive?: number
 }
 
 /**
@@ -29,16 +30,16 @@ interface CachedRoutesParams {
  * @class CachedRoute
  */
 export class CachedRoutes {
-  public readonly routes: CachedRoute<V3Route | V2Route | MixedRoute>[];
-  public readonly chainId: ChainId;
-  public readonly tokenIn: Token;
-  public readonly tokenOut: Token;
-  public readonly protocolsCovered: Protocol[];
-  public readonly blockNumber: number;
-  public readonly tradeType: TradeType;
-  public readonly originalAmount: string;
+  public readonly routes: CachedRoute<V3Route | V2Route | MixedRoute>[]
+  public readonly chainId: ChainId
+  public readonly tokenIn: Token
+  public readonly tokenOut: Token
+  public readonly protocolsCovered: Protocol[]
+  public readonly blockNumber: number
+  public readonly tradeType: TradeType
+  public readonly originalAmount: string
 
-  public blocksToLive: number;
+  public blocksToLive: number
 
   /**
    * @param routes
@@ -62,15 +63,15 @@ export class CachedRoutes {
     originalAmount,
     blocksToLive = 0,
   }: CachedRoutesParams) {
-    this.routes = routes;
-    this.chainId = chainId;
-    this.tokenIn = tokenIn;
-    this.tokenOut = tokenOut;
-    this.protocolsCovered = protocolsCovered;
-    this.blockNumber = blockNumber;
-    this.tradeType = tradeType;
-    this.originalAmount = originalAmount;
-    this.blocksToLive = blocksToLive;
+    this.routes = routes
+    this.chainId = chainId
+    this.tokenIn = tokenIn
+    this.tokenOut = tokenOut
+    this.protocolsCovered = protocolsCovered
+    this.blockNumber = blockNumber
+    this.tradeType = tradeType
+    this.originalAmount = originalAmount
+    this.blocksToLive = blocksToLive
   }
 
   /**
@@ -95,15 +96,15 @@ export class CachedRoutes {
     protocolsCovered: Protocol[],
     blockNumber: number,
     tradeType: TradeType,
-    originalAmount: string,
+    originalAmount: string
   ): CachedRoutes | undefined {
-    if (routes.length == 0) return undefined;
+    if (routes.length === 0) return undefined
 
     const cachedRoutes = _.map(
       routes,
       (route: RouteWithValidQuote) =>
-        new CachedRoute({ route: route.route, percent: route.percent }),
-    );
+        new CachedRoute({ route: route.route, percent: route.percent })
+    )
 
     return new CachedRoutes({
       routes: cachedRoutes,
@@ -114,7 +115,7 @@ export class CachedRoutes {
       blockNumber,
       tradeType,
       originalAmount,
-    });
+    })
   }
 
   /**
@@ -125,9 +126,9 @@ export class CachedRoutes {
    */
   public notExpired(currentBlockNumber: number, optimistic = false): boolean {
     // When it's not optimistic, we only allow the route of the existing block.
-    const blocksToLive = optimistic ? this.blocksToLive : 0;
-    const blocksDifference = currentBlockNumber - this.blockNumber;
+    const blocksToLive = optimistic ? this.blocksToLive : 0
+    const blocksDifference = currentBlockNumber - this.blockNumber
 
-    return blocksDifference <= blocksToLive;
+    return blocksDifference <= blocksToLive
   }
 }

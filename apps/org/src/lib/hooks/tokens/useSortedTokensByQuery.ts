@@ -1,153 +1,153 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-"use client";
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+"use client"
 
-import { useMemo } from "react";
-import { isAddress } from "viem";
+import { useMemo } from "react"
+import { isAddress } from "viem"
 
-import type { Currency, CurrencyAmount, Fraction, Token } from "@x7/utils";
+import type { Currency, CurrencyAmount, Fraction, Token } from "@x7/utils"
 
-const alwaysTrue = () => true;
+const alwaysTrue = () => true
 
 /**
  * Create a filter function to apply to a token for whether it matches a particular search query
  * @param search the search query to apply to the token
  */
 export function createTokenFilterFunction<T extends Token>(
-  search: string,
+  search: string
 ): (tokens: T) => boolean {
-  const isValidAddress = isAddress(search);
+  const isValidAddress = isAddress(search)
 
   if (isValidAddress) {
-    return (t: T) => search.toLowerCase() === t.address.toLowerCase();
+    return (t: T) => search.toLowerCase() === t.address.toLowerCase()
   }
 
   const lowerSearchParts = search
     .toLowerCase()
     .split(/\s+/)
-    .filter((s) => s.length > 0);
+    .filter((s) => s.length > 0)
 
-  if (lowerSearchParts.length === 0) return alwaysTrue;
+  if (lowerSearchParts.length === 0) return alwaysTrue
 
   const matchesSearch = (s: string): boolean => {
     const sParts = s
       .toLowerCase()
       .split(/\s+/)
-      .filter((s) => s.length > 0);
+      .filter((part) => part.length > 0)
 
     return lowerSearchParts.every(
       (p) =>
         p.length === 0 ||
-        sParts.some((sp) => sp.startsWith(p) || sp.endsWith(p)),
-    );
-  };
+        sParts.some((sp) => sp.startsWith(p) || sp.endsWith(p))
+    )
+  }
 
   return ({ name, symbol }: T): boolean =>
-    Boolean((symbol && matchesSearch(symbol)) ?? (name && matchesSearch(name)));
+    Boolean((symbol && matchesSearch(symbol)) ?? (name && matchesSearch(name)))
 }
 
 export function filterTokens<T extends Token>(
   tokens: T[],
-  search: string,
+  search: string
 ): T[] {
-  return tokens.filter(createTokenFilterFunction(search));
+  return tokens.filter(createTokenFilterFunction(search))
 }
 
 export const balanceComparator = (
   balanceA?: CurrencyAmount<Currency>,
-  balanceB?: CurrencyAmount<Currency>,
+  balanceB?: CurrencyAmount<Currency>
 ) => {
   if (balanceA && balanceB) {
-    if (balanceA.asFraction.equalTo(balanceB.asFraction)) return 0;
-    return balanceA.asFraction.greaterThan(balanceB.asFraction) ? -1 : 1;
+    if (balanceA.asFraction.equalTo(balanceB.asFraction)) return 0
+    return balanceA.asFraction.greaterThan(balanceB.asFraction) ? -1 : 1
   } else if (balanceA?.greaterThan(0)) {
-    return -1;
+    return -1
   } else if (balanceB?.greaterThan(0)) {
-    return 1;
+    return 1
   }
-  return 0;
-};
+  return 0
+}
 
 export const tokenComparator = (
   balancesMap: Record<string, CurrencyAmount<Currency>> | undefined,
-  pricesMap: Record<string, Fraction> | undefined,
+  pricesMap: Record<string, Fraction> | undefined
 ) => {
   return (tokenA: Token, tokenB: Token): number => {
     const priceA = pricesMap?.[tokenA.address]
       ? balancesMap?.[tokenA.address]?.multiply(pricesMap[tokenA.address]!)
-      : undefined;
+      : undefined
     const priceB = pricesMap?.[tokenB.address]
       ? balancesMap?.[tokenB.address]?.multiply(pricesMap[tokenB.address]!)
-      : undefined;
+      : undefined
 
-    const priceComp = balanceComparator(priceA, priceB);
+    const priceComp = balanceComparator(priceA, priceB)
     if (priceComp !== 0) {
-      return priceComp;
+      return priceComp
     }
 
     const balanceComp = balanceComparator(
       balancesMap?.[tokenA.address],
-      balancesMap?.[tokenB.address],
-    );
+      balancesMap?.[tokenB.address]
+    )
     if (balanceComp !== 0) {
-      return balanceComp;
+      return balanceComp
     }
 
     if (tokenA.symbol && tokenB.symbol) {
       // sort by symbol
-      return tokenA.symbol.toLowerCase() < tokenB.symbol.toLowerCase() ? -1 : 1;
+      return tokenA.symbol.toLowerCase() < tokenB.symbol.toLowerCase() ? -1 : 1
     } else {
-      return tokenA.symbol ? -1 : tokenB.symbol ? -1 : 0;
+      return tokenA.symbol ? -1 : tokenB.symbol ? -1 : 0
     }
-  };
-};
+  }
+}
 
 export function getSortedTokensByQuery(
   tokens: Token[] | undefined,
-  searchQuery: string,
+  searchQuery: string
 ): Token[] {
   if (!tokens) {
-    return [];
+    return []
   }
 
   if (searchQuery === "") {
-    return tokens;
+    return tokens
   }
 
   const symbolMatch = searchQuery
     .toLowerCase()
     .split(/\s+/)
-    .filter((s) => s.length > 0);
+    .filter((s) => s.length > 0)
 
   if (symbolMatch.length > 1) {
-    return tokens;
+    return tokens
   }
 
-  const exactMatches: Token[] = [];
-  const symbolSubstrings: Token[] = [];
-  const rest: Token[] = [];
+  const exactMatches: Token[] = []
+  const symbolSubstrings: Token[] = []
+  const rest: Token[] = []
 
   // sort tokens by exact match -> subtring on symbol match -> rest
   tokens.map((token) => {
     if (token.symbol?.toLowerCase() === symbolMatch[0]) {
-      return exactMatches.push(token);
+      return exactMatches.push(token)
     } else if (
       token.symbol?.toLowerCase().startsWith(searchQuery.toLowerCase().trim())
     ) {
-      return symbolSubstrings.push(token);
+      return symbolSubstrings.push(token)
     } else {
-      return rest.push(token);
+      return rest.push(token)
     }
-  });
+  })
 
-  return [...exactMatches, ...symbolSubstrings, ...rest];
+  return [...exactMatches, ...symbolSubstrings, ...rest]
 }
 
 export function useSortedTokensByQuery(
   tokens: Token[] | undefined,
-  searchQuery: string,
+  searchQuery: string
 ): Token[] {
   return useMemo(
     () => getSortedTokensByQuery(tokens, searchQuery),
-    [tokens, searchQuery],
-  );
+    [tokens, searchQuery]
+  )
 }

@@ -1,22 +1,21 @@
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
-import Image from "next/image";
+import Image from "next/image"
 
-import { cn } from "@x7/css";
-import { buttonVariants } from "@x7/ui/button";
-import { LinkInternal } from "@x7/ui/link";
-import { getRandomPioneerNumber } from "@x7/utils";
+import { cn } from "@x7/css"
+import { buttonVariants } from "@x7/ui/button"
+import { LinkInternal } from "@x7/ui/link"
+import { getRandomPioneerNumber } from "@x7/utils"
+import { GradientTypes } from "~/lib/utils/gradients"
 
-import { GradientTypes } from "~/lib/utils/gradients";
-import { PioneerDrop } from "../utils/pioneer-drop";
+import { PioneerDrop } from "../utils/pioneer-drop"
 
 interface ConstructionProps {
-  description?: string;
-  type?: "small" | "large";
-  title?: string;
+  description?: string
+  type?: "small" | "large"
+  title?: string
 }
 
 export function UnderConstruction(props: ConstructionProps) {
-  const { description, type, title = "Under Construction" } = props;
+  const { description, type, title = "Under Construction" } = props
 
   if (type === "small") {
     return (
@@ -32,7 +31,7 @@ export function UnderConstruction(props: ConstructionProps) {
               <span
                 className={cn(
                   GradientTypes.grape,
-                  `inline-flex rounded-full bg-linear-to-b px-4 py-1 font-mono text-sm font-semibold text-white`,
+                  `inline-flex rounded-full bg-linear-to-b px-4 py-1 font-mono text-sm font-semibold text-white`
                 )}
               >
                 {title}
@@ -49,9 +48,8 @@ export function UnderConstruction(props: ConstructionProps) {
           <div className="px-2 pt-4 pb-8 sm:px-6">
             <div>
               <p className="mt-2 mb-4 text-center text-sm text-zinc-500 dark:text-zinc-400">
-                {description
-                  ? description
-                  : `Pioneers are hard at work to provide the best
+                {description ??
+                  `Pioneers are hard at work to provide the best
             information and experience for users looking to
             utilize the most powerful and decentralized DEX on
             the market today.`}
@@ -60,7 +58,7 @@ export function UnderConstruction(props: ConstructionProps) {
           </div>
         </div>
       </div>
-    );
+    )
   }
 
   return (
@@ -97,7 +95,7 @@ export function UnderConstruction(props: ConstructionProps) {
                             <span
                               className={cn(
                                 GradientTypes.grape,
-                                `inline-flex rounded-full bg-linear-to-b px-4 py-1 font-mono text-base font-semibold text-white`,
+                                `inline-flex rounded-full bg-linear-to-b px-4 py-1 font-mono text-base font-semibold text-white`
                               )}
                             >
                               {title}
@@ -114,9 +112,8 @@ export function UnderConstruction(props: ConstructionProps) {
                         <div className="rounded-b-lg border-t-2 border-zinc-800 px-6 pt-6 pb-8 sm:px-10">
                           <div>
                             <p className="text-secondary-foreground mt-2 mb-4 text-center">
-                              {description
-                                ? description
-                                : `Pioneers are hard at work to provide the best
+                              {description ??
+                                `Pioneers are hard at work to provide the best
                               information and experience for users looking to
                               utilize the most powerful and decentralized DEX on
                               the market today.`}
@@ -130,7 +127,7 @@ export function UnderConstruction(props: ConstructionProps) {
                                 variant: "default",
                                 size: "lg",
                               }),
-                              "mt-2 w-full sm:mt-0",
+                              "mt-2 w-full sm:mt-0"
                             )}
                           >
                             Back Home
@@ -159,5 +156,5 @@ export function UnderConstruction(props: ConstructionProps) {
         </div>
       </div>
     </div>
-  );
+  )
 }

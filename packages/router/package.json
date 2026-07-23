@@ -1,38 +1,50 @@
 {
   "name": "@x7/router",
   "version": "0.0.1",
-  "license": "UNLICENSED",
+  "description": "Swap routing logic for Xchange DEX",
+  "license": "MIT",
   "type": "module",
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "default": "./src/index.ts"
+      "default": "./dist/index.js"
     }
   },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "build": "tsc",
     "clean": "git clean -xdf .turbo node_modules dist",
     "dev": "tsc --watch",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
-    "lint": "eslint",
-    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+    "format": "oxfmt --check --config ../../tooling/oxfmt/.oxfmtrc.json src/",
+    "format:fix": "oxfmt --write --config ../../tooling/oxfmt/.oxfmtrc.json src/",
+    "lint": "oxlint src/",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest watch",
+    "typecheck": "tsc --noEmit"
   },
-  "prettier": "@x7/prettier-config",
   "dependencies": {
     "@x7/contracts": "workspace:*",
     "@x7/sdk": "workspace:*",
     "@x7/tines": "workspace:*",
     "@x7/utils": "workspace:*",
-    "date-fns": "^3.6.0",
+    "date-fns": "^4.4.0",
     "lodash.flatmap": "^4.5.0",
-    "viem": "^2.23.13"
+    "viem": "^2.55.7"
   },
   "devDependencies": {
     "@types/lodash.flatmap": "^4.5.9",
-    "@types/node": "^22.13.10",
-    "@x7/eslint-config": "workspace:*",
-    "@x7/prettier-config": "workspace:*",
+    "@types/node": "^22.20.1",
     "@x7/tsconfig": "workspace:*",
-    "typescript": "catalog:"
+    "oxlint": "^1.75.0",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.10"
   }
 }

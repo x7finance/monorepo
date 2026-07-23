@@ -1,17 +1,17 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-import type { Address } from "viem";
-import { formatUnits } from "viem";
-import { useChainId, useReadContracts } from "wagmi";
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/restrict-template-expressions */
+import type { Address } from "viem"
+import { formatUnits } from "viem"
+import { useChainId, useReadContracts } from "wagmi"
 
-import { AllPairs, ChainLinkAbi, ERC20, PairsAbi } from "@x7/contracts";
-import { generateChainEtherTokenEnum, X7ContractsEnum } from "@x7/sdk";
-import { generateChainTokenOracleEtherUSDEnum } from "@x7/utils";
-import type { ChainId } from "@x7/utils";
+import { AllPairs, ChainLinkAbi, ERC20, PairsAbi } from "@x7/contracts"
+import { generateChainEtherTokenEnum, X7ContractsEnum } from "@x7/sdk"
+import type { ChainId } from "@x7/utils"
+import { generateChainTokenOracleEtherUSDEnum } from "@x7/utils"
 
 export function useXchangeTokenData(id: number) {
-  const chainId = useChainId() as ChainId;
+  const chainId = useChainId() as ChainId
   const { data, isLoading: isInitialPairLoading } = useReadContracts({
     contracts: [
       {
@@ -22,9 +22,9 @@ export function useXchangeTokenData(id: number) {
         chainId,
       },
     ],
-  });
+  })
 
-  const contractAddress = `${data?.[0]?.result}` as Address;
+  const contractAddress = `${data?.[0]?.result}` as Address
 
   const { data: pairTokens, isLoading: isTokenPairLoading } = useReadContracts({
     contracts: [
@@ -47,11 +47,11 @@ export function useXchangeTokenData(id: number) {
         chainId,
       },
     ],
-  });
+  })
 
-  const token0 = `${pairTokens?.[0]?.result}` as Address;
-  const token1 = `${pairTokens?.[1]?.result}` as Address;
-  const reserves = pairTokens?.[2]?.result as [bigint, bigint];
+  const token0 = `${pairTokens?.[0]?.result}` as Address
+  const token1 = `${pairTokens?.[1]?.result}` as Address
+  const reserves = pairTokens?.[2]?.result as [bigint, bigint]
 
   const { data: usdPrice } = useReadContracts({
     contracts: [
@@ -61,13 +61,13 @@ export function useXchangeTokenData(id: number) {
         functionName: "latestAnswer",
       },
     ],
-  });
+  })
 
   const projectToken: Address =
-    token0 !== generateChainEtherTokenEnum(chainId) ? token0 : token1;
+    token0 !== generateChainEtherTokenEnum(chainId) ? token0 : token1
 
   const pairedToken: Address =
-    token0 === generateChainEtherTokenEnum(chainId) ? token0 : token1;
+    token0 === generateChainEtherTokenEnum(chainId) ? token0 : token1
 
   const { data: erc20token0Details, isLoading } = useReadContracts({
     contracts: [
@@ -96,19 +96,18 @@ export function useXchangeTokenData(id: number) {
         chainId,
       },
     ],
-  });
+  })
 
-  const name: string = (erc20token0Details?.[0]?.result as string) || "";
-  const symbol = erc20token0Details?.[1]?.result;
+  const name: string = (erc20token0Details?.[0]?.result as string) || ""
+  const symbol = erc20token0Details?.[1]?.result
   const tokenDecimals = parseInt(
-    erc20token0Details?.[2]?.result?.toString() ?? "0",
-  );
-  const pairedSymbol: string =
-    (erc20token0Details?.[3]?.result as string) || "";
+    erc20token0Details?.[2]?.result?.toString() ?? "0"
+  )
+  const pairedSymbol: string = (erc20token0Details?.[3]?.result as string) || ""
 
   const etherInUSD = usdPrice
     ? parseInt(usdPrice[0].result?.toString() ?? "0") / 10 ** 8
-    : 0;
+    : 0
 
   return {
     isLoading: isLoading || isTokenPairLoading || isInitialPairLoading,
@@ -125,35 +124,35 @@ export function useXchangeTokenData(id: number) {
       reserves,
       etherInUSD,
       tokenDecimals,
-      chainId,
+      chainId
     ),
     contractAddress: contractAddress,
-  };
+  }
 }
 
 function generatePairReserve(
   token0: Address,
   token1: Address,
   reserves: [bigint, bigint],
-  chainId?: ChainId,
+  chainId?: ChainId
 ): string {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  // oxlint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (reserves?.length) {
-    const [_reserve0, _reserve1] = reserves;
+    const [_reserve0, _reserve1] = reserves
 
     const etherReserve =
       token0 === generateChainEtherTokenEnum(chainId)
         ? _reserve0
         : token1 === generateChainEtherTokenEnum(chainId)
           ? _reserve1
-          : -1;
+          : -1
 
     return etherReserve !== -1
       ? roundToString(formatUnits(etherReserve, 18), 2)
-      : etherReserve.toString();
+      : etherReserve.toString()
   }
 
-  return "0";
+  return "0"
 }
 
 function generatePairUSDPrice(
@@ -162,45 +161,45 @@ function generatePairUSDPrice(
   reserves: [bigint, bigint],
   etherInUSD: number,
   tokenDecimals: number,
-  chainId?: ChainId,
+  chainId?: ChainId
 ): string | number {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  // oxlint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (reserves?.length) {
-    const [_reserve0, _reserve1] = reserves;
+    const [_reserve0, _reserve1] = reserves
 
     const etherToken =
       token0 === generateChainEtherTokenEnum(chainId)
         ? _reserve0
         : token1 === generateChainEtherTokenEnum(chainId)
           ? _reserve1
-          : -1;
+          : -1
 
     if (etherToken === -1) {
-      return -1;
+      return -1
     }
 
     const etherReserve =
-      token0 === generateChainEtherTokenEnum(chainId) ? _reserve0 : _reserve1;
+      token0 === generateChainEtherTokenEnum(chainId) ? _reserve0 : _reserve1
 
     const tokenReserve =
-      token0 === generateChainEtherTokenEnum(chainId) ? _reserve1 : _reserve0;
+      token0 === generateChainEtherTokenEnum(chainId) ? _reserve1 : _reserve0
 
     const unitPriceEther =
       parseFloat(formatUnits(etherReserve, 18)) /
-      parseFloat(formatUnits(tokenReserve, tokenDecimals));
+      parseFloat(formatUnits(tokenReserve, tokenDecimals))
 
-    return (etherInUSD * unitPriceEther).toFixed(8);
+    return (etherInUSD * unitPriceEther).toFixed(8)
   }
 
-  return 0;
+  return 0
 }
 
 function roundToString(input: string, decimalPoints: number): string {
-  const parsedNumber = parseFloat(input);
+  const parsedNumber = parseFloat(input)
 
   if (isNaN(parsedNumber)) {
-    throw new Error("Input is not a valid number.");
+    throw new Error("Input is not a valid number.")
   }
-  const roundedNumber = parsedNumber.toFixed(decimalPoints);
-  return roundedNumber.toString();
+  const roundedNumber = parsedNumber.toFixed(decimalPoints)
+  return roundedNumber.toString()
 }

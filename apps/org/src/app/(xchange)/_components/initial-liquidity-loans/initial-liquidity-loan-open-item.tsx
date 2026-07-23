@@ -1,30 +1,30 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import type { Address } from "viem";
+/* oxlint-disable @typescript-eslint/no-unsafe-argument */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+import type { Address } from "viem"
 
-import { Card, CardContent, CardHeader, CardTitle } from "@x7/ui/card";
-import type { ChainId } from "@x7/utils";
-
+import { Card, CardContent, CardHeader, CardTitle } from "@x7/ui/card"
+import type { ChainId } from "@x7/utils"
 import {
   useLoanLookupByBorrower,
   useLoanTermLookUp,
-} from "~/lib/hooks/loans/useXchangeLendingPoolData";
+} from "~/lib/hooks/loans/useXchangeLendingPoolData"
 import {
   useGetPremiumPaymentSchedule,
   useGetPrincipalPaymentSchedule,
-} from "~/lib/hooks/loans/useXchangeLoanData";
-import { generateX7InitialLiquidityLoanTermNumber } from "~/lib/utils/lending";
-import { ILLCardActiveStatus } from "./initial-liquidity-loan-card-active";
-import { ILLCardLiquidationStatus } from "./initial-liquidity-loan-card-liquidation";
-import { ILLCardOutstandingAmount } from "./initial-liquidity-loan-card-outstanding";
-import { ILLCardRepaymentSchedule } from "./initial-liquidity-loan-card-schedule";
-import { ILLCardTitle } from "./initial-liquidity-loan-card-title";
+} from "~/lib/hooks/loans/useXchangeLoanData"
+import { generateX7InitialLiquidityLoanTermNumber } from "~/lib/utils/lending"
+
+import { ILLCardActiveStatus } from "./initial-liquidity-loan-card-active"
+import { ILLCardLiquidationStatus } from "./initial-liquidity-loan-card-liquidation"
+import { ILLCardOutstandingAmount } from "./initial-liquidity-loan-card-outstanding"
+import { ILLCardRepaymentSchedule } from "./initial-liquidity-loan-card-schedule"
+import { ILLCardTitle } from "./initial-liquidity-loan-card-title"
 
 interface ILLCardProps {
-  address: Address;
-  userloanCountIndex: number;
-  chainId: ChainId;
+  address: Address
+  userloanCountIndex: number
+  chainId: ChainId
 }
 
 export function ILLOpenListItem({
@@ -35,27 +35,24 @@ export function ILLOpenListItem({
   const tokenByIndex: any = useLoanLookupByBorrower(
     address,
     userloanCountIndex as unknown as bigint,
-    chainId,
-  ).loanLookupByBorrower;
+    chainId
+  ).loanLookupByBorrower
 
-  const loanTermLookUp = useLoanTermLookUp(
-    tokenByIndex,
-    chainId,
-  ).loanTermLookUp;
+  const loanTermLookUp = useLoanTermLookUp(tokenByIndex, chainId).loanTermLookUp
   const loanType = generateX7InitialLiquidityLoanTermNumber(
     loanTermLookUp,
-    chainId,
-  );
+    chainId
+  )
   const premiumPaymentSchedule = useGetPremiumPaymentSchedule(
     tokenByIndex,
     chainId,
-    loanType,
-  ).getPremiumPaymentSchedule;
+    loanType
+  ).getPremiumPaymentSchedule
   const principalPaymentSchedule = useGetPrincipalPaymentSchedule(
     tokenByIndex,
     chainId,
-    loanType,
-  ).getPrincipalPaymentSchedule;
+    loanType
+  ).getPrincipalPaymentSchedule
 
   return (
     <li key={`loan-${userloanCountIndex}`}>
@@ -99,5 +96,5 @@ export function ILLOpenListItem({
         </CardContent>
       </Card>
     </li>
-  );
+  )
 }

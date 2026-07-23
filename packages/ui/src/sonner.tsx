@@ -1,13 +1,13 @@
-"use client";
+"use client"
 
-import { useMemo } from "react";
-import { useMode } from "nextjs-darkmode/hooks";
-import { Toaster as Sonner } from "sonner";
+import { useMode } from "nextjs-darkmode/hooks"
+import { useMemo } from "react"
+import { Toaster as Sonner } from "sonner"
 
-type ToasterProps = React.ComponentProps<typeof Sonner>;
+type ToasterProps = React.ComponentProps<typeof Sonner>
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  const { resolvedMode } = useMode();
+  const { resolvedMode } = useMode()
 
   const toastOptions = useMemo(
     () => ({
@@ -21,8 +21,8 @@ const Toaster = ({ ...props }: ToasterProps) => {
           "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
       },
     }),
-    [],
-  );
+    []
+  )
 
   return (
     <Sonner
@@ -31,7 +31,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
       toastOptions={toastOptions}
       {...props}
     />
-  );
-};
+  )
+}
 
-export { Toaster };
+export { Toaster }

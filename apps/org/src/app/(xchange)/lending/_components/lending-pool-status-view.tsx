@@ -1,20 +1,21 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
 
-import { Card, CardContent, CardHeader, CardTitle } from "@x7/ui/card";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@x7/ui/tooltip";
-import { ChainId, generateChainName } from "@x7/utils";
+import { Card, CardContent, CardHeader, CardTitle } from "@x7/ui/card"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@x7/ui/tooltip"
+import { ChainId, generateChainName } from "@x7/utils"
+import { DonutChart } from "~/app/(dashboard)/_components/donutChart/donut-chart"
 
-import { DonutChart } from "~/app/(dashboard)/_components/donutChart/donut-chart";
-import { useLendingPoolPrettyData } from "../_hooks/useLendingPoolPrettyData";
-import { StatusCard } from "./status-card";
+import { useLendingPoolPrettyData } from "../_hooks/useLendingPoolPrettyData"
+
+import { StatusCard } from "./status-card"
 
 interface StatusTableProps {
-  chainId: ChainId;
+  chainId: ChainId
 }
 
 export function LendingPoolStatusView({ chainId }: StatusTableProps) {
   const { statusData, splitData, utilizedData } =
-    useLendingPoolPrettyData(chainId);
+    useLendingPoolPrettyData(chainId)
 
   return (
     <div className="container mx-auto mt-8 max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -34,9 +35,17 @@ export function LendingPoolStatusView({ chainId }: StatusTableProps) {
         <StatusCard
           title="Current Lending Pool Overview"
           items={[
-            { label: "Lending Pool", value: statusData.poolBalance },
-            { label: "Lending Pool Reserve", value: statusData.reserveBalance },
-            { label: "Total", value: statusData.totalBalance },
+            {
+              id: "pool",
+              label: "Lending Pool",
+              value: statusData.poolBalance,
+            },
+            {
+              id: "reserve",
+              label: "Lending Pool Reserve",
+              value: statusData.reserveBalance,
+            },
+            { id: "total", label: "Total", value: statusData.totalBalance },
           ]}
           chainId={chainId}
         />
@@ -44,13 +53,22 @@ export function LendingPoolStatusView({ chainId }: StatusTableProps) {
         <StatusCard
           title="Loan Statistics"
           items={[
-            { label: "Available", value: statusData.available },
             {
+              id: "available",
+              label: "Available",
+              value: statusData.available,
+            },
+            {
+              id: "loans-initiated",
               label: "Loans Initiated",
-              value: chainId !== ChainId.ETHEREUM ? statusData.loanCount - 20 : statusData.loanCount,
+              value:
+                chainId !== ChainId.ETHEREUM
+                  ? statusData.loanCount - 20
+                  : statusData.loanCount,
               useChainDenomination: false,
             },
             {
+              id: "live-loans",
               label: "Live Loans",
               value: statusData.liveLoans,
               useChainDenomination: false,
@@ -63,6 +81,7 @@ export function LendingPoolStatusView({ chainId }: StatusTableProps) {
           title="Liquidation Details"
           items={[
             {
+              id: "escrow",
               label: (
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -78,6 +97,7 @@ export function LendingPoolStatusView({ chainId }: StatusTableProps) {
               value: statusData.escrow,
             },
             {
+              id: "reward",
               label: (
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -102,12 +122,12 @@ export function LendingPoolStatusView({ chainId }: StatusTableProps) {
         <ChartCard title="Pool Utilization" data={utilizedData} />
       </div>
     </div>
-  );
+  )
 }
 
 interface ChartCardProps {
-  title: string;
-  data: any[];
+  title: string
+  data: any[]
 }
 
 function ChartCard({ title, data }: ChartCardProps) {
@@ -122,5 +142,5 @@ function ChartCard({ title, data }: ChartCardProps) {
         </div>
       </CardContent>
     </Card>
-  );
+  )
 }

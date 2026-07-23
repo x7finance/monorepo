@@ -1,4 +1,4 @@
-import type { SVGProps } from "react";
+import type { SVGProps } from "react"
 
 export function Warpcast(props: SVGProps<SVGSVGElement>) {
   return (
@@ -12,5 +12,5 @@ export function Warpcast(props: SVGProps<SVGSVGElement>) {
         fill="currentColor"
       />
     </svg>
-  );
+  )
 }

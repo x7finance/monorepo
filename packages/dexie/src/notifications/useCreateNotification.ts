@@ -1,7 +1,7 @@
-import { useCallback } from "react";
+import { useCallback } from "react"
 
-import { createNotification } from "./createNotification";
+import { createNotification } from "./createNotification"
 
 export const useCreateNotification = () => {
-  return useCallback(createNotification, []);
-};
+  return useCallback(createNotification, [])
+}

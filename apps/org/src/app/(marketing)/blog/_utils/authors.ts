@@ -35,4 +35,4 @@ export const AUTHORS = [
     image: "/images/blog/authors/cryptod0c-v2.jpg",
     name: "cryptod0c",
   },
-];
+]

@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
+import type { Metadata } from "next"
 
-import { getRandomPioneerNumber } from "@x7/utils";
+import { getRandomPioneerNumber } from "@x7/utils"
+import { SiteContentContainer } from "~/lib/components/core/site-content-container"
+import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
+import { GradientTypes } from "~/lib/utils/gradients"
+import { DashboardLinksEnum, NftsLinkEnum } from "~/types/links"
 
-import { SiteContentContainer } from "~/lib/components/core/site-content-container";
-import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc";
-import { GradientTypes } from "~/lib/utils/gradients";
-import { DashboardLinksEnum, NftsLinkEnum } from "~/types/links";
-import { Heading } from "../../_components/heading";
-import { SectionStep } from "../../_components/section-step";
+import { Heading } from "../../_components/heading"
+import { SectionStep } from "../../_components/section-step"
 
 const metadata = {
   title: "Liquidty Maxi NFT",
@@ -15,10 +15,10 @@ const metadata = {
     "Uncover X7 Finance's Liquidity Maxi NFT: A unique digital asset that offers holders exclusive benefits in our liquidity pools. Learn how the Liquidity Maxi NFT can enhance your liquidity provision experience, provide preferential rates, and unlock new opportunities in the DeFi market. Understand the mechanics, benefits, and potential returns of our Liquidity Maxi NFT and optimize your decentralized finance journey.",
   slug: NftsLinkEnum.LiquidityMaxi,
   section: "default",
-};
+}
 
 export function generateMetadata(): Metadata {
-  return generateMetadataFromDoc(metadata);
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function LiquidityMaxiPage() {
@@ -57,5 +57,5 @@ export default function LiquidityMaxiPage() {
         </div>
       </SiteContentContainer>
     </div>
-  );
+  )
 }

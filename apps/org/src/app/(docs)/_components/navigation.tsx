@@ -1,39 +1,39 @@
-"use client";
+"use client"
 
-import type { ReactNode } from "react";
-import { useEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname } from "next/navigation"
+import type { ReactNode } from "react"
+import { useEffect, useRef, useState } from "react"
 
-import { cn } from "@x7/css";
-import { ChevronDownIcon } from "@x7/icons";
-import { LinkInternal } from "@x7/ui/link";
+import { cn } from "@x7/css"
+import { ChevronDownIcon } from "@x7/icons"
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@x7/ui/radix-collapsible";
+} from "@x7/ui/collapsible"
+import { LinkInternal } from "@x7/ui/link"
 
-import { SectionNavigation } from "./section-navigation";
+import { SectionNavigation } from "./section-navigation"
 
 interface NavLinkProps {
-  href: string;
-  isActive: boolean;
-  children: ReactNode;
+  href: string
+  isActive: boolean
+  children: ReactNode
 }
 
 interface NavigationProps {
   navigation: {
-    title: string;
+    title: string
     links: {
-      href: string;
-      title: string;
-    }[];
-  }[];
-  className?: string;
+      href: string
+      title: string
+    }[]
+  }[]
+  className?: string
 }
 
 export function Navigation({ navigation, className }: NavigationProps) {
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   return (
     <nav className={cn("text-base lg:text-sm", className)}>
@@ -58,19 +58,19 @@ export function Navigation({ navigation, className }: NavigationProps) {
                 ))}
               </ul>
             </li>
-          ),
+          )
         )}
       </ul>
     </nav>
-  );
+  )
 }
 
 function CollapsibleDocsSection(props: {
-  section: NavigationProps["navigation"][0];
-  pathname: string;
+  section: NavigationProps["navigation"][0]
+  pathname: string
 }) {
-  const { section, pathname } = props;
-  const [open, setOpen] = useState(true);
+  const { section, pathname } = props
+  const [open, setOpen] = useState(true)
 
   return (
     <li className="flex items-center">
@@ -104,19 +104,19 @@ function CollapsibleDocsSection(props: {
         </CollapsibleContent>
       </Collapsible>
     </li>
-  );
+  )
 }
 
 function NavLink({ href, isActive, children }: NavLinkProps) {
-  const ref = useRef<HTMLAnchorElement>(null);
+  const ref = useRef<HTMLAnchorElement>(null)
 
   useEffect(() => {
     if (isActive && ref.current) {
       ref.current.scrollIntoView({
         block: "center",
-      });
+      })
     }
-  }, [isActive]);
+  }, [isActive])
 
   return (
     <LinkInternal
@@ -124,7 +124,7 @@ function NavLink({ href, isActive, children }: NavLinkProps) {
       ref={ref}
       className={cn(
         isActive ? "before:bg-sky-500" : "",
-        "block w-full pl-3.5 before:pointer-events-none before:absolute before:top-1/2 before:-left-1 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full dark:text-zinc-400",
+        "block w-full pl-3.5 before:pointer-events-none before:absolute before:top-1/2 before:-left-1 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full dark:text-zinc-400"
       )}
       href={href}
     >
@@ -132,11 +132,11 @@ function NavLink({ href, isActive, children }: NavLinkProps) {
         className={cn(
           isActive
             ? "bg-linear-to-r from-sky-500 to-violet-500 bg-clip-text font-semibold text-transparent"
-            : "text-zinc-500 before:hidden before:bg-zinc-300 hover:text-zinc-600 hover:before:block dark:text-zinc-400 dark:before:bg-zinc-700 dark:hover:text-zinc-300",
+            : "text-zinc-500 before:hidden before:bg-zinc-300 hover:text-zinc-600 hover:before:block dark:text-zinc-400 dark:before:bg-zinc-700 dark:hover:text-zinc-300"
         )}
       >
         {children}
       </span>
     </LinkInternal>
-  );
+  )
 }

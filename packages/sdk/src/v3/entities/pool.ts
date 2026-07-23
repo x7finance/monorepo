@@ -1,59 +1,60 @@
-/* eslint-disable @typescript-eslint/no-unsafe-enum-comparison */
+/* oxlint-disable @typescript-eslint/no-unsafe-enum-comparison */
 
-import invariant from "tiny-invariant";
+import invariant from "tiny-invariant"
 
-import type { Implementation, Token } from "@x7/utils";
-import { CurrencyAmount, Price } from "@x7/utils";
+import type { Implementation, Token } from "@x7/utils"
+import { CurrencyAmount, Price } from "@x7/utils"
 
-import { NEGATIVE_ONE, ONE, Q192, ZERO } from "../../core";
-import type { FeeAmount } from "../constants";
-import { FACTORY_ADDRESS, TICK_SPACINGS } from "../constants";
-import { computePoolAddress } from "../utils/computePoolAddress";
-import { LiquidityMath } from "../utils/liquidityMath";
-import { SwapMath } from "../utils/swapMath";
-import { TickMath } from "../utils/tickMath";
-import type { Tick, TickConstructorArgs } from "./tick";
-import type { TickDataProvider } from "./tickDataProvider";
-import { NoTickDataProvider } from "./tickDataProvider";
-import { TickListDataProvider } from "./tickListDataProvider";
+import { NEGATIVE_ONE, ONE, Q192, ZERO } from "../../core/constants"
+import type { FeeAmount } from "../constants"
+import { FACTORY_ADDRESS, TICK_SPACINGS } from "../constants"
+import { computePoolAddress } from "../utils/computePoolAddress"
+import { LiquidityMath } from "../utils/liquidityMath"
+import { SwapMath } from "../utils/swapMath"
+import { TickMath } from "../utils/tickMath"
+
+import type { Tick, TickConstructorArgs } from "./tick"
+import type { TickDataProvider } from "./tickDataProvider"
+import { NoTickDataProvider } from "./tickDataProvider"
+import { TickListDataProvider } from "./tickListDataProvider"
 
 interface StepComputations {
-  sqrtPriceStartX96: bigint;
-  tickNext: number;
-  initialized: boolean;
-  sqrtPriceNextX96: bigint;
-  amountIn: bigint;
-  amountOut: bigint;
-  feeAmount: bigint;
+  sqrtPriceStartX96: bigint
+  tickNext: number
+  initialized: boolean
+  sqrtPriceNextX96: bigint
+  amountIn: bigint
+  amountOut: bigint
+  feeAmount: bigint
 }
 
 /**
  * By default, pools will not allow operations that require ticks.
  */
-const NO_TICK_DATA_PROVIDER_DEFAULT = new NoTickDataProvider();
+const NO_TICK_DATA_PROVIDER_DEFAULT = new NoTickDataProvider()
 
 /**
  * Represents a V3 pool
  */
 export class Pool {
-  public readonly token0: Token;
-  public readonly token1: Token;
-  public readonly fee: FeeAmount;
-  public readonly sqrtRatioX96: bigint;
-  public readonly liquidity: bigint;
-  public readonly tickCurrent: number;
-  public readonly tickDataProvider: TickDataProvider;
-  public readonly poolType: Implementation;
+  public readonly token0: Token
+  public readonly token1: Token
+  public readonly fee: FeeAmount
+  public readonly sqrtRatioX96: bigint
+  public readonly liquidity: bigint
+  public readonly tickCurrent: number
+  public readonly tickDataProvider: TickDataProvider
+  public readonly poolType: Implementation
 
-  private _token0Price?: Price<Token, Token>;
-  private _token1Price?: Price<Token, Token>;
+  private _token0Price?: Price<Token, Token>
+  private _token1Price?: Price<Token, Token>
 
   public static getAddress(
     tokenA: Token,
     tokenB: Token,
     fee: FeeAmount,
     initCodeHashManualOverride?: string,
-    factoryAddressOverride?: string,
+    factoryAddressOverride?: string
   ): string {
     return computePoolAddress({
       factoryAddress: factoryAddressOverride ?? FACTORY_ADDRESS,
@@ -61,7 +62,7 @@ export class Pool {
       tokenA,
       tokenB,
       initCodeHashManualOverride,
-    });
+    })
   }
 
   /**
@@ -84,29 +85,29 @@ export class Pool {
     poolType: Implementation,
     ticks:
       | TickDataProvider
-      | (Tick | TickConstructorArgs)[] = NO_TICK_DATA_PROVIDER_DEFAULT,
+      | (Tick | TickConstructorArgs)[] = NO_TICK_DATA_PROVIDER_DEFAULT
   ) {
-    invariant(Number.isInteger(fee) && fee < 1_000_000, "FEE");
+    invariant(Number.isInteger(fee) && fee < 1_000_000, "FEE")
 
-    const tickCurrentSqrtRatioX96 = TickMath.getSqrtRatioAtTick(tickCurrent);
-    const nextTickSqrtRatioX96 = TickMath.getSqrtRatioAtTick(tickCurrent + 1);
+    const tickCurrentSqrtRatioX96 = TickMath.getSqrtRatioAtTick(tickCurrent)
+    const nextTickSqrtRatioX96 = TickMath.getSqrtRatioAtTick(tickCurrent + 1)
     invariant(
       BigInt(sqrtRatioX96) >= tickCurrentSqrtRatioX96 &&
         BigInt(sqrtRatioX96) <= nextTickSqrtRatioX96,
-      "PRICE_BOUNDS",
-    );
+      "PRICE_BOUNDS"
+    )
     // always create a copy of the list since we want the pool's tick list to be immutable
-    [this.token0, this.token1] = tokenA.sortsBefore(tokenB)
+    ;[this.token0, this.token1] = tokenA.sortsBefore(tokenB)
       ? [tokenA, tokenB]
-      : [tokenB, tokenA];
-    this.fee = fee;
-    this.sqrtRatioX96 = BigInt(sqrtRatioX96);
-    this.liquidity = BigInt(liquidity);
-    this.tickCurrent = tickCurrent;
-    this.poolType = poolType;
+      : [tokenB, tokenA]
+    this.fee = fee
+    this.sqrtRatioX96 = BigInt(sqrtRatioX96)
+    this.liquidity = BigInt(liquidity)
+    this.tickCurrent = tickCurrent
+    this.poolType = poolType
     this.tickDataProvider = Array.isArray(ticks)
       ? new TickListDataProvider(ticks, TICK_SPACINGS[fee])
-      : ticks;
+      : ticks
   }
 
   /**
@@ -115,7 +116,7 @@ export class Pool {
    * @returns True if token is either token0 or token
    */
   public involvesToken(token: Token): boolean {
-    return token.equals(this.token0) || token.equals(this.token1);
+    return token.equals(this.token0) || token.equals(this.token1)
   }
 
   /**
@@ -128,9 +129,9 @@ export class Pool {
         this.token0,
         this.token1,
         Q192,
-        this.sqrtRatioX96 * this.sqrtRatioX96,
+        this.sqrtRatioX96 * this.sqrtRatioX96
       ))
-    );
+    )
   }
 
   /**
@@ -143,13 +144,13 @@ export class Pool {
         this.token1,
         this.token0,
         this.sqrtRatioX96 * this.sqrtRatioX96,
-        Q192,
+        Q192
       ))
-    );
+    )
   }
 
   public get address(): string {
-    return Pool.getAddress(this.token0, this.token1, this.fee);
+    return Pool.getAddress(this.token0, this.token1, this.fee)
   }
 
   /**
@@ -158,15 +159,15 @@ export class Pool {
    * @returns The price of the given token, in terms of the other.
    */
   public priceOf(token: Token): Price<Token, Token> {
-    invariant(this.involvesToken(token), "TOKEN");
-    return token.equals(this.token0) ? this.token0Price : this.token1Price;
+    invariant(this.involvesToken(token), "TOKEN")
+    return token.equals(this.token0) ? this.token0Price : this.token1Price
   }
 
   /**
    * Returns the chain ID of the tokens in the pool.
    */
   public get chainId(): number {
-    return this.token0.chainId;
+    return this.token0.chainId
   }
 
   /**
@@ -177,19 +178,19 @@ export class Pool {
    */
   public async getOutputAmount(
     inputAmount: CurrencyAmount<Token>,
-    sqrtPriceLimitX96?: bigint,
+    sqrtPriceLimitX96?: bigint
   ): Promise<[CurrencyAmount<Token>, Pool]> {
-    invariant(this.involvesToken(inputAmount.currency), "TOKEN");
+    invariant(this.involvesToken(inputAmount.currency), "TOKEN")
 
-    const zeroForOne = inputAmount.currency.equals(this.token0);
+    const zeroForOne = inputAmount.currency.equals(this.token0)
 
     const {
       amountCalculated: outputAmount,
       sqrtRatioX96,
       liquidity,
       tickCurrent,
-    } = await this.swap(zeroForOne, inputAmount.quotient, sqrtPriceLimitX96);
-    const outputToken = zeroForOne ? this.token1 : this.token0;
+    } = await this.swap(zeroForOne, inputAmount.quotient, sqrtPriceLimitX96)
+    const outputToken = zeroForOne ? this.token1 : this.token0
     return [
       CurrencyAmount.fromRawAmount(outputToken, outputAmount * NEGATIVE_ONE),
       new Pool(
@@ -200,9 +201,9 @@ export class Pool {
         liquidity,
         tickCurrent,
         this.poolType,
-        this.tickDataProvider,
+        this.tickDataProvider
       ),
-    ];
+    ]
   }
 
   /**
@@ -213,16 +214,16 @@ export class Pool {
    */
   public async getInputAmount(
     outputAmount: CurrencyAmount<Token>,
-    sqrtPriceLimitX96?: bigint,
+    sqrtPriceLimitX96?: bigint
   ): Promise<[CurrencyAmount<Token>, Pool]> {
     invariant(
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      // oxlint-disable-next-line @typescript-eslint/no-unnecessary-condition
       outputAmount.currency.isToken &&
         this.involvesToken(outputAmount.currency),
-      "TOKEN",
-    );
+      "TOKEN"
+    )
 
-    const zeroForOne = outputAmount.currency.equals(this.token1);
+    const zeroForOne = outputAmount.currency.equals(this.token1)
 
     const {
       amountCalculated: inputAmount,
@@ -232,9 +233,9 @@ export class Pool {
     } = await this.swap(
       zeroForOne,
       outputAmount.quotient * NEGATIVE_ONE,
-      sqrtPriceLimitX96,
-    );
-    const inputToken = zeroForOne ? this.token0 : this.token1;
+      sqrtPriceLimitX96
+    )
+    const inputToken = zeroForOne ? this.token0 : this.token1
     return [
       CurrencyAmount.fromRawAmount(inputToken, inputAmount),
       new Pool(
@@ -245,9 +246,9 @@ export class Pool {
         liquidity,
         tickCurrent,
         this.poolType,
-        this.tickDataProvider,
+        this.tickDataProvider
       ),
-    ];
+    ]
   }
 
   /**
@@ -263,27 +264,27 @@ export class Pool {
   private async swap(
     zeroForOne: boolean,
     amountSpecified: bigint,
-    sqrtPriceLimitX96?: bigint,
+    sqrtPriceLimitX96?: bigint
   ): Promise<{
-    amountCalculated: bigint;
-    sqrtRatioX96: bigint;
-    liquidity: bigint;
-    tickCurrent: number;
+    amountCalculated: bigint
+    sqrtRatioX96: bigint
+    liquidity: bigint
+    tickCurrent: number
   }> {
     if (!sqrtPriceLimitX96)
       sqrtPriceLimitX96 = zeroForOne
         ? TickMath.MIN_SQRT_RATIO + ONE
-        : TickMath.MAX_SQRT_RATIO - ONE;
+        : TickMath.MAX_SQRT_RATIO - ONE
 
     if (zeroForOne) {
-      invariant(sqrtPriceLimitX96 > TickMath.MIN_SQRT_RATIO, "RATIO_MIN");
-      invariant(sqrtPriceLimitX96 < this.sqrtRatioX96, "RATIO_CURRENT");
+      invariant(sqrtPriceLimitX96 > TickMath.MIN_SQRT_RATIO, "RATIO_MIN")
+      invariant(sqrtPriceLimitX96 < this.sqrtRatioX96, "RATIO_CURRENT")
     } else {
-      invariant(sqrtPriceLimitX96 < TickMath.MAX_SQRT_RATIO, "RATIO_MAX");
-      invariant(sqrtPriceLimitX96 > this.sqrtRatioX96, "RATIO_CURRENT");
+      invariant(sqrtPriceLimitX96 < TickMath.MAX_SQRT_RATIO, "RATIO_MAX")
+      invariant(sqrtPriceLimitX96 > this.sqrtRatioX96, "RATIO_CURRENT")
     }
 
-    const exactInput = amountSpecified >= ZERO;
+    const exactInput = amountSpecified >= ZERO
 
     // keep track of swap state
 
@@ -293,34 +294,34 @@ export class Pool {
       sqrtPriceX96: this.sqrtRatioX96,
       tick: this.tickCurrent,
       liquidity: this.liquidity,
-    };
+    }
 
     // start swap while loop
     while (
       state.amountSpecifiedRemaining !== ZERO &&
-      state.sqrtPriceX96 != sqrtPriceLimitX96
+      state.sqrtPriceX96 !== sqrtPriceLimitX96
     ) {
-      const step: Partial<StepComputations> = {};
-      step.sqrtPriceStartX96 = state.sqrtPriceX96;
+      const step: Partial<StepComputations> = {}
+      step.sqrtPriceStartX96 = state.sqrtPriceX96
 
       // because each iteration of the while loop rounds, we can't optimize this code (relative to the smart contract)
       // by simply traversing to the next available tick, we instead need to exactly replicate
       // tickBitmap.nextInitializedTickWithinOneWord
-      [step.tickNext, step.initialized] =
+      ;[step.tickNext, step.initialized] =
         await this.tickDataProvider.nextInitializedTickWithinOneWord(
           state.tick,
           zeroForOne,
-          this.tickSpacing,
-        );
+          this.tickSpacing
+        )
 
       if (step.tickNext < TickMath.MIN_TICK) {
-        step.tickNext = TickMath.MIN_TICK;
+        step.tickNext = TickMath.MIN_TICK
       } else if (step.tickNext > TickMath.MAX_TICK) {
-        step.tickNext = TickMath.MAX_TICK;
+        step.tickNext = TickMath.MAX_TICK
       }
 
-      step.sqrtPriceNextX96 = TickMath.getSqrtRatioAtTick(step.tickNext);
-      [state.sqrtPriceX96, step.amountIn, step.amountOut, step.feeAmount] =
+      step.sqrtPriceNextX96 = TickMath.getSqrtRatioAtTick(step.tickNext)
+      ;[state.sqrtPriceX96, step.amountIn, step.amountOut, step.feeAmount] =
         SwapMath.computeSwapStep(
           state.sqrtPriceX96,
           (
@@ -332,40 +333,40 @@ export class Pool {
             : step.sqrtPriceNextX96,
           state.liquidity,
           state.amountSpecifiedRemaining,
-          this.fee,
-        );
+          this.fee
+        )
 
       if (exactInput) {
-        state.amountSpecifiedRemaining -= step.amountIn + step.feeAmount;
-        state.amountCalculated -= step.amountOut;
+        state.amountSpecifiedRemaining -= step.amountIn + step.feeAmount
+        state.amountCalculated -= step.amountOut
       } else {
-        state.amountSpecifiedRemaining += step.amountOut;
-        state.amountCalculated += step.amountIn + step.feeAmount;
+        state.amountSpecifiedRemaining += step.amountOut
+        state.amountCalculated += step.amountIn + step.feeAmount
       }
 
       if (state.sqrtPriceX96 === step.sqrtPriceNextX96) {
         // if the tick is initialized, run the tick transition
         if (step.initialized) {
           let liquidityNet = BigInt(
-            (await this.tickDataProvider.getTick(step.tickNext)).liquidityNet,
-          );
+            (await this.tickDataProvider.getTick(step.tickNext)).liquidityNet
+          )
           // if we're moving leftward, we interpret liquidityNet as the opposite sign
           // safe because liquidityNet cannot be type(int128).min
           if (zeroForOne) {
-            liquidityNet = -liquidityNet; // Multiplying by NEGATIVE_ONE for negation
+            liquidityNet = -liquidityNet // Multiplying by NEGATIVE_ONE for negation
           }
 
           state.liquidity = LiquidityMath.addDelta(
             state.liquidity,
-            liquidityNet,
-          );
+            liquidityNet
+          )
         }
 
-        state.tick = zeroForOne ? step.tickNext - 1 : step.tickNext;
+        state.tick = zeroForOne ? step.tickNext - 1 : step.tickNext
       } else if (state.sqrtPriceX96 !== step.sqrtPriceStartX96) {
         // updated comparison function
         // recompute unless we're on a lower tick boundary (i.e. already transitioned ticks), and haven't moved
-        state.tick = TickMath.getTickAtSqrtRatio(state.sqrtPriceX96);
+        state.tick = TickMath.getTickAtSqrtRatio(state.sqrtPriceX96)
       }
     }
 
@@ -374,10 +375,10 @@ export class Pool {
       sqrtRatioX96: state.sqrtPriceX96,
       liquidity: state.liquidity,
       tickCurrent: state.tick,
-    };
+    }
   }
 
   public get tickSpacing(): number {
-    return TICK_SPACINGS[this.fee];
+    return TICK_SPACINGS[this.fee]
   }
 }

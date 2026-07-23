@@ -1,7 +1,7 @@
-import Image from "next/image";
+import Image from "next/image"
 
-import { Card, CardContent } from "@x7/ui/card";
-import { LinkExternal } from "@x7/ui/link";
+import { Card, CardContent } from "@x7/ui/card"
+import { LinkExternal } from "@x7/ui/link"
 
 export function DeployerTemp() {
   return (
@@ -45,5 +45,5 @@ export function DeployerTemp() {
         </div>
       </CardContent>
     </Card>
-  );
+  )
 }

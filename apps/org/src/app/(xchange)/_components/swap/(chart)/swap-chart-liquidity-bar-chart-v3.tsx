@@ -1,4 +1,4 @@
-import { scaleSymlog } from "d3-scale";
+import { scaleSymlog } from "d3-scale"
 import {
   Bar,
   BarChart,
@@ -6,27 +6,27 @@ import {
   ResponsiveContainer,
   XAxis,
   YAxis,
-} from "recharts";
-import type { Address } from "viem";
-import { useChainId, useReadContracts } from "wagmi";
+} from "recharts"
+import type { Address } from "viem"
+import { useChainId, useReadContracts } from "wagmi"
 
-import { erc20Abi } from "@x7/contracts";
-import type { Pool } from "@x7/sdk";
+import { erc20Abi } from "@x7/contracts"
+import type { Pool } from "@x7/sdk"
+import type { ChartConfig } from "@x7/ui/chart"
 import {
   ChartContainer,
   ChartLegend,
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-} from "@x7/ui/chart";
-import type { ChartConfig } from "@x7/ui/chart";
-import type { ChainId } from "@x7/utils";
-import { DEAD_ADDRESS, Implementation, Protocol } from "@x7/utils";
+} from "@x7/ui/chart"
+import type { ChainId } from "@x7/utils"
+import { DEAD_ADDRESS, Implementation, Protocol } from "@x7/utils"
 
 interface SwapChartLiquidityBarChartProps {
-  pool: Pool;
-  protocol: Protocol;
-  isRouteFound: boolean;
+  pool: Pool
+  protocol: Protocol
+  isRouteFound: boolean
 }
 
 const chartConfig = {
@@ -38,17 +38,17 @@ const chartConfig = {
     label: "amount",
     color: "hsl(var(--chart-2))",
   },
-} satisfies ChartConfig;
+} satisfies ChartConfig
 
 export function SwapChartLiquidityBarChartV3({
   pool,
   protocol,
   isRouteFound,
 }: SwapChartLiquidityBarChartProps) {
-  const chainId = useChainId() as ChainId;
-  const scale = scaleSymlog();
+  const chainId = useChainId() as ChainId
+  const scale = scaleSymlog()
 
-  const dex = pool.poolType;
+  const dex = pool.poolType
 
   const { data } = useReadContracts({
     contracts: [
@@ -73,18 +73,18 @@ export function SwapChartLiquidityBarChartV3({
         chainId: chainId,
       },
     ],
-  });
+  })
 
   const token0Amount = data?.[0].result
     ? Number(
-        BigInt(data[0].result) / BigInt(10 ** pool.token0.decimals),
+        BigInt(data[0].result) / BigInt(10 ** pool.token0.decimals)
       ).toFixed(4)
-    : "0.0000";
+    : "0.0000"
   const token1Amount = data?.[1].result
     ? Number(
-        BigInt(data[1].result) / BigInt(10 ** pool.token1.decimals),
+        BigInt(data[1].result) / BigInt(10 ** pool.token1.decimals)
       ).toFixed(4)
-    : "0.0000";
+    : "0.0000"
 
   const chartData = [
     {
@@ -97,7 +97,7 @@ export function SwapChartLiquidityBarChartV3({
       loan: 0,
       amount: token1Amount,
     },
-  ];
+  ]
 
   return (
     <ResponsiveContainer width={300} height="100%">
@@ -147,5 +147,5 @@ export function SwapChartLiquidityBarChartV3({
         </BarChart>
       </ChartContainer>
     </ResponsiveContainer>
-  );
+  )
 }

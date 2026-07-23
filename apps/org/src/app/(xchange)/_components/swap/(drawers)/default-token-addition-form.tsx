@@ -1,78 +1,77 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
 
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 
-"use client";
+"use client"
 
-import React, { useCallback, useMemo, useState } from "react";
-import { isAddress } from "viem";
-import type { Address } from "viem";
-import { useAccount } from "wagmi";
+import React, { useCallback, useMemo, useState } from "react"
+import type { Address } from "viem"
+import { isAddress } from "viem"
+import { useAccount } from "wagmi"
 
-import { cn } from "@x7/css";
-import { FACTORY_ADDRESSES, generateChainEtherTokenEnum } from "@x7/sdk";
-import { Alert, AlertDescription } from "@x7/ui/alert";
-import { Button } from "@x7/ui/button";
-import { Input } from "@x7/ui/input";
-import { Label } from "@x7/ui/label";
+import { cn } from "@x7/css"
+import { FACTORY_ADDRESSES, generateChainEtherTokenEnum } from "@x7/sdk"
+import { Alert, AlertDescription } from "@x7/ui/alert"
+import { Button } from "@x7/ui/button"
+import { Input } from "@x7/ui/input"
+import { Label } from "@x7/ui/label"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@x7/ui/select";
+} from "@x7/ui/select"
 import {
   ChainId,
   DEAD_ADDRESS,
   Implementation,
   Native,
   Protocol,
-} from "@x7/utils";
-
-import { useGetPair } from "~/lib/hooks/pairs/useGetPair";
+} from "@x7/utils"
+import { useGetPair } from "~/lib/hooks/pairs/useGetPair"
 import {
   useFee,
   useRegisteredTokens,
-} from "~/lib/hooks/tokens/useXchangeTokenList";
-import { useXchangeTokenListAddToken } from "~/lib/hooks/tokens/useXchangeTokenListAddToken";
+} from "~/lib/hooks/tokens/useXchangeTokenList"
+import { useXchangeTokenListAddToken } from "~/lib/hooks/tokens/useXchangeTokenListAddToken"
 
 export function DefaultTokenAdditionForm() {
-  const { chainId, isConnected } = useAccount();
-  const nativeCurrency = Native.onChain((chainId as ChainId) ?? 1);
+  const { chainId, isConnected } = useAccount()
+  const nativeCurrency = Native.onChain((chainId as ChainId) ?? 1)
 
-  const [selectedDex, setSelectedDex] = useState<string | null>(null);
-  const [inputValue, setInputValue] = useState<`0x${string}` | undefined>();
+  const [selectedDex, setSelectedDex] = useState<string | null>(null)
+  const [inputValue, setInputValue] = useState<`0x${string}` | undefined>()
 
-  const { fee } = useFee(chainId as ChainId);
+  const { fee } = useFee(chainId as ChainId)
   const factoryAddress = FACTORY_ADDRESSES[chainId ?? ChainId.ETHEREUM]?.[
     selectedDex?.toString() ?? Implementation.XCHANGE
-  ]?.[Protocol.V2] as Address;
+  ]?.[Protocol.V2] as Address
 
   const { registeredToken } = useRegisteredTokens(
     chainId as ChainId,
-    inputValue!,
-  );
+    inputValue!
+  )
   const { getPair } = useGetPair(
     chainId as ChainId,
     factoryAddress,
     inputValue!,
-    generateChainEtherTokenEnum(chainId as ChainId) ?? DEAD_ADDRESS,
-  );
+    generateChainEtherTokenEnum(chainId as ChainId) ?? DEAD_ADDRESS
+  )
 
   const { writeContract, data, isPending } = useXchangeTokenListAddToken({
     fee: fee.toString(),
     tokenAddress: inputValue!,
     factoryAddress: factoryAddress,
-  });
+  })
 
   const handleAddToken = useCallback(() => {
     if (isAddress(inputValue!)) {
       // @ts-expect-error: todo fixs
-      writeContract(data?.request);
+      writeContract(data?.request)
     }
-  }, [inputValue, writeContract, data]);
+  }, [inputValue, writeContract, data])
 
   const alertText = registeredToken
     ? "Token is already registered on the Xchange default token list"
@@ -80,7 +79,7 @@ export function DefaultTokenAdditionForm() {
       ? "This DEX is not supported on this chain. Please select another DEX."
       : !isAddress(getPair) || getPair === DEAD_ADDRESS || getPair === undefined
         ? "This token does not have a pair on the selected DEX. Please create a pair or select another DEX."
-        : "There was an error. Please try again.";
+        : "There was an error. Please try again."
 
   const isValid = useMemo(
     () =>
@@ -90,10 +89,10 @@ export function DefaultTokenAdditionForm() {
       isAddress(factoryAddress) &&
       getPair !== DEAD_ADDRESS &&
       isAddress(getPair),
-    [inputValue, selectedDex, registeredToken, factoryAddress, getPair],
-  );
+    [inputValue, selectedDex, registeredToken, factoryAddress, getPair]
+  )
 
-  const showErrorMessage = inputValue && inputValue?.length > 1 && !isValid;
+  const showErrorMessage = inputValue && inputValue?.length > 1 && !isValid
 
   return (
     <div>
@@ -162,5 +161,5 @@ export function DefaultTokenAdditionForm() {
         </Button>
       </div>
     </div>
-  );
+  )
 }

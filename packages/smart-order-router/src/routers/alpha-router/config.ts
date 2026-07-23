@@ -1,9 +1,9 @@
-import { ChainId } from "@x7/utils";
+import { ChainId } from "@x7/utils"
 
-import type { AlphaRouterConfig } from "./alpha-router";
+import type { AlphaRouterConfig } from "./types"
 
 export const DEFAULT_ROUTING_CONFIG_BY_CHAIN = (
-  chainId: ChainId,
+  chainId: ChainId
 ): AlphaRouterConfig => {
   switch (chainId) {
     // Optimism
@@ -32,7 +32,7 @@ export const DEFAULT_ROUTING_CONFIG_BY_CHAIN = (
         maxSplits: 7,
         distributionPercent: 10,
         forceCrossProtocol: false,
-      };
+      }
     // Arbitrum calls have lower gas limits and tend to timeout more, which causes us to reduce the multicall
     // batch size and send more multicalls per quote. To reduce the amount of requests each quote sends, we
     // have to adjust the routing config so we explore fewer routes.
@@ -60,7 +60,7 @@ export const DEFAULT_ROUTING_CONFIG_BY_CHAIN = (
         maxSplits: 7,
         distributionPercent: 25,
         forceCrossProtocol: false,
-      };
+      }
     default:
       return {
         v2PoolSelection: {
@@ -84,6 +84,6 @@ export const DEFAULT_ROUTING_CONFIG_BY_CHAIN = (
         maxSplits: 7,
         distributionPercent: 5,
         forceCrossProtocol: false,
-      };
+      }
   }
-};
+}

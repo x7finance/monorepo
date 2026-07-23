@@ -1,1 +1,1 @@
-export const A_PRECISION = 100n;
+export const A_PRECISION = 100n

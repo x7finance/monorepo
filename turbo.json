@@ -1,5 +1,6 @@
 {
   "$schema": "https://turborepo.org/schema.json",
+  "ui": "stream",
   "globalDependencies": ["**/.env.*local"],
   "globalEnv": [
     "NEXT_PUBLIC_APP_ENV",
@@ -33,8 +34,6 @@
     "NEXT_PUBLIC_DEFAULT_POLYGON_TESTNET_RPC_FALLBACK",
     "NEXT_PUBLIC_DEFAULT_BASE_TESTNET_RPC_FALLBACK",
     "NEXT_PUBLIC_DEFAULT_ETHER_TESTNET_RPC_FALLBACK",
-    "NEXT_PUBLIC_PINATA_AIP_KEY",
-    "NEXT_PUBLIC_PINATA_SECRECT_KEY",
     "NEXT_PUBLIC_GATEWAY_URL",
     "NEXT_PUBLIC_ALCHEMY_ID",
     "PINATA_JWT",
@@ -44,31 +43,85 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env",
+        ".env.*",
+        "$TURBO_ROOT$/tooling/typescript/**",
+        "!e2e/**",
+        "!test/**",
+        "!tests/**",
+        "!**/*.test.*",
+        "!**/*.spec.*",
+        "!playwright.config.ts",
+        "!vitest.config.ts"
+      ],
       "outputs": [
-        ".cache/tsbuildinfo.json",
+        ".next/**",
+        "!.next/cache/**",
+        ".turbo/.tsbuildinfo",
         "dist/**",
+        "build/**",
         "artifacts/**",
         "contracts/**"
       ]
     },
     "dev": {
-      "dependsOn": ["^dev"],
       "cache": false,
-      "persistent": false
+      "persistent": true
     },
     "format": {
-      "outputs": [".cache/.prettiercache"],
+      "cache": false,
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"],
+      "outputLogs": "new-only"
+    },
+    "format:fix": {
+      "cache": false,
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"],
       "outputLogs": "new-only"
     },
     "lint": {
-      "outputs": [".cache/.eslintcache"]
+      "inputs": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/**/*.js",
+        "src/**/*.jsx",
+        "$TURBO_ROOT$/.oxlintrc.json",
+        "$TURBO_ROOT$/tooling/oxlint/**"
+      ]
     },
     "typecheck": {
       "dependsOn": ["^build"],
-      "outputs": [".cache/tsbuildinfo.json"]
+      "inputs": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "tsconfig.json",
+        "$TURBO_ROOT$/tooling/typescript/**"
+      ],
+      "outputs": [".turbo/.tsbuildinfo"]
     },
     "test": {
       "dependsOn": ["^build"],
+      "outputs": [],
+      "outputLogs": "new-only",
+      "inputs": [
+        "src/**",
+        "test/**",
+        "tests/**",
+        "__tests__/**",
+        "**/*.test.*",
+        "**/*.spec.*",
+        "vitest.config.*",
+        "../../vitest.shared.ts",
+        "../../vitest.config.ts",
+        ".env.test",
+        "!**/e2e/**"
+      ]
+    },
+    "test:coverage": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "outputs": ["coverage/**"],
       "outputLogs": "new-only"
     },
     "start": {
@@ -80,9 +133,6 @@
       "cache": false
     },
     "clean": {
-      "cache": false
-    },
-    "//#clean": {
       "cache": false
     }
   }

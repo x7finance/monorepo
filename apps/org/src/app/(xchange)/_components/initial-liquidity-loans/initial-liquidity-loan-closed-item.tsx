@@ -1,6 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
-import { useAccount } from "wagmi";
+/* oxlint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react"
+import { useAccount } from "wagmi"
 
 import {
   Card,
@@ -9,61 +9,61 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@x7/ui/card";
-import type { ChainId } from "@x7/utils";
-
+} from "@x7/ui/card"
+import type { ChainId } from "@x7/utils"
 import {
   useLoanBorrower,
   useLoanTermLookUp,
-} from "~/lib/hooks/loans/useXchangeLendingPoolData";
-import { useGetRemainingLiability } from "~/lib/hooks/loans/useXchangeLoanData";
-import { generateX7InitialLiquidityLoanTermNumber } from "~/lib/utils/lending";
-import { useClosedLoanStore } from "./closed-loan-store";
-import { ILLCardContent } from "./initial-liquidity-loan-card-content";
-import { ILLCardDescription } from "./initial-liquidity-loan-card-description";
-import { ILLCardTitle } from "./initial-liquidity-loan-card-title";
+} from "~/lib/hooks/loans/useXchangeLendingPoolData"
+import { useGetRemainingLiability } from "~/lib/hooks/loans/useXchangeLoanData"
+import { generateX7InitialLiquidityLoanTermNumber } from "~/lib/utils/lending"
+
+import { useClosedLoanStore } from "./closed-loan-store"
+import { ILLCardContent } from "./initial-liquidity-loan-card-content"
+import { ILLCardDescription } from "./initial-liquidity-loan-card-description"
+import { ILLCardTitle } from "./initial-liquidity-loan-card-title"
 
 interface LoansProps {
-  id: number;
-  chainId: ChainId;
+  id: number
+  chainId: ChainId
 }
 
 export function ILLClosedListItem({ id, chainId }: LoansProps) {
-  const { address } = useAccount();
-  const { loanBorrower } = useLoanBorrower(id, chainId);
-  const data = useLoanTermLookUp(id, chainId);
+  const { address } = useAccount()
+  const { loanBorrower } = useLoanBorrower(id, chainId)
+  const data = useLoanTermLookUp(id, chainId)
   const loanType = generateX7InitialLiquidityLoanTermNumber(
     data.loanTermLookUp,
-    chainId,
-  );
+    chainId
+  )
   const remainingLiability = useGetRemainingLiability(
     id,
     chainId,
-    generateX7InitialLiquidityLoanTermNumber(data.loanTermLookUp, chainId),
-  ).getRemainingLiability;
+    generateX7InitialLiquidityLoanTermNumber(data.loanTermLookUp, chainId)
+  ).getRemainingLiability
 
   const validLoanOwnershipOfClosedLoan =
     address &&
     loanBorrower &&
     loanBorrower.toLowerCase() === address.toLowerCase() &&
     remainingLiability === 0 &&
-    loanType;
+    loanType
 
   const { increaseLoanCount, closedLoans, initialLoanLoaded, loansLoaded } =
-    useClosedLoanStore((state) => state);
+    useClosedLoanStore((state) => state)
 
   useEffect(() => {
     if (!initialLoanLoaded) {
-      loansLoaded();
+      loansLoaded()
     }
 
     if (validLoanOwnershipOfClosedLoan && !closedLoans) {
-      increaseLoanCount();
+      increaseLoanCount()
     }
-  }, [increaseLoanCount, closedLoans, initialLoanLoaded]);
+  }, [increaseLoanCount, closedLoans, initialLoanLoaded])
 
   if (!validLoanOwnershipOfClosedLoan) {
-    return null;
+    return null
   }
 
   return (
@@ -95,5 +95,5 @@ export function ILLClosedListItem({ id, chainId }: LoansProps) {
         <CardFooter className="flex justify-between"></CardFooter>
       </Card>
     </li>
-  );
+  )
 }

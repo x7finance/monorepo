@@ -1,55 +1,55 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import type { Abi } from "viem";
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+import type { Abi } from "viem"
 
-import type { ProviderConfig } from "./provider";
+import type { ProviderConfig } from "./provider"
 
 export interface CallSameFunctionOnMultipleContractsParams<
   TFunctionParams,
   TAdditionalConfig = any,
 > {
-  addresses: string[];
-  contractInterface: Abi | readonly unknown[];
-  functionName: string;
-  functionParams?: TFunctionParams;
-  providerConfig?: ProviderConfig;
-  additionalConfig?: TAdditionalConfig;
+  addresses: string[]
+  contractInterface: Abi | readonly unknown[]
+  functionName: string
+  functionParams?: TFunctionParams
+  providerConfig?: ProviderConfig
+  additionalConfig?: TAdditionalConfig
 }
 
 export interface CallSameFunctionOnContractWithMultipleParams<
   TFunctionParams,
   TAdditionalConfig = any,
 > {
-  address: string;
-  contractInterface: Abi | readonly unknown[];
-  functionName: string;
-  functionParams: TFunctionParams[];
-  providerConfig?: ProviderConfig;
-  additionalConfig?: TAdditionalConfig;
+  address: string
+  contractInterface: Abi | readonly unknown[]
+  functionName: string
+  functionParams: TFunctionParams[]
+  providerConfig?: ProviderConfig
+  additionalConfig?: TAdditionalConfig
 }
 
 export interface CallMultipleFunctionsOnSameContractParams<
   TFunctionParams,
   TAdditionalConfig = any,
 > {
-  address: string;
-  contractInterface: Abi | readonly unknown[];
-  functionNames: string[];
-  functionParams?: TFunctionParams[];
-  providerConfig?: ProviderConfig;
-  additionalConfig?: TAdditionalConfig;
+  address: string
+  contractInterface: Abi | readonly unknown[]
+  functionNames: string[]
+  functionParams?: TFunctionParams[]
+  providerConfig?: ProviderConfig
+  additionalConfig?: TAdditionalConfig
 }
 
 export interface SuccessResult<TReturn> {
-  success: true;
-  result: TReturn;
+  success: true
+  result: TReturn
 }
 
 export interface FailResult {
-  success: false;
-  returnData: string;
+  success: false
+  returnData: string
 }
 
-export type Result<TReturn> = SuccessResult<TReturn> | FailResult;
+export type Result<TReturn> = SuccessResult<TReturn> | FailResult
 
 /**
  * Provider for fetching data on chain using multicall contracts.
@@ -79,11 +79,11 @@ export abstract class IMulticallProvider<TMulticallConfig = any> {
     params: CallSameFunctionOnMultipleContractsParams<
       TFunctionParams,
       TMulticallConfig
-    >,
+    >
   ): Promise<{
-    blockNumber: bigint;
-    results: Result<TReturn>[];
-  }>;
+    blockNumber: bigint
+    results: Result<TReturn>[]
+  }>
 
   /**
    * Calls a function on a single contract with different parameters.
@@ -104,11 +104,11 @@ export abstract class IMulticallProvider<TMulticallConfig = any> {
     params: CallSameFunctionOnContractWithMultipleParams<
       TFunctionParams,
       TMulticallConfig
-    >,
+    >
   ): Promise<{
-    blockNumber: bigint;
-    results: Result<TReturn>[];
-  }>;
+    blockNumber: bigint
+    results: Result<TReturn>[]
+  }>
 
   public abstract callMultipleFunctionsOnSameContract<
     TFunctionParams extends any[] | undefined,
@@ -117,9 +117,9 @@ export abstract class IMulticallProvider<TMulticallConfig = any> {
     params: CallMultipleFunctionsOnSameContractParams<
       TFunctionParams,
       TMulticallConfig
-    >,
+    >
   ): Promise<{
-    blockNumber: bigint;
-    results: Result<TReturn>[];
-  }>;
+    blockNumber: bigint
+    results: Result<TReturn>[]
+  }>
 }

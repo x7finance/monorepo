@@ -1,21 +1,22 @@
-import type { ReactNode } from "react";
-import { cookies } from "next/headers";
-import { cookieToInitialState } from "wagmi";
+import { cookies } from "next/headers"
+import { Suspense, type ReactNode } from "react"
+import { cookieToInitialState } from "wagmi"
 
-import { X7Logo, Xchange } from "@x7/icons";
-import { LinkInternal } from "@x7/ui/link";
+import { X7Logo, Xchange } from "@x7/icons"
+import { LinkInternal } from "@x7/ui/link"
+import { Splash } from "@x7/ui/splash"
+import { SiteDataFooter } from "~/lib/components/core/site-data-footer"
+import { baseConfig } from "~/lib/config/web3"
+import { AppProviders } from "~/lib/providers/app"
 
-import { SiteDataFooter } from "~/lib/components/core/site-data-footer";
-import { baseConfig } from "~/lib/config/web3";
-import { AppProviders } from "~/lib/providers/app";
-import { BackgroundColorHue } from "./_components/layout-bg-hue";
-import { MainNav } from "./_components/main-nav";
+import { BackgroundColorHue } from "./_components/layout-bg-hue"
+import { MainNav } from "./_components/main-nav"
 
-export default async function XchangeLayout(props: { children: ReactNode }) {
+async function XchangeContent({ children }: { children: ReactNode }) {
   const initialState = cookieToInitialState(
     baseConfig,
-    (await cookies()).get("cookie")?.value,
-  );
+    (await cookies()).get("cookie")?.value
+  )
 
   return (
     <AppProviders initialState={initialState}>
@@ -33,9 +34,9 @@ export default async function XchangeLayout(props: { children: ReactNode }) {
 
           <main className="flex-1">
             <div className="relative ml-0 flex flex-auto flex-col 2xl:flex 2xl:items-center">
-              <div className="mt-16 mb-8 w-full">
+              <div className="mt-16 mb-8 w-full sm:mt-20">
                 <BackgroundColorHue />
-                {props.children}
+                {children}
               </div>
             </div>
           </main>
@@ -44,5 +45,13 @@ export default async function XchangeLayout(props: { children: ReactNode }) {
         </div>
       </div>
     </AppProviders>
-  );
+  )
+}
+
+export default function XchangeLayout({ children }: { children: ReactNode }) {
+  return (
+    <Suspense fallback={<Splash />}>
+      <XchangeContent>{children}</XchangeContent>
+    </Suspense>
+  )
 }

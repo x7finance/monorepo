@@ -1,20 +1,20 @@
-import { Container } from "@x7/ui/container";
+import { Container } from "@x7/ui/container"
+import { AnimatedTabs } from "~/lib/components/core/animate-tabs"
+import { CreateTabs } from "~/lib/types"
+import { XchangeLinks } from "~/types/links"
 
-import { AnimatedTabs } from "~/lib/components/core/animate-tabs";
-import { CreateTabs } from "~/lib/types";
-import { XchangeLinks } from "~/types/links";
-import { Hero } from "./_components/hero";
+import { Hero } from "./_components/hero"
 
 const createTabs = [
   { id: CreateTabs.Create, label: "Create" },
   { id: CreateTabs.Manage, label: "Manage" },
   { id: CreateTabs.Deployer, label: "Deployerrr" },
-];
+]
 
 export default function CreateLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <>
@@ -36,5 +36,5 @@ export default function CreateLayout({
         </Container>
       </div>
     </>
-  );
+  )
 }

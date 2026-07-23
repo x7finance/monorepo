@@ -1,28 +1,28 @@
 interface BaseNotification {
-  id?: number;
-  account: string | undefined;
-  type: NotificationType;
-  chainId: number;
-  groupTimestamp: number;
-  timestamp: number;
-  href?: string;
-  txHash?: string;
+  id?: number
+  account: string | undefined
+  type: NotificationType
+  chainId: number
+  groupTimestamp: number
+  timestamp: number
+  href?: string
+  txHash?: string
   fullSummary?: {
-    pending: string;
-    completed: string;
-    failed: string;
-  };
-  status?: string;
+    pending: string
+    completed: string
+    failed: string
+  }
+  status?: string
 }
 
 export interface PromiseNotification extends BaseNotification {
-  promise: Promise<unknown>;
+  promise: Promise<unknown>
   summary: {
-    pending: string;
-    completed: string;
-    failed: string;
-    info?: string;
-  };
+    pending: string
+    completed: string
+    failed: string
+    info?: string
+  }
 }
 
 export type NotificationType =
@@ -43,17 +43,17 @@ export type NotificationType =
   | "revoke"
   | "addLiquidity"
   | "createPair"
-  | "updateToken";
+  | "updateToken"
 
 export type ResolvedNotification = BaseNotification & {
-  summary: string;
-};
+  summary: string
+}
 
-export type NotificationData = PromiseNotification | ResolvedNotification;
+export type NotificationData = PromiseNotification | ResolvedNotification
 
 export const isPromise = (
-  data: PromiseNotification | ResolvedNotification,
+  data: PromiseNotification | ResolvedNotification
 ): data is PromiseNotification => {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  return (data as PromiseNotification).summary.pending !== undefined;
-};
+  // oxlint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  return (data as PromiseNotification).summary.pending !== undefined
+}

@@ -1,19 +1,20 @@
-import type { Metadata } from "next";
+import type { Metadata } from "next"
 
-import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc";
-import { ContractsComponent } from "../_components/contracts/component";
-import { DashboardContainer } from "../_components/dashboard-container";
-import { DashboardTitle } from "../_components/dashboard-title";
+import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
+
+import { ContractsComponent } from "../_components/contracts/component"
+import { DashboardContainer } from "../_components/dashboard-container"
+import { DashboardTitle } from "../_components/dashboard-title"
 
 const metadata = {
   title: "X7 Contracts",
   description: "All of the contracts that make up the X7 ecosystem",
   slug: "/dashboard",
   section: "dashboard",
-};
+}
 
 export function generateMetadata(): Metadata {
-  return generateMetadataFromDoc(metadata);
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function DashboardIndexPage() {
@@ -34,5 +35,5 @@ export default function DashboardIndexPage() {
         <ContractsComponent />
       </DashboardContainer>
     </div>
-  );
+  )
 }

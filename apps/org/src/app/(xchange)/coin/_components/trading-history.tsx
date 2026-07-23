@@ -1,15 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-floating-promises */
-"use client";
+/* oxlint-disable @typescript-eslint/no-unused-vars */
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable @typescript-eslint/no-floating-promises */
+"use client"
 
-import { useEffect, useState } from "react";
-import { formatEther } from "viem";
-import { getBlockNumber, getLogs } from "viem/actions";
-import { useChainId, usePublicClient } from "wagmi";
+import { useEffect, useState } from "react"
+import { formatEther } from "viem"
+import { getBlockNumber, getLogs } from "viem/actions"
+import { useChainId, usePublicClient } from "wagmi"
 
-import { computePairAddress } from "@x7/sdk";
+import { computePairAddress } from "@x7/sdk"
 import {
   Table,
   TableBody,
@@ -17,27 +17,27 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@x7/ui/table";
-import type { ChainId } from "@x7/utils";
-import { Implementation, Token, WETH9 } from "@x7/utils";
+} from "@x7/ui/table"
+import type { ChainId } from "@x7/utils"
+import { Implementation, Token, WETH9 } from "@x7/utils"
 
 interface Trade {
-  timestamp: number;
-  type: "buy" | "sell";
-  amount: bigint;
-  price: number;
-  total: number;
-  address: string;
+  timestamp: number
+  type: "buy" | "sell"
+  amount: bigint
+  price: number
+  total: number
+  address: string
 }
 
 interface TradingHistoryProps {
-  contractAddress: string;
+  contractAddress: string
 }
 
 export function TradingHistory({ contractAddress }: TradingHistoryProps) {
-  const [trades, setTrades] = useState<Trade[]>([]);
-  const client = usePublicClient();
-  const chainId = useChainId();
+  const [trades, setTrades] = useState<Trade[]>([])
+  const client = usePublicClient()
+  const chainId = useChainId()
 
   useEffect(() => {
     const fetchTradingHistory = async () => {
@@ -47,15 +47,15 @@ export function TradingHistory({ contractAddress }: TradingHistoryProps) {
         decimals: 18,
         symbol: "",
         name: "",
-      });
+      })
 
       const pairAddress = computePairAddress({
         pairType: Implementation.XCHANGE,
         tokenA: mockToken,
         tokenB: WETH9[chainId as ChainId],
-      });
+      })
 
-      const blockNumber = await getBlockNumber(client!);
+      const blockNumber = await getBlockNumber(client!)
       const logs = await getLogs(client!, {
         event: {
           name: "Swap",
@@ -72,14 +72,14 @@ export function TradingHistory({ contractAddress }: TradingHistoryProps) {
         address: pairAddress,
         fromBlock: blockNumber - 100_000n, // Last 2000 blocks
         toBlock: blockNumber,
-      });
+      })
 
       // parse logs
-      const trades = logs.map((log) => {
+      const parsedTrades = logs.map((txLog) => {
         const { sender, amount0In, amount1In, amount0Out, amount1Out, to } =
-          log.args;
+          txLog.args
 
-        const isToken0 = mockToken.sortsBefore(WETH9[chainId as ChainId]);
+        const isToken0 = mockToken.sortsBefore(WETH9[chainId as ChainId])
 
         const direction = isToken0
           ? amount0In! > 0n
@@ -87,7 +87,7 @@ export function TradingHistory({ contractAddress }: TradingHistoryProps) {
             : "buy"
           : amount1Out! > 0n
             ? "buy"
-            : "sell";
+            : "sell"
 
         // For sells: amount{N}In > 0 (token going in), amount{M}Out > 0 (WETH going out)
         // For buys:  amount{N}Out > 0 (token going out), amount{M}In > 0 (WETH going in)
@@ -97,37 +97,37 @@ export function TradingHistory({ contractAddress }: TradingHistoryProps) {
             : amount0In! // if token0, use amount0
           : direction === "buy"
             ? amount1Out!
-            : amount1In!; // if token1, use amount1
+            : amount1In! // if token1, use amount1
         const price = isToken0
           ? direction === "buy"
             ? amount1In! / amount0Out! // buy:  WETH in / token out
             : amount1Out! / amount0In! // sell: WETH out / token in
           : direction === "buy"
             ? amount0In! / amount1Out! // buy:  WETH in / token out
-            : amount0Out! / amount1In!; // sell: WETH out / token in
+            : amount0Out! / amount1In! // sell: WETH out / token in
         const total = isToken0
           ? direction === "buy"
             ? amount1In!
             : amount1Out! // WETH amount
           : direction === "buy"
             ? amount0In!
-            : amount0Out!; // WETH amount
+            : amount0Out! // WETH amount
 
         return {
-          blockNumber: Number(log.blockNumber),
+          blockNumber: Number(txLog.blockNumber),
           type: direction,
           amount,
           price,
           total,
           address: sender,
-        };
-      });
+        }
+      })
 
       // setTrades(trades);
-    };
+    }
 
-    fetchTradingHistory();
-  }, [contractAddress]);
+    fetchTradingHistory()
+  }, [contractAddress])
 
   return (
     <div>
@@ -145,8 +145,10 @@ export function TradingHistory({ contractAddress }: TradingHistoryProps) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {trades.map((trade, i) => (
-            <TableRow key={i}>
+          {trades.map((trade) => (
+            <TableRow
+              key={`${trade.timestamp}-${trade.address}-${trade.amount}`}
+            >
               <TableCell>
                 {new Date(trade.timestamp).toLocaleTimeString()}
               </TableCell>
@@ -166,5 +168,5 @@ export function TradingHistory({ contractAddress }: TradingHistoryProps) {
         </TableBody>
       </Table>
     </div>
-  );
+  )
 }

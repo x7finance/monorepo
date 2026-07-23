@@ -1,9 +1,10 @@
-"use client";
+"use client"
 
-import { useCallback, useEffect, useState } from "react";
-import { useAccount, useBalance, useDisconnect } from "wagmi";
+import { useCallback, useEffect, useState } from "react"
+import { formatUnits } from "viem"
+import { useAccount, useBalance, useDisconnect } from "wagmi"
 
-import { cn } from "@x7/css";
+import { cn } from "@x7/css"
 import {
   BellIcon,
   CheckCircleIcon,
@@ -12,90 +13,91 @@ import {
   PowerIcon,
   SparklesIcon,
   XIcon,
-} from "@x7/icons";
-import { Button, buttonVariants } from "@x7/ui/button";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@x7/ui/tooltip";
-import { formatAddress } from "@x7/utils";
-
-import { DefaultSettings } from "~/app/(xchange)/_components/wallet/settings";
-import { WalletTabbedContent } from "~/app/(xchange)/_components/wallet/wallet-tabbed-content";
-import { useMainnetEnsName } from "~/lib/hooks/account/useMainnetEnsName";
-import { useWeb3Config } from "~/lib/providers/web3";
-import { useSlideOverStore } from "~/lib/stores/slide-over";
+} from "@x7/icons"
+import { Button, buttonVariants } from "@x7/ui/button"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@x7/ui/tooltip"
+import { formatAddress } from "@x7/utils"
+import { DefaultSettings } from "~/app/(xchange)/_components/wallet/settings"
+import { WalletTabbedContent } from "~/app/(xchange)/_components/wallet/wallet-tabbed-content"
+import { useMainnetEnsName } from "~/lib/hooks/account/useMainnetEnsName"
+import { useWeb3Config } from "~/lib/providers/web3"
+import { useSlideOverStore } from "~/lib/stores/slide-over"
 
 export function WalletSlide() {
-  const { address } = useAccount();
+  const { address } = useAccount()
 
-  const { wagmiConfig } = useWeb3Config();
-  const { data: balanceData } = useBalance({ address });
-  const ensName = useMainnetEnsName(address);
+  const { wagmiConfig } = useWeb3Config()
+  const { data: balanceData } = useBalance({ address })
+  const ensName = useMainnetEnsName(address)
 
-  const { disconnect } = useDisconnect();
-  const [copiedAddress, setCopiedAddress] = useState(false);
-  const [confirmDisconnect, setConfirmDisconnect] = useState(false);
-  const [showSettings, setShowSettings] = useState(false);
-  const [activeSlide, setActiveSlide] = useState<string | null>(null);
+  const { disconnect } = useDisconnect()
+  const [copiedAddress, setCopiedAddress] = useState(false)
+  const [confirmDisconnect, setConfirmDisconnect] = useState(false)
+  const [showSettings, setShowSettings] = useState(false)
+  const [activeSlide, setActiveSlide] = useState<string | null>(null)
   const setIsSlideOverOpen = useSlideOverStore(
-    (state) => state.setIsSlideOverOpen,
-  );
+    (state) => state.setIsSlideOverOpen
+  )
 
   const copyAddressAction = useCallback(() => {
     if (address) {
-      void navigator.clipboard.writeText(address);
-      setCopiedAddress(true);
+      void navigator.clipboard.writeText(address)
+      setCopiedAddress(true)
     }
-  }, [address]);
+  }, [address])
 
   const close = useCallback(() => {
-    setShowSettings(false);
-  }, []);
+    setShowSettings(false)
+  }, [])
 
   useEffect(() => {
     if (copiedAddress) {
       const timer = setTimeout(() => {
-        setCopiedAddress(false);
-      }, 1500);
-      return () => clearTimeout(timer);
+        setCopiedAddress(false)
+      }, 1500)
+      return () => clearTimeout(timer)
     }
-  }, [copiedAddress]);
+  }, [copiedAddress])
 
   const handleSettingsClick = useCallback(() => {
-    setShowSettings(true);
-    setActiveSlide("settings");
-  }, []);
+    setShowSettings(true)
+    setActiveSlide("settings")
+  }, [])
 
   const handleNotificationsClick = useCallback(() => {
-    setShowSettings(true);
-    setActiveSlide("notifications");
-  }, []);
+    setShowSettings(true)
+    setActiveSlide("notifications")
+  }, [])
 
   const handleFeaturesClick = useCallback(() => {
-    setShowSettings(true);
-    setActiveSlide("features");
-  }, []);
+    setShowSettings(true)
+    setActiveSlide("features")
+  }, [])
 
   const handleDisconnectClick = useCallback(() => {
-    setConfirmDisconnect(true);
-  }, []);
+    setConfirmDisconnect(true)
+  }, [])
 
   const handleConfirmDisconnect = useCallback(async () => {
     await new Promise((resolve) => {
       // @ts-expect-error: todo look at, likely not right
-      disconnect(wagmiConfig);
-      setIsSlideOverOpen(false);
-      resolve(0);
-    });
-  }, [disconnect, wagmiConfig, setIsSlideOverOpen]);
+      disconnect(wagmiConfig)
+      setIsSlideOverOpen(false)
+      resolve(0)
+    })
+  }, [disconnect, wagmiConfig, setIsSlideOverOpen])
 
   if (!address) {
-    return null;
+    return null
   }
 
-  const accountName = ensName ? formatENS(ensName) : formatAddress(address);
-  const ethBalance = balanceData?.formatted;
+  const accountName = ensName ? formatENS(ensName) : formatAddress(address)
+  const ethBalance = balanceData?.value
+    ? formatUnits(balanceData.value, balanceData.decimals)
+    : undefined
   const displayBalance = ethBalance
     ? abbreviateETHBalance(parseFloat(ethBalance))
-    : undefined;
+    : undefined
 
   return (
     <div>
@@ -125,64 +127,76 @@ export function WalletSlide() {
           <div className="flex justify-center gap-2">
             {!confirmDisconnect && (
               <Tooltip>
-                <TooltipTrigger>
-                  <div
+                <TooltipTrigger asChild>
+                  <button
+                    type="button"
+                    aria-label="Settings"
                     onClick={handleSettingsClick}
                     className={cn(
                       buttonVariants({
                         variant: "secondary",
                         size: "xs",
                       }),
-                      "cursor-pointer",
+                      "cursor-pointer"
                     )}
                   >
                     <CogIcon className="h-4 w-4" />
-                  </div>
+                  </button>
                 </TooltipTrigger>
                 <TooltipContent>Settings</TooltipContent>
               </Tooltip>
             )}
             {!confirmDisconnect && (
               <Tooltip>
-                <TooltipTrigger>
-                  <div
+                <TooltipTrigger asChild>
+                  <button
+                    type="button"
+                    aria-label="Notifications"
                     onClick={handleNotificationsClick}
                     className={cn(
                       buttonVariants({
                         variant: "secondary",
                         size: "xs",
                       }),
-                      "cursor-pointer",
+                      "cursor-pointer"
                     )}
                   >
                     <BellIcon className="h-4 w-4" />
-                  </div>
+                  </button>
                 </TooltipTrigger>
                 <TooltipContent>Notifications</TooltipContent>
               </Tooltip>
             )}
             {!confirmDisconnect && (
               <Tooltip>
-                <TooltipTrigger>
-                  <div
+                <TooltipTrigger asChild>
+                  <button
+                    type="button"
+                    aria-label="Features"
                     onClick={handleFeaturesClick}
                     className={cn(
                       buttonVariants({
                         variant: "secondary",
                         size: "xs",
                       }),
-                      "cursor-pointer",
+                      "cursor-pointer"
                     )}
                   >
                     <SparklesIcon className="h-4 w-4" />
-                  </div>
+                  </button>
                 </TooltipTrigger>
                 <TooltipContent>Features</TooltipContent>
               </Tooltip>
             )}
             <Tooltip>
-              <TooltipTrigger>
-                <div
+              <TooltipTrigger asChild>
+                <button
+                  type="button"
+                  aria-label={
+                    confirmDisconnect
+                      ? "Confirm disconnect wallet"
+                      : "Disconnect wallet"
+                  }
                   onClick={
                     confirmDisconnect
                       ? handleConfirmDisconnect
@@ -193,14 +207,14 @@ export function WalletSlide() {
                       variant: confirmDisconnect ? "default" : "secondary",
                       size: "xs",
                     }),
-                    "cursor-pointer",
+                    "cursor-pointer"
                   )}
                 >
                   {!confirmDisconnect && <PowerIcon className="h-4 w-4" />}
                   {confirmDisconnect && (
                     <span className="ml-1">Disconnect</span>
                   )}
-                </div>
+                </button>
               </TooltipTrigger>
               <TooltipContent>
                 {confirmDisconnect ? "Confirm Disconnect" : "Disconnect"}
@@ -234,53 +248,53 @@ export function WalletSlide() {
         slide={activeSlide}
       />
     </div>
-  );
+  )
 }
 
 function formatENS(name: string): string {
-  const parts = name.split(".");
-  const last = parts.pop();
+  const parts = name.split(".")
+  const last = parts.pop()
   if (parts.join(".").length > 24) {
-    return `${parts.join(".").substring(0, 24)}...`;
+    return `${parts.join(".").substring(0, 24)}...`
   }
-  return `${parts.join(".")}.${last}`;
+  return `${parts.join(".")}.${last}`
 }
 
 /**
  * Adapted from https://github.com/domharrington/js-number-abbreviate
  */
-const units = ["k", "m", "b", "t"];
+const units = ["k", "m", "b", "t"]
 
 export function toPrecision(number: number, precision = 1) {
   return number
     .toString()
     .replace(new RegExp(`(.+\\.\\d{${precision}})\\d+`), "$1")
     .replace(/(\.[1-9]*)0+$/, "$1")
-    .replace(/\.$/, "");
+    .replace(/\.$/, "")
 }
 
 export function abbreviateETHBalance(number: number): string {
-  if (number < 1) return toPrecision(number, 3);
-  if (number < 10 ** 2) return toPrecision(number, 2);
+  if (number < 1) return toPrecision(number, 3)
+  if (number < 10 ** 2) return toPrecision(number, 2)
   if (number < 10 ** 4)
-    return new Intl.NumberFormat().format(parseFloat(toPrecision(number, 1)));
+    return new Intl.NumberFormat().format(parseFloat(toPrecision(number, 1)))
 
-  const decimalsDivisor = 10 ** 1; // 1 decimal place
+  const decimalsDivisor = 10 ** 1 // 1 decimal place
 
-  let result = String(number);
+  let result = String(number)
 
   for (let i = units.length - 1; i >= 0; i--) {
-    const size = 10 ** ((i + 1) * 3);
+    const size = 10 ** ((i + 1) * 3)
 
     if (size <= number) {
       // biome-ignore lint/style/noParameterAssign: TODO
-      number = (number * decimalsDivisor) / size / decimalsDivisor;
+      number = (number * decimalsDivisor) / size / decimalsDivisor
 
-      result = toPrecision(number, 1) + units[i];
+      result = toPrecision(number, 1) + units[i]
 
-      break;
+      break
     }
   }
 
-  return result;
+  return result
 }

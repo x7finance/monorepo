@@ -1,15 +1,15 @@
-import { Telegram, Twitter, Warpcast } from "@x7/icons";
-import { LinkExternal } from "@x7/ui/link";
-import { SocialsEnum } from "@x7/utils";
+import { Telegram, Twitter, Warpcast } from "@x7/icons"
+import { LinkExternal } from "@x7/ui/link"
+import { SocialsEnum } from "@x7/utils"
 
-import { MirroredSites } from "./mirrored-sites";
+import { MirroredSites } from "./mirrored-sites"
 import {
   FooterBlockNumber,
   FooterGwei,
   FooterNativePrice,
   FooterNews,
   FooterSettingsButton,
-} from "./site-data-footer-secondary";
+} from "./site-data-footer-secondary"
 
 export function SiteDataFooter() {
   return (
@@ -132,5 +132,5 @@ export function SiteDataFooter() {
         </div>
       </div>
     </div>
-  );
+  )
 }

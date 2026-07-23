@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/unbound-method */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/unbound-method */
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   theme: {
@@ -31,7 +31,7 @@ module.exports = {
             "--tw-prose-invert-links": theme("colors.violet.400"),
             "--tw-prose-invert-links-hover": theme("colors.violet.500"),
             "--tw-prose-invert-links-underline": theme(
-              "colors.violet.500 / 0.3",
+              "colors.violet.500 / 0.3"
             ),
             "--tw-prose-invert-bold": theme("colors.white"),
             "--tw-prose-invert-counters": theme("colors.zinc.400"),
@@ -56,7 +56,7 @@ module.exports = {
               maxWidth: theme("maxWidth.2xl"),
               marginLeft: "auto",
               marginRight: "auto",
-              "@screen lg": {
+              "@media (min-width: 1024px)": {
                 maxWidth: theme("maxWidth.3xl"),
                 marginLeft: `calc(50% - min(50%, ${theme("maxWidth.lg")}))`,
                 marginRight: `calc(50% - min(50%, ${theme("maxWidth.lg")}))`,
@@ -157,11 +157,11 @@ module.exports = {
               maxWidth: "none",
               marginLeft: `calc(-1 * ${theme("spacing.4")})`,
               marginRight: `calc(-1 * ${theme("spacing.4")})`,
-              "@screen sm": {
+              "@media (min-width: 640px)": {
                 marginLeft: `calc(-1 * ${theme("spacing.6")})`,
                 marginRight: `calc(-1 * ${theme("spacing.6")})`,
               },
-              "@screen lg": {
+              "@media (min-width: 1024px)": {
                 marginLeft: `calc(-1 * ${theme("spacing.8")})`,
                 marginRight: `calc(-1 * ${theme("spacing.8")})`,
               },
@@ -292,7 +292,7 @@ module.exports = {
               transitionProperty: "color, text-decoration-color",
               transitionDuration: theme("transitionDuration.DEFAULT"),
               transitionTimingFunction: theme(
-                "transitionTimingFunction.DEFAULT",
+                "transitionTimingFunction.DEFAULT"
               ),
               "&:hover": {
                 color: "var(--tw-prose-links-hover)",
@@ -369,4 +369,4 @@ module.exports = {
       }),
     },
   },
-};
+}

@@ -1,29 +1,29 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-unsafe-return */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-"use client";
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable @typescript-eslint/restrict-template-expressions */
+"use client"
 
-import { useEffect, useState } from "react";
-import { useReadContracts } from "wagmi";
+import { useEffect, useState } from "react"
+import { useReadContracts } from "wagmi"
 
-import { X7EcosystemSplitter, X7TreasurySplitterV3 } from "@x7/contracts";
-import { X7ContractsEnum } from "@x7/sdk";
-import type { ChainId } from "@x7/utils";
-import { DEAD_ADDRESS } from "@x7/utils";
+import { X7EcosystemSplitter, X7TreasurySplitterV3 } from "@x7/contracts"
+import { X7ContractsEnum } from "@x7/sdk"
+import type { ChainId } from "@x7/utils"
+import { DEAD_ADDRESS } from "@x7/utils"
 
-import { DashboardSubheader } from "../dashboard-subheader";
-import { DonutChart } from "../donutChart/donut-chart";
+import { DashboardSubheader } from "../dashboard-subheader"
+import { DonutChart } from "../donutChart/donut-chart"
 
 interface SplittersTableProps {
-  chainId: ChainId;
+  chainId: ChainId
 }
 
 export function SplittersTable({ chainId }: SplittersTableProps) {
-  const [ecoSplit, setEcoSplit] = useState<any>([]);
-  const [treasurySplit, setTreasurySplit] = useState<any>([]);
+  const [ecoSplit, setEcoSplit] = useState<any>([])
+  const [treasurySplit, setTreasurySplit] = useState<any>([])
 
   const { data: ecosystemData, isFetched: ecosystemFetched } = useReadContracts(
     {
@@ -99,8 +99,8 @@ export function SplittersTable({ chainId }: SplittersTableProps) {
           args: [5],
         },
       ],
-    },
-  );
+    }
+  )
 
   const { data: treasuryData, isFetched: treasuryFetched } = useReadContracts({
     contracts: [
@@ -161,7 +161,7 @@ export function SplittersTable({ chainId }: SplittersTableProps) {
         args: [4],
       },
     ],
-  });
+  })
 
   useEffect(() => {
     if (ecosystemFetched) {
@@ -171,62 +171,62 @@ export function SplittersTable({ chainId }: SplittersTableProps) {
             accumulator.push({
               label: fetchAddressName(
                 `${ecosystemData[currentIndex + 1]?.result}`,
-                chainId,
+                chainId
               ),
               chain: chainId,
               address: ecosystemData[currentIndex + 1],
               value: ecosystemData[currentIndex]
                 ? parseInt(
-                    `${ecosystemData[currentIndex]?.result?.toString()}`,
+                    `${ecosystemData[currentIndex]?.result?.toString()}`
                   ) / 10
                 : 0,
-            });
+            })
           }
 
-          return accumulator;
+          return accumulator
         },
-        [],
-      );
+        []
+      )
 
-      setEcoSplit(builtEcoSplitArray);
+      setEcoSplit(builtEcoSplitArray)
     }
-  }, [ecosystemData, ecosystemFetched]);
+  }, [ecosystemData, ecosystemFetched])
 
   useEffect(() => {
     if (treasuryFetched) {
       const builtTreasurySplitArray = treasuryData?.reduce(
         (
           accumulator: {
-            label: string;
-            chain: any;
-            address: any;
-            value: number;
+            label: string
+            chain: any
+            address: any
+            value: number
           }[],
           _cv,
-          currentIndex,
+          currentIndex
         ) => {
           if (currentIndex % 2 === 0) {
             accumulator.push({
               label: fetchAddressName(
                 `${treasuryData[currentIndex + 1]?.result}`,
-                chainId,
+                chainId
               ),
               chain: chainId,
               address: treasuryData[currentIndex + 1],
               value:
                 parseInt(`${treasuryData[currentIndex]?.result?.toString()}`) /
                 1000,
-            });
+            })
           }
 
-          return accumulator;
+          return accumulator
         },
-        [],
-      );
+        []
+      )
 
-      setTreasurySplit(builtTreasurySplitArray);
+      setTreasurySplit(builtTreasurySplitArray)
     }
-  }, [treasuryData, treasuryFetched]);
+  }, [treasuryData, treasuryFetched])
 
   return (
     <div className="grid grid-cols-1 gap-6 pb-12 md:grid-cols-2">
@@ -264,7 +264,7 @@ export function SplittersTable({ chainId }: SplittersTableProps) {
         />
       </div>
     </div>
-  );
+  )
 }
 
 function fetchAddressName(address: string, chainId: ChainId): string {
@@ -281,7 +281,7 @@ function fetchAddressName(address: string, chainId: ChainId): string {
     [X7ContractsEnum.PioneerRewardPool(chainId)]: "Pioneer Reward Pool",
     [X7ContractsEnum.ProfitSplitter(chainId)]: "Profit Splitter Contract",
     [DEAD_ADDRESS]: "Not Set",
-  };
+  }
 
-  return addressMap[address] ?? "";
+  return addressMap[address] ?? ""
 }

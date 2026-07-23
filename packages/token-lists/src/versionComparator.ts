@@ -1,4 +1,4 @@
-import type { Version } from "./types";
+import type { Version } from "./types"
 
 /**
  * Comparator function that allows sorting version from lowest to highest
@@ -8,21 +8,21 @@ import type { Version } from "./types";
  */
 export function versionComparator(
   versionA: Version,
-  versionB: Version,
+  versionB: Version
 ): -1 | 0 | 1 {
   if (versionA.major < versionB.major) {
-    return -1;
+    return -1
   } else if (versionA.major > versionB.major) {
-    return 1;
+    return 1
   } else if (versionA.minor < versionB.minor) {
-    return -1;
+    return -1
   } else if (versionA.minor > versionB.minor) {
-    return 1;
+    return 1
   } else if (versionA.patch < versionB.patch) {
-    return -1;
+    return -1
   } else if (versionA.patch > versionB.patch) {
-    return 1;
+    return 1
   } else {
-    return 0;
+    return 0
   }
 }

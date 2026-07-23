@@ -1,16 +1,17 @@
-import type { Metadata } from "next";
+import type { Metadata } from "next"
 
-import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc";
-import { DeployerBase } from "./_components/base";
+import { generateMetadataFromDoc } from "~/lib/utils/generateMetadataFromDoc"
+
+import { DeployerBase } from "./_components/base"
 
 const metadata = {
   title: "Deployer",
   description: "Powered by Deployer",
   slug: "/deployer",
-};
+}
 
 export function generateMetadata(): Metadata {
-  return generateMetadataFromDoc(metadata);
+  return generateMetadataFromDoc(metadata)
 }
 
 export default function DeployerPage() {
@@ -22,5 +23,5 @@ export default function DeployerPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }

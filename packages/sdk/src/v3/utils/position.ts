@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-import { subIn256 } from "./tickLibrary";
+/* oxlint-disable @typescript-eslint/no-empty-function */
+import { subIn256 } from "./tickLibrary"
 
-const Q128 = BigInt(2) ** BigInt(128);
+const Q128 = BigInt(2) ** BigInt(128)
 
 export abstract class PositionLibrary {
   /**
@@ -15,15 +15,15 @@ export abstract class PositionLibrary {
     feeGrowthInside1LastX128: bigint,
     liquidity: bigint,
     feeGrowthInside0X128: bigint,
-    feeGrowthInside1X128: bigint,
+    feeGrowthInside1X128: bigint
   ) {
     const tokensOwed0 =
       (subIn256(feeGrowthInside0X128, feeGrowthInside0LastX128) * liquidity) /
-      Q128;
+      Q128
     const tokensOwed1 =
       (subIn256(feeGrowthInside1X128, feeGrowthInside1LastX128) * liquidity) /
-      Q128;
+      Q128
 
-    return [tokensOwed0, tokensOwed1];
+    return [tokensOwed0, tokensOwed1]
   }
 }

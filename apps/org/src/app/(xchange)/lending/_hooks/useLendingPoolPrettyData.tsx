@@ -1,23 +1,23 @@
-import { useBalance, useReadContracts } from "wagmi";
+import { useBalance, useReadContracts } from "wagmi"
 
-import { X7LendingPoolV2 } from "@x7/contracts";
-import { X7ContractsEnum } from "@x7/sdk";
-import type { ChainId } from "@x7/utils";
+import { X7LendingPoolV2 } from "@x7/contracts"
+import { X7ContractsEnum } from "@x7/sdk"
+import type { ChainId } from "@x7/utils"
 
-import { useLendingPoolData } from "./useLendingPoolData";
+import { useLendingPoolData } from "./useLendingPoolData"
 
 export function useLendingPoolPrettyData(chainId: ChainId) {
-  const lendingPoolContractAddress = X7ContractsEnum.X7_LendingPool(chainId);
+  const lendingPoolContractAddress = X7ContractsEnum.X7_LendingPool(chainId)
 
   const { data: poolBalanceData } = useBalance({
     address: lendingPoolContractAddress,
     chainId,
-  });
+  })
 
   const { data: reserveBalanceData } = useBalance({
     address: X7ContractsEnum.LendingPoolReserve(chainId),
     chainId,
-  });
+  })
 
   const { data: readContractData } = useReadContracts({
     contracts: [
@@ -46,15 +46,15 @@ export function useLendingPoolPrettyData(chainId: ChainId) {
         chainId,
       },
     ],
-  });
+  })
 
   const { statusData, splitData, utilizedData } = useLendingPoolData(
     chainId,
     poolBalanceData,
     reserveBalanceData,
     readContractData,
-    lendingPoolContractAddress,
-  );
+    lendingPoolContractAddress
+  )
 
   return {
     poolBalanceData,
@@ -63,5 +63,5 @@ export function useLendingPoolPrettyData(chainId: ChainId) {
     statusData,
     splitData,
     utilizedData,
-  };
+  }
 }

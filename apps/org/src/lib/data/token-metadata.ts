@@ -1,13 +1,13 @@
-import { SocialsEnum } from "@x7/utils";
+import { SocialsEnum } from "@x7/utils"
 
 interface TokenMetadata {
-  address: string;
-  banner?: string | null;
-  logo?: string | null;
-  description?: string;
-  telegram?: string;
-  twitter?: string;
-  website?: string;
+  address: string
+  banner?: string | null
+  logo?: string | null
+  description?: string
+  telegram?: string
+  twitter?: string
+  website?: string
 }
 
 export const tokenMetadata: TokenMetadata[] = [
@@ -82,10 +82,10 @@ export const tokenMetadata: TokenMetadata[] = [
     twitter: SocialsEnum.twitter,
     logo: "https://assets.x7finance.org/images/tokens/x7105.png",
   },
-];
+]
 
 export function getTokenMetadata(address: string): TokenMetadata | undefined {
   return tokenMetadata.find(
-    (metadata) => metadata.address.toLowerCase() === address.toLowerCase(),
-  );
+    (metadata) => metadata.address.toLowerCase() === address.toLowerCase()
+  )
 }

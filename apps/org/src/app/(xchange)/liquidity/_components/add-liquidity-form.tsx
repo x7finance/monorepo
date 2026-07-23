@@ -1,37 +1,37 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useChainId } from "wagmi";
+/* oxlint-disable @typescript-eslint/no-unsafe-member-access */
+/* oxlint-disable @typescript-eslint/no-unsafe-assignment */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+import { useChainId } from "wagmi"
 
-import { CheckCircleIcon, PlusCircleIcon } from "@x7/icons";
-import { X7ContractsEnum } from "@x7/sdk";
-import { Button } from "@x7/ui/button";
-import type { ChainId, Currency, CurrencyAmount } from "@x7/utils";
+import { CheckCircleIcon, PlusCircleIcon } from "@x7/icons"
+import { X7ContractsEnum } from "@x7/sdk"
+import { Button } from "@x7/ui/button"
+import type { ChainId, Currency, CurrencyAmount } from "@x7/utils"
+import { CurrencyInput } from "~/lib/components/utils/currency-input"
+import { APPROVE_TAG_ADD_LEGACY } from "~/lib/constants/misc"
+import { Checker } from "~/lib/systems/Checker"
+import { CheckerProvider } from "~/lib/systems/Checker/Provider"
+import { XchangeV2PoolState } from "~/lib/systems/PoolFinder/types"
 
-import { CurrencyInput } from "~/lib/components/utils/currency-input";
-import { APPROVE_TAG_ADD_LEGACY } from "~/lib/constants/misc";
-import { Checker } from "~/lib/systems/Checker";
-import { CheckerProvider } from "~/lib/systems/Checker/Provider";
-import { XchangeV2PoolState } from "~/lib/systems/PoolFinder/types";
-import { AddLiquidityStatCard } from "../../_components/liquidity/add-liquidity-share-card";
-import { ConfirmLiquidityAdd } from "../../_components/liquidity/confirm-liquidity-add";
+import { AddLiquidityStatCard } from "../../_components/liquidity/add-liquidity-share-card"
+import { ConfirmLiquidityAdd } from "../../_components/liquidity/confirm-liquidity-add"
 
 interface AddLiquidityFormProps {
-  input0: string;
-  input1: string;
-  onChangeToken0TypedAmount: (value: string) => void;
-  onChangeToken1TypedAmount: (value: string) => void;
-  _setToken0?: (currency: Currency) => void;
-  _setToken1?: (currency: Currency) => void;
-  token0: Currency | undefined;
-  token1: Currency | undefined;
-  poolState: XchangeV2PoolState;
-  refetchCount: number;
-  parsedInput0: CurrencyAmount<Currency> | undefined;
-  parsedInput1: CurrencyAmount<Currency> | undefined;
-  pool: any; // Replace 'any' with the actual pool type if available
-  setTypedAmounts: (amounts: { input0: string; input1: string }) => void;
-  setRefetchCount: (count: number) => void;
+  input0: string
+  input1: string
+  onChangeToken0TypedAmount: (value: string) => void
+  onChangeToken1TypedAmount: (value: string) => void
+  _setToken0?: (currency: Currency) => void
+  _setToken1?: (currency: Currency) => void
+  token0: Currency | undefined
+  token1: Currency | undefined
+  poolState: XchangeV2PoolState
+  refetchCount: number
+  parsedInput0: CurrencyAmount<Currency> | undefined
+  parsedInput1: CurrencyAmount<Currency> | undefined
+  pool: any // Replace 'any' with the actual pool type if available
+  setTypedAmounts: (amounts: { input0: string; input1: string }) => void
+  setRefetchCount: (count: number) => void
 }
 
 export function AddLiquidityForm(props: AddLiquidityFormProps) {
@@ -51,9 +51,9 @@ export function AddLiquidityForm(props: AddLiquidityFormProps) {
     pool,
     setTypedAmounts,
     setRefetchCount,
-  } = props;
+  } = props
 
-  const chainId = useChainId() as ChainId;
+  const chainId = useChainId() as ChainId
 
   return (
     <div className="space-y-3 border-t-2 pt-4">
@@ -186,8 +186,8 @@ export function AddLiquidityForm(props: AddLiquidityFormProps) {
                       input0={parsedInput0}
                       input1={parsedInput1}
                       onSuccess={() => {
-                        setTypedAmounts({ input0: "", input1: "" });
-                        setRefetchCount(refetchCount + 1);
+                        setTypedAmounts({ input0: "", input1: "" })
+                        setRefetchCount(refetchCount + 1)
                       }}
                     />
                   </Checker.Success>
@@ -198,5 +198,5 @@ export function AddLiquidityForm(props: AddLiquidityFormProps) {
         </CheckerProvider>
       </div>
     </div>
-  );
+  )
 }

@@ -1,10 +1,11 @@
-import type { ButtonHTMLAttributes } from "react";
-import { forwardRef } from "react";
-import { Slot } from "@radix-ui/react-slot";
-import { cva } from "class-variance-authority";
-import type { VariantProps } from "class-variance-authority";
+import type { VariantProps } from "class-variance-authority"
+import { cva } from "class-variance-authority"
+import type { ButtonHTMLAttributes } from "react"
+import { forwardRef } from "react"
 
-import { cn } from "@x7/css";
+import { cn } from "@x7/css"
+
+import { Slot } from "./lib/slot"
 
 const containerVariants = cva("w-full mx-auto", {
   variants: {
@@ -33,29 +34,30 @@ const containerVariants = cva("w-full mx-auto", {
   defaultVariants: {
     maxWidth: "2xl",
   },
-});
+})
 
 export interface ContainerProps
-  extends ButtonHTMLAttributes<HTMLDivElement>,
+  extends
+    ButtonHTMLAttributes<HTMLDivElement>,
     VariantProps<typeof containerVariants> {
-  id?: string;
-  asChild?: boolean;
-  className?: string;
+  id?: string
+  asChild?: boolean
+  className?: string
 }
 
 const Container = forwardRef<HTMLDivElement, ContainerProps>(
   ({ className, maxWidth, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "div";
+    const Comp = asChild ? Slot : "div"
     return (
       <Comp
         className={cn(containerVariants({ maxWidth, className }))}
         ref={ref}
         {...props}
       />
-    );
-  },
-);
+    )
+  }
+)
 
-Container.displayName = "Container";
+Container.displayName = "Container"
 
-export { Container, containerVariants };
+export { Container, containerVariants }

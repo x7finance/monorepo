@@ -1,7 +1,6 @@
-import { X7ContractsEnum } from "@x7/sdk";
-import { ChainId } from "@x7/utils";
-
-import type { UtilityNftType } from "~/types";
+import { X7ContractsEnum } from "@x7/sdk"
+import { ChainId } from "@x7/utils"
+import type { UtilityNftType } from "~/types"
 
 export const EXCHANGE_IDS = {
   EcosystemMaxi: {
@@ -19,7 +18,7 @@ export const EXCHANGE_IDS = {
   Magister: {
     openSea: "x7-magister",
   },
-};
+}
 
 export const utilityNftData: UtilityNftType[] = [
   {
@@ -138,4 +137,4 @@ export const utilityNftData: UtilityNftType[] = [
       [ChainId.ARBITRUM]: ``,
     },
   },
-];
+]

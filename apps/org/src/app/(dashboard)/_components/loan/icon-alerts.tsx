@@ -1,20 +1,19 @@
-"use client";
+"use client"
 
-import { useChainId } from "wagmi";
+import { useChainId } from "wagmi"
 
-import { Button } from "@x7/ui/button";
-import { Tag } from "@x7/ui/tag";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@x7/ui/tooltip";
-import type { ChainId } from "@x7/utils";
-
-import { useLiquidateLoan } from "~/lib/hooks/loans/useLiquidateLoan";
+import { Button } from "@x7/ui/button"
+import { Tag } from "@x7/ui/tag"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@x7/ui/tooltip"
+import type { ChainId } from "@x7/utils"
+import { useLiquidateLoan } from "~/lib/hooks/loans/useLiquidateLoan"
 
 interface IconAlertsProps {
-  liquidationAmount: number;
-  canLiquidate: number;
-  loanState: number;
-  loanId: number;
-  chainId: ChainId;
+  liquidationAmount: number
+  canLiquidate: number
+  loanState: number
+  loanId: number
+  chainId: ChainId
 }
 
 export function IconAlerts({
@@ -24,14 +23,14 @@ export function IconAlerts({
   loanId = 0,
   chainId,
 }: IconAlertsProps) {
-  const currentChainId = useChainId();
-  const isCorrectNetwork = currentChainId === chainId;
-  const { writeContract, data, isPending } = useLiquidateLoan({ loanId });
+  const currentChainId = useChainId()
+  const isCorrectNetwork = currentChainId === chainId
+  const { writeContract, data, isPending } = useLiquidateLoan({ loanId })
 
   const handleLiquidate = () => {
     // @ts-expect-error: todo fix
-    writeContract(data?.request);
-  };
+    writeContract(data?.request)
+  }
 
   return (
     <div className="flex items-center space-x-2">
@@ -83,5 +82,5 @@ export function IconAlerts({
         )}
       </span>
     </div>
-  );
+  )
 }

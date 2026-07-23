@@ -1,4 +1,4 @@
-import type { SVGProps } from "react";
+import type { SVGProps } from "react"
 
 export function Dune(props: SVGProps<SVGSVGElement>) {
   return (
@@ -12,5 +12,5 @@ export function Dune(props: SVGProps<SVGSVGElement>) {
         fill="#2B286C"
       />
     </svg>
-  );
+  )
 }

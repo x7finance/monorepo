@@ -1,18 +1,18 @@
-import { DocsLinks } from "~/types/links";
+import { DocsLinks } from "~/types/links"
 
 const DOCS_NAVIGATION = [
   {
     title: "Introduction",
     links: [{ title: "Intro", href: DocsLinks.Index }],
   },
-];
+]
 
 const INTEGRATION_NAVIGATION = [
   {
     title: "Integration",
     links: [{ title: "Templates", href: DocsLinks.IntegratingTemplates }],
   },
-];
+]
 
 const GUIDES_NAVIGATION = [
   {
@@ -65,7 +65,7 @@ const GUIDES_NAVIGATION = [
       { title: "Impermanent Loss", href: DocsLinks.ImpermanentLoss },
     ],
   },
-];
+]
 
 const BREAKDOWNS_NAVIGATION = [
   {
@@ -396,7 +396,7 @@ const BREAKDOWNS_NAVIGATION = [
       },
     ],
   },
-];
+]
 
 const ONCHAINS_NAVIGATION = [
   {
@@ -1050,7 +1050,7 @@ const ONCHAINS_NAVIGATION = [
       },
     ],
   },
-];
+]
 
 const WHITEPAPER_NAVIGATION = [
   {
@@ -1138,7 +1138,7 @@ const WHITEPAPER_NAVIGATION = [
       },
     ],
   },
-];
+]
 
 const FAQ_NAVIGATION = [
   {
@@ -1160,7 +1160,7 @@ const FAQ_NAVIGATION = [
       { title: "Xchange Questions", href: "/docs/faq/xchange" },
     ],
   },
-];
+]
 
 export {
   BREAKDOWNS_NAVIGATION,
@@ -1170,4 +1170,4 @@ export {
   INTEGRATION_NAVIGATION,
   ONCHAINS_NAVIGATION,
   WHITEPAPER_NAVIGATION,
-};
+}

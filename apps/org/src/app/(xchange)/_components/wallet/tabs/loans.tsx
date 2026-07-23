@@ -1,7 +1,6 @@
-import { Card, CardContent } from "@x7/ui/card";
-import { TabsContent } from "@x7/ui/tabs";
-
-import { UnderConstruction } from "~/lib/components/core/under-construction";
+import { Card, CardContent } from "@x7/ui/card"
+import { TabsContent } from "@x7/ui/tabs"
+import { UnderConstruction } from "~/lib/components/core/under-construction"
 
 export function LoansTab() {
   return (
@@ -12,5 +11,5 @@ export function LoansTab() {
         </CardContent>
       </Card>
     </TabsContent>
-  );
+  )
 }

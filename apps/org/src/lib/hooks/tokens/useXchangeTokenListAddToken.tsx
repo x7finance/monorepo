@@ -1,36 +1,36 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+/* oxlint-disable react-hooks/exhaustive-deps */
 
-"use client";
+"use client"
 
-import { useCallback, useMemo, useState } from "react";
-import type { BaseError } from "@wagmi/core";
-import { toast } from "sonner";
-import { parseEther, UserRejectedRequestError } from "viem";
-import type { Address } from "viem";
+import type { BaseError } from "@wagmi/core"
+import { useCallback, useMemo, useState } from "react"
+import { toast } from "sonner"
+import type { Address } from "viem"
+import { parseEther, UserRejectedRequestError } from "viem"
 import {
   useAccount,
   useChainId,
   useSimulateContract,
   useWriteContract,
-} from "wagmi";
+} from "wagmi"
 import type {
   WriteContractErrorType,
   WriteContractReturnType,
-} from "wagmi/actions";
-import { waitForTransactionReceipt } from "wagmi/actions";
+} from "wagmi/actions"
+import { waitForTransactionReceipt } from "wagmi/actions"
 
-import { tokenRegisteryABI } from "@x7/contracts";
-import { generateChainEtherTokenEnum, X7ContractsEnum } from "@x7/sdk";
-import type { ChainId } from "@x7/utils";
+import { tokenRegisteryABI } from "@x7/contracts"
+import { generateChainEtherTokenEnum, X7ContractsEnum } from "@x7/sdk"
+import type { ChainId } from "@x7/utils"
+import { useTransactionStore } from "~/lib/providers/tx"
 
-import { useTransactionStore } from "~/lib/providers/tx";
-import { useWeb3Config } from "../../providers/web3";
+import { useWeb3Config } from "../../providers/web3"
 
 interface UseXchangeTokenListAddTokenParams {
-  fee: string | undefined;
-  tokenAddress: Address;
-  factoryAddress: Address;
-  enabled?: boolean;
+  fee: string | undefined
+  tokenAddress: Address
+  factoryAddress: Address
+  enabled?: boolean
 }
 
 export const useXchangeTokenListAddToken = ({
@@ -38,15 +38,15 @@ export const useXchangeTokenListAddToken = ({
   tokenAddress,
   factoryAddress,
 }: UseXchangeTokenListAddTokenParams) => {
-  const { address } = useAccount();
-  const [isPending, setIsPending] = useState(false);
-  const chainId = useChainId() as ChainId;
-  const { wagmiConfig: config } = useWeb3Config();
+  const { address } = useAccount()
+  const [isPending, setIsPending] = useState(false)
+  const chainId = useChainId() as ChainId
+  const { wagmiConfig: config } = useWeb3Config()
   const {
     mutate: { trackTransaction },
-  } = useTransactionStore();
+  } = useTransactionStore()
 
-  const pairedToken = generateChainEtherTokenEnum(chainId);
+  const pairedToken = generateChainEtherTokenEnum(chainId)
 
   const { data } = useSimulateContract({
     config,
@@ -55,18 +55,18 @@ export const useXchangeTokenListAddToken = ({
     functionName: "addToken",
     value: fee ? parseEther(fee) : 0n,
     args: [tokenAddress, pairedToken, factoryAddress],
-  });
+  })
 
   const onSettled = useCallback(
     (hash: `0x${string}` | undefined, e: WriteContractErrorType | null) => {
       if (e instanceof Error) {
         if (!(e instanceof UserRejectedRequestError)) {
-          toast.error((e as BaseError).shortMessage || e.message);
+          toast.error((e as BaseError).shortMessage || e.message)
         }
       }
 
       if (hash && fee) {
-        setIsPending(true);
+        setIsPending(true)
 
         trackTransaction({
           txHash: hash,
@@ -76,11 +76,11 @@ export const useXchangeTokenListAddToken = ({
             completed: `Successfully added new token to the Xchange list`,
             failed: `Something went wrong adding new token to the Xchange list`,
           },
-        });
+        })
       }
     },
-    [address, fee],
-  );
+    [address, fee]
+  )
 
   const write = useWriteContract({
     mutation: {
@@ -92,18 +92,18 @@ export const useXchangeTokenListAddToken = ({
           retryDelay: 2_500,
         })
           .then(() => {
-            setIsPending(false);
+            setIsPending(false)
           })
-          .catch(() => setIsPending(false));
+          .catch(() => setIsPending(false))
       },
     },
-  });
+  })
 
   return useMemo(() => {
     return {
       ...write,
       isPending,
       data,
-    };
-  }, [isPending, write]);
-};
+    }
+  }, [isPending, write])
+}

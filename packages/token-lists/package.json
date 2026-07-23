@@ -2,30 +2,41 @@
   "name": "@x7/token-lists",
   "version": "0.0.1",
   "description": "The Token Lists specification",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "type": "module",
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "default": "./src/index.ts"
+      "default": "./dist/index.js"
     },
-    "./src/tokenlist.schema.json": "./src/tokenlist.schema.json"
+    "./schema": "./dist/tokenlist.schema.json",
+    "./src/tokenlist.schema.json": "./dist/tokenlist.schema.json"
   },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && mkdir -p dist && cp src/tokenlist.schema.json dist/",
     "clean": "git clean -xdf .turbo node_modules dist",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
-    "lint": "eslint",
-    "postbuild:temp": "node copy-schema.cjs",
-    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+    "dev": "tsc --watch",
+    "format": "oxfmt --check --config ../../tooling/oxfmt/.oxfmtrc.json src/",
+    "format:fix": "oxfmt --write --config ../../tooling/oxfmt/.oxfmtrc.json src/",
+    "lint": "oxlint src/",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest watch",
+    "typecheck": "tsc --noEmit"
   },
-  "prettier": "@x7/prettier-config",
   "devDependencies": {
-    "@x7/eslint-config": "workspace:*",
-    "@x7/prettier-config": "workspace:*",
     "@x7/tsconfig": "workspace:*",
-    "eslint": "catalog:",
     "husky": "^9.1.7",
-    "typescript": "catalog:"
+    "oxlint": "^1.75.0",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.10"
   }
 }

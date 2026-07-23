@@ -1,0 +1,15 @@
+{
+  "name": "@x7/oxfmt-config",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./.oxfmtrc.json"
+  },
+  "scripts": {
+    "clean": "rimraf .turbo node_modules"
+  },
+  "devDependencies": {
+    "oxfmt": "^0.60.0"
+  }
+}

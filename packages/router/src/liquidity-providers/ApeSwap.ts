@@ -1,9 +1,9 @@
-import type { PublicClient } from "viem";
+import type { PublicClient } from "viem"
 
-import { ChainId } from "@x7/utils";
+import { ChainId } from "@x7/utils"
 
-import { LiquidityProviders } from "./LiquidityProvider";
-import { UniswapV2BaseProvider } from "./UniswapV2Base";
+import { LiquidityProviders } from "./LiquidityProvider"
+import { UniswapV2BaseProvider } from "./UniswapV2Base"
 
 export class ApeSwapProvider extends UniswapV2BaseProvider {
   constructor(chainId: ChainId, web3Client: PublicClient) {
@@ -11,7 +11,7 @@ export class ApeSwapProvider extends UniswapV2BaseProvider {
       [ChainId.ETHEREUM]: "0xBAe5dc9B19004883d0377419FeF3c2C8832d7d7B",
       [ChainId.POLYGON]: "0xCf083Be4164828f00cAE704EC15a36D711491284",
       [ChainId.BSC]: "0x0841BD0B734E4F5853f0dD8d7Ea041c241fb0Da6",
-    } as const;
+    } as const
     const initCodeHash = {
       [ChainId.ETHEREUM]:
         "0xe2200989b6f9506f3beca7e9c844741b3ad1a88ad978b6b0973e96d3ca4707aa",
@@ -19,13 +19,13 @@ export class ApeSwapProvider extends UniswapV2BaseProvider {
         "0x511f0f358fe530cda0859ec20becf391718fdf5a329be02f4c95361f3d6a42d8",
       [ChainId.BSC]:
         "0xf4ccce374816856d11f00e4069e7cada164065686fbef53c6167a63ec2fd8c5b",
-    } as const;
-    super(chainId, web3Client, factory, initCodeHash);
+    } as const
+    super(chainId, web3Client, factory, initCodeHash)
   }
   getType(): LiquidityProviders {
-    return LiquidityProviders.ApeSwap;
+    return LiquidityProviders.ApeSwap
   }
   getPoolProviderName(): string {
-    return "ApeSwap";
+    return "ApeSwap"
   }
 }

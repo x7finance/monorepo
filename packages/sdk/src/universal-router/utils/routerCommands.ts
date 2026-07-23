@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { encodeAbiParameters } from "viem";
+/* oxlint-disable @typescript-eslint/no-unsafe-argument */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+import { encodeAbiParameters } from "viem"
 
 /**
  * CommandTypes
@@ -47,7 +47,7 @@ export enum CommandType {
   APPROVE_ERC20 = 0x22,
 }
 
-const ALLOW_REVERT_FLAG = 0x80;
+const ALLOW_REVERT_FLAG = 0x80
 
 const REVERTIBLE_COMMANDS = new Set<CommandType>([
   CommandType.SEAPORT_V1_5,
@@ -62,17 +62,17 @@ const REVERTIBLE_COMMANDS = new Set<CommandType>([
   CommandType.EXECUTE_SUB_PLAN,
   CommandType.CRYPTOPUNKS,
   CommandType.ELEMENT_MARKET,
-]);
+])
 
 const PERMIT_STRUCT =
-  "((address token,uint160 amount,uint48 expiration,uint48 nonce) details,address spender,uint256 sigDeadline)";
+  "((address token,uint160 amount,uint48 expiration,uint48 nonce) details,address spender,uint256 sigDeadline)"
 
 const PERMIT_BATCH_STRUCT =
-  "((address token,uint160 amount,uint48 expiration,uint48 nonce)[] details,address spender,uint256 sigDeadline)";
+  "((address token,uint160 amount,uint48 expiration,uint48 nonce)[] details,address spender,uint256 sigDeadline)"
 
 const PERMIT2_TRANSFER_FROM_STRUCT =
-  "(address from,address to,uint160 amount,address token)";
-const PERMIT2_TRANSFER_FROM_BATCH_STRUCT = PERMIT2_TRANSFER_FROM_STRUCT + "[]";
+  "(address from,address to,uint160 amount,address token)"
+const PERMIT2_TRANSFER_FROM_BATCH_STRUCT = PERMIT2_TRANSFER_FROM_STRUCT + "[]"
 
 const ABI_DEFINITION: Record<CommandType, string[]> = {
   // Batch Reverts
@@ -154,55 +154,55 @@ const ABI_DEFINITION: Record<CommandType, string[]> = {
   [CommandType.NFT20]: ["uint256", "bytes"],
   [CommandType.CRYPTOPUNKS]: ["uint256", "address", "uint256"],
   [CommandType.ELEMENT_MARKET]: ["uint256", "bytes"],
-};
+}
 
 export class RoutePlanner {
-  commands: `0x${string}`;
-  inputs: `0x${string}`[];
+  commands: `0x${string}`
+  inputs: `0x${string}`[]
 
   constructor() {
-    this.commands = "0x";
-    this.inputs = [];
+    this.commands = "0x"
+    this.inputs = []
   }
 
   addSubPlan(subplan: RoutePlanner): void {
     this.addCommand(
       CommandType.EXECUTE_SUB_PLAN,
       [subplan.commands, subplan.inputs],
-      true,
-    );
+      true
+    )
   }
 
   addCommand(type: CommandType, parameters: any, allowRevert = false): void {
-    const command = createCommand(type, parameters);
-    this.inputs.push(command.encodedInput as `0x${string}`);
+    const command = createCommand(type, parameters)
+    this.inputs.push(command.encodedInput as `0x${string}`)
     if (allowRevert) {
       if (!REVERTIBLE_COMMANDS.has(command.type)) {
         throw new Error(
-          `command type: ${command.type} cannot be allowed to revert`,
-        );
+          `command type: ${command.type} cannot be allowed to revert`
+        )
       }
-      command.type = command.type | ALLOW_REVERT_FLAG;
+      command.type = command.type | ALLOW_REVERT_FLAG
     }
 
     this.commands = this.commands.concat(
-      command.type.toString(16).padStart(2, "0"),
-    ) as `0x${string}`;
+      command.type.toString(16).padStart(2, "0")
+    ) as `0x${string}`
   }
 }
 
 export interface RouterCommand {
-  type: CommandType;
-  encodedInput: string;
+  type: CommandType
+  encodedInput: string
 }
 
 export function createCommand(
   type: CommandType,
-  parameters: (`0x${string}` | `0x${string}`[])[],
+  parameters: (`0x${string}` | `0x${string}`[])[]
 ): RouterCommand {
   const encodedInput = encodeAbiParameters(
     ABI_DEFINITION[type],
-    parameters as never,
-  );
-  return { type, encodedInput };
+    parameters as never
+  )
+  return { type, encodedInput }
 }

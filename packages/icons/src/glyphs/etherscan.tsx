@@ -1,5 +1,5 @@
-import type { SVGProps } from "react";
-import { memo } from "react";
+import type { SVGProps } from "react"
+import { memo } from "react"
 
 function Etherscan(props: SVGProps<SVGSVGElement>) {
   return (
@@ -13,7 +13,7 @@ function Etherscan(props: SVGProps<SVGSVGElement>) {
         fill="#979695"
       />
     </svg>
-  );
+  )
 }
 
-export default memo(Etherscan);
+export default memo(Etherscan)

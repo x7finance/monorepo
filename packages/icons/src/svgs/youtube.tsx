@@ -1,4 +1,4 @@
-import type { SVGProps } from "react";
+import type { SVGProps } from "react"
 
 export function YouTube(props: SVGProps<SVGSVGElement>) {
   return (
@@ -8,5 +8,5 @@ export function YouTube(props: SVGProps<SVGSVGElement>) {
         fill="currentColor"
       />
     </svg>
-  );
+  )
 }

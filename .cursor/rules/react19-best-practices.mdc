@@ -1,9 +1,0 @@
----
-description: Best practices for React 19 applications
-globs: **/*.{ts,tsx}
----
-- Use the new `useActionState` hook for form state management instead of the deprecated `useFormState`.
-- Take advantage of the enhanced `useFormStatus` hook with new properties like `data`, `method`, and `action`.
-- Implement URL state management using 'nuqs' for better SEO and shareability.
-- Minimize client-side state to reduce bundle size and improve performance.
-- Utilize the new async versions of runtime APIs for server-side operations.

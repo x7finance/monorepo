@@ -1,12 +1,12 @@
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
-"use client";
+/* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
+"use client"
 
-import type { FC, ReactNode } from "react";
-import { useMemo, useState } from "react";
+import type { FC, ReactNode } from "react"
+import { useMemo, useState } from "react"
 
-import { SlidersVerticalIcon, XIcon } from "@x7/icons";
-import { useSlippageTolerance } from "@x7/ui";
-import { Button } from "@x7/ui/button";
+import { SlidersVerticalIcon, XIcon } from "@x7/icons"
+import { useSlippageTolerance } from "@x7/ui"
+import { Button } from "@x7/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -14,14 +14,14 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@x7/ui/dialog";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@x7/ui/tooltip";
-import { Implementation } from "@x7/utils";
+} from "@x7/ui/dialog"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@x7/ui/tooltip"
+import { Implementation } from "@x7/utils"
+import { ImplementationIcon } from "~/app/(xchange)/_components/swap/swap-implementation-logos"
+import { useSwapState } from "~/lib/stores/swap"
 
-import { ImplementationIcon } from "~/app/(xchange)/_components/swap/swap-implementation-logos";
-import { useSwapState } from "~/lib/providers/swap-state";
-import { EnabledImplementations } from "./enabled-implementation";
-import { SlippageTolerance } from "./slippage-tolerance";
+import { EnabledImplementations } from "./enabled-implementation"
+import { SlippageTolerance as SlippageTolerancePanel } from "./slippage-tolerance"
 
 export enum SettingsModule {
   SlippageTolerance = "SlippageTolerance",
@@ -29,20 +29,20 @@ export enum SettingsModule {
 }
 
 interface SettingsOverlayProps {
-  children?: ReactNode;
-  modules: SettingsModule[];
+  children?: ReactNode
+  modules: SettingsModule[]
   options?: {
     slippageTolerance?: {
-      storageKey?: string;
-      defaultValue?: string;
-      title?: string;
-    };
+      storageKey?: string
+      defaultValue?: string
+      title?: string
+    }
     enabledImplementations?: {
-      storageKey?: string;
-      defaultValue?: string;
-      title?: string;
-    };
-  };
+      storageKey?: string
+      defaultValue?: string
+      title?: string
+    }
+  }
 }
 
 const implementationClassOverrides = {
@@ -51,40 +51,38 @@ const implementationClassOverrides = {
   [Implementation.PANCAKESWAP]: "h-3.5",
   [Implementation.XCHANGE]: "h-3.5",
   [Implementation.SUSHISWAP]: "h-3",
-};
+}
 
 export const SettingsOverlay: FC<SettingsOverlayProps> = ({
   modules,
   children,
   options,
 }) => {
-  const [_open, setOpen] = useState(false);
+  const [_open, setOpen] = useState(false)
   const [slippageTolerance, setSlippageTolerance] = useSlippageTolerance(
-    options?.slippageTolerance?.storageKey,
-  );
+    options?.slippageTolerance?.storageKey
+  )
   const {
     state: { enabledImplementations },
-  } = useSwapState();
+  } = useSwapState()
 
-  const dexCount = enabledImplementations.length;
-  const singleDex = dexCount === 1 ? enabledImplementations[0] : null;
+  const dexCount = enabledImplementations.length
+  const singleDex = dexCount === 1 ? enabledImplementations[0] : null
 
-  const highSlippage = Number(slippageTolerance) > 2;
+  const highSlippage = Number(slippageTolerance) > 2
 
   // Memoize iconProps to prevent unnecessary re-renders
   const iconProps = useMemo(
     () => ({
       className: "h-3 w-3 text-muted-foreground",
     }),
-    [],
-  );
+    []
+  )
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        {children ? (
-          children
-        ) : (
+      <DialogTrigger asChild nativeButton={false}>
+        {children || (
           <div
             onClick={() => setOpen(true)}
             className="ml-auto flex cursor-pointer items-center rounded-lg border border-border bg-muted/50 px-2 py-1 text-2xs"
@@ -110,8 +108,8 @@ export const SettingsOverlay: FC<SettingsOverlayProps> = ({
                     <TooltipTrigger asChild>
                       <Button
                         onClick={(e) => {
-                          e.stopPropagation();
-                          setSlippageTolerance("0.5");
+                          e.stopPropagation()
+                          setSlippageTolerance("0.5")
                         }}
                         className="h-6 rounded-xs bg-opacity-50 text-black"
                         iconPosition="end"
@@ -147,7 +145,7 @@ export const SettingsOverlay: FC<SettingsOverlayProps> = ({
         </DialogHeader>
         <div className="flex flex-col gap-4">
           {modules.includes(SettingsModule.SlippageTolerance) && (
-            <SlippageTolerance options={options?.slippageTolerance} />
+            <SlippageTolerancePanel options={options?.slippageTolerance} />
           )}
           {modules.includes(SettingsModule.ImplementationChoices) && (
             <EnabledImplementations options={options?.enabledImplementations} />
@@ -155,5 +153,5 @@ export const SettingsOverlay: FC<SettingsOverlayProps> = ({
         </div>
       </DialogContent>
     </Dialog>
-  );
-};
+  )
+}

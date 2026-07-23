@@ -1,52 +1,54 @@
-import { useEffect, useState } from "react";
+"use client"
 
-const MINUTE = 60;
-const HOUR = MINUTE * 60;
-const DAY = HOUR * 24;
+import { useEffect, useState } from "react"
+
+const MINUTE = 60
+const HOUR = MINUTE * 60
+const DAY = HOUR * 24
 
 export function Countdown({
   exactEnd,
   canLiquidate,
 }: {
-  exactEnd: Date;
-  canLiquidate: boolean;
+  exactEnd: Date
+  canLiquidate: boolean
 }) {
-  const end = exactEnd.getTime();
+  const end = exactEnd.getTime()
 
-  const [time, setTime] = useState(() => Math.floor(Date.now() / 1000));
+  const [time, setTime] = useState(() => Math.floor(Date.now() / 1000))
   useEffect((): (() => void) | void => {
     if (time <= end) {
       const timeout = setTimeout(
         () => setTime(Math.floor(Date.now() / 1000)),
-        1000,
-      );
+        1000
+      )
       return () => {
-        clearTimeout(timeout);
-      };
+        clearTimeout(timeout)
+      }
     }
-  }, [time, end]);
+  }, [time, end])
 
-  const timeUntilEnd = end - time;
+  const timeUntilEnd = end - time
 
-  let timeRemaining: number;
+  let timeRemaining: number
   // let message: string;
 
-  const ongoing = timeUntilEnd >= 0;
+  const ongoing = timeUntilEnd >= 0
   if (ongoing) {
     // message = "Rewards end in";
-    timeRemaining = timeUntilEnd;
+    timeRemaining = timeUntilEnd
   } else {
     // message = "Rewards have ended!";
-    timeRemaining = Infinity;
+    timeRemaining = Infinity
   }
 
-  const days = Math.floor(timeRemaining / DAY);
-  timeRemaining -= days * DAY;
-  const hours = Math.floor(timeRemaining / HOUR);
-  timeRemaining -= hours * HOUR;
-  const minutes = Math.floor(timeRemaining / MINUTE);
-  timeRemaining -= minutes * MINUTE;
-  const seconds = timeRemaining;
+  const days = Math.floor(timeRemaining / DAY)
+  timeRemaining -= days * DAY
+  const hours = Math.floor(timeRemaining / HOUR)
+  timeRemaining -= hours * HOUR
+  const minutes = Math.floor(timeRemaining / MINUTE)
+  timeRemaining -= minutes * MINUTE
+  const seconds = timeRemaining
 
   return Number.isFinite(timeRemaining) ? (
     <code>
@@ -60,5 +62,5 @@ export function Countdown({
     <>✅ </>
   ) : (
     <>❗ </>
-  );
+  )
 }

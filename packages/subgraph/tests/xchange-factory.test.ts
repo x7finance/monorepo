@@ -6,9 +6,7 @@ import {
   beforeAll,
   afterAll
 } from "matchstick-as/assembly/index"
-import { Address, BigInt } from "@graphprotocol/graph-ts"
-import { DiscountAuthoritySet } from "../generated/schema"
-import { DiscountAuthoritySet as DiscountAuthoritySetEvent } from "../generated/XchangeFactory/XchangeFactory"
+import { Address } from "@graphprotocol/graph-ts"
 import { handleDiscountAuthoritySet } from "../src/xchange-factory"
 import { createDiscountAuthoritySetEvent } from "./xchange-factory-utils"
 

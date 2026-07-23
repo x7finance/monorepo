@@ -1,37 +1,38 @@
-import Link from "next/link";
+import Link from "next/link"
 
-import { InfoIcon } from "@x7/icons";
+import { InfoIcon } from "@x7/icons"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@x7/ui/card";
+} from "@x7/ui/card"
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@x7/ui/hover-card";
-import { Table, TableBody, TableCell, TableRow } from "@x7/ui/table";
-import type { ChainId } from "@x7/utils";
-import { generateChainDenomination } from "@x7/utils";
+} from "@x7/ui/hover-card"
+import { Table, TableBody, TableCell, TableRow } from "@x7/ui/table"
+import type { ChainId } from "@x7/utils"
+import { generateChainDenomination } from "@x7/utils"
 
 interface StatusCardProps {
-  title: string;
+  title: string
   items: {
-    label: React.ReactNode;
-    value: string | number;
-    useChainDenomination?: boolean;
+    id: string
+    label: React.ReactNode
+    value: string | number
+    useChainDenomination?: boolean
     hovercard?: {
-      title: string;
-      description: string;
-      linkText: string;
-      href: string;
-    };
-  }[];
-  chainId: ChainId;
-  layout?: "vertical" | "horizontal";
+      title: string
+      description: string
+      linkText: string
+      href: string
+    }
+  }[]
+  chainId: ChainId
+  layout?: "vertical" | "horizontal"
 }
 
 export function StatusCard({
@@ -44,8 +45,8 @@ export function StatusCard({
     return (
       <div className="my-4">
         <div className="border-muted bg-secondary grid grid-cols-3 gap-px overflow-hidden rounded-lg border">
-          {items.map((item, index) => (
-            <div key={index} className="bg-zinc-900 px-4 py-3">
+          {items.map((item) => (
+            <div key={item.id} className="bg-zinc-900 px-4 py-3">
               <div className="text-2xs flex items-center gap-1 leading-6 text-zinc-400 sm:text-xs">
                 <span className="font-heading">{item.label}</span>
                 {item.hovercard && (
@@ -88,7 +89,7 @@ export function StatusCard({
           ))}
         </div>
       </div>
-    );
+    )
   }
 
   return (
@@ -99,8 +100,8 @@ export function StatusCard({
       <CardContent className="p-0">
         <Table>
           <TableBody>
-            {items.map((item, index) => (
-              <TableRow key={index}>
+            {items.map((item) => (
+              <TableRow key={item.id}>
                 <TableCell className="text-muted-foreground text-sm">
                   {item.label}
                 </TableCell>
@@ -120,5 +121,5 @@ export function StatusCard({
         </Table>
       </CardContent>
     </Card>
-  );
+  )
 }

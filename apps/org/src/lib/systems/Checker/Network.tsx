@@ -1,15 +1,15 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
+/* oxlint-disable @typescript-eslint/no-explicit-any */
+"use client"
 
-import type { FC, ReactElement } from "react";
-import { useAccount, useSwitchChain } from "wagmi";
+import type { FC, ReactElement } from "react"
+import { useAccount, useSwitchChain } from "wagmi"
 
-import type { ButtonProps } from "@x7/ui/button";
-import { Button } from "@x7/ui/button";
-import { chainName } from "@x7/utils";
+import type { ButtonProps } from "@x7/ui/button"
+import { Button } from "@x7/ui/button"
+import { chainName } from "@x7/utils"
 
 interface NetworkProps extends ButtonProps {
-  chainId: number | undefined;
+  chainId: number | undefined
 }
 
 const Network: FC<NetworkProps> = ({
@@ -19,15 +19,15 @@ const Network: FC<NetworkProps> = ({
   children,
   ...rest
 }): ReactElement<any, any> | null => {
-  const { chain } = useAccount();
+  const { chain } = useAccount()
 
-  const { switchChain } = useSwitchChain();
+  const { switchChain } = useSwitchChain()
 
   if (!chainId) {
-    return null;
+    return null
   }
 
-  const _chainId = Number(chainId);
+  const _chainId = Number(chainId)
   if (chain?.id !== _chainId)
     return (
       <Button
@@ -38,9 +38,9 @@ const Network: FC<NetworkProps> = ({
       >
         Switch to {chainName[_chainId]}
       </Button>
-    );
+    )
 
-  return <>{children}</>;
-};
+  return <>{children}</>
+}
 
-export { Network, type NetworkProps };
+export { Network, type NetworkProps }

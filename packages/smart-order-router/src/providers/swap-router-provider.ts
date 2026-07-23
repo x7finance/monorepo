@@ -1,15 +1,16 @@
-import { generateRouterAddress } from "@x7/sdk";
-import type { ApprovalTypes } from "@x7/sdk";
-import { Implementation, LogCodes } from "@x7/utils";
-import type { ChainId, Currency, CurrencyAmount } from "@x7/utils";
+import { swapRouter02ABI as SwapRouter02 } from "@x7/contracts"
+import type { ApprovalTypes } from "@x7/sdk"
+import { generateRouterAddress } from "@x7/sdk"
+import type { ChainId, Currency, CurrencyAmount } from "@x7/utils"
+import { Implementation, LogCodes } from "@x7/utils"
 
-import SwapRouter02 from "../abis/swapRouter02.json";
-import { log } from "../utils";
-import type { IMulticallProvider } from "./multicall-provider";
+import { log } from "../utils"
+
+import type { IMulticallProvider } from "./multicall-provider"
 
 interface TokenApprovalTypes {
-  approvalTokenIn: ApprovalTypes;
-  approvalTokenOut: ApprovalTypes;
+  approvalTokenIn: ApprovalTypes
+  approvalTokenOut: ApprovalTypes
 }
 
 /**
@@ -29,20 +30,20 @@ export interface ISwapRouterProvider {
   getApprovalType(
     tokenInAmount: CurrencyAmount<Currency>,
     tokenOutAmount: CurrencyAmount<Currency>,
-    implementation: Implementation,
-  ): Promise<TokenApprovalTypes>;
+    implementation: Implementation
+  ): Promise<TokenApprovalTypes>
 }
 
 export class SwapRouterProvider implements ISwapRouterProvider {
   constructor(
     protected multicall2Provider: IMulticallProvider,
-    protected chainId: ChainId,
+    protected chainId: ChainId
   ) {}
 
   public async getApprovalType(
     tokenInAmount: CurrencyAmount<Currency>,
     tokenOutAmount: CurrencyAmount<Currency>,
-    implementation?: Implementation,
+    implementation?: Implementation
   ): Promise<TokenApprovalTypes> {
     const functionParams: [string, string][] = [
       [
@@ -53,7 +54,7 @@ export class SwapRouterProvider implements ISwapRouterProvider {
         tokenOutAmount.currency.wrapped.address,
         tokenOutAmount.quotient.toString(),
       ],
-    ];
+    ]
 
     const tx =
       await this.multicall2Provider.callSameFunctionOnContractWithMultipleParams<
@@ -62,30 +63,30 @@ export class SwapRouterProvider implements ISwapRouterProvider {
       >({
         address: generateRouterAddress(
           this.chainId,
-          implementation ?? Implementation.UNISWAP,
+          implementation ?? Implementation.UNISWAP
         ),
         contractInterface: SwapRouter02,
         functionName: "getApprovalType",
         functionParams,
-      });
+      })
 
     if (!tx.results[0]?.success || !tx.results[1]?.success) {
       log.error(
         LogCodes.FAIL,
         "Failed to get approval type from swap router for token in or token out",
-        { results: tx.results },
-      );
+        { results: tx.results }
+      )
       throw new Error(
-        "Failed to get approval type from swap router for token in or token out",
-      );
+        "Failed to get approval type from swap router for token in or token out"
+      )
     }
 
-    const { result: approvalTokenIn } = tx.results[0];
-    const { result: approvalTokenOut } = tx.results[1];
+    const { result: approvalTokenIn } = tx.results[0]
+    const { result: approvalTokenOut } = tx.results[1]
 
     return {
       approvalTokenIn: approvalTokenIn[0],
       approvalTokenOut: approvalTokenOut[0],
-    };
+    }
   }
 }

@@ -1,83 +1,48 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import _ from "lodash";
+/* oxlint-disable @typescript-eslint/no-non-null-assertion */
+import _ from "lodash"
 
-import { Pair, Pool, V3_CORE_FACTORY_ADDRESSES } from "@x7/sdk";
-import { Percent, Protocol } from "@x7/utils";
+import { Percent, Protocol } from "@x7/utils"
 
-import { CurrencyAmount } from ".";
-import type { RouteWithValidQuote } from "../routers/alpha-router";
-import type { MixedRoute, V2Route, V3Route } from "../routers/router";
+import type { MixedRoute, V2Route, V3Route } from "../routers/route-types"
 
-export const routeToString = (
-  route: V3Route | V2Route | MixedRoute,
-): string => {
-  const routeStr = [];
-  const tokens =
-    route.protocol === Protocol.V3
-      ? route.tokenPath
-      : // MixedRoute and V2Route have path
-        route.path;
-  const tokenPath = _.map(tokens, (token) => `${token.symbol}`);
-  const pools =
-    route.protocol === Protocol.V3 || route.protocol === Protocol.MIXED
-      ? route.pools
-      : route.pairs;
-  const poolFeePath = _.map(pools, (pool) => {
-    return `${
-      pool instanceof Pool
-        ? ` -- ${pool.fee / 10000}% [${Pool.getAddress(
-            pool.token0,
-            pool.token1,
-            pool.fee,
-            undefined,
-            V3_CORE_FACTORY_ADDRESSES[pool.chainId],
-          )}]`
-        : ` -- [${Pair.getAddress(pool.token0, pool.token1, pool.pairType)}]`
-    } --> `;
-  });
+import { CurrencyAmount } from "./amounts"
+import { routeToString } from "./route-string"
 
-  for (let i = 0; i < tokenPath.length; i++) {
-    routeStr.push(tokenPath[i]);
-    if (i < poolFeePath.length) {
-      routeStr.push(poolFeePath[i]);
-    }
-  }
+export { routeToString, poolToString } from "./route-string"
 
-  return routeStr.join("");
-};
+// Minimal interface to avoid cyclic imports from alpha-router
+interface RouteWithValidQuoteMinimal {
+  amount: CurrencyAmount
+  protocol: Protocol
+  route: V3Route | V2Route | MixedRoute
+}
 
 export const routeAmountsToString = (
-  routeAmounts: RouteWithValidQuote[],
+  routeAmounts: RouteWithValidQuoteMinimal[]
 ): string => {
   const total = _.reduce(
     routeAmounts,
-    (total: CurrencyAmount, cur: RouteWithValidQuote) => {
-      return total.add(cur.amount);
+    (acc: CurrencyAmount, cur: RouteWithValidQuoteMinimal) => {
+      return acc.add(cur.amount)
     },
-    CurrencyAmount.fromRawAmount(routeAmounts[0]!.amount.currency, 0),
-  );
+    CurrencyAmount.fromRawAmount(routeAmounts[0]!.amount.currency, 0)
+  )
 
   const routeStrings = _.map(routeAmounts, ({ protocol, route, amount }) => {
-    const portion = amount.divide(total);
-    const percent = new Percent(portion.numerator, portion.denominator);
+    const portion = amount.divide(total)
+    const percent = new Percent(portion.numerator, portion.denominator)
     /// @dev special case for MIXED routes we want to show user friendly V2+V3 instead
     return `[${
-      protocol == Protocol.MIXED ? "V2 + V3" : protocol
-    }] ${percent.toFixed(2)}% = ${routeToString(route)}`;
-  });
+      protocol === Protocol.MIXED ? "V2 + V3" : protocol
+    }] ${percent.toFixed(2)}% = ${routeToString(route)}`
+  })
 
-  return _.join(routeStrings, ", ");
-};
+  return _.join(routeStrings, ", ")
+}
 
 export const routeAmountToString = (
-  routeAmount: RouteWithValidQuote,
+  routeAmount: RouteWithValidQuoteMinimal
 ): string => {
-  const { route, amount } = routeAmount;
-  return `${amount.toExact()} = ${routeToString(route)}`;
-};
-
-export const poolToString = (p: Pool | Pair): string => {
-  return `${p.token0.symbol}/${p.token1.symbol}${
-    p instanceof Pool ? `/${p.fee / 10000}%` : ``
-  }`;
-};
+  const { route, amount } = routeAmount
+  return `${amount.toExact()} = ${routeToString(route)}`
+}
