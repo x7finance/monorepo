@@ -158,17 +158,15 @@ const nextConfig: NextConfig = {
       expire: 60 * 60, // Expire after 1 hour
     },
   },
+  // Cache Components (Next 16.3): static/cached/dynamic split with PPR + instant
+  // navigations. Replaces experimental.useCache/dynamicIO. Uncached dynamic data
+  // must be wrapped in <Suspense> or cached with `use cache`, else the route is
+  // opted out of instant-nav validation via `export const instant = false`.
+  cacheComponents: true,
   experimental: {
     // TypeScript 7 (native) doesn't expose the legacy compiler API, so run
     // build-time type checking through the `tsc` CLI instead.
     useTypeScriptCli: true,
-    // PPR/cacheComponents are NOT enabled — enabling them requires a
-    // dynamic-API audit (cookies/headers/searchParams) across all routes.
-    // `use cache` is opt-in per function/component (see `useCache` below).
-    // Caching features
-    dynamicOnHover: true,
-    useCache: true,
-    turbopackFileSystemCacheForDev: true,
     // Build optimizations
     optimizePackageImports: [
       "@x7/contracts",
