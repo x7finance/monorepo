@@ -3,7 +3,6 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
 "use client"
 
-import { Alchemy, Network, TokenBalanceType } from "alchemy-sdk"
 import { useEffect, useState } from "react"
 import type { Abi } from "viem"
 import { fromHex } from "viem"
@@ -25,21 +24,70 @@ import { ChainId, Implementation, LogCodes, Protocol } from "@x7/utils"
 import { env } from "~/env"
 import { log } from "~/lib/utils/log"
 
-const NETWORK_CHEATSHEET = {
-  [ChainId.ETHEREUM as number]: Network.ETH_MAINNET,
-  [ChainId.ETHEREUM_TESTNET as number]: Network.ETH_SEPOLIA,
-  [ChainId.BASE as number]: Network.BASE_MAINNET,
-  [ChainId.BASE_TESTNET as number]: Network.BASE_SEPOLIA,
-  [ChainId.ARBITRUM as number]: Network.ARB_MAINNET,
-  [ChainId.ARBITRUM_TESTNET as number]: Network.ARB_SEPOLIA,
-  [ChainId.BSC as number]: Network.BNB_MAINNET,
-  [ChainId.BSC_TESTNET as number]: Network.BNB_TESTNET,
-  [ChainId.POLYGON as number]: Network.MATIC_MAINNET,
-  [ChainId.POLYGON_TESTNET as number]: Network.MATIC_AMOY,
-  [ChainId.OPTIMISM as number]: Network.OPT_MAINNET,
-  [ChainId.OPTIMISM_TESTNET as number]: Network.OPT_SEPOLIA,
-  [ChainId.ARBITRUM as number]: Network.ARB_MAINNET,
-  [ChainId.ARBITRUM_TESTNET as number]: Network.ARB_SEPOLIA,
+// Alchemy network subdomains (mirrors the alchemy-sdk `Network` enum values).
+// Used to build the JSON-RPC endpoint directly, avoiding the full alchemy-sdk
+// dependency (which pulls in ethers v5, axios, and @solana/web3.js).
+const NETWORK_CHEATSHEET: Record<number, string> = {
+  [ChainId.ETHEREUM]: "eth-mainnet",
+  [ChainId.ETHEREUM_TESTNET]: "eth-sepolia",
+  [ChainId.BASE]: "base-mainnet",
+  [ChainId.BASE_TESTNET]: "base-sepolia",
+  [ChainId.ARBITRUM]: "arb-mainnet",
+  [ChainId.ARBITRUM_TESTNET]: "arb-sepolia",
+  [ChainId.BSC]: "bnb-mainnet",
+  [ChainId.BSC_TESTNET]: "bnb-testnet",
+  [ChainId.POLYGON]: "polygon-mainnet",
+  [ChainId.POLYGON_TESTNET]: "polygon-amoy",
+  [ChainId.OPTIMISM]: "opt-mainnet",
+  [ChainId.OPTIMISM_TESTNET]: "opt-sepolia",
+}
+
+interface AlchemyTokenBalance {
+  contractAddress: string
+  tokenBalance: string | null
+}
+
+interface AlchemyTokenBalancesResult {
+  tokenBalances: AlchemyTokenBalance[]
+  pageKey?: string
+}
+
+/**
+ * Fetches ERC-20 token balances via Alchemy's `alchemy_getTokenBalances`
+ * JSON-RPC method. Direct replacement for `alchemy.core.getTokenBalances`
+ * with `TokenBalanceType.ERC20` + pagination — same request, same response
+ * shape — without the alchemy-sdk bundle.
+ */
+async function fetchErc20TokenBalances(
+  subdomain: string,
+  apiKey: string,
+  address: string,
+  pageKey?: string
+): Promise<AlchemyTokenBalancesResult> {
+  const response = await fetch(
+    `https://${subdomain}.g.alchemy.com/v2/${apiKey}`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: 1,
+        jsonrpc: "2.0",
+        method: "alchemy_getTokenBalances",
+        params: pageKey ? [address, "erc20", { pageKey }] : [address, "erc20"],
+      }),
+    }
+  )
+
+  const json = (await response.json()) as {
+    result?: AlchemyTokenBalancesResult
+    error?: { message: string }
+  }
+
+  if (json.error) {
+    throw new Error(json.error.message)
+  }
+
+  return json.result ?? { tokenBalances: [] }
 }
 
 export interface LiquidityFees {
@@ -97,21 +145,23 @@ export const useAllLiquidityPositions = (
         return existing
       }
 
-      const config = {
-        apiKey: `${env.NEXT_PUBLIC_ALCHEMY_ID}`,
-        network: NETWORK_CHEATSHEET[chainId],
+      const subdomain = NETWORK_CHEATSHEET[chainId]
+      if (!subdomain) {
+        return existing
       }
 
-      const alchemy = new Alchemy(config)
-      // Get token balances with API endpoint
-      const balances = await alchemy.core.getTokenBalances(address as string, {
-        type: TokenBalanceType.ERC20,
-        pageKey: pageKey ?? "",
-      })
+      // Get token balances via Alchemy's JSON-RPC endpoint
+      const balances = await fetchErc20TokenBalances(
+        subdomain,
+        `${env.NEXT_PUBLIC_ALCHEMY_ID}`,
+        address as string,
+        pageKey
+      )
 
       const allResolved = await Promise.all(
         balances.tokenBalances.map(
           async ({ contractAddress, tokenBalance }) => {
+            const tokenBalanceHex = (tokenBalance ?? "0x0") as `0x${string}`
             const isPair = await publicClient.readContract({
               abi: XChangeFactoryABI as Abi,
               address: X7ContractsEnum.XchangeFactory,
@@ -289,14 +339,12 @@ export const useAllLiquidityPositions = (
 
               return {
                 contractAddress: contractAddress as `0x${string}`,
-                tokenBalance: fromHex(tokenBalance as `0x${string}`, "bigint"),
+                tokenBalance: fromHex(tokenBalanceHex, "bigint"),
                 liquidity: liquiditySupply,
                 decimals: liquidityDecimals,
                 ownership:
                   Number(liquiditySupply) > 0
-                    ? (Number(
-                        fromHex(tokenBalance as `0x${string}`, "bigint")
-                      ) /
+                    ? (Number(fromHex(tokenBalanceHex, "bigint")) /
                         Number(liquiditySupply)) *
                       100
                     : 0,
@@ -307,8 +355,7 @@ export const useAllLiquidityPositions = (
                   balance: token0Balance,
                   maxShare:
                     token0Balance && liquiditySupply
-                      ? (fromHex(tokenBalance as `0x${string}`, "bigint") *
-                          token0Balance) /
+                      ? (fromHex(tokenBalanceHex, "bigint") * token0Balance) /
                         liquiditySupply
                       : 0n,
                   minimumBalance: token0MinimumBalance ?? 0n,
@@ -321,8 +368,7 @@ export const useAllLiquidityPositions = (
                   balance: token1Balance,
                   maxShare:
                     token1Balance && liquiditySupply
-                      ? (fromHex(tokenBalance as `0x${string}`, "bigint") *
-                          token1Balance) /
+                      ? (fromHex(tokenBalanceHex, "bigint") * token1Balance) /
                         liquiditySupply
                       : 0n,
                   minimumBalance: token1MinimumBalance ?? 0n,
