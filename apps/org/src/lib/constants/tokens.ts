@@ -78,11 +78,11 @@ function isMatic(chainId: ChainId) {
 }
 
 class MaticNativeCurrency extends Native {
-  equals(other: Currency): boolean {
+  override equals(other: Currency): boolean {
     return other.isNative && other.chainId === this.chainId
   }
 
-  get wrapped(): Token {
+  override get wrapped(): Token {
     if (!isMatic(this.chainId)) throw new Error("Not matic")
     const wrapped = WRAPPED_NATIVE_CURRENCY[this.chainId]
     invariant(wrapped instanceof Token)
@@ -100,11 +100,11 @@ function isBsc(chainId: ChainId) {
 }
 
 class BscNativeCurrency extends Native {
-  equals(other: Currency): boolean {
+  override equals(other: Currency): boolean {
     return other.isNative && other.chainId === this.chainId
   }
 
-  get wrapped(): Token {
+  override get wrapped(): Token {
     if (!isBsc(this.chainId)) throw new Error("Not bnb")
     const wrapped = WRAPPED_NATIVE_CURRENCY[this.chainId]
     invariant(wrapped instanceof Token)
@@ -118,7 +118,7 @@ class BscNativeCurrency extends Native {
 }
 
 export class ExtendedEther extends Native {
-  public get wrapped(): Token {
+  public override get wrapped(): Token {
     const wrapped = WRAPPED_NATIVE_CURRENCY[this.chainId]
     if (wrapped instanceof Token) return wrapped
     throw new Error("Unsupported chain ID")
@@ -126,7 +126,7 @@ export class ExtendedEther extends Native {
 
   private static _cachedExtendedEther: Record<number, ExtendedEther> = {}
 
-  public static onChain(chainId: ChainId): ExtendedEther {
+  public static override onChain(chainId: ChainId): ExtendedEther {
     return (
       this._cachedExtendedEther[chainId] ??
       (this._cachedExtendedEther[chainId] = new ExtendedEther({

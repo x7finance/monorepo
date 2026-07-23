@@ -18,6 +18,8 @@
     "target": "ES2022",
     "allowJs": true,
     "strict": true,
-    "noUncheckedIndexedAccess": true
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true
   }
 }

@@ -13,6 +13,8 @@
     "isolatedModules": true,
     "strict": true,
     "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
     "checkJs": true,
     "incremental": true,
     "disableSourceOfProjectReferenceRedirect": true,

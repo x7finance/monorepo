@@ -59,19 +59,19 @@ export interface AmountQuote {
 }
 
 export class BlockConflictError extends Error {
-  public name = "BlockConflictError"
+  public override name = "BlockConflictError"
 }
 
 export class SuccessRateError extends Error {
-  public name = "SuccessRateError"
+  public override name = "SuccessRateError"
 }
 
 export class ProviderBlockHeaderError extends Error {
-  public name = "ProviderBlockHeaderError"
+  public override name = "ProviderBlockHeaderError"
 }
 
 export class ProviderTimeoutError extends Error {
-  public name = "ProviderTimeoutError"
+  public override name = "ProviderTimeoutError"
 }
 
 /**
@@ -85,7 +85,7 @@ export class ProviderTimeoutError extends Error {
  * @class ProviderGasError
  */
 export class ProviderGasError extends Error {
-  public name = "ProviderGasError"
+  public override name = "ProviderGasError"
 }
 
 export type QuoteRetryOptions = RetryOptions
