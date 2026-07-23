@@ -96,12 +96,21 @@ export const ImplementationGroupTabbed = ({
           return (
             <span
               key={route.poolAddresses.join("-")}
+              role="button"
+              tabIndex={0}
+              aria-label={`Select ${currentRouteimplementation} route`}
               className={cn(
                 "relative flex w-full cursor-pointer flex-col border border-b-0 border-zinc-300 bg-white px-2 py-2 first:rounded-t-none last:rounded-b-lg last:border-b dark:border-zinc-700 dark:bg-black/40 dark:hover:bg-emerald-500/10",
                 highlighted ? "dark:bg-emerald-900/20" : ""
               )}
               onClick={() => {
                 void tryAlternativeRoute(route)
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault()
+                  void tryAlternativeRoute(route)
+                }
               }}
             >
               <div className="flex items-center justify-between gap-2">
@@ -155,12 +164,14 @@ export const ImplementationGroupTabbed = ({
           )
         })}
         {routes.length > 3 && (
-          <span
+          <button
+            type="button"
+            aria-expanded={showAllRoutes}
             className="cursor-pointer rounded-b border border-emerald-900/60 bg-white p-2 text-center text-xs text-zinc-700 dark:bg-black/40 dark:text-zinc-400 dark:hover:bg-emerald-500/10"
             onClick={() => setShowAllRoutes(!showAllRoutes)}
           >
             {showAllRoutes ? "Hide all routes" : "Show all routes"}
-          </span>
+          </button>
         )}
       </div>
     )

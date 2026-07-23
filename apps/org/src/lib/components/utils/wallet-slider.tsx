@@ -127,8 +127,10 @@ export function WalletSlide() {
           <div className="flex justify-center gap-2">
             {!confirmDisconnect && (
               <Tooltip>
-                <TooltipTrigger>
-                  <div
+                <TooltipTrigger asChild>
+                  <button
+                    type="button"
+                    aria-label="Settings"
                     onClick={handleSettingsClick}
                     className={cn(
                       buttonVariants({
@@ -139,15 +141,17 @@ export function WalletSlide() {
                     )}
                   >
                     <CogIcon className="h-4 w-4" />
-                  </div>
+                  </button>
                 </TooltipTrigger>
                 <TooltipContent>Settings</TooltipContent>
               </Tooltip>
             )}
             {!confirmDisconnect && (
               <Tooltip>
-                <TooltipTrigger>
-                  <div
+                <TooltipTrigger asChild>
+                  <button
+                    type="button"
+                    aria-label="Notifications"
                     onClick={handleNotificationsClick}
                     className={cn(
                       buttonVariants({
@@ -158,15 +162,17 @@ export function WalletSlide() {
                     )}
                   >
                     <BellIcon className="h-4 w-4" />
-                  </div>
+                  </button>
                 </TooltipTrigger>
                 <TooltipContent>Notifications</TooltipContent>
               </Tooltip>
             )}
             {!confirmDisconnect && (
               <Tooltip>
-                <TooltipTrigger>
-                  <div
+                <TooltipTrigger asChild>
+                  <button
+                    type="button"
+                    aria-label="Features"
                     onClick={handleFeaturesClick}
                     className={cn(
                       buttonVariants({
@@ -177,14 +183,20 @@ export function WalletSlide() {
                     )}
                   >
                     <SparklesIcon className="h-4 w-4" />
-                  </div>
+                  </button>
                 </TooltipTrigger>
                 <TooltipContent>Features</TooltipContent>
               </Tooltip>
             )}
             <Tooltip>
-              <TooltipTrigger>
-                <div
+              <TooltipTrigger asChild>
+                <button
+                  type="button"
+                  aria-label={
+                    confirmDisconnect
+                      ? "Confirm disconnect wallet"
+                      : "Disconnect wallet"
+                  }
                   onClick={
                     confirmDisconnect
                       ? handleConfirmDisconnect
@@ -202,7 +214,7 @@ export function WalletSlide() {
                   {confirmDisconnect && (
                     <span className="ml-1">Disconnect</span>
                   )}
-                </div>
+                </button>
               </TooltipTrigger>
               <TooltipContent>
                 {confirmDisconnect ? "Confirm Disconnect" : "Disconnect"}

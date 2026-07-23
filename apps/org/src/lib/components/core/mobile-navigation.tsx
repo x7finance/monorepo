@@ -21,6 +21,8 @@ export function MobileNavigation({ className }: { className?: string }) {
     <Sheet>
       <SheetTrigger asChild>
         <button
+          type="button"
+          aria-label="Open menu"
           className={cn(
             "relative z-40 -m-2 inline-flex items-center rounded-lg border border-zinc-600 stroke-zinc-900 p-1 text-black hover:bg-zinc-200/50 hover:stroke-zinc-600 focus-visible:outline-emerald-500 active:stroke-zinc-900 sm:p-2 dark:stroke-zinc-100 dark:text-white dark:hover:bg-zinc-800/50 dark:hover:stroke-zinc-500 dark:active:stroke-zinc-100",
             className
@@ -32,7 +34,7 @@ export function MobileNavigation({ className }: { className?: string }) {
       <SheetContent side="left" className="w-full max-w-80 p-0 lg:hidden">
         <div className="flex h-full flex-col rounded-lg bg-white shadow-xs ring-1 ring-zinc-950/5 dark:bg-zinc-900 dark:ring-white/10">
           <SheetHeader className="-mb-3 ml-auto px-4 pt-3">
-            <SheetClose className="ml-auto">
+            <SheetClose aria-label="Close menu" className="ml-auto">
               <XIcon data-slot="icon" className="h-6 w-6" />
             </SheetClose>
           </SheetHeader>

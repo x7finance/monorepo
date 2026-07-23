@@ -57,17 +57,17 @@ export const usePrice = ({ chainId, currency }: UsePrice) => {
         )
 
         if (route) {
-          return route.quote.multiply(10n).add(route.quote)
+          // Router is quoted with a 0.1-unit input; scale back to a 1-unit price.
+          return route.quote.multiply(10n)
         } else {
           throw new Error("Route not found")
         }
       } catch (error) {
         log.error(LogCodes.FAIL, `Failed to fetch price`, { error })
 
-        return CurrencyAmount.fromRawAmount(
-          currency!,
-          fromReadableAmount(1, currency!.decimals)
-        )
+        // Surface the failure to react-query (isError) instead of returning a
+        // fabricated 1:1 price, which would silently render wrong dollar values.
+        throw error
       }
     },
     enabled: Boolean(

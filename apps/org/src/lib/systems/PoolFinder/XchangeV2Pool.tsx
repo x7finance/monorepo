@@ -96,9 +96,7 @@ export const XchangeV2Pool: FC<XchangeV2PoolFinderProps> = ({
         poolType: PoolFinderType.Classic,
       },
     })
-
-    // oxlint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, index])
+  }, [dispatch, index, pool])
 
   return <></>
 }

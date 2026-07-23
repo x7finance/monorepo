@@ -91,7 +91,9 @@ export const TransactionStoreProvider: FC<TransactionStoreProviderProps> = ({
       })
 
       setShownNotifications((prevState) => {
-        return prevState.add(newTransactionRequest.txHash)
+        // Set.add() mutates and returns the same reference, so React would bail
+        // out of the update; return a new Set so the state actually changes.
+        return new Set(prevState).add(newTransactionRequest.txHash)
       })
 
       void promiseSub

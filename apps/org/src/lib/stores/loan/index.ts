@@ -178,7 +178,7 @@ export function useLoanState(): LoanState {
     const sanityErrors: { message: string; success: boolean }[] = []
 
     if (
-      parseFloat(loanAmount) < MINIMUM_LOAN_AMOUNT &&
+      parseFloat(loanAmount) < MINIMUM_LOAN_AMOUNT ||
       parseFloat(loanAmount) > MAXIMUM_LOAN_AMOUNT
     ) {
       sanityErrors.push({

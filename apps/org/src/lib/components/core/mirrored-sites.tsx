@@ -15,7 +15,7 @@ export function MirroredSites() {
     <div className="flex justify-center">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <button>
+          <button type="button" aria-label="Mirror sites">
             <BoxesIcon className="text-secondary-foreground h-4 w-4" />
           </button>
         </DropdownMenuTrigger>

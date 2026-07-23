@@ -111,7 +111,11 @@ export const CurrencyInput: FC<CurrencyInputProps> = ({
   }, [onChange, currency, value])
 
   const isLoading =
-    loading ?? currencyLoading ?? isBalanceLoading ?? isNativePriceLoading
+    loading ||
+    currencyLoading ||
+    isBalanceLoading ||
+    isPriceLoading ||
+    isNativePriceLoading
 
   const _error = error ?? (insufficientBalance ? "Exceeds Balance" : undefined)
 

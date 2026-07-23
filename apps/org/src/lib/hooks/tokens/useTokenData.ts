@@ -206,9 +206,11 @@ export function useTokenData(
     : "- - -"
 
   const ourPriceInNative = tokenPrice ? tokenPrice.toExact() : 0
-  const ourPriceInUsd = tokenPrice
-    ? Number(ourPriceInNative) * Number(nativePrice)
-    : 0
+  const nativePriceNumber = Number(nativePrice)
+  const ourPriceInUsd =
+    tokenPrice && Number.isFinite(nativePriceNumber)
+      ? Number(ourPriceInNative) * nativePriceNumber
+      : 0
 
   const { data: marketCap } = useQuery({
     queryKey: [
@@ -224,12 +226,16 @@ export function useTokenData(
     queryFn: () => {
       if (!reserves || !totalSupply || !nativePrice) return 0
 
-      const priceInEth =
-        Number(reserves.ethReserve) / Number(reserves.tokenReserve)
-      const ethValue = priceInEth
-      const nativePriceNumber = Number(nativePrice)
+      const nativePriceValue = Number(nativePrice)
+      const tokenReserveValue = Number(reserves.tokenReserve)
+      // Guard the "- - -" native-price sentinel (→ NaN) and empty pools (÷0 → Infinity).
+      if (!Number.isFinite(nativePriceValue) || tokenReserveValue === 0) {
+        return 0
+      }
 
-      return Number(totalSupply) * ethValue * nativePriceNumber
+      const priceInEth = Number(reserves.ethReserve) / tokenReserveValue
+
+      return Number(totalSupply) * priceInEth * nativePriceValue
     },
     enabled: !!reserves && !!totalSupply && !!nativePrice,
     refetchInterval: 30 * TIME.SECOND,
@@ -245,8 +251,10 @@ export function useTokenData(
         `https://api.geckoterminal.com/api/v2/networks/${networkName}/pools/${pairAddress}`
       )
       const json = await data.json()
+      // parseFloat(undefined) is NaN, and `NaN ?? 0` stays NaN — guard explicitly.
+      const volume = parseFloat(json.data?.attributes?.volume_usd?.h24)
       return {
-        volume: parseFloat(json.data?.attributes?.volume_usd?.h24) ?? 0,
+        volume: Number.isFinite(volume) ? volume : 0,
         percentChange:
           json.data?.attributes?.price_change_percentage?.h24 ?? "0.00",
       }

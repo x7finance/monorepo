@@ -293,18 +293,24 @@ export const useAllLiquidityPositions = (
                 liquidity: liquiditySupply,
                 decimals: liquidityDecimals,
                 ownership:
-                  (Number(fromHex(tokenBalance as `0x${string}`, "bigint")) /
-                    Number(liquiditySupply)) *
-                  100,
+                  Number(liquiditySupply) > 0
+                    ? (Number(
+                        fromHex(tokenBalance as `0x${string}`, "bigint")
+                      ) /
+                        Number(liquiditySupply)) *
+                      100
+                    : 0,
                 token0: {
                   address: token0Address!,
                   decimals: token0Decimals!,
                   symbol: token0Symb!,
                   balance: token0Balance,
                   maxShare:
-                    (fromHex(tokenBalance as `0x${string}`, "bigint") *
-                      token0Balance!) /
-                    liquiditySupply!,
+                    token0Balance && liquiditySupply
+                      ? (fromHex(tokenBalance as `0x${string}`, "bigint") *
+                          token0Balance) /
+                        liquiditySupply
+                      : 0n,
                   minimumBalance: token0MinimumBalance ?? 0n,
                   fees: token0Fees,
                 },
@@ -314,9 +320,11 @@ export const useAllLiquidityPositions = (
                   symbol: token1Symb!,
                   balance: token1Balance,
                   maxShare:
-                    (fromHex(tokenBalance as `0x${string}`, "bigint") *
-                      token1Balance!) /
-                    liquiditySupply!,
+                    token1Balance && liquiditySupply
+                      ? (fromHex(tokenBalance as `0x${string}`, "bigint") *
+                          token1Balance) /
+                        liquiditySupply
+                      : 0n,
                   minimumBalance: token1MinimumBalance ?? 0n,
                   fees: token1Fees,
                 },

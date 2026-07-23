@@ -51,9 +51,9 @@ export class Router {
       addresses.every((address) => {
         const poolName = poolCodesMap.get(address)?.poolName
         return (
-          poolName?.startsWith("Wrap") ??
-          poolName?.startsWith(LiquidityProviders.SushiSwapV2) ??
-          poolName?.startsWith(LiquidityProviders.SushiSwapV3) ??
+          poolName?.startsWith("Wrap") ||
+          poolName?.startsWith(LiquidityProviders.SushiSwapV2) ||
+          poolName?.startsWith(LiquidityProviders.SushiSwapV3) ||
           poolName?.startsWith(LiquidityProviders.Trident)
         )
       })
@@ -64,8 +64,8 @@ export class Router {
         const poolName = poolCodesMap.get(address)?.poolName
         return (
           !poolName?.startsWith("Wrap") &&
-          (poolName?.startsWith(LiquidityProviders.SushiSwapV2) ??
-            poolName?.startsWith(LiquidityProviders.SushiSwapV3) ??
+          (poolName?.startsWith(LiquidityProviders.SushiSwapV2) ||
+            poolName?.startsWith(LiquidityProviders.SushiSwapV3) ||
             poolName?.startsWith(LiquidityProviders.Trident))
         )
       }) &&
@@ -84,7 +84,7 @@ export class Router {
       addresses.some((address) => {
         const poolName = poolCodesMap.get(address)?.poolName
         return (
-          poolName?.startsWith("Wrap") ??
+          poolName?.startsWith("Wrap") ||
           (!poolName?.startsWith(LiquidityProviders.SushiSwapV2) &&
             !poolName?.startsWith(LiquidityProviders.SushiSwapV3) &&
             !poolName?.startsWith(LiquidityProviders.Trident))

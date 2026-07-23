@@ -23,12 +23,35 @@ export function useAccountHistory() {
 
   const id = (chain?.id ?? 0) as ChainId
 
-  if (getChainScannerApi(id)[0] !== "") {
-    return getScannerTransactionHistory(id, address, chainInfo)
+  // Call every scanner-API hook unconditionally (rules of hooks); each returns
+  // a [key, setKey] tuple from localStorage. Select the key for the active chain.
+  const [etherscanKey] = EtherscanApi()
+  const [bscscanKey] = BscscanApi()
+  const [polygonKey] = PolygonScanApi()
+  const [arbitrumKey] = ArbitrumScanApi()
+  const [optimismKey] = OptimismScanApi()
+
+  const scannerApiKey = getScannerApiKey(id, {
+    [ChainId.ETHEREUM]: etherscanKey,
+    [ChainId.BSC]: bscscanKey,
+    [ChainId.POLYGON]: polygonKey,
+    [ChainId.ARBITRUM]: arbitrumKey,
+    [ChainId.OPTIMISM]: optimismKey,
+  })
+
+  if (scannerApiKey !== "") {
+    return getScannerTransactionHistory(address, chainInfo, scannerApiKey)
   }
 
   // TODO: implement proper retrieval using new RPC object
   return getTransactionHistory(address, id, env.NEXT_PUBLIC_ALCHEMY_ID)
+}
+
+function getScannerApiKey(
+  id: ChainId,
+  keys: Partial<Record<ChainId, string>>
+): string {
+  return keys[id] ?? ""
 }
 
 function getTransactionHistory(
@@ -68,34 +91,13 @@ function getTransactionHistory(
 }
 
 function getScannerTransactionHistory(
-  id: ChainId,
   address: `0x${string}` | undefined,
-  chainInfo: any
+  chainInfo: any,
+  scannerApiKey: string
 ) {
-  const apiUrl = `${
-    chainInfo?.api
-  }?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&page=1&offset=20&sort=desc&apikey=${getChainScannerApi(
-    id
-  )}`
+  const apiUrl = `${chainInfo?.api}?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&page=1&offset=20&sort=desc&apikey=${scannerApiKey}`
   return {
     url: apiUrl,
     queryString: "",
-  }
-}
-
-function getChainScannerApi(id: ChainId) {
-  switch (id) {
-    case ChainId.ETHEREUM:
-      return EtherscanApi()
-    case ChainId.BSC:
-      return BscscanApi()
-    case ChainId.POLYGON:
-      return PolygonScanApi()
-    case ChainId.ARBITRUM:
-      return ArbitrumScanApi()
-    case ChainId.OPTIMISM:
-      return OptimismScanApi()
-    default:
-      return ""
   }
 }

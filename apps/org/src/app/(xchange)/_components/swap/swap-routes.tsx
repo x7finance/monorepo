@@ -74,8 +74,11 @@ export function SwapRoutes() {
           }}
         >
           {enabledImplementations.map((enabled) => (
-            <span
+            <button
+              type="button"
               key={`impopt-${enabled}`}
+              aria-label={`Select ${enabled} route`}
+              aria-pressed={enabled === selectedImplementation}
               onClick={() => setSelectedImplementation(enabled)}
               className={cn(
                 "flex w-full cursor-pointer items-center justify-center p-1 py-2 first:rounded-tl-lg last:rounded-tr-lg dark:hover:bg-emerald-500/10",
@@ -88,7 +91,7 @@ export function SwapRoutes() {
               )}
             >
               {implementationComponents[enabled]}
-            </span>
+            </button>
           ))}
         </div>
       </div>
