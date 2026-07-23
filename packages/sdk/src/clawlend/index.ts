@@ -8,6 +8,44 @@ export interface ClawLendConfig {
   wethAddress: Address
 }
 
+/**
+ * The zero address used as a placeholder for ClawLend contracts that have not
+ * yet been deployed. Using it in a transaction would send funds to nowhere.
+ */
+export const ZERO_ADDRESS: Address =
+  "0x0000000000000000000000000000000000000000"
+
+/**
+ * ClawLend contracts are not yet deployed on any chain. This flag lets
+ * consumers gate features off until real addresses are populated below.
+ */
+export const CLAWLEND_DEPLOYED = false
+
+function isPlaceholderConfig(config: ClawLendConfig): boolean {
+  return (
+    config.poolAddress === ZERO_ADDRESS ||
+    config.flashLoanAddress === ZERO_ADDRESS
+  )
+}
+
+/**
+ * Safely resolve ClawLend addresses for a chain. Throws loudly if ClawLend is
+ * not configured or still points at placeholder (zero) addresses, preventing
+ * accidental transactions to the zero address.
+ */
+export function getClawLendAddresses(chainId: number): ClawLendConfig {
+  const config = CLAWLEND_ADDRESSES[chainId]
+  if (!config) {
+    throw new Error(`ClawLend is not configured on chain ${chainId}`)
+  }
+  if (isPlaceholderConfig(config)) {
+    throw new Error(
+      `ClawLend is not yet deployed on chain ${chainId}: contract addresses are placeholders (zero address). Refusing to return them.`
+    )
+  }
+  return config
+}
+
 export interface AgentStats {
   loanCount: bigint
   totalVolume: bigint
@@ -31,6 +69,12 @@ export class ClawLendSDK {
     config: ClawLendConfig,
     walletClient?: WalletClient
   ) {
+    if (isPlaceholderConfig(config)) {
+      throw new Error(
+        "ClawLend is not yet deployed: refusing to initialize ClawLendSDK with placeholder (zero address) contracts."
+      )
+    }
+
     this.publicClient = publicClient
     this.config = config
     this.walletClient = walletClient
@@ -233,17 +277,22 @@ export const CLAWLEND_TIERS: Record<number, { name: string; maxLoan: bigint }> =
     3: { name: "Trusted", maxLoan: 100n }, // 100 ETH
   }
 
+/**
+ * WARNING: ClawLend is NOT yet deployed. The pool/flash-loan addresses below are
+ * placeholder ZERO addresses. Do NOT read these directly — use
+ * `getClawLendAddresses(chainId)`, which throws until real addresses are set.
+ */
 export const CLAWLEND_ADDRESSES: Record<number, ClawLendConfig> = {
   // Base Sepolia Testnet
   84532: {
-    poolAddress: "0x0000000000000000000000000000000000000000", // TODO: Deploy
-    flashLoanAddress: "0x0000000000000000000000000000000000000000", // TODO: Deploy
+    poolAddress: ZERO_ADDRESS, // TODO: Deploy — placeholder, not usable
+    flashLoanAddress: ZERO_ADDRESS, // TODO: Deploy — placeholder, not usable
     wethAddress: "0x4200000000000000000000000000000000000006",
   },
   // Base Mainnet
   8453: {
-    poolAddress: "0x0000000000000000000000000000000000000000", // TODO: Deploy
-    flashLoanAddress: "0x0000000000000000000000000000000000000000", // TODO: Deploy
+    poolAddress: ZERO_ADDRESS, // TODO: Deploy — placeholder, not usable
+    flashLoanAddress: ZERO_ADDRESS, // TODO: Deploy — placeholder, not usable
     wethAddress: "0x4200000000000000000000000000000000000006",
   },
 }
