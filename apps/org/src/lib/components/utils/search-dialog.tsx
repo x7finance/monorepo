@@ -1,8 +1,17 @@
 "use client"
 
-import { DocSearchModal, useDocSearchKeyboardEvents } from "@docsearch/react"
+import { useDocSearchKeyboardEvents } from "@docsearch/react"
+import dynamic from "next/dynamic"
 import { useCallback, useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
+
+// The DocSearch modal (Algolia UI + search client) is the heavy part of
+// @docsearch/react (~150KB gz). It only renders once the user opens search,
+// so load it lazily to keep it out of the shared/header bundle.
+const DocSearchModal = dynamic(
+  () => import("@docsearch/react").then((m) => m.DocSearchModal),
+  { ssr: false }
+)
 
 import { SearchIcon } from "@x7/icons"
 import { Button } from "@x7/ui/button"

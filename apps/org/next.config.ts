@@ -1,3 +1,4 @@
+import bundleAnalyzer from "@next/bundle-analyzer"
 import type { NextConfig } from "next"
 import {
   arbitrum,
@@ -90,6 +91,12 @@ const rpcConnectSources = Array.from(
     "https://*.onfinality.io",
   ])
 )
+
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled:
+    process.env.BUNDLE_ANALYZE === "both" ||
+    process.env.BUNDLE_ANALYZE === "true",
+})
 
 const nextConfig: NextConfig = {
   // Security headers (migrated from middleware.ts)
@@ -290,4 +297,4 @@ const nextConfig: NextConfig = {
   productionBrowserSourceMaps: false,
 }
 
-export default nextConfig
+export default withBundleAnalyzer(nextConfig)

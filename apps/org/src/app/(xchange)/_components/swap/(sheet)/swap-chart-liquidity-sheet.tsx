@@ -4,6 +4,7 @@
 
 "use client"
 
+import dynamic from "next/dynamic"
 import React from "react"
 
 import type { Pair, Pool } from "@x7/sdk"
@@ -21,8 +22,24 @@ import type { Native, Token } from "@x7/utils"
 import { Protocol } from "@x7/utils"
 
 import { SwapChartLiquidityAccordion } from "../(accordion)/swap-chart-liquidity-accordion"
-import { SwapChartLiquidityBarChartV2 } from "../(chart)/swap-chart-liquidity-bar-chart-v2"
-import { SwapChartLiquidityBarChartV3 } from "../(chart)/swap-chart-liquidity-bar-chart-v3"
+
+// recharts (~730KB parsed) lives only in these two bar charts, which render
+// only when this liquidity sheet is opened. Load them lazily so recharts stays
+// out of the swap route's initial JS and only downloads on demand.
+const SwapChartLiquidityBarChartV2 = dynamic(
+  () =>
+    import("../(chart)/swap-chart-liquidity-bar-chart-v2").then(
+      (m) => m.SwapChartLiquidityBarChartV2
+    ),
+  { ssr: false }
+)
+const SwapChartLiquidityBarChartV3 = dynamic(
+  () =>
+    import("../(chart)/swap-chart-liquidity-bar-chart-v3").then(
+      (m) => m.SwapChartLiquidityBarChartV3
+    ),
+  { ssr: false }
+)
 
 interface SwapChartPanelLiquiditySheetProps {
   route?: SwapRoute
