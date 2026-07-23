@@ -65,7 +65,7 @@ export const TokenListContent: FC<TokenViewProps> = ({
   // TODO: implement on chain usePrices
   const { data: pricesMap } = usePrices({ _chainId: chainId })
 
-  const tokenMap = useMemo(() => {
+  const tokenMap = useMemo<Record<string, Token>>(() => {
     return {
       ...defaultTokenMap,
     }
@@ -101,7 +101,7 @@ export const TokenListContent: FC<TokenViewProps> = ({
     if (query || !sortedTokenList) return sortedTokenList
 
     // Create a custom sorter that prioritizes X7 tokens
-    return [...sortedTokenList].sort((a, b) => {
+    return [...sortedTokenList].toSorted((a, b) => {
       const aIsX7 = (a.symbol || "").includes("X7")
       const bIsX7 = (b.symbol || "").includes("X7")
 

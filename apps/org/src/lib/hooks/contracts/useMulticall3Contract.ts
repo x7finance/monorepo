@@ -1,25 +1,24 @@
-"use client";
+"use client"
 
-import { getContract } from "viem";
-import type { Address } from "viem";
-import { usePublicClient } from "wagmi";
+import { getContract } from "viem"
+import type { Address } from "viem"
+import { usePublicClient } from "wagmi"
 
-import { multicall3Abi } from "@x7/contracts";
+import { multicall3Abi } from "@x7/contracts"
+import { allChains } from "~/lib/config/web3"
 
-import { allChains } from "~/lib/config/web3";
-
-type Multicall3ChainId = (typeof allChains)[number]["id"];
+type Multicall3ChainId = (typeof allChains)[number]["id"]
 
 export const getMulticall3ContractConfig = (
-  chainId: Multicall3ChainId | undefined,
+  chainId: Multicall3ChainId | undefined
 ) => ({
   address: (allChains.find((chain) => chain.id === chainId)?.contracts
     ?.multicall3?.address ?? "") as Address,
   abi: multicall3Abi,
-});
+})
 
 export function useMulticall3Contract(chainId: Multicall3ChainId) {
-  const publicClient = usePublicClient({ chainId });
+  const publicClient = usePublicClient({ chainId })
 
   return getContract({
     ...getMulticall3ContractConfig(chainId),
@@ -27,5 +26,5 @@ export function useMulticall3Contract(chainId: Multicall3ChainId) {
       // @ts-expect-error: todo do we want
       public: publicClient,
     },
-  });
+  })
 }

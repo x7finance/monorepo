@@ -228,10 +228,10 @@ mcp.json
 /.claude/commands/
 
 # START Ruler Generated Files
+/.agents/skills
 /.claude/skills
 /.codex/config.toml
 /.codex/config.toml.bak
-/.codex/skills
 /.cursor/rules/ruler_cursor_instructions.mdc
 /.cursor/rules/ruler_cursor_instructions.mdc.bak
 /.cursor/skills

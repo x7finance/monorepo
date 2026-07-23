@@ -1,7 +1,7 @@
 "use client"
 
 import { usePathname } from "next/navigation"
-import type { ReactNode } from "react"
+import type { ElementType, ReactNode } from "react"
 import { useRef } from "react"
 
 import { remToPx } from "@x7/css"
@@ -79,7 +79,7 @@ export function Heading({
   anchor = true,
   ...props
 }: HeadingProps) {
-  const Component = `h${level}`
+  const Component = `h${level}` as ElementType
   const ref = useRef(null)
   const pathname = usePathname()
 
@@ -91,8 +91,6 @@ export function Heading({
   return (
     <>
       <Eyebrow tag={tag} label={label} />
-      {/*
-      // @ts-expect-error: component props */}
       <Component
         ref={ref}
         id={anchor ? id : undefined}

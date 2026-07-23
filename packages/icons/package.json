@@ -29,13 +29,13 @@
   },
   "dependencies": {
     "@x7/css": "workspace:*",
-    "lucide-react": "^1.0.1"
+    "lucide-react": "^1.25.0"
   },
   "devDependencies": {
-    "@types/react": "^19.2.14",
+    "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@x7/tsconfig": "workspace:*",
-    "oxlint": "^1.56.0",
-    "typescript": "^6.0.2"
+    "oxlint": "^1.75.0",
+    "typescript": "^7.0.2"
   }
 }

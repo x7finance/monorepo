@@ -76,7 +76,7 @@ export function Heading({
   anchor = true,
   ...props
 }: HeadingType) {
-  const Component = `h${level}`
+  const Component = `h${level}` as React.ElementType
   const ref = useRef(null)
   const pathname = usePathname()
 
@@ -88,8 +88,6 @@ export function Heading({
   return (
     <>
       <Eyebrow tag={tag} label={label} />
-      {/*
-      // @ts-expect-error: component props */}
       <Component
         ref={ref}
         id={anchor ? id : undefined}

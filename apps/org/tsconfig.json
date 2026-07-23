@@ -1,7 +1,7 @@
 {
   "extends": "@x7/tsconfig/next-build.json",
   "compilerOptions": {
-    "lib": ["es2022", "dom", "dom.iterable"],
+    "lib": ["es2023", "dom", "dom.iterable"],
     "paths": {
       "~/*": ["./src/*"]
     },
