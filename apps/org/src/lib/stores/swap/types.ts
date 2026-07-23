@@ -46,6 +46,7 @@ export interface SwapAmountActions {
 
 export interface SwapQuoteState {
   route: SwapRoute | undefined
+  routeQuoteKey: string | undefined
   possibleRoutes: RouteWithValidQuote[]
   bestRoute: BestSwapRoute | undefined
   secondaryRoute: BestSwapRoute | undefined
@@ -55,7 +56,7 @@ export interface SwapQuoteState {
 }
 
 export interface SwapQuoteActions {
-  setRoute: (route: SwapRoute | undefined) => void
+  setRoute: (route: SwapRoute | undefined, quoteKey?: string) => void
   addPossibleRoutes: (routes: RouteWithValidQuote[]) => void
   setPossibleRoutes: (routes: RouteWithValidQuote[]) => void
   setBestRoute: (route: BestSwapRoute | undefined) => void
@@ -88,6 +89,7 @@ export interface SwapState {
     swapAmountString: string
     swapAmount: CurrencyAmount<Token | Native> | undefined
     route: SwapRoute | undefined
+    routeQuoteKey: string | undefined
     slippage: Percent
     swapError: { message: string } | undefined
     token0Approval: TokenApprovals
@@ -96,6 +98,7 @@ export interface SwapState {
     secondaryRoute: BestSwapRoute | undefined
     enabledImplementations: Implementation[]
     chainId: ChainId
+    currentQuoteKey: string
   }
   mutate: {
     setToken0: (token0: Token | Native | string) => void
