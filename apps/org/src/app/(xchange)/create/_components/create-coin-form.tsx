@@ -336,8 +336,9 @@ export function CreateCoinForm() {
                           <Image
                             src={previewUrl}
                             alt="Coin logo preview"
-                            layout="fill"
-                            objectFit="cover"
+                            fill
+                            sizes="128px"
+                            className="object-cover"
                           />
                         </div>
                       )}

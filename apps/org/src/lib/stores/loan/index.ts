@@ -4,8 +4,7 @@
  * This replaces the old Context-based LoanStateProvider.
  * The `useLoanState()` hook provides backward compatibility.
  *
- * ROLLBACK: If you need to revert to the old Context provider,
- * see: ~/lib/providers/deprecated/README.md
+ * ROLLBACK: the old Context provider was removed; recover it from git history.
  */
 "use client"
 

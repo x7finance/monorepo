@@ -101,7 +101,7 @@
       "outputs": [".turbo/.tsbuildinfo"]
     },
     "test": {
-      "dependsOn": [],
+      "dependsOn": ["^build"],
       "outputs": [],
       "outputLogs": "new-only",
       "inputs": [

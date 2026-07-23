@@ -48,11 +48,6 @@ export function AppProviders(props: ProvidersProps) {
     []
   )
 
-  const initialStateMemo = useMemo(
-    () => props.initialState,
-    [props.initialState]
-  )
-
   const toastOptions = useMemo(
     () => ({
       style: {
@@ -65,7 +60,7 @@ export function AppProviders(props: ProvidersProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Suspense>
-        <Web3Provider initialState={initialStateMemo}>
+        <Web3Provider initialState={props.initialState}>
           <div className="xl:max-w-none">
             <div className="relative z-0">
               <TransactionStoreProvider>

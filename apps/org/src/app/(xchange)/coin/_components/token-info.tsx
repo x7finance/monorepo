@@ -23,6 +23,7 @@ export function TokenInfo({ token }: TokenInfoProps) {
           src={token.bannerUrl ?? "/images/placeholder/moon.webp"}
           alt={`${token.name} Token Banner`}
           fill
+          sizes="100vw"
           className="object-cover"
         />
       </div>
@@ -33,6 +34,7 @@ export function TokenInfo({ token }: TokenInfoProps) {
             src={token.logoUrl ?? "/images/placeholder/moon.webp"}
             alt={`${token.name} Token Logo`}
             fill
+            sizes="96px"
             className="object-cover"
           />
         </div>
