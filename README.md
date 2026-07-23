@@ -99,7 +99,7 @@ x7finance/
 - [Bun](https://bun.sh/) 1.3+
 - [Git](https://git-scm.com/)
 - [mkcert](https://github.com/FiloSottile/mkcert) — trusted local HTTPS certificates
-- [portless](https://github.com/nicolo-ribaudo/portless) — stable `.localhost` HTTPS dev URLs
+- [portless](https://github.com/nicolo-ribaudo/portless) — stable HTTPS dev URLs (no port numbers)
 
 ### 1. Clone & Install
 
@@ -124,24 +124,21 @@ cd apps/org && cp .env.example .env.local && cd ../..
 
 ### 3. HTTPS Setup (One-Time)
 
-Dev uses [portless](https://github.com/nicolo-ribaudo/portless) to eliminate port conflicts and provide stable HTTPS `.localhost` URLs.
+Dev uses [portless](https://github.com/nicolo-ribaudo/portless) (≥ 0.15, needs Node 24+) to eliminate port conflicts and provide stable HTTPS dev URLs.
 
 ```bash
-# Install tools
+# Install portless
 bun add -g portless
-brew install mkcert
-mkcert -install
 
-# Generate trusted certificates
-mkdir -p ~/.portless
-mkcert -cert-file ~/.portless/server.pem -key-file ~/.portless/server-key.pem \
-  "localhost" "*.localhost" \
-  "x7-org.localhost" "x7-assets.localhost"
-cp "$(mkcert -CAROOT)/rootCA.pem" ~/.portless/ca.pem
+# Add its local CA to your system trust store
+# (first run also does this automatically)
+portless trust
 
-# Start the HTTPS proxy (runs in background)
-portless proxy start --https
+# Safari only: sync the routes into /etc/hosts
+portless hosts sync
 ```
+
+Portless generates its own CA and auto-starts the HTTPS proxy on first run — no `mkcert` needed.
 
 ### 4. Start Development
 
@@ -149,14 +146,14 @@ portless proxy start --https
 bun run dev
 ```
 
-Visit [https://x7-org.localhost:1355](https://x7-org.localhost:1355)
+Visit [https://x7-org.dev](https://x7-org.dev)
 
 | App | URL |
 |-----|-----|
-| **org** | `https://x7-org.localhost:1355` |
-| **assets** | `https://x7-assets.localhost:1355` |
+| **org** | `https://x7-org.dev` |
+| **assets** | `https://x7-assets.dev` |
 
-> **Note:** `bun run dev` builds all packages first, then starts the org app behind portless. Portless assigns a random port and routes traffic through the HTTPS proxy on port 1355.
+> **Note:** `bun run dev` builds all packages first, then starts the org app behind portless. Portless assigns a random port and routes traffic through its HTTPS proxy. Use `portless list` to see active routes and `portless doctor` to check health.
 
 ## Development Workflow
 

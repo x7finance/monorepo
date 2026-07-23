@@ -34,21 +34,19 @@ bun run dev         # Start dev (builds packages, then starts apps/org via portl
 
 ## Local HTTPS (Portless)
 
-Dev uses [portless](https://github.com/nicolo-ribaudo/portless) for HTTPS with stable `.localhost` URLs:
+Dev uses [portless](https://github.com/nicolo-ribaudo/portless) for stable HTTPS dev URLs (no port numbers):
 
 | App | URL |
 |-----|-----|
-| org | `https://x7-org.localhost:1355` |
-| assets | `https://x7-assets.localhost:1355` |
+| org | `https://x7-org.dev` |
+| assets | `https://x7-assets.dev` |
 
-Setup (one-time):
-1. `bun add -g portless`
-2. `brew install mkcert && mkcert -install`
-3. Regenerate cert: `mkcert -cert-file ~/.portless/server.pem -key-file ~/.portless/server-key.pem "localhost" "*.localhost" "x7-org.localhost" "x7-assets.localhost"`
-4. `cp "$(mkcert -CAROOT)/rootCA.pem" ~/.portless/ca.pem`
-5. `portless proxy start --https`
+Setup (one-time), with portless ≥ 0.15:
+1. `bun add -g portless` (requires Node 24+)
+2. `portless trust` — generates a local CA and adds it to the system trust store (first run does this automatically)
+3. On Safari: `portless hosts sync`
 
-Then `bun run dev` starts the app behind portless automatically.
+Then `bun run dev` starts the app behind portless automatically at the URL above — the proxy auto-starts on first run. Use `portless list` to see active routes, `portless get x7-org` for a service's URL, and `portless doctor` to check health.
 
 ## Stack
 

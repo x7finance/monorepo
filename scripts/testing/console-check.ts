@@ -8,8 +8,7 @@
 
 import { chromium, type ConsoleMessage } from "@playwright/test"
 
-const BASE_URL =
-  process.env.CONSOLE_CHECK_URL ?? "https://x7-org.localhost:1355"
+const BASE_URL = process.env.CONSOLE_CHECK_URL ?? "https://x7-org.dev"
 
 // All static pages to visit (skip dynamic [param] routes)
 const PAGES = [
