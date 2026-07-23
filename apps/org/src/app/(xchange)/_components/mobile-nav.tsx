@@ -116,7 +116,10 @@ export function MobileNav() {
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
-      <DrawerTrigger className="flex items-center justify-center">
+      <DrawerTrigger
+        aria-label="Open menu"
+        className="flex items-center justify-center"
+      >
         <TextIcon className="text-muted-foreground h-6 w-6" />
         <ChevronDownIcon className="text-muted-foreground h-3 w-3" />
       </DrawerTrigger>
