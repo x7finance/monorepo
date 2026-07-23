@@ -3,8 +3,9 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 import { useQuery } from "@tanstack/react-query"
+import { useMemo } from "react"
 import { erc20Abi, formatEther, formatUnits } from "viem"
-import { useChainId, useReadContract } from "wagmi"
+import { useChainId, useReadContract, useReadContracts } from "wagmi"
 
 import { XchangeMetadataAbi } from "@x7/contracts"
 import { computePairAddress, X7ContractsEnum } from "@x7/sdk"
@@ -120,40 +121,31 @@ export function useTokenData(
   const chainId = useChainId()
   // const client = usePublicClient();
 
-  const { data: onChainName, isLoading: isNameLoading } = useReadContract({
-    address: tokenAddress,
-    abi: erc20Abi,
-    functionName: "name",
+  // Batch the independent static-metadata reads on the same token contract into a
+  // single multicall (previously 5 separate useReadContract round-trips).
+  const { data: staticData, isLoading: isStaticLoading } = useReadContracts({
+    contracts: [
+      { address: tokenAddress, abi: erc20Abi, functionName: "name" },
+      { address: tokenAddress, abi: erc20Abi, functionName: "symbol" },
+      { address: tokenAddress, abi: ownerAbi, functionName: "owner" },
+      { address: tokenAddress, abi: erc20Abi, functionName: "decimals" },
+      { address: tokenAddress, abi: erc20Abi, functionName: "totalSupply" },
+    ],
   })
 
-  const { data: onChainSymbol, isLoading: isSymbolLoading } = useReadContract({
-    address: tokenAddress,
-    abi: erc20Abi,
-    functionName: "symbol",
-  })
-
-  const { data: tokenOwner } = useReadContract({
-    address: tokenAddress,
-    abi: ownerAbi,
-    functionName: "owner",
-  })
-
-  const { data: tokenDecimals } = useReadContract({
-    address: tokenAddress,
-    abi: erc20Abi,
-    functionName: "decimals",
-  })
+  const onChainName = staticData?.[0]?.result
+  const onChainSymbol = staticData?.[1]?.result
+  const tokenOwner = staticData?.[2]?.result
+  const tokenDecimals = staticData?.[3]?.result
+  const rawTotalSupply = staticData?.[4]?.result
 
   const normalizedDecimals = normalizeDecimals(tokenDecimals)
 
-  const { data: totalSupply } = useReadContract({
-    address: tokenAddress,
-    abi: erc20Abi,
-    functionName: "totalSupply",
-    query: {
-      select: (data: bigint) => Number(formatUnits(data, normalizedDecimals)),
-    },
-  })
+  // Preserve the per-call `select` that formatted totalSupply into a decimal-adjusted number.
+  const totalSupply =
+    rawTotalSupply === undefined
+      ? undefined
+      : Number(formatUnits(rawTotalSupply, normalizedDecimals))
 
   const ourToken = new Token({
     chainId: chainId as ChainId,
@@ -271,43 +263,65 @@ export function useTokenData(
     args: [tokenAddress],
   })
 
-  return {
-    data: {
-      name: onChainName ?? "",
-      symbol: onChainSymbol ?? "",
-      tokenOwner: tokenOwner ?? "0x0000000000000000000000000000000000000000",
-      tokenDecimals: BigInt(tokenDecimals ?? 0),
-      normalizedDecimals,
-      totalSupply: totalSupply ?? 0,
-      reserves: reserves ?? {
-        ethReserve: "0",
-        tokenReserve: "0",
+  const priceInNative = tokenPrice ? tokenPrice.toExact() : "0"
+
+  return useMemo<UseTokenDataReturn>(
+    () => ({
+      data: {
+        name: onChainName ?? "",
+        symbol: onChainSymbol ?? "",
+        tokenOwner: tokenOwner ?? "0x0000000000000000000000000000000000000000",
+        tokenDecimals: BigInt(tokenDecimals ?? 0),
+        normalizedDecimals,
+        totalSupply: totalSupply ?? 0,
+        reserves: reserves ?? {
+          ethReserve: "0",
+          tokenReserve: "0",
+        },
+        nativePrice,
+        marketCap: marketCap ?? 0,
+        priceInNative,
+        priceInUsd: ourPriceInUsd,
+        pairAddress,
+        volume24h: historicalData?.volume ?? 0,
+        percentChange24h: historicalData?.percentChange ?? "0.00",
+        bannerUrl: metadata?.bannerUri ?? "/images/placeholder/moon.webp",
+        logoUrl: metadata?.tokenUri ?? "/images/placeholder/moon.webp",
+        description: metadata?.description ?? "Description",
+        twitterLink: metadata?.twitterLink ?? "",
+        telegramLink: metadata?.telegramLink ?? "",
+        websiteLink: metadata?.websiteLink ?? "",
+        formattedPriceInUsd: formatCurrency(ourPriceInUsd),
+        formattedMarketCap: formatCurrency(marketCap ?? 0),
+        formattedVolume24h: formatCurrency(historicalData?.volume ?? 0),
+        formattedTotalSupply: `${formatNumber(totalSupply ?? 0)}`,
+        formattedPercentChange24h: formatPercentage(
+          historicalData?.percentChange ?? "0.00"
+        ),
+        priceChangeColor:
+          parseFloat(historicalData?.percentChange ?? "0") > 0
+            ? "text-green-500"
+            : "text-red-500",
       },
+      isLoading: isStaticLoading || isMetadataLoading,
+    }),
+    [
+      onChainName,
+      onChainSymbol,
+      tokenOwner,
+      tokenDecimals,
+      normalizedDecimals,
+      totalSupply,
+      reserves,
       nativePrice,
-      marketCap: marketCap ?? 0,
-      priceInNative: tokenPrice ? tokenPrice.toExact() : "0",
-      priceInUsd: ourPriceInUsd,
+      marketCap,
+      priceInNative,
+      ourPriceInUsd,
       pairAddress,
-      volume24h: historicalData?.volume ?? 0,
-      percentChange24h: historicalData?.percentChange ?? "0.00",
-      bannerUrl: metadata?.bannerUri ?? "/images/placeholder/moon.webp",
-      logoUrl: metadata?.tokenUri ?? "/images/placeholder/moon.webp",
-      description: metadata?.description ?? "Description",
-      twitterLink: metadata?.twitterLink ?? "",
-      telegramLink: metadata?.telegramLink ?? "",
-      websiteLink: metadata?.websiteLink ?? "",
-      formattedPriceInUsd: formatCurrency(ourPriceInUsd),
-      formattedMarketCap: formatCurrency(marketCap ?? 0),
-      formattedVolume24h: formatCurrency(historicalData?.volume ?? 0),
-      formattedTotalSupply: `${formatNumber(totalSupply ?? 0)}`,
-      formattedPercentChange24h: formatPercentage(
-        historicalData?.percentChange ?? "0.00"
-      ),
-      priceChangeColor:
-        parseFloat(historicalData?.percentChange ?? "0") > 0
-          ? "text-green-500"
-          : "text-red-500",
-    },
-    isLoading: isNameLoading || isSymbolLoading || isMetadataLoading,
-  }
+      historicalData,
+      metadata,
+      isStaticLoading,
+      isMetadataLoading,
+    ]
+  )
 }
