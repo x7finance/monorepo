@@ -47,6 +47,7 @@
     "@commitlint/types": "^21.2.0",
     "@intellectronica/ruler": "^0.3.44",
     "@manypkg/cli": "^0.25.1",
+    "@playwright/test": "^1.61.1",
     "@vitest/coverage-v8": "^4.1.10",
     "@wayofdev/markdownlint-config": "^4.0.0",
     "husky": "^9.1.7",

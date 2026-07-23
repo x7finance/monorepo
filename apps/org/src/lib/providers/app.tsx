@@ -8,13 +8,13 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query"
-import dynamic from "next/dynamic"
 import { memo, Suspense, useMemo } from "react"
 
 import { Toaster } from "@x7/ui/sonner"
 import { SplashController } from "@x7/ui/splash"
 import { TooltipProvider } from "@x7/ui/tooltip"
 import { TransactionStoreProvider } from "~/lib/providers/tx"
+import { Web3Provider } from "~/lib/providers/web3"
 import {
   createMutationCacheConfig,
   createQueryCacheConfig,
@@ -22,11 +22,6 @@ import {
 } from "~/lib/query"
 
 import { AlphaRouterProvider } from "./router"
-
-const Web3Provider = dynamic(
-  () => import("~/lib/providers/web3").then((mod) => mod.Web3Provider),
-  { ssr: false }
-)
 
 interface ProvidersProps {
   children: React.ReactNode

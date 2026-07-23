@@ -34,14 +34,7 @@ import {
   polygonAmoy,
   sepolia,
 } from "@wagmi/core/chains"
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react"
+import { createContext, useCallback, useContext, useMemo } from "react"
 import { fallback, http } from "viem"
 import type { Config } from "wagmi"
 import { createConfig, WagmiProvider } from "wagmi"
@@ -175,34 +168,30 @@ export function Web3Provider(props: Web3ProvidersProps) {
     DEFAULT_TRANSPORTS
   )
 
-  const [wagmiConfig, setWagmiConfig] = useState<Config | null>(null)
-
-  useEffect(() => {
+  // Build the config synchronously so the provider can render immediately
+  // (server + first client paint) instead of flashing null while an effect runs.
+  const wagmiConfig = useMemo<Config>(() => {
     const currentConnectors = getConnectors()
 
     if (Object.keys(transports).length > 0) {
-      setWagmiConfig(
-        // @ts-expect-error: todo fix
-        createConfig({
-          connectors: [...currentConnectors],
-          multiInjectedProviderDiscovery: false,
-          ...web3Config,
-          transports: Object.fromEntries(
-            Object.entries(transports).map(([chainId, urls]) => {
-              return [chainId, fallback((urls ?? []).map((url) => http(url)))]
-            })
-          ),
-        })
-      )
-    } else {
-      setWagmiConfig(
-        createConfig({
-          connectors: [...currentConnectors],
-          multiInjectedProviderDiscovery: false,
-          ...web3Config,
-        })
-      )
+      // @ts-expect-error: todo fix
+      return createConfig({
+        connectors: [...currentConnectors],
+        multiInjectedProviderDiscovery: false,
+        ...web3Config,
+        transports: Object.fromEntries(
+          Object.entries(transports).map(([chainId, urls]) => {
+            return [chainId, fallback((urls ?? []).map((url) => http(url)))]
+          })
+        ),
+      })
     }
+
+    return createConfig({
+      connectors: [...currentConnectors],
+      multiInjectedProviderDiscovery: false,
+      ...web3Config,
+    })
   }, [transports])
 
   const updateTransports = useCallback(
@@ -227,10 +216,6 @@ export function Web3Provider(props: Web3ProvidersProps) {
     () => ({ wagmiConfig, transports, updateTransports }),
     [wagmiConfig, transports, updateTransports]
   )
-
-  if (!wagmiConfig) {
-    return null
-  }
 
   return (
     <Web3Context.Provider value={contextValue}>
