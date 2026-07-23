@@ -21,7 +21,7 @@ test.describe("navigation", () => {
     await page.goto("/swap", { waitUntil: "domcontentloaded" })
     await page.waitForTimeout(2000)
 
-    const open = page.getByRole("button", { name: "Open menu" })
+    const open = page.getByRole("button", { name: "Open navigation menu" })
     await expect(open).toBeVisible({ timeout: 15000 })
     await open.click()
 
