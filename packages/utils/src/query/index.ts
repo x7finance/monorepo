@@ -22,6 +22,13 @@ export const TIME = {
  * SEMI_STATIC: Prices, pool configs - changes occasionally
  * DYNAMIC: Balances, market data - changes frequently
  * REALTIME: Active swaps, tx status - needs immediate updates
+ *
+ * Note on `refetchOnWindowFocus`: the global default (see
+ * DEFAULT_QUERY_OPTIONS below) disables focus-refetch, but SEMI_STATIC and
+ * REALTIME intentionally re-enable it per tier. This is deliberate policy:
+ * time-sensitive data (prices, live tx/swap status) should refresh when the
+ * user returns to the tab. A call site that spreads one of these tiers will
+ * therefore override the global `false` — that is expected, not a bug.
  */
 export const CACHE_TIERS = {
   STATIC: {
@@ -48,6 +55,11 @@ export type CacheTier = keyof typeof CACHE_TIERS
 
 /**
  * Default query client options
+ *
+ * `refetchOnWindowFocus` is disabled globally here to avoid a refetch storm on
+ * every tab focus. Individual tiers (SEMI_STATIC, REALTIME) may re-enable it
+ * for time-sensitive data by spreading the tier into a query's options, which
+ * overrides this global default by design.
  */
 export const DEFAULT_QUERY_OPTIONS = {
   queries: {

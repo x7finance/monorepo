@@ -112,7 +112,19 @@ interface MarkdownContent {
   headerImage: string | null
 }
 
-// Main function to get the markdown content - wrapped with cache for deduplication
+// Main function to get the markdown content - wrapped with React `cache` for
+// per-request deduplication.
+//
+// KNOWN LIMITATION (double-parse): this is called once inside the cached
+// `getDocMetadata` ("use cache") during `generateMetadata` and again in
+// `DocsContent` during render. React's `cache` only dedupes within a single
+// render pass, so those two phases each parse the Markdoc file once (two parses
+// per request). The obvious fix — adding the Next.js `"use cache"` directive
+// here so both phases share a persisted result — is NOT possible: this returns
+// a Markdoc `Tag` instance (`content`, from `Markdoc.transform`), which is a
+// class instance, not a plain object, and `"use cache"` requires a serializable
+// return value ("Only plain objects ... can be passed to Client Components").
+// Attempting it fails the static-generation step. Left as-is deliberately.
 export const getMarkdownContent = cache(async function getMarkdownContent(
   params: ParamsProps
 ): Promise<Partial<MarkdownContent>> {
