@@ -13,7 +13,7 @@ import {
 import { useAccount, useChainId } from "wagmi"
 
 import type { NotificationType, ResolvedNotification } from "@x7/dexie"
-import { useNotifications } from "@x7/dexie"
+import { useNotifications } from "@x7/dexie/client"
 import { createToast } from "@x7/ui"
 import type { ChainId } from "@x7/utils"
 

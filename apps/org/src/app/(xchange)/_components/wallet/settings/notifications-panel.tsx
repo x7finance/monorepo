@@ -4,7 +4,7 @@ import { useAccount } from "wagmi"
 
 import { cn } from "@x7/css"
 import type { ResolvedNotification } from "@x7/dexie"
-import { useNotifications } from "@x7/dexie"
+import { useNotifications } from "@x7/dexie/client"
 import { AlertCircleIcon, CheckCircleIcon, ExternalLinkIcon } from "@x7/icons"
 import { Badge } from "@x7/ui/badge"
 import { Card, CardContent } from "@x7/ui/card"

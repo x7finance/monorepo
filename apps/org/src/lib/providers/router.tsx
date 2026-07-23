@@ -53,7 +53,10 @@ export const AlphaRouterProvider: FC<AlphaRouterProviderProps> = ({
   children,
 }) => {
   const { wagmiConfig } = useWeb3Config()
-  const publicClient = getPublicClient(wagmiConfig)
+  const publicClient = useMemo(
+    () => getPublicClient(wagmiConfig),
+    [wagmiConfig]
+  )
   const { chainId: realChain } = useAccount()
   const debouncedChainId = useDebounce(realChain, 500)
   const [isChainIdSettled, setIsChainIdSettled] = useState(false)
