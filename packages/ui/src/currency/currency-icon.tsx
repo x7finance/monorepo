@@ -4,7 +4,7 @@
 
 import type { ImageProps } from "next/image"
 import Image from "next/image"
-import { useMemo, useState } from "react"
+import { useMemo } from "react"
 
 import type { Currency } from "@x7/utils"
 import { Chain } from "@x7/utils"
@@ -55,18 +55,17 @@ export const CurrencyIcon = ({
     ""
   )
 
-  const [error, setError] = useState(false)
-
   // Generate fallback background color based on currency details
   const fallbackColor = useMemo(
     () => hashStringToColor(`${currency.symbol} ${currency.name}`),
     [currency.symbol, currency.name]
   )
 
-  // Handle image loading error
+  // Advance to the next candidate source when the current one fails to load.
+  // Once every source is exhausted `imgSrc` becomes undefined and we render
+  // the letter placeholder below.
   const handleError = () => {
-    setError(true)
-    if (nextSrc) nextSrc()
+    nextSrc()
   }
 
   // Convert width/height to numbers with default value
@@ -93,8 +92,8 @@ export const CurrencyIcon = ({
     </div>
   )
 
-  // If we have no image source or encountered an error, show fallback
-  if (!imgSrc || error) {
+  // If every candidate source is exhausted, show the letter placeholder.
+  if (!imgSrc) {
     if (disableLink) {
       return fallbackElement
     }
@@ -122,6 +121,7 @@ export const CurrencyIcon = ({
       }}
     >
       <Image
+        key={imgSrc}
         src={imgSrc}
         alt={`${currency.symbol ?? "Token"} logo`}
         width={widthPx}

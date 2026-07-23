@@ -8,7 +8,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
-import { parseEther, parseUnits } from "viem"
 import { useAccount, useChainId } from "wagmi"
 import * as z from "zod"
 
@@ -33,7 +32,13 @@ import {
 } from "@x7/ui/form"
 import { LinkInternal } from "@x7/ui/link"
 import type { ActiveChainId, ChainId } from "@x7/utils"
-import { CurrencyAmount, LogCodes, Native } from "@x7/utils"
+import {
+  CurrencyAmount,
+  LogCodes,
+  Native,
+  safeParseEther,
+  safeParseUnits,
+} from "@x7/utils"
 import { CurrencyInput } from "~/lib/components/utils/currency-input"
 import { SECONDS_IN_A_DAY } from "~/lib/constants/misc"
 import { useGetInitialLiquidityLoan } from "~/lib/hooks/loans/useGetInitialLiquidityLoan"
@@ -125,12 +130,12 @@ export function ILLBaseForm() {
     tokenAddress: (collateralToken?.isNative
       ? ""
       : collateralToken?.address) as `0x${string}`,
-    amount: parseUnits(
+    amount: safeParseUnits(
       collateralAmount,
       collateralToken?.decimals ?? 18
     ).toString(),
     loanTermContractAddress: selectedQuote?.loanTerm.address!,
-    loanAmount: parseUnits(loanAmount, loanToken.decimals), // uint256 loanAmount,
+    loanAmount: safeParseUnits(loanAmount, loanToken.decimals), // uint256 loanAmount,
     loanDuration: BigInt(loanDuration * SECONDS_IN_A_DAY), // uint256 loanDurationSeconds,
     liquidityReceiverAddress: address!, // address liquidityReceiver,
     deadline: deadline.data!, // uint256 deadline
@@ -161,8 +166,8 @@ export function ILLBaseForm() {
       }
 
       const unitPriceEther =
-        parseInt(parseEther(loanAmount).toString()) /
-        parseInt(parseEther(collateralAmount).toString())
+        parseInt(safeParseEther(loanAmount).toString()) /
+        parseInt(safeParseEther(collateralAmount).toString())
       const etherInUSD = nativePrice
         ? Number(nativePrice.quotient ?? "0") /
           Number(`1e${nativePrice.currency.decimals}`)

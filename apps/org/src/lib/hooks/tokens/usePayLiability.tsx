@@ -4,7 +4,7 @@
 import type { BaseError } from "@wagmi/core"
 import { useCallback, useMemo, useState } from "react"
 import { toast } from "sonner"
-import { parseEther, UserRejectedRequestError } from "viem"
+import { UserRejectedRequestError } from "viem"
 import {
   useAccount,
   useChainId,
@@ -20,6 +20,7 @@ import { waitForTransactionReceipt } from "wagmi/actions"
 import { X7LendingPoolV2 } from "@x7/contracts"
 import { X7ContractsEnum } from "@x7/sdk"
 import type { ChainId } from "@x7/utils"
+import { safeParseEther } from "@x7/utils"
 import { useNativeCurrency } from "~/lib/hooks/currency/useNativeCurrency"
 import { useTransactionStore } from "~/lib/providers/tx"
 
@@ -48,7 +49,7 @@ export const usePayLiability = ({
     address: X7ContractsEnum.X7_LendingPool(chainId),
     abi: X7LendingPoolV2,
     functionName: "payLiability",
-    value: valueInput ? parseEther(valueInput) : 0n,
+    value: safeParseEther(valueInput),
     args: [BigInt(loanId)],
   })
   const { symbol } = useNativeCurrency({ chainId })

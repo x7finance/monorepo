@@ -3,7 +3,7 @@ import Image from "next/image"
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import { useCallback, useState } from "react"
 import { toast } from "sonner"
-import { formatEther, parseEther } from "viem"
+import { formatEther } from "viem"
 import { useChainId, useReadContracts, useWriteContract } from "wagmi"
 
 import { X7NFT } from "@x7/contracts"
@@ -17,7 +17,7 @@ import {
 } from "@x7/icons"
 import { Button } from "@x7/ui/button"
 import type { ChainId } from "@x7/utils"
-import { generateChainAbbreviation, LogCodes } from "@x7/utils"
+import { generateChainAbbreviation, LogCodes, safeParseEther } from "@x7/utils"
 import { env } from "~/env"
 import { ExplorerDataType, getExplorerLink } from "~/lib/utils/getExplorerLink"
 import { GradientTypes } from "~/lib/utils/gradients"
@@ -79,7 +79,7 @@ export function UtilityNftDetails({ nft }: { nft: UtilityNftType }) {
           abi: X7NFT,
           functionName: "mintMany",
           args: [quantity],
-          value: parseEther(
+          value: safeParseEther(
             // @ts-expect-error: todo fix
             `${parseFloat(formatEther(data?.[1]?.result)) * quantity}`
           ),

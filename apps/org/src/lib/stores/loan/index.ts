@@ -10,13 +10,12 @@
 
 import { getPublicClient } from "@wagmi/core"
 import { useCallback, useEffect, useMemo } from "react"
-import { parseUnits } from "viem"
 import { useAccount, useChainId } from "wagmi"
 
 import { X7LendingPoolV2 } from "@x7/contracts"
 import { X7ContractsEnum } from "@x7/sdk"
 import type { ChainId, Currency } from "@x7/utils"
-import { CurrencyAmount, LogCodes, Native } from "@x7/utils"
+import { CurrencyAmount, LogCodes, Native, safeParseUnits } from "@x7/utils"
 import {
   ApprovalState,
   useTokenApproval,
@@ -132,7 +131,7 @@ export function useLoanState(): LoanState {
   const [collateralTokenApprovalState] = useTokenApproval({
     amount: CurrencyAmount.fromRawAmount(
       collateralToken ?? Native.onChain(chainId),
-      parseUnits(collateralAmount, collateralToken?.decimals ?? 18)
+      safeParseUnits(collateralAmount, collateralToken?.decimals ?? 18)
     ),
     spender: X7ContractsEnum.X7_LendingPool(chainId),
     enabled: !!collateralToken && parseFloat(collateralAmount) > 0,
@@ -141,7 +140,7 @@ export function useLoanState(): LoanState {
   const [loanTokenApprovalState] = useTokenApproval({
     amount: CurrencyAmount.fromRawAmount(
       effectiveLoanToken,
-      parseUnits(loanAmount, effectiveLoanToken.decimals)
+      safeParseUnits(loanAmount, effectiveLoanToken.decimals)
     ),
     spender: X7ContractsEnum.X7_LendingPool(chainId),
     enabled: !!effectiveLoanToken && parseFloat(loanAmount) > 0,
@@ -151,13 +150,16 @@ export function useLoanState(): LoanState {
     return [
       {
         token: effectiveLoanToken,
-        amount: parseUnits(loanAmount, effectiveLoanToken.decimals ?? 18),
+        amount: safeParseUnits(loanAmount, effectiveLoanToken.decimals ?? 18),
         address: X7ContractsEnum.X7_LendingPool(chainId),
         approval: loanTokenApprovalState,
       },
       {
         token: collateralToken,
-        amount: parseUnits(collateralAmount, collateralToken?.decimals ?? 18),
+        amount: safeParseUnits(
+          collateralAmount,
+          collateralToken?.decimals ?? 18
+        ),
         address: X7ContractsEnum.X7_LendingPool(chainId),
         approval: collateralTokenApprovalState,
       },
@@ -257,7 +259,7 @@ export function useLoanState(): LoanState {
               args: [
                 address,
                 activeLoanTerms,
-                parseUnits(loanAmount, effectiveLoanToken.decimals),
+                safeParseUnits(loanAmount, effectiveLoanToken.decimals),
                 BigInt(loanDuration * SECONDS_IN_A_DAY),
               ],
             })

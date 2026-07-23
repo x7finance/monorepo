@@ -70,14 +70,16 @@ export const TokenSelectorDialog: FC<TokenSelectorProps> = ({
   return (
     <Dialog modal={false} open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="flex! min-h-[85vh] flex-col justify-start">
+      <DialogContent className="flex! max-h-[85vh] min-h-[420px] flex-col justify-start overflow-hidden">
         <DialogHeader>
           <DialogTitle>Select a token</DialogTitle>
           <DialogDescription>
             from the default list or search for a token by symbol or address.
           </DialogDescription>
         </DialogHeader>
-        <TokenListContent {...tokenListProps} />
+        <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+          <TokenListContent {...tokenListProps} />
+        </div>
       </DialogContent>
     </Dialog>
   )

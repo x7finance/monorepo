@@ -12,7 +12,7 @@ import { watchAccount } from "@wagmi/core"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useCallback, useEffect, useMemo, useRef } from "react"
 import type { Address } from "viem"
-import { isAddress, parseUnits } from "viem"
+import { isAddress } from "viem"
 import { useAccount, useChainId, useConfig } from "wagmi"
 
 import { X7ContractsEnum } from "@x7/sdk"
@@ -30,6 +30,7 @@ import {
   LogCodes,
   Native,
   pDebounce,
+  safeParseUnits,
   Percent,
   TradeType,
   tryParseAmount,
@@ -194,7 +195,7 @@ export function useSwapState(): SwapState {
     amount: swapAmountString
       ? CurrencyAmount.fromRawAmount(
           _token0 ?? Native.onChain(chainId),
-          parseUnits(swapAmountString, _token0?.decimals ?? 18)
+          safeParseUnits(swapAmountString, _token0?.decimals ?? 18)
         )
       : undefined,
     spender: intendedRouterAddress,
@@ -211,7 +212,7 @@ export function useSwapState(): SwapState {
       token: _token0 ?? Native.onChain(chainId),
       address: intendedRouterAddress,
       amount: swapAmountString
-        ? parseUnits(swapAmountString, _token0?.decimals ?? 18)
+        ? safeParseUnits(swapAmountString, _token0?.decimals ?? 18)
         : 0n,
     }),
     [

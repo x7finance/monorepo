@@ -259,7 +259,7 @@ export const TokenListContent: FC<TokenViewProps> = ({
         </div>
       ) : null}
 
-      <List.Control className="relative flex min-h-[256px]! flex-1 grow flex-col gap-3 rounded-none border-0 px-1 py-0.5">
+      <List.Control className="relative flex min-h-0! flex-1 grow flex-col gap-3 overflow-y-auto rounded-none border-0 px-1 py-0.5">
         {isLoading ? (
           <LoadingSkeletons />
         ) : (

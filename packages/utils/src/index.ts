@@ -4,6 +4,7 @@ export * from "./debounce"
 
 export * from "./currency"
 export * from "./currency/functions/address-map-to-token-map"
+export * from "./currency/functions/safe-parse-units"
 export * from "./currency/functions/try-parse-amount"
 export * from "./currency/functions/unwrap"
 
