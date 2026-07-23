@@ -262,8 +262,9 @@ export class MixedRouteTrade<
       : CurrencyAmount<TOutput>,
     tradeType: TTradeType
   ): Promise<MixedRouteTrade<TInput, TOutput, TTradeType>> {
-    // oxlint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const amounts: CurrencyAmount<Token>[] = new Array(route.path.length)
+    const amounts: CurrencyAmount<Token>[] = Array.from<CurrencyAmount<Token>>({
+      length: route.path.length,
+    })
     let inputAmount: CurrencyAmount<TInput>
     let outputAmount: CurrencyAmount<TOutput>
 
@@ -333,9 +334,9 @@ export class MixedRouteTrade<
     invariant(tradeType === TradeType.EXACT_INPUT, "TRADE_TYPE")
 
     for (const { route, amount } of routes) {
-      const amounts: CurrencyAmount<Token>[] = new Array<CurrencyAmount<Token>>(
-        route.path.length
-      )
+      const amounts: CurrencyAmount<Token>[] = Array.from<
+        CurrencyAmount<Token>
+      >({ length: route.path.length })
       let inputAmount: CurrencyAmount<TInput>
       let outputAmount: CurrencyAmount<TOutput>
 

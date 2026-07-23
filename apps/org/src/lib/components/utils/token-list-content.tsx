@@ -38,6 +38,33 @@ interface TokenViewProps {
   setOpen?(open: boolean): void
 }
 
+// Loading skeleton component
+const LoadingSkeletons = () => (
+  <div className="flex w-full flex-col gap-2">
+    {["sk-1", "sk-2", "sk-3", "sk-4", "sk-5"].map((skKey) => (
+      <div
+        key={skKey}
+        className="flex h-[64px] w-full items-center rounded-lg px-3"
+      >
+        <div className="flex grow items-center justify-between gap-2 rounded-sm">
+          <div className="flex grow flex-row items-center gap-4">
+            <SkeletonCircle radius={40} />
+            <div className="flex flex-col items-start">
+              <SkeletonText className="w-[100px]" />
+              <SkeletonText fontSize="sm" className="w-[60px]" />
+            </div>
+          </div>
+
+          <div className="flex w-full flex-col">
+            <SkeletonText className="w-[80px]" />
+            <SkeletonText fontSize="sm" align="right" className="w-[40px]" />
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+)
+
 export const TokenListContent: FC<TokenViewProps> = ({
   includeNative = true,
   id,
@@ -170,33 +197,6 @@ export const TokenListContent: FC<TokenViewProps> = ({
 
   const memoizedBalancesMap = useMemo(() => ({}), [])
   const memoizedPricesMap = useMemo(() => pricesMap, [pricesMap])
-
-  // Loading skeleton component
-  const LoadingSkeletons = () => (
-    <div className="flex w-full flex-col gap-2">
-      {["sk-1", "sk-2", "sk-3", "sk-4", "sk-5"].map((skKey) => (
-        <div
-          key={skKey}
-          className="flex h-[64px] w-full items-center rounded-lg px-3"
-        >
-          <div className="flex grow items-center justify-between gap-2 rounded-sm">
-            <div className="flex grow flex-row items-center gap-4">
-              <SkeletonCircle radius={40} />
-              <div className="flex flex-col items-start">
-                <SkeletonText className="w-[100px]" />
-                <SkeletonText fontSize="sm" className="w-[60px]" />
-              </div>
-            </div>
-
-            <div className="flex w-full flex-col">
-              <SkeletonText className="w-[80px]" />
-              <SkeletonText fontSize="sm" align="right" className="w-[40px]" />
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  )
 
   return (
     <>

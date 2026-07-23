@@ -21,7 +21,7 @@ export const useNotifications = ({
 
     return Object.entries(group).reduce<Record<string, ResolvedNotification[]>>(
       (acc, cur) => {
-        acc[cur[0]] = [...cur[1]].sort((a, b) => b.timestamp - a.timestamp)
+        acc[cur[0]] = [...cur[1]].toSorted((a, b) => b.timestamp - a.timestamp)
         return acc
       },
       {}

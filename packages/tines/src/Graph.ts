@@ -620,7 +620,7 @@ export class Graph {
     from.gasPrice = gasPrice
     const edges = from.edges
       .map((e): [Edge, number] => [e, parseInt(e.reserve(from).toString())])
-      .sort(([, r1], [, r2]) => r2 - r1)
+      .toSorted(([, r1], [, r2]) => r2 - r1)
     edges.forEach(([e]) => {
       const v = e.vert0 === from ? e.vert1 : e.vert0
       if (v.price !== 0) return
@@ -1423,7 +1423,7 @@ export class Graph {
       if (vertsFinished[vertsFinished.length - 1] !== from) return false
       return true
     }, "Internal Error 614")
-    if (res === 2) return { status: 2, vertices: vertsFinished.reverse() }
+    if (res === 2) return { status: 2, vertices: vertsFinished.toReversed() }
     console.assert(true, "Internal Error 612")
     return { status: 1, vertices: [] }
   }

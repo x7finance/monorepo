@@ -46,7 +46,7 @@ import type {
   V3RouteWithValidQuote,
 } from "../entities/route-with-valid-quote"
 
-import type { IGasModel, L1ToL2GasCosts } from "./gas-model-types"
+import type { IGasModel } from "./gas-model-types"
 
 // Re-export for backwards compatibility
 export type { IGasModel, L1ToL2GasCosts } from "./gas-model-types"

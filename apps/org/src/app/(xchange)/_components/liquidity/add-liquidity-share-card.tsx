@@ -86,7 +86,7 @@ export const AddLiquidityStatCard: FC<AddLiquidityStatCard> = ({
   if (!token0Input || !token1Input) return <></>
 
   return (
-    <Collapsible open={Boolean(token1Per0 && token1Per0)}>
+    <Collapsible open={Boolean(token1Per0)}>
       <Card>
         <CardContent className="grid grid-cols-3 pt-6">
           <Stat>

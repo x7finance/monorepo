@@ -1290,7 +1290,7 @@ export class AlphaRouter
         this.chainId,
         tokenIn,
         tokenOut,
-        protocols.sort(), // sort it for consistency in the order of the protocols.
+        protocols.toSorted(), // sort it for consistency in the order of the protocols.
         Number(blockNumber),
         tradeType,
         amount.toExact()

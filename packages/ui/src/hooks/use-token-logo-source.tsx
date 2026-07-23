@@ -39,7 +39,7 @@ function parseLogoSources(uris: string[]) {
 }
 
 function prioritizeLogoSources(uris: string[]) {
-  const parsedUris = uris.map((uri) => uriToHttp(uri)).flat(1)
+  const parsedUris = uris.flatMap((uri) => uriToHttp(uri))
   const preferredUris: string[] = []
 
   let coingeckoUrl: string | undefined = undefined

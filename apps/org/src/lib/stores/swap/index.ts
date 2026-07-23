@@ -43,9 +43,8 @@ import { useAlphaRouter } from "~/lib/providers/router"
 import { useWeb3Config } from "~/lib/providers/web3"
 import { log } from "~/lib/utils/log"
 
-import { useSwapAmountStore } from "./amount"
 import { useSwapQuoteStore } from "./quote"
-import { getTokenAsString, useSwapTokenStore } from "./tokens"
+import { getTokenAsString } from "./tokens"
 import type { SwapState } from "./types"
 
 export { useSwapAmountStore } from "./amount"

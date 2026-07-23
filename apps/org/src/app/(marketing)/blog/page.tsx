@@ -47,8 +47,8 @@ async function getPreviewPostsMetadata() {
     await Promise.all(postsPromises)
 
   // Sort the articles from newest to oldest based on the `date` property
-  const sortedPostsMetadata: Partial<MarkdownContent>[] = postsMetadata.sort(
-    (a, b) => {
+  const sortedPostsMetadata: Partial<MarkdownContent>[] =
+    postsMetadata.toSorted((a, b) => {
       const dateA: Date | undefined = a.date ? new Date(a.date) : undefined
       const dateB: Date | undefined = b.date ? new Date(b.date) : undefined
 
@@ -61,8 +61,7 @@ async function getPreviewPostsMetadata() {
       } else {
         return 0
       }
-    }
-  )
+    })
 
   return sortedPostsMetadata
 }

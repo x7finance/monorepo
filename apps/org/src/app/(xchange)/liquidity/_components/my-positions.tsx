@@ -77,9 +77,9 @@ function LiquidityPositions({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {positions.map((position: UserPositionsResponse, idx: number) => (
+            {positions.map((position: UserPositionsResponse) => (
               <LiquidityPositionRow
-                key={`${position.contractAddress}-${idx}`}
+                key={position.contractAddress}
                 chainId={chainId}
                 position={position}
                 view={view}

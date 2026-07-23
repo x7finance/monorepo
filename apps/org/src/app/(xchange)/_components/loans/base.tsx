@@ -59,6 +59,14 @@ const FormSchema = z.object({
   duration: z.number().int().min(1).max(28),
 })
 
+function onSubmit(data: z.infer<typeof FormSchema>) {
+  log.error(
+    LogCodes.FAIL,
+    `On submit for loan needs to be implemented`,
+    JSON.stringify(data, null, 2)
+  )
+}
+
 export function ILLBaseForm() {
   const chainId = useChainId() as ActiveChainId
   const { address } = useAccount()
@@ -91,14 +99,6 @@ export function ILLBaseForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   })
-
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    log.error(
-      LogCodes.FAIL,
-      `On submit for loan needs to be implemented`,
-      JSON.stringify(data, null, 2)
-    )
-  }
 
   const { liquidationReward } = useLiquidationReward(chainId)
   const deadline = useTransactionDeadline({

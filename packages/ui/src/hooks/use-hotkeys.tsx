@@ -17,7 +17,7 @@ type HotkeyOptions = {
   enableOnFormElements?: boolean
 }
 
-const FORM_ELEMENTS = ["INPUT", "TEXTAREA", "SELECT"]
+const FORM_ELEMENTS = new Set(["INPUT", "TEXTAREA", "SELECT"])
 
 function parseHotkey(hotkey: string): { key: string } & KeyboardModifiers {
   const parts = hotkey.toLowerCase().split("+")
@@ -86,7 +86,7 @@ export function useHotkeys(
     const handler = (event: KeyboardEvent) => {
       if (
         !enableOnFormElements &&
-        FORM_ELEMENTS.includes((event.target as HTMLElement).tagName)
+        FORM_ELEMENTS.has((event.target as HTMLElement).tagName)
       ) {
         return
       }

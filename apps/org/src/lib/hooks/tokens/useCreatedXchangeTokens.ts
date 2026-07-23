@@ -88,7 +88,7 @@ export function useCreatedXchangeTokens(): UseCreatedXchangeTokensReturn {
             pair.token0.toLowerCase() === WETH_ADDRESS ||
             pair.token1.toLowerCase() === WETH_ADDRESS
         )
-        .sort(
+        .toSorted(
           (a: PairCreated, b: PairCreated) =>
             Number(b.blockTimestamp) - Number(a.blockTimestamp)
         )

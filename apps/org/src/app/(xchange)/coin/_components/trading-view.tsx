@@ -112,7 +112,7 @@ const PriceChart: React.FC<PriceChartProps> = ({
       //const enhancedChartData = enhanceSmallCandles(data);
 
       // Sort and deduplicate data
-      const sortedData = [...data].sort((a, b) => {
+      const sortedData = [...data].toSorted((a, b) => {
         if (a.time === b.time) {
           // For same timestamps, maintain original order
           return data.indexOf(a) - data.indexOf(b)

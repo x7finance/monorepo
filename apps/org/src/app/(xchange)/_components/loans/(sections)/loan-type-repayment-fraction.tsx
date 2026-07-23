@@ -71,6 +71,30 @@ export function LoanTypeRepaymentFraction({
   )
 }
 
+const formatDate = (dateTime: Date) => {
+  const day = dateTime.getUTCDate().toString().padStart(2, "0")
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ]
+  const month = monthNames[dateTime.getUTCMonth()]
+  const year = dateTime.getUTCFullYear().toString()
+  const hours = dateTime.getUTCHours().toString().padStart(2, "0")
+  const minutes = dateTime.getUTCMinutes().toString().padStart(2, "0")
+
+  return `${month} ${day} ${year} ${hours}:${minutes}`
+}
+
 function formatDateTime(
   loanDuration: number,
   period: number,
@@ -83,30 +107,6 @@ function formatDateTime(
   const milliseconds = adjustedLoanDuration * 24 * 60 * 60 * 1000
 
   futureDate.setTime(currentDate.getTime() + milliseconds)
-
-  const formatDate = (dateTime: Date) => {
-    const day = dateTime.getUTCDate().toString().padStart(2, "0")
-    const monthNames = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ]
-    const month = monthNames[dateTime.getUTCMonth()]
-    const year = dateTime.getUTCFullYear().toString()
-    const hours = dateTime.getUTCHours().toString().padStart(2, "0")
-    const minutes = dateTime.getUTCMinutes().toString().padStart(2, "0")
-
-    return `${month} ${day} ${year} ${hours}:${minutes}`
-  }
 
   return formatDate(futureDate)
 }

@@ -76,6 +76,6 @@ export abstract class LiquidityProvider {
 
   getTradeId = (t0: Token, t1: Token) =>
     [t0.address.toLowerCase(), t1.address.toLowerCase()]
-      .sort((first, second) => (first > second ? -1 : 1))
+      .toSorted((first, second) => (first > second ? -1 : 1))
       .join(":")
 }

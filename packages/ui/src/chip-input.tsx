@@ -41,6 +41,8 @@ interface ChipInputProps
   maxValues?: number
 }
 
+const DEFAULT_DELIMITERS = [",", ";", ":", " ", "Enter", "Tab"]
+
 const ChipInput: FC<ChipInputProps> = ({
   className,
   icon: Icon,
@@ -49,7 +51,7 @@ const ChipInput: FC<ChipInputProps> = ({
   values,
   variant,
   onValueChange,
-  delimiters = [",", ";", ":", " ", "Enter", "Tab"],
+  delimiters = DEFAULT_DELIMITERS,
   mutateValue,
   maxValues,
   ...props

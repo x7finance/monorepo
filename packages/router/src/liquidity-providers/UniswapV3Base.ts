@@ -314,7 +314,7 @@ export abstract class UniswapV3BaseProvider extends LiquidityProvider {
           index: tick.tick,
           DLiquidity: tick.liquidityNet,
         }))
-        .sort((a, b) => a.index - b.index)
+        .toSorted((a, b) => a.index - b.index)
 
       const lowerUnknownTick =
         minIndexes[i]! * TICK_SPACINGS[pool.fee] * 256 - TICK_SPACINGS[pool.fee]

@@ -191,7 +191,9 @@ export class TradeV2<
     this.route = route
     this.tradeType = tradeType
 
-    const tokenAmounts: CurrencyAmount<Token>[] = new Array(route.path.length)
+    const tokenAmounts: CurrencyAmount<Token>[] = Array.from<
+      CurrencyAmount<Token>
+    >({ length: route.path.length })
     if (tradeType === TradeType.EXACT_INPUT) {
       invariant(amount.currency.equals(route.input), "INPUT")
       tokenAmounts[0] = amount.wrapped

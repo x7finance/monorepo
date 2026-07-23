@@ -22,7 +22,9 @@
     "no-debugger": "error",
     "eqeqeq": "warn",
     "typescript/no-explicit-any": "warn",
-    "typescript/no-non-null-assertion": "warn"
+    "typescript/no-non-null-assertion": "warn",
+    "no-underscore-dangle": "off",
+    "oxc/no-map-spread": "off"
   },
   "ignorePatterns": [
     "node_modules/**",

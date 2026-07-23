@@ -13,7 +13,7 @@ export function DocsList({ section }: { section: string }) {
       filesByMonth[month].push(file.fileName)
     })
 
-    const sortedMonths = Object.keys(filesByMonth).sort((a, b) => {
+    const sortedMonths = Object.keys(filesByMonth).toSorted((a, b) => {
       const [monthA, yearA] = a.split("-")
       const [monthB, yearB] = b.split("-")
       if (yearA === yearB) {

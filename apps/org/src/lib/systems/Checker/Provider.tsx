@@ -163,6 +163,7 @@ const useSignature = (tag: string) => {
 const withCheckerRoot = <P extends object>(
   Component: React.FunctionComponent<P>
 ): FC<P> =>
+  // oxlint-disable-next-line unicorn/consistent-function-scoping -- HOC wrapper must capture `Component`; it cannot be hoisted to module scope
   function WithCheckerRootComponent(props: P) {
     return (
       <CheckerProvider>

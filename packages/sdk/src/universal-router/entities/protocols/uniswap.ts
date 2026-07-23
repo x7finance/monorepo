@@ -281,6 +281,10 @@ function addV3Swap<TInput extends Currency, TOutput extends Currency>(
   }
 }
 
+function mixedRouteIsAllV3(mixedRoute: MixedRouteSDK<Currency, Currency>) {
+  return mixedRoute.pools.every((pool) => pool instanceof Pool)
+}
+
 // encode a mixed route swap, i.e. including both v2 and v3 pools
 function addMixedSwap<TInput extends Currency, TOutput extends Currency>(
   planner: RoutePlanner,
@@ -366,12 +370,6 @@ function addMixedSwap<TInput extends Currency, TOutput extends Currency>(
 
     /// Previous output is now input
     inputToken = outputToken
-
-    const mixedRouteIsAllV3 = (
-      mixedRoute: MixedRouteSDK<Currency, Currency>
-    ) => {
-      return mixedRoute.pools.every((pool) => pool instanceof Pool)
-    }
 
     if (mixedRouteIsAllV3(newRoute)) {
       const path: string = encodeMixedRouteToPath(newRoute)

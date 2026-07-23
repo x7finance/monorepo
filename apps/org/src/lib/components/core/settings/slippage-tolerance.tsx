@@ -18,6 +18,13 @@ import { LinkInternal } from "@x7/ui/link"
 import { Slider } from "@x7/ui/slider"
 import { Switch } from "@x7/ui/switch"
 
+const formatSlippage = (value: number): string => {
+  if (Number.isInteger(value)) {
+    return value.toString()
+  }
+  return value.toFixed(1)
+}
+
 export const SlippageTolerance: FC<{
   options?: {
     storageKey?: string
@@ -31,13 +38,6 @@ export const SlippageTolerance: FC<{
   )
 
   const [showCustomInput, setShowCustomInput] = useState(false)
-
-  const formatSlippage = (value: number): string => {
-    if (Number.isInteger(value)) {
-      return value.toString()
-    }
-    return value.toFixed(1)
-  }
 
   const onChange = useCallback(
     (value: string) => {

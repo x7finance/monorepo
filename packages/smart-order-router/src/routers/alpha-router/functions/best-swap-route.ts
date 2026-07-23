@@ -139,6 +139,14 @@ export async function getBestSwapRoute(
   return swapRoute
 }
 
+function sumFn(currencyAmounts: CurrencyAmount[]): CurrencyAmount {
+  let sum = currencyAmounts[0]
+  for (let i = 1; i < currencyAmounts.length; i++) {
+    sum = sum?.add(currencyAmounts[i]!)
+  }
+  return sum!
+}
+
 export async function getBestSwapRouteBy(
   routeType: TradeType,
   percentToQuotes: Record<number, RouteWithValidQuote[]>,
@@ -154,7 +162,7 @@ export async function getBestSwapRouteBy(
   const percentToSortedQuotes = _.mapValues(
     percentToQuotes,
     (routeQuotes: RouteWithValidQuote[]) => {
-      return routeQuotes.sort((routeQuoteA, routeQuoteB) => {
+      return routeQuotes.toSorted((routeQuoteA, routeQuoteB) => {
         if (routeType === TradeType.EXACT_INPUT) {
           return by(routeQuoteA).greaterThan(by(routeQuoteB)) ? -1 : 1
         } else {
@@ -168,14 +176,6 @@ export async function getBestSwapRouteBy(
     routeType === TradeType.EXACT_INPUT
       ? (a: CurrencyAmount, b: CurrencyAmount) => a.greaterThan(b)
       : (a: CurrencyAmount, b: CurrencyAmount) => a.lessThan(b)
-
-  const sumFn = (currencyAmounts: CurrencyAmount[]): CurrencyAmount => {
-    let sum = currencyAmounts[0]
-    for (let i = 1; i < currencyAmounts.length; i++) {
-      sum = sum?.add(currencyAmounts[i]!)
-    }
-    return sum!
-  }
 
   let bestQuote: CurrencyAmount | undefined
   let bestSwap: RouteWithValidQuote[] | undefined
@@ -518,7 +518,7 @@ export async function getBestSwapRouteBy(
     quoteGasAdjusted = quoteGasAdjustedForL1
   }
 
-  const routeWithQuotes = bestSwap.sort((routeAmountA, routeAmountB) =>
+  const routeWithQuotes = bestSwap.toSorted((routeAmountA, routeAmountB) =>
     routeAmountB.amount.greaterThan(routeAmountA.amount) ? 1 : -1
   )
 

@@ -92,10 +92,10 @@ export function filterOnDemandPools(
   }
 
   const pools0 = filteredToken0Pools
-    .sort((a, b) => Number(b.liquidityUSD) - Number(a.liquidityUSD))
+    .toSorted((a, b) => Number(b.liquidityUSD) - Number(a.liquidityUSD))
     .slice(0, token0PoolSize)
   const pools1 = filteredToken1Pools
-    .sort((a, b) => Number(b.liquidityUSD) - Number(a.liquidityUSD))
+    .toSorted((a, b) => Number(b.liquidityUSD) - Number(a.liquidityUSD))
     .slice(0, token1PoolSize)
 
   return Array.from(new Set([...pools0, ...pools1].flat()))
@@ -115,7 +115,7 @@ export function filterTopPools(pools: PoolResponse2[], size: number) {
   )
 
   const topPools = safePools
-    .sort((a, b) => Number(b.liquidityUSD) - Number(a.liquidityUSD))
+    .toSorted((a, b) => Number(b.liquidityUSD) - Number(a.liquidityUSD))
     .slice(0, safePools.length <= size ? size : size - commonPools.length)
 
   return [...topPools, ...commonPools]

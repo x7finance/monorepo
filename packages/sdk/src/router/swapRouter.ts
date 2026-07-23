@@ -115,6 +115,10 @@ type AnyTradeType =
 /**
  * Represents the Uniswap V2 + V3 SwapRouter02, and has static methods for helping execute trades.
  */
+function mixedRouteIsAllV3(mixedRoute: MixedRouteSDK<Currency, Currency>) {
+  return mixedRoute.pools.every((pool) => pool instanceof Pool)
+}
+
 export abstract class SwapRouter {
   /**
    * Cannot be constructed.
@@ -577,12 +581,6 @@ export abstract class SwapRouter {
         : typeof options.recipient === "undefined"
           ? MSG_SENDER
           : validateAndParseAddress(options.recipient)
-
-      const mixedRouteIsAllV3 = (
-        mixedRoute: MixedRouteSDK<Currency, Currency>
-      ) => {
-        return mixedRoute.pools.every((pool) => pool instanceof Pool)
-      }
 
       if (singleHop) {
         /// For single hop, since it isn't really a mixedRoute, we'll just mimic behavior of V3 or V2

@@ -47,6 +47,7 @@ export const StaticTable: FC<StaticTableProps> = ({ data, columns }) => {
       </thead>
       <tbody className="x-body">
         {data.map((row, index) => (
+          // oxlint-disable-next-line react/no-array-index-key -- StaticTable renders fixed, non-reordering data; index is a stable key
           <tr className="border-none" key={String(index)}>
             {columns.map((column, colIndex) => (
               <td

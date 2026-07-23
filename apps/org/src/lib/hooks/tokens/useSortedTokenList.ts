@@ -86,7 +86,7 @@ export const useSortedTokenList = ({
       const sortedTokens: Token[] = [
         ...filteredTokens,
         ...filteredCustomTokens,
-      ].sort(tokenComparator(balancesMap, pricesMap))
+      ].toSorted(tokenComparator(balancesMap, pricesMap))
 
       const filteredSortedTokens = getSortedTokensByQuery(
         sortedTokens,

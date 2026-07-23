@@ -207,7 +207,7 @@ export function useAddLiquidity({
   ])
 
   const { data: simulation, error: simulationError } = useSimulateContract({
-    ...(prepare ?? {}),
+    ...prepare,
     query: {
       enabled: Boolean(prepare),
       retry: false,

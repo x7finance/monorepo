@@ -20,10 +20,14 @@ const defaultClasses = {
   [Implementation.SUSHISWAP]: "",
 }
 
+const EMPTY_CLASS_NAME_OVERRIDES: Partial<
+  Record<Implementation | Protocol.MIXED, string>
+> = {}
+
 export const ImplementationIcon: FC<ImplementationIconProps> = ({
   implementation,
   className,
-  classNameOverrides = {},
+  classNameOverrides = EMPTY_CLASS_NAME_OVERRIDES,
 }) => {
   const getIcon = () => {
     const defaultClass =

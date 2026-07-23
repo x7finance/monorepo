@@ -309,7 +309,9 @@ export class TradeV3<
       : CurrencyAmount<TOutput>,
     tradeType: TTradeType
   ): Promise<TradeV3<TInput, TOutput, TTradeType>> {
-    const amounts: CurrencyAmount<Token>[] = new Array(route.tokenPath.length)
+    const amounts: CurrencyAmount<Token>[] = Array.from<CurrencyAmount<Token>>({
+      length: route.tokenPath.length,
+    })
     let inputAmount: CurrencyAmount<TInput>
     let outputAmount: CurrencyAmount<TOutput>
     if (tradeType === TradeType.EXACT_INPUT) {
@@ -393,7 +395,9 @@ export class TradeV3<
     }[] = []
 
     for (const { route, amount } of routes) {
-      const amounts: CurrencyAmount<Token>[] = new Array(route.tokenPath.length)
+      const amounts: CurrencyAmount<Token>[] = Array.from<
+        CurrencyAmount<Token>
+      >({ length: route.tokenPath.length })
       let inputAmount: CurrencyAmount<TInput>
       let outputAmount: CurrencyAmount<TOutput>
 

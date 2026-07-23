@@ -18,6 +18,7 @@
     "react/no-string-refs": "error",
     "react/no-unescaped-entities": "off",
     "react/require-render-return": "error",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "react/no-unstable-nested-components": "off"
   }
 }

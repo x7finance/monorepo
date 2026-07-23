@@ -47,6 +47,6 @@ export function encodeRouteToPath(
   )
 
   return exactOutput
-    ? encodePacked(types.reverse(), path.reverse())
+    ? encodePacked(types.toReversed(), path.toReversed())
     : encodePacked(types, path)
 }

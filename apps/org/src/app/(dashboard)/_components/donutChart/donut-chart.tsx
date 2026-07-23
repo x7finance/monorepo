@@ -10,50 +10,69 @@ import React, { useEffect, useMemo, useState } from "react"
 
 import { ArcPath } from "./arc-path"
 import { LegendItem } from "./legend-item"
-import type { Colors, Item, ItemWithRenderProps, Props } from "./types"
+import type { Item, ItemWithRenderProps, Props } from "./types"
 import { DonutChartContext } from "./types"
 
 export type { Colors, Context, Item, ItemWithRenderProps, Props } from "./types"
 export { DonutChartContext } from "./types"
 
+const DEFAULT_COLOR_FUNCTION: NonNullable<Props["colorFunction"]> = (
+  colors,
+  index
+) => colors[index % colors.length]!
+
+const DEFAULT_COLORS: NonNullable<Props["colors"]> = [
+  "#4066b9",
+  "#950ad0",
+  "#c22e5e",
+  "#971264",
+  "#2002d7",
+  "#212984",
+  "#b7dde4",
+  "#17dce5",
+  "#16e4ab",
+  "#795548",
+  "#607d8b",
+]
+
+const DEFAULT_DATA = [
+  {
+    className: "",
+    label: "",
+    chain: "",
+    value: 100,
+    isEmpty: true,
+  },
+] as any
+
+const DEFAULT_FORMAT_VALUES: NonNullable<Props["formatValues"]> = (
+  value,
+  total
+) =>
+  Number.isNaN(value / total) ? "--" : `${((value / total) * 100).toFixed(0)}%`
+
+const DEFAULT_ON_MOUSE_ENTER: NonNullable<Props["onMouseEnter"]> = (item) =>
+  item
+const DEFAULT_ON_MOUSE_LEAVE: NonNullable<Props["onMouseLeave"]> = (item) =>
+  item
+const DEFAULT_ON_CLICK: NonNullable<Props["onClick"]> = (item, toggled) =>
+  toggled ? item : null
+
 export const DonutChart: React.FC<Props> = function ({
   className = "donutchart",
   clickToggle = true,
-  colorFunction = (colors, index) => colors[index % colors.length],
-  colors = [
-    "#4066b9",
-    "#950ad0",
-    "#c22e5e",
-    "#971264",
-    "#2002d7",
-    "#212984",
-    "#b7dde4",
-    "#17dce5",
-    "#16e4ab",
-    "#795548",
-    "#607d8b",
-  ],
-  data = [
-    {
-      className: "",
-      label: "",
-      chain: "",
-      value: 100,
-      isEmpty: true,
-    },
-  ] as any,
+  colorFunction = DEFAULT_COLOR_FUNCTION,
+  colors = DEFAULT_COLORS,
+  data = DEFAULT_DATA,
   emptyColor = "#e0e0e0",
   emptyOffset = 0.08,
-  formatValues = (value, total) =>
-    Number.isNaN(value / total)
-      ? "--"
-      : `${((value / total) * 100).toFixed(0)}%`,
+  formatValues = DEFAULT_FORMAT_VALUES,
   interactive = true,
   innerRadius = 0.7,
   legend = true,
-  onMouseEnter = (item) => item,
-  onMouseLeave = (item) => item,
-  onClick = (item, toggled) => (toggled ? item : null),
+  onMouseEnter = DEFAULT_ON_MOUSE_ENTER,
+  onMouseLeave = DEFAULT_ON_MOUSE_LEAVE,
+  onClick = DEFAULT_ON_CLICK,
   outerRadius = 0.9,
   selectedOffset = 0.03,
   strokeColor = "#212121",

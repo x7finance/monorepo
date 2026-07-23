@@ -253,7 +253,7 @@ export function getGasCostInUSD(
     }
   }
 
-  return costs.sort((a, b) => (a.greaterThan(b) ? 1 : -1))[0]!
+  return costs.toSorted((a, b) => (a.greaterThan(b) ? 1 : -1))[0]!
 }
 
 export function getGasCostInNativeCurrency(

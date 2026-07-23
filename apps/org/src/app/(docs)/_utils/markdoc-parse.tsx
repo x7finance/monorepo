@@ -185,7 +185,7 @@ function getNodeText(node: Node): string {
   return text
 }
 
-const SUBHEADINGS: number[] = [2, 3]
+const SUBHEADINGS = new Set([2, 3])
 
 type SlugifyFunction = (title: string) => string
 
@@ -196,10 +196,7 @@ function collectHeadings(
   const sections: SectionType[] = []
 
   for (const node of nodes?.children ?? []) {
-    if (
-      node?.name === "Heading" &&
-      SUBHEADINGS.includes(node?.attributes?.level)
-    ) {
+    if (node?.name === "Heading" && SUBHEADINGS.has(node?.attributes?.level)) {
       const title = getNodeText(node)
 
       if (title) {

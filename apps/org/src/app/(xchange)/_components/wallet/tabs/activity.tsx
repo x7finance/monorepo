@@ -94,7 +94,7 @@ export function ActivityTab() {
 
     if (tx.result?.transfers?.length > 0 && tx.result.transfers.map) {
       return [...tx.result.transfers]
-        .reverse()
+        .toReversed()
         .map((transaction) => (
           <ActivityAlchemyTransaction
             key={transaction.hash}

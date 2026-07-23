@@ -224,7 +224,9 @@ export async function getV3CandidatePools({
   }
 
   // Sort by tvlUSD in descending order
-  const subgraphPoolsSorted = filteredPools.sort((a, b) => b.tvlUSD - a.tvlUSD)
+  const subgraphPoolsSorted = filteredPools.toSorted(
+    (a, b) => b.tvlUSD - a.tvlUSD
+  )
 
   log.info(
     LogCodes.FETCHING_POOLS,
@@ -636,7 +638,9 @@ export async function getV2CandidatePools({
   const beforePoolsFiltered = Date.now()
 
   // Sort by pool reserve in descending order.
-  const subgraphPoolsSorted = allPoolsRaw.sort((a, b) => b.reserve - a.reserve)
+  const subgraphPoolsSorted = allPoolsRaw.toSorted(
+    (a, b) => b.reserve - a.reserve
+  )
 
   const poolAddressesSoFar = new Set<string>()
 
