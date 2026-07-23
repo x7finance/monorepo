@@ -85,14 +85,16 @@ export function useRemoveLiquidity({
       ? token1.wrapped.address
       : token0.wrapped.address
 
-    // Apply 2% slippage buffer to minimum amounts
-    const slippageBuffer = 98n // 98% of original amount (2% slippage)
+    // minAmount0/1 already include the user's slippage tolerance
+    // (slippageAmount(...) at the call site); do not apply an additional
+    // hardcoded buffer — that double-counted slippage on the native path and
+    // diverged from the ERC20-ERC20 path below.
     const tokenMinAmount = isToken0Native
-      ? (minAmount1.quotient * slippageBuffer) / 100n
-      : (minAmount0.quotient * slippageBuffer) / 100n
+      ? minAmount1.quotient
+      : minAmount0.quotient
     const ethMinAmount = isToken0Native
-      ? (minAmount0.quotient * slippageBuffer) / 100n
-      : (minAmount1.quotient * slippageBuffer) / 100n
+      ? minAmount0.quotient
+      : minAmount1.quotient
 
     const args = [
       tokenAddress,

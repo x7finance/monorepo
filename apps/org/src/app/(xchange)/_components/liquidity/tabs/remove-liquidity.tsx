@@ -330,10 +330,10 @@ function calculateLockedWithdrawal(
 ) {
   const token0Total = position.token0.balance ?? 0n
   const token1Total = position.token1.balance ?? 0n
-  const token0Locked =
-    position.token0.minimumBalance / 10n ** BigInt(position.token0.decimals)
-  const token1Locked =
-    position.token1.minimumBalance / 10n ** BigInt(position.token1.decimals)
+  // minimumBalance is already a raw on-chain amount (same units as balance);
+  // do not re-scale it, or "locked" collapses to ~0 and over-estimates withdrawable.
+  const token0Locked = position.token0.minimumBalance
+  const token1Locked = position.token1.minimumBalance
 
   const token0Unlocked =
     token0Total > token0Locked ? token0Total - token0Locked : 0n

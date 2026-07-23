@@ -75,9 +75,9 @@ export function useDeployToken(params: TokenDeploymentParams) {
       supply: params.supply,
       teamTokens: params.teamTokens,
       newOwner: address!,
-      loanTermContract: X7ContractsEnum.X7InitialLiquidityLoanTerm005(chainId),
-      loanAmount: parseEther("1.0"),
-      loanDurationSeconds: BigInt(604800),
+      loanTermContract: params.loanTermContract,
+      loanAmount: params.loanAmount,
+      loanDurationSeconds: params.loanDurationSeconds,
       liquidityReceiver: address!,
       deadline: params.deadline,
       description: params.description,
@@ -95,6 +95,9 @@ export function useDeployToken(params: TokenDeploymentParams) {
       params.description,
       params.supply,
       params.teamTokens,
+      params.loanTermContract,
+      params.loanAmount,
+      params.loanDurationSeconds,
       params.twitterLink,
       params.telegramLink,
       params.websiteLink,
@@ -104,7 +107,6 @@ export function useDeployToken(params: TokenDeploymentParams) {
       params.sellTax,
       params.taxWallet,
       address,
-      chainId,
     ]
   )
 

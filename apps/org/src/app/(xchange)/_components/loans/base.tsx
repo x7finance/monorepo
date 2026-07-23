@@ -125,7 +125,10 @@ export function ILLBaseForm() {
     tokenAddress: (collateralToken?.isNative
       ? ""
       : collateralToken?.address) as `0x${string}`,
-    amount: collateralAmount,
+    amount: parseUnits(
+      collateralAmount,
+      collateralToken?.decimals ?? 18
+    ).toString(),
     loanTermContractAddress: selectedQuote?.loanTerm.address!,
     loanAmount: parseUnits(loanAmount, loanToken.decimals), // uint256 loanAmount,
     loanDuration: BigInt(loanDuration * SECONDS_IN_A_DAY), // uint256 loanDurationSeconds,
@@ -291,13 +294,9 @@ export function ILLBaseForm() {
                           onBlur={() => {
                             const parsedValue = parseFloat(rawCollateralAmount)
                             if (!isNaN(parsedValue) && parsedValue > 0) {
-                              const scaledValue = BigInt(
-                                Math.floor(
-                                  parsedValue *
-                                    10 ** (collateralToken?.decimals ?? 18)
-                                )
-                              )
-                              setCollateralAmount(scaledValue.toString())
+                              // Store the human-readable amount; consumers
+                              // convert to wei via parseUnits at their boundary.
+                              setCollateralAmount(rawCollateralAmount)
                             } else {
                               setCollateralAmount("0")
                             }

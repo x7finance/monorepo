@@ -106,5 +106,5 @@ export const useX7DMinting = ({
       data,
     }
     // oxlint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPending, write])
+  }, [isPending, write, data])
 }

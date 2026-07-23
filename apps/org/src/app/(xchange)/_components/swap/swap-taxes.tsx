@@ -4,7 +4,7 @@ import type { SwapRoute } from "@x7/smart-order-router"
 
 export function SwapTaxes({ route }: { route: SwapRoute }) {
   const hasTaxes = route.route.some((r) =>
-    r.tokenPath.some((token) => token.buyFeeBps ?? token.sellFeeBps)
+    r.tokenPath.some((token) => token.buyFeeBps || token.sellFeeBps)
   )
 
   if (!hasTaxes) return null

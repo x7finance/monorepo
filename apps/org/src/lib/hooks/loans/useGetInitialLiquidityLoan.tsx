@@ -141,5 +141,5 @@ export const useGetInitialLiquidityLoan = ({
       data,
     }
     // oxlint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPending, write])
+  }, [isPending, write, data])
 }

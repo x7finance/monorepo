@@ -1,5 +1,6 @@
 "use client"
 
+import type { BaseError } from "@wagmi/core"
 import type { Dispatch, SetStateAction } from "react"
 import { useCallback, useMemo, useState } from "react"
 import { toast } from "sonner"
@@ -56,7 +57,7 @@ export const useX7DRedeem = ({
     (hash: `0x${string}` | undefined, e: WriteContractErrorType | null) => {
       if (e instanceof Error) {
         if (!(e instanceof UserRejectedRequestError)) {
-          toast.error("Insufficient balance")
+          toast.error((e as BaseError).shortMessage || e.message)
         }
       }
 
@@ -104,5 +105,5 @@ export const useX7DRedeem = ({
       data,
     }
     // oxlint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPending, write])
+  }, [isPending, write, data])
 }
