@@ -98,8 +98,7 @@ x7finance/
 - [Node.js](https://nodejs.org/) 22+ (see `.nvmrc`)
 - [Bun](https://bun.sh/) 1.3+
 - [Git](https://git-scm.com/)
-- [mkcert](https://github.com/FiloSottile/mkcert) — trusted local HTTPS certificates
-- [portless](https://github.com/nicolo-ribaudo/portless) — stable HTTPS dev URLs (no port numbers)
+- [portless](https://github.com/vercel-labs/portless) — stable HTTPS dev URLs (no port numbers; generates its own CA)
 
 ### 1. Clone & Install
 
@@ -124,7 +123,7 @@ cd apps/org && cp .env.example .env.local && cd ../..
 
 ### 3. HTTPS Setup (One-Time)
 
-Dev uses [portless](https://github.com/nicolo-ribaudo/portless) (≥ 0.15, needs Node 24+) to eliminate port conflicts and provide stable HTTPS dev URLs.
+Dev uses [portless](https://github.com/vercel-labs/portless) (≥ 0.15, needs Node 24+) to eliminate port conflicts and provide stable HTTPS dev URLs.
 
 ```bash
 # Install portless

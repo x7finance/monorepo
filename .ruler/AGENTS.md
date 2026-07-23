@@ -34,7 +34,7 @@ bun run dev         # Start dev (builds packages, then starts apps/org via portl
 
 ## Local HTTPS (Portless)
 
-Dev uses [portless](https://github.com/nicolo-ribaudo/portless) for stable HTTPS dev URLs (no port numbers):
+Dev uses [portless](https://github.com/vercel-labs/portless) for stable HTTPS dev URLs (no port numbers):
 
 | App | URL |
 |-----|-----|
