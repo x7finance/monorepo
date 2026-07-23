@@ -37,8 +37,8 @@
     ]
   },
   "overrides": {
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
     "react-hook-form": "^7.82.0"
   },
   "devDependencies": {
@@ -52,7 +52,7 @@
     "@wayofdev/markdownlint-config": "^4.0.0",
     "husky": "^9.1.7",
     "is-ci": "^4.1.0",
-    "lint-staged": "^17.1.1",
+    "lint-staged": "^17.2.0",
     "madge": "8.0.0",
     "markdownlint": "^0.41.1",
     "markdownlint-cli": "^0.49.1",

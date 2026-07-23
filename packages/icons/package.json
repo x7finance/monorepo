@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@x7/css": "workspace:*",
-    "lucide-react": "^1.25.0"
+    "lucide-react": "^1.26.0"
   },
   "devDependencies": {
     "@types/react": "^19.2.17",

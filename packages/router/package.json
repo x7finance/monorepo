@@ -37,7 +37,7 @@
     "@x7/utils": "workspace:*",
     "date-fns": "^4.4.0",
     "lodash.flatmap": "^4.5.0",
-    "viem": "^2.55.7"
+    "viem": "^2.55.8"
   },
   "devDependencies": {
     "@types/lodash.flatmap": "^4.5.9",
