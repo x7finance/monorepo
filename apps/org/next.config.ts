@@ -158,6 +158,9 @@ const nextConfig: NextConfig = {
   },
   // Partial Prerendering (PPR) - static shell with dynamic streaming
   experimental: {
+    // TypeScript 7 (native) doesn't expose the legacy compiler API, so run
+    // build-time type checking through the `tsc` CLI instead.
+    useTypeScriptCli: true,
     // PPR is now enabled via cacheComponents (above)
     // Caching features
     dynamicOnHover: true,

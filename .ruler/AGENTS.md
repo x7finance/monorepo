@@ -5,7 +5,7 @@
 1. **Run `bun run checks` before completing any task**
 2. **Use `??` for defaults, never `||`** (preserves falsy values like `0`, `false`, `""`)
 3. **Check `packages/` for existing code before creating new**
-4. **All packages build to `dist/` with `tsgo`**
+4. **All packages build to `dist/` with `tsc`**
 
 ## Monorepo Layout
 
@@ -52,4 +52,4 @@ Then `bun run dev` starts the app behind portless automatically.
 
 ## Stack
 
-Next.js 16, TypeScript, Viem/Wagmi, Tailwind CSS v4, Bun, Turborepo, tsgo
+Next.js 16, TypeScript, Viem/Wagmi, Tailwind CSS v4, Bun, Turborepo, tsc

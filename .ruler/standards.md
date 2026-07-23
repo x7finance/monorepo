@@ -15,7 +15,7 @@
   "type": "module",
   "exports": { ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" } },
   "files": ["dist", "src"],
-  "scripts": { "build": "tsgo", "typecheck": "tsgo --noEmit", "lint": "oxlint src/" }
+  "scripts": { "build": "tsc", "typecheck": "tsc --noEmit", "lint": "oxlint src/" }
 }
 ```
 

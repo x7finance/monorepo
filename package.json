@@ -47,7 +47,6 @@
     "@commitlint/types": "^21.2.0",
     "@intellectronica/ruler": "^0.3.44",
     "@manypkg/cli": "^0.25.1",
-    "@typescript/native-preview": "^7.0.0-dev.20260707.2",
     "@vitest/coverage-v8": "^4.1.10",
     "@wayofdev/markdownlint-config": "^4.0.0",
     "husky": "^9.1.7",

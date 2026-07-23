@@ -20,13 +20,13 @@
     "artifacts"
   ],
   "scripts": {
-    "build": "hardhat compile && tsgo",
+    "build": "hardhat compile && tsc",
     "clean": "git clean -xdf .turbo artifacts node_modules cache dist",
-    "dev": "tsgo --watch",
+    "dev": "tsc --watch",
     "format": "oxfmt --config ../../tooling/oxfmt/.oxfmtrc.json src/index.ts",
     "format:fix": "oxfmt --write --config ../../tooling/oxfmt/.oxfmtrc.json src/index.ts",
     "lint": "oxlint src/",
-    "typecheck": "tsgo --noEmit"
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-ignition": "^0.15.16",

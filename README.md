@@ -187,7 +187,7 @@ Each package supports:
 
 ```bash
 bun run build     # Build to dist/
-bun run dev       # Watch mode (tsgo --watch)
+bun run dev       # Watch mode (tsc --watch)
 bun run typecheck # Type check only
 cd packages/sdk && bun run build  # Build specific package
 ```
@@ -215,7 +215,7 @@ cd packages/sdk && bun run build  # Build specific package
 | **Language** | TypeScript 5.8 (native preview) |
 | **Styling** | Tailwind CSS v4, shadcn/ui |
 | **Blockchain** | Viem, Wagmi |
-| **Build** | Turborepo, tsgo |
+| **Build** | Turborepo, tsc |
 | **Linting** | OxLint |
 
 ## Smart Contracts

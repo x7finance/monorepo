@@ -22,15 +22,15 @@
     "src"
   ],
   "scripts": {
-    "build": "tsgo",
+    "build": "tsc",
     "clean": "git clean -xdf .turbo node_modules dist",
-    "dev": "tsgo --watch",
+    "dev": "tsc --watch",
     "format": "oxfmt --config ../../tooling/oxfmt/.oxfmtrc.json src/",
     "format:fix": "oxfmt --write --config ../../tooling/oxfmt/.oxfmtrc.json src/",
     "lint": "oxlint src/",
     "test": "vitest run",
     "test:watch": "vitest watch",
-    "typecheck": "tsgo --noEmit"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
