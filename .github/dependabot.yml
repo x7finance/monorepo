@@ -1,0 +1,19 @@
+version: 2
+
+updates:
+  # Keep GitHub Actions pinned versions current. Application/runtime
+  # dependencies are managed separately via `bun run taze`, so only the
+  # github-actions ecosystem is delegated to Dependabot here.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: "ci"
+    labels:
+      - dependencies
+      - github-actions

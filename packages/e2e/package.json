@@ -6,7 +6,7 @@
   "scripts": {
     "e2e": "HEADLESS_MODE=true npx playwright test",
     "e2e:headed": "npx playwright test",
-    "format": "oxfmt --config ../../tooling/oxfmt/.oxfmtrc.json tests/",
+    "format": "oxfmt --check --config ../../tooling/oxfmt/.oxfmtrc.json tests/",
     "format:fix": "oxfmt --write --config ../../tooling/oxfmt/.oxfmtrc.json tests/",
     "lint": "oxlint tests/"
   },

@@ -23,7 +23,7 @@
     "deploy:optimism": "run-p build:optimism && goldsky subgraph deploy xchange-optimism/1.0.0",
     "deploy:sepolia": "run-p build:sepolia && goldsky subgraph deploy xchange-sepolia/1.0.0",
     "deploy-local": "graph deploy --node http://127.0.0.1:8020/ --ipfs http://127.0.0.1:5001 xchange",
-    "format": "oxfmt --config ../../tooling/oxfmt/.oxfmtrc.json src/",
+    "format": "oxfmt --check --config ../../tooling/oxfmt/.oxfmtrc.json src/",
     "format:fix": "oxfmt --write --config ../../tooling/oxfmt/.oxfmtrc.json src/",
     "lint": "oxlint src/",
     "remove-local": "graph remove --node http://127.0.0.1:8020/ xchange",

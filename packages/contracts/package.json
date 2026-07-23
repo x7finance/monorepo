@@ -23,7 +23,7 @@
     "build": "hardhat compile && tsc",
     "clean": "git clean -xdf .turbo artifacts node_modules cache dist",
     "dev": "tsc --watch",
-    "format": "oxfmt --config ../../tooling/oxfmt/.oxfmtrc.json src/index.ts",
+    "format": "oxfmt --check --config ../../tooling/oxfmt/.oxfmtrc.json src/index.ts",
     "format:fix": "oxfmt --write --config ../../tooling/oxfmt/.oxfmtrc.json src/index.ts",
     "lint": "oxlint src/",
     "typecheck": "tsc --noEmit"

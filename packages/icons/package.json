@@ -22,7 +22,7 @@
     "build": "tsc",
     "clean": "git clean -xdf .turbo node_modules dist",
     "dev": "tsc --watch",
-    "format": "oxfmt --config ../../tooling/oxfmt/.oxfmtrc.json src/",
+    "format": "oxfmt --check --config ../../tooling/oxfmt/.oxfmtrc.json src/",
     "format:fix": "oxfmt --write --config ../../tooling/oxfmt/.oxfmtrc.json src/",
     "lint": "oxlint src/",
     "typecheck": "tsc --noEmit"

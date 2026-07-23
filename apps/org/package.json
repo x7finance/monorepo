@@ -11,7 +11,7 @@
     "clean": "git clean -xdf .turbo node_modules .next",
     "dev": "test -f $HOME/.portless/ca.pem && export NODE_EXTRA_CA_CERTS=$HOME/.portless/ca.pem; portless x7-org bun run --elide-lines=0 next dev --turbopack",
     "dev:http": "portless x7-org bun run --elide-lines=0 next dev --turbopack",
-    "format": "oxfmt --config ../../tooling/oxfmt/.oxfmtrc.json src/",
+    "format": "oxfmt --check --config ../../tooling/oxfmt/.oxfmtrc.json src/",
     "format:fix": "oxfmt --write --config ../../tooling/oxfmt/.oxfmtrc.json src/",
     "lint": "oxlint src/",
     "preview": "next build && next start",

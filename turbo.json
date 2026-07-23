@@ -47,6 +47,7 @@
         "$TURBO_DEFAULT$",
         ".env",
         ".env.*",
+        "$TURBO_ROOT$/tooling/typescript/**",
         "!e2e/**",
         "!test/**",
         "!tests/**",
@@ -80,11 +81,23 @@
       "outputLogs": "new-only"
     },
     "lint": {
-      "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"]
+      "inputs": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/**/*.js",
+        "src/**/*.jsx",
+        "$TURBO_ROOT$/.oxlintrc.json",
+        "$TURBO_ROOT$/tooling/oxlint/**"
+      ]
     },
     "typecheck": {
       "dependsOn": ["^build"],
-      "inputs": ["src/**/*.ts", "src/**/*.tsx", "tsconfig.json"],
+      "inputs": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "tsconfig.json",
+        "$TURBO_ROOT$/tooling/typescript/**"
+      ],
       "outputs": [".turbo/.tsbuildinfo"]
     },
     "test": {

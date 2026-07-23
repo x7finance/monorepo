@@ -17,7 +17,7 @@
   "scripts": {
     "build": "rimraf build && mkdir -p build && node src/write.js",
     "clean": "git clean -xdf .turbo node_modules build",
-    "format": "oxfmt --config ../../tooling/oxfmt/.oxfmtrc.json src/",
+    "format": "oxfmt --check --config ../../tooling/oxfmt/.oxfmtrc.json src/",
     "format:fix": "oxfmt --write --config ../../tooling/oxfmt/.oxfmtrc.json src/",
     "test": "mocha"
   },

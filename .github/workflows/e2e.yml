@@ -3,29 +3,29 @@ name: E2E
 on:
   deployment_status:
 
+# Supersede an older E2E run for the same deployment URL (e.g. a branch redeploy).
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.deployment_status.environment_url }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 jobs:
   e2e:
+    # Only run once the deployment has finished successfully.
     if: github.event.deployment_status.state == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: 1.3.8
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - run: bun install
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup
 
       - name: Install Playwright
         run: bunx playwright install --with-deps chromium
         working-directory: packages/e2e
 
-      - name: Setup environment
+      - name: Prepare E2E environment
         run: cp .env.example .env
         working-directory: packages/e2e
 
@@ -36,7 +36,8 @@ jobs:
           ENVIRONMENT_URL: ${{ github.event.deployment_status.environment_url }}
           CI: true
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload test report
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: test-report
