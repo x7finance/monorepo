@@ -3,6 +3,7 @@
 /* oxlint-disable @typescript-eslint/no-unsafe-assignment */
 /* oxlint-disable @typescript-eslint/no-base-to-string */
 import type { Address } from "viem"
+import { formatUnits } from "viem"
 import { useReadContracts } from "wagmi"
 
 import {
@@ -43,7 +44,7 @@ export function useGetPremiumsDue(
     isLoading: isInitialGetPremiumsDue,
     getPremiumsDueEther: data?.[0]?.result,
     getPremiumsDue: data?.[0]?.result
-      ? parseInt(data[0].result.toString() ?? "0", 10) / 10 ** 18
+      ? Number(formatUnits(data[0].result as bigint, 18))
       : 0,
   }
 }
@@ -109,7 +110,7 @@ export function useGetPrincipalDue(
     isLoading: isInitialGetPrincipalDue,
     getPrincipalDueEther: data?.[0]?.result,
     getPrincipalDue: data?.[0]?.result
-      ? parseInt(data[0].result.toString() ?? "0", 10) / 10 ** 18
+      ? Number(formatUnits(data[0].result as bigint, 18))
       : 0,
   }
 }
@@ -173,7 +174,7 @@ export function useGetRemainingLiability(
   return {
     isLoading: isInitialGetRemainingLiability,
     getRemainingLiability: data?.[0]?.result
-      ? parseInt(data[0].result.toString() ?? "0", 10) / 10 ** 18
+      ? Number(formatUnits(data[0].result as bigint, 18))
       : 0,
   }
 }
@@ -211,7 +212,7 @@ export function useGetTotalDue(
     isLoading: isInitialGetTotalDue,
     getTotalDueEther: data?.[0]?.result,
     getTotalDue: data?.[0]?.result
-      ? parseInt(data[0].result.toString() ?? "0", 10) / 10 ** 18
+      ? Number(formatUnits(data[0].result as bigint, 18))
       : 0,
   }
 }
@@ -269,7 +270,7 @@ export function useLiquidationAmount(
   return {
     isLoading: isInitialLiquidationAmount,
     liquidationAmount: data?.[0]?.result
-      ? parseInt(data[0].result.toString() ?? "0", 10) / 10 ** 18
+      ? Number(formatUnits(data[0].result as bigint, 18))
       : 0,
   }
 }
@@ -299,7 +300,7 @@ export function useLoanAmount(
   return {
     isLoading: isInitialLoanAmount,
     loanAmount: data?.[0]?.result
-      ? parseInt(data[0].result.toString() ?? "0", 10) / 10 ** 18
+      ? Number(formatUnits(data[0].result as bigint, 18))
       : 0,
   }
 }
@@ -388,7 +389,7 @@ export function useMaximumLoanAmount(chainId: ChainId, loanType: LoanType) {
   return {
     isLoading: isInitialMaximumLoanAmount,
     maximumLoanAmount: data?.[0]?.result
-      ? parseInt(data[0].result.toString() ?? "0", 10) / 10 ** 18
+      ? Number(formatUnits(data[0].result as bigint, 18))
       : 0,
     maximumLoanAmountEther: data?.[0]?.result,
   }
@@ -443,7 +444,7 @@ export function useMinimumLoanAmount(chainId: ChainId, loanType: LoanType) {
   return {
     isLoading: isInitialMinimumLoanAmount,
     minimumLoanAmount: data?.[0]?.result
-      ? parseInt(data[0].result.toString() ?? "0", 10) / 10 ** 18
+      ? Number(formatUnits(data[0].result as bigint, 18))
       : 0,
     minimumLoanAmountEther: data?.[0]?.result,
   }
@@ -563,7 +564,7 @@ export function useOriginationFeeCollected(
   return {
     isLoading: isInitialOriginationFeeCollected,
     originationFeeCollected: data?.[0]?.result
-      ? parseInt(data[0].result.toString() ?? "0", 10) / 10 ** 18
+      ? Number(formatUnits(data[0].result as bigint, 18))
       : 0,
   }
 }
@@ -621,7 +622,7 @@ export function usePremiumAmount(
   return {
     isLoading: isInitialPremiumAmount,
     premiumAmount: data?.[0]?.result
-      ? parseInt(data[0].result.toString() ?? "0", 10) / 10 ** 18
+      ? Number(formatUnits(data[0].result as bigint, 18))
       : 0,
   }
 }
@@ -651,7 +652,7 @@ export function usePremiumAmountPaid(
   return {
     isLoading: isInitialPremiumAmountPaid,
     premiumAmountPaid: data?.[0]?.result
-      ? parseInt(data[0].result.toString() ?? "0", 10) / 10 ** 18
+      ? Number(formatUnits(data[0].result as bigint, 18))
       : 0,
   }
 }

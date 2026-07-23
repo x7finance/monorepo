@@ -3,6 +3,7 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 
 import type { Address } from "viem"
+import { formatUnits } from "viem"
 import { useReadContracts } from "wagmi"
 
 import { X7LendingPoolV2 } from "@x7/contracts"
@@ -107,8 +108,12 @@ export function useLiquidationReward(chainId: ChainId) {
     isLoading: isInitialLiquidationReward,
     liquidationReward: BigInt(data?.[0]?.result?.toString() ?? "0"),
     liquidationRewardDecimal: data?.[0]?.result
-      ? parseInt(data[0].result.toString() ?? "0", 10) /
-        10 ** getChainInfo(chainId).nativeCurrency.decimals
+      ? Number(
+          formatUnits(
+            data[0].result as bigint,
+            getChainInfo(chainId).nativeCurrency.decimals
+          )
+        )
       : 0,
   }
 }
