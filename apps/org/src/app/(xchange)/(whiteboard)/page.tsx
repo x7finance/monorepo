@@ -24,7 +24,7 @@ export default function XchangeSwapPage() {
   return (
     <CheckerProviderComponent>
       <div className="relative mx-auto w-full max-w-7xl px-2 sm:px-6 lg:px-8">
-        <main className="w-full flex-1">
+        <div className="w-full flex-1">
           <div className="my-8 flex flex-col items-center">
             <SubtleGlowBg className="w-full sm:max-w-md">
               <XChangeSwap />
@@ -34,7 +34,7 @@ export default function XchangeSwapPage() {
               <TradeLines />
             </SubtleGlowBg>
           </div>
-        </main>
+        </div>
       </div>
     </CheckerProviderComponent>
   )

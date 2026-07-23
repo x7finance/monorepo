@@ -22,15 +22,25 @@ async function XchangeContent({ children }: { children: ReactNode }) {
     <AppProviders initialState={initialState}>
       <div className="h-full">
         <div className="flex min-h-dvh flex-col">
-          <nav className="fixed top-0 right-0 left-0 z-100 flex h-12 items-center border-b border-zinc-300 bg-zinc-50 px-4 sm:h-16 md:px-8 dark:border-zinc-700 dark:bg-zinc-900">
+          <header className="fixed top-0 right-0 left-0 z-100 flex h-12 items-center border-b border-zinc-300 bg-zinc-50 px-4 sm:h-16 md:px-8 dark:border-zinc-700 dark:bg-zinc-900">
             <div className="mr-4 items-center lg:mr-8">
-              <LinkInternal prefetch={true} href="/">
-                <Xchange className="fill-foreground mr-0 hidden h-6 w-auto md:flex" />
-                <X7Logo className="fill-foreground h-6 w-auto md:hidden" />
+              <LinkInternal
+                prefetch={true}
+                href="/"
+                aria-label="X7 Finance home"
+              >
+                <Xchange
+                  aria-hidden="true"
+                  className="fill-foreground mr-0 hidden h-6 w-auto md:flex"
+                />
+                <X7Logo
+                  aria-hidden="true"
+                  className="fill-foreground h-6 w-auto md:hidden"
+                />
               </LinkInternal>
             </div>
-            <MainNav />
-          </nav>
+            <MainNav aria-label="Primary navigation" />
+          </header>
 
           <main className="flex-1">
             <div className="relative ml-0 flex flex-auto flex-col 2xl:flex 2xl:items-center">

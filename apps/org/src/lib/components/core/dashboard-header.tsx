@@ -11,7 +11,10 @@ import { MobileNavigation } from "./mobile-navigation"
 export function DashboardHeader() {
   return (
     <>
-      <nav className="sticky z-10 h-14 w-full">
+      <nav
+        aria-label="Dashboard navigation"
+        className="sticky z-10 h-14 w-full"
+      >
         <div className="fixed bg-white px-3 py-3 lg:px-5 lg:pl-3 dark:bg-black">
           <div className="flex items-center justify-between">
             <div
@@ -49,8 +52,11 @@ function LogoMarkLink() {
   return (
     <div className="flex items-center">
       <div className="ml-3 flex items-center">
-        <LinkInternal prefetch={true} href="/">
-          <X7Logo className="mr-3 h-8 fill-black dark:fill-white" />
+        <LinkInternal prefetch={true} href="/" aria-label="X7 Finance home">
+          <X7Logo
+            aria-hidden="true"
+            className="mr-3 h-8 fill-black dark:fill-white"
+          />
         </LinkInternal>
       </div>
     </div>

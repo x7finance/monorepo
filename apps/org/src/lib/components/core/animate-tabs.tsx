@@ -149,7 +149,7 @@ export function AnimatedTabs({
         >
           <button
             className={cn(
-              "text-md relative z-20 flex h-8 cursor-pointer items-center rounded-lg bg-transparent px-4 text-sm whitespace-nowrap text-zinc-500 transition-colors select-none",
+              "text-md relative z-20 flex h-8 cursor-pointer items-center rounded-lg bg-transparent px-4 text-sm whitespace-nowrap text-zinc-600 transition-colors select-none dark:text-zinc-400",
               isMobile && "w-full justify-center",
               {
                 "text-black dark:text-white":

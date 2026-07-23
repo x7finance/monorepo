@@ -946,7 +946,7 @@ export function Configuration({ contract, chainId }: ConfigurationProps) {
             {allOtherChecksConfigured ? (
               <span className="flex items-center">
                 <CheckCircleIcon className="h-5 w-5 text-emerald-500" />
-                <span className="pl-2 text-sm text-zinc-500">
+                <span className="pl-2 text-sm text-zinc-700 dark:text-zinc-300">
                   View Configuration
                 </span>
               </span>

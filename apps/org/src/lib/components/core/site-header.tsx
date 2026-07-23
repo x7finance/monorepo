@@ -13,8 +13,11 @@ export function SiteHeader({ className }: HTMLAttributes<HTMLElement>) {
     <header className={className}>
       <div className="flex flex-1 items-center justify-center">
         <div className="w-full">
-          <LinkInternal prefetch={true} href="/">
-            <X7LongLogo className="w-48 text-black dark:text-white" />
+          <LinkInternal prefetch={true} href="/" aria-label="X7 Finance home">
+            <X7LongLogo
+              aria-hidden="true"
+              className="w-48 text-black dark:text-white"
+            />
           </LinkInternal>
         </div>
       </div>
@@ -56,6 +59,7 @@ export function SiteHeader({ className }: HTMLAttributes<HTMLElement>) {
             <LinkInternal
               prefetch={true}
               href="/"
+              aria-label="Open Xchange"
               className={cn(
                 buttonVariants({
                   variant: "default",
@@ -63,7 +67,8 @@ export function SiteHeader({ className }: HTMLAttributes<HTMLElement>) {
                 "hidden py-1.5 lg:block"
               )}
             >
-              <Xchange className="w-24" />
+              <span className="sr-only">Open Xchange</span>
+              <Xchange aria-hidden="true" className="w-24" />
             </LinkInternal>
 
             <ClientMobileNavigation className="lg:hidden" />

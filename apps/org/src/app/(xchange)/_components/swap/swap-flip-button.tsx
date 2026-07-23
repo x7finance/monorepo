@@ -11,6 +11,7 @@ export function FlipSwapTokensButton({ onClick }: { onClick: () => void }) {
       >
         <div className="rotate-0 transition-transform group-hover:rotate-180">
           <ArrowUpDownIcon
+            aria-hidden="true"
             strokeWidth={3}
             className="h-4 w-4 text-muted-foreground"
           />

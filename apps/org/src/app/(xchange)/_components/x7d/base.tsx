@@ -94,7 +94,7 @@ export function X7DFunding() {
   return (
     <Card className="mx-auto mt-6 max-w-2xl">
       <CardHeader className="space-y-1 px-3 sm:px-6">
-        <CardTitle className="mb-2 text-zinc-900 dark:text-zinc-100">
+        <CardTitle tag="h2" className="mb-2 text-zinc-900 dark:text-zinc-100">
           X7D Funding
         </CardTitle>
         <CardDescription className="text-muted-foreground">
@@ -113,7 +113,7 @@ export function X7DFunding() {
               </span>
             )}
           </div>
-          <div className="flex h-full items-end text-sm font-bold tracking-widest text-muted-foreground">
+          <div className="text-muted-foreground flex h-full items-end text-sm font-bold tracking-widest">
             {X7D[chainId]?.name ?? "X7D"} BALANCE
           </div>
         </div>

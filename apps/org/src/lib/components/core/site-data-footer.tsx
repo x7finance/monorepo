@@ -13,7 +13,10 @@ import {
 
 export function SiteDataFooter() {
   return (
-    <div className="fixed right-0 bottom-0 left-0 z-60 hidden h-[40px] w-full border-t border-zinc-300 bg-zinc-50 md:block dark:border-zinc-700 dark:bg-zinc-900">
+    <footer
+      aria-label="Live market data and social links"
+      className="fixed right-0 bottom-0 left-0 z-60 hidden h-[40px] w-full border-t border-zinc-300 bg-zinc-50 md:block dark:border-zinc-700 dark:bg-zinc-900"
+    >
       <div className="flex h-full justify-between">
         <div className="flex text-left">
           <div className="flex items-center border-r border-zinc-300 px-4 dark:border-zinc-700">
@@ -55,27 +58,18 @@ export function SiteDataFooter() {
                 <ul className="flex items-center justify-center">
                   {[
                     {
-                      label: (
-                        <>
-                          <Telegram className="ml-auto h-4 w-4 fill-black dark:fill-zinc-400" />
-                        </>
-                      ),
+                      name: "Telegram",
+                      icon: Telegram,
                       href: SocialsEnum.telegram,
                     },
                     {
-                      label: (
-                        <>
-                          <Twitter className="ml-auto h-4 w-4 fill-black dark:fill-zinc-400" />
-                        </>
-                      ),
+                      name: "X",
+                      icon: Twitter,
                       href: SocialsEnum.twitter,
                     },
                     {
-                      label: (
-                        <>
-                          <Warpcast className="ml-auto h-4 w-4 fill-black dark:fill-zinc-400" />
-                        </>
-                      ),
+                      name: "Warpcast",
+                      icon: Warpcast,
                       href: SocialsEnum.warpcast,
                     },
                   ].map((item) => (
@@ -84,9 +78,13 @@ export function SiteDataFooter() {
                         href={item.href}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label={`X7 Finance on ${item.name}`}
                         className="text-muted-foreground hover:text-foreground text-sm"
                       >
-                        {item.label}
+                        <item.icon
+                          aria-hidden="true"
+                          className="ml-auto h-4 w-4 fill-black dark:fill-zinc-400"
+                        />
                       </LinkExternal>
                     </li>
                   ))}
@@ -131,6 +129,6 @@ export function SiteDataFooter() {
           </div>
         </div>
       </div>
-    </div>
+    </footer>
   )
 }

@@ -36,7 +36,10 @@ export function Navigation({ navigation, className }: NavigationProps) {
   const pathname = usePathname()
 
   return (
-    <nav className={cn("text-base lg:text-sm", className)}>
+    <nav
+      aria-label="Documentation navigation"
+      className={cn("text-base lg:text-sm", className)}
+    >
       <SectionNavigation className="mb-6 space-y-1" />
       <ul className="space-y-9">
         {navigation.map((section) =>

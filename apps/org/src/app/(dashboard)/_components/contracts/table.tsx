@@ -52,7 +52,11 @@ export function ContractsTable({ chainId }: ContractsTableProps) {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="opacity-80 hover:opacity-100"
-                              />
+                              >
+                                <span className="sr-only">
+                                  View {t.name} chart on DexTools
+                                </span>
+                              </LinkExternal>
                             </div>
                           </div>
                         </div>

@@ -1,8 +1,7 @@
-/* oxlint-disable @typescript-eslint/prefer-nullish-coalescing */
 "use client"
 
-import type { FC, ReactNode } from "react"
-import { useMemo, useState } from "react"
+import type { FC, ReactElement } from "react"
+import { useMemo } from "react"
 
 import { SlidersVerticalIcon, XIcon } from "@x7/icons"
 import { useSlippageTolerance } from "@x7/ui"
@@ -29,7 +28,7 @@ export enum SettingsModule {
 }
 
 interface SettingsOverlayProps {
-  children?: ReactNode
+  children?: ReactElement
   modules: SettingsModule[]
   options?: {
     slippageTolerance?: {
@@ -58,7 +57,6 @@ export const SettingsOverlay: FC<SettingsOverlayProps> = ({
   children,
   options,
 }) => {
-  const [_open, setOpen] = useState(false)
   const [slippageTolerance, setSlippageTolerance] = useSlippageTolerance(
     options?.slippageTolerance?.storageKey
   )
@@ -81,63 +79,64 @@ export const SettingsOverlay: FC<SettingsOverlayProps> = ({
 
   return (
     <Dialog>
-      <DialogTrigger asChild nativeButton={false}>
-        {children || (
-          <div
-            onClick={() => setOpen(true)}
-            className="ml-auto flex cursor-pointer items-center rounded-lg border border-border bg-muted/50 px-2 py-1 text-2xs"
-          >
-            <div className="flex items-center font-bold text-muted-foreground">
-              {singleDex ? (
-                <ImplementationIcon
-                  implementation={singleDex}
-                  classNameOverrides={implementationClassOverrides}
-                />
-              ) : (
-                <>
-                  <span className="mr-1 inline-block h-1.5 w-1.5 rounded-full bg-green-500"></span>
-                  {dexCount} Dexs
-                </>
-              )}
-            </div>
-            {highSlippage &&
-              modules.includes(SettingsModule.SlippageTolerance) && (
-                <>
-                  <div className="mx-2 text-muted-foreground/30">|</div>
-                  <Tooltip delayDuration={150}>
-                    <TooltipTrigger asChild>
-                      <Button
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          setSlippageTolerance("0.5")
-                        }}
-                        className="h-6 rounded-xs bg-opacity-50 text-black"
-                        iconPosition="end"
-                        variant="warning"
-                        size="xs"
-                        icon={XIcon}
-                      >
-                        {slippageTolerance}%
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>Reset slippage tolerance</TooltipContent>
-                  </Tooltip>
-                </>
-              )}
-            <div className="ml-2 text-muted-foreground/30">|</div>
+      {children ? (
+        <DialogTrigger asChild>{children}</DialogTrigger>
+      ) : (
+        <div className="border-border bg-muted/50 text-2xs ml-auto flex items-center rounded-lg border px-2 py-1">
+          <div className="text-muted-foreground flex items-center font-bold">
+            {singleDex ? (
+              <ImplementationIcon
+                implementation={singleDex}
+                classNameOverrides={implementationClassOverrides}
+              />
+            ) : (
+              <>
+                <span className="mr-1 inline-block h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                {dexCount} Dexs
+              </>
+            )}
+          </div>
+          {highSlippage &&
+            modules.includes(SettingsModule.SlippageTolerance) && (
+              <>
+                <div aria-hidden="true" className="text-muted-foreground mx-2">
+                  |
+                </div>
+                <Tooltip delayDuration={150}>
+                  <TooltipTrigger asChild>
+                    <Button
+                      onClick={() => setSlippageTolerance("0.5")}
+                      className="bg-opacity-50 h-6 rounded-xs text-black"
+                      iconPosition="end"
+                      variant="warning"
+                      size="xs"
+                      icon={XIcon}
+                    >
+                      {slippageTolerance}%
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>Reset slippage tolerance</TooltipContent>
+                </Tooltip>
+              </>
+            )}
+          <div aria-hidden="true" className="text-muted-foreground ml-2">
+            |
+          </div>
+          <DialogTrigger asChild>
             <Button
+              aria-label="Open trade settings"
               size="sm"
               variant="ghost"
-              className="h-6 pl-2 pr-0.5 hover:bg-transparent"
+              className="h-6 pr-0.5 pl-2 hover:bg-transparent"
               iconPosition="end"
               iconProps={iconProps}
               icon={SlidersVerticalIcon}
             />
-          </div>
-        )}
-      </DialogTrigger>
+          </DialogTrigger>
+        </div>
+      )}
       <DialogContent>
-        <DialogHeader className="mb-2 border-b border-border/50 pb-4">
+        <DialogHeader className="border-border/50 mb-2 border-b pb-4">
           <DialogTitle>Trade Settings</DialogTitle>
           <DialogDescription>
             Adjust to optimize your trade experience.

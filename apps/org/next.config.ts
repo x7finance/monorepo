@@ -1,4 +1,95 @@
 import type { NextConfig } from "next"
+import {
+  arbitrum,
+  arbitrumSepolia,
+  base,
+  baseSepolia,
+  bsc,
+  bscTestnet,
+  mainnet,
+  optimism,
+  optimismSepolia,
+  polygon,
+  polygonAmoy,
+  sepolia,
+} from "viem/chains"
+
+const RPC_ENV_KEYS = [
+  "NEXT_PUBLIC_DEFAULT_ETHER_RPC",
+  "NEXT_PUBLIC_DEFAULT_ETHER_RPC_FALLBACK",
+  "NEXT_PUBLIC_DEFAULT_BSC_RPC",
+  "NEXT_PUBLIC_DEFAULT_BSC_RPC_FALLBACK",
+  "NEXT_PUBLIC_DEFAULT_POLY_RPC",
+  "NEXT_PUBLIC_DEFAULT_POLY_RPC_FALLBACK",
+  "NEXT_PUBLIC_DEFAULT_OPTI_RPC",
+  "NEXT_PUBLIC_DEFAULT_OPTI_RPC_FALLBACK",
+  "NEXT_PUBLIC_DEFAULT_ARB_RPC",
+  "NEXT_PUBLIC_DEFAULT_ARB_RPC_FALLBACK",
+  "NEXT_PUBLIC_DEFAULT_BASE_RPC",
+  "NEXT_PUBLIC_DEFAULT_BASE_RPC_FALLBACK",
+  "NEXT_PUBLIC_DEFAULT_ETHER_TESTNET_RPC",
+  "NEXT_PUBLIC_DEFAULT_ETHER_TESTNET_RPC_FALLBACK",
+  "NEXT_PUBLIC_DEFAULT_BSC_TESTNET_RPC",
+  "NEXT_PUBLIC_DEFAULT_BSC_TESTNET_RPC_FALLBACK",
+  "NEXT_PUBLIC_DEFAULT_POLY_TESTNET_RPC",
+  "NEXT_PUBLIC_DEFAULT_POLYGON_TESTNET_RPC_FALLBACK",
+  "NEXT_PUBLIC_DEFAULT_OPTI_TESTNET_RPC",
+  "NEXT_PUBLIC_DEFAULT_OPTIMISM_TESTNET_RPC_FALLBACK",
+  "NEXT_PUBLIC_DEFAULT_ARB_TESTNET_RPC",
+  "NEXT_PUBLIC_DEFAULT_ARBITRUM_TESTNET_RPC_FALLBACK",
+  "NEXT_PUBLIC_DEFAULT_BASE_TESTNET_RPC",
+  "NEXT_PUBLIC_DEFAULT_BASE_TESTNET_RPC_FALLBACK",
+] as const
+
+const SUPPORTED_CHAINS = [
+  mainnet,
+  sepolia,
+  base,
+  baseSepolia,
+  bsc,
+  bscTestnet,
+  polygon,
+  polygonAmoy,
+  optimism,
+  optimismSepolia,
+  arbitrum,
+  arbitrumSepolia,
+] as const
+
+function getRpcOrigin(value: string | undefined): string | undefined {
+  if (!value) {
+    return undefined
+  }
+
+  try {
+    const url = new URL(value)
+
+    return ["http:", "https:", "ws:", "wss:"].includes(url.protocol)
+      ? url.origin
+      : undefined
+  } catch {
+    return undefined
+  }
+}
+
+const rpcConnectSources = Array.from(
+  new Set([
+    ...SUPPORTED_CHAINS.flatMap((chain) =>
+      chain.rpcUrls.default.http.map((url) => new URL(url).origin)
+    ),
+    ...RPC_ENV_KEYS.map((key) => getRpcOrigin(process.env[key])).filter(
+      (origin): origin is string => origin !== undefined
+    ),
+    // Established public RPC providers that may be selected as fallbacks.
+    "https://rpc.ankr.com",
+    "https://*.publicnode.com",
+    "https://1rpc.io",
+    "https://*.llamarpc.com",
+    "https://*.quiknode.pro",
+    "https://*.nodereal.io",
+    "https://*.onfinality.io",
+  ])
+)
 
 const nextConfig: NextConfig = {
   // Security headers (migrated from middleware.ts)
@@ -36,6 +127,8 @@ const nextConfig: NextConfig = {
             // connect-src for blockchain RPC providers and web3 services
             [
               "connect-src 'self'",
+              // Configured RPCs, viem defaults, and established public fallbacks
+              ...rpcConnectSources,
               // Alchemy (mainnet and testnets)
               "https://*.alchemy.com",
               "https://*.alchemyapi.io",

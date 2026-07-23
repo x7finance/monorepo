@@ -12,9 +12,20 @@ import {
   Twitter,
   Warpcast,
   X7Logo,
+  XIcon,
 } from "@x7/icons"
-import { Collapsible, CollapsibleContent } from "@x7/ui/collapsible"
-import { Drawer, DrawerContent, DrawerTrigger } from "@x7/ui/drawer"
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@x7/ui/collapsible"
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@x7/ui/drawer"
 import { LinkExternal, LinkInternal } from "@x7/ui/link"
 import { SocialsEnum } from "@x7/utils"
 import {
@@ -116,14 +127,23 @@ export function MobileNav() {
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
-      <DrawerTrigger
-        aria-label="Open menu"
-        className="flex items-center justify-center"
-      >
-        <TextIcon className="text-muted-foreground h-6 w-6" />
-        <ChevronDownIcon className="text-muted-foreground h-3 w-3" />
+      <DrawerTrigger className="flex items-center justify-center">
+        <span className="sr-only">Open navigation menu</span>
+        <TextIcon
+          aria-hidden="true"
+          className="text-muted-foreground h-6 w-6"
+        />
+        <ChevronDownIcon
+          aria-hidden="true"
+          className="text-muted-foreground h-3 w-3"
+        />
       </DrawerTrigger>
-      <DrawerContent className="">
+      <DrawerContent>
+        <DrawerTitle className="sr-only">Xchange navigation</DrawerTitle>
+        <DrawerClose className="focus-visible:ring-ring absolute top-4 right-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden">
+          <XIcon aria-hidden="true" className="h-5 w-5" />
+          <span className="sr-only">Close navigation</span>
+        </DrawerClose>
         <div className="space-y-4 p-4">
           <div>
             <div className="flex w-full items-center justify-between text-lg">
@@ -157,34 +177,31 @@ export function MobileNav() {
             </div>
           </div>
           {navSections.map((section) => (
-            <div key={section.title}>
-              <button
-                className="flex w-full items-center justify-between text-lg"
-                onClick={() =>
-                  setOpenSection(
-                    openSection === section.title ? null : section.title
-                  )
-                }
-              >
+            <Collapsible
+              key={section.title}
+              open={openSection === section.title}
+              onOpenChange={(open) =>
+                setOpenSection(open ? section.title : null)
+              }
+            >
+              <CollapsibleTrigger className="flex w-full items-center justify-between text-lg">
                 <span className="font-heading">{section.title}</span>
-                <ChevronDownIcon className="h-4 w-4" />
-              </button>
-              <Collapsible open={openSection === section.title}>
-                <CollapsibleContent className="mt-2 space-y-1">
-                  {section.items.map((item) => (
-                    <LinkInternal
-                      prefetch={true}
-                      key={item.label}
-                      href={item.href}
-                      onClick={closeDrawer}
-                      className="text-muted-foreground ml-2 block"
-                    >
-                      {item.label}
-                    </LinkInternal>
-                  ))}
-                </CollapsibleContent>
-              </Collapsible>
-            </div>
+                <ChevronDownIcon aria-hidden="true" className="h-4 w-4" />
+              </CollapsibleTrigger>
+              <CollapsibleContent className="mt-2 space-y-1">
+                {section.items.map((item) => (
+                  <LinkInternal
+                    prefetch={true}
+                    key={item.label}
+                    href={item.href}
+                    onClick={closeDrawer}
+                    className="text-muted-foreground ml-2 block"
+                  >
+                    {item.label}
+                  </LinkInternal>
+                ))}
+              </CollapsibleContent>
+            </Collapsible>
           ))}
 
           <div className="text-muted-foreground mt-4 flex justify-center space-x-4">
@@ -214,7 +231,8 @@ export function MobileNav() {
                 rel="noopener noreferrer"
                 className="flex items-center justify-between py-2 font-medium"
               >
-                <item.icon className="h-5 w-5" />
+                <span className="sr-only">X7 Finance on {item.label}</span>
+                <item.icon aria-hidden="true" className="h-5 w-5" />
               </LinkExternal>
             ))}
           </div>

@@ -9,8 +9,12 @@ export function DrpcPartner() {
         target="_blank"
         className="group"
         href="https://drpc.org?ref=9bf02d"
+        aria-label="Powered by dRPC"
       >
-        <PoweredByDrpc className="h-10 w-32 opacity-40 transition-opacity duration-300 group-hover:opacity-100 sm:w-40" />
+        <PoweredByDrpc
+          aria-hidden="true"
+          className="h-10 w-32 opacity-40 transition-opacity duration-300 group-hover:opacity-100 sm:w-40"
+        />
       </LinkExternal>
     </div>
   )

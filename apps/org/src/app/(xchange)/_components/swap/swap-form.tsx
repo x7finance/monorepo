@@ -185,7 +185,9 @@ export function X7SwapForm(props: X7SwapFormProps) {
         actionType="Buy"
       />
       <div className="mb-2">
-        <div className="my-2 text-xs text-zinc-500">Quick Buy</div>
+        <div className="my-2 text-xs text-zinc-600 dark:text-zinc-400">
+          Quick Buy
+        </div>
         <div className="flex flex-wrap gap-2">
           {QUICK_BUY_AMOUNTS.map((amount) => (
             <Button

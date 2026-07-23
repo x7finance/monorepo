@@ -201,16 +201,25 @@ export function Web3Provider(props: Web3ProvidersProps) {
     [setTransports]
   )
 
-  const theme = useMemo(
-    () =>
-      darkTheme({
-        ...darkTheme.accentColors.purple,
-        accentColor: "#17803d",
-        borderRadius: "medium",
-        fontStack: "system",
-      }),
-    []
-  )
+  const theme = useMemo(() => {
+    const defaultTheme = darkTheme({
+      ...darkTheme.accentColors.purple,
+      accentColor: "#34d399",
+      borderRadius: "medium",
+      fontStack: "system",
+    })
+
+    return {
+      ...defaultTheme,
+      colors: {
+        ...defaultTheme.colors,
+        accentColorForeground: "#052e16",
+        modalText: "#ffffff",
+        modalTextDim: "#a1a1aa",
+        modalTextSecondary: "#d4d4d8",
+      },
+    }
+  }, [])
 
   const contextValue = useMemo(
     () => ({ wagmiConfig, transports, updateTransports }),

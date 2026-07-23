@@ -260,7 +260,7 @@ export function CreateCoinForm() {
   return (
     <Card className="mx-auto mt-8 max-w-lg transition-colors duration-300 hover:border-emerald-500 focus:z-20">
       <CardHeader>
-        <CardTitle>Create Coin</CardTitle>
+        <CardTitle tag="h2">Create Coin</CardTitle>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -319,11 +319,12 @@ export function CreateCoinForm() {
               name="tokenURI"
               render={({ field: { value, onChange, ...field } }) => (
                 <FormItem>
-                  <FormLabel>Coin Logo</FormLabel>
+                  <FormLabel htmlFor="coin-logo">Coin Logo</FormLabel>
                   <FormControl>
                     <div className="space-y-4">
                       <div className="border-border hover:border-primary/50 flex min-h-[80px] w-full items-center justify-center rounded-md border-2 border-dashed p-4">
                         <Input
+                          id="coin-logo"
                           type="file"
                           accept="image/*"
                           onChange={handleFileChange}

@@ -5,13 +5,7 @@ import { useState } from "react"
 
 // import { cn } from "@x7/css";
 // import { buttonVariants } from "@x7/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@x7/ui/card"
+import { Card, CardContent, CardFooter, CardHeader } from "@x7/ui/card"
 // import { Input } from "@x7/ui/input";
 // import {
 //   Select,
@@ -117,10 +111,13 @@ export function XChangeBoard() {
                         <div className="absolute right-2 bottom-8 h-16 w-16 overflow-hidden rounded-lg shadow-xs">
                           <SkeletonBox className="h-full w-full" />
                         </div>
-                        <CardTitle className="p-3 pt-1 text-sm font-bold">
+                        <div
+                          aria-hidden="true"
+                          className="p-3 pt-1 text-sm font-bold"
+                        >
                           <SkeletonBox className="mb-1 h-5 w-32" />
                           <SkeletonBox className="h-4 w-24" />
-                        </CardTitle>
+                        </div>
                       </CardHeader>
                       <CardContent className="text-2xs grow space-y-2 px-3 py-1">
                         <SkeletonBox className="h-12 w-full" />
