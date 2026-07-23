@@ -101,10 +101,11 @@ export function FooterSettingsButton() {
 
   return (
     <button
+      aria-label="Open wallet settings"
       className="flex items-center gap-x-1 px-4 py-4 transition-opacity hover:opacity-80"
       onClick={() => setIsSlideOverOpen(true)}
     >
-      <CogIcon className="h-4 w-4" />
+      <CogIcon aria-hidden="true" className="h-4 w-4" />
     </button>
   )
 }

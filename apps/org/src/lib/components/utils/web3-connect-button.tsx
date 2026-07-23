@@ -58,6 +58,7 @@ export function ConnectionComponent(
                   if (props["data-iscog"]) {
                     return (
                       <button
+                        aria-label="Connect wallet"
                         className="flex items-center gap-x-1 px-4 py-4 transition-opacity hover:opacity-80"
                         onClick={(e) => {
                           e.preventDefault()
@@ -65,7 +66,7 @@ export function ConnectionComponent(
                           openConnectModal()
                         }}
                       >
-                        <CogIcon className="h-4 w-4" />
+                        <CogIcon aria-hidden="true" className="h-4 w-4" />
                       </button>
                     )
                   }

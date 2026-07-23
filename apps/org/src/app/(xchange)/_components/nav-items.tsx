@@ -54,7 +54,7 @@ export function NavItems() {
   }
 
   return (
-    <NavigationMenu>
+    <NavigationMenu aria-label="Xchange navigation">
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuLink asChild>

@@ -30,6 +30,24 @@ function hashStringToColor(str: string) {
   )}${`0${b.toString(16)}`.substr(-2)}`
 }
 
+function getContrastTextColor(backgroundColor: string) {
+  const channels = [1, 3, 5].map((offset) => {
+    const channel = Number.parseInt(
+      backgroundColor.slice(offset, offset + 2),
+      16
+    )
+    const normalized = channel / 255
+
+    return normalized <= 0.04045
+      ? normalized / 12.92
+      : ((normalized + 0.055) / 1.055) ** 2.4
+  })
+  const [red = 0, green = 0, blue = 0] = channels
+  const luminance = 0.2126 * red + 0.7152 * green + 0.0722 * blue
+
+  return luminance > 0.179 ? "#000000" : "#ffffff"
+}
+
 export interface CurrencyIconProps extends Omit<ImageProps, "src" | "alt"> {
   currency: Currency
   disableLink?: boolean
@@ -69,8 +87,8 @@ export const CurrencyIcon = ({
   }
 
   // Convert width/height to numbers with default value
-  const widthPx = typeof width === "number" ? width : Number(width || 20)
-  const heightPx = typeof height === "number" ? height : Number(height || 20)
+  const widthPx = typeof width === "number" ? width : Number(width ?? 20)
+  const heightPx = typeof height === "number" ? height : Number(height ?? 20)
 
   const fallbackElement = (
     <div
@@ -82,7 +100,7 @@ export const CurrencyIcon = ({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        color: "white",
+        color: getContrastTextColor(fallbackColor),
         fontSize: `${Math.max(12, widthPx / 1.8)}px`,
         fontWeight: "bold",
         overflow: "hidden",

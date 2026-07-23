@@ -26,7 +26,7 @@ export default function AboutPage() {
           <div className="mx-auto max-w-4xl">
             <div className="mb-8 flex items-center space-x-2">
               <div className="h-px flex-1 bg-zinc-300 dark:bg-zinc-700"></div>
-              <span className="font-mono text-xs tracking-wider text-zinc-500 uppercase">
+              <span className="font-mono text-xs tracking-wider text-zinc-600 uppercase dark:text-zinc-400">
                 X7 Finance
               </span>
               <div className="h-px flex-1 bg-zinc-300 dark:bg-zinc-700"></div>
@@ -37,7 +37,7 @@ export default function AboutPage() {
             </h1>
 
             <div className="mt-4 mb-8 font-mono text-sm text-zinc-500">
-              <code className="rounded bg-zinc-100 px-1.5 py-0.5 dark:bg-zinc-800">
+              <code className="rounded bg-zinc-100 px-1.5 py-0.5 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
                 trust code, not institutions
               </code>
             </div>
@@ -82,7 +82,7 @@ export default function AboutPage() {
           <div className="mx-auto max-w-4xl">
             <div className="mb-8 flex items-center space-x-2">
               <div className="h-px w-12 bg-zinc-300 dark:bg-zinc-700"></div>
-              <span className="font-mono text-xs tracking-wider text-zinc-500 uppercase">
+              <span className="font-mono text-xs tracking-wider text-zinc-600 uppercase dark:text-zinc-400">
                 Current Infrastructure
               </span>
             </div>
@@ -100,7 +100,10 @@ export default function AboutPage() {
                 optimal routing across deep liquidity pools while prioritizing
                 user privacy and security.
               </p>
-              <pre className="mb-6 overflow-x-auto rounded-md bg-zinc-100 p-4 text-sm dark:bg-zinc-800/50 dark:text-zinc-300">
+              <pre
+                tabIndex={0}
+                className="mb-6 overflow-x-auto rounded-md bg-zinc-100 p-4 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 dark:bg-zinc-800/50 dark:text-zinc-300"
+              >
                 <code>{`// Key features
 const XchangeFeatures = {
   highLiquidity: "Deep pools for minimal slippage",
@@ -130,7 +133,10 @@ const XchangeFeatures = {
                 launch with substantial liquidity while preserving their startup
                 capital.
               </p>
-              <pre className="mb-6 overflow-x-auto rounded-md bg-zinc-100 p-4 text-sm dark:bg-zinc-800/50 dark:text-zinc-300">
+              <pre
+                tabIndex={0}
+                className="mb-6 overflow-x-auto rounded-md bg-zinc-100 p-4 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 dark:bg-zinc-800/50 dark:text-zinc-300"
+              >
                 <code>{`// Contract interface
 interface ILeveragedLoan {
   function initiateLoan(
@@ -161,7 +167,7 @@ interface ILeveragedLoan {
           <div className="mx-auto max-w-4xl">
             <div className="mb-8 flex items-center space-x-2">
               <div className="h-px w-12 bg-zinc-300 dark:bg-zinc-700"></div>
-              <span className="font-mono text-xs tracking-wider text-zinc-500 uppercase">
+              <span className="font-mono text-xs tracking-wider text-zinc-600 uppercase dark:text-zinc-400">
                 Development Roadmap
               </span>
             </div>
@@ -177,7 +183,10 @@ interface ILeveragedLoan {
               production.
             </p>
 
-            <pre className="mb-10 overflow-x-auto rounded-md bg-zinc-100 p-4 font-mono text-sm dark:bg-zinc-800/50 dark:text-zinc-300">
+            <pre
+              tabIndex={0}
+              className="mb-10 overflow-x-auto rounded-md bg-zinc-100 p-4 font-mono text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 dark:bg-zinc-800/50 dark:text-zinc-300"
+            >
               <code>{`// Development status
 const roadmapStatus = {
   PLANNING: "Early research and requirements gathering",
@@ -205,7 +214,10 @@ const roadmapStatus = {
                   bootstrapping their projects regardless of their preferred DEX
                   or blockchain.
                 </p>
-                <pre className="mt-4 mb-4 overflow-x-auto rounded-md bg-zinc-100 p-4 text-sm dark:bg-zinc-800/50 dark:text-zinc-300">
+                <pre
+                  tabIndex={0}
+                  className="mt-4 mb-4 overflow-x-auto rounded-md bg-zinc-100 p-4 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 dark:bg-zinc-800/50 dark:text-zinc-300"
+                >
                   <code>{`// Cross-DEX adapter example
 interface ICrossDexAdapter {
   function initiateLoanOnDex(
@@ -288,7 +300,7 @@ interface ICrossDexAdapter {
           <div className="mx-auto max-w-4xl">
             <div className="mb-8 flex items-center space-x-2">
               <div className="h-px w-12 bg-zinc-300 dark:bg-zinc-700"></div>
-              <span className="font-mono text-xs tracking-wider text-zinc-500 uppercase">
+              <span className="font-mono text-xs tracking-wider text-zinc-600 uppercase dark:text-zinc-400">
                 Open Source
               </span>
             </div>
@@ -331,7 +343,10 @@ interface ICrossDexAdapter {
               </LinkExternal>
             </div>
 
-            <pre className="mb-6 overflow-x-auto rounded-md bg-zinc-100 p-4 font-mono text-sm dark:bg-zinc-800/50 dark:text-zinc-300">
+            <pre
+              tabIndex={0}
+              className="mb-6 overflow-x-auto rounded-md bg-zinc-100 p-4 font-mono text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 dark:bg-zinc-800/50 dark:text-zinc-300"
+            >
               <code>{`// How to contribute
 const contributionPath = {
   1: "Fork the repository",
@@ -362,7 +377,7 @@ const contributionPath = {
           <div className="mx-auto max-w-4xl">
             <div className="mb-8 flex items-center space-x-2">
               <div className="h-px w-12 bg-zinc-300 dark:bg-zinc-700"></div>
-              <span className="font-mono text-xs tracking-wider text-zinc-500 uppercase">
+              <span className="font-mono text-xs tracking-wider text-zinc-600 uppercase dark:text-zinc-400">
                 Governance
               </span>
             </div>
@@ -380,7 +395,10 @@ const contributionPath = {
               capital available for all humans and machines.
             </p>
 
-            <pre className="mb-10 overflow-x-auto rounded-md bg-zinc-100 p-4 font-mono text-sm dark:bg-zinc-800/50 dark:text-zinc-300">
+            <pre
+              tabIndex={0}
+              className="mb-10 overflow-x-auto rounded-md bg-zinc-100 p-4 font-mono text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 dark:bg-zinc-800/50 dark:text-zinc-300"
+            >
               <code>{`// DAO governance structure
 const governanceStructure = {
   token: "X7DAO",

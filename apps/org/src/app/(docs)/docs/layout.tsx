@@ -11,9 +11,9 @@ export default function DocsLayout({ children }: DocsLayoutProps) {
     <AppProviders>
       <div className="bg-[#fafafa] dark:bg-[#111111]">
         <DashboardHeader />
-        <div className="dashboard-container">
+        <main className="dashboard-container">
           <div className="flex-1">{children}</div>
-        </div>
+        </main>
         <SiteFooter className="border-t border-zinc-200 bg-white dark:border-zinc-800 dark:bg-black" />
       </div>
     </AppProviders>

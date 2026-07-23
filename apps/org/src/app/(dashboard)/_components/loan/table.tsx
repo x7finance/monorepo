@@ -136,7 +136,7 @@ export function LoansTable(props: LoanTableProps) {
                       ),
                     },
                     {
-                      header: "",
+                      header: "Actions",
                       accessor: "details",
                       responsive: true,
                       cellRenderer: (t: any) => (

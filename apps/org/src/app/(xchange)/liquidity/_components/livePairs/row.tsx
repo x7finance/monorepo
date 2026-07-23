@@ -135,6 +135,7 @@ export function PairRow({ id, type }: PairsProps) {
                 )}/pair-explorer/${contractAddress}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`View ${tokenSymbol ?? "token"} pair on DexTools`}
                 key={`${contractAddress}-${id}-chart`}
                 className="flex h-full w-full items-center justify-center opacity-80 hover:opacity-100"
               >

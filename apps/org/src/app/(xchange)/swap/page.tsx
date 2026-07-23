@@ -20,13 +20,13 @@ export default function XchangeSwapPage() {
   return (
     <CheckerProviderComponent>
       <div className="relative mx-auto px-2 sm:px-6 lg:px-8">
-        <main className="flex-1">
+        <div className="flex-1">
           <div className="flex justify-center">
             <div className="flex w-full flex-col items-center justify-center">
               <XChangeSwap />
             </div>
           </div>
-        </main>
+        </div>
       </div>
     </CheckerProviderComponent>
   )

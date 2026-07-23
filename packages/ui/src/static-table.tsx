@@ -32,7 +32,7 @@ export const StaticTable: FC<StaticTableProps> = ({ data, columns }) => {
               {...(column.width && index === 0 ? { width: column.width } : {})}
               className={cn(
                 column.responsive ? "hidden lg:table-cell" : "",
-                "border-b border-t border-zinc-200 px-3 py-3 text-left text-xs font-semibold uppercase text-zinc-500 last:pr-8 last:text-right dark:border-zinc-800 sm:first:pl-6"
+                "border-t border-b border-zinc-200 px-3 py-3 text-left text-xs font-semibold text-zinc-600 uppercase last:pr-8 last:text-right sm:first:pl-6 dark:border-zinc-800 dark:text-zinc-400"
               )}
             >
               <>

@@ -15,11 +15,11 @@ export function ContractCopy(props: { contract: string; chainId?: ChainId }) {
 
   return (
     <span className="flex items-center">
-      <span className="mr-1 text-2xs text-[11px] font-bold uppercase text-muted-foreground/30">
+      <span className="text-2xs mr-1 text-[11px] font-bold text-zinc-600 uppercase dark:text-zinc-400">
         {displayName}
       </span>
       <span className="flex items-center">
-        <span className="text-xs leading-5 text-muted-foreground">
+        <span className="text-muted-foreground text-xs leading-5">
           <span className="sm:hidden">{formattedAddress}</span>
           <span className="hidden sm:inline">{contract}</span>
         </span>

@@ -118,7 +118,7 @@ export function DocsBase(props: DocsBaseProps) {
                   <LinkInternal
                     prefetch={true}
                     href={previousPage.href}
-                    className="hover:text-muted-foreground text-base font-semibold text-zinc-500 dark:hover:text-zinc-300"
+                    className="text-base font-semibold text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-300"
                   >
                     <span aria-hidden="true">&larr;</span> {previousPage.title}
                   </LinkInternal>
@@ -134,7 +134,7 @@ export function DocsBase(props: DocsBaseProps) {
                   <LinkInternal
                     prefetch={true}
                     href={nextPage.href}
-                    className="hover:text-muted-foreground text-base font-semibold text-zinc-500 dark:hover:text-zinc-300"
+                    className="text-base font-semibold text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-300"
                   >
                     {nextPage.title} <span aria-hidden="true">&rarr;</span>
                   </LinkInternal>
