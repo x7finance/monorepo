@@ -12,6 +12,16 @@ const { getContract, createPublicClient, http } = require("viem")
 const tokenRegisteryABI = require("./abis/tokenRegistry")
 const erc20ABI = require("./abis/erc20")
 
+// Committed offline snapshot of the last good token list. Used to fill in any
+// tokens the on-chain fetch can't resolve (e.g. RPC timeouts on CI/Vercel) so
+// the build always emits a complete list. Refresh with `bun run build:refresh`.
+let SNAPSHOT_TOKENS = []
+try {
+  SNAPSHOT_TOKENS = require("./tokenlist.snapshot.json").tokens || []
+} catch {
+  // No snapshot yet (first-ever build) — rely entirely on RPC.
+}
+
 const REGISTRY_MAP = {
   [mainnet.id]: {
     contract: "0x7deF192aDB727777c5f24c05018cfbaFDFaD805a",
@@ -185,6 +195,20 @@ module.exports = async function buildList() {
     }
   }
 
+  // Merge the freshly-fetched tokens with the committed offline snapshot
+  // (keyed by chain + address). Fresh RPC data wins; the snapshot fills any
+  // tokens RPC couldn't resolve, so the list is always complete.
+  const byKey = new Map()
+  for (const token of Object.values(currentMapping)) {
+    byKey.set(`${token.chainId}:${String(token.address).toLowerCase()}`, token)
+  }
+  const freshCount = byKey.size
+  for (const token of SNAPSHOT_TOKENS) {
+    const key = `${token.chainId}:${String(token.address).toLowerCase()}`
+    if (!byKey.has(key)) byKey.set(key, token)
+  }
+  const fromSnapshot = byKey.size - freshCount
+
   const l1List = {
     name: "Xchange Default Token List",
     timestamp: new Date().toISOString(),
@@ -196,7 +220,7 @@ module.exports = async function buildList() {
     tags: {},
     logoURI: "",
     keywords: ["xchange", "default"],
-    tokens: [...Object.values(currentMapping)].sort((t1, t2) => {
+    tokens: [...byKey.values()].toSorted((t1, t2) => {
       if (t1.chainId === t2.chainId) {
         return t1.symbol.toLowerCase() < t2.symbol.toLowerCase() ? -1 : 1
       }
@@ -204,7 +228,9 @@ module.exports = async function buildList() {
     }),
   }
 
-  console.log("✅ Successfully fetched default token lists")
+  console.log(
+    `✅ Token list: ${byKey.size} tokens (${freshCount} from RPC, ${fromSnapshot} from snapshot)`
+  )
 
   return l1List
 }
