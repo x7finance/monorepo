@@ -6,7 +6,7 @@ import type { BaseError } from "@wagmi/core"
 import { useCallback, useMemo, useState } from "react"
 import { toast } from "sonner"
 import type { Address } from "viem"
-import { parseEther, UserRejectedRequestError } from "viem"
+import { UserRejectedRequestError } from "viem"
 import {
   useAccount,
   useChainId,
@@ -22,6 +22,7 @@ import { waitForTransactionReceipt } from "wagmi/actions"
 import { tokenRegisteryABI } from "@x7/contracts"
 import { generateChainEtherTokenEnum, X7ContractsEnum } from "@x7/sdk"
 import type { ChainId } from "@x7/utils"
+import { safeParseEther } from "@x7/utils"
 import { useTransactionStore } from "~/lib/providers/tx"
 
 import { useWeb3Config } from "../../providers/web3"
@@ -53,7 +54,7 @@ export const useXchangeTokenListAddToken = ({
     address: X7ContractsEnum.TokenList,
     abi: tokenRegisteryABI,
     functionName: "addToken",
-    value: fee ? parseEther(fee) : 0n,
+    value: safeParseEther(fee),
     args: [tokenAddress, pairedToken, factoryAddress],
   })
 

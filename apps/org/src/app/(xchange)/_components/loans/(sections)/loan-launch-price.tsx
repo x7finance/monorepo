@@ -1,5 +1,4 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
-import { parseEther } from "viem"
 // import { ChainLinkAbi } from "@x7/contracts";
 
 import { PinIcon } from "@x7/icons"
@@ -22,7 +21,7 @@ import type { Currency, CurrencyAmount } from "@x7/utils"
 // import type { RouteWithValidQuote } from "@x7/smart-order-router";
 // import { SkeletonBox } from "@x7/ui/skeleton";
 // import { generateChainTokenOracleEtherUSDEnum, Native, WETH9 } from "@x7/utils";
-import { formatUSD } from "@x7/utils"
+import { formatUSD, safeParseEther } from "@x7/utils"
 import { useLoanState } from "~/lib/stores/loan"
 
 interface LoanLaunchPriceProps {
@@ -75,8 +74,8 @@ export function LoanLaunchPrice({
   }
 
   const unitPriceEther =
-    parseInt(parseEther(loanAmount).toString()) /
-    parseInt(parseEther(collateralAmount).toString())
+    parseInt(safeParseEther(loanAmount).toString()) /
+    parseInt(safeParseEther(collateralAmount).toString())
   const etherInUSD = nativePrice
     ? Number(nativePrice.quotient ?? "0") /
       Number(`1e${nativePrice.currency.decimals}`)

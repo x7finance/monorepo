@@ -4,7 +4,7 @@ import type { BaseError } from "@wagmi/core"
 import type { Dispatch, SetStateAction } from "react"
 import { useCallback, useMemo, useState } from "react"
 import { toast } from "sonner"
-import { parseEther, UserRejectedRequestError } from "viem"
+import { UserRejectedRequestError } from "viem"
 import {
   useAccount,
   useChainId,
@@ -20,6 +20,7 @@ import { waitForTransactionReceipt } from "wagmi/actions"
 import { X7LendingPoolReserve } from "@x7/contracts"
 import { X7ContractsEnum } from "@x7/sdk"
 import type { ChainId } from "@x7/utils"
+import { safeParseEther } from "@x7/utils"
 import { useNativeCurrency } from "~/lib/hooks/currency/useNativeCurrency"
 import { useTransactionStore } from "~/lib/providers/tx"
 import { useWeb3Config } from "~/lib/providers/web3"
@@ -50,7 +51,7 @@ export const useX7DMinting = ({
     address: lendingPoolReserve,
     abi: X7LendingPoolReserve,
     functionName: "depositETH",
-    value: valueInput ? parseEther(valueInput) : 0n,
+    value: safeParseEther(valueInput),
   })
   const { symbol } = useNativeCurrency({ chainId })
 

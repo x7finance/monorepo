@@ -115,10 +115,12 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       },
       {
+        // Uniswap + Trust Wallet curated token logos are both served from
+        // raw.githubusercontent.com under different org paths.
         protocol: "https",
         hostname: "raw.githubusercontent.com",
         port: "",
-        pathname: "/Uniswap/assets/master/blockchains/**",
+        pathname: "/**",
       },
       {
         protocol: "https",

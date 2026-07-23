@@ -1,8 +1,8 @@
-import { parseEther } from "viem"
 import { useAccount } from "wagmi"
 
 import { cn } from "@x7/css"
 import { Button, buttonVariants } from "@x7/ui/button"
+import { safeParseEther } from "@x7/utils"
 import type { ChainId } from "@x7/utils"
 import { usePayLiability } from "~/lib/hooks/tokens/usePayLiability"
 
@@ -29,7 +29,7 @@ export function PaymentButton({
   })
 
   const handlePayment = () => {
-    if (parseEther(amount) > 0) {
+    if (safeParseEther(amount) > 0) {
       // @ts-expect-error: todo fix
       writeContract(data?.request)
     }

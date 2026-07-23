@@ -1,16 +1,11 @@
-/* oxlint-disable react-hooks/exhaustive-deps */
-/* oxlint-disable @typescript-eslint/no-unused-vars */
-/* oxlint-disable @typescript-eslint/no-unnecessary-condition */
-import { useCallback, useEffect, useState } from "react"
-import { isAddress } from "viem"
+import { useCallback, useEffect, useMemo, useState } from "react"
+import { getAddress, isAddress } from "viem"
 
 import { ChainId, ChainNameKey } from "@x7/utils"
 
-import tokenLogoLookup from "../constants/tokenLogoLookup"
-
-// Direct mapping for X7 tokens to ensure they always show up
+// Direct mapping for X7 tokens to ensure they always show up.
+// Keyed by lowercased address for case-insensitive lookup.
 const X7_TOKEN_LOGOS: Record<string, string> = {
-  // Case-insensitive lookup by lowercasing the addresses
   "0x70008f18fc58928dce982b0a69c2c21ff80dca54":
     "https://assets.x7finance.org/images/tokens/x7r.png",
   "0x7105e64bf67eca3ae9b123f0e5ca2b83b2ef2da0":
@@ -29,71 +24,80 @@ const X7_TOKEN_LOGOS: Record<string, string> = {
     "https://assets.x7finance.org/images/tokens/x7d.png",
 }
 
-// Track failed sources to avoid retrying them
-const BAD_SRCS: Record<string, true> = {}
-
-function parseLogoSources(uris: string[]) {
-  const urls: string[] = []
-  uris.forEach((uri) => urls.push(...uriToHttp(uri)))
-  return urls
-}
-
-function prioritizeLogoSources(uris: string[]) {
-  const parsedUris = uris.flatMap((uri) => uriToHttp(uri))
-  const preferredUris: string[] = []
-
-  let coingeckoUrl: string | undefined = undefined
-
-  parsedUris.forEach((uri) => {
-    if (uri.startsWith("https://assets.coingecko")) {
-      if (!coingeckoUrl) {
-        coingeckoUrl = uri.replace(/small|thumb/g, "large")
-      }
-    } else {
-      preferredUris.push(uri)
-    }
-  })
-
-  return coingeckoUrl ? [...preferredUris, coingeckoUrl] : preferredUris
+// Trust Wallet blockchain folder names. These differ from ChainNameKey
+// (e.g. BSC is "smartchain"), so keep a dedicated mapping.
+const TRUSTWALLET_CHAIN: Partial<Record<ChainId, string>> = {
+  [ChainId.ETHEREUM]: "ethereum",
+  [ChainId.BSC]: "smartchain",
+  [ChainId.POLYGON]: "polygon",
+  [ChainId.OPTIMISM]: "optimism",
+  [ChainId.ARBITRUM]: "arbitrum",
+  [ChainId.BASE]: "base",
 }
 
 /**
- * Gets the appropriate logo URL for a token
+ * Builds an ordered, de-duplicated list of candidate logo URLs for a token,
+ * most-likely-correct first. The consumer walks this list, advancing to the
+ * next source whenever an image fails to load.
  */
-function getTokenLogoURL(
+function buildLogoSources(
   address?: `0x${string}` | null,
   chainId?: ChainId | null,
   isNative?: boolean,
   backupImg?: string | null
-): string | undefined {
-  // 1. Handle native tokens (ETH, MATIC, BNB)
-  if (chainId && isNative) {
-    return getNativeLogoURI(chainId)
-  }
-
-  // 2. Check if it's an X7 token (highest priority)
-  if (address) {
-    const lowerCaseAddress = address.toLowerCase()
-    if (X7_TOKEN_LOGOS[lowerCaseAddress]) {
-      return X7_TOKEN_LOGOS[lowerCaseAddress]
+): string[] {
+  const out: string[] = []
+  const push = (uri?: string | null) => {
+    if (!uri) return
+    for (const http of uriToHttp(uri)) {
+      if (!out.includes(http)) out.push(http)
     }
   }
 
-  // 3. Try Uniswap assets repository
-  if (address && isAddress(address)) {
-    const networkName = chainId
-      ? ChainNameKey[chainId as keyof typeof ChainNameKey]
-      : "ethereum"
-
-    return `https://raw.githubusercontent.com/Uniswap/assets/master/blockchains/${networkName}/assets/${address}/logo.png`
+  // Native currency (ETH, MATIC, BNB, …)
+  if (chainId && isNative) {
+    push(getNativeLogoURI(chainId))
+    push(backupImg)
+    return out
   }
 
-  // 4. Use backup image if provided
-  return backupImg ?? undefined
+  if (address && isAddress(address)) {
+    const checksum = getAddress(address)
+
+    // 1. X7 tokens — curated, always available
+    push(X7_TOKEN_LOGOS[address.toLowerCase()])
+
+    // 2. Caller-provided image (e.g. a token-list logoURI)
+    push(backupImg)
+
+    // 3. Uniswap assets repository (requires checksummed address)
+    const uniChain = chainId
+      ? ChainNameKey[chainId as keyof typeof ChainNameKey]
+      : "ethereum"
+    push(
+      `https://raw.githubusercontent.com/Uniswap/assets/master/blockchains/${uniChain}/assets/${checksum}/logo.png`
+    )
+
+    // 4. Trust Wallet assets (requires checksummed address + its own folder)
+    const twChain = chainId ? TRUSTWALLET_CHAIN[chainId] : "ethereum"
+    if (twChain) {
+      push(
+        `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/${twChain}/assets/${checksum}/logo.png`
+      )
+    }
+
+    return out
+  }
+
+  push(backupImg)
+  return out
 }
 
 /**
- * Hook for getting and managing token logo sources with fallbacks
+ * Hook for resolving a token logo with graceful fallbacks. Returns the current
+ * source and a `nextSrc` callback to advance past a source that failed to load.
+ * When every source is exhausted the current value is `undefined`, signalling
+ * the consumer to render its own placeholder.
  */
 export function useAssetLogoSource(
   address?: `0x${string}` | null,
@@ -101,67 +105,23 @@ export function useAssetLogoSource(
   isNative?: boolean,
   backupImg?: string | null
 ): [string | undefined, () => void] {
-  const [current, setCurrent] = useState<string | undefined>(
-    getTokenLogoURL(address, chainId, isNative, backupImg)
+  const sources = useMemo(
+    () => buildLogoSources(address, chainId, isNative, backupImg),
+    [address, chainId, isNative, backupImg]
   )
-  const [fallbackSrcs, setFallbackSrcs] = useState<string[]>([])
 
-  // Update sources when inputs change
+  const [index, setIndex] = useState(0)
+
+  // Restart the fallback walk whenever the candidate list changes.
   useEffect(() => {
-    if (current) {
-      delete BAD_SRCS[current]
-    }
+    setIndex(0)
+  }, [sources])
 
-    // Get primary URL
-    const primaryUrl = getTokenLogoURL(address, chainId, isNative, backupImg)
-    setCurrent(primaryUrl)
-
-    // Setup fallbacks
-    const fallbacks: string[] = []
-
-    // For non-X7 tokens, add some common fallbacks
-    if (address && !X7_TOKEN_LOGOS[address.toLowerCase()]) {
-      // Try Trust Wallet assets
-      fallbacks.push(
-        `https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/${address}/logo.png`
-      )
-
-      // Try CoinGecko if not an X7 token
-      if (address) {
-        fallbacks.push(
-          `https://assets.coingecko.com/coins/images/large/${address.toLowerCase()}.png`
-        )
-      }
-    }
-
-    if (backupImg) {
-      fallbacks.push(backupImg)
-    }
-
-    setFallbackSrcs(fallbacks)
-  }, [address, chainId, isNative, backupImg])
-
-  // Handle fallback when an image fails to load
   const nextSrc = useCallback(() => {
-    if (current) {
-      BAD_SRCS[current] = true
-    }
+    setIndex((i) => i + 1)
+  }, [])
 
-    // Try X7 tokens first (again, just to be sure)
-    if (address) {
-      const x7Logo = X7_TOKEN_LOGOS[address.toLowerCase()]
-      if (x7Logo && !BAD_SRCS[x7Logo]) {
-        setCurrent(x7Logo)
-        return
-      }
-    }
-
-    // Try fallbacks
-    const next = fallbackSrcs.find((src) => !BAD_SRCS[src])
-    setCurrent(next)
-  }, [current, fallbackSrcs, address])
-
-  return [current, nextSrc]
+  return [sources[index], nextSrc]
 }
 
 /**
@@ -194,7 +154,7 @@ function uriToHttp(uri: string): string[] {
       default:
         return []
     }
-  } catch (error) {
+  } catch {
     console.error("Invalid URI:", uri)
     return []
   }
