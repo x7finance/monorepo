@@ -52,6 +52,7 @@ const nextConfig: NextConfig = {
               // Ethereum RPC
               "https://eth.llamarpc.com",
               "https://cloudflare-eth.com",
+              "https://ethereum.reth.rs",
               // WalletConnect
               "wss://*.walletconnect.com",
               "https://*.walletconnect.com",
