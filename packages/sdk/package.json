@@ -4,6 +4,7 @@
   "description": "SDK's for building applications on top of Xchange",
   "license": "MIT",
   "type": "module",
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

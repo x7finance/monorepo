@@ -6,6 +6,7 @@ import type { AxiosRequestConfig } from "axios"
 import axios from "axios"
 import { encodeFunctionData } from "viem"
 
+import { permit2Abi as permit2ABI } from "@x7/contracts"
 import type { RouteV2Wrapper, RouteV3Wrapper } from "@x7/sdk"
 import { generateRouterAddress, UNIVERSAL_ROUTER_ADDRESS } from "@x7/sdk"
 import type { Currency } from "@x7/utils"
@@ -18,7 +19,6 @@ import {
 } from "@x7/utils"
 
 import { erc20ABI } from "../abis/erc20"
-import { permit2ABI } from "../abis/Permit2"
 import type { V2Route } from "../routers/route-types"
 import type { SwapOptions, SwapRoute } from "../routers/router"
 import { SwapType } from "../routers/router"

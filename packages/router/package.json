@@ -4,6 +4,7 @@
   "description": "Swap routing logic for Xchange DEX",
   "license": "MIT",
   "type": "module",
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

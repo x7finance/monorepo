@@ -5,6 +5,7 @@
   "description": "IndexedDB storage layer using Dexie for X7 Finance",
   "license": "MIT",
   "type": "module",
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

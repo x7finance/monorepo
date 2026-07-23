@@ -1,9 +1,9 @@
+import { swapRouter02ABI as SwapRouter02 } from "@x7/contracts"
 import type { ApprovalTypes } from "@x7/sdk"
 import { generateRouterAddress } from "@x7/sdk"
 import type { ChainId, Currency, CurrencyAmount } from "@x7/utils"
 import { Implementation, LogCodes } from "@x7/utils"
 
-import SwapRouter02 from "../abis/swapRouter02.json"
 import { log } from "../utils"
 
 import type { IMulticallProvider } from "./multicall-provider"

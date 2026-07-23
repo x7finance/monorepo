@@ -5,11 +5,11 @@
 
 import retry from "async-retry"
 
+import { tokenFeeDetectorABI } from "@x7/contracts"
 import { FACTORY_ADDRESSES, PAIR_INIT_HASH } from "@x7/sdk"
 import type { Implementation } from "@x7/utils"
 import { ChainId, LogCodes, Protocol } from "@x7/utils"
 
-import { tokenFeeDetectorABI } from "../abis/TokenFeeDetector"
 import type { ViemProviderType } from "../utils"
 import {
   log,

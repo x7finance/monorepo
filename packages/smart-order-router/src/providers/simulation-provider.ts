@@ -2,12 +2,12 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import { getContract } from "viem"
 
+import { permit2Abi as permit2ABI } from "@x7/contracts"
 import { generateRouterAddress } from "@x7/sdk"
 import type { ChainId, Implementation } from "@x7/utils"
 import { LogCodes, PERMIT2_ADDRESS, TradeType } from "@x7/utils"
 
 import { erc20ABI } from "../abis/erc20"
-import { permit2ABI } from "../abis/Permit2"
 import type { SwapOptions, SwapRoute } from "../routers/router"
 import { SwapType } from "../routers/router"
 import type { CurrencyAmount } from "../utils/amounts"
