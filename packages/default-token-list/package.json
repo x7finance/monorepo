@@ -23,7 +23,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "viem": "^2.55.7"
+    "viem": "^2.55.8"
   },
   "devDependencies": {
     "@x7/token-lists": "workspace:*",

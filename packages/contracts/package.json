@@ -41,6 +41,6 @@
     "hardhat-viem": "^1.0.0",
     "oxlint": "^1.75.0",
     "typescript": "^7.0.2",
-    "viem": "^2.55.7"
+    "viem": "^2.55.8"
   }
 }
