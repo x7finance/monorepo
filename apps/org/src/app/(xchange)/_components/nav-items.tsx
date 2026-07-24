@@ -78,7 +78,7 @@ export function NavItems() {
           >
             Liquidity
           </NavigationMenuTrigger>
-          <NavigationMenuContent className="border-0 border-none shadow-none ring-0">
+          <NavigationMenuContent>
             <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
               <li className="row-span-3">
                 <NavigationMenuLink asChild>
