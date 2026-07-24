@@ -24,7 +24,7 @@ const NavigationMenuContext = React.createContext<NavigationMenuContextValue>({
 function NavigationMenu({
   className,
   children,
-  viewport = true,
+  viewport = false,
   ...props
 }: React.HTMLAttributes<HTMLElement> & {
   viewport?: boolean
@@ -111,6 +111,9 @@ function NavigationMenuTrigger({
   return (
     <BaseMenu.Trigger
       data-slot="navigation-menu-trigger"
+      openOnHover
+      delay={100}
+      closeDelay={100}
       className={cn(
         navigationMenuTriggerStyle(),
         "group cursor-pointer",
@@ -132,8 +135,6 @@ function NavigationMenuContent({
   className,
   ...props
 }: React.ComponentProps<typeof BaseMenu.Popup>) {
-  const { viewport } = React.useContext(NavigationMenuContext)
-
   return (
     <BaseMenu.Portal>
       <BaseMenu.Positioner>
@@ -141,11 +142,14 @@ function NavigationMenuContent({
           data-slot="navigation-menu-content"
           className={cn(
             "top-0 left-0 w-full p-2 pr-2.5 md:absolute md:w-auto",
+            // Panel chrome. base-ui always renders the content into this Popup
+            // (there is no shared Radix-style viewport), so the background,
+            // border and shadow must live here — otherwise the dropdown has no
+            // background.
+            "bg-popover text-popover-foreground mt-1.5 overflow-hidden rounded-md border shadow",
             "data-[starting-style]:opacity-0 data-[starting-style]:translate-y-1",
             "data-[ending-style]:opacity-0 data-[ending-style]:translate-y-1",
             "motion-safe:transition-[transform,opacity] motion-safe:duration-[220ms] motion-safe:ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
-            !viewport &&
-              "bg-popover text-popover-foreground mt-1.5 overflow-hidden rounded-md border shadow",
             "**:data-[slot=navigation-menu-link]:focus:ring-0 **:data-[slot=navigation-menu-link]:focus:outline-none",
             className
           )}
