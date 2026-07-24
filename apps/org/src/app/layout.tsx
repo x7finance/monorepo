@@ -2,7 +2,6 @@ import { Inter } from "next/font/google"
 import calSansFont from "next/font/local"
 
 import { cn } from "@x7/css"
-import { DarkModeInit } from "~/lib/components/utils/dark-mode"
 import { SITE_METADATA } from "~/lib/config/metadata"
 import "~/styles/globals.css"
 import "@rainbow-me/rainbowkit/styles.css"
@@ -24,8 +23,8 @@ export default function RootLayout({
     <html
       lang={"en"}
       suppressHydrationWarning={true}
-      className="dark scroll-smooth"
-      style={{ colorScheme: "dark" }}
+      className="scroll-smooth"
+      style={{ colorScheme: "light" }}
     >
       <body
         className={cn(
@@ -34,7 +33,6 @@ export default function RootLayout({
           inter.className
         )}
       >
-        <DarkModeInit />
         {children}
       </body>
     </html>

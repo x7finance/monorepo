@@ -14,8 +14,6 @@ import {
 import { MOBILE_NAV_LINKS } from "~/lib/config/site"
 import { DocsLinks } from "~/types/links"
 
-import { ThemeToggle } from "../utils/theme-toggle"
-
 export function MobileNavigation({ className }: { className?: string }) {
   return (
     <Sheet>
@@ -55,7 +53,6 @@ export function MobileNavigation({ className }: { className?: string }) {
             ))}
           </div>
           <div className="mt-8 flex flex-col gap-4 px-4 text-black dark:text-white">
-            <ThemeToggle />
             <div className="text-center text-xs text-zinc-600 italic dark:text-zinc-400">
               Trust No One. Trust Code. Long Live DeFi
             </div>
