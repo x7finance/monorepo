@@ -13,7 +13,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useCallback, useEffect, useMemo, useRef } from "react"
 import type { Address } from "viem"
 import { isAddress } from "viem"
-import { useAccount, useChainId, useConfig } from "wagmi"
+import { useAccount, useConfig } from "wagmi"
 
 import { X7ContractsEnum } from "@x7/sdk"
 import type { RouteWithValidQuote, SwapRoute } from "@x7/smart-order-router"
@@ -29,7 +29,6 @@ import {
   CurrencyAmount,
   LogCodes,
   Native,
-  pDebounce,
   safeParseUnits,
   Percent,
   TradeType,
@@ -54,14 +53,47 @@ export type * from "./types"
 
 const getQuoteCurrency = (chainId: ChainId) => X7ContractsEnum.X7R(chainId)
 
+function getCurrencyQuoteKey(currency: Token | Native | undefined): string {
+  if (!currency) {
+    return "UNRESOLVED"
+  }
+
+  return currency.isNative ? "NATIVE" : currency.address.toLowerCase()
+}
+
+function getQuoteKey({
+  chainId,
+  token0,
+  token1,
+  swapAmount,
+  recipient,
+}: {
+  chainId: ChainId
+  token0: Token | Native | undefined
+  token1: Token | Native | undefined
+  swapAmount: string
+  recipient: Address | undefined
+}): string {
+  return [
+    chainId,
+    getCurrencyQuoteKey(token0),
+    getCurrencyQuoteKey(token1),
+    swapAmount.trim(),
+    recipient?.toLowerCase() ?? "QUOTE_ONLY",
+  ].join(":")
+}
+
 export function useSwapState(): SwapState {
-  const initialChainId = useChainId() as ChainId
   const { address } = useAccount()
   const { wagmiConfig } = useWeb3Config()
   const config = useConfig()
 
   const {
-    state: { router, enabledImplementations: routerEnabledImplementations },
+    state: {
+      router,
+      enabledImplementations: routerEnabledImplementations,
+      activeChainId,
+    },
     mutate: {
       addPossibleRoutes: routerAddPossibleRoutes,
       clearPossibleRoutes: routerClearPossibleRoutes,
@@ -92,6 +124,7 @@ export function useSwapState(): SwapState {
     (s) => s.setEnabledImplementations
   )
   const route = useSwapQuoteStore((s) => s.route)
+  const routeQuoteKey = useSwapQuoteStore((s) => s.routeQuoteKey)
   const possibleRoutes = useSwapQuoteStore((s) => s.possibleRoutes)
   const bestRoute = useSwapQuoteStore((s) => s.bestRoute)
   const secondaryRoute = useSwapQuoteStore((s) => s.secondaryRoute)
@@ -109,9 +142,7 @@ export function useSwapState(): SwapState {
   // Get the searchParams and complete with defaults
   const defaultedParams = useMemo(() => {
     const params = new URLSearchParams(searchParams)
-    if (!params.has("chainId")) {
-      params.set("chainId", (initialChainId || ChainId.BASE).toString())
-    }
+    params.set("chainId", activeChainId.toString())
 
     if (!params.has("token0")) {
       params.set("token0", "NATIVE")
@@ -124,9 +155,9 @@ export function useSwapState(): SwapState {
       )
     }
     return params
-  }, [initialChainId, searchParams])
+  }, [activeChainId, searchParams])
 
-  const chainId = Number(defaultedParams.get("chainId")) as ChainId
+  const chainId = activeChainId
 
   // Create query string helper
   const createQueryString = useCallback(
@@ -187,6 +218,17 @@ export function useSwapState(): SwapState {
     defaultedParams.get("token1") === "NATIVE"
       ? Native.onChain(chainId)
       : token1FromCache
+
+  const currentQuoteKey = getQuoteKey({
+    chainId,
+    token0: _token0,
+    token1: _token1,
+    swapAmount: swapAmountString,
+    recipient,
+  })
+  const currentQuoteKeyRef = useRef(currentQuoteKey)
+  const alternativeRequestIdRef = useRef(0)
+  currentQuoteKeyRef.current = currentQuoteKey
 
   const intendedRouterAddress: `0x${string}` =
     route?.methodParameters?.to ?? `0x`
@@ -369,6 +411,9 @@ export function useSwapState(): SwapState {
 
   const tryAlternativeRoute = useCallback(
     async (routeToUse: RouteWithValidQuote): Promise<SwapRoute | null> => {
+      const quoteKey = currentQuoteKey
+      const requestId = ++alternativeRequestIdRef.current
+
       if (!router) {
         throw new Error("No AlphaRouter instance setup")
       }
@@ -394,47 +439,32 @@ export function useSwapState(): SwapState {
           },
         }
       )
+      if (
+        requestId !== alternativeRequestIdRef.current ||
+        quoteKey !== currentQuoteKeyRef.current
+      ) {
+        return null
+      }
+
       if (newRoute) {
-        setRoute(newRoute)
+        setRoute(newRoute, quoteKey)
       }
 
       return newRoute
     },
-    [router, swapAmountString, _token0, recipient, address, slippage, setRoute]
+    [
+      router,
+      swapAmountString,
+      _token0,
+      recipient,
+      address,
+      slippage,
+      setRoute,
+      currentQuoteKey,
+    ]
   )
 
-  // Debounced route generation
-  const throttleRouteGenRef = useRef(
-    pDebounce(async (param: SwapState) => {
-      if (!param.state.token0 || !param.state.token1 || !router) {
-        return
-      }
-
-      router.abortCurrentRoute()
-      await generateRoute(param, wagmiConfig, router)
-        .then((_route) => {
-          setIsQuoteLoading(false)
-
-          if (_route) {
-            setSwapError(undefined)
-            setRoute(_route)
-          } else {
-            setSwapError({
-              message: `No quotes found, Routers used: ${enabledImplementations.join(",").toLowerCase()}`,
-            })
-          }
-        })
-        .catch((error: Error) => {
-          log.error(LogCodes.FAIL, "Promise executed with error", `${error}`)
-          routerSetPossibleRoutes([])
-          setRoute(undefined)
-          routerSetBestRoute(undefined)
-          routerSetSecondaryRoute(undefined)
-          setIsQuoteLoading(false)
-          setSwapError({ message: error.message })
-        })
-    }, 250)
-  )
+  const quoteRequestIdRef = useRef(0)
 
   const builtState: SwapState = useMemo(
     () => ({
@@ -444,6 +474,7 @@ export function useSwapState(): SwapState {
         swapAmountString,
         swapAmount: tryParseAmount(swapAmountString, _token0),
         route,
+        routeQuoteKey,
         recipient,
         slippage,
         swapError,
@@ -453,6 +484,7 @@ export function useSwapState(): SwapState {
         secondaryRoute,
         enabledImplementations,
         chainId,
+        currentQuoteKey,
         token0Address: (defaultedParams.get("token0") ?? "0x") as Address,
         token1Address: (defaultedParams.get("token1") ?? "0x") as Address,
       },
@@ -479,6 +511,7 @@ export function useSwapState(): SwapState {
       _token1,
       swapAmountString,
       route,
+      routeQuoteKey,
       recipient,
       slippage,
       swapError,
@@ -488,6 +521,7 @@ export function useSwapState(): SwapState {
       secondaryRoute,
       enabledImplementations,
       chainId,
+      currentQuoteKey,
       defaultedParams,
       switchTokens,
       setToken0,
@@ -507,18 +541,63 @@ export function useSwapState(): SwapState {
 
   // Route generation effect
   useEffect(() => {
+    const requestId = ++quoteRequestIdRef.current
+    alternativeRequestIdRef.current += 1
+    let timeout: ReturnType<typeof setTimeout> | undefined
+    const isCurrentRequest = () => quoteRequestIdRef.current === requestId
+
+    router?.abortCurrentRoute()
     routerSetPossibleRoutes([])
     routerSetBestRoute(undefined)
     routerSetSecondaryRoute(undefined)
     setRoute(undefined)
     setSwapError(undefined)
+    setIsQuoteLoading(false)
 
-    if (_token0 && _token1 && parseFloat(`${swapAmountString}`) > 0) {
+    if (router && _token0 && _token1 && parseFloat(`${swapAmountString}`) > 0) {
       setIsQuoteLoading(true)
-      void throttleRouteGenRef.current(builtState)
+      timeout = setTimeout(() => {
+        void generateRoute(builtState, wagmiConfig, router)
+          .then((_route) => {
+            if (!isCurrentRequest()) {
+              return
+            }
+
+            setIsQuoteLoading(false)
+            if (_route) {
+              setSwapError(undefined)
+              setRoute(_route, currentQuoteKey)
+            } else {
+              setSwapError({
+                message: `No quotes found, Routers used: ${enabledImplementations.join(",").toLowerCase()}`,
+              })
+            }
+          })
+          .catch((error: Error) => {
+            if (!isCurrentRequest()) {
+              return
+            }
+
+            log.error(LogCodes.FAIL, "Promise executed with error", `${error}`)
+            routerSetPossibleRoutes([])
+            setRoute(undefined)
+            routerSetBestRoute(undefined)
+            routerSetSecondaryRoute(undefined)
+            setIsQuoteLoading(false)
+            setSwapError({ message: error.message })
+          })
+      }, 250)
+    }
+
+    return () => {
+      clearTimeout(timeout)
+      if (isCurrentRequest()) {
+        quoteRequestIdRef.current += 1
+      }
+      router?.abortCurrentRoute()
     }
     // oxlint-disable-next-line react-hooks/exhaustive-deps
-  }, [chainId, router, address, _token0, _token1, swapAmountString])
+  }, [chainId, router, currentQuoteKey, slippage, enabledImplementations])
 
   return builtState
 }

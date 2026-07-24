@@ -15,8 +15,8 @@ test.describe("accessibility: icon controls are labelled", () => {
     await page.setViewportSize({ width: 390, height: 844 })
     await page.goto("/swap", { waitUntil: "domcontentloaded" })
     await page.waitForTimeout(2000)
-    await expect(page.getByRole("button", { name: "Open menu" })).toBeVisible({
-      timeout: 15000,
-    })
+    await expect(
+      page.getByRole("button", { name: "Open navigation menu" })
+    ).toBeVisible({ timeout: 15000 })
   })
 })

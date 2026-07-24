@@ -5,6 +5,7 @@
 "use client"
 
 import { getPublicClient } from "@wagmi/core"
+import { useSearchParams } from "next/navigation"
 import type { FC } from "react"
 import React, {
   createContext,
@@ -13,7 +14,7 @@ import React, {
   useMemo,
   useState,
 } from "react"
-import { useAccount } from "wagmi"
+import { useAccount, useChainId } from "wagmi"
 
 import type { BestSwapRoute, RouteWithValidQuote } from "@x7/smart-order-router"
 import { AlphaRouter } from "@x7/smart-order-router"
@@ -29,6 +30,7 @@ export interface AlphaRouterState {
     bestRoute: BestSwapRoute | undefined
     secondaryRoute: BestSwapRoute | undefined
     enabledImplementations: Implementation[]
+    activeChainId: ChainId
     isChainIdSettled: boolean
     debouncedChainId: number | undefined
   }
@@ -53,12 +55,23 @@ export const AlphaRouterProvider: FC<AlphaRouterProviderProps> = ({
   children,
 }) => {
   const { wagmiConfig } = useWeb3Config()
+  const searchParams = useSearchParams()
+  const { chainId: connectedChainId } = useAccount()
+  const configuredChainId = useChainId()
+  const requestedChainId = Number(searchParams.get("chainId"))
+  const isConfiguredChain = (chainId: number | undefined): chainId is ChainId =>
+    chainId !== undefined &&
+    wagmiConfig.chains.some((chain) => chain.id === chainId)
+  const activeChainId = isConfiguredChain(connectedChainId)
+    ? connectedChainId
+    : isConfiguredChain(requestedChainId)
+      ? requestedChainId
+      : configuredChainId
   const publicClient = useMemo(
-    () => getPublicClient(wagmiConfig),
-    [wagmiConfig]
+    () => getPublicClient(wagmiConfig, { chainId: activeChainId }),
+    [activeChainId, wagmiConfig]
   )
-  const { chainId: realChain } = useAccount()
-  const debouncedChainId = useDebounce(realChain, 500)
+  const debouncedChainId = useDebounce(activeChainId, 500)
   const [isChainIdSettled, setIsChainIdSettled] = useState(false)
   const [possibleRoutes, setPossibleRoutes] = useState<RouteWithValidQuote[]>(
     []
@@ -93,20 +106,19 @@ export const AlphaRouterProvider: FC<AlphaRouterProviderProps> = ({
   }, [debouncedChainId])
 
   const router: AlphaRouter | null = useMemo(() => {
-    if (realChain) {
-      const _router = new AlphaRouter({
-        chainId: realChain as ChainId,
-        // @ts-expect-error I know man
-        provider: publicClient,
-        addPossibleRoutes,
-        setBestRoute,
-        setSecondaryRoute,
-        enabledImplementations,
-      })
-      return _router
+    if (!publicClient) {
+      return null
     }
-    return null
-  }, [realChain, _enabledImplementations])
+
+    return new AlphaRouter({
+      chainId: activeChainId as ChainId,
+      provider: publicClient,
+      addPossibleRoutes,
+      setBestRoute,
+      setSecondaryRoute,
+      enabledImplementations,
+    })
+  }, [activeChainId, enabledImplementations, publicClient])
 
   const builtState: AlphaRouterState = useMemo(
     () => ({
@@ -116,6 +128,7 @@ export const AlphaRouterProvider: FC<AlphaRouterProviderProps> = ({
         secondaryRoute,
         possibleRoutes,
         enabledImplementations,
+        activeChainId: activeChainId as ChainId,
         isChainIdSettled,
         debouncedChainId,
       },
@@ -135,6 +148,7 @@ export const AlphaRouterProvider: FC<AlphaRouterProviderProps> = ({
       secondaryRoute,
       possibleRoutes,
       enabledImplementations,
+      activeChainId,
       isChainIdSettled,
       debouncedChainId,
       addPossibleRoutes,

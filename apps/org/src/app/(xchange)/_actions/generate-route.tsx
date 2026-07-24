@@ -3,13 +3,14 @@
 "use client"
 
 import type { Config } from "@wagmi/core"
-import { getPublicClient, getWalletClient } from "@wagmi/core"
+import { getPublicClient } from "@wagmi/core"
 
 import type { AlphaRouter, SwapRoute } from "@x7/smart-order-router"
 import { SwapType, WRAPPED_NATIVE_CURRENCY } from "@x7/smart-order-router"
-import { LogCodes, Percent, TradeType } from "@x7/utils"
+import { Percent, TradeType } from "@x7/utils"
 import type { SwapState } from "~/lib/stores/swap"
-import { log } from "~/lib/utils/log"
+
+const QUOTE_RECIPIENT_ADDRESS = "0x000000000000000000000000000000000000dEaD"
 
 export const generateRoute = async (
   swapState: SwapState,
@@ -20,19 +21,6 @@ export const generateRoute = async (
     state: { token1, token0, swapAmount, recipient },
     mutate: { clearPossibleRoutes },
   } = swapState
-  const publicClient = getPublicClient(config)
-  let walletClient
-
-  try {
-    walletClient = await getWalletClient(config)
-  } catch (error) {
-    log.error(LogCodes.FAIL, "No wallet connected", { error })
-  }
-
-  if (!walletClient && !publicClient) {
-    throw new Error("No Clients Detected")
-  }
-
   if (!token0 || !token1) {
     throw new Error("No tokens selected!")
   }
@@ -41,12 +29,16 @@ export const generateRoute = async (
     throw new Error("No swap amount specified!")
   }
 
-  const [address] = (await walletClient?.requestAddresses()) ?? []
-  const recipientAddress = recipient ?? address
-
-  if (!recipientAddress) {
-    throw new Error("No recipient address available!")
+  const publicClient = getPublicClient(config, { chainId: token0.chainId })
+  if (!publicClient) {
+    throw new Error("No public client detected")
   }
+
+  const connectedRecipientAddress = recipient
+  const recipientAddress = connectedRecipientAddress ?? QUOTE_RECIPIENT_ADDRESS
+  const simulation = connectedRecipientAddress
+    ? { simulate: { fromAddress: connectedRecipientAddress } }
+    : {}
 
   clearPossibleRoutes()
   //router.abortCurrentRoute();
@@ -65,9 +57,7 @@ export const generateRoute = async (
       slippageTolerance: swapState.state.slippage ?? new Percent(50, 10_000),
       deadline: Math.floor(+new Date() / 1000 + 60 * 20),
       type: SwapType.SWAP_ROUTER_02,
-      simulate: {
-        fromAddress: recipientAddress,
-      },
+      ...simulation,
     })
   }
 
@@ -80,9 +70,7 @@ export const generateRoute = async (
       slippageTolerance: swapState.state.slippage ?? new Percent(50, 10_000),
       deadline: Math.floor(+new Date() / 1000 + 60 * 20),
       type: SwapType.SWAP_ROUTER_02,
-      simulate: {
-        fromAddress: recipientAddress,
-      },
+      ...simulation,
       saveRoutes: true,
     },
     {

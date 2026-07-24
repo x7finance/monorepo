@@ -911,7 +911,7 @@ export class AlphaRouter
     swapConfig?: SwapOptions,
     partialRoutingConfig: Partial<AlphaRouterConfig> = {}
   ): Promise<SwapRoute | null> {
-    // this.abortCurrentRoute();
+    this.abortCurrentRoute()
     this.currentAbortController = new AbortController()
     const signal = this.currentAbortController.signal
 
@@ -1105,7 +1105,8 @@ export class AlphaRouter
         v3GasModel,
         mixedRouteGasModel,
         gasPriceWei,
-        swapConfig
+        swapConfig,
+        signal
       )
     }
 
@@ -1123,7 +1124,8 @@ export class AlphaRouter
         v3GasModel,
         mixedRouteGasModel,
         gasPriceWei,
-        swapConfig
+        swapConfig,
+        signal
       )
     }
 
@@ -1196,8 +1198,14 @@ export class AlphaRouter
       }
     }
 
-    if (!!swapRouteRaw && this.setBestRoute && swapConfig?.saveRoutes)
+    if (
+      !!swapRouteRaw &&
+      this.setBestRoute &&
+      swapConfig?.saveRoutes &&
+      (!signal.aborted || swapConfig.ignoreAborts)
+    ) {
       this.setBestRoute(swapRouteRaw)
+    }
 
     if (
       cacheMode === CacheMode.Tapcompare &&
@@ -1460,6 +1468,9 @@ export class AlphaRouter
     tradeType: TradeType,
     swapConfig?: SwapOptions
   ): Promise<SwapRoute | null> {
+    this.abortCurrentRoute()
+    this.currentAbortController = new AbortController()
+    const signal = this.currentAbortController.signal
     const blockNumber = await this.getBlockNumberPromise()
 
     // Build Trade object that represents the optimal swap.
@@ -1528,8 +1539,13 @@ export class AlphaRouter
       routes: [swapRouteRaw],
     }
 
-    if (!!newBestRoute && this.setSecondaryRoute)
+    if (
+      !!newBestRoute &&
+      this.setSecondaryRoute &&
+      (!signal.aborted || swapConfig?.ignoreAborts)
+    ) {
       this.setSecondaryRoute(newBestRoute)
+    }
 
     const swapRoute: SwapRoute = {
       quote: correctedQuote,
@@ -1560,7 +1576,8 @@ export class AlphaRouter
     v3GasModel: IGasModel<V3RouteWithValidQuote>,
     mixedRouteGasModel: IGasModel<MixedRouteWithValidQuote>,
     gasPriceWei: bigint,
-    swapConfig?: SwapOptions
+    swapConfig: SwapOptions | undefined,
+    signal: AbortSignal
   ): Promise<BestSwapRoute | null> {
     log.info(LogCodes.CACHE_HIT, "Routing across CachedRoute", {
       protocols: cachedRoutes.protocolsCovered,
@@ -1723,7 +1740,11 @@ export class AlphaRouter
       (quoteResult) => quoteResult.routesWithValidQuotes
     )
 
-    if (this.addPossibleRoutes && swapConfig?.saveRoutes) {
+    if (
+      this.addPossibleRoutes &&
+      swapConfig?.saveRoutes &&
+      (!signal.aborted || swapConfig.ignoreAborts)
+    ) {
       this.addPossibleRoutes(
         allRoutesWithValidQuotes.filter((q) => q.percent === 100)
       )
@@ -1755,7 +1776,8 @@ export class AlphaRouter
     v3GasModel: IGasModel<V3RouteWithValidQuote>,
     mixedRouteGasModel: IGasModel<MixedRouteWithValidQuote>,
     gasPriceWei: bigint,
-    swapConfig?: SwapOptions
+    swapConfig: SwapOptions | undefined,
+    signal: AbortSignal
   ): Promise<BestSwapRoute | null> {
     // Generate our distribution of amounts, i.e. fractions of the input amount.
     // We will get quotes for fractions of the input amount for different routes, then
@@ -2035,7 +2057,11 @@ export class AlphaRouter
       return null
     }
 
-    if (this.addPossibleRoutes && swapConfig?.saveRoutes) {
+    if (
+      this.addPossibleRoutes &&
+      swapConfig?.saveRoutes &&
+      (!signal.aborted || swapConfig.ignoreAborts)
+    ) {
       this.addPossibleRoutes(validRoutes.filter((q) => q.percent === 100))
     }
 

@@ -38,11 +38,18 @@ export function useSwapFormLogic(
     mutate: { trackTransaction },
   } = useTransactionStore()
   const {
-    state: { swapAmount, token0Approval },
+    state: {
+      swapAmount,
+      token0Approval,
+      recipient,
+      routeQuoteKey,
+      currentQuoteKey,
+      chainId,
+    },
     mutate: { setToken0, setToken1, setSwapAmount },
     loaders: { isQuoteLoading },
   } = useSwapState()
-  const chainId = useChainId() as ChainId
+  const walletChainId = useChainId() as ChainId
   const { address } = useAccount()
 
   const [refetchCount, setRefetchCount] = useState(0)
@@ -66,6 +73,10 @@ export function useSwapFormLogic(
     !!token0 &&
     !!token1 &&
     !!route &&
+    !!recipient &&
+    !!routeQuoteKey &&
+    routeQuoteKey === currentQuoteKey &&
+    walletChainId === chainId &&
     !isQuoteLoading &&
     (!token0.isNative
       ? token0Approval.approval !== ApprovalState.NOT_APPROVED
@@ -182,6 +193,10 @@ export function useSwapFormLogic(
           token0,
           swapAmount: swapAmount!,
           route,
+          expectedRecipient: recipient,
+          currentQuoteKey,
+          routeQuoteKey,
+          expectedChainId: chainId,
           config,
         })
       }
@@ -192,7 +207,19 @@ export function useSwapFormLogic(
       toast.error(errorMessage)
       setIsPending(false)
     }
-  }, [token0, swapAmount, route, config, onSettled, isWrap, isUnwrap])
+  }, [
+    token0,
+    swapAmount,
+    route,
+    recipient,
+    currentQuoteKey,
+    routeQuoteKey,
+    chainId,
+    config,
+    onSettled,
+    isWrap,
+    isUnwrap,
+  ])
 
   return {
     refetchCount,

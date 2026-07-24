@@ -13,6 +13,7 @@ interface SwapQuoteStore extends SwapQuoteState, SwapQuoteActions {}
 
 export const useSwapQuoteStore = create<SwapQuoteStore>((set) => ({
   route: undefined,
+  routeQuoteKey: undefined,
   possibleRoutes: [],
   bestRoute: undefined,
   secondaryRoute: undefined,
@@ -20,7 +21,8 @@ export const useSwapQuoteStore = create<SwapQuoteStore>((set) => ({
   isQuoteLoading: false,
   swapError: undefined,
 
-  setRoute: (route: SwapRoute | undefined) => set({ route }),
+  setRoute: (route: SwapRoute | undefined, routeQuoteKey) =>
+    set({ route, routeQuoteKey: route ? routeQuoteKey : undefined }),
 
   addPossibleRoutes: (routes: RouteWithValidQuote[]) =>
     set((state) => ({

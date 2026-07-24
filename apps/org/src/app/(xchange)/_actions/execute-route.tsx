@@ -1,10 +1,11 @@
 /* oxlint-disable @typescript-eslint/no-unnecessary-condition */
 import type { Config } from "@wagmi/core"
 import { getWalletClient } from "@wagmi/core"
+import type { Address } from "viem"
 import { isAddress, isHex } from "viem"
 
 import type { SwapRoute } from "@x7/smart-order-router"
-import type { CurrencyAmount, Native, Token } from "@x7/utils"
+import type { ChainId, CurrencyAmount, Native, Token } from "@x7/utils"
 
 import { getTokenTransferApproval } from "./get-token-transfer-approval"
 
@@ -12,9 +13,22 @@ export async function executeRoute(routeInfo: {
   token0: Token | Native
   swapAmount: CurrencyAmount<Token | Native>
   route: SwapRoute | undefined
+  expectedRecipient: Address | undefined
+  currentQuoteKey: string
+  routeQuoteKey: string | undefined
+  expectedChainId: ChainId
   config: Config
 }): Promise<`0x${string}`> {
-  const { token0, swapAmount, route, config } = routeInfo
+  const {
+    token0,
+    swapAmount,
+    route,
+    expectedRecipient,
+    currentQuoteKey,
+    routeQuoteKey,
+    expectedChainId,
+    config,
+  } = routeInfo
   const walletClient = await getWalletClient(config)
 
   if (!walletClient) {
@@ -23,6 +37,18 @@ export async function executeRoute(routeInfo: {
 
   if (!walletClient.account.address) {
     throw new Error("Could not get address")
+  }
+
+  if (!expectedRecipient) {
+    throw new Error("No recipient address available")
+  }
+
+  if (!routeQuoteKey || routeQuoteKey !== currentQuoteKey) {
+    throw new Error("Quote no longer matches the current swap")
+  }
+
+  if (walletClient.chain?.id !== expectedChainId) {
+    throw new Error("Quote chain no longer matches the connected wallet")
   }
 
   // Validate router address and calldata before proceeding
