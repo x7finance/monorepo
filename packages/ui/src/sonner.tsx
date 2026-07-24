@@ -1,14 +1,11 @@
 "use client"
 
-import { useMode } from "nextjs-darkmode/hooks"
 import { useMemo } from "react"
 import { Toaster as Sonner } from "sonner"
 
 type ToasterProps = React.ComponentProps<typeof Sonner>
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  const { resolvedMode } = useMode()
-
   const toastOptions = useMemo(
     () => ({
       classNames: {
@@ -26,7 +23,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
 
   return (
     <Sonner
-      theme={resolvedMode === "dark" ? "dark" : "light"}
+      theme="light"
       className="toaster group"
       toastOptions={toastOptions}
       {...props}

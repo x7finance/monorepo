@@ -11,7 +11,6 @@ import { CopyButton } from "@x7/ui/copy-button"
 import { LinkInternal } from "@x7/ui/link"
 import { TextField } from "@x7/ui/text-field"
 import type { ChainId } from "@x7/utils"
-import { ThemeToggle } from "~/lib/components/utils/theme-toggle"
 import { useWeb3Config } from "~/lib/providers/web3"
 
 export const SettingsView: FC = () => {
@@ -49,11 +48,6 @@ export const SettingsView: FC = () => {
 
   return (
     <div>
-      <div className="mb-8">
-        <h4 className="font-heading text-secondary-foreground">View Mode</h4>
-        <ThemeToggle />
-      </div>
-
       <div className="mb-4 flex w-full flex-col gap-4">
         <>
           <div className="flex w-full">
